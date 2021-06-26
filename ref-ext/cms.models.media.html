@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-14T12:58:48+00:00" />
+    <meta property="article:modified_time" content="2021-06-05T08:56:10+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Media &mdash; integreat-cms 0.0.14 documentation</title>
@@ -14,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -33,6 +35,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -277,6 +280,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
@@ -327,7 +331,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#document-form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -377,6 +384,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
 </ul>
@@ -416,7 +424,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#media-file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.offers.html">Offers</a><ul>
@@ -486,9 +495,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -566,8 +575,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-edit-view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -713,6 +722,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
@@ -763,7 +773,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.directory_form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -813,6 +826,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 </ul>
@@ -852,7 +866,8 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.models.media.document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.models.media.directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.models.media.media_file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
@@ -922,9 +937,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1002,8 +1017,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1213,47 +1228,67 @@
             
   <div class="section" id="module-cms.models.media">
 <span id="media"></span><h1>Media<a class="headerlink" href="#module-cms.models.media" title="Permalink to this headline">¶</a></h1>
-<p>This package contains only the <a class="reference internal" href="#cms.models.media.document.Document" title="cms.models.media.document.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a> model.</p>
-<div class="section" id="module-cms.models.media.document">
-<span id="document"></span><h2>Document<a class="headerlink" href="#module-cms.models.media.document" title="Permalink to this headline">¶</a></h2>
+<p>This package contains all media-related models:
+<a class="reference internal" href="#cms.models.media.media_file.MediaFile" title="cms.models.media.media_file.MediaFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaFile</span></code></a> and
+<a class="reference internal" href="#cms.models.media.directory.Directory" title="cms.models.media.directory.Directory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Directory</span></code></a></p>
+<div class="section" id="module-cms.models.media.directory">
+<span id="directory"></span><h2>Directory<a class="headerlink" href="#module-cms.models.media.directory" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="cms.models.media.document.Document">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.models.media.document.</span></code><code class="sig-name descname"><span class="pre">Document</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.models.media.directory.</span></span><span class="sig-name descname"><span class="pre">Directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
-<p>The Document model is used to store meta-data about files which are uploaded to the CMS.</p>
+<p>Model representing a directory containing documents. This is only a virtual directory and does not necessarily
+exist on the actual file system. Each directory is tied to a region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
-<li><p><strong>description</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Description</p></li>
-<li><p><strong>document</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.FileField" title="(in Django v3.2)"><em>FileField</em></a>) – Document. The actual document file</p></li>
-<li><p><strong>uploaded_at</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Uploaded date. The date and time when the document was uploaded</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Name</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date. The date and time when the directory was created</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region (related name: <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region.media_directories" title="cms.models.regions.region.Region.media_directories"><code class="xref py py-attr docutils literal notranslate"><span class="pre">media_directories</span></code></a>)</p></li>
+<li><p><strong>parent</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#cms.models.media.directory.Directory" title="cms.models.media.directory.Directory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Directory</span></code></a>) – Parent directory (related name: <a class="reference internal" href="#cms.models.media.directory.Directory.subdirectories" title="cms.models.media.directory.Directory.subdirectories"><code class="xref py py-attr docutils literal notranslate"><span class="pre">subdirectories</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subdirectories</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#cms.models.media.directory.Directory" title="cms.models.media.directory.Directory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Directory</span></code></a>) – All subdirectories of this media directory (related name of <a class="reference internal" href="#cms.models.media.directory.Directory.parent" title="cms.models.media.directory.Directory.parent"><code class="xref py py-attr docutils literal notranslate"><span class="pre">parent</span></code></a>)</p></li>
+<li><p><strong>files</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#cms.models.media.media_file.MediaFile" title="cms.models.media.media_file.MediaFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaFile</span></code></a>) – All files of this media directory (related name of <a class="reference internal" href="#cms.models.media.media_file.MediaFile.parent_directory" title="cms.models.media.media_file.MediaFile.parent_directory"><code class="xref py py-attr docutils literal notranslate"><span class="pre">parent_directory</span></code></a>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py exception">
-<dt id="cms.models.media.document.Document.DoesNotExist">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">DoesNotExist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.DoesNotExist">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.DoesNotExist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 <dl class="py method">
-<dt id="cms.models.media.document.Document.DoesNotExist.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.DoesNotExist.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.DoesNotExist.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.DoesNotExist.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.media.document.Document.DoesNotExist.args">
-<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.DoesNotExist.args" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.DoesNotExist.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.DoesNotExist.args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.media.document.Document.DoesNotExist.silent_variable_failure">
-<code class="sig-name descname"><span class="pre">silent_variable_failure</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.DoesNotExist.silent_variable_failure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.DoesNotExist.silent_variable_failure">
+<span class="sig-name descname"><span class="pre">silent_variable_failure</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.DoesNotExist.silent_variable_failure" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.DoesNotExist.with_traceback">
-<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.DoesNotExist.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.DoesNotExist.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.DoesNotExist.with_traceback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -1261,23 +1296,23 @@ set self.__traceback__ to tb and return self.</p>
 </dd></dl>
 
 <dl class="py exception">
-<dt id="cms.models.media.document.Document.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 <dl class="py method">
-<dt id="cms.models.media.document.Document.MultipleObjectsReturned.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.MultipleObjectsReturned.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.MultipleObjectsReturned.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.MultipleObjectsReturned.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.media.document.Document.MultipleObjectsReturned.args">
-<code class="sig-name descname"><span class="pre">args</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.MultipleObjectsReturned.args" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.MultipleObjectsReturned.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.MultipleObjectsReturned.args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.MultipleObjectsReturned.with_traceback">
-<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.MultipleObjectsReturned.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.MultipleObjectsReturned.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.MultipleObjectsReturned.with_traceback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -1285,19 +1320,19 @@ set self.__traceback__ to tb and return self.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.check">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">check</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.check" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.check">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.check" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.clean">
-<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1000"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.clean" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.clean">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1000"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra model-wide validation after clean() has been
 called on every field by self.clean_fields. Any ValidationError raised
 by this method will not be associated with a particular field; it will
@@ -1305,107 +1340,111 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.clean_fields">
-<code class="sig-name descname"><span class="pre">clean_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.clean_fields" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.clean_fields">
+<span class="sig-name descname"><span class="pre">clean_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.clean_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean all fields and raise a ValidationError containing a dict
 of all validation errors if any occur.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.created_date">
+<span class="sig-name descname"><span class="pre">created_date</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
+<p>Creation date. The date and time when the directory was created</p>
+</dd></dl>
+
 <dl class="py method">
-<dt id="cms.models.media.document.Document.date_error_message">
-<code class="sig-name descname"><span class="pre">date_error_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.date_error_message" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.date_error_message">
+<span class="sig-name descname"><span class="pre">date_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.date_error_message" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.delete">
-<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes both the database entry and the actual file of a document.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>using</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The alias of the database which should be used, defaults to <code class="docutils literal notranslate"><span class="pre">DEFAULT_DB_ALIAS</span></code></p></li>
-<li><p><strong>keep_parents</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If the model is a sub-model of another, setting <code class="docutils literal notranslate"><span class="pre">keep_parents</span> <span class="pre">=</span> <span class="pre">True</span></code> will keep the data
-in the parent database table, defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The number of objects deleted and a dictionary with the number of deletions per object type.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a> ( <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a>, <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a> )</p>
-</dd>
-</dl>
-</dd></dl>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L945"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.media.document.Document.description">
-<code class="sig-name descname"><span class="pre">description</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.description" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
-<p>Description</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="cms.models.media.document.Document.document">
-<code class="sig-name descname"><span class="pre">document</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.document" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.FileField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileField</span></code></a></p>
-<p>Document. The actual document file</p>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.files">
+<span class="sig-name descname"><span class="pre">files</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#cms.models.media.media_file.MediaFile" title="cms.models.media.media_file.MediaFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaFile</span></code></a></p>
+<p>All files of this media directory (related name of <a class="reference internal" href="#cms.models.media.media_file.MediaFile.parent_directory" title="cms.models.media.media_file.MediaFile.parent_directory"><code class="xref py py-attr docutils literal notranslate"><span class="pre">parent_directory</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.from_db">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_db</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L507"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.from_db" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.from_db">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L507"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.from_db" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.full_clean">
-<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.full_clean" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.full_clean">
+<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.full_clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call clean_fields(), clean(), and validate_unique() on the model.
 Raise a ValidationError for any errors that occur.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.get_deferred_fields">
-<code class="sig-name descname"><span class="pre">get_deferred_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L585"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.get_deferred_fields" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.get_deferred_fields">
+<span class="sig-name descname"><span class="pre">get_deferred_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L585"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.get_deferred_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a set containing names of deferred fields for this instance.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.get_next_by_uploaded_at">
-<code class="sig-name descname"><span class="pre">get_next_by_uploaded_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">uploaded_at&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.get_next_by_uploaded_at" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds next instance based on <a class="reference internal" href="#cms.models.media.document.Document.uploaded_at" title="cms.models.media.document.Document.uploaded_at"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uploaded_at</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.get_next_by_FOO" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_by_FOO()</span></code></a> for more information.</p>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.get_next_by_created_date">
+<span class="sig-name descname"><span class="pre">get_next_by_created_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">created_date&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.get_next_by_created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds next instance based on <a class="reference internal" href="#cms.models.media.directory.Directory.created_date" title="cms.models.media.directory.Directory.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.get_next_by_FOO" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_by_FOO()</span></code></a> for more information.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.get_previous_by_uploaded_at">
-<code class="sig-name descname"><span class="pre">get_previous_by_uploaded_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">uploaded_at&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.get_previous_by_uploaded_at" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds previous instance based on <a class="reference internal" href="#cms.models.media.document.Document.uploaded_at" title="cms.models.media.document.Document.uploaded_at"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uploaded_at</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.get_previous_by_FOO" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_previous_by_FOO()</span></code></a> for more information.</p>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.get_previous_by_created_date">
+<span class="sig-name descname"><span class="pre">get_previous_by_created_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">created_date&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.get_previous_by_created_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds previous instance based on <a class="reference internal" href="#cms.models.media.directory.Directory.created_date" title="cms.models.media.directory.Directory.created_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">created_date</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.get_previous_by_FOO" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_previous_by_FOO()</span></code></a> for more information.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.media.document.Document.id">
-<code class="sig-name descname"><span class="pre">id</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
 <p>Primary key: ID</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.media.document.Document.objects">
-<code class="sig-name descname"><span class="pre">objects</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.objects" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Name</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#cms.models.media.directory.Directory" title="cms.models.media.directory.Directory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Directory</span></code></a></p>
+<p>Parent directory (related name: <a class="reference internal" href="#cms.models.media.directory.Directory.subdirectories" title="cms.models.media.directory.Directory.subdirectories"><code class="xref py py-attr docutils literal notranslate"><span class="pre">subdirectories</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.parent_id">
+<span class="sig-name descname"><span class="pre">parent_id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.parent_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal field, use <a class="reference internal" href="#cms.models.media.directory.Directory.parent" title="cms.models.media.directory.Directory.parent"><code class="xref py py-class docutils literal notranslate"><span class="pre">parent</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.pk">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">pk</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.pk" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.pk">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">pk</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.pk" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.prepare_database_save">
+<span class="sig-name descname"><span class="pre">prepare_database_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L995"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.prepare_database_save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.prepare_database_save">
-<code class="sig-name descname"><span class="pre">prepare_database_save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L995"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.prepare_database_save" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="cms.models.media.document.Document.refresh_from_db">
-<code class="sig-name descname"><span class="pre">refresh_from_db</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L594"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.refresh_from_db" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.refresh_from_db">
+<span class="sig-name descname"><span class="pre">refresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L594"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.refresh_from_db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reload field values from the database.</p>
 <p>By default, the reloading happens from the database this instance was
 loaded from, or by the read router if this instance wasn’t loaded from
@@ -1417,9 +1456,22 @@ all non-deferred fields are reloaded.</p>
 of the field will call this method.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.region">
+<span class="sig-name descname"><span class="pre">region</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
+<p>Region (related name: <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region.media_directories" title="cms.models.regions.region.Region.media_directories"><code class="xref py py-attr docutils literal notranslate"><span class="pre">media_directories</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.region_id">
+<span class="sig-name descname"><span class="pre">region_id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.region_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal field, use <a class="reference internal" href="#cms.models.media.directory.Directory.region" title="cms.models.media.directory.Directory.region"><code class="xref py py-class docutils literal notranslate"><span class="pre">region</span></code></a> instead.</p>
+</dd></dl>
+
 <dl class="py method">
-<dt id="cms.models.media.document.Document.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L672"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.save" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L672"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the current instance. Override this in a subclass if you want to
 control the saving process.</p>
 <p>The ‘force_insert’ and ‘force_update’ parameters can be used to insist
@@ -1428,8 +1480,8 @@ non-SQL backends), respectively. Normally, they should not be set.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.save_base">
-<code class="sig-name descname"><span class="pre">save_base</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L730"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.save_base" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.save_base">
+<span class="sig-name descname"><span class="pre">save_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L730"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.save_base" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle the parts of saving which should be done only once per save,
 yet need to be done in raw saves, too. This includes some sanity
 checks and signal sending.</p>
@@ -1439,8 +1491,8 @@ is used by fixture loading.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.serializable_value">
-<code class="sig-name descname"><span class="pre">serializable_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.serializable_value" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.serializable_value">
+<span class="sig-name descname"><span class="pre">serializable_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.serializable_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the value of the field name for this instance. If the field is
 a foreign key, return the id value instead of the object. If there’s
 no Field object with this name on the model, return the model
@@ -1451,20 +1503,416 @@ and not use this method.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.unique_error_message">
-<code class="sig-name descname"><span class="pre">unique_error_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.unique_error_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a serialized version of that object for later use in AJAX and JSON.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The serialized representation of the directory</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.models.media.document.Document.uploaded_at">
-<code class="sig-name descname"><span class="pre">uploaded_at</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/document.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.uploaded_at" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
-<p>Uploaded date. The date and time when the document was uploaded</p>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.subdirectories">
+<span class="sig-name descname"><span class="pre">subdirectories</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/directory.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.subdirectories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#cms.models.media.directory.Directory" title="cms.models.media.directory.Directory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Directory</span></code></a></p>
+<p>All subdirectories of this media directory (related name of <a class="reference internal" href="#cms.models.media.directory.Directory.parent" title="cms.models.media.directory.Directory.parent"><code class="xref py py-attr docutils literal notranslate"><span class="pre">parent</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.models.media.document.Document.validate_unique">
-<code class="sig-name descname"><span class="pre">validate_unique</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1009"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.document.Document.validate_unique" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.unique_error_message">
+<span class="sig-name descname"><span class="pre">unique_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.unique_error_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.directory.Directory.validate_unique">
+<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1009"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.validate_unique" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check unique constraints on the model and raise ValidationError if any
+failed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.models.media.media_file">
+<span id="media-file"></span><h2>Media File<a class="headerlink" href="#module-cms.models.media.media_file" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.models.media.media_file.</span></span><span class="sig-name descname"><span class="pre">MediaFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
+<p>The MediaFile model is used to store basic information about files which are uploaded to the CMS. This is only a
+virtual document and does not necessarily exist on the actual file system. Each document is tied to a region via its
+directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>file</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.FileField" title="(in Django v3.2)"><em>FileField</em></a>) – File</p></li>
+<li><p><strong>thumbnail</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.FileField" title="(in Django v3.2)"><em>FileField</em></a>) – Thumbnail file</p></li>
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – File type</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Name</p></li>
+<li><p><strong>alt_text</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Description</p></li>
+<li><p><strong>uploaded_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Uploaded date. The date and time when the media file was uploaded</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent_directory</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#cms.models.media.directory.Directory" title="cms.models.media.directory.Directory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Directory</span></code></a>) – Parent directory (related name: <a class="reference internal" href="#cms.models.media.directory.Directory.files" title="cms.models.media.directory.Directory.files"><code class="xref py py-attr docutils literal notranslate"><span class="pre">files</span></code></a>)</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region (related name: <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region.files" title="cms.models.regions.region.Region.files"><code class="xref py py-attr docutils literal notranslate"><span class="pre">files</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>icon_of</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – All icon of of this media file (related name of <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region.icon" title="cms.models.regions.region.Region.icon"><code class="xref py py-attr docutils literal notranslate"><span class="pre">icon</span></code></a>)</p></li>
+<li><p><strong>poi_icon_of</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>) – All poi icon of of this media file (related name of <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI.icon" title="cms.models.pois.poi.POI.icon"><code class="xref py py-attr docutils literal notranslate"><span class="pre">icon</span></code></a>)</p></li>
+<li><p><strong>event_icon_of</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>) – All event icon of of this media file (related name of <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event.icon" title="cms.models.events.event.Event.icon"><code class="xref py py-attr docutils literal notranslate"><span class="pre">icon</span></code></a>)</p></li>
+<li><p><strong>page_icon_of</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All page icon of of this media file (related name of <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page.icon" title="cms.models.pages.page.Page.icon"><code class="xref py py-attr docutils literal notranslate"><span class="pre">icon</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.DoesNotExist">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.DoesNotExist.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.DoesNotExist.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.DoesNotExist.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.DoesNotExist.args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.DoesNotExist.silent_variable_failure">
+<span class="sig-name descname"><span class="pre">silent_variable_failure</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.DoesNotExist.silent_variable_failure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.DoesNotExist.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.DoesNotExist.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.MultipleObjectsReturned.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.MultipleObjectsReturned.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.MultipleObjectsReturned.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.MultipleObjectsReturned.args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.MultipleObjectsReturned.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.MultipleObjectsReturned.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.alt_text">
+<span class="sig-name descname"><span class="pre">alt_text</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.alt_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Description</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.check">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.clean">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1000"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for doing any extra model-wide validation after clean() has been
+called on every field by self.clean_fields. Any ValidationError raised
+by this method will not be associated with a particular field; it will
+have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.clean_fields">
+<span class="sig-name descname"><span class="pre">clean_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.clean_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean all fields and raise a ValidationError containing a dict
+of all validation errors if any occur.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.date_error_message">
+<span class="sig-name descname"><span class="pre">date_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.date_error_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L945"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.event_icon_of">
+<span class="sig-name descname"><span class="pre">event_icon_of</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.event_icon_of" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a></p>
+<p>All event icon of of this media file (related name of <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event.icon" title="cms.models.events.event.Event.icon"><code class="xref py py-attr docutils literal notranslate"><span class="pre">icon</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.file">
+<span class="sig-name descname"><span class="pre">file</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.FileField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileField</span></code></a></p>
+<p>File</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.from_db">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L507"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.from_db" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.full_clean">
+<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.full_clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call clean_fields(), clean(), and validate_unique() on the model.
+Raise a ValidationError for any errors that occur.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.get_deferred_fields">
+<span class="sig-name descname"><span class="pre">get_deferred_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L585"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.get_deferred_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a set containing names of deferred fields for this instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.get_next_by_uploaded_date">
+<span class="sig-name descname"><span class="pre">get_next_by_uploaded_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">uploaded_date&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=True</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.get_next_by_uploaded_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds next instance based on <a class="reference internal" href="#cms.models.media.media_file.MediaFile.uploaded_date" title="cms.models.media.media_file.MediaFile.uploaded_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uploaded_date</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.get_next_by_FOO" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_by_FOO()</span></code></a> for more information.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.get_previous_by_uploaded_date">
+<span class="sig-name descname"><span class="pre">get_previous_by_uploaded_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.DateTimeField:</span> <span class="pre">uploaded_date&gt;</span></em>, <em class="sig-param"><span class="pre">is_next=False</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.get_previous_by_uploaded_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds previous instance based on <a class="reference internal" href="#cms.models.media.media_file.MediaFile.uploaded_date" title="cms.models.media.media_file.MediaFile.uploaded_date"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uploaded_date</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.get_previous_by_FOO" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_previous_by_FOO()</span></code></a> for more information.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.get_type_display">
+<span class="sig-name descname"><span class="pre">get_type_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">field=&lt;django.db.models.CharField:</span> <span class="pre">type&gt;</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/functools.py#L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.get_type_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows the label of the <a class="reference internal" href="#cms.models.media.media_file.MediaFile.type" title="cms.models.media.media_file.MediaFile.type"><code class="xref py py-attr docutils literal notranslate"><span class="pre">type</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.get_FOO_display" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_FOO_display()</span></code></a> for more information.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.icon_of">
+<span class="sig-name descname"><span class="pre">icon_of</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.icon_of" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
+<p>All icon of of this media file (related name of <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region.icon" title="cms.models.regions.region.Region.icon"><code class="xref py py-attr docutils literal notranslate"><span class="pre">icon</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
+<p>Primary key: ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Name</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.page_icon_of">
+<span class="sig-name descname"><span class="pre">page_icon_of</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.page_icon_of" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a></p>
+<p>All page icon of of this media file (related name of <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page.icon" title="cms.models.pages.page.Page.icon"><code class="xref py py-attr docutils literal notranslate"><span class="pre">icon</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.parent_directory">
+<span class="sig-name descname"><span class="pre">parent_directory</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.parent_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#cms.models.media.directory.Directory" title="cms.models.media.directory.Directory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Directory</span></code></a></p>
+<p>Parent directory (related name: <a class="reference internal" href="#cms.models.media.directory.Directory.files" title="cms.models.media.directory.Directory.files"><code class="xref py py-attr docutils literal notranslate"><span class="pre">files</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.parent_directory_id">
+<span class="sig-name descname"><span class="pre">parent_directory_id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.parent_directory_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal field, use <a class="reference internal" href="#cms.models.media.media_file.MediaFile.parent_directory" title="cms.models.media.media_file.MediaFile.parent_directory"><code class="xref py py-class docutils literal notranslate"><span class="pre">parent_directory</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.pk">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">pk</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.pk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.poi_icon_of">
+<span class="sig-name descname"><span class="pre">poi_icon_of</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.poi_icon_of" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a></p>
+<p>All poi icon of of this media file (related name of <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI.icon" title="cms.models.pois.poi.POI.icon"><code class="xref py py-attr docutils literal notranslate"><span class="pre">icon</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.prepare_database_save">
+<span class="sig-name descname"><span class="pre">prepare_database_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L995"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.prepare_database_save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.refresh_from_db">
+<span class="sig-name descname"><span class="pre">refresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L594"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.refresh_from_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload field values from the database.</p>
+<p>By default, the reloading happens from the database this instance was
+loaded from, or by the read router if this instance wasn’t loaded from
+any database. The using parameter will override the default.</p>
+<p>Fields can be used to specify which fields to reload. The fields
+should be an iterable of field attnames. If fields is None, then
+all non-deferred fields are reloaded.</p>
+<p>When accessing deferred fields of an instance, the deferred loading
+of the field will call this method.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.region">
+<span class="sig-name descname"><span class="pre">region</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
+<p>Region (related name: <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region.files" title="cms.models.regions.region.Region.files"><code class="xref py py-attr docutils literal notranslate"><span class="pre">files</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.region_id">
+<span class="sig-name descname"><span class="pre">region_id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.region_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal field, use <a class="reference internal" href="#cms.models.media.media_file.MediaFile.region" title="cms.models.media.media_file.MediaFile.region"><code class="xref py py-class docutils literal notranslate"><span class="pre">region</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L672"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the current instance. Override this in a subclass if you want to
+control the saving process.</p>
+<p>The ‘force_insert’ and ‘force_update’ parameters can be used to insist
+that the “save” must be an SQL insert or update (or equivalent for
+non-SQL backends), respectively. Normally, they should not be set.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.save_base">
+<span class="sig-name descname"><span class="pre">save_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L730"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.save_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle the parts of saving which should be done only once per save,
+yet need to be done in raw saves, too. This includes some sanity
+checks and signal sending.</p>
+<p>The ‘raw’ argument is telling save_base not to save any parent
+models and not to do any changes to the values before save. This
+is used by fixture loading.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.serializable_value">
+<span class="sig-name descname"><span class="pre">serializable_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.serializable_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value of the field name for this instance. If the field is
+a foreign key, return the id value instead of the object. If there’s
+no Field object with this name on the model, return the model
+attribute’s value.</p>
+<p>Used to serialize a field’s value (in the serializer, or form output,
+for example). Normally, you would just access the attribute directly
+and not use this method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>This methods creates a serialized string of that document. This can later be used in the AJAX calls.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A serialized string representation of the document for JSON concatenation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.thumbnail">
+<span class="sig-name descname"><span class="pre">thumbnail</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.thumbnail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.FileField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileField</span></code></a></p>
+<p>Thumbnail file</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>File type</p>
+<p>Choices:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image/png</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">image/jpeg</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">application/pdf</span></code></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.unique_error_message">
+<span class="sig-name descname"><span class="pre">unique_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.unique_error_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.uploaded_date">
+<span class="sig-name descname"><span class="pre">uploaded_date</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.uploaded_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
+<p>Uploaded date. The date and time when the media file was uploaded</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.url">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">url</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the path of the physical file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The path of the file</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.validate_unique">
+<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1009"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.validate_unique" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check unique constraints on the model and raise ValidationError if any
 failed.</p>
 </dd></dl>
@@ -1493,7 +1941,7 @@ failed.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 14, 2021.
+        Last updated on Jun 05, 2021.
       </span>
 
     </p>

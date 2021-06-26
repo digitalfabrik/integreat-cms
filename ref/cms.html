@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-06-25T11:23:06+00:00" />
+    <meta property="article:modified_time" content="2021-06-22T14:54:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>CMS &mdash; integreat-cms 0.0.14 documentation</title>
@@ -14,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -33,6 +35,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -277,6 +280,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
@@ -327,7 +331,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#document-form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -377,6 +384,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
 </ul>
@@ -416,7 +424,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#media-file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
@@ -486,9 +495,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -566,8 +575,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-edit-view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -713,6 +722,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
@@ -763,7 +773,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.directory_form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -813,6 +826,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 </ul>
@@ -852,7 +866,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.media.html#module-cms.models.media.document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.media.html#module-cms.models.media.directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.media.html#module-cms.models.media.media_file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.offers.html">Offers</a><ul>
@@ -922,9 +937,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1002,8 +1017,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1214,6 +1229,7 @@
 <li class="toctree-l1"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
@@ -1264,7 +1280,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html#document-form">Document Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -1314,6 +1333,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
 </ul>
@@ -1353,7 +1373,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cms.models.media.html#document">Document</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.media.html#media-file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
@@ -1423,9 +1444,9 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -1508,8 +1529,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html#media-actions">Media Actions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.views.media.html#media-edit-view">Media Edit View</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -1596,8 +1617,8 @@
 <div class="section" id="apps">
 <h2>Apps<a class="headerlink" href="#apps" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.apps.</span></code><code class="sig-name descname"><span class="pre">CmsConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.apps.</span></span><span class="sig-name descname"><span class="pre">CmsConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
 <p>This class represents the Django-configuration of the backend.</p>
 <p>See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a> for more information.</p>
@@ -1607,8 +1628,8 @@
 </dd>
 </dl>
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">ready</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">ready</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function gets executed exactly once each time the cms starts. We use it to check wether the secret key was
 not changed in production mode and show an error message if this is the case.</p>
 <p>See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig.ready" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.apps.AppConfig.ready()</span></code></a> for more information.</p>
@@ -1617,8 +1638,8 @@ not changed in production mode and show an error message if this is the case.</p
 </dd></dl>
 
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.apps.</span></code><code class="sig-name descname"><span class="pre">user_logged_in_callback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.apps.</span></span><span class="sig-name descname"><span class="pre">user_logged_in_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Log a successful login event</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1633,8 +1654,8 @@ not changed in production mode and show an error message if this is the case.</p
 </dd></dl>
 
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.apps.</span></code><code class="sig-name descname"><span class="pre">user_logged_out_callback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.apps.</span></span><span class="sig-name descname"><span class="pre">user_logged_out_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Log a logout event</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1649,8 +1670,8 @@ not changed in production mode and show an error message if this is the case.</p
 </dd></dl>
 
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.apps.</span></code><code class="sig-name descname"><span class="pre">user_login_failed_callback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L93"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.apps.</span></span><span class="sig-name descname"><span class="pre">user_login_failed_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/apps.py#L93"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Log a failed login event</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1672,8 +1693,8 @@ not changed in production mode and show an error message if this is the case.</p
 <p>Django view decorators can be used to restrict the execution of a view function on certain conditions.</p>
 <p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/decorators/" title="(in Django v3.2)"><span>View decorators</span></a>.</p>
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.decorators.</span></code><code class="sig-name descname"><span class="pre">modify_mfa_authenticated</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.decorators.</span></span><span class="sig-name descname"><span class="pre">modify_mfa_authenticated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This decorator can be used to make sure a user can only modify his 2FA settings when he has a valid 2FA session.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1689,8 +1710,8 @@ not changed in production mode and show an error message if this is the case.</p
 </dd></dl>
 
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.decorators.</span></code><code class="sig-name descname"><span class="pre">region_permission_required</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.decorators.</span></span><span class="sig-name descname"><span class="pre">region_permission_required</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This decorator can be used to make sure a view can only be retrieved by users of the requested region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1706,8 +1727,8 @@ not changed in production mode and show an error message if this is the case.</p
 </dd></dl>
 
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.decorators.</span></code><code class="sig-name descname"><span class="pre">staff_required</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.decorators.</span></span><span class="sig-name descname"><span class="pre">staff_required</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This decorator can be used to make sure a view can only be retrieved by users who are either staff or superusers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1726,39 +1747,39 @@ not changed in production mode and show an error message if this is the case.</p
 <div class="section" id="linklists">
 <h2>Linklists<a class="headerlink" href="#linklists" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.linklists.</span></code><code class="sig-name descname"><span class="pre">EventTranslationLinklist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/linklists.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.linklists.</span></span><span class="sig-name descname"><span class="pre">EventTranslationLinklist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/linklists.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">linkcheck.Linklist</span></code></p>
 <p>Class for selecting the EventTranslation model for link checks</p>
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">model</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>alias of <a class="reference internal" href="../ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.events.event_translation.EventTranslation</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.linklists.</span></code><code class="sig-name descname"><span class="pre">POITranslationLinklist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/linklists.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.linklists.</span></span><span class="sig-name descname"><span class="pre">POITranslationLinklist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/linklists.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">linkcheck.Linklist</span></code></p>
 <p>Class for selecting the POITranslation model for link checks</p>
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">model</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>alias of <a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.pois.poi_translation.POITranslation</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.linklists.</span></code><code class="sig-name descname"><span class="pre">PageTranslationLinklist</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/linklists.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.linklists.</span></span><span class="sig-name descname"><span class="pre">PageTranslationLinklist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/linklists.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">linkcheck.Linklist</span></code></p>
 <p>Class for selecting the PageTranslation model for link checks</p>
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">model</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>alias of <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.pages.page_translation.PageTranslation</span></code></a></p>
 </dd></dl>
 
@@ -1768,13 +1789,13 @@ not changed in production mode and show an error message if this is the case.</p
 <div class="section" id="page-xliff-converter">
 <h2>Page Xliff Converter<a class="headerlink" href="#page-xliff-converter" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.page_xliff_converter.</span></code><code class="sig-name descname"><span class="pre">PageXliffHelper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L243"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.page_xliff_converter.</span></span><span class="sig-name descname"><span class="pre">PageXliffHelper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L243"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Wrapper and helper methods for reading/writing XLIFF files and saving PageTranslation</p>
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L248"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L248"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1786,8 +1807,8 @@ not changed in production mode and show an error message if this is the case.</p
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">export_page_translation_xliff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">export_page_translation_xliff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Create XLIFF file for source page translation and target language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1803,8 +1824,8 @@ not changed in production mode and show an error message if this is the case.</p
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">extract_zip_file</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zip_file_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">extract_zip_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zip_file_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Extract zip file and return file paths of content</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1820,8 +1841,8 @@ not changed in production mode and show an error message if this is the case.</p
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">generate_translation_diff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trans_fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L514"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">generate_translation_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trans_fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L514"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Generate diff to current translation from translation fields dictionary</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1840,8 +1861,8 @@ not changed in production mode and show an error message if this is the case.</p
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">generate_xliff_import_diff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xliff_paths</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L479"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">generate_xliff_import_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xliff_paths</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L479"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Generate diff between XLIFF content and current translation content</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1857,8 +1878,8 @@ not changed in production mode and show an error message if this is the case.</p
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">import_xliff_files</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xliff_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L426"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">import_xliff_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xliff_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L426"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Import single (usually translated) XLIFF file and
 save to page translation.</p>
 <dl class="field-list simple">
@@ -1878,8 +1899,8 @@ save to page translation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">pages_to_zipped_xliffs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">pages_to_zipped_xliffs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Export a list of page IDs to a zip file containing XLIFFs for a specified target language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1898,8 +1919,8 @@ save to page translation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">post_translation_state</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_state</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L562"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">post_translation_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_state</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L562"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Update translation state according to parameter</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1913,8 +1934,8 @@ save to page translation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">save_file</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L261"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">save_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L261"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Write text to file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1927,8 +1948,8 @@ save to page translation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">save_page_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trans_fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L390"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">save_page_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trans_fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L390"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Save XLIFF input to page translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1949,13 +1970,13 @@ save to page translation.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.page_xliff_converter.</span></code><code class="sig-name descname"><span class="pre">TranslationXliffConverter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.page_xliff_converter.</span></span><span class="sig-name descname"><span class="pre">TranslationXliffConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Class to handle transition between XLIFF 2.0 XML files and PageTranslation model</p>
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Builds an LXML ETree from either the template or xliff_code parameter</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1969,8 +1990,8 @@ save to page translation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">add_language_attributes</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">add_language_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>If possible, add the srcLang and trgLang attributes to the xliff element</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1983,8 +2004,8 @@ save to page translation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">add_notes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notes</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">add_notes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notes</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Add notes section with additional information to XLIFF</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1994,8 +2015,8 @@ save to page translation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">add_translation_unit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_text</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L193"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">add_translation_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_text</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L193"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Add a translation unit to the file element</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2009,8 +2030,8 @@ save to page translation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">get_xml</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_xml</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Turn LXML Element Tree to readable XML code</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -2023,20 +2044,20 @@ save to page translation.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">parse_xliff_content</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">parse_xliff_content</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Extract content elements from xliff</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">parse_xliff_meta</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">parse_xliff_meta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get meta information from XLIFF file</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">translation_to_xliff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_trans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_trans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">translation_to_xliff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_trans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_trans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Create a XLIFF that contains a page translation
 Add origin attribute with page id as value to file element. as this id is unique
 across all regions, it can be used to import a XLIFF file.</p>
@@ -2059,8 +2080,8 @@ across all regions, it can be used to import a XLIFF file.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">validate_content</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">validate_content</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate if content data is present</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -2073,8 +2094,8 @@ across all regions, it can be used to import a XLIFF file.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">validate_meta_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">validate_meta_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate if XLIFF meta information is present</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -2087,8 +2108,8 @@ across all regions, it can be used to import a XLIFF file.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">xliff_to_translation_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">xliff_to_translation_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/page_xliff_converter.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Read a XLIFF file that contains a page translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -2129,8 +2150,8 @@ across all regions, it can be used to import a XLIFF file.</p>
 </ul>
 <p>See the project’s <a class="reference external" href="https://github.com/dfunckt/django-rules/blob/master/README.rst">README</a> to learn more.</p>
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.rules.</span></code><code class="sig-name descname"><span class="pre">is_page_editor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.rules.</span></span><span class="sig-name descname"><span class="pre">is_page_editor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This predicate checks whether the given user is one of the editors of the given page.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2149,8 +2170,8 @@ across all regions, it can be used to import a XLIFF file.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.rules.</span></code><code class="sig-name descname"><span class="pre">is_page_publisher</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.rules.</span></span><span class="sig-name descname"><span class="pre">is_page_publisher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This predicate checks whether the given user is one of the publishers of the given page.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2169,8 +2190,8 @@ across all regions, it can be used to import a XLIFF file.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.rules.</span></code><code class="sig-name descname"><span class="pre">can_edit_all_pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.rules.</span></span><span class="sig-name descname"><span class="pre">can_edit_all_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This predicate checks whether the given user can edit all pages.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2189,8 +2210,8 @@ across all regions, it can be used to import a XLIFF file.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.rules.</span></code><code class="sig-name descname"><span class="pre">can_publish_all_pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.rules.</span></span><span class="sig-name descname"><span class="pre">can_publish_all_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This predicate checks whether the given user can publish all pages.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2209,8 +2230,8 @@ across all regions, it can be used to import a XLIFF file.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.rules.</span></code><code class="sig-name descname"><span class="pre">can_edit_or_publish_some_pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.rules.</span></span><span class="sig-name descname"><span class="pre">can_edit_or_publish_some_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This predicate checks whether the given user can edit or publish at least some specific pages.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2226,8 +2247,8 @@ across all regions, it can be used to import a XLIFF file.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.rules.</span></code><code class="sig-name descname"><span class="pre">is_in_responsible_organization</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.rules.</span></span><span class="sig-name descname"><span class="pre">is_in_responsible_organization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This predicate checks whether the given user is a member of the page’s responsible organization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2246,8 +2267,8 @@ across all regions, it can be used to import a XLIFF file.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.rules.</span></code><code class="sig-name descname"><span class="pre">can_delete_chat_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chat_message</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.rules.</span></span><span class="sig-name descname"><span class="pre">can_delete_chat_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chat_message</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/rules.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This predicate checks whether the given user can delete a given chat message</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2293,7 +2314,7 @@ See <a class="reference internal" href="../ref-ext/backend.html#module-backend.u
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jun 25, 2021.
+        Last updated on Jun 22, 2021.
       </span>
 
     </p>

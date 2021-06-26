@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-06-25T11:23:06+00:00" />
+    <meta property="article:modified_time" content="2021-06-22T14:54:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Utils &mdash; integreat-cms 0.0.14 documentation</title>
@@ -14,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -33,6 +35,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -277,6 +280,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
@@ -327,7 +331,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#document-form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -377,6 +384,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
 </ul>
@@ -416,7 +424,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#media-file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
@@ -486,9 +495,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -566,8 +575,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-edit-view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -713,6 +722,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
@@ -763,7 +773,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.directory_form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -813,6 +826,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 </ul>
@@ -852,7 +866,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.media.html#module-cms.models.media.document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.media.html#module-cms.models.media.directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.media.html#module-cms.models.media.media_file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.offers.html">Offers</a><ul>
@@ -922,9 +937,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1002,8 +1017,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1216,8 +1231,8 @@
 <div class="section" id="slugify-ajax">
 <h2>Slugify Ajax<a class="headerlink" href="#slugify-ajax" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">cms.views.utils.slugify_ajax.</span></code><code class="sig-name descname"><span class="pre">slugify_ajax</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/utils/slugify_ajax.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.views.utils.slugify_ajax.</span></span><span class="sig-name descname"><span class="pre">slugify_ajax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/utils/slugify_ajax.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>checks the current user input for title and generates unique slug for permalink</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1262,7 +1277,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jun 25, 2021.
+        Last updated on Jun 22, 2021.
       </span>
 
     </p>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-03-14T12:58:48+00:00" />
+    <meta property="article:modified_time" content="2021-06-05T08:56:10+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Media &mdash; integreat-cms 0.0.14 documentation</title>
@@ -14,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -33,6 +35,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -277,6 +280,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
@@ -327,7 +331,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#document-form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -377,6 +384,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
 </ul>
@@ -416,7 +424,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#media-file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.offers.html">Offers</a><ul>
@@ -486,9 +495,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -566,8 +575,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-edit-view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -713,6 +722,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
@@ -763,7 +773,10 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.media.document_form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.media.directory_form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -813,6 +826,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 </ul>
@@ -852,7 +866,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.media_file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
@@ -922,9 +937,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1002,8 +1017,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1213,22 +1228,22 @@
             
   <div class="section" id="module-cms.forms.media">
 <span id="media"></span><h1>Media<a class="headerlink" href="#module-cms.forms.media" title="Permalink to this headline">¶</a></h1>
-<p>Forms for creating and modifying media objects</p>
-<div class="section" id="module-cms.forms.media.document_form">
-<span id="document-form"></span><h2>Document Form<a class="headerlink" href="#module-cms.forms.media.document_form" title="Permalink to this headline">¶</a></h2>
+<p>Forms for creating and modifying MediaFile and Directory objects</p>
+<div class="section" id="module-cms.forms.media.create_directory_form">
+<span id="create-directory-form"></span><h2>Create Directory Form<a class="headerlink" href="#module-cms.forms.media.create_directory_form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="cms.forms.media.document_form.DocumentForm">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.forms.media.document_form.</span></code><code class="sig-name descname"><span class="pre">DocumentForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/document_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.media.create_directory_form.</span></span><span class="sig-name descname"><span class="pre">CreateDirectoryForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/create_directory_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
-<p>Form for creating and modifying document objects</p>
+<p>Form for creating and modifying directory objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code>: Description (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">document</span></code>: Document (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FileField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parent</span></code>: Parent directory (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize placeholder model form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1244,8 +1259,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.add_error">
-<code class="sig-name descname"><span class="pre">add_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.add_error" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.add_error">
+<span class="sig-name descname"><span class="pre">add_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.add_error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the content of <cite>self._errors</cite>.</p>
 <p>The <cite>field</cite> argument is the name of the field to which the errors
 should be added. If it’s None, treat the errors as NON_FIELD_ERRORS.</p>
@@ -1261,45 +1276,45 @@ dictionary.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.add_initial_prefix">
-<code class="sig-name descname"><span class="pre">add_initial_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.add_initial_prefix">
+<span class="sig-name descname"><span class="pre">add_initial_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an ‘initial’ prefix for checking dynamic initial values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.add_prefix">
-<code class="sig-name descname"><span class="pre">add_prefix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.add_prefix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.add_prefix">
+<span class="sig-name descname"><span class="pre">add_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.add_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the field name with a prefix appended, if this Form has a
 prefix set.</p>
 <p>Subclasses may wish to override.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.as_p">
-<code class="sig-name descname"><span class="pre">as_p</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.as_p" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.as_p">
+<span class="sig-name descname"><span class="pre">as_p</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.as_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;p&gt;s.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.as_table">
-<code class="sig-name descname"><span class="pre">as_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.as_table" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.as_table">
+<span class="sig-name descname"><span class="pre">as_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.as_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;tr&gt;s – excluding the &lt;table&gt;&lt;/table&gt;.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.as_ul">
-<code class="sig-name descname"><span class="pre">as_ul</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.as_ul" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.as_ul">
+<span class="sig-name descname"><span class="pre">as_ul</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.as_ul" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return this form rendered as HTML &lt;li&gt;s – excluding the &lt;ul&gt;&lt;/ul&gt;.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.forms.media.document_form.DocumentForm.changed_data">
-<code class="sig-name descname"><span class="pre">changed_data</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/document_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.changed_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.changed_data">
+<span class="sig-name descname"><span class="pre">changed_data</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/create_directory_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.changed_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.clean">
-<code class="sig-name descname"><span class="pre">clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.clean" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.clean">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/create_directory_form.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
 called on every field. Any ValidationError raised by this method will
 not be associated with a particular field; it will have a special-case
@@ -1307,82 +1322,96 @@ association with the field named ‘__all__’.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.forms.media.document_form.DocumentForm.default_renderer">
-<code class="sig-name descname"><span class="pre">default_renderer</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/document_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.default_renderer" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.default_renderer">
+<span class="sig-name descname"><span class="pre">default_renderer</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/create_directory_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.default_renderer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.errors">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">errors</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/document_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.errors" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.errors">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">errors</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/create_directory_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an ErrorDict for the data provided for the form.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.forms.media.document_form.DocumentForm.field_order">
-<code class="sig-name descname"><span class="pre">field_order</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/document_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.field_order" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.field_order">
+<span class="sig-name descname"><span class="pre">field_order</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/create_directory_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.field_order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.full_clean">
-<code class="sig-name descname"><span class="pre">full_clean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.full_clean" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.full_clean">
+<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.full_clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean all of self.data and populate self._errors and self.cleaned_data.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.get_initial_for_field">
-<code class="sig-name descname"><span class="pre">get_initial_for_field</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.get_error_messages">
+<span class="sig-name descname"><span class="pre">get_error_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.get_error_messages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all error messages of this form and append labels to field-errors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The errors of this form</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.get_initial_for_field">
+<span class="sig-name descname"><span class="pre">get_initial_for_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return initial data for field on form. Use initial data from the form
 or the field, in that order. Evaluate callable values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.has_changed">
-<code class="sig-name descname"><span class="pre">has_changed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.has_changed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.has_changed">
+<span class="sig-name descname"><span class="pre">has_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.has_changed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if data differs from initial.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.has_error">
-<code class="sig-name descname"><span class="pre">has_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.has_error" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.has_error">
+<span class="sig-name descname"><span class="pre">has_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.has_error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.hidden_fields">
-<code class="sig-name descname"><span class="pre">hidden_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.hidden_fields">
+<span class="sig-name descname"><span class="pre">hidden_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all the BoundField objects that are hidden fields.
 Useful for manual form layout in templates.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.is_multipart">
-<code class="sig-name descname"><span class="pre">is_multipart</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.is_multipart" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.is_multipart">
+<span class="sig-name descname"><span class="pre">is_multipart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.is_multipart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if the form needs to be multipart-encoded, i.e. it has
 FileInput, or False otherwise.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.is_valid">
-<code class="sig-name descname"><span class="pre">is_valid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.is_valid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.is_valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if the form has no errors, or False otherwise.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.media">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">media</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/document_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.media" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.media">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/create_directory_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.media" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return all media required to render the widgets on this form.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.non_field_errors">
-<code class="sig-name descname"><span class="pre">non_field_errors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.non_field_errors">
+<span class="sig-name descname"><span class="pre">non_field_errors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an ErrorList of errors that aren’t associated with a particular
 field – i.e., from Form.clean(). Return an empty ErrorList if there
 are none.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.order_fields">
-<code class="sig-name descname"><span class="pre">order_fields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.order_fields" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.order_fields">
+<span class="sig-name descname"><span class="pre">order_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.order_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rearrange the fields according to field_order.</p>
 <p>field_order is a list of field names specifying the order. Append fields
 not included in the list in the default order for backward compatibility
@@ -1393,13 +1422,13 @@ without redefining ordering.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.forms.media.document_form.DocumentForm.prefix">
-<code class="sig-name descname"><span class="pre">prefix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/document_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.prefix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.prefix">
+<span class="sig-name descname"><span class="pre">prefix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/create_directory_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.prefix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.save" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
 logging</p>
 <dl class="field-list simple">
@@ -1419,20 +1448,747 @@ logging</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.forms.media.document_form.DocumentForm.use_required_attribute">
-<code class="sig-name descname"><span class="pre">use_required_attribute</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/document_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.use_required_attribute">
+<span class="sig-name descname"><span class="pre">use_required_attribute</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/create_directory_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.validate_unique">
-<code class="sig-name descname"><span class="pre">validate_unique</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.validate_unique" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.validate_unique">
+<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.validate_unique" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call the instance’s validate_unique() method and update the form’s
 validation errors if any were raised.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.forms.media.document_form.DocumentForm.visible_fields">
-<code class="sig-name descname"><span class="pre">visible_fields</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.document_form.DocumentForm.visible_fields" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.forms.media.create_directory_form.CreateDirectoryForm.visible_fields">
+<span class="sig-name descname"><span class="pre">visible_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.create_directory_form.CreateDirectoryForm.visible_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of BoundField objects that aren’t hidden fields.
+The opposite of the hidden_fields() method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.forms.media.directory_form">
+<span id="directory-form"></span><h2>Directory Form<a class="headerlink" href="#module-cms.forms.media.directory_form" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.media.directory_form.</span></span><span class="sig-name descname"><span class="pre">DirectoryForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/directory_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
+<p>Form for creating and modifying directory objects</p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize placeholder model form</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If form is instantiated directly without an inheriting subclass</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.add_error">
+<span class="sig-name descname"><span class="pre">add_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.add_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the content of <cite>self._errors</cite>.</p>
+<p>The <cite>field</cite> argument is the name of the field to which the errors
+should be added. If it’s None, treat the errors as NON_FIELD_ERRORS.</p>
+<p>The <cite>error</cite> argument can be a single error, a list of errors, or a
+dictionary that maps field names to lists of errors. An “error” can be
+either a simple string or an instance of ValidationError with its
+message attribute set and a “list or dictionary” can be an actual
+<cite>list</cite> or <cite>dict</cite> or an instance of ValidationError with its
+<cite>error_list</cite> or <cite>error_dict</cite> attribute set.</p>
+<p>If <cite>error</cite> is a dictionary, the <cite>field</cite> argument <em>must</em> be None and
+errors will be added to the fields that correspond to the keys of the
+dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.add_initial_prefix">
+<span class="sig-name descname"><span class="pre">add_initial_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an ‘initial’ prefix for checking dynamic initial values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.add_prefix">
+<span class="sig-name descname"><span class="pre">add_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.add_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the field name with a prefix appended, if this Form has a
+prefix set.</p>
+<p>Subclasses may wish to override.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.as_p">
+<span class="sig-name descname"><span class="pre">as_p</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.as_p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;p&gt;s.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.as_table">
+<span class="sig-name descname"><span class="pre">as_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.as_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;tr&gt;s – excluding the &lt;table&gt;&lt;/table&gt;.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.as_ul">
+<span class="sig-name descname"><span class="pre">as_ul</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.as_ul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;li&gt;s – excluding the &lt;ul&gt;&lt;/ul&gt;.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.changed_data">
+<span class="sig-name descname"><span class="pre">changed_data</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/directory_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.changed_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.clean">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
+called on every field. Any ValidationError raised by this method will
+not be associated with a particular field; it will have a special-case
+association with the field named ‘__all__’.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.default_renderer">
+<span class="sig-name descname"><span class="pre">default_renderer</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/directory_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.default_renderer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.errors">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">errors</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/directory_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ErrorDict for the data provided for the form.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.field_order">
+<span class="sig-name descname"><span class="pre">field_order</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/directory_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.field_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.full_clean">
+<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.full_clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean all of self.data and populate self._errors and self.cleaned_data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.get_error_messages">
+<span class="sig-name descname"><span class="pre">get_error_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.get_error_messages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all error messages of this form and append labels to field-errors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The errors of this form</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.get_initial_for_field">
+<span class="sig-name descname"><span class="pre">get_initial_for_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return initial data for field on form. Use initial data from the form
+or the field, in that order. Evaluate callable values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.has_changed">
+<span class="sig-name descname"><span class="pre">has_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.has_changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if data differs from initial.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.has_error">
+<span class="sig-name descname"><span class="pre">has_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.has_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.hidden_fields">
+<span class="sig-name descname"><span class="pre">hidden_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all the BoundField objects that are hidden fields.
+Useful for manual form layout in templates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.is_multipart">
+<span class="sig-name descname"><span class="pre">is_multipart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.is_multipart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the form needs to be multipart-encoded, i.e. it has
+FileInput, or False otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the form has no errors, or False otherwise.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.media">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/directory_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.media" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.non_field_errors">
+<span class="sig-name descname"><span class="pre">non_field_errors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ErrorList of errors that aren’t associated with a particular
+field – i.e., from Form.clean(). Return an empty ErrorList if there
+are none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.order_fields">
+<span class="sig-name descname"><span class="pre">order_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.order_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rearrange the fields according to field_order.</p>
+<p>field_order is a list of field names specifying the order. Append fields
+not included in the list in the default order for backward compatibility
+with subclasses not overriding field_order. If field_order is None,
+keep all fields in the order defined in the class. Ignore unknown
+fields in field_order to allow disabling fields in form subclasses
+without redefining ordering.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.prefix">
+<span class="sig-name descname"><span class="pre">prefix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/directory_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
+logging</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The saved object returned by <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#topics-modelform-save" title="(in Django v3.2)"><span>The save() method</span></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.use_required_attribute">
+<span class="sig-name descname"><span class="pre">use_required_attribute</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/directory_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.validate_unique">
+<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.validate_unique" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the instance’s validate_unique() method and update the form’s
+validation errors if any were raised.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.directory_form.DirectoryForm.visible_fields">
+<span class="sig-name descname"><span class="pre">visible_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.directory_form.DirectoryForm.visible_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of BoundField objects that aren’t hidden fields.
+The opposite of the hidden_fields() method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.forms.media.media_file_form">
+<span id="media-file-form"></span><h2>Media File Form<a class="headerlink" href="#module-cms.forms.media.media_file_form" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.media.media_file_form.</span></span><span class="sig-name descname"><span class="pre">MediaFileForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/media_file_form.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
+<p>Form for modifying media file objects</p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alt_text</span></code>: Description (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize placeholder model form</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If form is instantiated directly without an inheriting subclass</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.add_error">
+<span class="sig-name descname"><span class="pre">add_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.add_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the content of <cite>self._errors</cite>.</p>
+<p>The <cite>field</cite> argument is the name of the field to which the errors
+should be added. If it’s None, treat the errors as NON_FIELD_ERRORS.</p>
+<p>The <cite>error</cite> argument can be a single error, a list of errors, or a
+dictionary that maps field names to lists of errors. An “error” can be
+either a simple string or an instance of ValidationError with its
+message attribute set and a “list or dictionary” can be an actual
+<cite>list</cite> or <cite>dict</cite> or an instance of ValidationError with its
+<cite>error_list</cite> or <cite>error_dict</cite> attribute set.</p>
+<p>If <cite>error</cite> is a dictionary, the <cite>field</cite> argument <em>must</em> be None and
+errors will be added to the fields that correspond to the keys of the
+dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.add_initial_prefix">
+<span class="sig-name descname"><span class="pre">add_initial_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an ‘initial’ prefix for checking dynamic initial values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.add_prefix">
+<span class="sig-name descname"><span class="pre">add_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.add_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the field name with a prefix appended, if this Form has a
+prefix set.</p>
+<p>Subclasses may wish to override.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.as_p">
+<span class="sig-name descname"><span class="pre">as_p</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.as_p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;p&gt;s.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.as_table">
+<span class="sig-name descname"><span class="pre">as_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.as_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;tr&gt;s – excluding the &lt;table&gt;&lt;/table&gt;.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.as_ul">
+<span class="sig-name descname"><span class="pre">as_ul</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.as_ul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;li&gt;s – excluding the &lt;ul&gt;&lt;/ul&gt;.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.changed_data">
+<span class="sig-name descname"><span class="pre">changed_data</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/media_file_form.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.changed_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.clean">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
+called on every field. Any ValidationError raised by this method will
+not be associated with a particular field; it will have a special-case
+association with the field named ‘__all__’.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.default_renderer">
+<span class="sig-name descname"><span class="pre">default_renderer</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/media_file_form.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.default_renderer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.errors">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">errors</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/media_file_form.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ErrorDict for the data provided for the form.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.field_order">
+<span class="sig-name descname"><span class="pre">field_order</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/media_file_form.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.field_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.full_clean">
+<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.full_clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean all of self.data and populate self._errors and self.cleaned_data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.get_error_messages">
+<span class="sig-name descname"><span class="pre">get_error_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.get_error_messages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all error messages of this form and append labels to field-errors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The errors of this form</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.get_initial_for_field">
+<span class="sig-name descname"><span class="pre">get_initial_for_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return initial data for field on form. Use initial data from the form
+or the field, in that order. Evaluate callable values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.has_changed">
+<span class="sig-name descname"><span class="pre">has_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.has_changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if data differs from initial.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.has_error">
+<span class="sig-name descname"><span class="pre">has_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.has_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.hidden_fields">
+<span class="sig-name descname"><span class="pre">hidden_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all the BoundField objects that are hidden fields.
+Useful for manual form layout in templates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.is_multipart">
+<span class="sig-name descname"><span class="pre">is_multipart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.is_multipart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the form needs to be multipart-encoded, i.e. it has
+FileInput, or False otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the form has no errors, or False otherwise.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.media">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/media_file_form.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.media" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.non_field_errors">
+<span class="sig-name descname"><span class="pre">non_field_errors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ErrorList of errors that aren’t associated with a particular
+field – i.e., from Form.clean(). Return an empty ErrorList if there
+are none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.order_fields">
+<span class="sig-name descname"><span class="pre">order_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.order_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rearrange the fields according to field_order.</p>
+<p>field_order is a list of field names specifying the order. Append fields
+not included in the list in the default order for backward compatibility
+with subclasses not overriding field_order. If field_order is None,
+keep all fields in the order defined in the class. Ignore unknown
+fields in field_order to allow disabling fields in form subclasses
+without redefining ordering.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.prefix">
+<span class="sig-name descname"><span class="pre">prefix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/media_file_form.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
+logging</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The saved object returned by <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#topics-modelform-save" title="(in Django v3.2)"><span>The save() method</span></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.use_required_attribute">
+<span class="sig-name descname"><span class="pre">use_required_attribute</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/media_file_form.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.validate_unique">
+<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.validate_unique" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the instance’s validate_unique() method and update the form’s
+validation errors if any were raised.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.media_file_form.MediaFileForm.visible_fields">
+<span class="sig-name descname"><span class="pre">visible_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.media_file_form.MediaFileForm.visible_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of BoundField objects that aren’t hidden fields.
+The opposite of the hidden_fields() method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cms.forms.media.upload_media_file_form">
+<span id="upload-media-file-form"></span><h2>Upload Media File Form<a class="headerlink" href="#module-cms.forms.media.upload_media_file_form" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.media.upload_media_file_form.</span></span><span class="sig-name descname"><span class="pre">UploadMediaFileForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
+<p>Form for uploading media file objects</p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: File (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FileField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: File type (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parent_directory</span></code>: Parent directory (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">thumbnail</span></code>: Thumbnail file (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FileField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileField</span></code></a>)</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize UploadMediaFileForm form</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – submitted POST data</p></li>
+<li><p><strong>data</strong> – uploaded FILES</p></li>
+<li><p><strong>instance</strong> (<a class="reference internal" href="cms.models.media.html#cms.models.media.media_file.MediaFile" title="cms.models.media.media_file.MediaFile"><em>MediaFile</em></a>) – This form’s instance</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.add_error">
+<span class="sig-name descname"><span class="pre">add_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L306"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.add_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the content of <cite>self._errors</cite>.</p>
+<p>The <cite>field</cite> argument is the name of the field to which the errors
+should be added. If it’s None, treat the errors as NON_FIELD_ERRORS.</p>
+<p>The <cite>error</cite> argument can be a single error, a list of errors, or a
+dictionary that maps field names to lists of errors. An “error” can be
+either a simple string or an instance of ValidationError with its
+message attribute set and a “list or dictionary” can be an actual
+<cite>list</cite> or <cite>dict</cite> or an instance of ValidationError with its
+<cite>error_list</cite> or <cite>error_dict</cite> attribute set.</p>
+<p>If <cite>error</cite> is a dictionary, the <cite>field</cite> argument <em>must</em> be None and
+errors will be added to the fields that correspond to the keys of the
+dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.add_initial_prefix">
+<span class="sig-name descname"><span class="pre">add_initial_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.add_initial_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an ‘initial’ prefix for checking dynamic initial values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.add_prefix">
+<span class="sig-name descname"><span class="pre">add_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.add_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the field name with a prefix appended, if this Form has a
+prefix set.</p>
+<p>Subclasses may wish to override.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.as_p">
+<span class="sig-name descname"><span class="pre">as_p</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.as_p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;p&gt;s.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.as_table">
+<span class="sig-name descname"><span class="pre">as_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L268"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.as_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;tr&gt;s – excluding the &lt;table&gt;&lt;/table&gt;.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.as_ul">
+<span class="sig-name descname"><span class="pre">as_ul</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.as_ul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this form rendered as HTML &lt;li&gt;s – excluding the &lt;ul&gt;&lt;/ul&gt;.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.changed_data">
+<span class="sig-name descname"><span class="pre">changed_data</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.changed_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.clean">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a>:
+Don’t allow multiple root nodes for one region:
+If the file type is invalid, add a <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValidationError</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The cleaned form data</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.default_renderer">
+<span class="sig-name descname"><span class="pre">default_renderer</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.default_renderer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.errors">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">errors</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ErrorDict for the data provided for the form.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.field_order">
+<span class="sig-name descname"><span class="pre">field_order</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.field_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.full_clean">
+<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L359"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.full_clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean all of self.data and populate self._errors and self.cleaned_data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.get_error_messages">
+<span class="sig-name descname"><span class="pre">get_error_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.get_error_messages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all error messages of this form and append labels to field-errors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The errors of this form</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.get_initial_for_field">
+<span class="sig-name descname"><span class="pre">get_initial_for_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.get_initial_for_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return initial data for field on form. Use initial data from the form
+or the field, in that order. Evaluate callable values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.has_changed">
+<span class="sig-name descname"><span class="pre">has_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.has_changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if data differs from initial.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.has_error">
+<span class="sig-name descname"><span class="pre">has_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.has_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.hidden_fields">
+<span class="sig-name descname"><span class="pre">hidden_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L466"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.hidden_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all the BoundField objects that are hidden fields.
+Useful for manual form layout in templates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.is_multipart">
+<span class="sig-name descname"><span class="pre">is_multipart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.is_multipart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the form needs to be multipart-encoded, i.e. it has
+FileInput, or False otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the form has no errors, or False otherwise.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.media">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.media" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.non_field_errors">
+<span class="sig-name descname"><span class="pre">non_field_errors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.non_field_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ErrorList of errors that aren’t associated with a particular
+field – i.e., from Form.clean(). Return an empty ErrorList if there
+are none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.order_fields">
+<span class="sig-name descname"><span class="pre">order_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_order</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.order_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rearrange the fields according to field_order.</p>
+<p>field_order is a list of field names specifying the order. Append fields
+not included in the list in the default order for backward compatibility
+with subclasses not overriding field_order. If field_order is None,
+keep all fields in the order defined in the class. Ignore unknown
+fields in field_order to allow disabling fields in form subclasses
+without redefining ordering.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.prefix">
+<span class="sig-name descname"><span class="pre">prefix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/custom_model_form.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
+logging</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The saved object returned by <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#topics-modelform-save" title="(in Django v3.2)"><span>The save() method</span></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.use_required_attribute">
+<span class="sig-name descname"><span class="pre">use_required_attribute</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.use_required_attribute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.validate_unique">
+<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/models.py#L421"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.validate_unique" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the instance’s validate_unique() method and update the form’s
+validation errors if any were raised.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.forms.media.upload_media_file_form.UploadMediaFileForm.visible_fields">
+<span class="sig-name descname"><span class="pre">visible_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/forms/forms.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.media.upload_media_file_form.UploadMediaFileForm.visible_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of BoundField objects that aren’t hidden fields.
 The opposite of the hidden_fields() method.</p>
 </dd></dl>
@@ -1461,7 +2217,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Mar 14, 2021.
+        Last updated on Jun 05, 2021.
       </span>
 
     </p>

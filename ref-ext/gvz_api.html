@@ -14,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -33,6 +35,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -277,6 +280,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
@@ -327,7 +331,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#document-form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -377,6 +384,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
 </ul>
@@ -416,7 +424,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#media-file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.offers.html">Offers</a><ul>
@@ -486,9 +495,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -566,8 +575,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-edit-view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -713,6 +722,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
@@ -763,7 +773,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.directory_form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -813,6 +826,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 </ul>
@@ -852,7 +866,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.media_file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
@@ -922,9 +937,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1002,8 +1017,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1214,42 +1229,42 @@
 <span id="apps"></span><h2>Apps<a class="headerlink" href="#module-gvz_api.apps" title="Permalink to this headline">¶</a></h2>
 <p>Configuration of GVZ API app</p>
 <dl class="py class">
-<dt id="gvz_api.apps.GvzApiConfig">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gvz_api.apps.</span></code><code class="sig-name descname"><span class="pre">GvzApiConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/apps.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.apps.GvzApiConfig">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gvz_api.apps.</span></span><span class="sig-name descname"><span class="pre">GvzApiConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/apps.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
 <p>GVZ API config inheriting the django AppConfig</p>
 <dl class="py method">
-<dt id="gvz_api.apps.GvzApiConfig.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.apps.GvzApiConfig.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="gvz_api.apps.GvzApiConfig.api_available">
-<code class="sig-name descname"><span class="pre">api_available</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/apps.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.api_available" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.apps.GvzApiConfig.api_available">
+<span class="sig-name descname"><span class="pre">api_available</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/apps.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.api_available" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="gvz_api.apps.GvzApiConfig.create">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">create</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.create" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.apps.GvzApiConfig.create">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Factory that creates an app config from an entry in INSTALLED_APPS.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="gvz_api.apps.GvzApiConfig.default_auto_field">
-<code class="sig-name descname"><span class="pre">default_auto_field</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/apps.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.default_auto_field" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.apps.GvzApiConfig.default_auto_field">
+<span class="sig-name descname"><span class="pre">default_auto_field</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/apps.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.default_auto_field" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="gvz_api.apps.GvzApiConfig.get_model">
-<code class="sig-name descname"><span class="pre">get_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_ready</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L257"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.get_model" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.apps.GvzApiConfig.get_model">
+<span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_ready</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L257"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.get_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the model with the given case-insensitive model_name.</p>
 <p>Raise LookupError if no model exists with this name.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gvz_api.apps.GvzApiConfig.get_models">
-<code class="sig-name descname"><span class="pre">get_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_auto_created</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_swapped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L273"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.get_models" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.apps.GvzApiConfig.get_models">
+<span class="sig-name descname"><span class="pre">get_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_auto_created</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_swapped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L273"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.get_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an iterable of models.</p>
 <p>By default, the following models aren’t included:</p>
 <ul class="simple">
@@ -1262,18 +1277,18 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gvz_api.apps.GvzApiConfig.import_models">
-<code class="sig-name descname"><span class="pre">import_models</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L294"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.import_models" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.apps.GvzApiConfig.import_models">
+<span class="sig-name descname"><span class="pre">import_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/apps/config.py#L294"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.import_models" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="gvz_api.apps.GvzApiConfig.name">
-<code class="sig-name descname"><span class="pre">name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'gvz_api'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/apps.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.apps.GvzApiConfig.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'gvz_api'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/apps.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="gvz_api.apps.GvzApiConfig.ready">
-<code class="sig-name descname"><span class="pre">ready</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/apps.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.ready" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.apps.GvzApiConfig.ready">
+<span class="sig-name descname"><span class="pre">ready</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/apps.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.apps.GvzApiConfig.ready" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checking if API is available</p>
 </dd></dl>
 
@@ -1284,25 +1299,25 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 <span id="utils"></span><h2>Utils<a class="headerlink" href="#module-gvz_api.utils" title="Permalink to this headline">¶</a></h2>
 <p>Helper classes for Gemeindeverzeichnis API</p>
 <dl class="py class">
-<dt id="gvz_api.utils.GvzApiWrapper">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gvz_api.utils.</span></code><code class="sig-name descname"><span class="pre">GvzApiWrapper</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.utils.GvzApiWrapper">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gvz_api.utils.</span></span><span class="sig-name descname"><span class="pre">GvzApiWrapper</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Class that wraps around the GVZ (Gemeindeverzeichnis) API</p>
 <dl class="py method">
-<dt id="gvz_api.utils.GvzApiWrapper.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.utils.GvzApiWrapper.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="gvz_api.utils.GvzApiWrapper.api_url">
-<code class="sig-name descname"><span class="pre">api_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://gvz.integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.api_url" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.utils.GvzApiWrapper.api_url">
+<span class="sig-name descname"><span class="pre">api_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'https://gvz.integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.api_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>The URL to the external GVZ API</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gvz_api.utils.GvzApiWrapper.best_match">
-<code class="sig-name descname"><span class="pre">best_match</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">division_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.best_match" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.utils.GvzApiWrapper.best_match">
+<span class="sig-name descname"><span class="pre">best_match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">division_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.best_match" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tries to find the correct region id (single search hit)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1321,8 +1336,8 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gvz_api.utils.GvzApiWrapper.get_child_coordinates">
-<code class="sig-name descname"><span class="pre">get_child_coordinates</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child_urls</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.get_child_coordinates" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.utils.GvzApiWrapper.get_child_coordinates">
+<span class="sig-name descname"><span class="pre">get_child_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">child_urls</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.get_child_coordinates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively get coordinates for list of children</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1338,8 +1353,8 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gvz_api.utils.GvzApiWrapper.get_details">
-<code class="sig-name descname"><span class="pre">get_details</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ags</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.get_details" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.utils.GvzApiWrapper.get_details">
+<span class="sig-name descname"><span class="pre">get_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ags</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.get_details" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get details for a region id (i.e. Gemeindeschlüssel)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1355,8 +1370,8 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gvz_api.utils.GvzApiWrapper.search">
-<code class="sig-name descname"><span class="pre">search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">division_category</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.search" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.utils.GvzApiWrapper.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">division_category</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for a region and return candidates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1375,8 +1390,8 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gvz_api.utils.GvzApiWrapper.translate_division_category">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">translate_division_category</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">division_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.translate_division_category" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.utils.GvzApiWrapper.translate_division_category">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">translate_division_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">division_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzApiWrapper.translate_division_category" title="Permalink to this definition">¶</a></dt>
 <dd><p>Map Integreat CMS division types to Gemeindeverzeichnis division categories.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1394,8 +1409,8 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="gvz_api.utils.GvzRegion">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">gvz_api.utils.</span></code><code class="sig-name descname"><span class="pre">GvzRegion</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_ags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.utils.GvzRegion">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gvz_api.utils.</span></span><span class="sig-name descname"><span class="pre">GvzRegion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_ags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Represents a region in the GVZ, initial values will be retrieved
 from API on initialization.</p>
@@ -1409,14 +1424,14 @@ from API on initialization.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="gvz_api.utils.GvzRegion.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_ags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.utils.GvzRegion.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_ags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load initial values for region from GVZ API</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="gvz_api.utils.GvzRegion.aliases">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">aliases</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.aliases" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="gvz_api.utils.GvzRegion.aliases">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">aliases</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.aliases" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns JSON of region aliases compliant to Integreat API v3 definition</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1429,8 +1444,8 @@ from API on initialization.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="gvz_api.utils.GvzRegion.as_dict">
-<code class="sig-name descname"><span class="pre">as_dict</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.as_dict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gvz_api.utils.GvzRegion.as_dict">
+<span class="sig-name descname"><span class="pre">as_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/gvz_api/utils.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#gvz_api.utils.GvzRegion.as_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary representation of region</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-06-25T11:23:06+00:00" />
+    <meta property="article:modified_time" content="2021-06-22T14:54:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>V3 &mdash; integreat-cms 0.0.14 documentation</title>
@@ -14,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -33,6 +35,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -277,6 +280,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
@@ -327,7 +331,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#document-form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -377,6 +384,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
 </ul>
@@ -416,7 +424,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#media-file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.offers.html">Offers</a><ul>
@@ -486,9 +495,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -566,8 +575,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-edit-view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -713,6 +722,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
@@ -763,7 +773,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.directory_form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -813,6 +826,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 </ul>
@@ -852,7 +866,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.media_file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
@@ -922,9 +937,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1002,8 +1017,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1232,8 +1247,8 @@
 <div class="section" id="module-api.v3.events">
 <span id="events"></span><h2>Events<a class="headerlink" href="#module-api.v3.events" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="api.v3.events.events">
-<code class="sig-prename descclassname"><span class="pre">api.v3.events.</span></code><code class="sig-name descname"><span class="pre">events</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/events.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.events.events" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.events.events">
+<span class="sig-prename descclassname"><span class="pre">api.v3.events.</span></span><span class="sig-name descname"><span class="pre">events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/events.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.events.events" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all events of the region and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1253,8 +1268,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.events.transform_event">
-<code class="sig-prename descclassname"><span class="pre">api.v3.events.</span></code><code class="sig-name descname"><span class="pre">transform_event</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/events.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.events.transform_event" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.events.transform_event">
+<span class="sig-prename descclassname"><span class="pre">api.v3.events.</span></span><span class="sig-name descname"><span class="pre">transform_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/events.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.events.transform_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single event object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1270,8 +1285,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.events.transform_event_recurrences">
-<code class="sig-prename descclassname"><span class="pre">api.v3.events.</span></code><code class="sig-name descname"><span class="pre">transform_event_recurrences</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">today</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/events.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.events.transform_event_recurrences" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.events.transform_event_recurrences">
+<span class="sig-prename descclassname"><span class="pre">api.v3.events.</span></span><span class="sig-name descname"><span class="pre">transform_event_recurrences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">today</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/events.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.events.transform_event_recurrences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yield all future recurrences of the event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1290,8 +1305,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.events.transform_event_translation">
-<code class="sig-prename descclassname"><span class="pre">api.v3.events.</span></code><code class="sig-name descname"><span class="pre">transform_event_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/events.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.events.transform_event_translation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.events.transform_event_translation">
+<span class="sig-prename descclassname"><span class="pre">api.v3.events.</span></span><span class="sig-name descname"><span class="pre">transform_event_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/events.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.events.transform_event_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single event_translation object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1311,8 +1326,8 @@
 <span id="imprint"></span><h2>Imprint<a class="headerlink" href="#module-api.v3.imprint" title="Permalink to this headline">¶</a></h2>
 <p>imprint API endpoint</p>
 <dl class="py function">
-<dt id="api.v3.imprint.imprint">
-<code class="sig-prename descclassname"><span class="pre">api.v3.imprint.</span></code><code class="sig-name descname"><span class="pre">imprint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/imprint.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.imprint.imprint" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.imprint.imprint">
+<span class="sig-prename descclassname"><span class="pre">api.v3.imprint.</span></span><span class="sig-name descname"><span class="pre">imprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/imprint.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.imprint.imprint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get imprint for language and return JSON object to client. If no imprint translation
 is available in the selected language, try to return the translation in the region
 default language.</p>
@@ -1334,8 +1349,8 @@ default language.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.imprint.transform_imprint">
-<code class="sig-prename descclassname"><span class="pre">api.v3.imprint.</span></code><code class="sig-name descname"><span class="pre">transform_imprint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imprint_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/imprint.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.imprint.transform_imprint" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.imprint.transform_imprint">
+<span class="sig-prename descclassname"><span class="pre">api.v3.imprint.</span></span><span class="sig-name descname"><span class="pre">transform_imprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imprint_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/imprint.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.imprint.transform_imprint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single imprint_translation object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1355,8 +1370,8 @@ default language.</p>
 <span id="languages"></span><h2>Languages<a class="headerlink" href="#module-api.v3.languages" title="Permalink to this headline">¶</a></h2>
 <p>API-endpoint to deliver a JSON with all active languages of an region.</p>
 <dl class="py function">
-<dt id="api.v3.languages.languages">
-<code class="sig-prename descclassname"><span class="pre">api.v3.languages.</span></code><code class="sig-name descname"><span class="pre">languages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/languages.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.languages.languages" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.languages.languages">
+<span class="sig-prename descclassname"><span class="pre">api.v3.languages.</span></span><span class="sig-name descname"><span class="pre">languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/languages.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.languages.languages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to add all languages related to a region to a JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1378,8 +1393,8 @@ default language.</p>
 <div class="section" id="module-api.v3.locations">
 <span id="locations"></span><h2>Locations<a class="headerlink" href="#module-api.v3.locations" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="api.v3.locations.locations">
-<code class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></code><code class="sig-name descname"><span class="pre">locations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.locations.locations" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.locations.locations">
+<span class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></span><span class="sig-name descname"><span class="pre">locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.locations.locations" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all POIs of the region and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1399,8 +1414,8 @@ default language.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.locations.transform_poi">
-<code class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></code><code class="sig-name descname"><span class="pre">transform_poi</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.locations.transform_poi" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.locations.transform_poi">
+<span class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></span><span class="sig-name descname"><span class="pre">transform_poi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.locations.transform_poi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single poi object.
 Because the json requires a translated name, <cite>poi_translation</cite> has to be
 passed as the second parameter.</p>
@@ -1421,8 +1436,8 @@ passed as the second parameter.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.locations.transform_poi_translation">
-<code class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></code><code class="sig-name descname"><span class="pre">transform_poi_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poi_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.locations.transform_poi_translation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.locations.transform_poi_translation">
+<span class="sig-prename descclassname"><span class="pre">api.v3.locations.</span></span><span class="sig-name descname"><span class="pre">transform_poi_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poi_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/locations.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.locations.transform_poi_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single poi_translation object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1442,8 +1457,8 @@ passed as the second parameter.</p>
 <span id="offers"></span><h2>Offers<a class="headerlink" href="#module-api.v3.offers" title="Permalink to this headline">¶</a></h2>
 <p>Provides an endpoint for delivering a JSON with all active offers.</p>
 <dl class="py function">
-<dt id="api.v3.offers.get_post_data">
-<code class="sig-prename descclassname"><span class="pre">api.v3.offers.</span></code><code class="sig-name descname"><span class="pre">get_post_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.offers.get_post_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.offers.get_post_data">
+<span class="sig-prename descclassname"><span class="pre">api.v3.offers.</span></span><span class="sig-name descname"><span class="pre">get_post_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.offers.get_post_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>In case the url expects additional post data, it is stored inside the <code class="docutils literal notranslate"><span class="pre">post_data</span></code>-dict. Some offers depend on
 the location which is realized by adding the postal code of the current region to the request. If the offer
 template indicates that the postal code should be used as <code class="docutils literal notranslate"><span class="pre">GET</span></code>-parameter, the class attribute
@@ -1467,8 +1482,8 @@ format, it has to be hard-coded here or we need other changes to the offer model
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.offers.get_url">
-<code class="sig-prename descclassname"><span class="pre">api.v3.offers.</span></code><code class="sig-name descname"><span class="pre">get_url</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.offers.get_url" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.offers.get_url">
+<span class="sig-prename descclassname"><span class="pre">api.v3.offers.</span></span><span class="sig-name descname"><span class="pre">get_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.offers.get_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>The offer should inherit the slug property from its template. This is the url to an API endpoint in most cases.
 Some offers depend on the location which is realized by adding the postal code of the current region to the
 request. If the offer template indicates that the postal code should be used as <code class="docutils literal notranslate"><span class="pre">GET</span></code>-parameter, the class
@@ -1491,8 +1506,8 @@ the url has to end with the name of the required parameter-name, e.g. <code clas
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.offers.offers">
-<code class="sig-prename descclassname"><span class="pre">api.v3.offers.</span></code><code class="sig-name descname"><span class="pre">offers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.offers.offers" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.offers.offers">
+<span class="sig-prename descclassname"><span class="pre">api.v3.offers.</span></span><span class="sig-name descname"><span class="pre">offers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.offers.offers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to iterate through all offers related to a region and adds them to a JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1512,8 +1527,8 @@ the url has to end with the name of the required parameter-name, e.g. <code clas
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.offers.transform_offer">
-<code class="sig-prename descclassname"><span class="pre">api.v3.offers.</span></code><code class="sig-name descname"><span class="pre">transform_offer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.offers.transform_offer" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.offers.transform_offer">
+<span class="sig-prename descclassname"><span class="pre">api.v3.offers.</span></span><span class="sig-name descname"><span class="pre">transform_offer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/offers.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.offers.transform_offer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single offer Object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1536,8 +1551,8 @@ the url has to end with the name of the required parameter-name, e.g. <code clas
 <span id="pages"></span><h2>Pages<a class="headerlink" href="#module-api.v3.pages" title="Permalink to this headline">¶</a></h2>
 <p>pages API endpoint</p>
 <dl class="py function">
-<dt id="api.v3.pages.pages">
-<code class="sig-prename descclassname"><span class="pre">api.v3.pages.</span></code><code class="sig-name descname"><span class="pre">pages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pages.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.pages.pages" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.pages.pages">
+<span class="sig-prename descclassname"><span class="pre">api.v3.pages.</span></span><span class="sig-name descname"><span class="pre">pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pages.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.pages.pages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to iterate through all non-archived pages of a region and return them as JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1557,8 +1572,8 @@ the url has to end with the name of the required parameter-name, e.g. <code clas
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.pages.transform_page">
-<code class="sig-prename descclassname"><span class="pre">api.v3.pages.</span></code><code class="sig-name descname"><span class="pre">transform_page</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pages.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.pages.transform_page" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.pages.transform_page">
+<span class="sig-prename descclassname"><span class="pre">api.v3.pages.</span></span><span class="sig-name descname"><span class="pre">transform_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pages.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.pages.transform_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a dict from a single page_translation Object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1580,8 +1595,8 @@ the url has to end with the name of the required parameter-name, e.g. <code clas
 Single pages may be requested by url parameter, if no parameter is included all pages
 related to the current region and language will be returned.</p>
 <dl class="py function">
-<dt id="api.v3.pdf_export.pdf_export">
-<code class="sig-prename descclassname"><span class="pre">api.v3.pdf_export.</span></code><code class="sig-name descname"><span class="pre">pdf_export</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pdf_export.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.pdf_export.pdf_export" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.pdf_export.pdf_export">
+<span class="sig-prename descclassname"><span class="pre">api.v3.pdf_export.</span></span><span class="sig-name descname"><span class="pre">pdf_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pdf_export.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.pdf_export.pdf_export" title="Permalink to this definition">¶</a></dt>
 <dd><p>View function that either returns the requested page specified by the
 url parameter or returns all pages of current region and language as PDF document
 by forwarding the request to <a class="reference internal" href="cms.utils.html#cms.utils.pdf_utils.generate_pdf" title="cms.utils.pdf_utils.generate_pdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_pdf()</span></code></a></p>
@@ -1607,8 +1622,8 @@ by forwarding the request to <a class="reference internal" href="cms.utils.html#
 <span id="push-notifications"></span><h2>Push Notifications<a class="headerlink" href="#module-api.v3.push_notifications" title="Permalink to this headline">¶</a></h2>
 <p>Retrieve push notifications that have been sent, optionally filtering by channel.</p>
 <dl class="py function">
-<dt id="api.v3.push_notifications.sent_push_notifications">
-<code class="sig-prename descclassname"><span class="pre">api.v3.push_notifications.</span></code><code class="sig-name descname"><span class="pre">sent_push_notifications</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/push_notifications.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.push_notifications.sent_push_notifications" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.push_notifications.sent_push_notifications">
+<span class="sig-prename descclassname"><span class="pre">api.v3.push_notifications.</span></span><span class="sig-name descname"><span class="pre">sent_push_notifications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/push_notifications.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.push_notifications.sent_push_notifications" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to iterate through all sent push notifications related to a region and adds them to a JSON.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1628,8 +1643,8 @@ by forwarding the request to <a class="reference internal" href="cms.utils.html#
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.push_notifications.transform_notification">
-<code class="sig-prename descclassname"><span class="pre">api.v3.push_notifications.</span></code><code class="sig-name descname"><span class="pre">transform_notification</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/push_notifications.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.push_notifications.transform_notification" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.push_notifications.transform_notification">
+<span class="sig-prename descclassname"><span class="pre">api.v3.push_notifications.</span></span><span class="sig-name descname"><span class="pre">transform_notification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pnt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/push_notifications.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.push_notifications.transform_notification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single push notification translation Object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1649,8 +1664,8 @@ by forwarding the request to <a class="reference internal" href="cms.utils.html#
 <span id="regions"></span><h2>Regions<a class="headerlink" href="#module-api.v3.regions" title="Permalink to this headline">¶</a></h2>
 <p>Views to return JSON representations of regions</p>
 <dl class="py function">
-<dt id="api.v3.regions.hiddenregions">
-<code class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></code><code class="sig-name descname"><span class="pre">hiddenregions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.hiddenregions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.regions.hiddenregions">
+<span class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">hiddenregions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.hiddenregions" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all regions that are hidden and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1663,8 +1678,8 @@ by forwarding the request to <a class="reference internal" href="cms.utils.html#
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.regions.liveregions">
-<code class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></code><code class="sig-name descname"><span class="pre">liveregions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.liveregions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.regions.liveregions">
+<span class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">liveregions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.liveregions" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all regions that are not archived and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1677,8 +1692,8 @@ by forwarding the request to <a class="reference internal" href="cms.utils.html#
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.regions.pushnew">
-<code class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></code><code class="sig-name descname"><span class="pre">pushnew</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.pushnew" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.regions.pushnew">
+<span class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">pushnew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.pushnew" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a magic black box convenience function for development. There is no
 reason for it, but we like it. As we do not care about randomly generated languages
 and it only consumes a few bytes of disk space, there is also no need to remove.
@@ -1695,8 +1710,8 @@ problem.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.regions.regions">
-<code class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></code><code class="sig-name descname"><span class="pre">regions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.regions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.regions.regions">
+<span class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.regions" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all regions that are not archived and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1709,8 +1724,8 @@ problem.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.regions.transform_region">
-<code class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></code><code class="sig-name descname"><span class="pre">transform_region</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.transform_region" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.regions.transform_region">
+<span class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">transform_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.transform_region" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single region object, including information if region is live/active.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1726,8 +1741,8 @@ problem.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="api.v3.regions.transform_region_by_status">
-<code class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></code><code class="sig-name descname"><span class="pre">transform_region_by_status</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.transform_region_by_status" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.regions.transform_region_by_status">
+<span class="sig-prename descclassname"><span class="pre">api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">transform_region_by_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/regions.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.regions.transform_region_by_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a JSON from a single “active” region object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1748,8 +1763,8 @@ problem.</p>
 <p>View to return a JSON representation of a single page. The page can
 be selected via the id or the permalink.</p>
 <dl class="py function">
-<dt id="api.v3.single_page.single_page">
-<code class="sig-prename descclassname"><span class="pre">api.v3.single_page.</span></code><code class="sig-name descname"><span class="pre">single_page</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/single_page.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.single_page.single_page" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="api.v3.single_page.single_page">
+<span class="sig-prename descclassname"><span class="pre">api.v3.single_page.</span></span><span class="sig-name descname"><span class="pre">single_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/single_page.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.single_page.single_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>View function returning the desired page as a JSON or a 404 if the
 requested page does not exist.</p>
 <dl class="field-list simple">
@@ -1794,7 +1809,7 @@ requested page does not exist.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jun 25, 2021.
+        Last updated on Jun 22, 2021.
       </span>
 
     </p>

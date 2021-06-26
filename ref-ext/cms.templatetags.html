@@ -14,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -33,6 +35,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -277,6 +280,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
@@ -327,7 +331,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#document-form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -377,6 +384,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
 </ul>
@@ -416,7 +424,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#media-file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.offers.html">Offers</a><ul>
@@ -486,9 +495,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -566,8 +575,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-edit-view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -713,6 +722,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
@@ -763,7 +773,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.directory_form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -813,6 +826,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 </ul>
@@ -852,7 +866,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.media_file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
@@ -922,9 +937,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1002,8 +1017,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1218,8 +1233,8 @@ Filters transform the values of variables and are surrounded by <code class="doc
 <div class="section" id="module-cms.templatetags.arithmetic">
 <span id="arithmetic"></span><h2>Arithmetic<a class="headerlink" href="#module-cms.templatetags.arithmetic" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="cms.templatetags.arithmetic.diff">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.arithmetic.</span></code><code class="sig-name descname"><span class="pre">diff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/arithmetic.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.arithmetic.diff" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.arithmetic.diff">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.arithmetic.</span></span><span class="sig-name descname"><span class="pre">diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/arithmetic.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.arithmetic.diff" title="Permalink to this definition">¶</a></dt>
 <dd><p>subtract arg from value</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1241,8 +1256,8 @@ Filters transform the values of variables and are surrounded by <code class="doc
 <div class="section" id="module-cms.templatetags.base_filters">
 <span id="base-filters"></span><h2>Base Filters<a class="headerlink" href="#module-cms.templatetags.base_filters" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="cms.templatetags.base_filters.in_list">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.base_filters.</span></code><code class="sig-name descname"><span class="pre">in_list</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comma_separated_list</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/base_filters.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.base_filters.in_list" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.base_filters.in_list">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.base_filters.</span></span><span class="sig-name descname"><span class="pre">in_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comma_separated_list</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/base_filters.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.base_filters.in_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag checks whether a given string value is contained in a comma separated list</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1266,8 +1281,8 @@ Filters transform the values of variables and are surrounded by <code class="doc
 <p>This is a collection of tags and filters which are useful for all content types (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>,
 <a class="reference internal" href="cms.models.events.html#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a> and <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>).</p>
 <dl class="py function">
-<dt id="cms.templatetags.content_filters.get_int_list">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">get_int_list</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_int_list" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.content_filters.get_int_list">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_int_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_int_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>This filter returns the list data of a one-to-many field as ints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1286,8 +1301,8 @@ Filters transform the values of variables and are surrounded by <code class="doc
 </dd></dl>
 
 <dl class="py function">
-<dt id="cms.templatetags.content_filters.get_language">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">get_language</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_language" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.content_filters.get_language">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_language" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag returns the requested language by slug</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1303,8 +1318,8 @@ Filters transform the values of variables and are surrounded by <code class="doc
 </dd></dl>
 
 <dl class="py function">
-<dt id="cms.templatetags.content_filters.get_public_translation">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">get_public_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_public_translation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.content_filters.get_public_translation">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_public_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_public_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag returns the most recent public translation of the requested content object in the requested language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1324,8 +1339,8 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 </dd></dl>
 
 <dl class="py function">
-<dt id="cms.templatetags.content_filters.get_translation">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">get_translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_translation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.content_filters.get_translation">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.get_translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag returns the most recent translation of the requested content object in the requested language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1345,8 +1360,8 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 </dd></dl>
 
 <dl class="py function">
-<dt id="cms.templatetags.content_filters.is_empty">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">is_empty</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.is_empty" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.content_filters.is_empty">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">is_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.is_empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>This filter checks whether the given iterable is empty.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1362,8 +1377,8 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 </dd></dl>
 
 <dl class="py function">
-<dt id="cms.templatetags.content_filters.remove">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">remove</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.remove" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.content_filters.remove">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag removes an object instance from a QuerySet.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1382,8 +1397,8 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 </dd></dl>
 
 <dl class="py function">
-<dt id="cms.templatetags.content_filters.translated_language_name">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></code><code class="sig-name descname"><span class="pre">translated_language_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.translated_language_name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.content_filters.translated_language_name">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">translated_language_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.translated_language_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag returns the name of the requested language in the current backend language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1402,8 +1417,8 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 <div class="section" id="module-cms.templatetags.form_icon_filters">
 <span id="form-icon-filters"></span><h2>Form Icon Filters<a class="headerlink" href="#module-cms.templatetags.form_icon_filters" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="cms.templatetags.form_icon_filters.strip_path">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.form_icon_filters.</span></code><code class="sig-name descname"><span class="pre">strip_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/form_icon_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.form_icon_filters.strip_path" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.form_icon_filters.strip_path">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.form_icon_filters.</span></span><span class="sig-name descname"><span class="pre">strip_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/form_icon_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.form_icon_filters.strip_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>strips the internal path of the icon file to show user only the file name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1423,8 +1438,8 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 <span id="page-filters"></span><h2>Page Filters<a class="headerlink" href="#module-cms.templatetags.page_filters" title="Permalink to this headline">¶</a></h2>
 <p>This is a collection of tags and filters for <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> objects.</p>
 <dl class="py function">
-<dt id="cms.templatetags.page_filters.get_last_root_page">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.page_filters.</span></code><code class="sig-name descname"><span class="pre">get_last_root_page</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/page_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.page_filters.get_last_root_page" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.page_filters.get_last_root_page">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.page_filters.</span></span><span class="sig-name descname"><span class="pre">get_last_root_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/page_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.page_filters.get_last_root_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag returns the last page on the root level.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1443,8 +1458,8 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 <div class="section" id="module-cms.templatetags.parse_struct_time">
 <span id="parse-struct-time"></span><h2>Parse Struct Time<a class="headerlink" href="#module-cms.templatetags.parse_struct_time" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="cms.templatetags.parse_struct_time.parse_struct_time">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.parse_struct_time.</span></code><code class="sig-name descname"><span class="pre">parse_struct_time</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">struct_time</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/parse_struct_time.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.parse_struct_time.parse_struct_time" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.parse_struct_time.parse_struct_time">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.parse_struct_time.</span></span><span class="sig-name descname"><span class="pre">parse_struct_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">struct_time</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/parse_struct_time.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.parse_struct_time.parse_struct_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts timestamp to datetime and returns date only</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1464,8 +1479,8 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 <span id="poi-filters"></span><h2>POI Filters<a class="headerlink" href="#module-cms.templatetags.poi_filters" title="Permalink to this headline">¶</a></h2>
 <p>This is a collection of tags and filters for points of interest (<a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>).</p>
 <dl class="py function">
-<dt id="cms.templatetags.poi_filters.poi_translation_title">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.poi_filters.</span></code><code class="sig-name descname"><span class="pre">poi_translation_title</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/poi_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.poi_filters.poi_translation_title" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.poi_filters.poi_translation_title">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.poi_filters.</span></span><span class="sig-name descname"><span class="pre">poi_translation_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/poi_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.poi_filters.poi_translation_title" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag returns the title of the most recent translation of the requested point of interest in the requested language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1489,8 +1504,8 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 <p>This is a collection of tags and filters for <a class="reference internal" href="cms.models.push_notifications.html#cms.models.push_notifications.push_notification.PushNotification" title="cms.models.push_notifications.push_notification.PushNotification"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotification</span></code></a>
 objects.</p>
 <dl class="py function">
-<dt id="cms.templatetags.push_notification_filters.translation">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.push_notification_filters.</span></code><code class="sig-name descname"><span class="pre">translation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">push_notification</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/push_notification_filters.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.push_notification_filters.translation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.push_notification_filters.translation">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.push_notification_filters.</span></span><span class="sig-name descname"><span class="pre">translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">push_notification</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/push_notification_filters.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.push_notification_filters.translation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This tag returns the most recent translation of the requested push notification in the requested language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1513,8 +1528,8 @@ objects.</p>
 <span id="text-filters"></span><h2>Text Filters<a class="headerlink" href="#module-cms.templatetags.text_filters" title="Permalink to this headline">¶</a></h2>
 <p>This is a collection of tags and filters for strings.</p>
 <dl class="py function">
-<dt id="cms.templatetags.text_filters.linkcheck_status_filter">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.text_filters.</span></code><code class="sig-name descname"><span class="pre">linkcheck_status_filter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_message</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/text_filters.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.text_filters.linkcheck_status_filter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.text_filters.linkcheck_status_filter">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.text_filters.</span></span><span class="sig-name descname"><span class="pre">linkcheck_status_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_message</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/text_filters.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.text_filters.linkcheck_status_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Due to a long status entry for a single kind of faulty link,
 this filter reduced the output when display in list view</p>
 <dl class="field-list simple">
@@ -1531,8 +1546,8 @@ this filter reduced the output when display in list view</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="cms.templatetags.text_filters.words">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.text_filters.</span></code><code class="sig-name descname"><span class="pre">words</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/text_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.text_filters.words" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.text_filters.words">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.text_filters.</span></span><span class="sig-name descname"><span class="pre">words</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/text_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.text_filters.words" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split the given text into a list of words, see <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str.split" title="(in Python v3.7)"><code class="docutils literal notranslate"><span class="pre">str.split()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1553,8 +1568,8 @@ this filter reduced the output when display in list view</p>
 <p>This is a collection of tags and filters for models which inherit from the MPTT model
 (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> and <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>).</p>
 <dl class="py function">
-<dt id="cms.templatetags.tree_filters.get_children">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.tree_filters.</span></code><code class="sig-name descname"><span class="pre">get_children</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/tree_filters.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.tree_filters.get_children" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.tree_filters.get_children">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.tree_filters.</span></span><span class="sig-name descname"><span class="pre">get_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/tree_filters.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.tree_filters.get_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>This filter returns the ids of all the node’s direct children.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1570,8 +1585,8 @@ this filter reduced the output when display in list view</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="cms.templatetags.tree_filters.get_descendants">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.tree_filters.</span></code><code class="sig-name descname"><span class="pre">get_descendants</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/tree_filters.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.tree_filters.get_descendants" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.tree_filters.get_descendants">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.tree_filters.</span></span><span class="sig-name descname"><span class="pre">get_descendants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/tree_filters.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.tree_filters.get_descendants" title="Permalink to this definition">¶</a></dt>
 <dd><p>This filter returns the ids of all the node’s descendants.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1591,8 +1606,8 @@ this filter reduced the output when display in list view</p>
 <span id="user-filters"></span><h2>User Filters<a class="headerlink" href="#module-cms.templatetags.user_filters" title="Permalink to this headline">¶</a></h2>
 <p>This is a collection of tags and filters which are useful for all user forms</p>
 <dl class="py function">
-<dt id="cms.templatetags.user_filters.remaining_regions">
-<code class="sig-prename descclassname"><span class="pre">cms.templatetags.user_filters.</span></code><code class="sig-name descname"><span class="pre">remaining_regions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_to_remove</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/user_filters.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.user_filters.remaining_regions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.templatetags.user_filters.remaining_regions">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.user_filters.</span></span><span class="sig-name descname"><span class="pre">remaining_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_to_remove</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/user_filters.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.user_filters.remaining_regions" title="Permalink to this definition">¶</a></dt>
 <dd><p>This calculates the remaining regions of a user after a given region is removed</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

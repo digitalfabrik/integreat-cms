@@ -14,6 +14,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -33,6 +35,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -277,6 +280,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
@@ -327,7 +331,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.media.html#document-form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -377,6 +384,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.html#icon-widget">Icon Widget</a></li>
 </ul>
@@ -416,7 +424,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref/cms.models.media.html#document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.models.media.html#media-file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.models.offers.html">Offers</a><ul>
@@ -486,9 +495,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -566,8 +575,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#media-actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#media-edit-view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -713,6 +722,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
@@ -763,7 +773,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.media.html#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.media.html#module-cms.forms.media.directory_form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.media.html#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.media.html#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -813,6 +826,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 </ul>
@@ -852,7 +866,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.media.html#module-cms.models.media.document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.media.html#module-cms.models.media.directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.media.html#module-cms.models.media.media_file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.models.offers.html">Offers</a><ul>
@@ -922,9 +937,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1002,8 +1017,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1362,32 +1377,32 @@ date on the generated html documentation by the modification date of the source 
 <p>This file only contains the options which deviate from the default values.
 For a full list see the documentation: <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html" title="(in Sphinx v5.0.0+)"><span>Configuration</span></a></p>
 <dl class="py data">
-<dt id="conf.author">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">author</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Integreat'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.author" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.author">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">author</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Integreat'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.author" title="Permalink to this definition">¶</a></dt>
 <dd><p>The project author</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.copyright">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">copyright</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'2020,</span> <span class="pre">Integreat'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.copyright" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.copyright">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">copyright</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'2020,</span> <span class="pre">Integreat'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.copyright" title="Permalink to this definition">¶</a></dt>
 <dd><p>The copyright notice</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.django_doc_version">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">django_doc_version</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'3.2'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.django_doc_version" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.django_doc_version">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">django_doc_version</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'3.2'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.django_doc_version" title="Permalink to this definition">¶</a></dt>
 <dd><p>The “major.minor” version of Django</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.django_settings">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">django_settings</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'backend.sphinx_settings'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.django_settings" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.django_settings">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">django_settings</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'backend.sphinx_settings'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.django_settings" title="Permalink to this definition">¶</a></dt>
 <dd><p>The path to the django settings module (see <a class="reference external" href="https://sphinxcontrib-django2.readthedocs.io/en/latest/readme.html" title="(in sphinxcontrib-django2)"><span>sphinxcontrib-django2</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.extensions">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">extensions</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['sphinx.ext.autodoc',</span> <span class="pre">'sphinx.ext.extlinks',</span> <span class="pre">'sphinx.ext.githubpages',</span> <span class="pre">'sphinx.ext.intersphinx',</span> <span class="pre">'sphinx.ext.linkcode',</span> <span class="pre">'sphinxcontrib_django2',</span> <span class="pre">'sphinx_rtd_theme',</span> <span class="pre">'sphinx_last_updated_by_git']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.extensions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.extensions">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">extensions</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['sphinx.ext.autodoc',</span> <span class="pre">'sphinx.ext.extlinks',</span> <span class="pre">'sphinx.ext.githubpages',</span> <span class="pre">'sphinx.ext.intersphinx',</span> <span class="pre">'sphinx.ext.linkcode',</span> <span class="pre">'sphinxcontrib_django2',</span> <span class="pre">'sphinx_rtd_theme',</span> <span class="pre">'sphinx_last_updated_by_git']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.extensions" title="Permalink to this definition">¶</a></dt>
 <dd><p>All enabled sphinx extensions (see <a class="reference internal" href="#sphinx-extensions"><span class="std std-ref">Extensions</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;sphinx.ext.autodoc&#39;</span><span class="p">,</span>
@@ -1404,8 +1419,8 @@ For a full list see the documentation: <a class="reference external" href="https
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.extlinks">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">extlinks</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'github':</span> <span class="pre">('https://github.com/Integreat/integreat-cms/%s',</span> <span class="pre">''),</span> <span class="pre">'github-source':</span> <span class="pre">('https://github.com/Integreat/integreat-cms/blob/develop/%s',</span> <span class="pre">'')}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.extlinks" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.extlinks">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">extlinks</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'github':</span> <span class="pre">('https://github.com/Integreat/integreat-cms/%s',</span> <span class="pre">''),</span> <span class="pre">'github-source':</span> <span class="pre">('https://github.com/Integreat/integreat-cms/blob/develop/%s',</span> <span class="pre">'')}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.extlinks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Markup to shorten external links (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html" title="(in Sphinx v5.0.0+)"><span>sphinx.ext.extlinks – Markup to shorten external links</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;github&#39;</span><span class="o">:</span> <span class="p">(</span><span class="s1">&#39;https://github.com/Integreat/integreat-cms/%s&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
@@ -1419,74 +1434,74 @@ For a full list see the documentation: <a class="reference external" href="https
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.github_pages_url">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">github_pages_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://Integreat.github.io/integreat-cms'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.github_pages_url" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.github_pages_url">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">github_pages_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'https://Integreat.github.io/integreat-cms'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.github_pages_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>GitHub pages URL (target of gh-pages branch)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.github_repository">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">github_repository</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'integreat-cms'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.github_repository" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.github_repository">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">github_repository</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'integreat-cms'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.github_repository" title="Permalink to this definition">¶</a></dt>
 <dd><p>GitHub repository name</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.github_url">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">github_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://github.com/Integreat/integreat-cms'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.github_url" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.github_url">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">github_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'https://github.com/Integreat/integreat-cms'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.github_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>GitHub URL</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.github_username">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">github_username</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Integreat'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.github_username" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.github_username">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">github_username</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Integreat'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.github_username" title="Permalink to this definition">¶</a></dt>
 <dd><p>GitHub username</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.html_baseurl">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">html_baseurl</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://Integreat.github.io/integreat-cms'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_baseurl" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.html_baseurl">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">html_baseurl</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'https://Integreat.github.io/integreat-cms'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_baseurl" title="Permalink to this definition">¶</a></dt>
 <dd><p>The url where the docs should be published (via gh-pages)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.html_favicon">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">html_favicon</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'../src/frontend/images/integreat-icon.png'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_favicon" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.html_favicon">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">html_favicon</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'../src/frontend/images/integreat-icon.png'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_favicon" title="Permalink to this definition">¶</a></dt>
 <dd><p>The facivon of the html doc files</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.html_last_updated_fmt">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">html_last_updated_fmt</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'%b</span> <span class="pre">%d,</span> <span class="pre">%Y'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_last_updated_fmt" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.html_last_updated_fmt">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">html_last_updated_fmt</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'%b</span> <span class="pre">%d,</span> <span class="pre">%Y'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_last_updated_fmt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Include last updated timestamp</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.html_logo">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">html_logo</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'../src/frontend/images/integreat-logo-white.png'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_logo" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.html_logo">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">html_logo</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'../src/frontend/images/integreat-logo-white.png'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_logo" title="Permalink to this definition">¶</a></dt>
 <dd><p>The logo shown in the menu bar</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.html_show_sourcelink">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">html_show_sourcelink</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_show_sourcelink" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.html_show_sourcelink">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">html_show_sourcelink</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_show_sourcelink" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not include links to the documentation source (.rst files) in build</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.html_show_sphinx">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">html_show_sphinx</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_show_sphinx" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.html_show_sphinx">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">html_show_sphinx</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_show_sphinx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not include a link to sphinx</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.html_theme">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">html_theme</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'sphinx_rtd_theme'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_theme" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.html_theme">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">html_theme</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'sphinx_rtd_theme'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p>The theme to use for HTML and HTML Help pages.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.html_theme_options">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">html_theme_options</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'collapse_navigation':</span> <span class="pre">False,</span> <span class="pre">'logo_only':</span> <span class="pre">False}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_theme_options" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.html_theme_options">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">html_theme_options</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'collapse_navigation':</span> <span class="pre">False,</span> <span class="pre">'logo_only':</span> <span class="pre">False}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.html_theme_options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not show the project name, only the logo</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;collapse_navigation&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span> <span class="s1">&#39;logo_only&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">}</span>
 </pre></div>
@@ -1494,8 +1509,8 @@ For a full list see the documentation: <a class="reference external" href="https
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.intersphinx_mapping">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">intersphinx_mapping</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'aiohttp':</span> <span class="pre">('https://docs.aiohttp.org/en/stable/',</span> <span class="pre">None),</span> <span class="pre">'django':</span> <span class="pre">('https://docs.djangoproject.com/en/3.2/',</span> <span class="pre">'https://docs.djangoproject.com/en/3.2/_objects/'),</span> <span class="pre">'django-filer':</span> <span class="pre">('https://django-filer.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'django-mptt':</span> <span class="pre">('https://django-mptt.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'easy-thumbnails':</span> <span class="pre">('https://easy-thumbnails.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'pipenv':</span> <span class="pre">('https://pipenv.pypa.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'python':</span> <span class="pre">('https://docs.python.org/3.7/',</span> <span class="pre">None),</span> <span class="pre">'requests':</span> <span class="pre">('https://requests.readthedocs.io/en/master/',</span> <span class="pre">None),</span> <span class="pre">'sphinx':</span> <span class="pre">('https://www.sphinx-doc.org/en/master/',</span> <span class="pre">None),</span> <span class="pre">'sphinx-rtd-theme':</span> <span class="pre">('https://sphinx-rtd-theme.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'sphinx-rtd-tutorial':</span> <span class="pre">('https://sphinx-rtd-tutorial.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'sphinxcontrib-django2':</span> <span class="pre">('https://sphinxcontrib-django2.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'wsgi':</span> <span class="pre">('https://wsgi.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'xhtml2pdf':</span> <span class="pre">('https://xhtml2pdf.readthedocs.io/en/latest/',</span> <span class="pre">None)}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.intersphinx_mapping" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.intersphinx_mapping">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">intersphinx_mapping</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'aiohttp':</span> <span class="pre">('https://docs.aiohttp.org/en/stable/',</span> <span class="pre">None),</span> <span class="pre">'django':</span> <span class="pre">('https://docs.djangoproject.com/en/3.2/',</span> <span class="pre">'https://docs.djangoproject.com/en/3.2/_objects/'),</span> <span class="pre">'django-filer':</span> <span class="pre">('https://django-filer.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'django-mptt':</span> <span class="pre">('https://django-mptt.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'easy-thumbnails':</span> <span class="pre">('https://easy-thumbnails.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'pipenv':</span> <span class="pre">('https://pipenv.pypa.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'python':</span> <span class="pre">('https://docs.python.org/3.7/',</span> <span class="pre">None),</span> <span class="pre">'requests':</span> <span class="pre">('https://requests.readthedocs.io/en/master/',</span> <span class="pre">None),</span> <span class="pre">'sphinx':</span> <span class="pre">('https://www.sphinx-doc.org/en/master/',</span> <span class="pre">None),</span> <span class="pre">'sphinx-rtd-theme':</span> <span class="pre">('https://sphinx-rtd-theme.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'sphinx-rtd-tutorial':</span> <span class="pre">('https://sphinx-rtd-tutorial.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'sphinxcontrib-django2':</span> <span class="pre">('https://sphinxcontrib-django2.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'wsgi':</span> <span class="pre">('https://wsgi.readthedocs.io/en/latest/',</span> <span class="pre">None),</span> <span class="pre">'xhtml2pdf':</span> <span class="pre">('https://xhtml2pdf.readthedocs.io/en/latest/',</span> <span class="pre">None)}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.intersphinx_mapping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable cross-references to other documentations</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;aiohttp&#39;</span><span class="o">:</span> <span class="p">(</span><span class="s1">&#39;https://docs.aiohttp.org/en/stable/&#39;</span><span class="p">,</span> <span class="nx">None</span><span class="p">),</span>
@@ -1533,8 +1548,8 @@ For a full list see the documentation: <a class="reference external" href="https
 </dd></dl>
 
 <dl class="py function">
-<dt id="conf.linkcode_resolve">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">linkcode_resolve</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.linkcode_resolve">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">linkcode_resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function adds source code links to all modules (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v5.0.0+)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a>).
 It links all classes and functions to their source files on GitHub including line numbers.</p>
 <dl class="field-list simple">
@@ -1554,8 +1569,8 @@ It links all classes and functions to their source files on GitHub including lin
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.modindex_common_prefix">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">modindex_common_prefix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['cms']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.modindex_common_prefix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.modindex_common_prefix">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">modindex_common_prefix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['cms']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.modindex_common_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of prefixes that are ignored for sorting the Python module index</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;cms&#39;</span><span class="p">]</span>
 </pre></div>
@@ -1563,8 +1578,8 @@ It links all classes and functions to their source files on GitHub including lin
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.nitpick_ignore">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">nitpick_ignore</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('py:class',</span> <span class="pre">'builtins.AssertionError'),</span> <span class="pre">('py:class',</span> <span class="pre">'builtins.int'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.chat_messages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.editable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.feedback'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.mfa_keys'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.imprint_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.poi_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.profile'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.publishable_pages'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.contrib.auth.tokens.PasswordResetTokenGenerator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.contrib.sitemaps.Sitemap._urls'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.handlers.WSGIHandler'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.forms.models.ModelChoiceIterator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.utils.text.capfirst'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.Linklist'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.models.Link'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.poi_translations'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.fields.TreeForeignKey'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.forms.TreeNodeChoiceField'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.models.MPTTModel'),</span> <span class="pre">('py:class',</span> <span class="pre">'realms.magic.unicorn'),</span> <span class="pre">('py:class',</span> <span class="pre">'webauthn.WebAuthnUser'),</span> <span class="pre">('js:func',</span> <span class="pre">'cms.static.js.pages.page_bulk_action.bulk_action_execute')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpick_ignore" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.nitpick_ignore">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">nitpick_ignore</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('py:class',</span> <span class="pre">'builtins.AssertionError'),</span> <span class="pre">('py:class',</span> <span class="pre">'builtins.int'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.chat_messages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.editable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.feedback'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.mfa_keys'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.imprint_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.poi_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.profile'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.publishable_pages'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.contrib.auth.tokens.PasswordResetTokenGenerator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.contrib.sitemaps.Sitemap._urls'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.handlers.WSGIHandler'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.forms.models.ModelChoiceIterator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.utils.text.capfirst'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.Linklist'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.models.Link'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.poi_translations'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.fields.TreeForeignKey'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.forms.TreeNodeChoiceField'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.models.MPTTModel'),</span> <span class="pre">('py:class',</span> <span class="pre">'realms.magic.unicorn'),</span> <span class="pre">('py:class',</span> <span class="pre">'webauthn.WebAuthnUser'),</span> <span class="pre">('js:func',</span> <span class="pre">'cms.static.js.pages.page_bulk_action.bulk_action_execute')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpick_ignore" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of (type, target) tuples that should be ignored when <a class="reference internal" href="#conf.nitpicky" title="conf.nitpicky"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nitpicky</span></code></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;builtins.AssertionError&#39;</span><span class="p">),</span>
@@ -1601,32 +1616,32 @@ It links all classes and functions to their source files on GitHub including lin
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.nitpicky">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">nitpicky</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpicky" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.nitpicky">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">nitpicky</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpicky" title="Permalink to this definition">¶</a></dt>
 <dd><p>Warn about all references where the target cannot be found</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.project">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">project</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'integreat-cms'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.project" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.project">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">project</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'integreat-cms'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.project" title="Permalink to this definition">¶</a></dt>
 <dd><p>The project name</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.release">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">release</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'0.0.14'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.release" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.release">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">release</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'0.0.14'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.release" title="Permalink to this definition">¶</a></dt>
 <dd><p>The full version, including alpha/beta/rc tags</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.rst_epilog">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">rst_epilog</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'\n..</span> <span class="pre">|github-username|</span> <span class="pre">replace::</span> <span class="pre">Integreat\n..</span> <span class="pre">|github-repository|</span> <span class="pre">replace::</span> <span class="pre">integreat-cms\n..</span> <span class="pre">|github-pages-url|</span> <span class="pre">replace::</span> <span class="pre">https://Integreat.github.io/integreat-cms\n'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.rst_epilog" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.rst_epilog">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">rst_epilog</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'\n..</span> <span class="pre">|github-username|</span> <span class="pre">replace::</span> <span class="pre">Integreat\n..</span> <span class="pre">|github-repository|</span> <span class="pre">replace::</span> <span class="pre">integreat-cms\n..</span> <span class="pre">|github-pages-url|</span> <span class="pre">replace::</span> <span class="pre">https://Integreat.github.io/integreat-cms\n'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.rst_epilog" title="Permalink to this definition">¶</a></dt>
 <dd><p>A string of reStructuredText that will be included at the end of every source file that is read. Used for substitutions.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="conf.templates_path">
-<code class="sig-prename descclassname"><span class="pre">conf.</span></code><code class="sig-name descname"><span class="pre">templates_path</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['templates']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.templates_path" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="conf.templates_path">
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">templates_path</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['templates']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.templates_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>The path for patched template files</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;templates&#39;</span><span class="p">]</span>
 </pre></div>

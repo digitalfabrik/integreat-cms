@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-06-25T11:23:06+00:00" />
+    <meta property="article:modified_time" content="2021-06-22T16:38:19+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
@@ -14,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -33,6 +35,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -277,6 +280,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
@@ -327,7 +331,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#document-form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -377,6 +384,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
 </ul>
@@ -416,7 +424,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#media-file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
@@ -486,9 +495,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -566,8 +575,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-edit-view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -713,6 +722,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
@@ -763,7 +773,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.directory_form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -813,6 +826,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 </ul>
@@ -852,7 +866,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.media.html#module-cms.models.media.document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.media.html#module-cms.models.media.directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.media.html#module-cms.models.media.media_file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.offers.html">Offers</a><ul>
@@ -922,9 +937,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1002,8 +1017,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1214,8 +1229,8 @@
 <h2>Context Processors<a class="headerlink" href="#context-processors" title="Permalink to this headline">¶</a></h2>
 <p>Context processors pass additional variables to templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/templates/api/#context-processors" title="(in Django v3.2)"><span>Built-in template context processors</span></a>).</p>
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.context_processors.</span></code><code class="sig-name descname"><span class="pre">region_slug_processor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/context_processors.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.context_processors.</span></span><span class="sig-name descname"><span class="pre">region_slug_processor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/context_processors.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This context processor retrieves the current <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter and passes it to the templates.
 Additionally, the <code class="docutils literal notranslate"><span class="pre">other_regions</span></code>-variable contains all other regions which are available via quick access.
 Usually, these are the regions configured in each user’s user profile, but if there are none set, we just list all
@@ -1242,8 +1257,8 @@ The docker container started in <a class="reference external" href="https://gith
 <p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/settings/" title="(in Django v3.2)"><span>Django settings</span></a>.
 For the full list of settings and their values, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/" title="(in Django v3.2)"><span>Settings</span></a>.</p>
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.docker_settings.</span></code><code class="sig-name descname"><span class="pre">DATABASES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'default':</span> <span class="pre">{'ENGINE':</span> <span class="pre">'django.db.backends.postgresql_psycopg2',</span> <span class="pre">'HOST':</span> <span class="pre">'localhost',</span> <span class="pre">'NAME':</span> <span class="pre">'integreat',</span> <span class="pre">'PASSWORD':</span> <span class="pre">'password',</span> <span class="pre">'PORT':</span> <span class="pre">'5433',</span> <span class="pre">'USER':</span> <span class="pre">'integreat'}}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/docker_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.docker_settings.</span></span><span class="sig-name descname"><span class="pre">DATABASES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'default':</span> <span class="pre">{'ENGINE':</span> <span class="pre">'django.db.backends.postgresql_psycopg2',</span> <span class="pre">'HOST':</span> <span class="pre">'localhost',</span> <span class="pre">'NAME':</span> <span class="pre">'integreat',</span> <span class="pre">'PASSWORD':</span> <span class="pre">'password',</span> <span class="pre">'PORT':</span> <span class="pre">'5433',</span> <span class="pre">'USER':</span> <span class="pre">'integreat'}}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/docker_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A dictionary containing the settings for all databases to be used with this Django installation
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DATABASES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -1264,19 +1279,19 @@ For the full list of settings and their values, see <a class="reference external
 <div class="section" id="logging-formatter">
 <h2>Logging Formatter<a class="headerlink" href="#logging-formatter" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt>
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">backend.logging_formatter.</span></code><code class="sig-name descname"><span class="pre">ColorFormatter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datefmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/logging_formatter.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">backend.logging_formatter.</span></span><span class="sig-name descname"><span class="pre">ColorFormatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datefmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/logging_formatter.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/logging.html#logging.Formatter" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Formatter</span></code></a></p>
 <p>Logging Formatter to add colors</p>
 <dl class="py attribute">
-<dt>
-<code class="sig-name descname"><span class="pre">COLORS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{10:</span> <span class="pre">36,</span> <span class="pre">20:</span> <span class="pre">34,</span> <span class="pre">30:</span> <span class="pre">33,</span> <span class="pre">40:</span> <span class="pre">31,</span> <span class="pre">50:</span> <span class="pre">31}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/logging_formatter.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">COLORS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{10:</span> <span class="pre">36,</span> <span class="pre">20:</span> <span class="pre">34,</span> <span class="pre">30:</span> <span class="pre">33,</span> <span class="pre">40:</span> <span class="pre">31,</span> <span class="pre">50:</span> <span class="pre">31}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/logging_formatter.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The bash color codes for the different logging levels</p>
 </dd></dl>
 
 <dl class="py method">
-<dt>
-<code class="sig-name descname"><span class="pre">format</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/logging_formatter.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/logging_formatter.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Format the specified record as colored text (see <a class="reference external" href="https://docs.python.org/3.7/library/logging.html#logging.Formatter.format" title="(in Python v3.7)"><code class="docutils literal notranslate"><span class="pre">logging.Formatter.format()</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1332,8 +1347,8 @@ For the full list of settings and their values, see <a class="reference external
 </ul>
 </div></blockquote>
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">ADMINS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('Integreat</span> <span class="pre">Helpdesk',</span> <span class="pre">'tech&#64;integreat-app.de')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">ADMINS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('Integreat</span> <span class="pre">Helpdesk',</span> <span class="pre">'tech&#64;integreat-app.de')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A list of all the people who get code error notifications. When <a class="reference internal" href="../ref-ext/backend.html#backend.settings.DEBUG" title="backend.settings.DEBUG"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DEBUG</span></code></a> is <code class="docutils literal notranslate"><span class="pre">False</span></code>,
 Django emails these people the details of exceptions raised in the request/response cycle.</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[(</span><span class="s1">&#39;Integreat Helpdesk&#39;</span><span class="p">,</span> <span class="s1">&#39;tech@integreat-app.de&#39;</span><span class="p">)]</span>
@@ -1342,8 +1357,8 @@ Django emails these people the details of exceptions raised in the request/respo
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">ALLOWED_HOSTS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['localhost',</span> <span class="pre">'127.0.0.1',</span> <span class="pre">'0.0.0.0']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">ALLOWED_HOSTS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['localhost',</span> <span class="pre">'127.0.0.1',</span> <span class="pre">'0.0.0.0']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This is a security measure to prevent HTTP Host header attacks, which are possible even under many seemingly-safe
 web server configurations (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-ALLOWED_HOSTS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/security/#host-headers-virtual-hosting" title="(in Django v3.2)"><span>Host header validation</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">]</span>
@@ -1352,14 +1367,14 @@ web server configurations (see <a class="reference external" href="https://docs.
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">API_EVENTS_MAX_TIME_SPAN_DAYS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">31</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">API_EVENTS_MAX_TIME_SPAN_DAYS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">31</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The time span up to which recurrent events should be returned by the api</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">AUTHENTICATION_BACKENDS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('rules.permissions.ObjectPermissionBackend',</span> <span class="pre">'django.contrib.auth.backends.ModelBackend')</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">AUTHENTICATION_BACKENDS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('rules.permissions.ObjectPermissionBackend',</span> <span class="pre">'django.contrib.auth.backends.ModelBackend')</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A list of authentication backend classes (as strings) to use when attempting to authenticate a user
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-AUTHENTICATION_BACKENDS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">AUTHENTICATION_BACKENDS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#authentication-backends" title="(in Django v3.2)"><span>Other authentication sources</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
@@ -1371,14 +1386,14 @@ web server configurations (see <a class="reference external" href="https://docs.
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">AUTHOR_CHAT_HISTORY_DAYS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">30</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">AUTHOR_CHAT_HISTORY_DAYS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">30</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>How many days of chat history should be shown</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},</span> <span class="pre">{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.MinimumLengthValidator'},</span> <span class="pre">{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.CommonPasswordValidator'},</span> <span class="pre">{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.NumericPasswordValidator'}]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},</span> <span class="pre">{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.MinimumLengthValidator'},</span> <span class="pre">{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.CommonPasswordValidator'},</span> <span class="pre">{'NAME':</span> <span class="pre">'django.contrib.auth.password_validation.NumericPasswordValidator'}]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The list of validators that are used to check the strength of user’s passwords
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-AUTH_PASSWORD_VALIDATORS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">AUTH_PASSWORD_VALIDATORS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/passwords/#password-validation" title="(in Django v3.2)"><span>Password validation</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
@@ -1398,14 +1413,14 @@ web server configurations (see <a class="reference external" href="https://docs.
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">BASE_DIR</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">BASE_DIR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Build paths inside the project like this: <code class="docutils literal notranslate"><span class="pre">os.path.join(BASE_DIR,</span> <span class="pre">...)</span></code></p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">BASE_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'http://localhost:8000'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">BASE_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'http://localhost:8000'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Needed for <a class="reference external" href="https://pypi.org/project/webauthn/">webauthn</a>
 (this is a setting in case the application runs behind a proxy).
 Used in the following views:</p>
@@ -1416,8 +1431,8 @@ Used in the following views:</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">BLOG_URLS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'de':</span> <span class="pre">'https://integreat-app.de/blog/',</span> <span class="pre">'en':</span> <span class="pre">'https://integreat-app.de/en/blog/'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">BLOG_URLS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'de':</span> <span class="pre">'https://integreat-app.de/blog/',</span> <span class="pre">'en':</span> <span class="pre">'https://integreat-app.de/en/blog/'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>URLs to the Integreat blog</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;de&#39;</span><span class="o">:</span> <span class="s1">&#39;https://integreat-app.de/blog/&#39;</span><span class="p">,</span>
@@ -1428,8 +1443,8 @@ Used in the following views:</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">CACHES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'default':</span> <span class="pre">{'BACKEND':</span> <span class="pre">'django.core.cache.backends.filebased.FileBasedCache',</span> <span class="pre">'LOCATION':</span> <span class="pre">'/home/circleci/project/src/cms/static/CACHE/django_cache'}}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">CACHES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'default':</span> <span class="pre">{'BACKEND':</span> <span class="pre">'django.core.cache.backends.filebased.FileBasedCache',</span> <span class="pre">'LOCATION':</span> <span class="pre">'/home/circleci/project/src/cms/static/CACHE/django_cache'}}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Configuration for PDF cache (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-CACHES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">CACHES</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;default&#39;</span><span class="o">:</span> <span class="p">{</span>
@@ -1442,8 +1457,8 @@ Used in the following views:</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">CORS_ALLOW_HEADERS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['accept',</span> <span class="pre">'accept-encoding',</span> <span class="pre">'authorization',</span> <span class="pre">'content-type',</span> <span class="pre">'dnt',</span> <span class="pre">'origin',</span> <span class="pre">'user-agent',</span> <span class="pre">'x-csrftoken',</span> <span class="pre">'x-requested-with',</span> <span class="pre">'x-integreat-development']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">CORS_ALLOW_HEADERS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['accept',</span> <span class="pre">'accept-encoding',</span> <span class="pre">'authorization',</span> <span class="pre">'content-type',</span> <span class="pre">'dnt',</span> <span class="pre">'origin',</span> <span class="pre">'user-agent',</span> <span class="pre">'x-csrftoken',</span> <span class="pre">'x-requested-with',</span> <span class="pre">'x-integreat-development']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Extend default headers with development header to differenciate dev traffic in statistics
 (see <a class="reference external" href="https://pypi.org/project/django-cors-headers/">django-cors-headers/</a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
@@ -1463,28 +1478,28 @@ Used in the following views:</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">CORS_ORIGIN_ALLOW_ALL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">CORS_ORIGIN_ALLOW_ALL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Allow access to all domains by setting the following variable to <code class="docutils literal notranslate"><span class="pre">True</span></code>
 (see <a class="reference external" href="https://pypi.org/project/django-cors-headers/">django-cors-headers/</a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">CSRF_FAILURE_VIEW</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'cms.views.error_handler.csrf_failure'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">CSRF_FAILURE_VIEW</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'cms.views.error_handler.csrf_failure'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A dotted path to the view function to be used when an incoming request is rejected by the CSRF protection
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-CSRF_FAILURE_VIEW" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">CSRF_FAILURE_VIEW</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">CURRENT_TIME_ZONE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'Europe/Berlin'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">CURRENT_TIME_ZONE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Europe/Berlin'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A string representing the time zone that is used for rendering</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DATABASES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'default':</span> <span class="pre">{'ATOMIC_REQUESTS':</span> <span class="pre">False,</span> <span class="pre">'AUTOCOMMIT':</span> <span class="pre">True,</span> <span class="pre">'CONN_MAX_AGE':</span> <span class="pre">0,</span> <span class="pre">'ENGINE':</span> <span class="pre">'django.db.backends.postgresql_psycopg2',</span> <span class="pre">'HOST':</span> <span class="pre">'localhost',</span> <span class="pre">'NAME':</span> <span class="pre">'integreat',</span> <span class="pre">'OPTIONS':</span> <span class="pre">{},</span> <span class="pre">'PASSWORD':</span> <span class="pre">'password',</span> <span class="pre">'PORT':</span> <span class="pre">'5432',</span> <span class="pre">'TEST':</span> <span class="pre">{'CHARSET':</span> <span class="pre">None,</span> <span class="pre">'COLLATION':</span> <span class="pre">None,</span> <span class="pre">'MIGRATE':</span> <span class="pre">True,</span> <span class="pre">'MIRROR':</span> <span class="pre">None,</span> <span class="pre">'NAME':</span> <span class="pre">None},</span> <span class="pre">'TIME_ZONE':</span> <span class="pre">None,</span> <span class="pre">'USER':</span> <span class="pre">'integreat'}}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">DATABASES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'default':</span> <span class="pre">{'ATOMIC_REQUESTS':</span> <span class="pre">False,</span> <span class="pre">'AUTOCOMMIT':</span> <span class="pre">True,</span> <span class="pre">'CONN_MAX_AGE':</span> <span class="pre">0,</span> <span class="pre">'ENGINE':</span> <span class="pre">'django.db.backends.postgresql_psycopg2',</span> <span class="pre">'HOST':</span> <span class="pre">'localhost',</span> <span class="pre">'NAME':</span> <span class="pre">'integreat',</span> <span class="pre">'OPTIONS':</span> <span class="pre">{},</span> <span class="pre">'PASSWORD':</span> <span class="pre">'password',</span> <span class="pre">'PORT':</span> <span class="pre">'5432',</span> <span class="pre">'TEST':</span> <span class="pre">{'CHARSET':</span> <span class="pre">None,</span> <span class="pre">'COLLATION':</span> <span class="pre">None,</span> <span class="pre">'MIGRATE':</span> <span class="pre">True,</span> <span class="pre">'MIRROR':</span> <span class="pre">None,</span> <span class="pre">'NAME':</span> <span class="pre">None},</span> <span class="pre">'TIME_ZONE':</span> <span class="pre">None,</span> <span class="pre">'USER':</span> <span class="pre">'integreat'}}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A dictionary containing the settings for all databases to be used with this Django installation
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DATABASES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -1514,8 +1529,8 @@ Used in the following views:</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DEBUG</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">DEBUG</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A boolean that turns on/off debug mode (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DEBUG" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a>)</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1524,78 +1539,78 @@ Used in the following views:</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DEFAULT_AUTO_FIELD</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'django.db.models.BigAutoField'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_AUTO_FIELD</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'django.db.models.BigAutoField'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Default primary key field type to use for models that don’t have a field with
 <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.Field.primary_key" title="(in Django v3.2)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">primary_key=True</span></code></a>. (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DEFAULT_AUTO_FIELD" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DEFAULT_AUTO_FIELD</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DEFAULT_FROM_EMAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'keineantwort&#64;integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_FROM_EMAIL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'keineantwort&#64;integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Default email address to use for various automated correspondence from the site manager(s)
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-DEFAULT_FROM_EMAIL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DEFAULT_FROM_EMAIL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DEFAULT_LOGFILE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/var/log/integreat-cms.log'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_LOGFILE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/var/log/integreat-cms.log'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The default location of the logfile</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">DEPS_LOG_LEVEL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'INFO'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">DEPS_LOG_LEVEL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'INFO'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The log level for dependencies</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">EMAIL_BACKEND</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'django.core.mail.backends.console.EmailBackend'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">EMAIL_BACKEND</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'django.core.mail.backends.console.EmailBackend'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The backend to use for sending emails (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-EMAIL_BACKEND" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">EMAIL_BACKEND</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/email/" title="(in Django v3.2)"><span>Sending email</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">EMAIL_HOST</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'localhost'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">EMAIL_HOST</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'localhost'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The host to use for sending email.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">EMAIL_HOST_PASSWORD</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">EMAIL_HOST_PASSWORD</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Password to use for the SMTP server defined in <a class="reference internal" href="../ref-ext/backend.html#backend.settings.EMAIL_HOST" title="backend.settings.EMAIL_HOST"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EMAIL_HOST</span></code></a>.
 If empty, Django won’t attempt authentication.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">EMAIL_HOST_USER</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">EMAIL_HOST_USER</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Username to use for the SMTP server defined in <a class="reference internal" href="../ref-ext/backend.html#backend.settings.EMAIL_HOST" title="backend.settings.EMAIL_HOST"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EMAIL_HOST</span></code></a>.
 If empty, Django won’t attempt authentication.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">EMAIL_PORT</span></code><em class="property"> <span class="pre">=</span> <span class="pre">25</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">EMAIL_PORT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">25</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Port to use for the SMTP server defined in <a class="reference internal" href="../ref-ext/backend.html#backend.settings.EMAIL_HOST" title="backend.settings.EMAIL_HOST"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EMAIL_HOST</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">FCM_KEY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">FCM_KEY</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Authentification Token for the Firebase API. This needs to be set for a correct usage of the Messages Feature.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">FILER_CANONICAL_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'media/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">FILER_CANONICAL_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'media/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Defines the path element common to all canonical file URLs. (see <a class="reference external" href="https://django-filer.readthedocs.io/en/latest/settings.html" title="(in django-filer v1.4)"><span class="xref std std-doc">Django Filer Settings</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">FIXTURE_DIRS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('/home/circleci/project/src/cms/fixtures/',)</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">FIXTURE_DIRS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('/home/circleci/project/src/cms/fixtures/',)</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Directory for initial database contents (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-FIXTURE_DIRS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">FIXTURE_DIRS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;/home/circleci/project/src/cms/fixtures/&#39;</span><span class="p">,</span> <span class="p">)</span>
 </pre></div>
@@ -1603,22 +1618,22 @@ If empty, Django won’t attempt authentication.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">GVZ_API_ENABLED</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">GVZ_API_ENABLED</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Whether or not the GVZ (Gemeindeverzeichnis) API is enabled. This is used to automatically import coordinates and
 region aliases (see <a class="reference internal" href="../ref-ext/gvz_api.html#module-gvz_api" title="gvz_api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gvz_api</span></code></a> for more information).</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">GVZ_API_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://gvz.integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">GVZ_API_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'https://gvz.integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The URL to our GVZ (Gemeindeverzeichnis) API. This is used to automatically import coordinates and region aliases
 (see <a class="reference internal" href="../ref-ext/gvz_api.html#module-gvz_api" title="gvz_api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gvz_api</span></code></a> for more information).</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">HOSTNAME</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'localhost'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">HOSTNAME</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'localhost'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Needed for <a class="reference external" href="https://pypi.org/project/webauthn/">webauthn</a>
 (this is a setting in case the application runs behind a proxy).
 Used in the following views:</p>
@@ -1631,14 +1646,14 @@ Used in the following views:</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">IMPRINT_SLUG</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'imprint'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">IMPRINT_SLUG</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'imprint'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The slug for the legal notice (see e.g. <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.imprint_page_translation.ImprintPageTranslation" title="cms.models.pages.imprint_page_translation.ImprintPageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPageTranslation</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">INSTALLED_APPS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['cms.apps.CmsConfig',</span> <span class="pre">'gvz_api.apps.GvzApiConfig',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'easy_thumbnails',</span> <span class="pre">'filer',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig',</span> <span class="pre">'linkcheck',</span> <span class="pre">'django.contrib.admin']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">INSTALLED_APPS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['cms.apps.CmsConfig',</span> <span class="pre">'gvz_api.apps.GvzApiConfig',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig',</span> <span class="pre">'linkcheck',</span> <span class="pre">'django.contrib.admin']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Enabled applications (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-INSTALLED_APPS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;cms.apps.CmsConfig&#39;</span><span class="p">,</span>
@@ -1651,8 +1666,6 @@ Used in the following views:</p>
     <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
     <span class="s1">&#39;corsheaders&#39;</span><span class="p">,</span>
     <span class="s1">&#39;widget_tweaks&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;easy_thumbnails&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;filer&#39;</span><span class="p">,</span>
     <span class="s1">&#39;mptt&#39;</span><span class="p">,</span>
     <span class="s1">&#39;rules.apps.AutodiscoverRulesConfig&#39;</span><span class="p">,</span>
     <span class="s1">&#39;linkcheck&#39;</span><span class="p">,</span>
@@ -1663,8 +1676,8 @@ Used in the following views:</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">INTERNAL_IPS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['localhost',</span> <span class="pre">'127.0.0.1']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">INTERNAL_IPS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['localhost',</span> <span class="pre">'127.0.0.1']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A list of IP addresses, as strings, that allow the <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/templates/api/#django.template.context_processors.debug" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">debug()</span></code></a> context
 processor to add some variables to the template context.</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">]</span>
@@ -1673,8 +1686,8 @@ processor to add some variables to the template context.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LANGUAGES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">(('en',</span> <span class="pre">'English'),</span> <span class="pre">('de',</span> <span class="pre">'Deutsch'))</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">LANGUAGES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">(('en',</span> <span class="pre">'English'),</span> <span class="pre">('de',</span> <span class="pre">'Deutsch'))</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A list of all available languages (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LANGUAGES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">((</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;English&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="s1">&#39;Deutsch&#39;</span><span class="p">))</span>
 </pre></div>
@@ -1682,15 +1695,15 @@ processor to add some variables to the template context.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LANGUAGE_CODE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">LANGUAGE_CODE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A string representing the language slug for this installation
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LANGUAGE_CODE" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LANGUAGE_CODE</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOCALE_PATHS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('/home/circleci/project/src/locale',)</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">LOCALE_PATHS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('/home/circleci/project/src/locale',)</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A list of directories where Django looks for translation files
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOCALE_PATHS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOCALE_PATHS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;/home/circleci/project/src/locale&#39;</span><span class="p">,</span> <span class="p">)</span>
@@ -1699,15 +1712,15 @@ processor to add some variables to the template context.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGFILE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/integreat-cms.log'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">LOGFILE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/integreat-cms.log'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The file path of the logfile. Needs to be writable by the application.
 Defaults to <a class="reference internal" href="../ref-ext/backend.html#backend.settings.DEFAULT_LOGFILE" title="backend.settings.DEFAULT_LOGFILE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DEFAULT_LOGFILE</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGGING</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'disable_existing_loggers':</span> <span class="pre">False,</span> <span class="pre">'filters':</span> <span class="pre">{'require_debug_false':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugFalse'},</span> <span class="pre">'require_debug_true':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugTrue'}},</span> <span class="pre">'formatters':</span> <span class="pre">{'console':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">\x1b[1m{levelname}\x1b[0m</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'console-colored':</span> <span class="pre">{'()':</span> <span class="pre">&lt;class</span> <span class="pre">'backend.logging_formatter.ColorFormatter'&gt;,</span> <span class="pre">'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">{levelname}</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'email':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%Y-%m-%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'Date</span> <span class="pre">and</span> <span class="pre">time:</span> <span class="pre">{asctime}\nSeverity:</span> <span class="pre">{levelname}\nLogger:</span> <span class="pre">{name}\nMessage:</span> <span class="pre">{message}\nFile:</span> <span class="pre">{funcName}()</span> <span class="pre">in</span> <span class="pre">{pathname}:{lineno}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'logfile':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">{levelname:7}</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'syslog':</span> <span class="pre">{'format':</span> <span class="pre">'INTEGREAT</span> <span class="pre">CMS</span> <span class="pre">-</span> <span class="pre">{levelname}:</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'}},</span> <span class="pre">'handlers':</span> <span class="pre">{'authlog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'auth',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'syslog'},</span> <span class="pre">'console':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_true'],</span> <span class="pre">'formatter':</span> <span class="pre">'console'},</span> <span class="pre">'console-colored':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_true'],</span> <span class="pre">'formatter':</span> <span class="pre">'console-colored'},</span> <span class="pre">'logfile':</span> <span class="pre">{'class':</span> <span class="pre">'logging.FileHandler',</span> <span class="pre">'filename':</span> <span class="pre">'/home/circleci/project/src/integreat-cms.log',</span> <span class="pre">'formatter':</span> <span class="pre">'logfile'},</span> <span class="pre">'mail_admins':</span> <span class="pre">{'class':</span> <span class="pre">'django.utils.log.AdminEmailHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'email',</span> <span class="pre">'level':</span> <span class="pre">'ERROR'},</span> <span class="pre">'syslog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'syslog',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false']}},</span> <span class="pre">'loggers':</span> <span class="pre">{'PIL':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'aiohttp.client':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'auth':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile',</span> <span class="pre">'authlog',</span> <span class="pre">'syslog'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'backend':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'cms':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'django':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'filer':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'gvz_api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'requests':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'rules':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'sitemap':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'urllib3':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'xhtml2pdf':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'}},</span> <span class="pre">'version':</span> <span class="pre">1}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">LOGGING</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'disable_existing_loggers':</span> <span class="pre">False,</span> <span class="pre">'filters':</span> <span class="pre">{'require_debug_false':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugFalse'},</span> <span class="pre">'require_debug_true':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugTrue'}},</span> <span class="pre">'formatters':</span> <span class="pre">{'console':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">\x1b[1m{levelname}\x1b[0m</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'console-colored':</span> <span class="pre">{'()':</span> <span class="pre">&lt;class</span> <span class="pre">'backend.logging_formatter.ColorFormatter'&gt;,</span> <span class="pre">'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">{levelname}</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'email':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%Y-%m-%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'Date</span> <span class="pre">and</span> <span class="pre">time:</span> <span class="pre">{asctime}\nSeverity:</span> <span class="pre">{levelname}\nLogger:</span> <span class="pre">{name}\nMessage:</span> <span class="pre">{message}\nFile:</span> <span class="pre">{funcName}()</span> <span class="pre">in</span> <span class="pre">{pathname}:{lineno}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'logfile':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">{levelname:7}</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'syslog':</span> <span class="pre">{'format':</span> <span class="pre">'INTEGREAT</span> <span class="pre">CMS</span> <span class="pre">-</span> <span class="pre">{levelname}:</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'}},</span> <span class="pre">'handlers':</span> <span class="pre">{'authlog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'auth',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'syslog'},</span> <span class="pre">'console':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_true'],</span> <span class="pre">'formatter':</span> <span class="pre">'console'},</span> <span class="pre">'console-colored':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_true'],</span> <span class="pre">'formatter':</span> <span class="pre">'console-colored'},</span> <span class="pre">'logfile':</span> <span class="pre">{'class':</span> <span class="pre">'logging.FileHandler',</span> <span class="pre">'filename':</span> <span class="pre">'/home/circleci/project/src/integreat-cms.log',</span> <span class="pre">'formatter':</span> <span class="pre">'logfile'},</span> <span class="pre">'mail_admins':</span> <span class="pre">{'class':</span> <span class="pre">'django.utils.log.AdminEmailHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'email',</span> <span class="pre">'level':</span> <span class="pre">'ERROR'},</span> <span class="pre">'syslog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'syslog',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false']}},</span> <span class="pre">'loggers':</span> <span class="pre">{'PIL':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'aiohttp.client':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'auth':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile',</span> <span class="pre">'authlog',</span> <span class="pre">'syslog'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'backend':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'cms':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'django':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'filer':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'gvz_api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'requests':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'rules':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'sitemap':</span> <span class="pre">{'handlers':</span> <span class="pre">['console-colored',</span> <span class="pre">'logfile',</span> <span class="pre">'mail_admins'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'urllib3':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'xhtml2pdf':</span> <span class="pre">{'handlers':</span> <span class="pre">['console',</span> <span class="pre">'logfile'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'}},</span> <span class="pre">'version':</span> <span class="pre">1}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Logging configuration dictionary (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOGGING" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOGGING</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;disable_existing_loggers&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span>
@@ -1801,50 +1814,50 @@ Defaults to <a class="reference internal" href="../ref-ext/backend.html#backend.
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGIN_REDIRECT_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">LOGIN_REDIRECT_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The URL where requests are redirected after login (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOGIN_REDIRECT_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOGIN_REDIRECT_URL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGIN_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/login'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">LOGIN_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/login'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The URL where requests are redirected for login (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOGIN_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOGIN_URL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOGOUT_REDIRECT_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/login'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">LOGOUT_REDIRECT_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/login'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The URL where requests are redirected after logout (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOGOUT_REDIRECT_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOGOUT_REDIRECT_URL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">LOG_LEVEL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'DEBUG'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">LOG_LEVEL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'DEBUG'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The log level for integreat-cms django apps</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">MATOMO_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://statistics.integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">MATOMO_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'https://statistics.integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The URL to the Matomo statistics server.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">MEDIA_ROOT</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/media'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">MEDIA_ROOT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/media'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Absolute filesystem path to the directory that will hold user-uploaded files (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MEDIA_ROOT" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">MEDIA_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/media/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">MEDIA_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/media/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>URL that handles the media served from <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MEDIA_ROOT" title="(in Django v3.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a> (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MEDIA_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">MIDDLEWARE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['corsheaders.middleware.CorsMiddleware',</span> <span class="pre">'django.middleware.security.SecurityMiddleware',</span> <span class="pre">'django.contrib.sessions.middleware.SessionMiddleware',</span> <span class="pre">'django.middleware.locale.LocaleMiddleware',</span> <span class="pre">'django.middleware.common.CommonMiddleware',</span> <span class="pre">'django.middleware.csrf.CsrfViewMiddleware',</span> <span class="pre">'django.contrib.auth.middleware.AuthenticationMiddleware',</span> <span class="pre">'django.contrib.messages.middleware.MessageMiddleware',</span> <span class="pre">'django.middleware.clickjacking.XFrameOptionsMiddleware',</span> <span class="pre">'cms.middleware.timezone_middleware.TimezoneMiddleware']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">MIDDLEWARE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['corsheaders.middleware.CorsMiddleware',</span> <span class="pre">'django.middleware.security.SecurityMiddleware',</span> <span class="pre">'django.contrib.sessions.middleware.SessionMiddleware',</span> <span class="pre">'django.middleware.locale.LocaleMiddleware',</span> <span class="pre">'django.middleware.common.CommonMiddleware',</span> <span class="pre">'django.middleware.csrf.CsrfViewMiddleware',</span> <span class="pre">'django.contrib.auth.middleware.AuthenticationMiddleware',</span> <span class="pre">'django.contrib.messages.middleware.MessageMiddleware',</span> <span class="pre">'django.middleware.clickjacking.XFrameOptionsMiddleware',</span> <span class="pre">'cms.middleware.timezone_middleware.TimezoneMiddleware']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Activated middlewares (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MIDDLEWARE" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;corsheaders.middleware.CorsMiddleware&#39;</span><span class="p">,</span>
@@ -1863,21 +1876,21 @@ Defaults to <a class="reference internal" href="../ref-ext/backend.html#backend.
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">PER_PAGE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">16</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">PER_PAGE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">16</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Number of entries displayed per pagination chunk
 see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Paginator</span></code></a></p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">ROOT_URLCONF</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'backend.urls'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">ROOT_URLCONF</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'backend.urls'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Default URL dispatcher (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-ROOT_URLCONF" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">ROOT_URLCONF</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">RSS_FEED_URLS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'de':</span> <span class="pre">'https://integreat-app.de/feed/',</span> <span class="pre">'en':</span> <span class="pre">'https://integreat-app.de/en/feed/'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">RSS_FEED_URLS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'de':</span> <span class="pre">'https://integreat-app.de/feed/',</span> <span class="pre">'en':</span> <span class="pre">'https://integreat-app.de/en/feed/'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>RSS feed URLs to the Integreat blog</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;de&#39;</span><span class="o">:</span> <span class="s1">&#39;https://integreat-app.de/feed/&#39;</span><span class="p">,</span>
@@ -1888,8 +1901,8 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/re
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">SECRET_KEY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'-!v282$zj815_q&#64;htaxcubylo)(l%a+k*-xi78hw*#s2&#64;i86&#64;_'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">SECRET_KEY</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'-!v282$zj815_q&#64;htaxcubylo)(l%a+k*-xi78hw*#s2&#64;i86&#64;_'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The secret key for this particular Django installation (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-SECRET_KEY" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a>)</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1898,21 +1911,21 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/re
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">SERVER_EMAIL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'keineantwort&#64;integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">SERVER_EMAIL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'keineantwort&#64;integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The email address that error messages come from, such as those sent to <a class="reference internal" href="../ref-ext/backend.html#backend.settings.ADMINS" title="backend.settings.ADMINS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ADMINS</span></code></a>.
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-SERVER_EMAIL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">SERVER_EMAIL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">SITE_DOMAIN</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://integreat.app'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">SITE_DOMAIN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'https://integreat.app'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>An alias of <a class="reference internal" href="../ref-ext/backend.html#backend.settings.WEBAPP_URL" title="backend.settings.WEBAPP_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></a>. Used by django-linkcheck to determine whether a link is internal.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">STATICFILES_FINDERS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">('django.contrib.staticfiles.finders.FileSystemFinder',</span> <span class="pre">'django.contrib.staticfiles.finders.AppDirectoriesFinder')</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">STATICFILES_FINDERS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('django.contrib.staticfiles.finders.FileSystemFinder',</span> <span class="pre">'django.contrib.staticfiles.finders.AppDirectoriesFinder')</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The list of finder backends that know how to find static files in various locations
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-STATICFILES_FINDERS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">STATICFILES_FINDERS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
@@ -1924,28 +1937,28 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/re
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">STATIC_ROOT</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/cms/static/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">STATIC_ROOT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/cms/static/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The absolute path to the directory where <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/staticfiles/#module-django.contrib.staticfiles" title="(in Django v3.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.staticfiles</span></code></a> will collect static files for
 deployment (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-STATIC_ROOT" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/howto/static-files/" title="(in Django v3.2)"><span class="xref std std-doc">Managing static files</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">STATIC_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/static/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">STATIC_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/static/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>URL to use when referring to static files located in <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-STATIC_ROOT" title="(in Django v3.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a>
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-STATIC_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">STATIC_URL</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/howto/static-files/" title="(in Django v3.2)"><span class="xref std std-doc">Managing static files</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">SYS_LOG_LEVEL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'INFO'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">SYS_LOG_LEVEL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'INFO'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The log level for the syslog</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">TEMPLATES</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[{'BACKEND':</span> <span class="pre">'django.template.backends.django.DjangoTemplates',</span> <span class="pre">'DIRS':</span> <span class="pre">[],</span> <span class="pre">'APP_DIRS':</span> <span class="pre">True,</span> <span class="pre">'OPTIONS':</span> <span class="pre">{'context_processors':</span> <span class="pre">['django.template.context_processors.debug',</span> <span class="pre">'django.template.context_processors.request',</span> <span class="pre">'django.contrib.auth.context_processors.auth',</span> <span class="pre">'django.contrib.messages.context_processors.messages',</span> <span class="pre">'backend.context_processors.region_slug_processor'],</span> <span class="pre">'debug':</span> <span class="pre">True}}]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">TEMPLATES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[{'BACKEND':</span> <span class="pre">'django.template.backends.django.DjangoTemplates',</span> <span class="pre">'DIRS':</span> <span class="pre">[],</span> <span class="pre">'APP_DIRS':</span> <span class="pre">True,</span> <span class="pre">'OPTIONS':</span> <span class="pre">{'context_processors':</span> <span class="pre">['django.template.context_processors.debug',</span> <span class="pre">'django.template.context_processors.request',</span> <span class="pre">'django.contrib.auth.context_processors.auth',</span> <span class="pre">'django.contrib.messages.context_processors.messages',</span> <span class="pre">'backend.context_processors.region_slug_processor'],</span> <span class="pre">'debug':</span> <span class="pre">True}}]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Config for HTML templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-TEMPLATES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
@@ -1969,73 +1982,73 @@ deployment (see <a class="reference external" href="https://docs.djangoproject.c
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">TEST_BLOG_ID</span></code><em class="property"> <span class="pre">=</span> <span class="pre">154</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">TEST_BLOG_ID</span></span><em class="property"> <span class="pre">=</span> <span class="pre">154</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The ID of the region “Testumgebung” - prevent sending PNs to actual users in development in
 <a class="reference internal" href="../ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_pn" title="cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_pn"><code class="xref py py-func docutils literal notranslate"><span class="pre">send_pn()</span></code></a></p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">THUMBNAIL_HIGH_RESOLUTION</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">THUMBNAIL_HIGH_RESOLUTION</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Whether thumbnails should be stored in high resolution (used by <a class="reference external" href="https://easy-thumbnails.readthedocs.io/en/latest/" title="(in easy-thumbnails v2.7)"><span>Easy Thumbnails</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">TIME_ZONE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'UTC'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">TIME_ZONE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'UTC'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A string representing the time zone for this installation
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-TIME_ZONE" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">USE_I18N</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">USE_I18N</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A boolean that specifies whether Django’s translation system should be enabled
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-USE_I18N" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">USE_L10N</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">USE_L10N</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A boolean that specifies if localized formatting of data will be enabled by default or not
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-USE_L10N" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">USE_L10N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">USE_TZ</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">USE_TZ</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A boolean that specifies if datetimes will be timezone-aware by default or not
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-USE_TZ" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">USE_TZ</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">VERSION</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'0.0.14'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">VERSION</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'0.0.14'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Version number</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">WEBAPP_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://integreat.app'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">WEBAPP_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'https://integreat.app'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The URL to our webapp. This is used for urls in the <code class="docutils literal notranslate"><span class="pre">sitemap.xml</span></code> (see <a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap" title="sitemap"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sitemap</span></code></a> for more information).</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">WEBSITE_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">WEBSITE_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'https://integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>URL to the Integreat Website</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">WIKI_URL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://wiki.integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">WIKI_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'https://wiki.integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>URL to the Integreat wiki</p>
 </dd></dl>
 
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.settings.</span></code><code class="sig-name descname"><span class="pre">WSGI_APPLICATION</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'backend.wsgi.application'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">WSGI_APPLICATION</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'backend.wsgi.application'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>WSGI (Web Server Gateway Interface) config (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-WSGI_APPLICATION" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">WSGI_APPLICATION</span></code></a>)</p>
 </dd></dl>
 
@@ -2048,8 +2061,8 @@ the documentation is not partially translated.</p>
 <p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/settings/" title="(in Django v3.2)"><span>Django settings</span></a>.
 For the full list of settings and their values, see <a class="reference external" href="https://easy-thumbnails.readthedocs.io/en/latest/ref/settings/" title="(in easy-thumbnails v2.7)"><span>Settings</span></a>.</p>
 <dl class="py data">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.sphinx_settings.</span></code><code class="sig-name descname"><span class="pre">USE_I18N</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/sphinx_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.sphinx_settings.</span></span><span class="sig-name descname"><span class="pre">USE_I18N</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/sphinx_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A boolean that specifies whether Django’s translation system should be enabled
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-USE_I18N" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
 </dd></dl>
@@ -2077,8 +2090,8 @@ It exposes the WSGI callable as a module-level variable named <code class="docut
 python frameworks (in our case Django).</p>
 <p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/" title="(in Django v3.2)"><span>How to deploy with WSGI</span></a>.</p>
 <dl class="py function">
-<dt>
-<code class="sig-prename descclassname"><span class="pre">backend.wsgi.</span></code><code class="sig-name descname"><span class="pre">application</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_response</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/wsgi.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.wsgi.</span></span><span class="sig-name descname"><span class="pre">application</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_response</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/wsgi.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This returns the WSGI callable</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2118,7 +2131,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jun 25, 2021.
+        Last updated on Jun 22, 2021.
       </span>
 
     </p>

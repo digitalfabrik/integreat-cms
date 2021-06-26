@@ -14,6 +14,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -33,6 +35,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -277,6 +280,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
@@ -327,7 +331,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#document-form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -377,6 +384,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
 </ul>
@@ -416,7 +424,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.media.html#media-file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.offers.html">Offers</a><ul>
@@ -486,9 +495,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
@@ -566,8 +575,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-edit-view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -713,6 +722,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.constants.html">Constants</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.all_day">All Day</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.colors">Colors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.countries">Countries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.feedback_ratings">Feedback Ratings</a></li>
@@ -763,7 +773,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.document_form">Document Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.directory_form">Directory Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.offer_templates.html">Offer Templates</a><ul>
@@ -813,6 +826,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
 </ul>
@@ -852,7 +866,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.directory">Directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.media.html#module-cms.models.media.media_file">Media File</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.offers.html">Offers</a><ul>
@@ -922,9 +937,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
@@ -1002,8 +1017,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_edit_view">Media Edit View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1243,53 +1258,53 @@ the confirmation form and delete the key from the database</p></li>
 <span id="authenticate-modify-mfa-view"></span><h2>Authenticate Modify MFA View<a class="headerlink" href="#module-cms.views.settings.mfa.authenticate_modify_mfa_view" title="Permalink to this headline">¶</a></h2>
 <p>This module contains all views related to multi-factor authentication</p>
 <dl class="py class">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.authenticate_modify_mfa_view.</span></code><code class="sig-name descname"><span class="pre">AuthenticateModifyMfaView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.authenticate_modify_mfa_view.</span></span><span class="sig-name descname"><span class="pre">AuthenticateModifyMfaView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.FormView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.FormView</span></code></a></p>
 <p>View to authenticate a user before changing the mfa settings</p>
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.as_view">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">as_view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.as_view" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.as_view">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.as_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main entry point for a request-response process.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.content_type">
-<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.content_type" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.content_type">
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.dispatch" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.extra_context">
-<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.extra_context" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.extra_context">
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_class">
-<code class="sig-name descname"><span class="pre">form_class</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/authentication_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/users/authentication_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="cms.forms.users.html#cms.forms.users.authentication_form.AuthenticationForm" title="cms.forms.users.authentication_form.AuthenticationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.users.authentication_form.AuthenticationForm</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_invalid">
-<code class="sig-name descname"><span class="pre">form_invalid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_invalid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_invalid">
+<span class="sig-name descname"><span class="pre">form_invalid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_invalid" title="Permalink to this definition">¶</a></dt>
 <dd><p>If the form is invalid, render the invalid form.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_valid">
-<code class="sig-name descname"><span class="pre">form_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_valid">
+<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.form_valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function overwrites <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_valid" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">form_valid()</span></code></a> which is called if the
 <a class="reference internal" href="cms.forms.users.html#cms.forms.users.authentication_form.AuthenticationForm" title="cms.forms.users.authentication_form.AuthenticationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AuthenticationForm</span></code></a> is valid. In case the user provided correct credentials,
 the current time is saved in a session variable so a timeout of the authentication can be implemented.</p>
@@ -1307,132 +1322,132 @@ the current time is saved in a session variable so a timeout of the authenticati
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle GET requests: instantiate a blank version of the form.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_context_data">
-<code class="sig-name descname"><span class="pre">get_context_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_context_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_context_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert the form into the context dict.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form">
-<code class="sig-name descname"><span class="pre">get_form</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form">
+<span class="sig-name descname"><span class="pre">get_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an instance of the form to be used in this view.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form_class">
-<code class="sig-name descname"><span class="pre">get_form_class</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form_class">
+<span class="sig-name descname"><span class="pre">get_form_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the form class to use.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form_kwargs">
-<code class="sig-name descname"><span class="pre">get_form_kwargs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form_kwargs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form_kwargs">
+<span class="sig-name descname"><span class="pre">get_form_kwargs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_form_kwargs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the keyword arguments for instantiating the form.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_initial">
-<code class="sig-name descname"><span class="pre">get_initial</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_initial" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_initial">
+<span class="sig-name descname"><span class="pre">get_initial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_initial" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the initial data to use for forms on this view.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_prefix">
-<code class="sig-name descname"><span class="pre">get_prefix</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_prefix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_prefix">
+<span class="sig-name descname"><span class="pre">get_prefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the prefix to use for forms.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_success_url">
-<code class="sig-name descname"><span class="pre">get_success_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_success_url" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_success_url">
+<span class="sig-name descname"><span class="pre">get_success_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_success_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the URL to redirect to after processing a valid form.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_template_names">
-<code class="sig-name descname"><span class="pre">get_template_names</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_template_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_template_names">
+<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.get_template_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of template names to be used for the request. Must return
 a list. May not be called if render_to_response() is overridden.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.http_method_names">
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.http_method_not_allowed">
-<code class="sig-name descname"><span class="pre">http_method_not_allowed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.http_method_not_allowed">
+<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.initial">
-<code class="sig-name descname"><span class="pre">initial</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.initial" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.initial">
+<span class="sig-name descname"><span class="pre">initial</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.initial" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.options">
-<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.options" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.post">
-<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.post" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle POST requests: instantiate a form instance with the passed
 POST variables and then check if it’s valid.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.prefix">
-<code class="sig-name descname"><span class="pre">prefix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.prefix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.prefix">
+<span class="sig-name descname"><span class="pre">prefix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.prefix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.put">
-<code class="sig-name descname"><span class="pre">put</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.put" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.put" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.render_to_response">
-<code class="sig-name descname"><span class="pre">render_to_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.render_to_response" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.render_to_response">
+<span class="sig-name descname"><span class="pre">render_to_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.render_to_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
 template rendered with the given context.</p>
 <p>Pass response_kwargs to the constructor of the response class.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.response_class">
-<code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.response_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.response_class">
+<span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.response_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.setup">
-<code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.setup" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize attributes shared by all view methods.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.success_url">
-<code class="sig-name descname"><span class="pre">success_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'/user_settings/mfa/register/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.success_url" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/user_settings/mfa/register/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.success_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>The URL to redirect to when the form is successfully processed (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.template_engine">
-<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.template_engine" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.template_engine">
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.template_name">
-<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'settings/mfa/authenticate.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.template_name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'settings/mfa/authenticate.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/authenticate_modify_mfa_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -1443,41 +1458,41 @@ template rendered with the given context.</p>
 <span id="delete-user-mfa-key-view"></span><h2>Delete User MFA Key View<a class="headerlink" href="#module-cms.views.settings.mfa.delete_user_mfa_key_view" title="Permalink to this headline">¶</a></h2>
 <p>This module contains all views related to multi-factor authentication</p>
 <dl class="py class">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.delete_user_mfa_key_view.</span></code><code class="sig-name descname"><span class="pre">DeleteUserMfaKeyView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.delete_user_mfa_key_view.</span></span><span class="sig-name descname"><span class="pre">DeleteUserMfaKeyView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View to delete a multi-factor-authentication key</p>
 <dl class="py method">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.as_view">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">as_view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.as_view" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.as_view">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.as_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main entry point for a request-response process.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.content_type">
-<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.content_type" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.content_type">
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.dispatch" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.extra_context">
-<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.extra_context" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.extra_context">
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render mfa-deletion view</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1497,36 +1512,36 @@ keyword arguments, and other things.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get_context_data">
-<code class="sig-name descname"><span class="pre">get_context_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get_context_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get_context_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get_template_names">
-<code class="sig-name descname"><span class="pre">get_template_names</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get_template_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get_template_names">
+<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.get_template_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of template names to be used for the request. Must return
 a list. May not be called if render_to_response() is overridden.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.http_method_names">
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.http_method_not_allowed">
-<code class="sig-name descname"><span class="pre">http_method_not_allowed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.http_method_not_allowed">
+<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.options">
-<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.options" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.post">
-<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.post" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete a multi-factor-authentication key</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1545,33 +1560,33 @@ a list. May not be called if render_to_response() is overridden.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.render_to_response">
-<code class="sig-name descname"><span class="pre">render_to_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.render_to_response" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.render_to_response">
+<span class="sig-name descname"><span class="pre">render_to_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.render_to_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
 template rendered with the given context.</p>
 <p>Pass response_kwargs to the constructor of the response class.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.response_class">
-<code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.response_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.response_class">
+<span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.response_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.setup">
-<code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.setup" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize attributes shared by all view methods.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.template_engine">
-<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.template_engine" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.template_engine">
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.template_name">
-<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'settings/mfa/delete.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.template_name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'settings/mfa/delete.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/delete_user_mfa_key_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.delete_user_mfa_key_view.DeleteUserMfaKeyView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -1582,31 +1597,31 @@ template rendered with the given context.</p>
 <span id="get-mfa-challenge-view"></span><h2>Get MFA Challenge View<a class="headerlink" href="#module-cms.views.settings.mfa.get_mfa_challenge_view" title="Permalink to this headline">¶</a></h2>
 <p>This module contains all views related to multi-factor authentication</p>
 <dl class="py class">
-<dt id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.get_mfa_challenge_view.</span></code><code class="sig-name descname"><span class="pre">GetMfaChallengeView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/get_mfa_challenge_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.get_mfa_challenge_view.</span></span><span class="sig-name descname"><span class="pre">GetMfaChallengeView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/get_mfa_challenge_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
 <p>View to generate a challenge for multi-factor-authentication</p>
 <dl class="py method">
-<dt id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.as_view">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">as_view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.as_view" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.as_view">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.as_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main entry point for a request-response process.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.dispatch" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/get_mfa_challenge_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/get_mfa_challenge_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return MFA challenge</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1622,24 +1637,24 @@ keyword arguments, and other things.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/get_mfa_challenge_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.http_method_names">
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/get_mfa_challenge_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.http_method_not_allowed">
-<code class="sig-name descname"><span class="pre">http_method_not_allowed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.http_method_not_allowed">
+<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.options">
-<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.options" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.setup">
-<code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.setup" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize attributes shared by all view methods.</p>
 </dd></dl>
 
@@ -1649,145 +1664,145 @@ keyword arguments, and other things.</p>
 <div class="section" id="module-cms.views.settings.mfa.register_user_mfa_key_view">
 <span id="register-user-mfa-key-view"></span><h2>Register User MFA Key View<a class="headerlink" href="#module-cms.views.settings.mfa.register_user_mfa_key_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.register_user_mfa_key_view.</span></code><code class="sig-name descname"><span class="pre">RegisterUserMfaKeyView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.settings.mfa.register_user_mfa_key_view.</span></span><span class="sig-name descname"><span class="pre">RegisterUserMfaKeyView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.CreateView</span></code></a></p>
 <p>View to render a form for creating <a class="reference internal" href="cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey" title="cms.models.users.user_mfa_key.UserMfaKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserMfaKey</span></code></a> objects</p>
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.as_view">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">as_view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.as_view" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.as_view">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.as_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main entry point for a request-response process.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.content_type">
-<code class="sig-name descname"><span class="pre">content_type</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.content_type" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.content_type">
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.context_object_name">
-<code class="sig-name descname"><span class="pre">context_object_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.context_object_name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.context_object_name">
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.context_object_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.dispatch">
-<code class="sig-name descname"><span class="pre">dispatch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.dispatch" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.extra_context">
-<code class="sig-name descname"><span class="pre">extra_context</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.extra_context" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.extra_context">
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.fields">
-<code class="sig-name descname"><span class="pre">fields</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['name']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.fields" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['name']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>The fields of the model which should be handled by this create view</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_class">
-<code class="sig-name descname"><span class="pre">form_class</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_class" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_invalid">
-<code class="sig-name descname"><span class="pre">form_invalid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_invalid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_invalid">
+<span class="sig-name descname"><span class="pre">form_invalid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_invalid" title="Permalink to this definition">¶</a></dt>
 <dd><p>If the form is invalid, render the invalid form.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_valid">
-<code class="sig-name descname"><span class="pre">form_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_valid">
+<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.form_valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>If the form is valid, save the associated model.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get">
-<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L166"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L166"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle GET requests: instantiate a blank version of the form.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_context_data">
-<code class="sig-name descname"><span class="pre">get_context_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_context_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_context_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert the form into the context dict.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_context_object_name">
-<code class="sig-name descname"><span class="pre">get_context_object_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/detail.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_context_object_name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_context_object_name">
+<span class="sig-name descname"><span class="pre">get_context_object_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/detail.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_context_object_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the name to use for the object.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form">
-<code class="sig-name descname"><span class="pre">get_form</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form">
+<span class="sig-name descname"><span class="pre">get_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an instance of the form to be used in this view.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form_class">
-<code class="sig-name descname"><span class="pre">get_form_class</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L74"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form_class">
+<span class="sig-name descname"><span class="pre">get_form_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L74"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the form class to use in this view.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form_kwargs">
-<code class="sig-name descname"><span class="pre">get_form_kwargs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form_kwargs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form_kwargs">
+<span class="sig-name descname"><span class="pre">get_form_kwargs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_form_kwargs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the keyword arguments for instantiating the form.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_initial">
-<code class="sig-name descname"><span class="pre">get_initial</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_initial" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_initial">
+<span class="sig-name descname"><span class="pre">get_initial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_initial" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the initial data to use for forms on this view.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_object">
-<code class="sig-name descname"><span class="pre">get_object</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/detail.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_object" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_object">
+<span class="sig-name descname"><span class="pre">get_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/detail.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the object the view is displaying.</p>
 <p>Require <cite>self.queryset</cite> and a <cite>pk</cite> or <cite>slug</cite> argument in the URLconf.
 Subclasses can override this to return any object.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_prefix">
-<code class="sig-name descname"><span class="pre">get_prefix</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_prefix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_prefix">
+<span class="sig-name descname"><span class="pre">get_prefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_prefix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the prefix to use for forms.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_queryset">
-<code class="sig-name descname"><span class="pre">get_queryset</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/detail.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/detail.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_queryset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the <cite>QuerySet</cite> that will be used to look up the object.</p>
 <p>This method is called by the default implementation of get_object() and
 may not be called if get_object() is overridden.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_slug_field">
-<code class="sig-name descname"><span class="pre">get_slug_field</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/detail.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_slug_field" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_slug_field">
+<span class="sig-name descname"><span class="pre">get_slug_field</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/detail.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_slug_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the name of a slug field to be used to look up by slug.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_success_url">
-<code class="sig-name descname"><span class="pre">get_success_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L110"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_success_url" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_success_url">
+<span class="sig-name descname"><span class="pre">get_success_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L110"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_success_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the URL to redirect to after processing a valid form.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_template_names">
-<code class="sig-name descname"><span class="pre">get_template_names</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/detail.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_template_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_template_names">
+<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/detail.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_template_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of template names to be used for the request. May not be
 called if render_to_response() is overridden. Return the following list:</p>
 <ul class="simple">
@@ -1799,40 +1814,40 @@ object instance that the view is operating upon (if available)</p></li>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.http_method_names">
-<code class="sig-name descname"><span class="pre">http_method_names</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.http_method_names">
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.http_method_not_allowed">
-<code class="sig-name descname"><span class="pre">http_method_not_allowed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.http_method_not_allowed">
+<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.initial">
-<code class="sig-name descname"><span class="pre">initial</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.initial" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.initial">
+<span class="sig-name descname"><span class="pre">initial</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.initial" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.model">
-<code class="sig-name descname"><span class="pre">model</span></code><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.model" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey" title="cms.models.users.user_mfa_key.UserMfaKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.models.users.user_mfa_key.UserMfaKey</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.options">
-<code class="sig-name descname"><span class="pre">options</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.options" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.pk_url_kwarg">
-<code class="sig-name descname"><span class="pre">pk_url_kwarg</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'pk'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.pk_url_kwarg" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.pk_url_kwarg">
+<span class="sig-name descname"><span class="pre">pk_url_kwarg</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'pk'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.pk_url_kwarg" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.post">
-<code class="sig-name descname"><span class="pre">post</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.post" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verify a registration challenge and register a 2-FA key.
 Called asynchroniously by JavaScript.</p>
 <dl class="field-list simple">
@@ -1853,79 +1868,79 @@ Called asynchroniously by JavaScript.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.prefix">
-<code class="sig-name descname"><span class="pre">prefix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.prefix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.prefix">
+<span class="sig-name descname"><span class="pre">prefix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.prefix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.put">
-<code class="sig-name descname"><span class="pre">put</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.put" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/edit.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.put" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.query_pk_and_slug">
-<code class="sig-name descname"><span class="pre">query_pk_and_slug</span></code><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.query_pk_and_slug" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.query_pk_and_slug">
+<span class="sig-name descname"><span class="pre">query_pk_and_slug</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.query_pk_and_slug" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.queryset">
-<code class="sig-name descname"><span class="pre">queryset</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.queryset" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.queryset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.render_to_response">
-<code class="sig-name descname"><span class="pre">render_to_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.render_to_response" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.render_to_response">
+<span class="sig-name descname"><span class="pre">render_to_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.render_to_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
 template rendered with the given context.</p>
 <p>Pass response_kwargs to the constructor of the response class.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.response_class">
-<code class="sig-name descname"><span class="pre">response_class</span></code><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.response_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.response_class">
+<span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.response_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.setup">
-<code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.setup" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize attributes shared by all view methods.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.slug_field">
-<code class="sig-name descname"><span class="pre">slug_field</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'slug'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.slug_field" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.slug_field">
+<span class="sig-name descname"><span class="pre">slug_field</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'slug'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.slug_field" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.slug_url_kwarg">
-<code class="sig-name descname"><span class="pre">slug_url_kwarg</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'slug'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.slug_url_kwarg" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.slug_url_kwarg">
+<span class="sig-name descname"><span class="pre">slug_url_kwarg</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'slug'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.slug_url_kwarg" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.success_url">
-<code class="sig-name descname"><span class="pre">success_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.success_url" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.success_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_engine">
-<code class="sig-name descname"><span class="pre">template_engine</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_engine" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_engine">
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name">
-<code class="sig-name descname"><span class="pre">template_name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'settings/mfa/add_key.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'settings/mfa/add_key.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name_field">
-<code class="sig-name descname"><span class="pre">template_name_field</span></code><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name_field" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name_field">
+<span class="sig-name descname"><span class="pre">template_name_field</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name_field" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name_suffix">
-<code class="sig-name descname"><span class="pre">template_name_suffix</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'_form'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name_suffix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name_suffix">
+<span class="sig-name descname"><span class="pre">template_name_suffix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'_form'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/settings/mfa/register_user_mfa_key_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.template_name_suffix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
