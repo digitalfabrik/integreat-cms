@@ -1,5 +1,6 @@
 import feather from "feather-icons";
-import { refreshChatDeleteHandlers } from "./delete-chat-message";
+import { refreshAjaxConfirmationHandlers } from "../confirmation-popups";
+import { deleteChatMessage } from "./delete-chat-message";
 /**
  * This file contains the sending function for the author chat
  */
@@ -54,7 +55,7 @@ async function sendChatMessage(event: Event) {
       // Trigger icon replacement
       feather.replace();
 
-      refreshChatDeleteHandlers();
+      refreshAjaxConfirmationHandlers(deleteChatMessage);
     } else {
       // Throw error which will then be caught later
       throw new Error(

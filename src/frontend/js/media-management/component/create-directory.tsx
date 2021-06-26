@@ -1,0 +1,73 @@
+/*
+ * This component renders a form to create a new directory
+ */
+import { route } from "preact-router";
+import cn from "classnames";
+
+import { MediaApiPaths } from "../index";
+import { FolderPlus } from "preact-feather";
+import { StateUpdater } from "preact/hooks";
+
+interface Props {
+  parentDirectoryId: string;
+  apiEndpoints: MediaApiPaths;
+  mediaTranslations: any;
+  submitForm: (event: Event, successCallback: (data: any) => void) => void;
+  isLoading: boolean;
+  setCreateDirectory: StateUpdater<boolean>;
+}
+export default function CreateDirectory({
+  parentDirectoryId,
+  apiEndpoints,
+  mediaTranslations,
+  submitForm,
+  isLoading,
+  setCreateDirectory,
+}: Props) {
+  return (
+    <div className="flex-auto rounded-lg border-blue-500 shadow-xl bg-white">
+      <div class="rounded w-full p-4 bg-blue-500 text-white font-bold">
+        <FolderPlus class="inline-block mr-2 h-5" />
+        {mediaTranslations.heading_create_directory}
+      </div>
+      <form
+        onSubmit={(event: Event) =>
+          // Redirect to new created directory on success
+          submitForm(event, (data: any) => {
+            setCreateDirectory(false);
+            route(`/${data.directory.id}/`);
+          })
+        }
+        action={apiEndpoints.createDirectory}
+        className="p-4"
+      >
+        <input name="parent" type="hidden" value={parentDirectoryId} />
+        <label for="create-directory-name-input" class="font-bold cursor-pointer">
+          {mediaTranslations.label_directory_name}
+        </label>
+        <div class="flex flex-row gap-2 pt-2">
+          <input
+            id="create-directory-name-input"
+            type="text"
+            name="name"
+            maxLength={255}
+            placeholder={mediaTranslations.text_enter_directory_name}
+            className="w-full block bg-gray-200 text-gray-600 placeholder-gray-600 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
+            disabled={isLoading}
+            required
+          />
+          <input
+            type="submit"
+            disabled={isLoading}
+            className={cn(
+              "text-white font-bold py-2 px-4 rounded",
+              { "cursor-not-allowed bg-gray-500": isLoading },
+              { "cursor-pointer bg-blue-500 hover:bg-blue-600": !isLoading }
+            )}
+            value={mediaTranslations.btn_create}
+          />
+        </div>
+      </form>
+    </div>
+  );
+}

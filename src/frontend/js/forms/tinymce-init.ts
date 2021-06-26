@@ -82,9 +82,14 @@ window.addEventListener("load", () => {
         format: {
           title: "Format",
           items:
-            "bold italic underline strikethrough superscript | formats | forecolor backcolor",
+            "bold italic underline strikethrough superscript | formats | forecolor backcolor | notranslate",
         },
+        insert: {
+          title: "Insert",
+          items: "openmediacenter link image media "
+        }
       },
+      link_title: false,
       contextmenu: "paste link",
       autosave_interval: "120s",
       forced_root_block: false,
@@ -92,10 +97,16 @@ window.addEventListener("load", () => {
         "code paste fullscreen autosave link preview media image lists directionality wordcount",
       external_plugins: {
         autolink_tel: tinymceConfig.getAttribute("data-custom-plugins"),
+        mediacenter: tinymceConfig.getAttribute("data-custom-plugins"),
       },
       link_default_protocol: "https",
+      target_list: false,
+      default_link_target: '',
+      relative_urls: false,
+      remove_script_host: false,
+      branding: false,
       toolbar:
-        "bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link image",
+        "bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link openmediacenter | export",
       style_formats: [
         {
           title: "Headings",
@@ -156,6 +167,11 @@ window.addEventListener("load", () => {
         );
         editor.ui.registry.addButton("notranslate", {
           tooltip: tinymceConfig.getAttribute("data-no-translate-tooltip"),
+          icon: "no_translate",
+          onAction: () => toggleNoTranslate(editor),
+        });
+        editor.ui.registry.addMenuItem("notranslate", {
+          text: tinymceConfig.getAttribute("data-no-translate-text"),
           icon: "no_translate",
           onAction: () => toggleNoTranslate(editor),
         });

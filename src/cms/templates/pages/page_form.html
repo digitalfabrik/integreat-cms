@@ -417,6 +417,7 @@
         </div>
     </div>
 </form>
+{{ media_config_data|json_script:"media_config_data" }}
 
 {% if not can_edit_page or page_form.instance.id and page_form.instance.archived %}
     {% include '../_tinymce_config.html' with readonly=1 %}

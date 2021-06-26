@@ -191,5 +191,5 @@ class Feedback(models.Model):
         ordering = ["-created_date"]
         #: The default permissions for this model
         default_permissions = ()
-        #:  The custom permissions for this model
+        #: The custom permissions for this model
         permissions = (("manage_feedback", "Can manage feedback"),)

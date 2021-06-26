@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from .abstract_base_page import AbstractBasePage
 from ..languages.language import Language
 from ..regions.region import Region
+from ..media.media_file import MediaFile
 from ..users.organization import Organization
 from ...utils.translation_utils import ugettext_many_lazy as __
 
@@ -31,11 +32,13 @@ class Page(MPTTModel, AbstractBasePage):
         related_name="children",
         verbose_name=_("parent page"),
     )
-    icon = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to="pages/%Y/%m/%d",
+    icon = models.ForeignKey(
+        MediaFile,
         verbose_name=_("icon"),
+        on_delete=models.SET_NULL,
+        related_name="page_icon_of",
+        blank=True,
+        null=True,
     )
     region = models.ForeignKey(
         Region,

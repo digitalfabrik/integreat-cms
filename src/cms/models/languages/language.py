@@ -135,7 +135,7 @@ class Language(models.Model):
         verbose_name_plural = _("languages")
         #: The default permissions for this model
         default_permissions = ()
-        #:  The custom permissions for this model
+        #: The custom permissions for this model
         permissions = (("manage_languages", "Can manage languages"),)
         #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["bcp47_tag"]

@@ -4,11 +4,12 @@ from dateutil.rrule import weekday, rrule
 from django.db import models
 from django.utils.translation import get_language, ugettext_lazy as _
 
-from .recurrence_rule import RecurrenceRule
-from ..pois.poi import POI
-from ..regions.region import Region, Language
 from ...constants import frequency, status
 from ...utils.slug_utils import generate_unique_slug
+from ..media.media_file import MediaFile
+from ..pois.poi import POI
+from ..regions.region import Region, Language
+from .recurrence_rule import RecurrenceRule
 
 
 class Event(models.Model):
@@ -43,11 +44,13 @@ class Event(models.Model):
         on_delete=models.SET_NULL,
         verbose_name=_("recurrence rule"),
     )
-    icon = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to="events/%Y/%m/%d",
+    icon = models.ForeignKey(
+        MediaFile,
         verbose_name=_("icon"),
+        on_delete=models.SET_NULL,
+        related_name="event_icon_of",
+        blank=True,
+        null=True,
     )
     archived = models.BooleanField(default=False, verbose_name=_("archived"))
 

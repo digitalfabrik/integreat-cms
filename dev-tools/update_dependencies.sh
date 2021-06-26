@@ -13,6 +13,10 @@ ensure_not_root
 echo "Updating JavaScript dependencies..." | print_info
 npx npm-check --update-all --skip-unused
 
+# Fix npm security issues (skip all breaking changes)
+echo "Running security audit of JavaScript dependencies..." | print_info
+npm audit fix || true
+
 # Check if pip dependencies are up to date
 echo "Updating Python dependencies..." | print_info
 pipenv update --dev

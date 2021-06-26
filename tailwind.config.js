@@ -18,12 +18,6 @@ module.exports = {
       green: colors.green,
       blue: colors.blue,
     },
-    fontFamily: {
-      'default': ["Raleway", "Lateef", "Noto Sans SC", "sans-serif"],
-      'content': ["Open Sans", "sans-serif"],
-      'content-rtl': ["Lateef", "sans-serif"],
-      'content-sc': ["Noto Sans SC", "sans-serif"],
-    },
     extend: {
       colors: {
         // generated from #fbda16 with https://javisperez.github.io/tailwindcolorshades/
@@ -47,9 +41,22 @@ module.exports = {
         'logo-yellow': "url('/src/frontend/images/integreat-logo-yellow.png')",
         'border-left': 'linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-from) 4px, var(--tw-gradient-to, rgba(0, 0, 0, 0)) 4px)',
       },
+      fontFamily: {
+        'default': ["Raleway", "Lateef", "Noto Sans SC", "sans-serif"],
+        'content': ["Open Sans", "sans-serif"],
+        'content-rtl': ["Lateef", "sans-serif"],
+        'content-sc': ["Noto Sans SC", "sans-serif"],
+      },
       maxHeight: {
+        '15': '3.75rem',
         '116': '29rem',
         '160': '40rem',
+      },
+      gridTemplateColumns: {
+        'gallery': 'repeat(auto-fill, minmax(180px, 1fr))',
+      },
+      width: {
+        '120': '30rem',
       },
     },
   },

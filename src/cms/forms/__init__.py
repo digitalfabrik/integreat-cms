@@ -18,7 +18,10 @@ from .imprint.imprint_translation_form import ImprintTranslationForm
 from .languages.language_form import LanguageForm
 from .language_tree.language_tree_node_form import LanguageTreeNodeForm
 
-from .media.document_form import DocumentForm
+from .media.upload_media_file_form import UploadMediaFileForm
+from .media.media_file_form import MediaFileForm
+from .media.create_directory_form import CreateDirectoryForm
+from .media.directory_form import DirectoryForm
 
 from .offer_templates.offer_template_form import OfferTemplateForm
 

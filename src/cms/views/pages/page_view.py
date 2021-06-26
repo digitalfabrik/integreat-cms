@@ -17,6 +17,7 @@ from ...decorators import region_permission_required
 from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation, Region
 from .page_context_mixin import PageContextMixin
+from ..media.content_media_mixin import ContentMediaMixin
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +25,9 @@ logger = logging.getLogger(__name__)
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 # pylint: disable=too-many-ancestors
-class PageView(PermissionRequiredMixin, TemplateView, PageContextMixin):
+class PageView(
+    PermissionRequiredMixin, TemplateView, PageContextMixin, ContentMediaMixin
+):
     """
     View for the page form and page translation form
     """

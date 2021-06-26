@@ -1,17 +1,14 @@
 import logging
 
-from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
-
-from ..custom_model_form import CustomModelForm
 from ...constants import status
 from ...models import ImprintPageTranslation
+from ..custom_content_model_form import CustomContentModelForm
 
 
 logger = logging.getLogger(__name__)
 
 
-class ImprintTranslationForm(CustomModelForm):
+class ImprintTranslationForm(CustomContentModelForm):
     """
     Form for creating and modifying imprint translation objects
     """
@@ -99,17 +96,9 @@ class ImprintTranslationForm(CustomModelForm):
         """
         Validate the text field (see :ref:`overriding-modelform-clean-method`)
 
-        :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content
+        :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content and applies changes to <img>- and <a>-Tags to match the guidelines.
 
         :return: The valid text
         :rtype: str
         """
-        text = self.data["text"]
-
-        if "<h1>" in text:
-            raise ValidationError(
-                _("Use of Heading 1 style not allowed."),
-                code="no-heading-1",
-            )
-
-        return text
+        return self.content_clean_method("text")

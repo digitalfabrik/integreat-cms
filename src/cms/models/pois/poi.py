@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils.translation import get_language, ugettext_lazy as _
 
-from ..regions.region import Region, Language
 from ...constants import status
+from ..media.media_file import MediaFile
+from ..regions.region import Region, Language
 
 
 class POI(models.Model):
@@ -34,11 +35,13 @@ class POI(models.Model):
         verbose_name=_("Do not show this location on map"),
         help_text=_("Tick if you do not show this location on map"),
     )
-    icon = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to="pois/%Y/%m/%d",
+    icon = models.ForeignKey(
+        MediaFile,
         verbose_name=_("icon"),
+        on_delete=models.SET_NULL,
+        related_name="poi_icon_of",
+        blank=True,
+        null=True,
     )
     archived = models.BooleanField(
         default=False,

@@ -1,19 +1,45 @@
 /**
  * This file contains all functions which are needed for toggling the confirmation popup
  */
+import { off, on } from "./utils/wrapped-events";
+
 type EventHandler = (event: Event) => any;
 const handlers = new Map<HTMLElement, EventHandler>();
 
 window.addEventListener("load", () => {
   // event handler for showing confirmation popups
-  document
-    .querySelectorAll(".confirmation-button")
-    .forEach((el) => el.addEventListener("click", showConfirmationPopup));
+  refreshAjaxConfirmationHandlers();
   // event handler for closing confirmation popups
   document
     .querySelectorAll("#confirmation-dialog button")
     .forEach((el) => el.addEventListener("click", closeConfirmationPopup));
 });
+
+
+export function refreshAjaxConfirmationHandlers(ajaxHandler?: (e: Event) => Promise<any> | void) {
+  if (ajaxHandler) {
+    document
+      .querySelectorAll(".confirmation-button")
+      .forEach((button) =>
+          off(button, "action-confirmed")
+      );
+    document
+      .querySelectorAll(".confirmation-button")
+      .forEach((button) =>
+          on(button,"action-confirmed", ajaxHandler)
+      );
+  }
+  document
+    .querySelectorAll(".confirmation-button")
+    .forEach((button) =>
+        off(button, "click")
+    );
+  document
+    .querySelectorAll(".confirmation-button")
+    .forEach((button) =>
+        on(button,"click", showConfirmationPopup)
+    );
+}
 
 export function showConfirmationPopup(event: Event) {
   event.preventDefault();

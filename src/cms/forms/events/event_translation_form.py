@@ -1,17 +1,14 @@
 import logging
 
-from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
-
-from ..custom_model_form import CustomModelForm
 from ...constants import status
 from ...models import EventTranslation
 from ...utils.slug_utils import generate_unique_slug_helper
+from ..custom_content_model_form import CustomContentModelForm
 
 logger = logging.getLogger(__name__)
 
 
-class EventTranslationForm(CustomModelForm):
+class EventTranslationForm(CustomContentModelForm):
     """
     Form for creating and modifying event translation objects
     """
@@ -113,19 +110,11 @@ class EventTranslationForm(CustomModelForm):
 
     def clean_description(self):
         """
-        Validate the description field (see :ref:`overriding-modelform-clean-method`)
+        Validate the description field (see :ref:`overriding-modelform-clean-method`) and applies changes to <img>- and <a>-Tags to match the guidelines.
 
         :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the description
 
         :return: The valid description
         :rtype: str
         """
-        description = self.data["description"]
-
-        if "<h1>" in description:
-            raise ValidationError(
-                _("Use of Heading 1 style not allowed."),
-                code="no-heading-1",
-            )
-
-        return description
+        return self.content_clean_method("description")

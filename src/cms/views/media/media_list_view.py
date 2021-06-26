@@ -1,42 +1,36 @@
+"""
+The module is working as the view component for the dynamic data loading for the media library.
+Therefore, it's managing the region permissions and connects the different data structures.
+Especially, the root file, the use of the file defined in the Document and the different meta data.
+"""
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from ...decorators import region_permission_required
-from ...models import Document
+from .content_media_mixin import ContentMediaMixin
+
+from ...decorators import region_permission_required, staff_required
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class MediaListView(TemplateView):
+class MediaListView(TemplateView, ContentMediaMixin):
     """
-    View for listing media elements
+    Class representing the media management and renders the dynamic data into the HTML template.
     """
 
-    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "media/media_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "media"}
+    extra_context = {"current_menu_item": "media"}
 
-    def get(self, request, *args, **kwargs):
-        """
-        Render media list
 
-        :param request: The current request
-        :type request: ~django.http.HttpResponse
+@method_decorator(login_required, name="dispatch")
+@method_decorator(staff_required, name="dispatch")
+class AdminMediaListView(TemplateView, ContentMediaMixin):
+    """
+    Class representing the media management and renders the dynamic data into the HTML template.
+    """
 
-        :param args: The supplied arguments
-        :type args: list
-
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
-
-        :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
-        """
-        documents = Document.objects.all()
-
-        return render(
-            request, self.template_name, {**self.base_context, "documents": documents}
-        )
+    template_name = "media/media_list_admin.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
+    extra_context = {"current_menu_item": "media"}

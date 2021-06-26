@@ -8,7 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-26 14:07+0000\n"
+"POT-Creation-Date: 2021-06-26 22:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
 "Language: German\n"
@@ -84,6 +85,18 @@ msgstr "Ganztägige Veranstaltungen"
 #: constants/all_day.py:23
 msgid "Not all day long events"
 msgstr "Nicht ganztägige Veranstaltungen"
+
+#: constants/allowed_media.py:15
+msgid "PNG image"
+msgstr "PNG-Bild"
+
+#: constants/allowed_media.py:16
+msgid "JPEG image"
+msgstr "JPEG-Bild"
+
+#: constants/allowed_media.py:20
+msgid "PDF document"
+msgstr "PDF-Dokument"
 
 #: constants/countries.py:10
 msgid "Andorra"
@@ -1231,12 +1244,12 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: constants/region_status.py:17 models/regions/region.py:385
+#: constants/region_status.py:17 models/regions/region.py:387
 msgid "Hidden"
 msgstr "Versteckt"
 
-#: constants/region_status.py:18 models/pages/page.py:202
-#: models/pages/page_translation.py:280 models/regions/region.py:388
+#: constants/region_status.py:18 models/pages/page.py:205
+#: models/pages/page_translation.py:280 models/regions/region.py:390
 #: templates/pages/page_form.html:152
 #: templates/pages/page_tree_archived_node.html:13
 msgid "Archived"
@@ -1365,7 +1378,7 @@ msgstr "Dritte Woche"
 msgid "Fourth week"
 msgstr "Vierte Woche"
 
-#: forms/custom_model_form.py:88
+#: forms/custom_model_form.py:79
 msgid "Enter {} here"
 msgstr "{} hier eingeben"
 
@@ -1392,13 +1405,6 @@ msgstr ""
 #: forms/events/event_form.py:155 forms/events/event_form.py:169
 msgid "The end of the event can't be before the start of the event"
 msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
-
-#: forms/events/event_translation_form.py:127
-#: forms/imprint/imprint_translation_form.py:111
-#: forms/pages/page_translation_form.py:133
-#: forms/pois/poi_translation_form.py:139
-msgid "Use of Heading 1 style not allowed."
-msgstr "Bitte benutzen Sie keine Überschrift 1 in diesem Feld."
 
 #: forms/events/recurrence_rule_form.py:19
 msgid "Recurrence ends"
@@ -1502,6 +1508,30 @@ msgstr ""
 "Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
 "Quell-Sprache für diese Sprache ein."
 
+#: forms/media/create_directory_form.py:42
+msgid "The directory cannot be created in a directory of another region."
+msgstr ""
+"Das Verzeichnis kann nicht in einem Verzeichnis einer anderen Region "
+"erstellt werden."
+
+#: forms/media/create_directory_form.py:61
+msgid "A directory with the name \"{}\" already exists."
+msgstr "Ein Ordner mit diesem Namen existiert bereits"
+
+#: forms/media/upload_media_file_form.py:84
+msgid "The file type {} is not allowed."
+msgstr "Der Dateityp {} ist nicht erlaubt."
+
+#: forms/media/upload_media_file_form.py:88
+msgid "Allowed file types"
+msgstr "Erlaubte Dateitypen"
+
+#: forms/media/upload_media_file_form.py:109
+msgid "The file cannot be uploaded to a directory of another region."
+msgstr ""
+"Die Datei kann nicht in einem Verzeichnis einner anderen Region hochgeladen "
+"werden."
+
 #: forms/pages/page_filter_form.py:13
 msgid "Translation status"
 msgstr "Übersetzungsstatus"
@@ -1603,56 +1633,57 @@ msgstr "Chat-Nachricht"
 msgid "chat messages"
 msgstr "Chat-Nachrichten"
 
-#: models/events/event.py:24 models/feedback/feedback.py:22
-#: models/languages/language_tree_node.py:37 models/pages/imprint_page.py:22
-#: models/pages/page.py:44 models/pois/poi.py:18
+#: models/events/event.py:25 models/feedback/feedback.py:22
+#: models/languages/language_tree_node.py:37 models/media/directory.py:22
+#: models/media/media_file.py:48 models/pages/imprint_page.py:22
+#: models/pages/page.py:47 models/pois/poi.py:19
 #: models/push_notifications/push_notification.py:17
-#: models/regions/region.py:404
+#: models/regions/region.py:406
 msgid "region"
 msgstr "Region"
 
-#: models/events/event.py:32 models/pois/poi.py:144
+#: models/events/event.py:33 models/pois/poi.py:147
 #: models/pois/poi_translation.py:35
 msgid "location"
 msgstr "Ort"
 
-#: models/events/event.py:34
+#: models/events/event.py:35
 msgid "start date"
 msgstr "Start-Datum"
 
-#: models/events/event.py:35
+#: models/events/event.py:36
 msgid "start time"
 msgstr "Start-Uhrzeit"
 
-#: models/events/event.py:36
+#: models/events/event.py:37
 msgid "end date"
 msgstr "End-Uhrzeit"
 
-#: models/events/event.py:37
+#: models/events/event.py:38
 msgid "end time"
 msgstr "End-Datum"
 
-#: models/events/event.py:44 models/events/recurrence_rule.py:170
+#: models/events/event.py:45 models/events/recurrence_rule.py:170
 msgid "recurrence rule"
 msgstr "Wiederholungs-Regel"
 
-#: models/events/event.py:50 models/pages/page.py:38 models/pois/poi.py:41
+#: models/events/event.py:49 models/pages/page.py:37 models/pois/poi.py:40
 msgid "icon"
 msgstr "Icon"
 
-#: models/events/event.py:52 models/pois/poi.py:45
+#: models/events/event.py:55 models/pois/poi.py:48
 msgid "archived"
 msgstr "archiviert"
 
-#: models/events/event.py:258
+#: models/events/event.py:261
 msgid "copy"
 msgstr "Kopie"
 
-#: models/events/event.py:304 models/events/event_translation.py:24
+#: models/events/event.py:307 models/events/event_translation.py:24
 msgid "event"
 msgstr "Veranstaltung"
 
-#: models/events/event.py:306
+#: models/events/event.py:309
 msgid "events"
 msgstr "Veranstaltungen"
 
@@ -1689,7 +1720,7 @@ msgstr "Status"
 msgid "title"
 msgstr "Titel"
 
-#: models/events/event_translation.py:44 models/media/document.py:11
+#: models/events/event_translation.py:44 models/media/media_file.py:51
 msgid "description"
 msgstr "Beschreibung"
 
@@ -1876,8 +1907,8 @@ msgid "If the feedback is unread, this field is empty."
 msgstr "Wenn das Feedback ungelesen ist, ist dieses Feld leer."
 
 #: models/feedback/feedback.py:58 models/languages/language.py:83
-#: models/languages/language_tree_node.py:51 models/offers/offer_template.py:55
-#: models/pages/abstract_base_page.py:19
+#: models/languages/language_tree_node.py:51 models/media/directory.py:34
+#: models/offers/offer_template.py:55 models/pages/abstract_base_page.py:19
 #: models/push_notifications/push_notification.py:40
 #: models/regions/region.py:102 models/users/organization.py:28
 #: models/users/user_mfa_key.py:37
@@ -1888,7 +1919,7 @@ msgstr "Erstellungsdatum"
 msgid "feedback"
 msgstr "Feedback"
 
-#: models/feedback/imprint_page_feedback.py:24 templates/_base.html:236
+#: models/feedback/imprint_page_feedback.py:24 templates/_base.html:224
 msgid "Imprint"
 msgstr "Impressum"
 
@@ -2072,30 +2103,55 @@ msgstr "Sprach-Knoten"
 msgid "language tree nodes"
 msgstr "Sprach-Knoten"
 
-#: models/media/document.py:15 models/media/document.py:63
-msgid "document"
-msgstr "Dokument"
-
-#: models/media/document.py:16
-msgid "The actual document file"
-msgstr "Die eigentliche Dokumentendatei"
-
-#: models/media/document.py:20
-msgid "uploaded date"
-msgstr "Upload-Datum"
-
-#: models/media/document.py:21
-msgid "The date and time when the document was uploaded"
-msgstr "Das Datum und die Uhrzeit, zu der das Dokument hochgeladen wurde"
-
-#: models/media/document.py:65
-msgid "documents"
-msgstr "Dokumente"
-
+#: models/media/directory.py:15 models/media/media_file.py:33
 #: models/offers/offer_template.py:16 models/regions/region.py:26
 #: models/users/organization.py:11
 msgid "name"
 msgstr "Name"
+
+#: models/media/directory.py:30 models/media/media_file.py:40
+msgid "parent directory"
+msgstr "Elternverzeichnis"
+
+#: models/media/directory.py:35
+msgid "The date and time when the directory was created"
+msgstr "Das Datum und die Uhrzeit, zu der das Verzeichnis erstellt wurde"
+
+#: models/media/directory.py:78
+msgid "media directory"
+msgstr "Medien-Verzeichnis"
+
+#: models/media/directory.py:80
+msgid "media directories"
+msgstr "Medien-Verzeichnisse"
+
+#: models/media/media_file.py:22 templates/pages/page_xliff_confirm.html:46
+msgid "file"
+msgstr "Datei"
+
+#: models/media/media_file.py:26
+msgid "thumbnail file"
+msgstr "Vorschaubild-Datei"
+
+#: models/media/media_file.py:31
+msgid "file type"
+msgstr "Dateityp"
+
+#: models/media/media_file.py:55
+msgid "uploaded date"
+msgstr "Upload-Datum"
+
+#: models/media/media_file.py:56
+msgid "The date and time when the media file was uploaded"
+msgstr "Das Datum und die Uhrzeit, zu der die Medien-Datei hochgeladen wurde"
+
+#: models/media/media_file.py:111
+msgid "media file"
+msgstr "Medien-Datei"
+
+#: models/media/media_file.py:113
+msgid "media files"
+msgstr "Medien-Dateien"
 
 #: models/offers/offer_template.py:20 models/users/organization.py:16
 msgid "slug"
@@ -2114,6 +2170,7 @@ msgstr "Vorschaubild-URL"
 #: models/offers/offer_template.py:30
 #: templates/linkcheck/links_by_filter.html:39
 #: templates/offer_templates/offer_template_list.html:24
+#: views/media/content_media_mixin.py:56
 msgid "URL"
 msgstr "URL"
 
@@ -2161,12 +2218,12 @@ msgstr "explizit archiviert"
 msgid "Whether or not the page is explicitly archived"
 msgstr "Ob die Seite explizit archiviert ist oder nicht"
 
-#: models/pages/abstract_base_page.py:139 models/pages/page.py:208
+#: models/pages/abstract_base_page.py:139 models/pages/page.py:211
 #: models/pages/page_translation.py:43
 msgid "page"
 msgstr "Seite"
 
-#: models/pages/abstract_base_page.py:141 models/pages/page.py:210
+#: models/pages/abstract_base_page.py:141 models/pages/page.py:213
 msgid "pages"
 msgstr "Seiten"
 
@@ -2203,26 +2260,26 @@ msgstr "Impressums-Übersetzung"
 msgid "imprint translations"
 msgstr "Impressums-Übersetzungen"
 
-#: models/pages/page.py:32
+#: models/pages/page.py:33
 msgid "parent page"
 msgstr "übergeordnete Seite"
 
-#: models/pages/page.py:52
+#: models/pages/page.py:55
 msgid "mirrored page"
 msgstr "eingebettete Seite"
 
-#: models/pages/page.py:54
+#: models/pages/page.py:57
 msgid ""
 "If the page embeds live content from another page, it is referenced here."
 msgstr ""
 "Wenn die Seite Live-Inhalte von einer anderen Seite einbettet, wird hier auf "
 "sie verwiesen."
 
-#: models/pages/page.py:61
+#: models/pages/page.py:64
 msgid "Position of mirrored page"
 msgstr "Position der gespiegelten Seite"
 
-#: models/pages/page.py:63
+#: models/pages/page.py:66
 msgid ""
 "If a mirrored page is set, this field determines whether the live content is "
 "embedded before the content of this page or after."
@@ -2230,17 +2287,17 @@ msgstr ""
 "Wenn eine gespiegelte Seite eingestellt ist, bestimmt dieses Feld, ob der "
 "Live-Inhalt vor oder nach dem Inhalt dieser Seite eingebettet wird."
 
-#: models/pages/page.py:70
+#: models/pages/page.py:73
 msgid "editors"
 msgstr "Bearbeiter"
 
-#: models/pages/page.py:72
+#: models/pages/page.py:75
 msgid "A list of users who have the permission to edit this specific page."
 msgstr ""
 "Eine Liste von Benutzern, die die Berechtigung haben, diese bestimmte Seite "
 "zu editieren."
 
-#: models/pages/page.py:74
+#: models/pages/page.py:77
 msgid ""
 "Only has effect if these users do not have the permission to edit pages "
 "anyway."
@@ -2248,17 +2305,17 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: models/pages/page.py:82
+#: models/pages/page.py:85
 msgid "publishers"
 msgstr "Veröffentlicher"
 
-#: models/pages/page.py:84
+#: models/pages/page.py:87
 msgid "A list of users who have the permission to publish this specific page."
 msgstr ""
 "Eine Liste von Benutzern, die die Berechtigung haben, diese bestimmte Seite "
 "zu veröffentlichen."
 
-#: models/pages/page.py:86
+#: models/pages/page.py:89
 msgid ""
 "Only has effect if these users do not have the permission to publish pages "
 "anyway."
@@ -2266,11 +2323,11 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu veröffentlichen."
 
-#: models/pages/page.py:96
+#: models/pages/page.py:99
 msgid "responsible organization"
 msgstr "zuständige Organisation"
 
-#: models/pages/page.py:98
+#: models/pages/page.py:101
 msgid ""
 "This allows all members of the organization to edit and publish this page."
 msgstr ""
@@ -2289,52 +2346,52 @@ msgstr "Live-Inhalt"
 msgid "Empty"
 msgstr "Leer"
 
-#: models/pois/poi.py:21
+#: models/pois/poi.py:22
 msgid "street and house number"
 msgstr "Straße und Hausnummer"
 
-#: models/pois/poi.py:23 models/regions/region.py:94
+#: models/pois/poi.py:24 models/regions/region.py:94
 msgid "postal code"
 msgstr "Postleitzahl"
 
-#: models/pois/poi.py:24
+#: models/pois/poi.py:25
 msgid "city"
 msgstr "Stadt"
 
-#: models/pois/poi.py:25
+#: models/pois/poi.py:26
 msgid "country"
 msgstr "Land"
 
-#: models/pois/poi.py:27 models/regions/region.py:86
+#: models/pois/poi.py:28 models/regions/region.py:86
 msgid "latitude"
 msgstr "Geographische Breite"
 
-#: models/pois/poi.py:27
+#: models/pois/poi.py:28
 msgid "The latitude coordinate"
 msgstr "Die Breitengrad-Koordinate"
 
-#: models/pois/poi.py:30 models/regions/region.py:91
+#: models/pois/poi.py:31 models/regions/region.py:91
 msgid "longitude"
 msgstr "Geographische Länge"
 
-#: models/pois/poi.py:30
+#: models/pois/poi.py:31
 msgid "The longitude coordinate"
 msgstr "Die Längengrad-Koordinate"
 
-#: models/pois/poi.py:34
+#: models/pois/poi.py:35
 msgid "Do not show this location on map"
 msgstr "Diesen Ort nicht auf Karte zeigen"
 
-#: models/pois/poi.py:35
+#: models/pois/poi.py:36
 msgid "Tick if you do not show this location on map"
 msgstr ""
 "Kreuzen Sie an, wenn dieser Ort nicht auf der Karte gezeigt werden soll."
 
-#: models/pois/poi.py:46
+#: models/pois/poi.py:49
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
-#: models/pois/poi.py:146
+#: models/pois/poi.py:149
 msgid "locations"
 msgstr "Orte"
 
@@ -2502,26 +2559,26 @@ msgstr ""
 "Damit kann einzelnen Benutzern das Recht zum Bearbeiten oder Veröffentlichen "
 "einer bestimmten Seite eingeräumt werden."
 
-#: models/regions/region.py:145 models/users/organization.py:23
+#: models/regions/region.py:143 models/users/organization.py:23
 msgid "logo"
 msgstr "Logo"
 
-#: models/regions/region.py:150
+#: models/regions/region.py:152
 msgid "activate author chat"
 msgstr "Autoren-Chat aktivieren"
 
-#: models/regions/region.py:152
+#: models/regions/region.py:154
 msgid ""
 "This gives all users of this region access to the cross-regional author chat."
 msgstr ""
 "Dies gewährt allen Benutzern dieser Region Zugang zum überregionalen Autoren-"
 "Chat."
 
-#: models/regions/region.py:158
+#: models/regions/region.py:160
 msgid "include administrative division into name"
 msgstr "Verwaltungseinheit dem Namen hinzufügen"
 
-#: models/regions/region.py:161
+#: models/regions/region.py:163
 msgid ""
 "Determines whether the administrative division is displayed next to the "
 "region name."
@@ -2529,7 +2586,7 @@ msgstr ""
 "Legt fest, ob die Verwaltungseinheit neben dem Namen der Region angezeigt "
 "wird."
 
-#: models/regions/region.py:164
+#: models/regions/region.py:166
 msgid ""
 "Sorting is always based on the name, independently from the administrative "
 "division."
@@ -2537,11 +2594,11 @@ msgstr ""
 "Sortierungen werden immer auf Grundlage der Namen vorgenommen, unabhängig "
 "von der Verwaltungseinheit."
 
-#: models/regions/region.py:173
+#: models/regions/region.py:175
 msgid "offers"
 msgstr "Angebote"
 
-#: models/regions/region.py:176
+#: models/regions/region.py:178
 msgid ""
 "Integreat offers are extended features apart from pages and events and are "
 "usually offered by a third party."
@@ -2549,7 +2606,7 @@ msgstr ""
 "Integreat Angebote sind erweiterte Funktionen jenseits von Seiten und "
 "Ereignissen und werden in der Regel von Drittanbietern bereitgestellt."
 
-#: models/regions/region.py:179
+#: models/regions/region.py:181
 msgid ""
 "In most cases, the url is an external API endpoint which the frontend apps "
 "can query and render the results inside the Integreat app."
@@ -2558,15 +2615,15 @@ msgstr ""
 "Frontend Anfragen gesendet werden, um die Ergebnisse in der Integreat App "
 "einzubetten."
 
-#: models/regions/region.py:186
+#: models/regions/region.py:188
 msgid "Activate short urls"
 msgstr "Kurz-URLs aktivieren"
 
-#: models/regions/region.py:187
+#: models/regions/region.py:189
 msgid "Please check the box if you want to use short urls."
 msgstr "Kreuzen Sie an, wenn Sie Kurz-URLs benutzen wollen."
 
-#: models/regions/region.py:406 models/users/user_profile.py:30
+#: models/regions/region.py:408 models/users/user_profile.py:30
 msgid "regions"
 msgstr "Regionen"
 
@@ -2698,127 +2755,120 @@ msgstr "Broken Link Checker"
 msgid "Contents"
 msgstr "Inhalte"
 
-#: templates/_base.html:133 templates/media/media_list.html:6
+#: templates/_base.html:132 templates/_base.html:281
+#: templates/_tinymce_config.html:35 views/media/content_media_mixin.py:31
 msgid "Media Library"
 msgstr "Medienbibliothek"
 
-#: templates/_base.html:138
-msgid "All media files"
-msgstr "Alle Mediendateien"
-
-#: templates/_base.html:142
-msgid "Upload new media file"
-msgstr "Neue Mediendatei hochladen"
-
-#: templates/_base.html:150 templates/pages/page_tree.html:14
+#: templates/_base.html:138 templates/pages/page_tree.html:14
 msgid "Pages"
 msgstr "Seiten"
 
-#: templates/_base.html:155
+#: templates/_base.html:143
 msgid "All pages"
 msgstr "Alle Seiten"
 
-#: templates/_base.html:160 templates/pages/page_tree.html:45
+#: templates/_base.html:148 templates/pages/page_tree.html:45
 #: templates/pages/page_tree.html:49
 msgid "Create page"
 msgstr "Seite erstellen"
 
-#: templates/_base.html:170 templates/events/event_list.html:10
+#: templates/_base.html:158 templates/events/event_list.html:10
 #: templates/regions/region_form.html:112
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: templates/_base.html:175
+#: templates/_base.html:163
 msgid "All events"
 msgstr "Alle Veranstaltungen"
 
-#: templates/_base.html:180 templates/events/event_list.html:38
+#: templates/_base.html:168 templates/events/event_list.html:38
 msgid "Create event"
 msgstr "Veranstaltung erstellen"
 
-#: templates/_base.html:190
+#: templates/_base.html:178
 msgid "Locations on Map"
 msgstr "Orte auf Karte"
 
-#: templates/_base.html:194
+#: templates/_base.html:182
 msgid "All locations"
 msgstr "Alle Orte"
 
-#: templates/_base.html:199 templates/pois/poi_list.html:33
+#: templates/_base.html:187 templates/pois/poi_list.html:33
 msgid "Create location"
 msgstr "Ort erstellen"
 
-#: templates/_base.html:209 templates/_base.html:323
+#: templates/_base.html:197 templates/_base.html:317
 #: templates/feedback/region_feedback_list.html:11
 msgid "Feedback"
 msgstr "Feedback"
 
-#: templates/_base.html:216
+#: templates/_base.html:204
 #: templates/push_notifications/push_notification_list.html:9
 msgid "News"
 msgstr "Nachrichten"
 
-#: templates/_base.html:221
+#: templates/_base.html:209
 msgid "All news messages"
 msgstr "Alle Nachrichten"
 
-#: templates/_base.html:226
+#: templates/_base.html:214
 #: templates/push_notifications/push_notification_form.html:25
 #: templates/push_notifications/push_notification_list.html:21
 msgid "Create news message"
 msgstr "Neue Nachricht verfassen"
 
-#: templates/_base.html:241
+#: templates/_base.html:229
 #: templates/push_notifications/push_notification_form.html:77
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: templates/_base.html:247 templates/_base.html:299
+#: templates/_base.html:235 templates/_base.html:293
 msgid "Users"
 msgstr "Benutzer"
 
-#: templates/_base.html:252
+#: templates/_base.html:240
 msgid "All users"
 msgstr "Alle Benutzer"
 
-#: templates/_base.html:256 templates/users/admin/list.html:16
+#: templates/_base.html:244 templates/users/admin/list.html:16
 #: templates/users/region/list.html:16
 msgid "Create user"
 msgstr "Benutzer erstellen"
 
-#: templates/_base.html:265
+#: templates/_base.html:253
 msgid "Language Tree"
 msgstr "Sprach-Baum"
 
-#: templates/_base.html:270
+#: templates/_base.html:258
 msgid "All language tree nodes"
 msgstr "Alle Sprach-Knoten"
 
-#: templates/_base.html:274 templates/language_tree/language_tree.html:18
+#: templates/_base.html:262 templates/language_tree/language_tree.html:18
 msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
-#: templates/_base.html:282 templates/dashboard/admin_dashboard.html:8
+#: templates/_base.html:270 templates/dashboard/admin_dashboard.html:8
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
-#: templates/_base.html:287
+#: templates/_base.html:275
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:293
+#: templates/_base.html:287
 msgid "Languages"
 msgstr "Sprachen"
 
-#: templates/_base.html:305
+#: templates/_base.html:299
 msgid "Roles"
 msgstr "Rollen"
 
-#: templates/_base.html:311
+#: templates/_base.html:305
 msgid "Organizations"
 msgstr "Organisationen"
 
-#: templates/_base.html:317
+#: templates/_base.html:311
 #: templates/offer_templates/offer_template_list.html:8
 msgid "Offer Templates"
 msgstr "Angebots-Vorlagen"
@@ -2832,29 +2882,37 @@ msgid "Do not translate the selected text."
 msgstr "Der markierte Text wird nicht übersetzt."
 
 #: templates/_tinymce_config.html:19
+msgid "Do not translate"
+msgstr "Nicht übersetzen"
+
+#: templates/_tinymce_config.html:20
 #: templates/events/_event_filter_form.html:34
 msgid "Location"
 msgstr "Ort"
 
-#: templates/_tinymce_config.html:21
+#: templates/_tinymce_config.html:22
 msgid "Link"
 msgstr "Link"
 
-#: templates/_tinymce_config.html:23
+#: templates/_tinymce_config.html:24
 msgid "Email"
 msgstr "Email"
 
-#: templates/_tinymce_config.html:25
+#: templates/_tinymce_config.html:26
 msgid "Phone"
 msgstr "Telefon"
 
-#: templates/_tinymce_config.html:27
+#: templates/_tinymce_config.html:28
 msgid "Opening Hours"
 msgstr "Öffnungszeiten"
 
-#: templates/_tinymce_config.html:29
+#: templates/_tinymce_config.html:30
 msgid "Hint"
 msgstr "Tipp"
+
+#: templates/_tinymce_config.html:36
+msgid "Media Library..."
+msgstr "Medienbibliothek..."
 
 #: templates/analytics/_broken_links_widget.html:12
 msgid "The list below shows all detected errors related to links."
@@ -3111,12 +3169,14 @@ msgstr "Nachricht abschicken"
 #: templates/chat/_chat_widget.html:23
 #: templates/statistics/_statistics_widget.html:18
 #: templates/statistics/statistics_overview.html:18
+#: views/media/content_media_mixin.py:77
 msgid "A network error has occurred."
 msgstr "Ein Netzwerkfehler ist aufgetreten."
 
 #: templates/chat/_chat_widget.html:23
 #: templates/statistics/_statistics_widget.html:18
 #: templates/statistics/statistics_overview.html:18
+#: views/media/content_media_mixin.py:74 views/media/content_media_mixin.py:79
 msgid "Please try again later."
 msgstr "Bitte versuchen Sie es später erneut."
 
@@ -3178,9 +3238,8 @@ msgstr "Veranstaltungsort"
 #: templates/events/event_list.html:27
 #: templates/events/event_list_archived.html:18
 #: templates/language_tree/language_tree.html:14
-#: templates/media/media_list.html:11 templates/pages/page_tree.html:30
-#: templates/pages/page_tree_archived.html:19 templates/pois/poi_list.html:27
-#: templates/pois/poi_list_archived.html:19
+#: templates/pages/page_tree.html:30 templates/pages/page_tree_archived.html:19
+#: templates/pois/poi_list.html:27 templates/pois/poi_list_archived.html:19
 #: templates/push_notifications/push_notification_list.html:16
 #: templates/regions/region_list.html:12 templates/users/admin/list.html:12
 #: templates/users/region/list.html:12
@@ -3454,7 +3513,7 @@ msgstr "Kommentar"
 #: templates/feedback/admin_feedback_list.html:38
 #: templates/feedback/region_feedback_list.html:37
 #: templates/imprint/imprint_revisions.html:22
-#: templates/media/media_list.html:26 templates/pages/page_revisions.html:26
+#: templates/pages/page_revisions.html:26
 msgid "Date"
 msgstr "Datum"
 
@@ -3805,7 +3864,7 @@ msgstr "Sprache \"%(translated_language_name)s\" bearbeiten"
 msgid "Create new language"
 msgstr "Neue Sprache erstellen"
 
-#: templates/languages/language_form.html:26 templates/media/media_list.html:25
+#: templates/languages/language_form.html:26
 #: templates/offer_templates/offer_template_list.html:22
 #: templates/organizations/organization_list.html:22
 #: templates/regions/region_list.html:26 templates/roles/list.html:22
@@ -3922,22 +3981,6 @@ msgstr "Erneut prüfen"
 msgid "Ignore"
 msgstr "Ignorieren"
 
-#: templates/media/media_form.html:6 templates/media/media_list.html:15
-msgid "Upload File"
-msgstr "Datei hochladen"
-
-#: templates/media/media_form.html:15
-msgid "Submit"
-msgstr "Absenden"
-
-#: templates/media/media_form.html:18
-msgid "Return"
-msgstr "Zurück"
-
-#: templates/media/media_list.html:27
-msgid "Operations"
-msgstr "Optionen"
-
 #: templates/offer_templates/offer_template_form.html:13
 #, python-format
 msgid "Edit offer template \"%(offer_template_name)s\""
@@ -3948,6 +3991,7 @@ msgid "Create new offer template"
 msgstr "Neue Angebots-Vorlage erstellen"
 
 #: templates/offer_templates/offer_template_form.html:24
+#: views/media/content_media_mixin.py:42
 msgid "Create"
 msgstr "Erstellen"
 
@@ -4226,7 +4270,7 @@ msgstr "Exportiere XLIFF für Übersetzung nach"
 msgid "Upload XLIFF File"
 msgstr "XLIFF-Datei hochladen"
 
-#: templates/pages/page_tree.html:143
+#: templates/pages/page_tree.html:143 views/media/content_media_mixin.py:37
 msgid "Upload"
 msgstr "Hochladen"
 
@@ -4327,10 +4371,6 @@ msgstr "Seiten-ID"
 #: templates/pages/page_xliff_confirm.html:43
 msgid "Target language slug"
 msgstr "Zielsprachencode"
-
-#: templates/pages/page_xliff_confirm.html:46
-msgid "file"
-msgstr "Datei"
 
 #: templates/pages/page_xliff_confirm.html:47
 msgid "Warning: the translation has been updated since the XLIFF was exported."
@@ -5027,48 +5067,48 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten "
 "oder zu erstellen."
 
-#: views/events/event_view.py:72
+#: views/events/event_view.py:76
 msgid "You don't have the permission to edit this event."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Veranstaltung zu "
 "bearbeiten."
 
-#: views/events/event_view.py:77
+#: views/events/event_view.py:81
 msgid "You cannot edit this event because it is archived."
 msgstr ""
 "Sie können diese Veranstaltung nicht bearbeiten, weil sie archiviert ist."
 
-#: views/events/event_view.py:201 views/imprint/imprint_sbs_view.py:197
+#: views/events/event_view.py:205 views/imprint/imprint_sbs_view.py:197
 #: views/imprint/imprint_view.py:208
 #: views/organizations/organization_view.py:82 views/pages/page_sbs_view.py:193
-#: views/regions/region_view.py:85 views/settings/user_settings_view.py:89
+#: views/regions/region_view.py:88 views/settings/user_settings_view.py:89
 #: views/settings/user_settings_view.py:106 views/users/region_user_view.py:130
 #: views/users/user_view.py:132
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
-#: views/events/event_view.py:236
+#: views/events/event_view.py:240
 msgid "Event was successfully created and published"
 msgstr "Veranstaltung wurde erfolgreich erstellt und veröffentlicht"
 
-#: views/events/event_view.py:239
+#: views/events/event_view.py:243
 msgid "Event was successfully created"
 msgstr "Veranstaltung wurde erfolgreich erstellt"
 
-#: views/events/event_view.py:245
+#: views/events/event_view.py:249
 msgid "Event translation was successfully created and published"
 msgstr ""
 "Veranstaltungsübersetzung wurde erfolgreich erstellt und veröffentlicht"
 
-#: views/events/event_view.py:249
+#: views/events/event_view.py:253
 msgid "Event translation was successfully created"
 msgstr "Veranstaltungsübersetzung wurde erfolgreich erstellt"
 
-#: views/events/event_view.py:253
+#: views/events/event_view.py:257
 msgid "Event was successfully published"
 msgstr "Veranstaltung wurde erfolgreich veröffentlicht"
 
-#: views/events/event_view.py:255
+#: views/events/event_view.py:259
 msgid "Event was successfully saved"
 msgstr "Veranstaltung wurde erfolgreich gespeichert"
 
@@ -5145,28 +5185,28 @@ msgstr ""
 #: views/imprint/imprint_sbs_view.py:195 views/imprint/imprint_view.py:192
 #: views/offer_templates/offer_template_view.py:84
 #: views/organizations/organization_view.py:76 views/pages/page_sbs_view.py:191
-#: views/pages/page_view.py:232 views/regions/region_view.py:79
+#: views/pages/page_view.py:235 views/regions/region_view.py:82
 #: views/users/region_user_view.py:140 views/users/user_view.py:149
 msgid "Errors have occurred."
 msgstr "Es sind Fehler aufgetreten."
 
 #: views/imprint/imprint_sbs_view.py:207 views/imprint/imprint_view.py:241
-#: views/pages/page_sbs_view.py:201 views/pages/page_view.py:271
+#: views/pages/page_sbs_view.py:201 views/pages/page_view.py:274
 msgid "Translation was successfully created and published"
 msgstr "Übersetzung wurde erfolgreich erstellt und veröffentlicht"
 
 #: views/imprint/imprint_sbs_view.py:210 views/imprint/imprint_view.py:244
-#: views/pages/page_sbs_view.py:204 views/pages/page_view.py:274
+#: views/pages/page_sbs_view.py:204 views/pages/page_view.py:277
 msgid "Translation was successfully created"
 msgstr "Übersetzung wurde erfolgreich erstellt"
 
 #: views/imprint/imprint_sbs_view.py:214 views/imprint/imprint_view.py:247
-#: views/pages/page_sbs_view.py:208 views/pages/page_view.py:278
+#: views/pages/page_sbs_view.py:208 views/pages/page_view.py:281
 msgid "Translation was successfully published"
 msgstr "Übersetzung wurde erfolgreich veröffentlicht"
 
 #: views/imprint/imprint_sbs_view.py:217 views/imprint/imprint_view.py:249
-#: views/pages/page_sbs_view.py:211 views/pages/page_view.py:281
+#: views/pages/page_sbs_view.py:211 views/pages/page_view.py:284
 msgid "Translation was successfully saved"
 msgstr "Übersetzung wurde erfolgreich gespeichert"
 
@@ -5199,7 +5239,7 @@ msgstr "Impressum wurde erfolgreich erstellt und veröffentlicht"
 msgid "imprint was successfully created"
 msgstr "Impressum wurde erfolgreich erstellt"
 
-#: views/imprint/imprint_view.py:286 views/pages/page_view.py:320
+#: views/imprint/imprint_view.py:286 views/pages/page_view.py:323
 #, python-brace-format
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
@@ -5237,7 +5277,8 @@ msgstr ""
 "Benachrichtigungen zu dieser Sprache werden ebenfalls gelöscht."
 
 #: views/language_tree/language_tree_node_view.py:102
-#: views/pois/poi_view.py:167
+#: views/media/media_actions.py:189 views/media/media_actions.py:347
+#: views/pois/poi_view.py:171
 msgid "No changes detected"
 msgstr "Keine Änderungen vorgenommen"
 
@@ -5257,7 +5298,7 @@ msgstr "Sprache wurde erfolgreich gespeichert"
 msgid "Language was successfully created"
 msgstr "Sprache wurde erfolgreich erstellt"
 
-#: views/languages/language_view.py:79
+#: views/languages/language_view.py:79 views/media/content_media_mixin.py:74
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
@@ -5272,6 +5313,155 @@ msgstr "Links werden nicht mehr ignoriert"
 #: views/linkcheck/linkcheck.py:100
 msgid "Links were successfully checked"
 msgstr "Links wurden erfolgreich geprüft"
+
+#: views/media/content_media_mixin.py:32
+msgid "Create Directory"
+msgstr "Verzeichnis erstellen"
+
+#: views/media/content_media_mixin.py:33
+msgid "Upload File"
+msgstr "Datei hochladen"
+
+#: views/media/content_media_mixin.py:34
+msgid "Home"
+msgstr "Home"
+
+#: views/media/content_media_mixin.py:35
+msgid "Directory Properties"
+msgstr "Ordner-Eigenschaften"
+
+#: views/media/content_media_mixin.py:36
+msgid "File Properties"
+msgstr "Datei-Eigenschaften"
+
+#: views/media/content_media_mixin.py:38
+msgid "Upload file"
+msgstr "Datei hochladen"
+
+#: views/media/content_media_mixin.py:39
+msgid "Save file"
+msgstr "Datei speichern"
+
+#: views/media/content_media_mixin.py:40
+msgid "Delete file"
+msgstr "Datei löschen"
+
+#: views/media/content_media_mixin.py:41
+msgid "Show file"
+msgstr "Datei anzeigen"
+
+#: views/media/content_media_mixin.py:43
+msgid "Enter directory"
+msgstr "Verzeichnis betreten"
+
+#: views/media/content_media_mixin.py:44
+msgid "Create directory"
+msgstr "Verzeichnis erstellen"
+
+#: views/media/content_media_mixin.py:45
+msgid "Rename directory"
+msgstr "Verzeichnis umbenennen"
+
+#: views/media/content_media_mixin.py:46
+msgid "Delete directory"
+msgstr "Verzeichnis löschen"
+
+#: views/media/content_media_mixin.py:48
+msgid "You can only delete empty directories"
+msgstr "Es können nur leere Verzeichnisse gelöscht werden"
+
+#: views/media/content_media_mixin.py:50
+msgid "Back"
+msgstr "Zurück"
+
+#: views/media/content_media_mixin.py:51
+msgid "Close detail view"
+msgstr "Detailansicht schließen"
+
+#: views/media/content_media_mixin.py:52
+msgid "Submit"
+msgstr "Absenden"
+
+#: views/media/content_media_mixin.py:53
+msgid "Select"
+msgstr "Auswählen"
+
+#: views/media/content_media_mixin.py:54
+msgid "Select file"
+msgstr "Datei auswählen"
+
+#: views/media/content_media_mixin.py:55
+msgid "File name:"
+msgstr "Dateiname:"
+
+#: views/media/content_media_mixin.py:57
+msgid "Directory name:"
+msgstr "Verzeichnisname:"
+
+#: views/media/content_media_mixin.py:58
+msgid "Filetype:"
+msgstr "Dateityp:"
+
+#: views/media/content_media_mixin.py:59
+msgid "File uploaded on:"
+msgstr "Datei hochgeladen am:"
+
+#: views/media/content_media_mixin.py:60
+msgid "Directory created on:"
+msgstr "Verzeichnis erstellt am:"
+
+#: views/media/content_media_mixin.py:61
+msgid "Alternative text:"
+msgstr "Alternativer Text:"
+
+#: views/media/content_media_mixin.py:62
+msgid "Enter directory name here"
+msgstr "Verzeichnisname hier eingeben"
+
+#: views/media/content_media_mixin.py:63
+msgid "This file is read-only and cannot be edited."
+msgstr "Diese Datei ist schreibgeschützt und kann nicht bearbeitet werden."
+
+#: views/media/content_media_mixin.py:65
+msgid "This directory is read-only and cannot be edited."
+msgstr ""
+"Dieses Verzeichnis ist schreibgeschützt und kann nicht bearbeitet werden."
+
+#: views/media/content_media_mixin.py:68
+msgid "Please confirm that you really want to delete this file"
+msgstr "Bitte bestätigen Sie, dass diese Datei gelöscht werden soll"
+
+#: views/media/content_media_mixin.py:71
+msgid "Please confirm that you really want to delete this directory"
+msgstr "Bitte bestätigen Sie, dass dieses Verzeichnis gelöscht werden soll"
+
+#: views/media/media_actions.py:139
+msgid "File \"{}\" was uploaded successfully"
+msgstr "Datei \"{}\"wurde erfolgreich hochgeladen"
+
+#: views/media/media_actions.py:204
+msgid "File \"{}\" was saved successfully"
+msgstr "Datei \"{}\" wurde erfolgreich gespeichert"
+
+#: views/media/media_actions.py:249
+msgid "File \"{}\" was successfully deleted"
+msgstr "Datei \"{}\" wurde erfolgreich gelöscht"
+
+#: views/media/media_actions.py:300
+msgid "Directory \"{}\" was created successfully"
+msgstr "Verzeichnis \"{}\" wurde erfolgreich erstellt"
+
+#: views/media/media_actions.py:360
+msgid "Directory \"{}\" was saved successfully"
+msgstr "Verzeichnis \"{}\" wurde erfolgreich gespeichert"
+
+#: views/media/media_actions.py:403
+msgid "Directory \"{}\" cannot be deleted because it is not empty"
+msgstr "Verzeichnis \"{}\" kann nicht gelöscht werden, da es nicht leer ist"
+
+#: views/media/media_actions.py:416
+msgid "Directory \"{}\" was successfully deleted"
+msgstr "Verzeichnis \"{}\" wurde erfolgreich gelöscht"
 
 #: views/offer_templates/offer_template_view.py:72
 msgid "Offer template was successfully saved"
@@ -5308,32 +5498,32 @@ msgstr ""
 msgid "Page was successfully deleted"
 msgstr "Seite wurde erfolgreich gelöscht"
 
-#: views/pages/page_actions.py:524
+#: views/pages/page_actions.py:527
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
-#: views/pages/page_actions.py:612 views/pages/page_actions.py:627
+#: views/pages/page_actions.py:615 views/pages/page_actions.py:630
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: views/pages/page_actions.py:619
+#: views/pages/page_actions.py:622
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: views/pages/page_actions.py:635
+#: views/pages/page_actions.py:638
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nun veröffentlichen"
 
-#: views/pages/page_actions.py:644 views/pages/page_actions.py:759
+#: views/pages/page_actions.py:647 views/pages/page_actions.py:762
 msgid "An error has occurred. Please contact an administrator."
 msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie einen Administrator."
 
-#: views/pages/page_actions.py:727
+#: views/pages/page_actions.py:730
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -5343,12 +5533,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin bearbeiten."
 
-#: views/pages/page_actions.py:733
+#: views/pages/page_actions.py:736
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: views/pages/page_actions.py:744
+#: views/pages/page_actions.py:747
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -5358,7 +5548,7 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen."
 
-#: views/pages/page_actions.py:750
+#: views/pages/page_actions.py:753
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
@@ -5421,11 +5611,11 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Seiten zu bearbeiten oder zu "
 "erstellen."
 
-#: views/pages/page_view.py:80
+#: views/pages/page_view.py:83
 msgid "You cannot edit this page because it is archived."
 msgstr "Sie können diese Seite nicht bearbeiten, weil sie archiviert ist."
 
-#: views/pages/page_view.py:87
+#: views/pages/page_view.py:90
 msgid ""
 "You cannot edit this page, because one of its parent pages is archived and "
 "therefore, this page is archived as well."
@@ -5433,7 +5623,7 @@ msgstr ""
 "Sie können diese Seite nicht bearbeiten, weil eine ihrer übergeordneten "
 "Seiten archiviert ist, und sie dadurch ebenfalls archiviert ist."
 
-#: views/pages/page_view.py:95
+#: views/pages/page_view.py:98
 msgid ""
 "You don't have the permission to edit this page, but you can propose changes "
 "and submit them for review instead."
@@ -5441,7 +5631,7 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten, aber "
 "Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
 
-#: views/pages/page_view.py:103
+#: views/pages/page_view.py:106
 #, python-format
 msgid ""
 "The latest changes have only been saved as a draft. Currently, <a "
@@ -5452,15 +5642,15 @@ msgstr ""
 "Version <a href='%(revision_url)s' class='underline hover:no-"
 "underline'>Version %(revision)s</a> dieser Seite in der App angezeigt."
 
-#: views/pages/page_view.py:259
+#: views/pages/page_view.py:262
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
-#: views/pages/page_view.py:264
+#: views/pages/page_view.py:267
 msgid "Page was successfully created and published"
 msgstr "Seite wurde erfolgreich erstellt und veröffentlicht"
 
-#: views/pages/page_view.py:267
+#: views/pages/page_view.py:270
 msgid "Page was successfully created"
 msgstr "Seite wurde erfolgreich erstellt"
 
@@ -5510,23 +5700,23 @@ msgstr ""
 msgid "You can only create locations in the default language (%(language)s)."
 msgstr "Sie können Orte nur in der Standard-Sprache (%(language)s) anlegen"
 
-#: views/pois/poi_view.py:70
+#: views/pois/poi_view.py:74
 msgid "You cannot edit this location because it is archived."
 msgstr "Sie können diesen Ort nicht bearbeiten, da er archiviert ist."
 
-#: views/pois/poi_view.py:190
+#: views/pois/poi_view.py:194
 msgid "Location was successfully created and published"
 msgstr "Ort wurde erfolgreich erstellt und veröffentlicht"
 
-#: views/pois/poi_view.py:193
+#: views/pois/poi_view.py:197
 msgid "Location was successfully created"
 msgstr "Ort wurde erfolgreich erstellt"
 
-#: views/pois/poi_view.py:196
+#: views/pois/poi_view.py:200
 msgid "Location was successfully published"
 msgstr "Ort wurde erfolgreich veröffentlicht"
 
-#: views/pois/poi_view.py:198
+#: views/pois/poi_view.py:202
 msgid "Location was successfully saved"
 msgstr "Ort wurde erfolgreich gespeichert"
 
@@ -5561,11 +5751,11 @@ msgstr "Benötigte Texte für die Push-Benachrichtigung fehlen"
 msgid "Region was successfully deleted"
 msgstr "Region wurde erfolgreich gelöscht"
 
-#: views/regions/region_view.py:93
+#: views/regions/region_view.py:96
 msgid "Region was saved successfully"
 msgstr "Region wurde erfolgreich gespeichert"
 
-#: views/regions/region_view.py:95
+#: views/regions/region_view.py:98
 msgid "Region was created successfully"
 msgstr "Region wurde erfolgreich erstellt"
 
@@ -5679,6 +5869,59 @@ msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
 
+#~ msgid "Use of Heading 1 style not allowed."
+#~ msgstr "Bitte benutzen Sie keine Überschrift 1 in diesem Feld."
+
+#~ msgid "Return"
+#~ msgstr "Zurück"
+
+#~ msgid "%(item_count)s Elements"
+#~ msgstr "%(item_count)s Elemente"
+
+#~ msgid "JPG image"
+#~ msgstr "JPG-Bild"
+
+#~ msgid "The file's region has to match its directory's region."
+#~ msgstr ""
+#~ "Die Region der Datei muss der Region ihres Verzeichnisses entsprechen."
+
+#~ msgid "directory"
+#~ msgstr "Verzeichnis"
+
+#~ msgid "physical file"
+#~ msgstr "Physische Datei"
+
+#~ msgid "physical thumbnail file"
+#~ msgstr "Physische Vorschaubild-Datei"
+
+#~ msgid "The file name cannot be empty"
+#~ msgstr "Der Dateiname darf nicht leer sein."
+
+#~ msgid "The directory name cannot be empty"
+#~ msgstr "Der Verzeichnisname darf nicht leer sein."
+
+#~ msgid "Unsupported File can't be uploaded. Only Images and PDF allowed."
+#~ msgstr ""
+#~ "Diese Datei wird nicht unterstützt. Es sind nur Bilder und PDFs erlaubt."
+
+#~ msgid "No file was uploaded"
+#~ msgstr "Es konnte keine Datei hochgeladen werden"
+
+#~ msgid "document"
+#~ msgstr "Dokument"
+
+#~ msgid "documents"
+#~ msgstr "Dokumente"
+
+#~ msgid "Rename"
+#~ msgstr "Umbenennen"
+
+#~ msgid "Success"
+#~ msgstr "Erfolg"
+
+#~ msgid "Read-only"
+#~ msgstr "Schreibgeschützt"
+
 #~ msgid "push notification channel"
 #~ msgstr "Push-Benachrichtigungskanal"
 
@@ -5687,6 +5930,21 @@ msgstr ""
 
 #~ msgid "Enter multiple channels separated by commas."
 #~ msgstr "Mehrere Kanäle mit Kommata getrennt eingeben."
+
+#~ msgid "Upload new media file"
+#~ msgstr "Neue Mediendatei hochladen"
+
+#~ msgid "All push notifications"
+#~ msgstr "Alle Push-Benachrichtigungen"
+
+#~ msgid "Create push notification"
+#~ msgstr "Push-Benachrichtigung verfassen"
+
+#~ msgid "Offers"
+#~ msgstr "Angebote"
+
+#~ msgid "Offer templates"
+#~ msgstr "Angebots-Vorlagen"
 
 #~ msgid "key"
 #~ msgstr "Schlüssel"
@@ -5700,8 +5958,17 @@ msgstr ""
 #~ msgid "configurations"
 #~ msgstr "Einstellungen"
 
-#~ msgid "Offer templates"
-#~ msgstr "Angebots-Vorlagen"
+#~ msgid "Root"
+#~ msgstr "Home"
+
+#~ msgid "The actual document file"
+#~ msgstr "Die eigentliche Dokumentendatei"
+
+#~ msgid "template"
+#~ msgstr "Vorlage"
+
+#~ msgid "Operations"
+#~ msgstr "Optionen"
 
 #~ msgid "Translations up-to-date"
 #~ msgstr "Aktuelle Übersetzungen"
@@ -5726,12 +5993,6 @@ msgstr ""
 
 #~ msgid "Show Versions"
 #~ msgstr "Versionen anzeigen"
-
-#~ msgid "template"
-#~ msgstr "Vorlage"
-
-#~ msgid "Offers"
-#~ msgstr "Angebote"
 
 #~ msgid "Manage offer templates"
 #~ msgstr "Angebots-Vorlagen verwalten"
@@ -5848,6 +6109,33 @@ msgstr ""
 #~ msgid "Push Notifications"
 #~ msgstr "Push-Benachrichtigungen"
 
+#~ msgid "Points of Interest"
+#~ msgstr "Points of Interest"
+
+#~ msgid "Archived Points of Interest"
+#~ msgstr "Archivierte Points of Interest"
+
+#~ msgid "PDF Export"
+#~ msgstr "PDF Export"
+
+#~ msgid "thumbnail icon"
+#~ msgstr "Vorschaubild"
+
+#~ msgid "language tag"
+#~ msgstr "Sprach-Tag"
+
+#~ msgid "Matomo URL"
+#~ msgstr "Matomo-URL"
+
+#~ msgid "activate SSL verification for Matomo"
+#~ msgstr "SSL-Verifikation für Matomo aktivieren"
+
+#~ msgid ""
+#~ "Don't allow invalid SSL-certificates when interacting with Matomo API"
+#~ msgstr ""
+#~ "Erlaube keine ungültigen SSL-Zertifikate bei der Interaktion mit der "
+#~ "Matomo API"
+
 #~ msgid "Read Blog"
 #~ msgstr "Blog lesen"
 
@@ -5877,18 +6165,6 @@ msgstr ""
 
 #~ msgid "Please enter a correct end date."
 #~ msgstr "Bitte fügen sie ein gültiges Enddatum ein"
-
-#~ msgid "Matomo URL"
-#~ msgstr "Matomo-URL"
-
-#~ msgid "activate SSL verification for Matomo"
-#~ msgstr "SSL-Verifikation für Matomo aktivieren"
-
-#~ msgid ""
-#~ "Don't allow invalid SSL-certificates when interacting with Matomo API"
-#~ msgstr ""
-#~ "Erlaube keine ungültigen SSL-Zertifikate bei der Interaktion mit der "
-#~ "Matomo API"
 
 #~ msgid "Administrative division"
 #~ msgstr "Verwaltungseinheit"
@@ -5931,9 +6207,6 @@ msgstr ""
 #~ msgid "What do you want to do?"
 #~ msgstr "Was möchten Sie tun?"
 
-#~ msgid "thumbnail icon"
-#~ msgstr "Vorschaubild"
-
 #~ msgid "Name of the Role"
 #~ msgstr "Name der Rolle"
 
@@ -5951,9 +6224,6 @@ msgstr ""
 
 #~ msgid "Set icon"
 #~ msgstr "Icon festlegen"
-
-#~ msgid "thumbnail image"
-#~ msgstr "Vorschaubild"
 
 #~ msgid "Icon"
 #~ msgstr "Icon"
@@ -5979,8 +6249,8 @@ msgstr ""
 #~ msgid "read"
 #~ msgstr "gelesen"
 
-#~ msgid "PDF Export"
-#~ msgstr "PDF Export"
+#~ msgid "Time"
+#~ msgstr "Uhrzeit"
 
 #~ msgid "timezone"
 #~ msgstr "Zeitzone"
@@ -6038,6 +6308,22 @@ msgstr ""
 
 #~ msgid "Object"
 #~ msgstr "Objekt"
+
+#~ msgid "Extra template saved successfully"
+#~ msgstr "Extra-Vorlage wurde erfolgreich gespeichert."
+
+#~ msgid "Extra template created successfully"
+#~ msgstr "Extra-Vorlage wurde erfolgreich erstellt."
+
+#~ msgid "was successfully activated."
+#~ msgstr "wurde erfolgreich aktiviert."
+
+#~ msgid "was successfully deactivated."
+#~ msgstr "wurde erfolgreich deaktiviert."
+
+#~| msgid "Export"
+#~ msgid "Export XLIFF"
+#~ msgstr "Exportieren"
 
 #~ msgid "Insert title here"
 #~ msgstr "Titel hier eingeben"
@@ -6150,9 +6436,6 @@ msgstr ""
 
 #~ msgid "Unique per region and language"
 #~ msgstr "Eindeutig pro Region und Sprache"
-
-#~ msgid "Time"
-#~ msgstr "Uhrzeit"
 
 #~ msgid "interval"
 #~ msgstr "Intervall"
@@ -6484,9 +6767,6 @@ msgstr ""
 
 #~ msgid "Archived POIs"
 #~ msgstr "Archivierte POIs"
-
-#~ msgid "Archived Points of Interest"
-#~ msgstr "Archivierte Points of Interest"
 
 #~ msgid "POI was successfully archived."
 #~ msgstr "POI wurde erfolgreich archiviert."

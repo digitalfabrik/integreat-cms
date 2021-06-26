@@ -16,6 +16,8 @@ from ...decorators import region_permission_required
 from ...forms import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Region, Language
 from .poi_context_mixin import POIContextMixin
+from ..media.content_media_mixin import ContentMediaMixin
+
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +25,9 @@ logger = logging.getLogger(__name__)
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 # pylint: disable=too-many-ancestors
-class POIView(PermissionRequiredMixin, TemplateView, POIContextMixin):
+class POIView(
+    PermissionRequiredMixin, TemplateView, POIContextMixin, ContentMediaMixin
+):
     """
     View for editing POIs
     """

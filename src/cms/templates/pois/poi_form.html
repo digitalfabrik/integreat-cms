@@ -232,6 +232,7 @@
         </div>
     </div>
 </form>
+{{ media_config_data|json_script:"media_config_data" }}
 
 {% if poi_form.instance.id and poi_form.instance.archived %}
     {% include '../_tinymce_config.html' with readonly=1 %}

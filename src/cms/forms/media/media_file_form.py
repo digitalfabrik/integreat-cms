@@ -1,10 +1,14 @@
+import logging
+
 from ..custom_model_form import CustomModelForm
-from ...models import Document
+from ...models import MediaFile
+
+logger = logging.getLogger(__name__)
 
 
-class DocumentForm(CustomModelForm):
+class MediaFileForm(CustomModelForm):
     """
-    Form for creating and modifying document objects
+    Form for modifying media file objects
     """
 
     class Meta:
@@ -14,9 +18,9 @@ class DocumentForm(CustomModelForm):
         """
 
         #: The model of this :class:`django.forms.ModelForm`
-        model = Document
+        model = MediaFile
         #: The fields of the model which should be handled by this form
         fields = (
-            "description",
-            "document",
+            "name",
+            "alt_text",
         )

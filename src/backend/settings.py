@@ -164,8 +164,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "widget_tweaks",
-    "easy_thumbnails",
-    "filer",
     "mptt",
     "rules.apps.AutodiscoverRulesConfig",
     "linkcheck",

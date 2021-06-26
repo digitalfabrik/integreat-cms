@@ -138,11 +138,13 @@ class Region(models.Model):
         ),
     )
 
-    icon = models.ImageField(
+    icon = models.ForeignKey(
+        "cms.MediaFile",
+        verbose_name=_("logo"),
+        on_delete=models.SET_NULL,
+        related_name="icon_of",
         blank=True,
         null=True,
-        upload_to="regions/%Y/%m/%d",
-        verbose_name=_("logo"),
     )
 
     chat_enabled = models.BooleanField(
