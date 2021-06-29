@@ -13,9 +13,11 @@ class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
     """
 
     #: The key salt which is passed to the HMAC function
-    key_salt = "cms.utils.account_activation_utils.AccountActivationTokenGenerator"
+    key_salt = (
+        "cms.utils.account_activation_token_generator.AccountActivationTokenGenerator"
+    )
 
 
 #: The token generator for the account activation process
-#: (an instance of :class:`~cms.utils.account_activation_utils.AccountActivationTokenGenerator`)
+#: (an instance of :class:`~cms.utils.account_activation_token_generator.AccountActivationTokenGenerator`)
 account_activation_token_generator = AccountActivationTokenGenerator()

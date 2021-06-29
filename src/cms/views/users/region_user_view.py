@@ -105,7 +105,7 @@ class RegionUserView(TemplateView):
             region_user_form.add_error_messages(request)
             user_profile_form.add_error_messages(request)
         elif not (
-            user_profile_form.cleaned_data["send_activation_link"]
+            user_profile_form.cleaned_data.get("send_activation_link")
             or region_user_form.cleaned_data["password"]
             or user_instance
         ):
@@ -114,7 +114,7 @@ class RegionUserView(TemplateView):
                 request,
                 _("Please choose either to send an activation link or set a password."),
             )
-        elif not region_user_form.has_changed() or not user_profile_form.has_changed():
+        elif not region_user_form.has_changed() and not user_profile_form.has_changed():
             # Add "no changes" messages
             messages.info(request, _("No changes made"))
         else:
@@ -126,7 +126,7 @@ class RegionUserView(TemplateView):
             if not user_instance:
                 # Send activation link or welcome mail
                 activation = user_profile_form.cleaned_data.get("send_activation_link")
-                send_welcome_mail(request, user_form.instance, activation)
+                send_welcome_mail(request, region_user_form.instance, activation)
                 # Add the success message and redirect to the edit page
                 messages.success(
                     request,

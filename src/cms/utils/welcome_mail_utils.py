@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 
 
 from backend.settings import BASE_URL, STATIC_ROOT
-from .account_activation_utils import account_activation_token_generator
+from .account_activation_token_generator import account_activation_token_generator
 from ..models import Region
 
 logger = logging.getLogger(__name__)
@@ -35,7 +35,7 @@ def send_welcome_mail(request, user, activation):
     :type activation: bool
     """
     subject = _("Welcome to your Integreat account")
-    debug_mail_type = "welcome mail"
+    debug_mail_type = _("welcome mail")
     context = {
         "user": user,
         "base_url": BASE_URL,
@@ -47,7 +47,7 @@ def send_welcome_mail(request, user, activation):
         uid = urlsafe_base64_encode(force_bytes(user.pk))
 
         subject = _("Activate your Integreat account")
-        debug_mail_type = "activation mail"
+        debug_mail_type = _("activation mail")
         context.update(
             {
                 "uid": uid,
@@ -80,13 +80,20 @@ def send_welcome_mail(request, user, activation):
     try:
         email.send()
         logger.debug(
-            "%s sent an %s to %s", request.user.profile, debug_mail_type, user.profile
+            "%r sent an welcome mail to %r. Activation link attached: %s",
+            request.user.profile,
+            user.profile,
+            activation,
         )
         messages.success(
             request,
-            _("Welcome mail was successfully sent to user %(user_name)s.")
-            % {"user_name": user.profile.full_user_name},
+            _("{} was successfully sent to user {}.").format(
+                debug_mail_type, user.profile.full_user_name
+            ),
         )
     except BadHeaderError as e:
         logger.exception(e)
-        messages.error(request, _("An error occurred! Could not send welcome mail."))
+        messages.error(
+            request,
+            _("An error occurred! Could not send {}.").format(debug_mail_type),
+        )
