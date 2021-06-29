@@ -17,9 +17,9 @@ class POITranslation(models.Model):
     Data model representing a POI translation
     """
 
-    title = models.CharField(max_length=250, verbose_name=_("title"))
+    title = models.CharField(max_length=1024, verbose_name=_("title"))
     slug = models.SlugField(
-        max_length=200,
+        max_length=1024,
         allow_unicode=True,
         verbose_name=_("URL parameter"),
         help_text=__(
@@ -42,7 +42,7 @@ class POITranslation(models.Model):
         verbose_name=_("status"),
     )
     short_description = models.CharField(
-        max_length=250, verbose_name=_("short description")
+        max_length=2048, verbose_name=_("short description")
     )
     description = models.TextField(blank=True, verbose_name=_("content"))
     language = models.ForeignKey(
