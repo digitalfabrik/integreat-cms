@@ -93,6 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
       el
     );
   });
+  // mark all non-media-library-links as "native" so they are routed by the browser instead of preact
+  document.querySelectorAll("a:not([media-library-link])").forEach((link) => {
+    link.setAttribute("native", "");
+  });
 });
 
 (window as any).IntegreatMediaManagement = MediaManagement;
