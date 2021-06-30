@@ -26,6 +26,7 @@ export default function Breadcrumbs({ breadCrumbs, mediaTranslations }: Props) {
               <Link
                 href={`/${directory.id}/`}
                 className={"block hover:bg-blue-600 px-3 py-2 rounded break-all"}
+                media-library-link
               >
                 {directory.name}
               </Link>

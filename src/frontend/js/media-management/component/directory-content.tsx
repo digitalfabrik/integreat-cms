@@ -30,7 +30,7 @@ export default function DirectoryContent({
     <div className="grid grid-cols-gallery max-h-full gap-1">
       {directoryContent.map((entry: MediaLibraryEntry, index: number) =>
         entry.type === "directory" ? (
-          <Link href={`/${entry.id}/`}>
+          <Link href={`/${entry.id}/`} media-library-link>
             <DirectoryEntry
               directory={entry as Directory}
               mediaTranslations={mediaTranslations}
