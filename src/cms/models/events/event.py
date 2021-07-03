@@ -310,10 +310,6 @@ class Event(models.Model):
         #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["start_date", "start_time"]
         #: The default permissions for this model
-        default_permissions = ()
+        default_permissions = ("change", "delete", "view")
         #: The custom permissions for this model
-        permissions = (
-            ("view_events", "Can view events"),
-            ("edit_events", "Can edit events"),
-            ("publish_events", "Can publish events"),
-        )
+        permissions = (("publish_event", "Can publish events"),)

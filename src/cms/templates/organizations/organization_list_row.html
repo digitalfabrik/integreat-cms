@@ -10,8 +10,14 @@
         </a>
 	</td>
 	<td class="pr-2">
-        <a href="{% url 'edit_organization' organization_id=organization.id %}" class="block py-3 px-2 text-gray-800">
-            {{ organization.thumbnail }}
-        </a>
+        {% if organization.icon %}
+            <a href="{{ organization.icon.url }}" target="_blank" rel="noopener noreferrer" class="bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer">
+                {{ organization.icon.url }}
+            </a>
+        {% else %}
+            <i data-feather="x" class="text-red-500"></i>
+        {% endif %}
 	</td>
+    <td>
+    </td>
 </tr>

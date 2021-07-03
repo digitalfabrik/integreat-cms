@@ -1,9 +1,13 @@
+import logging
+
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
 
 from ...decorators import region_permission_required
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")

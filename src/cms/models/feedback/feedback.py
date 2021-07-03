@@ -190,6 +190,4 @@ class Feedback(models.Model):
         #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["-created_date"]
         #: The default permissions for this model
-        default_permissions = ()
-        #: The custom permissions for this model
-        permissions = (("manage_feedback", "Can manage feedback"),)
+        default_permissions = ("change", "delete", "view")

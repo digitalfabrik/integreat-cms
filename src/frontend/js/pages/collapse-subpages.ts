@@ -28,7 +28,7 @@ function toggleSubpages(event: Event) {
     collapseSpan.innerHTML = '<i data-feather="chevron-down"></i>';
   }
   // Trigger icon replacement
-  feather.replace();
+  feather.replace({ class: 'inline-block' });
 }
 
 /*

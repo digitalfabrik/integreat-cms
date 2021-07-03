@@ -5,8 +5,11 @@ from urllib.parse import urlparse
 from lxml.html import fromstring, tostring
 
 from django.db.models import Q
+from django.contrib import messages
+from django.utils.translation import ugettext_lazy as _
 
 from backend.settings import MEDIA_URL
+from ..constants import status
 from ..models import MediaFile
 from .custom_model_form import CustomModelForm
 
@@ -58,3 +61,34 @@ class CustomContentModelForm(CustomModelForm):
                 image.attrib["alt"] = media_file.alt_text
 
         return tostring(content, with_tail=False, pretty_print=True).decode("utf-8")
+
+    def add_success_message(self, request):
+        """
+        This adds a success message for a translation form.
+        Requires the attributes "title", "status" and "foreign_object" on the form instance.
+
+        :param request: The current request submitting the translation form
+        :type request: ~django.http.HttpRequest
+        """
+        model_name = type(self.instance.foreign_object)._meta.verbose_name.title()
+        if not self.instance.status == status.PUBLIC:
+            messages.success(
+                request,
+                _('{} "{}" was successfully saved as draft').format(
+                    model_name, self.instance.title
+                ),
+            )
+        elif "status" not in self.changed_data:
+            messages.success(
+                request,
+                _('{} "{}" was successfully updated').format(
+                    model_name, self.instance.title
+                ),
+            )
+        else:
+            messages.success(
+                request,
+                _('{} "{}" was successfully published').format(
+                    model_name, self.instance.title
+                ),
+            )

@@ -5,12 +5,12 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from ...decorators import staff_required
+from ...decorators import staff_required, permission_required
 from ...models import Region
 
 logger = logging.getLogger(__name__)
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 @require_POST
 @login_required
 @staff_required
-@permission_required("cms.manage_regions", raise_exception=True)
+@permission_required("cms.delete_region")
 # pylint: disable=unused-argument
 def delete_region(request, *args, **kwargs):
     """
@@ -34,8 +34,6 @@ def delete_region(request, *args, **kwargs):
 
     :param kwargs: The supplied keyword arguments
     :type kwargs: dict
-
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to manage regions
 
     :return: A redirection to the media library
     :rtype: ~django.http.HttpResponseRedirect

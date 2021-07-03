@@ -89,7 +89,7 @@
                 <i data-feather="refresh-ccw" class="text-gray-400"></i>
             </button>
         {% endif %}
-        {% if user.is_superuser or user.is_staff %}
+        {% if perms.cms.delete_page %}
             {% if page.children.all %}
                 <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves non-archived subpages.' %}" class="py-3 pl-2">
                     <i data-feather="trash-2" class="text-gray-400"></i>

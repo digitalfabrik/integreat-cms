@@ -10,14 +10,6 @@ class AbstractBasePageTranslation(models.Model):
     Data model representing a page or imprint page translation
     """
 
-    title = models.CharField(
-        max_length=250,
-        verbose_name=_("title of the page"),
-    )
-    text = models.TextField(
-        blank=True,
-        verbose_name=_("content of the page"),
-    )
     #: Manage choices in :mod:`cms.constants.status`
     status = models.CharField(
         max_length=6,
@@ -76,6 +68,15 @@ class AbstractBasePageTranslation(models.Model):
     def permalink(self):
         """
         This property calculates the permalink dynamically
+
+        To be implemented in the inheriting model
+        """
+        raise NotImplementedError
+
+    @property
+    def base_link(self):
+        """
+        This property calculates the page link without the slug dynamically
 
         To be implemented in the inheriting model
         """
@@ -305,6 +306,7 @@ class AbstractBasePageTranslation(models.Model):
         :return: A readable string representation of the page translation
         :rtype: str
         """
+        # pylint: disable=no-member
         return self.title
 
     def __repr__(self):
@@ -323,5 +325,7 @@ class AbstractBasePageTranslation(models.Model):
         verbose_name = _("page translation")
         #: The plural verbose name of the model
         verbose_name_plural = _("page translations")
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["page", "-version"]
         #: This model is an abstract base class
         abstract = True

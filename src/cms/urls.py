@@ -407,7 +407,7 @@ urlpatterns = [
                     include(
                         [
                             url(
-                                r"^mirrored_page_field/",
+                                r"^(?P<region_slug>[-\w]+)/mirrored_page_field/",
                                 pages.render_mirrored_page_field,
                                 name="render_mirrored_page_field",
                             ),

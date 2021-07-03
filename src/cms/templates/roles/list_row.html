@@ -1,7 +1,27 @@
+{% load i18n %}
+
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
     <td class="pl-2 pr-2">
         <a href="{% url 'edit_role' role_id=role.id %}" class="block py-3 px-2 text-gray-800">
-            {{ role.name }}
+            {{ role.get_name_display }}
         </a>
+    </td>
+    <td class="pl-2 pr-2">
+        <a href="{% url 'edit_role' role_id=role.id %}" class="block py-3 px-2 text-gray-800">
+            {% if role.staff_role %}
+                <i data-feather="check"></i>
+            {% else %}
+                <i data-feather="x"></i>
+            {% endif %}
+        </a>
+    </td>
+    <td class="pl-2 pr-4 text-right min">
+        <button title="{% trans 'Delete role' %}" class="confirmation-button py-3 px-2"
+                data-confirmation-title="{{ delete_dialog_title }}"
+                data-confirmation-text="{{ delete_dialog_text }}"
+                data-confirmation-subject="{{ role.name }}"
+                data-action="#"> <!-- TODO: delete roles -->
+            <i data-feather="trash-2" class="inline-block text-gray-800"></i>
+        </button>
     </td>
 </tr>

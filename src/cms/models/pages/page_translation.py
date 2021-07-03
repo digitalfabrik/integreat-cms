@@ -10,7 +10,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from linkcheck.models import Link
-from backend.settings import BASE_URL
+from backend.settings import BASE_URL, WEBAPP_URL
 
 from .abstract_base_page_translation import AbstractBasePageTranslation
 from .page import Page
@@ -47,6 +47,14 @@ class PageTranslation(AbstractBasePageTranslation):
         on_delete=models.CASCADE,
         related_name="page_translations",
         verbose_name=_("language"),
+    )
+    title = models.CharField(
+        max_length=250,
+        verbose_name=_("title of the page"),
+    )
+    text = models.TextField(
+        blank=True,
+        verbose_name=_("content of the page"),
     )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -92,6 +100,29 @@ class PageTranslation(AbstractBasePageTranslation):
                     self.slug,
                 ],
             )
+        )
+
+    @property
+    def base_link(self):
+        """
+        This property calculates the absolute page link without the slug dynamically
+
+        :return: The base link of the page
+        :rtype: str
+        """
+        return (
+            "/".join(
+                filter(
+                    None,
+                    [
+                        WEBAPP_URL,
+                        self.page.region.slug,
+                        self.language.slug,
+                        self.ancestor_path,
+                    ],
+                )
+            )
+            + "/"
         )
 
     @property

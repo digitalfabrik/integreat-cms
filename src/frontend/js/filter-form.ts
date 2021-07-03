@@ -9,8 +9,7 @@ window.addEventListener("load", () => {
       document
         .getElementById("filter-form-container")
         .classList.toggle("hidden");
-      document
-        .querySelectorAll("filter-toggle-text")
+      Array.from(document.getElementsByClassName("filter-toggle-text"))
         .forEach((element) => element.classList.toggle("hidden"));
     });
   }

@@ -88,7 +88,7 @@
         <a href="" class="py-3 px-2">
             <i data-feather="eye" class="text-gray-800"></i>
         </a>
-        {% has_perm 'cms.edit_events' request.user as can_edit_event %}
+        {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if can_edit_event %}
             <button title="{% trans 'Restore event' %}" class="confirmation-button py-3 px-2" 
                 data-confirmation-title="{{ restore_dialog_title }}"
@@ -98,7 +98,7 @@
                 <i data-feather="refresh-ccw" class="text-gray-800"></i>
             </button>
         {% endif %}
-        {% if user.is_superuser or user.is_staff %}
+        {% if perms.cms.delete_event %}
             <button title="{% trans 'Delete event' %}" class="confirmation-button py-3 px-2"
                 data-confirmation-title="{{ delete_dialog_title }}"
                 data-confirmation-text="{{ delete_dialog_text }}"

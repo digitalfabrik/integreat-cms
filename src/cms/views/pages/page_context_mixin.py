@@ -1,7 +1,11 @@
+import logging
+
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import ContextMixin
 
 from ...utils.translation_utils import ugettext_many_lazy as __
+
+logger = logging.getLogger(__name__)
 
 # pylint: disable=too-few-public-methods
 class PageContextMixin(ContextMixin):

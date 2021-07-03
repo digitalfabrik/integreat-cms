@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.db.models import Q
 from django.utils.text import capfirst
+from django.utils.translation import ugettext_lazy as _
 
 from ...constants import position, mirrored_page_first
 from ...models import Page, Region
@@ -35,10 +36,18 @@ class PageForm(CustomModelForm):
         widget=forms.HiddenInput(),
     )
     editors = forms.ModelChoiceField(
-        queryset=get_user_model().objects.all(), required=False
+        queryset=get_user_model().objects.all(),
+        required=False,
+        label=_("Editors"),
+        help_text=_(
+            "These users can edit this page, but are not allowed to publish it."
+        ),
     )
     publishers = forms.ModelChoiceField(
-        queryset=get_user_model().objects.all(), required=False
+        queryset=get_user_model().objects.all(),
+        required=False,
+        label=_("Publishers"),
+        help_text=_("These users can edit and publish this page."),
     )
     mirrored_page_region = forms.ModelChoiceField(
         queryset=Region.objects.all(), required=False
@@ -60,34 +69,21 @@ class PageForm(CustomModelForm):
             "icon": IconWidget(),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         """
         Initialize page form
-
-        :param args: The supplied arguments
-        :type args: list
 
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
         """
 
-        # pop kwarg to make sure the super class does not get this param
-        self.region = kwargs.pop("region", None)
-        language = kwargs.pop("language", None)
-        disabled = kwargs.pop("disabled", None)
-
-        # instantiate ModelForm
-        super().__init__(*args, **kwargs)
+        # Instantiate CustomModelForm
+        super().__init__(**kwargs)
 
         # pass form object to ParentFieldWidget
         self.fields["parent"].widget.form = self
 
-        # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        if disabled:
-            for _, field in self.fields.items():
-                field.disabled = True
-
-        if len(args) == 1:
+        if "data" in kwargs:
             # dirty hack to remove fields when submitted by POST
             del self.fields["editors"]
             del self.fields["publishers"]
@@ -97,7 +93,7 @@ class PageForm(CustomModelForm):
             self.fields["publishers"].queryset = self.get_publisher_queryset()
 
         # limit possible parents to pages of current region
-        parent_queryset = self.region.pages
+        parent_queryset = self.instance.region.pages
 
         # Set the initial value for the mirrored page region
         if self.instance.mirrored_page:
@@ -147,34 +143,22 @@ class PageForm(CustomModelForm):
                 "mirrored_page"
             ].queryset.exclude(id=self.instance.id)
 
-        # add the language to the parent field to make sure the translated page titles are shown
-        self.fields["parent"].language = language
         self.fields["parent"].queryset = parent_queryset
 
-    # pylint: disable=signature-differs
-    def save(self, *args, **kwargs):
+    def save(self, commit=True):
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
-        :param args: The supplied arguments
-        :type args: list
-
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param commit: Whether or not the changes should be written to the database
+        :type commit: bool
 
         :return: The saved page object
         :rtype: ~cms.models.pages.page.Page
         """
 
-        # don't commit saving of ModelForm, because required fields are still missing
-        kwargs["commit"] = False
-        page = super().save(*args, **kwargs)
+        page = super().save(commit=commit)
 
-        if not self.instance.id:
-            # only update these values when page is created
-            page.region = self.region
-        page.save()
         page.move_to(self.cleaned_data["related_page"], self.cleaned_data["position"])
 
         return page
@@ -188,7 +172,7 @@ class PageForm(CustomModelForm):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
-        permission_edit_page = Permission.objects.get(codename="edit_pages")
+        permission_edit_page = Permission.objects.get(codename="change_page")
         users_without_permissions = get_user_model().objects.exclude(
             Q(groups__permissions=permission_edit_page)
             | Q(user_permissions=permission_edit_page)
@@ -209,7 +193,7 @@ class PageForm(CustomModelForm):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
-        permission_publish_page = Permission.objects.get(codename="publish_pages")
+        permission_publish_page = Permission.objects.get(codename="publish_page")
         users_without_permissions = get_user_model().objects.exclude(
             Q(groups__permissions=permission_publish_page)
             | Q(user_permissions=permission_publish_page)

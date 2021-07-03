@@ -41,6 +41,7 @@ from .push_notifications.push_notification_translation_form import (
 
 from .regions.region_form import RegionForm
 
+from .roles.group_form import GroupForm
 from .roles.role_form import RoleForm
 
 from .statistics.statistics_filter_form import StatisticsFilterForm

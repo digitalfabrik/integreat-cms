@@ -1,33 +1,34 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import staff_required
+from ...decorators import staff_required, permission_required
 from ...forms import UserForm, UserProfileForm
 from ...models import UserProfile
 from ...utils.account_activation_utils import send_activation_link
 
+logger = logging.getLogger(__name__)
+
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-class UserView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("auth.view_user"), name="dispatch")
+@method_decorator(permission_required("auth.change_user"), name="post")
+class UserView(TemplateView):
     """
     View for the user form and user profile form
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_admin_users"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "users/admin/user.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "users"}
+    base_context = {"current_menu_item": "user_form"}
 
     def get(self, request, *args, **kwargs):
         """
@@ -66,7 +67,7 @@ class UserView(PermissionRequiredMixin, TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument
+    # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         """
         Submit :class:`~cms.forms.users.user_form.UserForm` and
@@ -90,65 +91,68 @@ class UserView(PermissionRequiredMixin, TemplateView):
         )
         user_profile_instance = UserProfile.objects.filter(user=user_instance).first()
 
-        user_form = UserForm(request.POST, instance=user_instance)
+        user_form = UserForm(data=request.POST, instance=user_instance)
         user_profile_form = UserProfileForm(
-            request.POST, instance=user_profile_instance
+            data=request.POST, instance=user_profile_instance
         )
-        # TODO: error handling
-        if user_form.is_valid() and user_profile_form.is_valid():
 
-            # Check if user is either superuser/staff or has assigned at least one region
-            if (
-                user_form.cleaned_data["is_superuser"]
-                or user_form.cleaned_data["is_staff"]
-                or user_profile_form.cleaned_data["regions"]
-            ):
-                # check if either activation link is set or password is set or user already exists
-                if (
-                    user_profile_form.cleaned_data["send_activation_link"]
-                    or user_form.cleaned_data["password"]
-                    or user_instance
-                ):
-                    user = user_form.save()
-                    user_profile_form.save(user=user)
-
-                    if user_profile_form.cleaned_data["send_activation_link"]:
-                        send_activation_link(request, user)
-
-                    if user_form.has_changed() or user_profile_form.has_changed():
-                        if user_instance:
-                            messages.success(request, _("User was successfully saved"))
-                        else:
-                            messages.success(
-                                request, _("User was successfully created")
-                            )
-                            return redirect(
-                                "edit_user",
-                                **{
-                                    "user_id": user.id,
-                                }
-                            )
-                    else:
-                        messages.info(request, _("No changes detected."))
-                else:
-                    messages.error(
-                        request,
-                        _(
-                            "Please choose either to send an activation link or set a password."
-                        ),
-                    )
-            else:
-                messages.error(
+        if not user_form.is_valid() or not user_profile_form.is_valid():
+            # Add error messages
+            user_form.add_error_messages(request)
+            user_profile_form.add_error_messages(request)
+        elif not (
+            user_form.cleaned_data["is_superuser"]
+            or user_form.cleaned_data["is_staff"]
+            or user_profile_form.cleaned_data["regions"]
+        ):
+            # Add error message
+            messages.error(
+                request,
+                _(
+                    "A user has to be either staff/superuser or needs to be restricted to at least one region."
+                ),
+            )
+        elif not (
+            user_profile_form.cleaned_data.get("send_activation_link")
+            or user_form.cleaned_data["password"]
+            or user_instance
+        ):
+            # Add error message
+            messages.error(
+                request,
+                _("Please choose either to send an activation link or set a password."),
+            )
+        elif not user_form.has_changed() and not user_profile_form.has_changed():
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
+        else:
+            # Save forms
+            user_profile_form.instance.user = user_form.save()
+            user_profile_form.save()
+            # Send activation link
+            if user_profile_form.cleaned_data.get("send_activation_link"):
+                send_activation_link(request, user_form.instance)
+            # Add the success message and redirect to the edit page
+            if not user_instance:
+                messages.success(
                     request,
-                    _(
-                        "A user has to be either staff/superuser or needs to be restricted to at least one region."
+                    _('User "{}" was successfully created').format(
+                        user_profile_form.instance.full_user_name
                     ),
                 )
-        else:
-            # TODO: improve messages
-            messages.error(request, _("Errors have occurred."))
+                return redirect(
+                    "edit_user",
+                    user_id=user_form.instance.id,
+                )
+            # Add the success message
+            messages.success(
+                request,
+                _('User "{}" was successfully saved').format(
+                    user_profile_form.instance.full_user_name
+                ),
+            )
 
-        if not user_form.cleaned_data["is_active"]:
+        if not user_form.instance.is_active:
             messages.info(request, _("Pending account activation"))
 
         return render(

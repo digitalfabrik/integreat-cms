@@ -15,35 +15,36 @@
             {% trans 'Create new language' %}
           {% endif %}
         </h1>
-        <input type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+        {% if perms.auth.change_language %}
+            <input type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
+        {% endif %}
     </div>
 
     <div class="flex flex-wrap">
       <div class="w-full xl:w-1/2">
-        {{form.errors}}
         <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
             <div class="w-full p-4 rounded bg-blue-500">
-                <h3 class="font-bold text-white">{% trans 'Name' %}</h3>
+                <h3 class="font-bold text-white"><i data-feather="flag" class="mr-2"></i> {% trans 'Name' %}</h3>
             </div>
             <div class="w-full p-4">
-                <label for="{{ form.native_name.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.native_name.label }}</label>
-                {% render_field form.native_name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                <label for="{{ form.native_name.id_for_label }}" class="block mb-2">{{ form.native_name.label }}</label>
+                {% render_field form.native_name|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.native_name.help_text }}</div>
-                <label for="{{ form.english_name.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.english_name.label }}</label>
-                {% render_field form.english_name class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                <label for="{{ form.english_name.id_for_label }}" class="block mb-2">{{ form.english_name.label }}</label>
+                {% render_field form.english_name|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.english_name.help_text }}</div>
             </div>
         </div>
         <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
             <div class="w-full p-4 rounded bg-blue-500">
-                <h3 class="font-bold text-white">{% trans 'Identifier' %}</h3>
+                <h3 class="font-bold text-white"><i data-feather="tag" class="mr-2"></i> {% trans 'Identifier' %}</h3>
             </div>
             <div class="w-full p-4">
-                <label for="{{ form.slug.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.slug.label }}</label>
-                {% render_field form.slug class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                <label for="{{ form.slug.id_for_label }}" class="block mb-2">{{ form.slug.label }}</label>
+                {% render_field form.slug|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.slug.help_text }} {% trans 'This is in many cases a single (macro-)language tag, according to the' %} <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" class="underline">IANA Subtag Registry</a> {% trans 'or'%} <a href="https://iso639-3.sil.org/code_tables/639/data" class="underline" target="_blank">ISO 639</a>.</div>
-                <label for="{{ form.bcp47_tag.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.bcp47_tag.label }}</label>
-                {% render_field form.bcp47_tag class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                <label for="{{ form.bcp47_tag.id_for_label }}" class="block mb-2">{{ form.bcp47_tag.label }}</label>
+                {% render_field form.bcp47_tag|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.bcp47_tag.help_text }}</div>
             </div>
         </div>
@@ -51,38 +52,27 @@
     <div class="w-full xl:w-1/2 xl:pl-4">
         <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
             <div class="w-full p-4 rounded bg-blue-500">
-                <h3 class="font-bold text-white">{% trans 'Extended Settings' %}</h3>
+                <h3 class="font-bold text-white"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
             </div>
             <div class="w-full p-4">
-                <label for="{{ form.text_direction.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ form.text_direction.label }}</label>
-                <div class="relative my-2">
-                    {% render_field form.text_direction class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                        <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                    </div>
-                </div>
+                <label for="{{ form.text_direction.id_for_label }}" class="block mb-2">{{ form.text_direction.label }}</label>
+                {% render_field form.text_direction|add_error_class:"border-red-500" %}
                 <label for="{{ form.table_of_contents.id_for_label }}" class="font-bold block mt-4 mb-2 cursor-pointer">{{ form.table_of_contents.label }}</label>
-                {% render_field form.table_of_contents class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                {% render_field form.table_of_contents|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.table_of_contents.help_text }}</div>
                 <label for="{{ form.primary_country_code.label }}" class="font-bold block mb-1 cursor-pointer">{{ form.primary_country_code.label }}</label>
                 <div class="flex my-2">
                     <span class="country-flag fp fp-{{ form.instance.primary_country_code }} w-16 rounded-l {% if not form.instance.primary_country_code %} hidden {% endif %}" title="{{ form.instance.translated_name }}"></span>
                     <div class="relative flex-grow">
-                        {% render_field form.primary_country_code|add_error_class:"border-red-500" class+="country-flag-field appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded-r py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                        </div>
-                    </div>
+                        {% render_field form.primary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
+                   </div>
                 </div>
                 <div class="mb-2 text-s text-gray-600">{{ form.primary_country_code.help_text }}</div>
                 <label for="{{ form.secondary_country_code.label }}" class="font-bold block mb-1 cursor-pointer">{{ form.secondary_country_code.label }}</label>
                 <div class="flex my-2">
                     <span class="country-flag fp fp-{{ form.instance.secondary_country_code }} w-16 rounded-l {% if not form.instance.secondary_country_code %} hidden {% endif %}" title="{{ form.instance.translated_name }}"></span>
-                    <div class="relative flex-grow">
-                        {% render_field form.secondary_country_code|add_error_class:"border-red-500" class+="country-flag-field appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded-r py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                        </div>
+                    <div class="flex-grow">
+                        {% render_field form.secondary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
                     </div>
                 </div>
                 <div class="mb-2 text-s text-gray-600">{{ form.secondary_country_code.help_text }}</div>

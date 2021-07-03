@@ -3,7 +3,7 @@ import logging
 from datetime import time
 
 from django import forms
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from ...models import Event
 from ..custom_model_form import CustomModelForm
@@ -20,7 +20,11 @@ class EventForm(CustomModelForm):
     # Whether or not the event is all day
     is_all_day = forms.BooleanField(required=False, label=_("All-day"))
     # Whether or not the event is recurring
-    is_recurring = forms.BooleanField(required=False, label=_("Recurring"))
+    is_recurring = forms.BooleanField(
+        required=False,
+        label=_("Recurring"),
+        help_text=_("Determines whether the event is repeated at regular intervals."),
+    )
 
     class Meta:
         """
@@ -31,7 +35,14 @@ class EventForm(CustomModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = Event
         #: The fields of the model which should be handled by this form
-        fields = ["start_date", "start_time", "end_date", "end_time", "icon"]
+        fields = [
+            "start_date",
+            "start_time",
+            "end_date",
+            "end_time",
+            "icon",
+            "location",
+        ]
         #: The widgets which are used in this form
         widgets = {
             "start_date": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
@@ -41,67 +52,21 @@ class EventForm(CustomModelForm):
             "icon": IconWidget(),
         }
 
-    def __init__(self, data=None, files=None, instance=None, disabled=False):
+    def __init__(self, **kwargs):
         """
-        Initialize form
+        Initialize event form
 
-        :param data: submitted POST data
-        :type data: dict
-
-        :param instance: The  instance of this form
-        :type instance: ~cms.models.events.event.Event
-
-        :param disabled: Whether or not the form is readonly
-        :type disabled: bool
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
         """
-        # Instantiate ModelForm
-        super().__init__(data=data, files=files, instance=instance)
+
+        # Instantiate CustomModelForm
+        super().__init__(**kwargs)
 
         if self.instance.id:
             # Initialize BooleanFields based on Event properties
             self.fields["is_all_day"].initial = self.instance.is_all_day
             self.fields["is_recurring"].initial = self.instance.is_recurring
-
-        # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        self.disabled = disabled
-        if disabled:
-            for _, field in self.fields.items():
-                field.disabled = True
-
-    # pylint: disable=arguments-differ
-    def save(self, region=None, recurrence_rule=None, location=None):
-        """
-        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
-        which are not directly determined by input fields.
-
-        :param region: The region of this form's event instance
-        :type region: ~cms.models.regions.region.Region
-
-        :param recurrence_rule: The recurrence rule of this form's event instance
-        :type recurrence_rule: ~cms.models.events.recurrence_rule.RecurrenceRule
-
-        :param location: The location of this form's event instance
-        :type location: ~cms.models.pois.poi.POI
-
-        :return: The saved event object
-        :rtype: ~cms.models.events.event.Event
-        """
-        # Disable instant commit on saving because missing information would cause errors
-        event = super().save(commit=False)
-
-        if not self.instance.id:
-            # Set initial values on event creation
-            event.region = region
-
-        if event.recurrence_rule and not recurrence_rule:
-            # Delete old recurrence rule from database in order to not spam the database with unused objects
-            event.recurrence_rule.delete()
-        event.recurrence_rule = recurrence_rule
-
-        event.location = location
-
-        event.save()
-        return event
 
     def clean(self):
         """
@@ -111,7 +76,6 @@ class EventForm(CustomModelForm):
         :rtype: dict
         """
         cleaned_data = super().clean()
-        logger.debug("EventForm cleaned [1/2] with cleaned data %r", cleaned_data)
 
         # make self.data mutable to allow values to be changed manually
         self.data = self.data.copy()
@@ -172,6 +136,5 @@ class EventForm(CustomModelForm):
                             ),
                         )
 
-        logger.debug("EventForm cleaned [2/2] with cleaned data %r", cleaned_data)
-
+        logger.debug("EventForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data

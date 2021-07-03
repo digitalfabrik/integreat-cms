@@ -19,11 +19,13 @@ window.addEventListener('load', () => {
                 countryFlag.classList.remove("hidden")
                 // Remove left rounded borders
                 countryFlagField.classList.remove("rounded-l")
+                countryFlagField.classList.remove("border-l")
             } else {
                 // Hide previous flag
                 countryFlag.classList.add("hidden")
                 // Add left rounded borders
                 countryFlagField.classList.add("rounded-l")
+                countryFlagField.classList.add("border-l")
             }
         });
     });

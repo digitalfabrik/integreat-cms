@@ -1,5 +1,9 @@
+import logging
+
 from django.utils.translation import ugettext_lazy
 from django.views.generic.base import ContextMixin
+
+logger = logging.getLogger(__name__)
 
 # pylint: disable=too-few-public-methods
 class POIContextMixin(ContextMixin):

@@ -5,7 +5,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from backend.settings import BASE_URL, IMPRINT_SLUG
+from backend.settings import BASE_URL, IMPRINT_SLUG, WEBAPP_URL
 from .abstract_base_page_translation import AbstractBasePageTranslation
 from .imprint_page import ImprintPage
 from ..languages.language import Language
@@ -31,6 +31,14 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         related_name="imprint_translations",
         verbose_name=_("language"),
     )
+    title = models.CharField(
+        max_length=250,
+        verbose_name=_("title of the imprint"),
+    )
+    text = models.TextField(
+        blank=True,
+        verbose_name=_("content of the imprint"),
+    )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
@@ -52,6 +60,25 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
                 None,
                 [self.page.region.slug, self.language.slug, IMPRINT_SLUG],
             )
+        )
+
+    @property
+    def base_link(self):
+        """
+        This property calculates the absolute imprint link without the slug dynamically
+
+        :return: The base link of the page
+        :rtype: str
+        """
+        return (
+            "/".join(
+                [
+                    WEBAPP_URL,
+                    self.page.region.slug,
+                    self.language.slug,
+                ]
+            )
+            + "/"
         )
 
     @property

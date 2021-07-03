@@ -9,7 +9,7 @@
 
 {% block content %}
 {% get_current_language as LANGUAGE_CODE %}
-{% has_perm 'cms.edit_page' request.user page as can_edit_page %}
+{% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
 <form enctype="multipart/form-data" method="post" id="content_form">
     {% csrf_token %}
     <div class="flex flex-wrap items-start">
@@ -38,7 +38,7 @@
             {% if can_edit_page %}
                 <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
             {% endif %}
-            {% has_perm 'cms.publish_page' request.user page as can_publish_page %}
+            {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
             {% if can_publish_page %}
                 <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2 whitespace-nowrap"
                     value="{% if page_translation_form.instance.status == PUBLIC %}
@@ -47,13 +47,11 @@
                             {% trans 'Publish' %}
                         {% endif %}"/>
             {% else %}
-                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Submit for review' %}" />
+                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-60 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Submit for review' %}" />
             {% endif %}
         {% endif %}
         </div>
         <div class="flex flex-wrap flex-col flex-grow pr-2 w-2/3">
-            {{page_form.errors}}
-            {{page_translation_form.errors}}
             <ul class="flex flex-wrap items-end pl-4">
                 {% for other_language in languages %}
                     <li class="mr-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
@@ -142,8 +140,8 @@
                 <div class="w-full p-4">
                     <div class="flex justify-between">
                         <label for="{{ page_translation_form.title.id_for_label }}"
-                            data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}"
-                            class="mb-2 mt-4 font-bold">{{ page_translation_form.title.label }}
+                            data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
+                            {{ page_translation_form.title.label }}
                         </label>
                         {% if page_translation_form.instance.id %}
                             <span class="mb-2 mt-4 mr-8">
@@ -158,14 +156,14 @@
                             </span>
                         {% endif %}
                     </div>
-                    {% render_field page_translation_form.title class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    {% render_field page_translation_form.title|add_error_class:"border-red-500" %}
                     {% if page_translation_form.instance.id %}
                         {% if region.short_urls_enabled and request.user.profile.expert_mode %}
-                        <span class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</span>
-                        <a href="{{ page_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
-                        <a href="#" data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
-                            <i data-feather="copy"></i>
-                        </a><br>
+                            <label class="inline-block mt-4">{% trans 'Short URL' %}:</label>
+                            <a href="{{ page_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
+                            <a href="#" data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
+                                <i data-feather="copy"></i>
+                            </a><br>
                         {% endif %}
                         {% if page_translation_form.instance.currently_in_translation %}
                             <div id="trans-warn">
@@ -184,32 +182,30 @@
                             </div>
                         {% endif %}
                     {% endif %}
-                    <div id="link-container" class="flex items-center">
-                        <label for="{{ page_translation_form.slug.id_for_label }}" class="mr-2 font-bold">
+                    <div id="link-container" class="flex items-center mt-4">
+                        <label for="{{ page_translation_form.slug.id_for_label }}" class="mr-2">
                             {{ page_translation_form.slug.label }}:
                         </label>
-                        <a href="{{ page_link }}{{ page_translation_form.instance.slug }}" class="mr-2 text-blue-500 hover:underline">{{ page_link }}{{ page_translation_form.instance.slug }}</a>
-                        <div class="flex mr-2 hidden flex-grow">
-                            {% spaceless %}
-                            <span>{{ page_link }}</span>
-                            {% render_field page_translation_form.slug|add_error_class:"slug-error" class="flex-grow appearance-none rounded bg-gray-200" %}
-                            {% endspaceless %}
-                        </div>
-                        <button id="edit-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500">
+                        <a href="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}" class="text-blue-500 hover:underline">{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}</a>
+                        <button id="edit-slug-btn" type="button" class="mx-2 text-gray-800 hover:text-blue-500">
                             <i data-feather="edit-3"></i>
                         </button>
                         <button id="copy-slug-btn" type="button" class="text-gray-800 hover:text-blue-500">
                             <i data-feather="copy"></i>
                         </button>
-                        <button id="save-slug-btn" type="button" class="mr-2 text-gray-800 hover:text-blue-500 hidden">
+                        <div class="slug-field hidden">
+                            <label for="{{ page_translation_form.slug.id_for_label }}">{{ page_translation_form.instance.base_link }}</label>
+                            {% render_field page_translation_form.slug|add_error_class:"slug-error" %}
+                        </div>
+                        <button id="save-slug-btn" type="button" class="mx-2 text-gray-800 hover:text-blue-500 hidden">
                             <i data-feather="save"></i>
                         </button>
                         <button id="restore-slug-btn" type="button" class="text-gray-800 hover:text-blue-500 hidden">
                             <i data-feather="x-circle"></i>
                         </button>
                     </div>
-                    <label for="{{ page_translation_form.text.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ page_translation_form.text.label }}</label>
-                    {% render_field page_translation_form.text class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
+                    <label for="{{ page_translation_form.text.id_for_label }}">{{ page_translation_form.text.label }}</label>
+                    {% render_field page_translation_form.text class="tinymce_textarea" %}
                 </div>
             </div>
         </div>
@@ -225,10 +221,10 @@
                 </li>
             </ul>
             <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                <span class="block mb-2 font-bold">{% trans 'Implications on other translations' %}</span>
+                <label>{% trans 'Implications on other translations' %}</label>
                 {% render_field page_translation_form.minor_edit %}
-                <label for="{{ page_translation_form.minor_edit.id_for_label }}" class="text-s">{{ page_translation_form.minor_edit.label }}</label>
-                <div class="mt-2 text-s text-gray-600">{{ page_translation_form.minor_edit.help_text }}</div>
+                <label for="{{ page_translation_form.minor_edit.id_for_label }}" class="secondary">{{ page_translation_form.minor_edit.label }}</label>
+                <div class="help-text">{{ page_translation_form.minor_edit.help_text }}</div>
             </div>
             <ul class="flex pl-4">
                 <li class="z-10" style="margin-bottom: -2px">
@@ -240,63 +236,47 @@
                     </div>
                 </li>
             </ul>
-            <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                <div class="w-full p-4">
-                    <span class="font-bold mb-2 mt-4 block">{% trans 'Positioning' %}</span>
-                    <label for="{{ page_form.parent.id_for_label }}" class="text-xs uppercase">{{ page_form.parent.label }}</label>
-                    <div class="relative my-2">
-                        {% render_field page_form.related_page %}
-                        {% render_field page_form.position %}
-                        {% render_field page_form.parent id="parent" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                        </div>
-                    </div>
-                    <label class="text-xs uppercase">{% trans 'Order' %}</label>
+            <div class="mb-4 px-4 pb-4 rounded border-2 border-solid border-blue-500 shadow bg-white divide-y divide-gray-200 space-y-4">
+                <div>
+                    <label>{% trans 'Positioning' %}</label>
+                    <label for="{{ page_form.parent.id_for_label }}" class="secondary">{{ page_form.parent.label }}</label>
+                    {% render_field page_form.related_page %}
+                    {% render_field page_form.position %}
+                    {% render_field page_form.parent id="parent" %}
+                    <label class="secondary">{% trans 'Order' %}</label>
                     <div id="page_order_table" class="mb-4">
                         {% include "pages/_page_order_table.html" %}
                     </div>
-                    <div class="{% if not request.user.profile.expert_mode %}hidden{% endif %}">
-                        <span class="font-bold mb-2 mt-4">{% trans 'Embed live content' %}</span>
-                        <div class="relative my-2">
-                            {% render_field page_form.mirrored_page_region id="mirrored_page_region" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                            </div>
-                        </div>
-                        <div class="relative my-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' %}?{% if page_form.instance.id %}page_id={{ page_form.instance.id }}&{% endif %}region_id=">
-                            {% include "pages/_mirrored_page_field.html" %}
-                        </div>
-                        <div class="relative my-2 pb-2 {% if not page.mirrored_page %}hidden{% endif %}" id="mirrored_page_first_div">
-                            {% render_field page_form.mirrored_page_first id="mirrored_page_first" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                            </div>
-                        </div>
+                </div>
+                <div {% if not request.user.profile.expert_mode %}hidden{% endif %}>
+                    <label for="mirrored_page_region">{% trans 'Embed live content' %}</label>
+                    {% render_field page_form.mirrored_page_region id="mirrored_page_region" %}
+                    <div class="relative my-2 {% if not page.mirrored_page %} hidden {% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' region_slug=region.slug %}?{% if page_form.instance.id %}page_id={{ page_form.instance.id }}&{% endif %}region_id=">
+                        {% include "pages/_mirrored_page_field.html" %}
                     </div>
-                    {% if request.user.profile.expert_mode %}
-                        {% if perms.cms.grant_page_permissions and region.page_permissions_enabled %}
-                            <span class="block font-bold mb-2">{% trans 'Additional permissions for this page' %}</span>
+                    <div class="my-2 pb-2 {% if not page.mirrored_page %} hidden {% endif %}" id="mirrored_page_first_div">
+                        {% render_field page_form.mirrored_page_first id="mirrored_page_first" %}
+                    </div>
+                </div>
+                {% if request.user.profile.expert_mode %}
+                    {% if perms.cms.grant_page_permissions and region.page_permissions_enabled %}
+                        <div>
+                            <label>{% trans 'Additional permissions for this page' %}</label>
                             <p class="italic">{% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}</p>
                             <div id="page_permission_table">
                                 {% include "pages/_page_permission_table.html" %}
                             </div>
-                        {% endif %}
-                    {% endif %}
-                    <div class="{% if not request.user.profile.expert_mode %}hidden{% endif %}">
-                        <label for="{{ page_form.organization.id_for_label }}" class="font-bold mb-2 mt-4 block">{{ page_form.organization.label }}</label>
-                        <div class="my-2 text-s text-gray-600">{{ page_form.organization.help_text }}</div>
-                        <div class="relative">
-                            {% render_field page_form.organization class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                            </div>
                         </div>
-                    </div>
-                    <div class="pt-4 pb-4">
-                        <span class="block font-bold mb-4">{{ page_form.icon.label }}</span>
-                        {% render_field page_form.icon label=page_form.icon.label %}
-                    </div>
+                    {% endif %}
+                {% endif %}
+                <div {% if not request.user.profile.expert_mode %}hidden{% endif %}>
+                    <label for="{{ page_form.organization.id_for_label }}">{{ page_form.organization.label }}</label>
+                    <div class="help-text">{{ page_form.organization.help_text }}</div>
+                    {% render_field page_form.organization|add_error_class:"border-red-500" %}
+                </div>
+                <div>
+                    <label for="{{ page_form.icon.id_for_label }}">{{ page_form.icon.label }}</label>
+                    {% render_field page_form.icon label=page_form.icon.label %}
                 </div>
             </div>
                 {% if page and can_edit_page %}
@@ -313,7 +293,7 @@
                     <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
                         <div class="pt-2 pb-4">
                             {% if page.explicitly_archived %}
-                                <span class="block font-bold mb-4">{% trans 'Restore page' %}</span>
+                                <label>{% trans 'Restore page' %}</label>
                                 <button title="{% trans 'Restore page' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                                     data-confirmation-title="{{ restore_dialog_title }}"
                                     data-confirmation-text="{{ restore_dialog_text }}"
@@ -322,7 +302,7 @@
                                     <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this page' %}
                                 </button>
                             {% elif page.implicitly_archived %}
-                                <span class="block font-bold mb-4">{% trans 'Restore page' %}</span>
+                                <label>{% trans 'Restore page' %}</label>
                                 <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
                                     <p>
                                         {% blocktrans count counter=page.explicitly_archived_ancestors.count trimmed %}
@@ -338,7 +318,7 @@
                                     </a>
                                 {% endfor %}
                             {% else %}
-                                <span class="block font-bold mb-4">{% trans 'Archive page' %}</span>
+                                <label>{% trans 'Archive page' %}</label>
                                 <button title="{% trans 'Archive page' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                                     data-confirmation-title="{{ archive_dialog_title }}"
                                     data-confirmation-text="{{ archive_dialog_text }}"
@@ -349,9 +329,9 @@
                                 </button>
                             {% endif %}
                         </div>
-                        {% if user.is_superuser or user.is_staff %}
+                        {% if perms.cms.delete_page %}
                             <div class="pt-2 pb-4">
-                                <span class="block font-bold mb-4">{% trans 'Delete page' %}</span>
+                                <label>{% trans 'Delete page' %}</label>
                                 {% if page.children.exists %}
                                     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
                                         <p>
@@ -395,18 +375,13 @@
                 </ul>
                 <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
                     <div class="w-full p-4">
-                        <span class="font-bold mb-2 mt-4 block">{% trans 'Direction of translation' %}</span>
-                        <div class="relative">
-                            <select id="side-by-side-select" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
-                                <option value="">---------</option>
-                                {% for side_by_side_language_option in side_by_side_language_options %}
-                                <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_slug=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled="disabled"{% elif side_by_side_language_option.selected %}selected="selected"{% endif %}>{{ side_by_side_language_option.label }}</option>
-                                {% endfor %}
-                            </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                            </div>
-                        </div>
+                        <label for="side-by-side-select">{% trans 'Direction of translation' %}</label>
+                        <select id="side-by-side-select">
+                            <option value="">---------</option>
+                            {% for side_by_side_language_option in side_by_side_language_options %}
+                            <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_slug=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled="disabled"{% elif side_by_side_language_option.selected %}selected="selected"{% endif %}>{{ side_by_side_language_option.label }}</option>
+                            {% endfor %}
+                        </select>
                         <a id="side-by-side-link" class="block pointer-events-none w-full bg-gray-400 text-white text-center font-bold py-2 px-4 mt-2 rounded">
                             <i data-feather="external-link" class="mr-2"></i>
                             {% trans 'Show translator view' %}

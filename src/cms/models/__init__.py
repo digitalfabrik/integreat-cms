@@ -44,5 +44,6 @@ from .push_notifications.push_notification_translation import (
 from .regions.region import Region
 
 from .users.organization import Organization
+from .users.role import Role
 from .users.user_profile import UserProfile
 from .users.user_mfa_key import UserMfaKey

@@ -58,6 +58,4 @@ class Organization(models.Model):
         #: The plural verbose name of the model
         verbose_name_plural = _("organizations")
         #: The default permissions for this model
-        default_permissions = ()
-        #: The custom permissions for this model
-        permissions = (("manage_organizations", "Can manage organizations"),)
+        default_permissions = ("change", "delete", "view")

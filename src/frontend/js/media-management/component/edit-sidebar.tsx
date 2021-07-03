@@ -119,7 +119,7 @@ export default function EditSidebar({
         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-t border-b">
           <label
             for="filename-input"
-            className={cn("font-bold", { "cursor-pointer": isEditingAllowed })}
+            className={cn("secondary my-0", { "cursor-auto": !isEditingAllowed })}
             onClick={() =>
               isEditingAllowed && !isLoading && setFileNameEditable(!isFileNameEditable)
             }
@@ -155,14 +155,13 @@ export default function EditSidebar({
                 name: (target as HTMLInputElement).value,
               })
             }
-            class="block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 mt-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
             required
           />
         </div>
         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
           <label
             for="alt-text-input"
-            className={cn("font-bold", { "cursor-pointer": isEditingAllowed })}
+            className={cn("secondary my-0", { "cursor-auto": !isEditingAllowed })}
             onClick={() => isEditingAllowed && !isLoading && setAltTextEditable(!isAltTextEditable)}
           >
             {mediaTranslations.label_alt_text}
@@ -196,20 +195,19 @@ export default function EditSidebar({
                 altText: (target as HTMLInputElement).value,
               })
             }
-            class="block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 mt-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
           />
         </div>
         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
-          <p class="font-bold">{mediaTranslations.label_data_type}</p>
+          <label class="secondary my-0">{mediaTranslations.label_data_type}</label>
           <p>{file.typeDisplay}</p>
         </div>
         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
-          <p class="font-bold">{mediaTranslations.label_file_uploaded}</p>
+          <label class="secondary my-0">{mediaTranslations.label_file_uploaded}</label>
           <p>{file.uploadedDate}</p>
         </div>
         {expertMode && (
           <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
-            <p class="font-bold">{mediaTranslations.label_url}</p>
+            <label class="secondary my-0">{mediaTranslations.label_url}</label>
             <a
               href={file.url}
               target="_blank"

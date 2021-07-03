@@ -15,7 +15,7 @@ class SetupClass(TestCase):
     @staticmethod
     # pylint: disable=missing-function-docstring
     def create_region(region_data):
-        region_form = RegionForm(region_data)
+        region_form = RegionForm(data=region_data)
         region_form.is_valid()
         region_form.save()
         return Region.objects.get(slug=region_data["name"])
@@ -23,7 +23,7 @@ class SetupClass(TestCase):
     @staticmethod
     # pylint: disable=missing-function-docstring
     def create_language(language_data):
-        language_form = LanguageForm(language_data)
+        language_form = LanguageForm(data=language_data)
         language_form.is_valid()
         language_form.save()
         return Language.objects.get(name=language_data["name"])
@@ -51,7 +51,7 @@ class SetupClass(TestCase):
     ):
         # TODO: fix form usage to page_form and page_translation_form
         page_form = PageForm(
-            page_data,
+            data=page_data,
             page_id=page_id,
             publish=publish,
             explicitly_archived=explicitly_archived,

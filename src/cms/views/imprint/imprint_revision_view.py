@@ -1,6 +1,7 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
@@ -8,19 +9,20 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...constants import status
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...models import Region, Language, ImprintPage
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class ImprintRevisionView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_imprintpage"), name="dispatch")
+@method_decorator(permission_required("cms.change_imprintpage"), name="post")
+class ImprintRevisionView(TemplateView):
     """
     View for browsing the imprint revisions and restoring old imprint revisions
     """
-
-    permission_required = "cms.manage_imprint"
-    raise_exception = True
 
     template_name = "imprint/imprint_revisions.html"
     base_context = {"current_menu_item": "imprint"}
@@ -37,8 +39,6 @@ class ImprintRevisionView(PermissionRequiredMixin, TemplateView):
 
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
-
-        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
         :raises ~django.http.Http404: If no imprint exists for the region
 
@@ -117,8 +117,6 @@ class ImprintRevisionView(PermissionRequiredMixin, TemplateView):
 
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
-
-        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
         :raises ~django.http.Http404: If no imprint exists for the region
 

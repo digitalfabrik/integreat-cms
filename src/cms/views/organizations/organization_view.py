@@ -1,27 +1,28 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import staff_required
+from ...decorators import staff_required, permission_required
 from ...forms import OrganizationForm
 from ...models import Organization
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-class OrganizationView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_organization"), name="dispatch")
+@method_decorator(permission_required("cms.change_organization"), name="post")
+class OrganizationView(TemplateView):
     """
     View for the organization form
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_organizations"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "organizations/organization_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
@@ -65,35 +66,36 @@ class OrganizationView(PermissionRequiredMixin, TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        # TODO: error handling
         organization_instance = Organization.objects.filter(id=organization_id).first()
         form = OrganizationForm(
-            request.POST, request.FILES, instance=organization_instance
+            data=request.POST, files=request.FILES, instance=organization_instance
         )
 
         if not form.is_valid():
-            # TODO: improve messages
-            messages.error(request, _("Errors have occurred."))
-            return render(
-                request, self.template_name, {"form": form, **self.base_context}
-            )
-
-        if not form.has_changed():
-            messages.info(request, _("No changes detected."))
-            return render(
-                request, self.template_name, {"form": form, **self.base_context}
-            )
-
-        organization = form.save()
-
-        if not organization_instance:
-            messages.success(request, _("Organization was successfully created"))
+            # Add error messages
+            form.add_error_messages(request)
+        elif not form.has_changed():
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
         else:
-            messages.success(request, _("Organization was successfully saved"))
+            # Save form
+            form.save()
+            # Add the success message and redirect to the edit page
+            if not organization_instance:
+                messages.success(
+                    request,
+                    _('Organization "{}" was successfully created').format(
+                        form.instance
+                    ),
+                )
+                return redirect(
+                    "edit_organization",
+                    organization_id=form.instance.id,
+                )
+            # Add the success message
+            messages.success(
+                request,
+                _('Organization "{}" was successfully saved').format(form.instance),
+            )
 
-        return redirect(
-            "edit_organization",
-            **{
-                "organization_id": organization.id,
-            },
-        )
+        return render(request, self.template_name, {"form": form, **self.base_context})

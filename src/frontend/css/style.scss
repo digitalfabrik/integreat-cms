@@ -79,12 +79,75 @@ h1.heading {
   @apply text-3xl mb-2;
 }
 
+/*********
+ * FORMS *
+ *********/
+
+[type="text"], [type="email"], [type="url"], [type="password"], [type="number"], [type="date"], [type="datetime-local"],
+[type="month"], [type="search"], [type="tel"], [type="time"], [type="week"], [multiple], textarea, select, .slug-field {
+  @apply w-full rounded text-xl text-gray-800 bg-gray-200 border-gray-200 border-2;
+  &:focus {
+    @apply bg-white border-blue-500 ring-blue-500;
+  }
+  &.border-red-500 {
+    border-color: rgb(239, 68, 68);
+  }
+}
+
+.slug-field {
+  @apply flex px-3 py-2 whitespace-nowrap;
+  &:focus-within {
+    @apply bg-white border-blue-500 ring-1 ring-blue-500 outline-none;
+  }
+  > [type="text"] {
+    @apply flex-grow p-0 border-none;
+    &:focus {
+      box-shadow: none;
+    }
+  }
+  > label {
+    @apply font-normal cursor-auto m-0;
+  }
+  &.hidden {
+    display: none;
+  }
+}
+
+[type="checkbox"], [type="radio"] {
+  @apply rounded text-blue-500 mr-2 align-text-top;
+}
+
+label {
+  @apply block my-2 text-lg font-bold text-gray-800 cursor-pointer;
+}
+
+label.secondary, li > label {
+  @apply text-base;
+}
+
+label.my-0 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+label:not([for]) {
+  @apply cursor-auto;
+}
+
+[type="checkbox"] + label, [type="radio"] + label {
+  @apply inline-block;
+}
+
+.help-text {
+  @apply mb-2 text-gray-600;
+}
+
 .table-header {
   .table-search {
     svg {
       width: 16px;
       height: 16px;
-      top: 8px;
+      top: 14px;
       left: 14px;
     }
   }
@@ -212,6 +275,10 @@ h1.heading {
       margin-bottom: 0;
     }
   }
+}
+
+.checkbox-error + label {
+   @apply text-red-500;
 }
 
 .entity-lang-list {

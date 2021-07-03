@@ -5,12 +5,11 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from ...decorators import region_permission_required, staff_required
+from ...decorators import region_permission_required, permission_required
 from ...models import Feedback, Region
 
 logger = logging.getLogger(__name__)
@@ -19,6 +18,7 @@ logger = logging.getLogger(__name__)
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.change_feedback")
 def mark_region_feedback_as_read(request, region_slug):
     """
     Set read flag for a list of feedback items
@@ -29,14 +29,9 @@ def mark_region_feedback_as_read(request, region_slug):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to manage feedback
-
     :return: A redirection to the region feedback list
     :rtype: ~django.http.HttpResponseRedirect
     """
-
-    if not request.user.has_perm("cms.manage_feedback"):
-        raise PermissionDenied
 
     region = Region.get_current_region(request)
 
@@ -58,6 +53,7 @@ def mark_region_feedback_as_read(request, region_slug):
 @require_POST
 @login_required
 @region_permission_required
+@permission_required("cms.change_feedback")
 def mark_region_feedback_as_unread(request, region_slug):
     """
     Unset read flag for a list of feedback items
@@ -68,14 +64,9 @@ def mark_region_feedback_as_unread(request, region_slug):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to manage feedback
-
     :return: A redirection to the region feedback list
     :rtype: ~django.http.HttpResponseRedirect
     """
-
-    if not request.user.has_perm("cms.manage_feedback"):
-        raise PermissionDenied
 
     region = Region.get_current_region(request)
 
@@ -96,7 +87,8 @@ def mark_region_feedback_as_unread(request, region_slug):
 
 @require_POST
 @login_required
-@staff_required
+@region_permission_required
+@permission_required("cms.delete_feedback")
 def delete_region_feedback(request, region_slug):
     """
     Delete a list of feedback items
@@ -107,14 +99,9 @@ def delete_region_feedback(request, region_slug):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to manage feedback
-
     :return: A redirection to the region feedback list
     :rtype: ~django.http.HttpResponseRedirect
     """
-
-    if not request.user.has_perm("cms.manage_feedback"):
-        raise PermissionDenied
 
     region = Region.get_current_region(request)
 

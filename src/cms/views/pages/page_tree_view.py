@@ -1,30 +1,29 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...constants import translation_status
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import PageFilterForm
 from ...models import Region, Language
 from .page_context_mixin import PageContextMixin
 
+logger = logging.getLogger(__name__)
+
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-# pylint: disable=too-many-ancestors
-class PageTreeView(PermissionRequiredMixin, TemplateView, PageContextMixin):
+@method_decorator(permission_required("cms.view_page"), name="dispatch")
+class PageTreeView(TemplateView, PageContextMixin):
     """
     View for showing the page tree
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.view_pages"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: Template for list of non-archived pages
     template = "pages/page_tree.html"
     #: Template for list of archived pages
@@ -90,7 +89,7 @@ class PageTreeView(PermissionRequiredMixin, TemplateView, PageContextMixin):
                 }
             )
 
-        if not request.user.has_perm("cms.edit_page"):
+        if not request.user.has_perm("cms.change_page"):
             messages.warning(
                 request, _("You don't have the permission to edit or create pages.")
             )

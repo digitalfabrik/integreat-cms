@@ -21,9 +21,9 @@
             <a href="{% url 'edit_imprint' region_slug=region.slug language_slug=target_language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2">
                 {% trans 'Go back to imprint editor' %}
             </a>
-            {% if not source_page_translation.page.archived %}
-            <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
-            <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            {% if perms.cms.change_imprintpage and not source_page_translation.page.archived %}
+                <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
+                <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
             {% endif %}
         </div>
     </div>
@@ -53,20 +53,20 @@
                 </li>
             </ul>
             <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
+                <label class="inline-block">{% trans 'Version' %}:</label>
                 {{ source_imprint_translation.version }}<br>
-                <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
+                <label class="inline-block">{% trans 'Status' %}:</label>
                 {{ source_imprint_translation.get_status_display }}<br>
-                <label class="inline-block mb-2 font-bold">{% trans 'Permalink' %}:</label>
+                <label class="inline-block">{% trans 'Link to the imprint' %}:</label>
                 <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.code }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}</a>
                 <a href="#" data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
                     <i data-feather="copy"></i>
                 </a><br>
-                <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
-                <input type="text" value="{{source_imprint_translation.title}}" class="appearance-none block w-full bg-gray-200 text-xl border border-gray-200 rounded py-3 px-4 leading-tight" disabled>
+                <label>{{ imprint_translation_form.title.label }}</label>
+                <input type="text" value="{{source_imprint_translation.title}}" disabled>
 	            <div class="mt-4">
-                    <label class="block mt-4 font-bold" style="margin-bottom: 86px;">{% trans 'Content' %}</label>
-                    <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea bg-gray-200 w-full p-2" disabled>{{source_imprint_translation.text}}</textarea>
+                    <label class="block mt-4 font-bold">{{ imprint_translation_form.text.label }}</label>
+                    <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea bg-gray-200 w-full p-2" disabled>{{ source_imprint_translation.text }}</textarea>
                 </div>
 
                 <span class="block font-bold mt-4 mb-4">{% trans 'Copy content' %}</span>
@@ -109,47 +109,37 @@
             </ul>
             <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
                 {% csrf_token %}
-                {{ imprint_translation_form.errors }}
                 {% if imprint_translation_form.instance.id %}
-                    <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
+                    <label class="inline-block">{% trans 'Version' %}:</label>
                     {{ imprint_translation_form.instance.version }}<br>
-                    <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
+                    <label class="inline-block">{% trans 'Status' %}:</label>
                     {{ imprint_translation_form.instance.get_status_display }}<br>
-                    <label class="inline-block mb-2 font-bold">{% trans 'Permalink' %}:</label>
+                    <label class="inline-block">{% trans 'Link to the imprint' %}:</label>
                     <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}</a>
                     <a href="#" data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
                         <i data-feather="copy"></i>
                     </a><br>
-                    <label class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</label>
-                    <a href="{{ imprint_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">{{ imprint_translation_form.instance.short_url }}</a>
-                    <a href="#" data-copy-to-clipboard="{{ imprint_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-600">
-                        <i data-feather="copy"></i>
-                    </a>
                 {% else %}
-                    <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
-                    {% trans 'New' %}<br>
-                    <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
-                    {% trans 'Not saved yet' %}<br>
-                <label class="inline-block mb-2 font-bold">{% trans 'Permalink' %}:</label>
-                {% trans 'Not saved yet' %}<br>
-                <label class="inline-block mb-2 font-bold">{% trans 'Short URL' %}:</label>
-                {% trans 'Not saved yet' %}<br>
+                    <label class="inline-block">{% trans 'Version' %}:</label> {% trans 'New' %}<br>
+                    <label class="inline-block">{% trans 'Status' %}:</label> {% trans 'Not saved yet' %}<br>
+                    <label class="inline-block">{% trans 'Link to the imprint' %}:</label> {% trans 'Not saved yet' %}<br>
+                    <label class="inline-block">{% trans 'Short URL' %}:</label> {% trans 'Not saved yet' %}<br>
                 {% endif %}
-                <label for="{{ imprint_translation_form.title.id_for_label }}" class="block mb-2 font-bold">{{ imprint_translation_form.title.label }}</label>
-                {% render_field imprint_translation_form.title|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                <label for="{{ imprint_translation_form.text.id_for_label }}" class="block mb-2 mt-4 font-bold">{{ imprint_translation_form.text.label }}</label>
-                {% render_field imprint_translation_form.text|add_error_class:"border-red-500" id="target_translation_tinymce" class="bg-gray-200 w-full p-2 border border-gray-200 focus:outline-none focus:bg-white focus:border-gray-400 rounded tinymce_textarea" %}
-                <span class="block mb-2 mt-4 font-bold">{% trans 'Implications on other translations' %}</span>
+                <label for="{{ imprint_translation_form.title.id_for_label }}">{{ imprint_translation_form.title.label }}</label>
+                {% render_field imprint_translation_form.title|add_error_class:"border-red-500" %}
+                <label for="{{ imprint_translation_form.text.id_for_label }}">{{ imprint_translation_form.text.label }}</label>
+                {% render_field imprint_translation_form.text|add_error_class:"border-red-500" id="target_translation_tinymce" class="tinymce_textarea" %}
+                <label>{% trans 'Implications on other translations' %}</label>
                 {% render_field imprint_translation_form.minor_edit %}
-                <label for="{{ imprint_translation_form.minor_edit.id_for_label }}" class="text-s">{{ imprint_translation_form.minor_edit.label }}</label>
-                <div class="my-2 text-s text-gray-600">{{ imprint_translation_form.minor_edit.help_text }}</div>
+                <label for="{{ imprint_translation_form.minor_edit.id_for_label }}" class="secondary">{{ imprint_translation_form.minor_edit.label }}</label>
+                <div class="help-text">{{ imprint_translation_form.minor_edit.help_text }}</div>
             </div>
         </div>
     </div>
 </div>
 </form>
 
-{% if imprint_translation_form.instance.id and imprint_translation_form.instance.page.archived %}
+{% if not perms.cms.change_imprintpage or imprint_translation_form.instance.id and imprint_translation_form.instance.page.archived %}
     {% include '../_tinymce_config.html' with readonly=1 %}
 {% else %}
     {% include '../_tinymce_config.html' %}

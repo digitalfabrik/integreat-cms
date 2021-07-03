@@ -1,28 +1,29 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import LanguageTreeNodeForm
 from ...models import Region
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_languagetreenode"), name="dispatch")
+@method_decorator(permission_required("cms.change_languagetreenode"), name="post")
+class LanguageTreeNodeView(TemplateView):
     """
     Class that handles viewing single language in the language tree.
     This view is available within regions.
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_language_tree"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "language_tree/language_tree_node_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
@@ -53,7 +54,10 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
         ).first()
 
         language_tree_node_form = LanguageTreeNodeForm(
-            instance=language_tree_node, region=region
+            instance=language_tree_node,
+            additional_instance_attributes={
+                "region": region,
+            },
         )
         return render(
             request,
@@ -88,35 +92,43 @@ class LanguageTreeNodeView(PermissionRequiredMixin, TemplateView):
             id=kwargs.get("language_tree_node_id")
         ).first()
         language_tree_node_form = LanguageTreeNodeForm(
-            data=request.POST, instance=language_tree_node_instance, region=region
+            data=request.POST,
+            instance=language_tree_node_instance,
+            additional_instance_attributes={
+                "region": region,
+            },
         )
 
         if not language_tree_node_form.is_valid():
-            for field in language_tree_node_form:
-                for error in field.errors:
-                    messages.error(request, _(error))
-            for error in language_tree_node_form.non_field_errors():
-                messages.error(request, _(error))
-
+            # Add error messages
+            language_tree_node_form.add_error_messages(request)
         elif not language_tree_node_form.has_changed():
-            messages.info(request, _("No changes detected"))
-
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
         else:
-            language_tree_node = language_tree_node_form.save()
-            if language_tree_node_instance:
+            # Save form
+            language_tree_node_form.save()
+            # Add the success message and redirect to the edit page
+            if not language_tree_node_instance:
                 messages.success(
-                    request, _("Language tree node was successfully saved")
+                    request,
+                    _('Language tree node for "{}" was successfully saved').format(
+                        language_tree_node_form.instance
+                    ),
                 )
-            else:
-                messages.success(
-                    request, _("Language tree node was successfully created")
+                return redirect(
+                    "edit_language_tree_node",
+                    **{
+                        "language_tree_node_id": language_tree_node_form.instance.id,
+                        "region_slug": region.slug,
+                    }
                 )
-            return redirect(
-                "edit_language_tree_node",
-                **{
-                    "language_tree_node_id": language_tree_node.id,
-                    "region_slug": region.slug,
-                }
+            # Add the success message
+            messages.success(
+                request,
+                _('Language tree node for "{}" was successfully created').format(
+                    language_tree_node_form.instance
+                ),
             )
         return render(
             request,

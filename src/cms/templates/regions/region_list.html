@@ -3,19 +3,17 @@
 {% block content %}
 {% load static %}
 <div class="table-header">
-    <div class="flex flex-wrap">
-        <h1 class="heading">{% trans 'Manage Regions' %}</h1>
-    </div>
-    <div class="flex flex-wrap">
-        <form class="table-search relative w-1/2">
+    <h1 class="heading">{% trans 'Manage Regions' %}</h1>
+    <div class="flex justify-between">
+        <form class="table-search relative">
             <i data-feather="search" class="absolute"></i>
-            <input type="search" placeholder="{% trans 'Search' %}" class="h-full pl-10 pr-4 rounded shadow">
+            <input type="search" placeholder="{% trans 'Search' %}" class="pl-10">
         </form>
-        <div class="w-1/2 flex flex-wrap justify-end">
+        {% if perms.auth.change_region %}
             <a href="{% url 'new_region' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-	            {% trans 'Create region' %}
+                {% trans 'Create region' %}
             </a>
-        </div>
+        {% endif %}
     </div>
 </div>
 

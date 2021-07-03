@@ -2,7 +2,6 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -10,8 +9,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from backend.settings import IMPRINT_SLUG, WEBAPP_URL
-from ...constants import status
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import ImprintTranslationForm
 from ...models import ImprintPageTranslation, ImprintPage, Region
 
@@ -20,13 +18,12 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class ImprintView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_imprintpage"), name="dispatch")
+@method_decorator(permission_required("cms.change_imprintpage"), name="post")
+class ImprintView(TemplateView):
     """
     View for the imprint page form and imprint page translation form
     """
-
-    permission_required = "cms.manage_imprint"
-    raise_exception = True
 
     template_name = "imprint/imprint_form.html"
     base_context = {
@@ -47,8 +44,6 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
 
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
-
-        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -92,14 +87,15 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
             language=language,
         ).first()
 
-        # Make form disabled if user has no permission to manage the imprint
         disabled = False
         if imprint:
+            # Make form disabled if imprint is archived
             if imprint.archived:
                 disabled = True
                 messages.warning(
                     request, _("You cannot manage the imprint because it is archived.")
                 )
+            # Show information if latest changes are only saved as draft
             public_translation = imprint.get_public_translation(language.slug)
             if public_translation and imprint_translation != public_translation:
                 messages.info(
@@ -119,6 +115,13 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
                         "revision": public_translation.version,
                     },
                 )
+
+        # Make form disabled if user has no permission to manage the imprint
+        if not request.user.has_perm("cms.change_imprintpage"):
+            disabled = True
+            messages.warning(
+                request, _("You don't have the permission to edit the imprint.")
+            )
 
         imprint_translation_form = ImprintTranslationForm(
             instance=imprint_translation, disabled=disabled
@@ -177,82 +180,50 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
         ).first()
 
         imprint_translation_form = ImprintTranslationForm(
-            request.POST,
+            data=request.POST,
             instance=imprint_translation_instance,
-            region=region,
-            language=language,
+            additional_instance_attributes={
+                "creator": request.user,
+                "language": language,
+            },
         )
 
-        side_by_side_language_options = self.get_side_by_side_language_options(
-            region, language, imprint_instance
-        )
-
-        # TODO: error handling
         if not imprint_translation_form.is_valid():
-            messages.error(request, _("Errors have occurred."))
-            return render(
-                request,
-                self.template_name,
-                {
-                    **self.base_context,
-                    "imprint_translation_form": imprint_translation_form,
-                    "imprint": imprint_instance,
-                    "language": language,
-                    # Languages for tab view
-                    "languages": region.languages if imprint_instance else [language],
-                    "side_by_side_language_options": side_by_side_language_options,
-                },
-            )
-
-        if not imprint_translation_form.has_changed():
-            messages.info(request, _("No changes detected."))
-            return render(
-                request,
-                self.template_name,
-                {
-                    **self.base_context,
-                    "imprint_translation_form": imprint_translation_form,
-                    "imprint": imprint_instance,
-                    "language": language,
-                    # Languages for tab view
-                    "languages": region.languages if imprint_instance else [language],
-                    "side_by_side_language_options": side_by_side_language_options,
-                },
-            )
-
-        imprint = imprint_instance or ImprintPage.objects.create(region=region)
-
-        imprint_translation = imprint_translation_form.save(
-            imprint=imprint,
-            user=request.user,
-        )
-
-        published = imprint_translation.status == status.PUBLIC
-        if not imprint_instance:
-            if published:
-                messages.success(
-                    request, _("imprint was successfully created and published")
-                )
-            else:
-                messages.success(request, _("imprint was successfully created"))
-        elif not imprint_translation_instance:
-            if published:
-                messages.success(
-                    request, _("Translation was successfully created and published")
-                )
-            else:
-                messages.success(request, _("Translation was successfully created"))
+            # Add error messages
+            imprint_translation_form.add_error_messages(request)
         else:
-            if published:
-                messages.success(request, _("Translation was successfully published"))
-            else:
-                messages.success(request, _("Translation was successfully saved"))
+            # Create imprint instance if not exists
+            imprint_translation_form.instance.page = (
+                imprint_instance or ImprintPage.objects.create(region=region)
+            )
+            # Save form
+            imprint_translation_form.save()
+            # Add the success message and redirect to the edit page
+            if not imprint_instance:
+                messages.success(request, _("Imprint was successfully created"))
+                return redirect(
+                    "edit_imprint",
+                    **{
+                        "region_slug": region.slug,
+                        "language_slug": language.slug,
+                    },
+                )
+            # Add the success message
+            imprint_translation_form.add_success_message(request)
 
-        return redirect(
-            "edit_imprint",
-            **{
-                "region_slug": region.slug,
-                "language_slug": language.slug,
+        return render(
+            request,
+            self.template_name,
+            {
+                **self.base_context,
+                "imprint_translation_form": imprint_translation_form,
+                "imprint": imprint_instance,
+                "language": language,
+                # Languages for tab view
+                "languages": region.languages if imprint_instance else [language],
+                "side_by_side_language_options": self.get_side_by_side_language_options(
+                    region, language, imprint_instance
+                ),
             },
         )
 

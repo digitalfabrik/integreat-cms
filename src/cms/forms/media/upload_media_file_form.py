@@ -69,7 +69,6 @@ class UploadMediaFileForm(CustomModelForm):
         :rtype: dict
         """
         cleaned_data = super().clean()
-        logger.debug("UploadMediaFileForm cleaned with cleaned data %r", cleaned_data)
 
         file = cleaned_data.get("file")
 
@@ -116,4 +115,7 @@ class UploadMediaFileForm(CustomModelForm):
         if not self.errors and cleaned_data.get("type").startswith("image"):
             cleaned_data["thumbnail"] = generate_thumbnail(file, 300, 300, False)
 
+        logger.debug(
+            "UploadMediaFileForm validated [2] with cleaned data %r", cleaned_data
+        )
         return cleaned_data

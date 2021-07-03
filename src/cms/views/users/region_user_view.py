@@ -1,32 +1,33 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import RegionUserForm, RegionUserProfileForm
 from ...models import Region
 from ...utils.account_activation_utils import send_activation_link
 
+logger = logging.getLogger(__name__)
+
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class RegionUserView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("auth.view_user"), name="dispatch")
+@method_decorator(permission_required("auth.change_user"), name="post")
+class RegionUserView(TemplateView):
     """
     View for the user form and user profile form of region users
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_region_users"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "users/region/user.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "region_users_form"}
+    base_context = {"current_menu_item": "region_user_form"}
 
     def get(self, request, *args, **kwargs):
         """
@@ -93,53 +94,59 @@ class RegionUserView(PermissionRequiredMixin, TemplateView):
         user_instance = region.users.filter(id=kwargs.get("user_id")).first()
         user_profile_instance = user_instance.profile if user_instance else None
 
-        region_user_form = RegionUserForm(request.POST, instance=user_instance)
+        region_user_form = RegionUserForm(data=request.POST, instance=user_instance)
         user_profile_form = RegionUserProfileForm(
-            request.POST, instance=user_profile_instance
+            data=request.POST, instance=user_profile_instance
         )
+        user_profile_form.instance.region = region
 
-        # TODO: error handling
-        if region_user_form.is_valid() and user_profile_form.is_valid():
-
-            # check if either activation link is set or password is set or user already exists
-            if (
-                user_profile_form.cleaned_data["send_activation_link"]
-                or region_user_form.cleaned_data["password"]
-                or user_instance
-            ):
-
-                user = region_user_form.save()
-                user_profile_form.save(user=user, region=region)
-
-                if user_profile_form.cleaned_data["send_activation_link"]:
-                    send_activation_link(request, user)
-
-                if region_user_form.has_changed() or user_profile_form.has_changed():
-                    if user_instance:
-                        messages.success(request, _("User was successfully saved"))
-                    else:
-                        messages.success(request, _("User was successfully created"))
-                        return redirect(
-                            "edit_region_user",
-                            **{
-                                "region_slug": region.slug,
-                                "user_id": user.id,
-                            }
-                        )
-                else:
-                    messages.info(request, _("No changes detected."))
-            else:
-                messages.error(
+        if not region_user_form.is_valid() or not user_profile_form.is_valid():
+            # Add error messages
+            region_user_form.add_error_messages(request)
+            user_profile_form.add_error_messages(request)
+        elif not (
+            user_profile_form.cleaned_data["send_activation_link"]
+            or region_user_form.cleaned_data["password"]
+            or user_instance
+        ):
+            # Add error message
+            messages.error(
+                request,
+                _("Please choose either to send an activation link or set a password."),
+            )
+        elif not region_user_form.has_changed() or not user_profile_form.has_changed():
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
+        else:
+            # Save forms
+            user_profile_form.instance.user = region_user_form.save()
+            user_profile_form.save()
+            user_profile_form.instance.regions.add(region)
+            # Send activation link
+            if user_profile_form.cleaned_data["send_activation_link"]:
+                send_activation_link(request, region_user_form.instance)
+            # Add the success message and redirect to the edit page
+            if not user_instance:
+                messages.success(
                     request,
-                    _(
-                        "Please choose either to send an activation link or set a password."
+                    _('User "{}" was successfully created').format(
+                        user_profile_form.instance.full_user_name
                     ),
                 )
-        else:
-            # TODO: improve messages for region users
-            messages.error(request, _("Errors have occurred."))
+                return redirect(
+                    "edit_region_user",
+                    region_slug=region.slug,
+                    user_id=region_user_form.instance.id,
+                )
+            # Add the success message
+            messages.success(
+                request,
+                _('User "{}" was successfully saved').format(
+                    user_profile_form.instance.full_user_name
+                ),
+            )
 
-        if not region_user_form.cleaned_data["is_active"]:
+        if not region_user_form.instance.is_active:
             messages.info(request, _("Pending account activation"))
 
         return render(

@@ -36,8 +36,6 @@ def generate_pdf(region, language_slug, pages):
     :param pages: at least on page to render as PDF document
     :type pages: ~mptt.querysets.TreeQuerySet
 
-    :raises ~django.core.exceptions.PermissionDenied: User login and permissions required
-
     :return: PDF document wrapped in a HtmlResponse
     :rtype: ~django.http.HttpResponse
     """

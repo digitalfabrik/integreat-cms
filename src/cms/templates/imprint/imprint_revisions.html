@@ -18,7 +18,7 @@
         <input type="range" name="revision" min="1" max="{{ imprint_translations.count }}" value="{{ selected_revision.version }}" id="revision-slider" list="steplist">
         <output id="revision-info" class="whitespace-nowrap">
             <b>{% trans 'Version' %}:</b> <span id="revision-number"></span><br>
-            <b>{% trans 'Editor' %}:</b> <span id="revision-editor"></span><br>
+            <b>{% trans 'Author' %}:</b> <span id="revision-editor"></span><br>
             <b>{% trans 'Date' %}:</b> <span id="revision-date"></span>
         </output>
         <datalist id ="steplist" class="w-full flex font-mono">
@@ -50,7 +50,7 @@
             ({% trans 'This is <b>not</b> the version shown in the apps.' %})
         {% endif %}
         <span class="float-right">
-            <label class="inline-block mb-2 font-bold">{% trans 'Editor' %}:</label>
+            <label class="inline-block mb-2 font-bold">{% trans 'Author' %}:</label>
             {% with imprint_translation.creator as editor %}
                 {% if editor.first_name or editor.last_name %}
                     {{ editor.first_name }} {{ editor.last_name }}
@@ -60,11 +60,11 @@
             {% endwith %}
         </span>
         <div class="revision-plain hidden">
-            <label class="block mb-2 font-bold">{% trans 'Permalink' %}:</label>
+            <label>{% trans 'Permalink' %}:</label>
             {{ imprint_translation.get_absolute_url }}
-            <label class="block mb-2 mt-4 font-bold">{% trans 'Title' %}</label>
+            <label>{% trans 'Title' %}</label>
             <h1>{{ imprint_translation.title }}</h1>
-            <label class="block mb-2 mt-4 font-bold">{% trans 'Content' %}</label>
+            <label>{% trans 'Content' %}</label>
             {{ imprint_translation.text|safe }}
         </div>
         <div class="revision-diff w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
@@ -74,9 +74,9 @@
 
     <div id="revision-0" class="hidden">
         <div class="revision-plain">
-            <label class="block mb-2 font-bold">{% trans 'Permalink' %}:</label>
-            <label class="block mb-2 mt-4 font-bold">{% trans 'Title' %}</label>
-            <label class="block mb-2 mt-4 font-bold">{% trans 'Content' %}</label>
+            <label>{% trans 'Permalink' %}:</label>
+            <label>{% trans 'Title' %}</label>
+            <label>{% trans 'Content' %}</label>
         </div>
     </div>
     <div class="w-full p-4 flex justify-end">

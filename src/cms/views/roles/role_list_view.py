@@ -1,26 +1,25 @@
+import logging
+
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.contrib.auth.models import Group as Role
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from backend.settings import PER_PAGE
-from ...decorators import staff_required
+from ...decorators import staff_required, permission_required
+from ...models import Role
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-class RoleListView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_group"), name="dispatch")
+class RoleListView(TemplateView):
     """
     View for listing user roles
     """
-
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "auth.change_group"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "roles/list.html"
@@ -45,7 +44,7 @@ class RoleListView(PermissionRequiredMixin, TemplateView):
         """
         roles = Role.objects.all()
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(roles.order_by("name"), PER_PAGE)
+        paginator = Paginator(roles.order_by("group__name"), PER_PAGE)
         chunk = request.GET.get("page")
         role_chunk = paginator.get_page(chunk)
         return render(

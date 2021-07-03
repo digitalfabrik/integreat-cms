@@ -28,9 +28,7 @@ class ImprintPage(AbstractBasePage):
         #: The plural verbose name of the model
         verbose_name_plural = _("imprints")
         #: The default permissions for this model
-        default_permissions = ()
-        #: The custom permissions for this model
-        permissions = (("manage_imprint", "Can manage imprint"),)
+        default_permissions = ("change", "delete", "view")
 
     @property
     def languages(self):

@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
+from ...decorators import region_permission_required
 from ...forms import StatisticsFilterForm
 from ...models import Region
 from ...utils.matomo_api_manager import MatomoException
@@ -17,6 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 @login_required
+@region_permission_required
 # pylint: disable=unused-argument
 def get_total_visits_ajax(request, region_slug):
     """
@@ -56,6 +58,7 @@ def get_total_visits_ajax(request, region_slug):
 
 @require_POST
 @login_required
+@region_permission_required
 # pylint: disable=unused-argument
 def get_visits_per_language_ajax(request, region_slug):
     """
@@ -78,7 +81,7 @@ def get_visits_per_language_ajax(request, region_slug):
             {"error": "Statistics are not enabled for this region."}, status=500
         )
 
-    statistics_form = StatisticsFilterForm(request.POST)
+    statistics_form = StatisticsFilterForm(data=request.POST)
 
     if not statistics_form.is_valid():
         return JsonResponse(

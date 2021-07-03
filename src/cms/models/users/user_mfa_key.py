@@ -64,6 +64,7 @@ class UserMfaKey(models.Model):
         verbose_name_plural = _("multi-factor authentication keys")
         #: The default permissions for this model
         default_permissions = ()
+        #: Sets of field names that, taken together, must be unique:
         unique_together = (
             (
                 "user",

@@ -1,27 +1,28 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import staff_required
+from ...decorators import staff_required, permission_required
 from ...forms import LanguageForm
 from ...models import Language
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-class LanguageView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_language"), name="dispatch")
+@method_decorator(permission_required("cms.change_language"), name="post")
+class LanguageView(TemplateView):
     """
     This view shows and editing languages in the network administration back end.
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_languages"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "languages/language_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
@@ -43,8 +44,10 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        language = Language.objects.filter(slug=kwargs.get("language_slug")).first()
-        form = LanguageForm(instance=language)
+        language_instance = Language.objects.filter(
+            slug=kwargs.get("language_slug")
+        ).first()
+        form = LanguageForm(instance=language_instance)
         return render(request, self.template_name, {"form": form, **self.base_context})
 
     # pylint: disable=unused-argument
@@ -64,18 +67,31 @@ class LanguageView(PermissionRequiredMixin, TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        language_slug = kwargs.get("language_slug")
-        language = Language.objects.filter(slug=language_slug).first()
-        form = LanguageForm(request.POST, instance=language)
-        if form.is_valid():
-            form.save()
-            if language_slug:
-                messages.success(request, _("Language was successfully saved"))
-            else:
-                messages.success(request, _("Language was successfully created"))
+
+        language_instance = Language.objects.filter(
+            slug=kwargs.get("language_slug")
+        ).first()
+        form = LanguageForm(data=request.POST, instance=language_instance)
+
+        if not form.is_valid():
+            # Add error messages
+            form.add_error_messages(request)
+        elif not form.has_changed():
+            # Add "no changes" messages
+            messages.info(request, _("No changes made"))
         else:
-            # TODO: error handling
-            # TODO: improve messages
-            messages.error(request, _("An error has occurred."))
+            # Save form
+            form.save()
+            # Add the success message and redirect to the edit page
+            if not language_instance:
+                messages.success(
+                    request,
+                    _('Language "{}" was successfully created').format(form.instance),
+                )
+                return redirect("edit_language", language_slug=form.instance.slug)
+            # Add the success message
+            messages.success(
+                request, _('Language "{}" was successfully saved').format(form.instance)
+            )
 
         return render(request, self.template_name, {"form": form, **self.base_context})

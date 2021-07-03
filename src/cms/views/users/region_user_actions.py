@@ -4,12 +4,12 @@ This module contains view actions for region user objects.
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...models import Region
 from ...utils.account_activation_utils import send_activation_link
 
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.manage_region_users", raise_exception=True)
+@permission_required("auth.delete_user")
 # pylint: disable=unused-argument
 def delete_region_user(request, region_slug, user_id):
     """
@@ -64,10 +64,11 @@ def delete_region_user(request, region_slug, user_id):
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.manage_region_users", raise_exception=True)
+@permission_required("auth.cange_user")
 # pylint: disable=unused-argument
 def resend_activation_link_region(request, region_slug, user_id):
-    """Resends an activation link to a region user
+    """
+    Resends an activation link to a region user
 
     :param request: The current request
     :type request: ~django.http.HttpResponse

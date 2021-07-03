@@ -1,5 +1,6 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import get_language, ugettext_lazy as _
+
 from backend.settings import CHANNELS
 from ..regions.region import Region
 from ...constants.push_notifications import PN_MODES
@@ -49,27 +50,55 @@ class PushNotification(models.Model):
         ),
     )
 
+    @property
+    def backend_translation(self):
+        """
+        This function returns the translation of this push notification in the current backend language.
+
+        :return: The backend translation of a push notification
+        :rtype: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
+        """
+        return self.translations.filter(language__slug=get_language()).first()
+
+    @property
+    def default_translation(self):
+        """
+        This function returns the translation of this push notification in the region's default language.
+        Since a push notification can only be created by creating a translation in the default language, this is
+        guaranteed to return a push notification translation.
+
+        :return: The default translation of a push notification
+        :rtype: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
+        """
+        return self.translations.filter(language=self.region.default_language).first()
+
+    @property
+    def best_translation(self):
+        """
+        This function returns the translation of this push notification in the current backend language and if it
+        doesn't exist, it provides a fallback to the translation in the region's default language.
+
+        :return: The "best" translation of a push notification for displaying in the backend
+        :rtype: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
+        """
+        return self.backend_translation or self.default_translation
+
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``PushNotification object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: A readable string representation of the event
+        :return: A readable string representation of the push notification
         :rtype: str
         """
-        default_translation = self.translations.filter(
-            language=self.region.default_language
-        ).first()
-        if default_translation:
-            return default_translation.title
-        return repr(self)
+        return self.best_translation.title
 
     def __repr__(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<PushNotification: PushNotification object (id)>``.
         It is used for logging.
 
-        :return: The canonical string representation of the event
+        :return: The canonical string representation of the push notification
         :rtype: str
         """
         return f"<PushNotification (id: {self.id}, channel: {self.channel.name}, region: {self.region.slug})>"
@@ -80,10 +109,6 @@ class PushNotification(models.Model):
         #: The plural verbose name of the model
         verbose_name_plural = _("push notifications")
         #: The default permissions for this model
-        default_permissions = ()
+        default_permissions = ("change", "delete", "view")
         #: The custom permissions for this model
-        permissions = (
-            ("view_push_notifications", "Can view push notifications"),
-            ("edit_push_notifications", "Can edit push notifications"),
-            ("send_push_notifications", "Can send push notifications"),
-        )
+        permissions = (("send_push_notification", "Can send push notification"),)

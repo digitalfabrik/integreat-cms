@@ -45,8 +45,10 @@ import "./js/mfa/add-key.ts";
 import "./js/mfa/login.ts";
 
 import "./js/analytics/statistics-charts.ts";
-import "./js/user/user-creation-workflow.ts";
 import "./js/analytics/translation_coverage.ts";
+
+import "./js/user/user-creation-workflow.ts";
+import "./js/user/user-roles.ts";
 
 import "./js/charCounter.ts";
 

@@ -407,6 +407,4 @@ class Region(models.Model):
         #: The plural verbose name of the model
         verbose_name_plural = _("regions")
         #: The default permissions for this model
-        default_permissions = ()
-        #: The custom permissions for this model
-        permissions = (("manage_regions", "Can manage regions"),)
+        default_permissions = ("change", "delete", "view")

@@ -26,21 +26,25 @@ class LanguageTreeNodeForm(CustomModelForm):
         #: The fields of the model which should be handled by this form
         fields = ["language", "parent", "visible", "active"]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
+        """
+        Initialize language tree node form
 
-        # current region
-        region = kwargs.pop("region", None)
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        """
 
-        super().__init__(*args, **kwargs)
+        # Instantiate CustomModelForm
+        super().__init__(**kwargs)
 
-        parent_queryset = region.language_tree_nodes
-        excluded_languages = region.languages.exclude(language_tree_nodes=self.instance)
+        parent_queryset = self.instance.region.language_tree_nodes
+        excluded_languages = self.instance.region.languages.exclude(
+            language_tree_nodes=self.instance
+        )
 
         if self.instance.id:
             children = self.instance.get_descendants(include_self=True)
             parent_queryset = parent_queryset.exclude(id__in=children)
-        else:
-            self.instance.region = region
 
         # limit possible parents to nodes of current region
         self.fields["parent"].queryset = parent_queryset
@@ -60,7 +64,6 @@ class LanguageTreeNodeForm(CustomModelForm):
         :rtype: dict
         """
         cleaned_data = super().clean()
-        logger.debug("LanguageTreeNodeForm cleaned with cleaned data %r", cleaned_data)
         default_language = self.instance.region.default_language
         # There are two cases in which this error is thrown.
         # Both cases include that the parent field is None.
@@ -82,4 +85,7 @@ class LanguageTreeNodeForm(CustomModelForm):
                     code="invalid",
                 ),
             )
+        logger.debug(
+            "LanguageTreeNodeForm validated [2] with cleaned data %r", cleaned_data
+        )
         return cleaned_data

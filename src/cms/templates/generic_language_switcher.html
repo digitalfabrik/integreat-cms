@@ -2,8 +2,8 @@
 <!--please set variable "target" when including this code-->
 {% load content_filters %}
 
-<div id="language-switcher" class="flex flex-col z-10 mr-4">
-    <a id="language-switcher-current" href="{% url target region_slug=region.slug language_slug=language.slug %}" class="font-bold block flex justify-between bg-white py-2 px-4 rounded shadow hover:bg-gray-200">
+<div id="language-switcher" class="flex flex-col z-10 text-lg">
+    <a id="language-switcher-current" href="{% url target region_slug=region.slug language_slug=language.slug %}" class="font-bold flex justify-between bg-white py-2 px-4 rounded shadow hover:bg-gray-200 border-2 border-white hover:border-gray-200">
         {{ language.translated_name }}
         <span>
             <span class="fp fp-rounded fp-{{ language.primary_country_code }} ml-2"></span>

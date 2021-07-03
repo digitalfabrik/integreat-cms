@@ -25,12 +25,9 @@ class PageTranslationForm(CustomContentModelForm):
         #: The fields of the model which should be handled by this form
         fields = ["title", "slug", "status", "text", "minor_edit"]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         """
         Initialize Page translation form
-
-        :param args: The supplied arguments
-        :type args: list
 
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
@@ -39,71 +36,51 @@ class PageTranslationForm(CustomContentModelForm):
         # pop kwarg to make sure the super class does not get this param
         self.region = kwargs.pop("region", None)
         self.language = kwargs.pop("language", None)
-        disabled = kwargs.pop("disabled", None)
 
         # To set the status value through the submit button, we have to overwrite the field value for status.
         # We could also do this in the save() function, but this would mean that it is not recognized in changed_data.
         # Check if POST data was submitted
-        if len(args) == 1:
+        if "data" in kwargs:
             # Copy QueryDict because it is immutable
-            post = args[0].copy()
+            data = kwargs.pop("data").copy()
             # Update the POST field with the status corresponding to the submitted button
-            if "submit_draft" in args[0]:
-                post.update({"status": status.DRAFT})
-            elif "submit_review" in args[0]:
-                post.update({"status": status.REVIEW})
-            elif "submit_public" in args[0]:
-                post.update({"status": status.PUBLIC})
-            # Set the args to POST again
-            args = (post,)
-            logger.debug("Changed POST arg status manually to %r", post.get("status"))
+            if "submit_draft" in data:
+                data["status"] = status.DRAFT
+            elif "submit_review" in data:
+                data["status"] = status.REVIEW
+            elif "submit_public" in data:
+                data["status"] = status.PUBLIC
+            # Set the kwargs to updated POST data again
+            kwargs["data"] = data
+            logger.debug(
+                "Changed POST data 'status' manually to %r", data.get("status")
+            )
 
-        super().__init__(*args, **kwargs)
-
-        # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        if disabled:
-            for _, field in self.fields.items():
-                field.disabled = True
+        # Instantiate CustomModelForm
+        super().__init__(**kwargs)
 
         # The slug is not rquired because it will be auto-generated if left blank
         self.fields["slug"].required = False
 
-    # pylint: disable=signature-differs
-    def save(self, *args, **kwargs):
+    def save(self, commit=True):
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
-        :param args: The supplied arguments
-        :type args: list
-
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param commit: Whether or not the changes should be written to the database
+        :type commit: bool
 
         :return: The saved page translation object
         :rtype: ~cms.models.pages.page_translation.PageTranslation
         """
 
-        # pop kwarg to make sure the super class does not get this param
-        page = kwargs.pop("page", None)
-        user = kwargs.pop("user", None)
-
-        kwargs["commit"] = False  # Don't save yet. We just want the object.
-        page_translation = super().save(*args, **kwargs)
-
-        if not self.instance.id:
-            # only update these values when page translation is created
-            page_translation.page = page
-            page_translation.creator = user
-            page_translation.language = self.language
-
-        # Only create new version if content changed
+        # Create new version if content changed
         if not {"slug", "title", "text"}.isdisjoint(self.changed_data):
-            page_translation.version = page_translation.version + 1
-            page_translation.pk = None
-        page_translation.save()
+            self.instance.version += 1
+            self.instance.pk = None
 
-        return page_translation
+        # Save CustomModelForm
+        return super().save(commit=commit)
 
     def clean_slug(self):
         """

@@ -8,9 +8,7 @@ from .view_test_utils import generate_test_functions
 
 region_views = [
     "dashboard",
-    "language_tree",
     "media",
-    "new_language_tree_node",
     "new_region_user",
     "region_users",
     "translation_coverage",
@@ -50,7 +48,7 @@ class RegionViewTest(ViewTest):
         user_profile = UserProfile.objects.create(user=user)
         user_profile.regions.add(region)
         user_profile.save()
-        Role.objects.get(name="Verwaltung").user_set.add(user)
+        Role.objects.get(name="MANAGEMENT").user_set.add(user)
         self.client.force_login(user)
 
     generate_test_functions(

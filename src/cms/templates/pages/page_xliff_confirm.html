@@ -46,9 +46,9 @@ pre {
         <h2 class="text-2xl m-4">XLIFF {% trans 'file' %}: {{ xliff_diff.xliff_name }}</h2>
         {% if xliff_diff.current_version_newer %}<p class="text-red-700 m-4">{% trans 'Warning: the translation has been updated since the XLIFF was exported.' %}</p>{% endif %}
         <h2 class="text-2xl m-4">{% trans 'Title' %}</h2>
-        <pre class="diff m-4 p-4">{% if xliff_diff.title_diff %}{{xliff_diff.title_diff }}{% else %}{% trans 'No change' %}{% endif %}</pre>
+        <pre class="diff m-4 p-4">{% if xliff_diff.title_diff %}{{xliff_diff.title_diff }}{% else %}{% trans 'No changes made' %}{% endif %}</pre>
         <h2 class="text-2xl m-4">{% trans 'Content' %}</h2>
-        <pre class="diff m-4 p-4">{% if xliff_diff.content_diff %}{{xliff_diff.content_diff }}{% else %}{% trans 'No change' %}{% endif %}</pre>
+        <pre class="diff m-4 p-4">{% if xliff_diff.content_diff %}{{xliff_diff.content_diff }}{% else %}{% trans 'No changes made' %}{% endif %}</pre>
         {% endif %}
     </div>
     {% endfor %}

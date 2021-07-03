@@ -2,7 +2,6 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -10,32 +9,24 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from backend.settings import WEBAPP_URL
-
 from ...constants import status, text_directions
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation, Region
 from .page_context_mixin import PageContextMixin
-from ..media.content_media_mixin import ContentMediaMixin
+from ..media.media_context_mixin import MediaContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-# pylint: disable=too-many-ancestors
-class PageView(
-    PermissionRequiredMixin, TemplateView, PageContextMixin, ContentMediaMixin
-):
+@method_decorator(permission_required("cms.view_page"), name="dispatch")
+class PageView(TemplateView, PageContextMixin, MediaContextMixin):
     """
     View for the page form and page translation form
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.view_pages"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
@@ -74,9 +65,9 @@ class PageView(
             language=language,
         ).first()
 
-        # Make form disabled if user has no permission to edit the page
         disabled = False
         if page:
+            # Make form disabled if page is archived
             if page.explicitly_archived:
                 disabled = True
                 messages.warning(
@@ -90,14 +81,7 @@ class PageView(
                         "You cannot edit this page, because one of its parent pages is archived and therefore, this page is archived as well."
                     ),
                 )
-            elif not request.user.has_perm("cms.edit_page", page):
-                disabled = True
-                messages.warning(
-                    request,
-                    _(
-                        "You don't have the permission to edit this page, but you can propose changes and submit them for review instead."
-                    ),
-                )
+            # Show information if latest changes are only saved as draft
             public_translation = page.get_public_translation(language.slug)
             if public_translation and page_translation != public_translation:
                 messages.info(
@@ -118,12 +102,29 @@ class PageView(
                         "revision": public_translation.version,
                     },
                 )
-        else:
-            if not request.user.has_perm("cms.edit_pages"):
-                raise PermissionDenied
+
+        # Make form disabled if user has no permission to edit the page
+        if not request.user.has_perm("cms.change_page_object", page):
+            disabled = True
+            messages.warning(
+                request,
+                _("You don't have the permission to edit this page."),
+            )
+        # Show warning if user has no permission to publish the page
+        if not request.user.has_perm("cms.publish_page_object", page):
+            messages.warning(
+                request,
+                _(
+                    "You don't have the permission to publish this page, but you can propose changes and submit them for review instead."
+                ),
+            )
 
         page_form = PageForm(
-            instance=page, region=region, language=language, disabled=disabled
+            instance=page,
+            disabled=disabled,
+            additional_instance_attributes={
+                "region": region,
+            },
         )
         page_translation_form = PageTranslationForm(
             instance=page_translation, disabled=disabled
@@ -140,9 +141,6 @@ class PageView(
         else:
             siblings = page.parent.children.all()
         context = self.get_context_data(**kwargs)
-        page_link = f"{WEBAPP_URL}/{region.slug}/{language.slug}/"
-        if page_translation and page_translation.ancestor_path:
-            page_link += f"{page_translation.ancestor_path}/"
         return render(
             request,
             self.template_name,
@@ -157,9 +155,9 @@ class PageView(
                 # Languages for tab view
                 "languages": region.languages if page else [language],
                 "side_by_side_language_options": side_by_side_language_options,
-                "page_link": page_link,
-                "right_to_left": language.text_direction
-                == text_directions.RIGHT_TO_LEFT,
+                "right_to_left": (
+                    language.text_direction == text_directions.RIGHT_TO_LEFT
+                ),
             },
         )
 
@@ -191,6 +189,12 @@ class PageView(
         language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
 
         page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
+
+        if not request.user.has_perm("cms.change_page_object", page_instance):
+            raise PermissionDenied(
+                f"{request.user.profile!r} does not have the permission to edit {page_instance!r}"
+            )
+
         page_translation_instance = PageTranslation.objects.filter(
             page=page_instance,
             language=language,
@@ -202,93 +206,80 @@ class PageView(
         else:
             siblings = page_instance.parent.children.all()
 
-        if not request.user.has_perm("cms.edit_page", page_instance):
-            raise PermissionDenied
-
         page_form = PageForm(
-            request.POST,
-            request.FILES,
+            data=request.POST,
+            files=request.FILES,
             instance=page_instance,
-            region=region,
-            language=language,
+            additional_instance_attributes={
+                "region": region,
+            },
         )
         page_translation_form = PageTranslationForm(
-            request.POST,
+            data=request.POST,
             instance=page_translation_instance,
-            region=region,
-            language=language,
+            additional_instance_attributes={
+                "creator": request.user,
+                "language": language,
+            },
         )
 
-        if (
-            page_translation_form.data.get("public")
-            and "public" in page_translation_form.changed_data
-        ):
-            if not request.user.has_perm("cms.publish_page", page_instance):
-                raise PermissionDenied
-
-        side_by_side_language_options = self.get_side_by_side_language_options(
-            region, language, page_instance
-        )
-
-        # TODO: error handling
         if not page_form.is_valid() or not page_translation_form.is_valid():
-            messages.error(request, _("Errors have occurred."))
-            return render(
-                request,
-                self.template_name,
-                {
-                    **self.base_context,
-                    "page_form": page_form,
-                    "page_translation_form": page_translation_form,
-                    "page": page_instance,
-                    "siblings": siblings,
-                    "language": language,
-                    # Languages for tab view
-                    "languages": region.languages if page_instance else [language],
-                    "side_by_side_language_options": side_by_side_language_options,
-                    "right_to_left": language.text_direction
-                    == text_directions.RIGHT_TO_LEFT,
-                },
+            # Add error messages
+            page_form.add_error_messages(request)
+            page_translation_form.add_error_messages(request)
+        elif (
+            not request.user.has_perm("cms.publish_page_object", page_form.instance)
+            and page_translation_form.cleaned_data.get("status") == status.PUBLIC
+        ):
+            # Raise PermissionDenied if user wants to publish page but doesn't have the permission
+            raise PermissionDenied(
+                f"{request.user.profile!r} does not have the permission to publish {page_form.instance!r}"
             )
-
-        page = page_form.save()
-        page_translation = page_translation_form.save(
-            page=page,
-            user=request.user,
-        )
-
-        published = page_translation.status == status.PUBLIC
-        if not page_form.has_changed() and not page_translation_form.has_changed():
-            messages.info(request, _("No changes detected, but date refreshed"))
         else:
+            # Save forms
+            page_translation_form.instance.page = page_form.save()
+            page_translation_form.save()
+            # Add the success message and redirect to the edit page
             if not page_instance:
-                if published:
-                    messages.success(
-                        request, _("Page was successfully created and published")
-                    )
-                else:
-                    messages.success(request, _("Page was successfully created"))
-            elif not page_translation_instance:
-                if published:
-                    messages.success(
-                        request, _("Translation was successfully created and published")
-                    )
-                else:
-                    messages.success(request, _("Translation was successfully created"))
-            else:
-                if published:
-                    messages.success(
-                        request, _("Translation was successfully published")
-                    )
-                else:
-                    messages.success(request, _("Translation was successfully saved"))
+                messages.success(
+                    request,
+                    _('Page "{}" was successfully created').format(
+                        page_translation_form.instance.title
+                    ),
+                )
+                return redirect(
+                    "edit_page",
+                    **{
+                        "page_id": page_form.instance.id,
+                        "region_slug": region.slug,
+                        "language_slug": language.slug,
+                    },
+                )
 
-        return redirect(
-            "edit_page",
-            **{
-                "page_id": page.id,
-                "region_slug": region.slug,
-                "language_slug": language.slug,
+            if not page_form.has_changed() and not page_translation_form.has_changed():
+                messages.info(request, _("No changes detected, but date refreshed"))
+            else:
+                # Add the success message
+                page_translation_form.add_success_message(request)
+
+        return render(
+            request,
+            self.template_name,
+            {
+                **self.base_context,
+                "page_form": page_form,
+                "page_translation_form": page_translation_form,
+                "page": page_instance,
+                "siblings": siblings,
+                "language": language,
+                # Languages for tab view
+                "languages": region.languages if page_instance else [language],
+                "side_by_side_language_options": self.get_side_by_side_language_options(
+                    region, language, page_instance
+                ),
+                "right_to_left": (
+                    language.text_direction == text_directions.RIGHT_TO_LEFT
+                ),
             },
         )
 

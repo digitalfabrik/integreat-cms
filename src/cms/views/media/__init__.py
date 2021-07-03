@@ -12,4 +12,4 @@ from .media_actions import (
     delete_directory_ajax,
 )
 from .media_list_view import MediaListView, AdminMediaListView
-from .content_media_mixin import ContentMediaMixin
+from .media_context_mixin import MediaContextMixin

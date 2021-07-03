@@ -10,30 +10,25 @@
     <div class="flex flex-wrap w-full xl:w-1/2 xl:pr-4">
         <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
             <div class="w-full p-4 rounded bg-blue-500">
-                <h3 class="font-bold text-white">{% trans 'My Language Preference' %}</h3>
+                <h3 class="font-bold text-white"><i data-feather="flag" class="mr-2"></i> {% trans 'My Language Preference' %}</h3>
             </div>
-            <div class="w-full p-4">
+            <div class="px-4 pb-4">
                 <form action="{% url 'set_language' %}" method="post" class="w-full">
                     {% csrf_token %}
                     <input name="next" type="hidden" value="{{ redirect_to }}">
-                    <label for="language" class="font-bold p-2 mb-1 cursor-pointer mr-32">{% trans 'Choose language:' %}</label>
-                    <div class="mb-2 pl-2">
+                    <label for="language">{% trans 'Choose language:' %}</label>
+                    <div class="mb-2">
                         {% trans "This setting only affects this device." %}
                     </div>
-                    <div class="relative">
-                        <select name="language" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-400">
-                            {% get_current_language as LANGUAGE_CODE %}
-                            {% get_available_languages as LANGUAGES %}
-                            {% for language_slug, language_name in LANGUAGES %}
-                            <option value="{{ language_slug }}"{% if language_slug == LANGUAGE_CODE %} selected{% endif %}>
-                                {{ language_slug|language_name_local }}
-                            </option>
-                            {% endfor %}
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                            <img src="{% static 'svg/select-down-arrow.svg' %}" class="fill-current h-4 w-4" />
-                        </div>
-                    </div>
+                    <select name="language">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% for language_slug, language_name in LANGUAGES %}
+                        <option value="{{ language_slug }}"{% if language_slug == LANGUAGE_CODE %} selected{% endif %}>
+                            {{ language_slug|language_name_local }}
+                        </option>
+                        {% endfor %}
+                    </select>
                     <button type="submit" class="self-start bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-4 rounded inline-block">
                         {% trans 'Change language' %}
                     </button>
@@ -42,13 +37,13 @@
         </div>
         <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
             <div class="w-full p-4 rounded bg-blue-500">
-                <h3 class="font-bold text-white">{% trans 'My E-mail-address' %}</h3>
+                <h3 class="font-bold text-white"><i data-feather="mail" class="mr-2"></i> {% trans 'My E-mail-address' %}</h3>
             </div>
-            <div class="w-full p-4">
+            <div class="px-4 pb-4">
                 <form method="post">
                     {% csrf_token %}
-                    <label for="{{ user_email_form.email.label }}" class="font-bold block p-2 mb-1 cursor-pointer">{{ user_email_form.email.label }}</label>
-                    {% render_field user_email_form.email|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                    <label for="{{ user_email_form.email.label }}">{{ user_email_form.email.label }}</label>
+                    {% render_field user_email_form.email|add_error_class:"border-red-500" %}
 
                     <button type="submit"  name="submit_form" value="email_form" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-2 rounded">{% trans 'Change e-mail-address' %}</button>
                 </form>
@@ -58,18 +53,18 @@
     <div class="w-full xl:w-1/2">
         <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
             <div class="w-full p-4 rounded bg-blue-500">
-                <h3 class="heading font-bold text-white">{% trans 'My Password' %}</h3>
+                <h3 class="heading font-bold text-white"><i data-feather="lock" class="mr-2"></i> {% trans 'My Password' %}</h3>
             </div>
-            <div class="w-full p-4">
+            <div class="px-4 pb-4">
                 <form method="post">
                 {% csrf_token %}
                 <label for="{{ user_password_form.old_password.id_for_label }}" class="font-bold block p-2 pt-0 cursor-pointer">{{ user_password_form.old_password.label }}</label>
-                {% render_field user_password_form.old_password|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                <label for="{{ user_password_form.new_password.id_for_label }}" class="font-bold block p-2 mt-4 cursor-pointer">{{ user_password_form.new_password.label }}</label>
-                {% render_field user_password_form.new_password|add_error_class:"border-red-500" class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
-                <label for="{{ user_password_form.new_password_confirm.id_for_label }}" class="font-bold block p-2 mt-4 cursor-pointer">{{ user_password_form.new_password_confirm.label }}</label>
+                {% render_field user_password_form.old_password|add_error_class:"border-red-500" %}
+                <label for="{{ user_password_form.new_password.id_for_label }}">{{ user_password_form.new_password.label }}</label>
+                {% render_field user_password_form.new_password|add_error_class:"border-red-500" %}
+                <label for="{{ user_password_form.new_password_confirm.id_for_label }}">{{ user_password_form.new_password_confirm.label }}</label>
                 {% trans 'Enter my new password again here' as new_password_confirm_placeholder %}
-                {% render_field user_password_form.new_password_confirm|add_error_class:"border-red-500" placeholder=new_password_confirm_placeholder class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 my-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-400" %}
+                {% render_field user_password_form.new_password_confirm|add_error_class:"border-red-500" placeholder=new_password_confirm_placeholder %}
                 <ul class="p-2">
                     {% for item in user_password_form.new_password.help_text %}
                         <li class="py-1">{{ item }}</li>
@@ -82,7 +77,7 @@
     </div>
         <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white flex flex-wrap">
             <div class="w-full p-4 rounded bg-blue-500">
-                <h3 class="heading font-bold text-white">{% trans 'My 2-Factor-Authentication Keys' %}</h3>
+                <h3 class="heading font-bold text-white"><i data-feather="key" class="mr-2"></i> {% trans 'My 2-Factor-Authentication Keys' %}</h3>
             </div>
             <div class="p-4">
                 {% trans "You can use your FIDO2 keys to secure your account. Once you added a key to your account you won't be able to log in without using the key." %}<br>

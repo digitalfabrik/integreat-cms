@@ -70,7 +70,7 @@ async function getPageOrderTable({ target }: Event) {
     // Update the modified page title
     updatePageTitle();
     // Trigger icon replacement
-    feather.replace();
+    feather.replace({ class: 'inline-block' });
     // Register event handlers
     registerEventHandlers();
   } catch (error) {

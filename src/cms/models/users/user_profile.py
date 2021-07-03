@@ -28,6 +28,7 @@ class UserProfile(models.Model):
         blank=True,
         related_name="user_profiles",
         verbose_name=_("regions"),
+        help_text=_("The regions to which the user has access"),
     )
     organization = models.ForeignKey(
         Organization,
@@ -36,6 +37,9 @@ class UserProfile(models.Model):
         on_delete=models.SET_NULL,
         related_name="members",
         verbose_name=_("organization"),
+        help_text=_(
+            "This allows the user to edit and publish all pages for which the organisation is registered as the responsible organisation"
+        ),
     )
     chat_last_visited = models.DateTimeField(
         default=timezone.make_aware(timezone.datetime.min),
@@ -44,21 +48,23 @@ class UserProfile(models.Model):
     )
     expert_mode = models.BooleanField(
         default=False,
-        verbose_name=_("expert mode"),
+        verbose_name=_("experienced user"),
         help_text=_(
             "Enable this option to show up additional features like XLIFF import/export, page filtering, mirrored pages, page-based permissions, Do-Not-Translate-Tag and recurring events"
         ),
     )
 
     @property
-    def roles(self):
+    def role(self):
         """
         We refer to Django user groups as roles.
 
-        :return: The roles/groups of this user
-        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.Group ]
+        :return: The role of this user
+        :rtype: ~cms.models.users.role.Role
         """
-        return self.user.groups.all()
+        if self.user.groups.exists():
+            return self.user.groups.first().role
+        return None
 
     @property
     def full_user_name(self):
@@ -117,7 +123,20 @@ class UserProfile(models.Model):
         :return: The canonical string representation of the user profile
         :rtype: str
         """
-        return f"<UserProfile (id: {self.id}, username: {self.user.username})>"
+        optional_fields = ""
+        if self.user.is_staff:
+            if self.role:
+                optional_fields += f", team: {self.role.english_name}"
+            if self.user.is_superuser:
+                optional_fields += ", superuser"
+            else:
+                optional_fields += ", staff"
+        else:
+            if self.role:
+                optional_fields += f", role: {self.role.english_name}"
+            if self.regions.count() == 1:
+                optional_fields += f", region: {self.regions.first().name}"
+        return f"<UserProfile (id: {self.id}, username: {self.user.username}{optional_fields})>"
 
     class Meta:
         #: The verbose name of the model
@@ -126,8 +145,3 @@ class UserProfile(models.Model):
         verbose_name_plural = _("user profiles")
         #: The default permissions for this model
         default_permissions = ()
-        #: The custom permissions for this model
-        permissions = (
-            ("manage_admin_users", "Can manage admin users"),
-            ("manage_region_users", "Can manage region users"),
-        )

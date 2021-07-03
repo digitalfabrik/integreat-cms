@@ -10,7 +10,7 @@ For a given user and page, the following permissions are added:
     * :func:`~cms.rules.can_publish_all_pages`
     * :func:`~cms.rules.is_page_publisher`
 
-* ``cms.publish_page`` if one of the following predicates return true:
+* ``cms.publish_page_object`` if one of the following predicates return true:
 
     * :func:`~cms.rules.can_publish_all_pages`
     * :func:`~cms.rules.is_page_publisher`
@@ -78,7 +78,7 @@ def can_edit_all_pages(user, page):
     if not (user.is_superuser or user.is_staff):
         if page and page.region not in user.profile.regions.all():
             return False
-    return user.has_perm("cms.edit_pages")
+    return user.has_perm("cms.change_page")
 
 
 @predicate
@@ -98,25 +98,7 @@ def can_publish_all_pages(user, page):
     if not (user.is_superuser or user.is_staff):
         if page and page.region not in user.profile.regions.all():
             return False
-    return user.has_perm("cms.publish_pages")
-
-
-@predicate
-def can_edit_or_publish_some_pages(user):
-    """
-    This predicate checks whether the given user can edit or publish at least some specific pages.
-
-    :param user: The user who's permission should be checked
-    :type user: ~django.contrib.auth.models.User
-
-    :return: Whether or not ``user`` can edit or publish some pages
-    :rtype: bool
-    """
-    if user.editable_pages.exists() or user.publishable_pages.exists():
-        return True
-    if user.profile.organization and user.profile.organization.pages.exists():
-        return True
-    return False
+    return user.has_perm("cms.publish_page")
 
 
 @predicate
@@ -152,8 +134,8 @@ def can_delete_chat_message(user, chat_message):
     :return: Whether or not ``user`` is allowed to delete ``chat_message``
     :rtype: bool
     """
-    # Superusers and staff can delete all messages
-    if user.is_superuser or user.is_staff:
+    # Check if user has the permission to delete all chat messages
+    if user.has_perm("cms.delete_chat_message"):
         return True
     # Normal users can only delete their own messages
     return user == chat_message.sender
@@ -162,11 +144,7 @@ def can_delete_chat_message(user, chat_message):
 # Permissions
 
 add_perm(
-    "cms.view_pages",
-    can_edit_or_publish_some_pages | can_edit_all_pages | can_publish_all_pages,
-)
-add_perm(
-    "cms.edit_page",
+    "cms.change_page_object",
     can_edit_all_pages
     | is_page_editor
     | can_publish_all_pages
@@ -174,7 +152,7 @@ add_perm(
     | is_in_responsible_organization,
 )
 add_perm(
-    "cms.publish_page",
+    "cms.publish_page_object",
     can_publish_all_pages | is_page_publisher | is_in_responsible_organization,
 )
-add_perm("cms.delete_chat_message", can_delete_chat_message)
+add_perm("cms.delete_chat_message_object", can_delete_chat_message)

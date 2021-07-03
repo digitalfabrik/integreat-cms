@@ -2,7 +2,6 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
@@ -12,11 +11,11 @@ from django.views.generic import TemplateView
 from backend.settings import WEBAPP_URL
 
 from ...constants import status
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI
 from .event_context_mixin import EventContextMixin
-from ..media.content_media_mixin import ContentMediaMixin
+from ..media.media_context_mixin import MediaContextMixin
 
 
 logger = logging.getLogger(__name__)
@@ -24,18 +23,13 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-# pylint: disable=too-many-ancestors
-class EventView(
-    PermissionRequiredMixin, TemplateView, EventContextMixin, ContentMediaMixin
-):
+@method_decorator(permission_required("cms.view_event"), name="dispatch")
+@method_decorator(permission_required("cms.change_event"), name="post")
+class EventView(TemplateView, EventContextMixin, MediaContextMixin):
     """
     Class for rendering the events form
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.view_events"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "events/event_form.html"
 
@@ -69,19 +63,27 @@ class EventView(
         ).first()
         poi_instance = region.pois.filter(events=event_instance).first()
 
-        # Make form disabled if user has no permission to edit the page
-        if not request.user.has_perm("cms.edit_events"):
-            disabled = True
-            messages.warning(
-                request, _("You don't have the permission to edit this event.")
-            )
-        elif event_instance and event_instance.archived:
+        # Make form disabled if event is archived or user doesn't have the permission to edit the event
+        if event_instance and event_instance.archived:
             disabled = True
             messages.warning(
                 request, _("You cannot edit this event because it is archived.")
             )
+        elif not request.user.has_perm("cms.change_event"):
+            disabled = True
+            messages.warning(
+                request, _("You don't have the permission to edit events.")
+            )
         else:
             disabled = False
+
+        if not request.user.has_perm("cms.publish_event"):
+            messages.warning(
+                request,
+                _(
+                    "You don't have the permission to publish events, but you can propose changes and submit them for review instead."
+                ),
+            )
 
         event_form = EventForm(instance=event_instance, disabled=disabled)
         event_translation_form = EventTranslationForm(
@@ -119,7 +121,7 @@ class EventView(
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
 
-        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to publish events
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -136,13 +138,11 @@ class EventView(
             event=event_instance, language=language
         ).first()
 
-        if not request.user.has_perm("cms.edit_events"):
-            raise PermissionDenied
-
         event_form = EventForm(
             data=request.POST,
             files=request.FILES,
             instance=event_instance,
+            additional_instance_attributes={"region": region, "location": poi},
         )
         # clean data of event form to be able to pass the cleaned start date to the recurrence form for validation
         event_form_valid = event_form.is_valid()
@@ -154,8 +154,10 @@ class EventView(
         event_translation_form = EventTranslationForm(
             data=request.POST,
             instance=event_translation_instance,
-            region=region,
-            language=language,
+            additional_instance_attributes={
+                "creator": request.user,
+                "language": language,
+            },
         )
 
         if (
@@ -166,103 +168,56 @@ class EventView(
                 and not recurrence_rule_form.is_valid()
             )
         ):
-            forms = [event_form, event_translation_form]
-            if event_form.cleaned_data["is_recurring"]:
-                forms.append(recurrence_rule_form)
             # Add error messages
-            for form in forms:
-                for field in form:
-                    for error in field.errors:
-                        messages.error(request, _(error))
-                for error in form.non_field_errors():
-                    messages.error(request, _(error))
-
-            return render(
-                request,
-                self.template_name,
-                {
-                    **self.get_context_data(**kwargs),
-                    "current_menu_item": "events",
-                    "event_form": event_form,
-                    "event_translation_form": event_translation_form,
-                    "recurrence_rule_form": recurrence_rule_form,
-                    "poi": poi,
-                    "language": language,
-                    "languages": region.languages if event_instance else [language],
-                },
-            )
-
-        if (
-            not event_form.has_changed()
-            and not event_translation_form.has_changed()
-            and (
-                not event_form.cleaned_data["is_recurring"]
-                or not recurrence_rule_form.has_changed()
-            )
-            and poi == event_instance.location
-        ):
-
-            messages.info(request, _("No changes detected."))
-
-            return render(
-                request,
-                self.template_name,
-                {
-                    **self.get_context_data(**kwargs),
-                    "current_menu_item": "events",
-                    "event_form": event_form,
-                    "event_translation_form": event_translation_form,
-                    "recurrence_rule_form": recurrence_rule_form,
-                    "poi": poi,
-                    "language": language,
-                    "languages": region.languages if event_instance else [language],
-                },
-            )
-
-        if event_translation_form.instance.status == status.PUBLIC:
-            if not request.user.has_perm("cms.publish_events"):
-                raise PermissionDenied
-
-        if event_form.cleaned_data["is_recurring"]:
-            recurrence_rule = recurrence_rule_form.save()
+            event_form.add_error_messages(request)
+            event_translation_form.add_error_messages(request)
+            recurrence_rule_form.add_error_messages(request)
         else:
-            recurrence_rule = None
-
-        event = event_form.save(
-            region=region, recurrence_rule=recurrence_rule, location=poi
-        )
-        event_translation = event_translation_form.save(event=event, user=request.user)
-
-        published = event_translation.status == status.PUBLIC
-        if not event_instance:
-            if published:
+            # Check publish permissions
+            if event_translation_form.instance.status == status.PUBLIC:
+                if not request.user.has_perm("cms.publish_event"):
+                    raise PermissionDenied(
+                        f"{request.user.profile!r} does not have the permission 'cms.publish_event'"
+                    )
+            # Save forms
+            if event_form.cleaned_data.get("is_recurring"):
+                # If event is recurring, save recurrence rule
+                event_form.instance.recurrence_rule = recurrence_rule_form.save()
+            elif event_form.fields["is_recurring"].has_changed():
+                # If the event is not recurring but it was before, delete the associated recurrence rule
+                event_form.instance.recurrence_rule.delete()
+            event_translation_form.instance.event = event_form.save()
+            event_translation_form.save()
+            # Add the success message and redirect to the edit page
+            if not event_instance:
                 messages.success(
-                    request, _("Event was successfully created and published")
+                    request,
+                    _('Event "{}" was successfully created').format(
+                        event_translation_form.instance
+                    ),
                 )
-            else:
-                messages.success(request, _("Event was successfully created"))
-        else:
-            if not event_translation_instance:
-                if published:
-                    messages.success(
-                        request,
-                        _("Event translation was successfully created and published"),
-                    )
-                else:
-                    messages.success(
-                        request, _("Event translation was successfully created")
-                    )
-            else:
-                if published:
-                    messages.success(request, _("Event was successfully published"))
-                else:
-                    messages.success(request, _("Event was successfully saved"))
+                return redirect(
+                    "edit_event",
+                    **{
+                        "event_id": event_form.instance.id,
+                        "region_slug": region.slug,
+                        "language_slug": language.slug,
+                    },
+                )
+            # Add the success message
+            event_translation_form.add_success_message(request)
 
-        return redirect(
-            "edit_event",
-            **{
-                "event_id": event.id,
-                "region_slug": region.slug,
-                "language_slug": language.slug,
+        return render(
+            request,
+            self.template_name,
+            {
+                **self.get_context_data(**kwargs),
+                "current_menu_item": "events",
+                "event_form": event_form,
+                "event_translation_form": event_translation_form,
+                "recurrence_rule_form": recurrence_rule_form,
+                "poi": poi,
+                "language": language,
+                "languages": region.languages if event_instance else [language],
             },
         )

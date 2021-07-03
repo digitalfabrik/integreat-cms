@@ -1,6 +1,7 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -9,21 +10,19 @@ from django.views.generic import TemplateView
 
 from backend.settings import PER_PAGE
 
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...models import Language, Region
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class PushNotificationListView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_pushnotification"), name="dispatch")
+class PushNotificationListView(TemplateView):
     """
     Class that handles HTTP GET requests for listing push notifications
     """
-
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.view_push_notifications"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "push_notifications/push_notification_list.html"

@@ -69,7 +69,7 @@ export default function EditDirectorySidebar({
           <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-t border-b">
             <label
               for="directory-name-input"
-              className={cn("font-bold", { "cursor-pointer": isEditingAllowed })}
+              className={cn("secondary my-0", { "cursor-auto": !isEditingAllowed })}
               onClick={() =>
                 isEditingAllowed && !isLoading && setDirectoryNameEditable(!isDirectoryNameEditable)
               }
@@ -104,13 +104,12 @@ export default function EditDirectorySidebar({
                   name: (target as HTMLInputElement).value,
                 })
               }
-              class="appearance-none block w-full bg-gray-200 text-xl text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
               disabled={isLoading}
               required
             />
           </div>
           <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
-            <p class="font-bold">{mediaTranslations.label_directory_created}</p>
+            <label class="secondary my-0">{mediaTranslations.label_directory_created}</label>
             <p>{directory.CreatedDate}</p>
           </div>
           {!selectionMode && (
