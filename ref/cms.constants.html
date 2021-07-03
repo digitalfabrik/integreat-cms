@@ -294,6 +294,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#push-notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#region-status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#role-names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#text-directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#translation-status">Translation Status</a></li>
@@ -367,6 +368,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#group-form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#role-form">Role Form</a></li>
 </ul>
 </li>
@@ -457,6 +459,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
@@ -575,8 +578,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-context-mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -736,6 +739,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.role_names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
@@ -809,6 +813,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.roles.html#module-cms.forms.roles.group_form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
 </ul>
 </li>
@@ -899,6 +904,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
@@ -1017,8 +1023,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_context_mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -2191,6 +2197,96 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">cms.constants.region_status.</span></span><span class="sig-name descname"><span class="pre">HIDDEN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'HIDDEN'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/region_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Hidden</p>
+</dd></dl>
+
+</div>
+<div class="section" id="role-names">
+<h2>Role Names<a class="headerlink" href="#role-names" title="Permalink to this headline">¶</a></h2>
+<p>This module contains the possible names of roles to make them translatable.</p>
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.role_names.</span></span><span class="sig-name descname"><span class="pre">APP_TEAM</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'APP_TEAM'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/role_names.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>App team</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.role_names.</span></span><span class="sig-name descname"><span class="pre">CHOICES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('MANAGEMENT',</span> <span class="pre">'Management'),</span> <span class="pre">('EDITOR',</span> <span class="pre">'Editor'),</span> <span class="pre">('EVENT_MANAGER',</span> <span class="pre">'Event</span> <span class="pre">manager'),</span> <span class="pre">('MUNICIPALITY_TEAM',</span> <span class="pre">'Municipality</span> <span class="pre">team'),</span> <span class="pre">('CMS_TEAM',</span> <span class="pre">'CMS</span> <span class="pre">team'),</span> <span class="pre">('APP_TEAM',</span> <span class="pre">'App</span> <span class="pre">team'),</span> <span class="pre">('PROMO_TEAM',</span> <span class="pre">'Promo</span> <span class="pre">team')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/role_names.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Choices to use these constants in a database field</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;MANAGEMENT&#39;</span><span class="p">,</span> <span class="s1">&#39;Management&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;EDITOR&#39;</span><span class="p">,</span> <span class="s1">&#39;Editor&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;EVENT_MANAGER&#39;</span><span class="p">,</span> <span class="s1">&#39;Event manager&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;MUNICIPALITY_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;Municipality team&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;CMS_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;CMS team&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;APP_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;App team&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;PROMO_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;Promo team&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.role_names.</span></span><span class="sig-name descname"><span class="pre">CMS_TEAM</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'CMS_TEAM'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/role_names.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>CMS team</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.role_names.</span></span><span class="sig-name descname"><span class="pre">EDITOR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'EDITOR'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/role_names.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Content editor</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.role_names.</span></span><span class="sig-name descname"><span class="pre">EVENT_MANAGER</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'EVENT_MANAGER'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/role_names.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Event manager</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.role_names.</span></span><span class="sig-name descname"><span class="pre">MANAGEMENT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'MANAGEMENT'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/role_names.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Region management</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.role_names.</span></span><span class="sig-name descname"><span class="pre">MUNICIPALITY_TEAM</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'MUNICIPALITY_TEAM'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/role_names.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Municipality team</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.role_names.</span></span><span class="sig-name descname"><span class="pre">PROMO_TEAM</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'PROMO_TEAM'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/role_names.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Promo team</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.role_names.</span></span><span class="sig-name descname"><span class="pre">ROLES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('MANAGEMENT',</span> <span class="pre">'Management'),</span> <span class="pre">('EDITOR',</span> <span class="pre">'Editor'),</span> <span class="pre">('EVENT_MANAGER',</span> <span class="pre">'Event</span> <span class="pre">manager')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/role_names.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Choices for non-staff roles</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;MANAGEMENT&#39;</span><span class="p">,</span> <span class="s1">&#39;Management&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;EDITOR&#39;</span><span class="p">,</span> <span class="s1">&#39;Editor&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;EVENT_MANAGER&#39;</span><span class="p">,</span> <span class="s1">&#39;Event manager&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.role_names.</span></span><span class="sig-name descname"><span class="pre">STAFF_ROLES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('MUNICIPALITY_TEAM',</span> <span class="pre">'Municipality</span> <span class="pre">team'),</span> <span class="pre">('CMS_TEAM',</span> <span class="pre">'CMS</span> <span class="pre">team'),</span> <span class="pre">('APP_TEAM',</span> <span class="pre">'App</span> <span class="pre">team'),</span> <span class="pre">('PROMO_TEAM',</span> <span class="pre">'Promo</span> <span class="pre">team')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/role_names.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Choices for staff roles</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;MUNICIPALITY_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;Municipality team&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;CMS_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;CMS team&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;APP_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;App team&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;PROMO_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;Promo team&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-06-05T08:56:10+00:00" />
+    <meta property="article:modified_time" content="2021-05-15T11:40:17+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Roles &mdash; integreat-cms 0.0.14 documentation</title>
@@ -294,6 +294,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#push-notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#role-names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#text-directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#translation-status">Translation Status</a></li>
@@ -367,6 +368,7 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#group-form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#role-form">Role Form</a></li>
 </ul>
 </li>
@@ -457,6 +459,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
@@ -575,8 +578,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-context-mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -736,6 +739,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.role_names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
@@ -809,6 +813,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.roles.html#module-cms.forms.roles.group_form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
 </ul>
 </li>
@@ -899,6 +904,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
@@ -1017,8 +1023,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_context_mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1229,28 +1235,24 @@
   <div class="section" id="roles">
 <h1>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h1>
 <p>Forms for creating and modifying user role objects</p>
-<div class="section" id="role-form">
-<h2>Role Form<a class="headerlink" href="#role-form" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="group-form">
+<h2>Group Form<a class="headerlink" href="#group-form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.roles.role_form.</span></span><span class="sig-name descname"><span class="pre">RoleForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.roles.group_form.</span></span><span class="sig-name descname"><span class="pre">GroupForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/group_form.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
-<p>Form for creating and modifying user role objects</p>
+<p>Form for creating and modifying user group objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">permissions</span></code>: Permissions (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelMultipleChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMultipleChoiceField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/group_form.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Initialize placeholder model form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
+<dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If form is instantiated directly without an inheriting subclass</p>
@@ -1258,6 +1260,21 @@
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="role-form">
+<h2>Role Form<a class="headerlink" href="#role-form" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.roles.role_form.</span></span><span class="sig-name descname"><span class="pre">RoleForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/roles/role_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
+<p>Form for creating and modifying user role objects</p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">staff_role</span></code>: Staff role (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+</ul>
 </dd></dl>
 
 </div>
@@ -1282,7 +1299,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jun 05, 2021.
+        Last updated on May 15, 2021.
       </span>
 
     </p>

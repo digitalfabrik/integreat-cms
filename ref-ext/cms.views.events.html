@@ -294,6 +294,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#push-notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#role-names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#text-directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#translation-status">Translation Status</a></li>
@@ -367,6 +368,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.roles.html#group-form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.roles.html#role-form">Role Form</a></li>
 </ul>
 </li>
@@ -457,6 +459,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
@@ -575,8 +578,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-context-mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -736,6 +739,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.role_names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
@@ -809,6 +813,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#module-cms.forms.roles.group_form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
 </ul>
 </li>
@@ -899,6 +904,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
@@ -1017,8 +1023,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_context_mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1234,7 +1240,7 @@
 <p>This module contains action methods for events (archive, restore, …)</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="cms.views.events.event_actions.archive">
-<span class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></span><span class="sig-name descname"><span class="pre">archive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.archive" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></span><span class="sig-name descname"><span class="pre">archive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.archive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set archived flag for an event</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1245,21 +1251,18 @@
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current GUI language slug</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit events</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The rendered template response</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cms.views.events.event_actions.delete">
-<span class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L152"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.delete" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete a single event</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1281,7 +1284,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cms.views.events.event_actions.duplicate">
-<span class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></span><span class="sig-name descname"><span class="pre">duplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L67"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.duplicate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></span><span class="sig-name descname"><span class="pre">duplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.duplicate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Duplicates the given event and all of its translations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1292,21 +1295,18 @@
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current GUI language slug</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit events</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The rendered template response</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cms.views.events.event_actions.restore">
-<span class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></span><span class="sig-name descname"><span class="pre">restore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.restore" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></span><span class="sig-name descname"><span class="pre">restore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.restore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove archived flag for an event</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1317,21 +1317,18 @@
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – current GUI language slug</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit events</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The rendered template response</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cms.views.events.event_actions.search_poi_ajax">
-<span class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></span><span class="sig-name descname"><span class="pre">search_poi_ajax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L193"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.search_poi_ajax" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.events.event_actions.</span></span><span class="sig-name descname"><span class="pre">search_poi_ajax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_actions.py#L181"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_actions.search_poi_ajax" title="Permalink to this definition">¶</a></dt>
 <dd><p>AJAX endpoint for searching POIs</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1351,18 +1348,18 @@
 <span id="event-context-mixin"></span><h2>Event Context Mixin<a class="headerlink" href="#module-cms.views.events.event_context_mixin" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cms.views.events.event_context_mixin.EventContextMixin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.events.event_context_mixin.</span></span><span class="sig-name descname"><span class="pre">EventContextMixin</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_context_mixin.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_context_mixin.EventContextMixin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.events.event_context_mixin.</span></span><span class="sig-name descname"><span class="pre">EventContextMixin</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_context_mixin.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_context_mixin.EventContextMixin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.ContextMixin</span></code></a></p>
 <p>This mixin provides extra context for event views</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_context_mixin.EventContextMixin.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_context_mixin.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_context_mixin.EventContextMixin.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_context_mixin.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_context_mixin.EventContextMixin.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.events.event_context_mixin.EventContextMixin.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'archive_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">archived.',</span> <span class="pre">'archive_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">archive</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'delete_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">deleted.',</span> <span class="pre">'delete_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">delete</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'restore_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">restored.',</span> <span class="pre">'restore_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">restore</span> <span class="pre">this</span> <span class="pre">event'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_context_mixin.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_context_mixin.EventContextMixin.extra_context" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'archive_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">archived.',</span> <span class="pre">'archive_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">archive</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'delete_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">deleted.',</span> <span class="pre">'delete_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">delete</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'restore_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">restored.',</span> <span class="pre">'restore_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">restore</span> <span class="pre">this</span> <span class="pre">event'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_context_mixin.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_context_mixin.EventContextMixin.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dictionary of additional context</p>
 </dd></dl>
 
@@ -1378,8 +1375,8 @@
 <span id="event-list-view"></span><h2>Event List View<a class="headerlink" href="#module-cms.views.events.event_list_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.events.event_list_view.</span></span><span class="sig-name descname"><span class="pre">EventListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a>, <a class="reference internal" href="#cms.views.events.event_context_mixin.EventContextMixin" title="cms.views.events.event_context_mixin.EventContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.events.event_context_mixin.EventContextMixin</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.events.event_list_view.</span></span><span class="sig-name descname"><span class="pre">EventListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a>, <a class="reference internal" href="#cms.views.events.event_context_mixin.EventContextMixin" title="cms.views.events.event_context_mixin.EventContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.events.event_context_mixin.EventContextMixin</span></code></a></p>
 <p>View for listing events (either non-archived or archived events depending on
 <a class="reference internal" href="#cms.views.events.event_list_view.EventListView.archived" title="cms.views.events.event_list_view.EventListView.archived"><code class="xref py py-attr docutils literal notranslate"><span class="pre">archived</span></code></a>)</p>
 <dl class="py method">
@@ -1391,7 +1388,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.archived">
-<span class="sig-name descname"><span class="pre">archived</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.archived" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">archived</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.archived" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether or not to show archived events</p>
 </dd></dl>
 
@@ -1403,23 +1400,23 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.content_type">
-<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.content_type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.dispatch">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.dispatch" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'archive_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">archived.',</span> <span class="pre">'archive_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">archive</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'delete_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">deleted.',</span> <span class="pre">'delete_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">delete</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'restore_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">restored.',</span> <span class="pre">'restore_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">restore</span> <span class="pre">this</span> <span class="pre">event'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.extra_context" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'archive_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">archived.',</span> <span class="pre">'archive_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">archive</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'delete_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">deleted.',</span> <span class="pre">'delete_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">delete</span> <span class="pre">this</span> <span class="pre">event',</span> <span class="pre">'restore_dialog_text':</span> <span class="pre">'All</span> <span class="pre">translations</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">event</span> <span class="pre">will</span> <span class="pre">also</span> <span class="pre">be</span> <span class="pre">restored.',</span> <span class="pre">'restore_dialog_title':</span> <span class="pre">'Please</span> <span class="pre">confirm</span> <span class="pre">that</span> <span class="pre">you</span> <span class="pre">really</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">restore</span> <span class="pre">this</span> <span class="pre">event'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dictionary of additional context</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.get" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render events list for HTTP GET requests</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1444,61 +1441,20 @@ keyword arguments, and other things.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.get_login_url">
-<span class="sig-name descname"><span class="pre">get_login_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.get_login_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the login_url attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.get_permission_denied_message">
-<span class="sig-name descname"><span class="pre">get_permission_denied_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_denied_message attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.get_permission_required">
-<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.get_permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_required attribute.
-Must return an iterable.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.get_redirect_field_name">
-<span class="sig-name descname"><span class="pre">get_redirect_field_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the redirect_field_name attribute.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.get_template_names">
 <span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.get_template_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of template names to be used for the request. Must return
 a list. May not be called if render_to_response() is overridden.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.handle_no_permission">
-<span class="sig-name descname"><span class="pre">handle_no_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.has_permission">
-<span class="sig-name descname"><span class="pre">has_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to customize the way permissions are checked.</p>
-</dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.http_method_not_allowed">
 <span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.login_url">
-<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.login_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1507,20 +1463,9 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.permission_denied_message">
-<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.permission_required">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'cms.view_events'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.post">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L188"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.post" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L184"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render event list with applied filters</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1538,17 +1483,6 @@ a list. May not be called if render_to_response() is overridden.</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.raise_exception">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.redirect_field_name">
-<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.render_to_response">
@@ -1572,24 +1506,24 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.template">
-<span class="sig-name descname"><span class="pre">template</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'events/event_list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.template" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'events/event_list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Template for list of non-archived events</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.template_archived">
-<span class="sig-name descname"><span class="pre">template_archived</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'events/event_list_archived.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.template_archived" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_archived</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'events/event_list_archived.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.template_archived" title="Permalink to this definition">¶</a></dt>
 <dd><p>Template for list of archived events</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.template_engine">
-<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.template_engine" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.views.events.event_list_view.EventListView.template_name">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">template_name</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.template_name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">template_name</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_list_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_list_view.EventListView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select correct HTML template, depending on <a class="reference internal" href="#cms.views.events.event_list_view.EventListView.archived" title="cms.views.events.event_list_view.EventListView.archived"><code class="xref py py-attr docutils literal notranslate"><span class="pre">archived</span></code></a> flag
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 <dl class="field-list simple">
@@ -1610,7 +1544,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cms.views.events.event_view.EventView">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.events.event_view.</span></span><span class="sig-name descname"><span class="pre">EventView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a>, <a class="reference internal" href="#cms.views.events.event_context_mixin.EventContextMixin" title="cms.views.events.event_context_mixin.EventContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.events.event_context_mixin.EventContextMixin</span></code></a>, <a class="reference internal" href="cms.views.media.html#cms.views.media.content_media_mixin.ContentMediaMixin" title="cms.views.media.content_media_mixin.ContentMediaMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.media.content_media_mixin.ContentMediaMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a>, <a class="reference internal" href="#cms.views.events.event_context_mixin.EventContextMixin" title="cms.views.events.event_context_mixin.EventContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.events.event_context_mixin.EventContextMixin</span></code></a>, <a class="reference internal" href="cms.views.media.html#cms.views.media.media_context_mixin.MediaContextMixin" title="cms.views.media.media_context_mixin.MediaContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.media.media_context_mixin.MediaContextMixin</span></code></a></p>
 <p>Class for rendering the events form</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_view.EventView.__init__">
@@ -1632,7 +1566,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_view.EventView.dispatch">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.dispatch" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1643,7 +1577,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_view.EventView.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.get" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render event form for HTTP GET requests</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1664,7 +1598,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_view.EventView.get_context_data">
-<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/content_media_mixin.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.get_context_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/media/media_context_mixin.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.get_context_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overwrites the default <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin.get_context_data" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_context_data()</span></code></a> Method of Django to provide an additional context for template rendering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1680,46 +1614,10 @@ keyword arguments, and other things.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_view.EventView.get_login_url">
-<span class="sig-name descname"><span class="pre">get_login_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.get_login_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the login_url attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_view.EventView.get_permission_denied_message">
-<span class="sig-name descname"><span class="pre">get_permission_denied_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_denied_message attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_view.EventView.get_permission_required">
-<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.get_permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_required attribute.
-Must return an iterable.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_view.EventView.get_redirect_field_name">
-<span class="sig-name descname"><span class="pre">get_redirect_field_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the redirect_field_name attribute.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_view.EventView.get_template_names">
 <span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.get_template_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of template names to be used for the request. Must return
 a list. May not be called if render_to_response() is overridden.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_view.EventView.handle_no_permission">
-<span class="sig-name descname"><span class="pre">handle_no_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.events.event_view.EventView.has_permission">
-<span class="sig-name descname"><span class="pre">has_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to customize the way permissions are checked.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1732,31 +1630,15 @@ a list. May not be called if render_to_response() is overridden.</p>
 <span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.events.event_view.EventView.login_url">
-<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.login_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_view.EventView.options">
 <span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.events.event_view.EventView.permission_denied_message">
-<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.events.event_view.EventView.permission_required">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'cms.view_events'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_view.EventView.post">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.post" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save event and ender event form for HTTP POST requests</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1766,7 +1648,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit events</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to publish events</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The rendered template response</p>
@@ -1776,17 +1658,6 @@ a list. May not be called if render_to_response() is overridden.</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.events.event_view.EventView.raise_exception">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.events.event_view.EventView.redirect_field_name">
-<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/events/event_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.events.event_view.EventView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.events.event_view.EventView.render_to_response">

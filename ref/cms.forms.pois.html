@@ -294,6 +294,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#push-notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#role-names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#text-directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#translation-status">Translation Status</a></li>
@@ -367,6 +368,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#group-form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#role-form">Role Form</a></li>
 </ul>
 </li>
@@ -457,6 +459,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
@@ -575,8 +578,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-context-mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -736,6 +739,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.role_names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
@@ -809,6 +813,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.roles.html#module-cms.forms.roles.group_form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
 </ul>
 </li>
@@ -899,6 +904,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
@@ -1017,8 +1023,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_context_mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1233,7 +1239,7 @@
 <h2>POI Form<a class="headerlink" href="#poi-form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.pois.poi_form.</span></span><span class="sig-name descname"><span class="pre">POIForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_form.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.pois.poi_form.</span></span><span class="sig-name descname"><span class="pre">POIForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_form.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
 <p>Form for creating and modifying POI objects</p>
 <p><strong>Form fields:</strong></p>
@@ -1247,38 +1253,6 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">location_not_on_map</span></code>: Do not show this location on map (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">icon</span></code>: Icon (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
 </ul>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_form.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Initialize POI form</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – submitted POST data</p></li>
-<li><p><strong>instance</strong> (<a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI"><em>POI</em></a>) – This form’s instance</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_form.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
-which are not directly determined by input fields.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>Region</em></a>) – The region of this form’s POI instance</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The saved POI object</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi.POI" title="cms.models.pois.poi.POI">POI</a></p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -1286,7 +1260,7 @@ which are not directly determined by input fields.</p>
 <h2>POI Translation Form<a class="headerlink" href="#poi-translation-form" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.pois.poi_translation_form.</span></span><span class="sig-name descname"><span class="pre">POITranslationForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_translation_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.pois.poi_translation_form.</span></span><span class="sig-name descname"><span class="pre">POITranslationForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_translation_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/cms.forms.html#cms.forms.custom_content_model_form.CustomContentModelForm" title="cms.forms.custom_content_model_form.CustomContentModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_content_model_form.CustomContentModelForm</span></code></a></p>
 <p>Form for creating and modifying POI translation objects</p>
 <p><strong>Form fields:</strong></p>
@@ -1296,27 +1270,21 @@ which are not directly determined by input fields.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: Status (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">description</span></code>: Content (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">slug</span></code>: URL parameter (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.SlugField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlugField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">minor_edit</span></code>: Minor edit (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_translation_form.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_translation_form.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Initialize POI translation form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – submitted POST data</p></li>
-<li><p><strong>instance</strong> (<a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><em>POITranslation</em></a>) – This form’s instance</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>Region</em></a>) – The region of this form’s instance</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><em>Language</em></a>) – The language of this form’s instance</p></li>
-</ul>
+<dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">clean_description</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_translation_form.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">clean_description</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_translation_form.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate the description field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>) and applies changes to &lt;img&gt;- and &lt;a&gt;-Tags to match the guidelines.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
@@ -1333,7 +1301,7 @@ which are not directly determined by input fields.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">clean_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_translation_form.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">clean_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_translation_form.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate the slug field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1347,15 +1315,12 @@ which are not directly determined by input fields.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_translation_form.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pois/poi_translation_form.py#L67"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>poi</strong> (<a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><em>POITranslation</em></a>) – The POI translation instance of this form</p></li>
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The author of the POI translation instance</p></li>
-</ul>
+<dd class="field-odd"><p><strong>commit</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether or not the changes should be written to the database</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The saved POI translation object</p>

@@ -294,6 +294,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#push-notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#role-names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#text-directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#translation-status">Translation Status</a></li>
@@ -367,6 +368,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#group-form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#role-form">Role Form</a></li>
 </ul>
 </li>
@@ -457,6 +459,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
@@ -575,8 +578,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-context-mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -736,6 +739,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.role_names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
@@ -809,6 +813,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.roles.html#module-cms.forms.roles.group_form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
 </ul>
 </li>
@@ -899,6 +904,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
@@ -1017,8 +1023,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_context_mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1603,21 +1609,18 @@ For more information on xhtml2pdf, see <a class="reference external" href="https
 <li><p><strong>pages</strong> (<a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.querysets.html#mptt.querysets.TreeQuerySet" title="(in django-mptt v0.12.0)"><em>TreeQuerySet</em></a>) – at least on page to render as PDF document</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – User login and permissions required</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>PDF document wrapped in a HtmlResponse</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>PDF document wrapped in a HtmlResponse</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)">HttpResponse</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)">HttpResponse</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">link_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/pdf_utils.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">link_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/pdf_utils.py#L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>According to xhtml2pdf documentation (see <a class="reference external" href="https://xhtml2pdf.readthedocs.io/en/latest/usage.html" title="(in xhtml2pdf v0.2.5)"><span>Usage</span></a>),
 this function is neccessary for resolving the django static files references.
 It returns the absolute paths to the files on the file system.</p>

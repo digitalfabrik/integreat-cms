@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-06-05T08:56:10+00:00" />
+    <meta property="article:modified_time" content="2021-05-16T11:40:30+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Feedback &mdash; integreat-cms 0.0.14 documentation</title>
@@ -294,6 +294,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#push-notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#role-names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#text-directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#translation-status">Translation Status</a></li>
@@ -367,6 +368,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#group-form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#role-form">Role Form</a></li>
 </ul>
 </li>
@@ -457,6 +459,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
@@ -575,8 +578,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-context-mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -736,6 +739,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.role_names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
@@ -809,6 +813,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.roles.html#module-cms.forms.roles.group_form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
 </ul>
 </li>
@@ -899,6 +904,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
@@ -1017,8 +1023,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_context_mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1233,60 +1239,51 @@
 <p>This module contains action methods for feedack items (archive, restore, …)</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.admin_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">delete_admin_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_actions.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.admin_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">delete_admin_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_actions.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Delete a list of feedback items</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Object representing the user call</p>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to manage feedback</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to the admin feedback list</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A redirection to the admin feedback list</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.admin_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_admin_feedback_as_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_actions.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.admin_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_admin_feedback_as_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_actions.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Set read flag for a list of feedback items</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Object representing the user call</p>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to manage feedback</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to the admin feedback list</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A redirection to the admin feedback list</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.admin_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_admin_feedback_as_unread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_actions.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.admin_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_admin_feedback_as_unread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_actions.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Unset read flag for a list of feedback items</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Object representing the user call</p>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to manage feedback</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to the admin feedback list</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A redirection to the admin feedback list</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1296,8 +1293,8 @@
 <h2>Admin Feedback List View<a class="headerlink" href="#admin-feedback-list-view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.feedback.admin_feedback_list_view.</span></span><span class="sig-name descname"><span class="pre">AdminFeedbackListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.feedback.admin_feedback_list_view.</span></span><span class="sig-name descname"><span class="pre">AdminFeedbackListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View to list all admin feedback (technical feedback)</p>
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -1318,12 +1315,6 @@
 <dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_feedback'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1349,13 +1340,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'feedback/admin_feedback_list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'feedback/admin_feedback_list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/admin_feedback_list_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -1367,7 +1352,7 @@
 <p>This module contains action methods for feedack items (archive, restore, …)</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">delete_region_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_actions.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">delete_region_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_actions.py#L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Delete a list of feedback items</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1376,21 +1361,18 @@
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to manage feedback</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to the region feedback list</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A redirection to the region feedback list</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_region_feedback_as_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_actions.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_region_feedback_as_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_actions.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Set read flag for a list of feedback items</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1399,21 +1381,18 @@
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to manage feedback</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to the region feedback list</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A redirection to the region feedback list</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_region_feedback_as_unread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_actions.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_region_feedback_as_unread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_actions.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Unset read flag for a list of feedback items</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1422,14 +1401,11 @@
 <li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the current region</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to manage feedback</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to the region feedback list</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A redirection to the region feedback list</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1439,8 +1415,8 @@
 <h2>Region Feedback List View<a class="headerlink" href="#region-feedback-list-view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.feedback.region_feedback_list_view.</span></span><span class="sig-name descname"><span class="pre">RegionFeedbackListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.feedback.region_feedback_list_view.</span></span><span class="sig-name descname"><span class="pre">RegionFeedbackListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View to list all region feedback (content feedback)</p>
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -1461,12 +1437,6 @@
 <dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)">TemplateResponse</a></p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_feedback'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1492,13 +1462,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'feedback/region_feedback_list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'feedback/region_feedback_list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/feedback/region_feedback_list_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -1526,7 +1490,7 @@
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jun 05, 2021.
+        Last updated on May 16, 2021.
       </span>
 
     </p>

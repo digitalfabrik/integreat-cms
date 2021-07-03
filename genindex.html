@@ -291,6 +291,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#push-notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#role-names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#text-directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#translation-status">Translation Status</a></li>
@@ -364,6 +365,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.roles.html#group-form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.roles.html#role-form">Role Form</a></li>
 </ul>
 </li>
@@ -454,6 +456,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
@@ -572,8 +575,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#media-context-mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -733,6 +736,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.role_names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
@@ -806,6 +810,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.roles.html#module-cms.forms.roles.group_form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
 </ul>
 </li>
@@ -896,6 +901,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
@@ -1014,8 +1020,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.media_context_mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1315,6 +1321,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.__init__">(cms.forms.regions.region_form.RegionForm method)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.__init__">(cms.forms.roles.group_form.GroupForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.__init__">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.__init__">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
@@ -1527,6 +1535,12 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.MultipleObjectsReturned.__init__">(cms.models.users.organization.Organization.MultipleObjectsReturned method)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.__init__">(cms.models.users.role.Role method)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.DoesNotExist.__init__">(cms.models.users.role.Role.DoesNotExist method)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.MultipleObjectsReturned.__init__">(cms.models.users.role.Role.MultipleObjectsReturned method)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.__init__">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.__init__">(cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist method)</a>
@@ -1611,7 +1625,7 @@
 </li>
         <li><a href="ref-ext/cms.views.linkcheck.html#cms.views.linkcheck.linkcheck.LinkListView.__init__">(cms.views.linkcheck.linkcheck.LinkListView method)</a>
 </li>
-        <li><a href="ref-ext/cms.views.media.html#cms.views.media.content_media_mixin.ContentMediaMixin.__init__">(cms.views.media.content_media_mixin.ContentMediaMixin method)</a>
+        <li><a href="ref-ext/cms.views.media.html#cms.views.media.media_context_mixin.MediaContextMixin.__init__">(cms.views.media.media_context_mixin.MediaContextMixin method)</a>
 </li>
         <li><a href="ref-ext/cms.views.media.html#cms.views.media.media_list_view.AdminMediaListView.__init__">(cms.views.media.media_list_view.AdminMediaListView method)</a>
 </li>
@@ -1845,6 +1859,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.add_error">(cms.forms.regions.region_form.RegionForm method)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.add_error">(cms.forms.roles.group_form.GroupForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.add_error">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.add_error">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
@@ -1862,6 +1878,68 @@
         <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.user_password_form.UserPasswordForm.add_error">(cms.forms.users.user_password_form.UserPasswordForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm.add_error">(cms.forms.users.user_profile_form.UserProfileForm method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.add_error_messages">add_error_messages() (cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
+
+      <ul>
+        <li><a href="ref-ext/cms.forms.html#cms.forms.custom_content_model_form.CustomContentModelForm.add_error_messages">(cms.forms.custom_content_model_form.CustomContentModelForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm.add_error_messages">(cms.forms.custom_model_form.CustomModelForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.events.html#cms.forms.events.event_form.EventForm.add_error_messages">(cms.forms.events.event_form.EventForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.events.html#cms.forms.events.event_translation_form.EventTranslationForm.add_error_messages">(cms.forms.events.event_translation_form.EventTranslationForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.events.html#cms.forms.events.recurrence_rule_form.RecurrenceRuleForm.add_error_messages">(cms.forms.events.recurrence_rule_form.RecurrenceRuleForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.imprint.html#cms.forms.imprint.imprint_translation_form.ImprintTranslationForm.add_error_messages">(cms.forms.imprint.imprint_translation_form.ImprintTranslationForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.language_tree.html#cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.add_error_messages">(cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.languages.html#cms.forms.languages.language_form.LanguageForm.add_error_messages">(cms.forms.languages.language_form.LanguageForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.media.html#cms.forms.media.create_directory_form.CreateDirectoryForm.add_error_messages">(cms.forms.media.create_directory_form.CreateDirectoryForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.media.html#cms.forms.media.directory_form.DirectoryForm.add_error_messages">(cms.forms.media.directory_form.DirectoryForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.media.html#cms.forms.media.media_file_form.MediaFileForm.add_error_messages">(cms.forms.media.media_file_form.MediaFileForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.media.html#cms.forms.media.upload_media_file_form.UploadMediaFileForm.add_error_messages">(cms.forms.media.upload_media_file_form.UploadMediaFileForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.offer_templates.html#cms.forms.offer_templates.offer_template_form.OfferTemplateForm.add_error_messages">(cms.forms.offer_templates.offer_template_form.OfferTemplateForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.organizations.html#cms.forms.organizations.organization_form.OrganizationForm.add_error_messages">(cms.forms.organizations.organization_form.OrganizationForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.pages.html#cms.forms.pages.page_form.PageForm.add_error_messages">(cms.forms.pages.page_form.PageForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.pages.html#cms.forms.pages.page_translation_form.PageTranslationForm.add_error_messages">(cms.forms.pages.page_translation_form.PageTranslationForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.pois.html#cms.forms.pois.poi_form.POIForm.add_error_messages">(cms.forms.pois.poi_form.POIForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.pois.html#cms.forms.pois.poi_translation_form.POITranslationForm.add_error_messages">(cms.forms.pois.poi_translation_form.POITranslationForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_form.PushNotificationForm.add_error_messages">(cms.forms.push_notifications.push_notification_form.PushNotificationForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.add_error_messages">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.add_error_messages">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.add_error_messages">(cms.forms.roles.group_form.GroupForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.add_error_messages">(cms.forms.roles.role_form.RoleForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.region_user_form.RegionUserForm.add_error_messages">(cms.forms.users.region_user_form.RegionUserForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.region_user_profile_form.RegionUserProfileForm.add_error_messages">(cms.forms.users.region_user_profile_form.RegionUserProfileForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.user_email_form.UserEmailForm.add_error_messages">(cms.forms.users.user_email_form.UserEmailForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.user_form.UserForm.add_error_messages">(cms.forms.users.user_form.UserForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.user_password_form.UserPasswordForm.add_error_messages">(cms.forms.users.user_password_form.UserPasswordForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm.add_error_messages">(cms.forms.users.user_profile_form.UserProfileForm method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/cms.forms.pages.html#cms.forms.pages.parent_field_widget.ParentFieldWidget.add_id_index">add_id_index (cms.forms.pages.parent_field_widget.ParentFieldWidget attribute)</a>
@@ -1918,6 +1996,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.add_initial_prefix">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.add_initial_prefix">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.add_initial_prefix">(cms.forms.roles.group_form.GroupForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.add_initial_prefix">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
@@ -1995,6 +2075,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.add_prefix">(cms.forms.regions.region_form.RegionForm method)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.add_prefix">(cms.forms.roles.group_form.GroupForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.add_prefix">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.add_prefix">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
@@ -2012,6 +2094,18 @@
         <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.user_password_form.UserPasswordForm.add_prefix">(cms.forms.users.user_password_form.UserPasswordForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm.add_prefix">(cms.forms.users.user_profile_form.UserProfileForm method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/cms.forms.html#cms.forms.custom_content_model_form.CustomContentModelForm.add_success_message">add_success_message() (cms.forms.custom_content_model_form.CustomContentModelForm method)</a>
+
+      <ul>
+        <li><a href="ref-ext/cms.forms.events.html#cms.forms.events.event_translation_form.EventTranslationForm.add_success_message">(cms.forms.events.event_translation_form.EventTranslationForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.imprint.html#cms.forms.imprint.imprint_translation_form.ImprintTranslationForm.add_success_message">(cms.forms.imprint.imprint_translation_form.ImprintTranslationForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.pages.html#cms.forms.pages.page_translation_form.PageTranslationForm.add_success_message">(cms.forms.pages.page_translation_form.PageTranslationForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.pois.html#cms.forms.pois.poi_translation_form.POITranslationForm.add_success_message">(cms.forms.pois.poi_translation_form.POITranslationForm method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/cms.html#cms.page_xliff_converter.TranslationXliffConverter.add_translation_unit">add_translation_unit() (cms.page_xliff_converter.TranslationXliffConverter method)</a>
@@ -2295,6 +2389,8 @@
 </li>
       <li><a href="ref-ext/cms.tests.views.html#cms.tests.views.api_view_test.APIViewTest">APIViewTest (class in cms.tests.views.api_view_test)</a>
 </li>
+      <li><a href="ref-ext/cms.constants.html#cms.constants.role_names.APP_TEAM">APP_TEAM (in module cms.constants.role_names)</a>
+</li>
       <li><a href="ref-ext/backend.html#backend.wsgi.application">application() (in module backend.wsgi)</a>
 </li>
       <li><a href="ref-ext/cms.views.analytics.html#cms.views.analytics.app_size_view.AppSizeView">AppSizeView (class in cms.views.analytics.app_size_view)</a>
@@ -2327,6 +2423,8 @@
         <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.archived">(cms.views.pois.poi_list_view.POIListView attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.constants.html#cms.constants.region_status.ARCHIVED">ARCHIVED (in module cms.constants.region_status)</a>
 </li>
       <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.archived_pages">archived_pages (cms.models.regions.region.Region property)</a>
@@ -2454,6 +2552,10 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.MultipleObjectsReturned.args">(cms.models.users.organization.Organization.MultipleObjectsReturned attribute)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.DoesNotExist.args">(cms.models.users.role.Role.DoesNotExist attribute)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.MultipleObjectsReturned.args">(cms.models.users.role.Role.MultipleObjectsReturned attribute)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.args">(cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist attribute)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.MultipleObjectsReturned.args">(cms.models.users.user_mfa_key.UserMfaKey.MultipleObjectsReturned attribute)</a>
@@ -2465,8 +2567,6 @@
         <li><a href="ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException.args">(cms.utils.matomo_api_manager.MatomoException attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/gvz_api.html#gvz_api.utils.GvzRegion.as_dict">as_dict() (gvz_api.utils.GvzRegion method)</a>
 </li>
       <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.as_p">as_p() (cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
@@ -2521,6 +2621,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.as_p">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.as_p">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.as_p">(cms.forms.roles.group_form.GroupForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.as_p">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
@@ -2594,6 +2696,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.as_table">(cms.forms.regions.region_form.RegionForm method)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.as_table">(cms.forms.roles.group_form.GroupForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.as_table">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.as_table">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
@@ -2665,6 +2769,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.as_ul">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.as_ul">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.as_ul">(cms.forms.roles.group_form.GroupForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.as_ul">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
@@ -2912,6 +3018,8 @@
 </li>
         <li><a href="ref-ext/cms.models.pois.html#cms.models.pois.poi.POI.backend_translation">(cms.models.pois.poi.POI property)</a>
 </li>
+        <li><a href="ref-ext/cms.models.push_notifications.html#cms.models.push_notifications.push_notification.PushNotification.backend_translation">(cms.models.push_notifications.push_notification.PushNotification property)</a>
+</li>
       </ul></li>
       <li><a href="ref-ext/cms.views.analytics.html#cms.views.analytics.app_size_view.AppSizeView.base_context">base_context (cms.views.analytics.app_size_view.AppSizeView attribute)</a>
 
@@ -2975,6 +3083,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/backend.html#backend.settings.BASE_DIR">BASE_DIR (in module backend.settings)</a>
 </li>
+      <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.base_link">base_link (cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation property)</a>
+
+      <ul>
+        <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.imprint_page_translation.ImprintPageTranslation.base_link">(cms.models.pages.imprint_page_translation.ImprintPageTranslation property)</a>
+</li>
+        <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation.base_link">(cms.models.pages.page_translation.PageTranslation property)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/backend.html#backend.settings.BASE_URL">BASE_URL (in module backend.settings)</a>
 </li>
       <li><a href="ref-ext/cms.models.languages.html#cms.models.languages.language.Language.bcp47_tag">bcp47_tag (cms.models.languages.language.Language attribute)</a>
@@ -2991,6 +3107,8 @@
         <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.page.Page.best_translation">(cms.models.pages.page.Page property)</a>
 </li>
         <li><a href="ref-ext/cms.models.pois.html#cms.models.pois.poi.POI.best_translation">(cms.models.pois.poi.POI property)</a>
+</li>
+        <li><a href="ref-ext/cms.models.push_notifications.html#cms.models.push_notifications.push_notification.PushNotification.best_translation">(cms.models.push_notifications.push_notification.PushNotification property)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/backend.html#backend.settings.BLOG_URLS">BLOG_URLS (in module backend.settings)</a>
@@ -3016,8 +3134,6 @@
       <li><a href="ref-ext/cms.html#cms.rules.can_delete_chat_message">can_delete_chat_message() (in module cms.rules)</a>
 </li>
       <li><a href="ref-ext/cms.html#cms.rules.can_edit_all_pages">can_edit_all_pages() (in module cms.rules)</a>
-</li>
-      <li><a href="ref-ext/cms.html#cms.rules.can_edit_or_publish_some_pages">can_edit_or_publish_some_pages() (in module cms.rules)</a>
 </li>
       <li><a href="ref-ext/cms.html#cms.rules.can_publish_all_pages">can_publish_all_pages() (in module cms.rules)</a>
 </li>
@@ -3097,6 +3213,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.changed_data">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.changed_data">(cms.forms.regions.region_form.RegionForm attribute)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.changed_data">(cms.forms.roles.group_form.GroupForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.changed_data">(cms.forms.roles.role_form.RoleForm attribute)</a>
 </li>
@@ -3214,6 +3332,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.check">(cms.models.users.organization.Organization class method)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.check">(cms.models.users.role.Role class method)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.check">(cms.models.users.user_mfa_key.UserMfaKey class method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.check">(cms.models.users.user_profile.UserProfile class method)</a>
@@ -3257,6 +3377,8 @@
         <li><a href="ref-ext/cms.constants.html#cms.constants.recurrence.CHOICES">(in module cms.constants.recurrence)</a>
 </li>
         <li><a href="ref-ext/cms.constants.html#cms.constants.region_status.CHOICES">(in module cms.constants.region_status)</a>
+</li>
+        <li><a href="ref-ext/cms.constants.html#cms.constants.role_names.CHOICES">(in module cms.constants.role_names)</a>
 </li>
         <li><a href="ref-ext/cms.constants.html#cms.constants.status.CHOICES">(in module cms.constants.status)</a>
 </li>
@@ -3327,6 +3449,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.clean">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.clean">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.clean">(cms.forms.roles.group_form.GroupForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.clean">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
@@ -3410,6 +3534,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.clean">(cms.models.users.organization.Organization method)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.clean">(cms.models.users.role.Role method)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.clean">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.clean">(cms.models.users.user_profile.UserProfile method)</a>
@@ -3485,6 +3611,8 @@
         <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.clean_fields">(cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.clean_fields">(cms.models.users.organization.Organization method)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.clean_fields">(cms.models.users.role.Role method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.clean_fields">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
@@ -3649,6 +3777,13 @@
 
       <ul>
         <li><a href="ref-ext/cms.constants.html#module-cms.constants.region_status">module</a>
+</li>
+      </ul></li>
+      <li>
+    cms.constants.role_names
+
+      <ul>
+        <li><a href="ref-ext/cms.constants.html#module-cms.constants.role_names">module</a>
 </li>
       </ul></li>
       <li>
@@ -3995,6 +4130,13 @@
 </li>
       </ul></li>
       <li>
+    cms.forms.roles.group_form
+
+      <ul>
+        <li><a href="ref-ext/cms.forms.roles.html#module-cms.forms.roles.group_form">module</a>
+</li>
+      </ul></li>
+      <li>
     cms.forms.roles.role_form
 
       <ul>
@@ -4267,6 +4409,8 @@
         <li><a href="ref-ext/cms.models.media.html#module-cms.models.media.media_file">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cms.models.offers
 
@@ -4274,8 +4418,6 @@
         <li><a href="ref-ext/cms.models.offers.html#module-cms.models.offers">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cms.models.offers.offer_template
 
@@ -4400,6 +4542,13 @@
 
       <ul>
         <li><a href="ref-ext/cms.models.users.html#module-cms.models.users.organization">module</a>
+</li>
+      </ul></li>
+      <li>
+    cms.models.users.role
+
+      <ul>
+        <li><a href="ref-ext/cms.models.users.html#module-cms.models.users.role">module</a>
 </li>
       </ul></li>
       <li>
@@ -5019,17 +5168,17 @@
 </li>
       </ul></li>
       <li>
-    cms.views.media.content_media_mixin
-
-      <ul>
-        <li><a href="ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">module</a>
-</li>
-      </ul></li>
-      <li>
     cms.views.media.media_actions
 
       <ul>
         <li><a href="ref-ext/cms.views.media.html#module-cms.views.media.media_actions">module</a>
+</li>
+      </ul></li>
+      <li>
+    cms.views.media.media_context_mixin
+
+      <ul>
+        <li><a href="ref-ext/cms.views.media.html#module-cms.views.media.media_context_mixin">module</a>
 </li>
       </ul></li>
       <li>
@@ -5375,6 +5524,8 @@
         <li><a href="ref-ext/cms.views.utils.html#module-cms.views.utils.slugify_ajax">module</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/cms.constants.html#cms.constants.role_names.CMS_TEAM">CMS_TEAM (in module cms.constants.role_names)</a>
+</li>
       <li><a href="ref-ext/cms.html#cms.apps.CmsConfig">CmsConfig (class in cms.apps)</a>
 </li>
       <li><a href="ref-ext/cms.constants.html#cms.constants.administrative_division.COLLECTIVE_MUNICIPALITY">COLLECTIVE_MUNICIPALITY (in module cms.constants.administrative_division)</a>
@@ -5554,8 +5705,6 @@
         <li><a href="ref-ext/cms.html#cms.linklists.POITranslationLinklist.content_type">(cms.linklists.POITranslationLinklist class method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/cms.views.media.html#cms.views.media.content_media_mixin.ContentMediaMixin">ContentMediaMixin (class in cms.views.media.content_media_mixin)</a>
-</li>
       <li><a href="ref-ext/cms.views.linkcheck.html#cms.views.linkcheck.linkcheck.LinkListView.context_object_name">context_object_name (cms.views.linkcheck.linkcheck.LinkListView attribute)</a>
 
       <ul>
@@ -5773,6 +5922,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.date_error_message">(cms.models.users.organization.Organization method)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.date_error_message">(cms.models.users.role.Role method)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.date_error_message">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.date_error_message">(cms.models.users.user_profile.UserProfile method)</a>
@@ -5869,6 +6020,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.default_renderer">(cms.forms.regions.region_form.RegionForm attribute)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.default_renderer">(cms.forms.roles.group_form.GroupForm attribute)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.default_renderer">(cms.forms.roles.role_form.RoleForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.default_renderer">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm attribute)</a>
@@ -5900,6 +6053,8 @@
         <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.page.Page.default_translation">(cms.models.pages.page.Page property)</a>
 </li>
         <li><a href="ref-ext/cms.models.pois.html#cms.models.pois.poi.POI.default_translation">(cms.models.pois.poi.POI property)</a>
+</li>
+        <li><a href="ref-ext/cms.models.push_notifications.html#cms.models.push_notifications.push_notification.PushNotification.default_translation">(cms.models.push_notifications.push_notification.PushNotification property)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatHistoryManager.defer">defer() (cms.models.chat.chat_message.ChatHistoryManager method)</a>
@@ -5968,6 +6123,8 @@
         <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.delete">(cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.delete">(cms.models.users.organization.Organization method)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.delete">(cms.models.users.role.Role method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.delete">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
@@ -6190,6 +6347,8 @@
 </li>
       <li><a href="ref-ext/cms.views.media.html#cms.views.media.media_actions.edit_file_ajax">edit_file_ajax() (in module cms.views.media.media_actions)</a>
 </li>
+      <li><a href="ref-ext/cms.constants.html#cms.constants.role_names.EDITOR">EDITOR (in module cms.constants.role_names)</a>
+</li>
       <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.page.Page.editors">editors (cms.models.pages.page.Page attribute)</a>
 </li>
       <li><a href="ref-ext/backend.html#backend.settings.EMAIL_BACKEND">EMAIL_BACKEND (in module backend.settings)</a>
@@ -6212,6 +6371,8 @@
 
       <ul>
         <li><a href="ref-ext/cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode.english_name">(cms.models.languages.language_tree_node.LanguageTreeNode property)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.english_name">(cms.models.users.role.Role property)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/cms.forms.chat.html#cms.forms.chat.chat_message_form.ChatMessageForm.errors">errors (cms.forms.chat.chat_message_form.ChatMessageForm property)</a>
@@ -6267,6 +6428,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.errors">(cms.forms.regions.region_form.RegionForm property)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.errors">(cms.forms.roles.group_form.GroupForm property)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.errors">(cms.forms.roles.role_form.RoleForm property)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.errors">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm property)</a>
@@ -6303,6 +6466,8 @@
       <li><a href="ref-ext/cms.models.media.html#cms.models.media.media_file.MediaFile.event_icon_of">event_icon_of (cms.models.media.media_file.MediaFile attribute)</a>
 </li>
       <li><a href="ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation.event_id">event_id (cms.models.events.event_translation.EventTranslation attribute)</a>
+</li>
+      <li><a href="ref-ext/cms.constants.html#cms.constants.role_names.EVENT_MANAGER">EVENT_MANAGER (in module cms.constants.role_names)</a>
 </li>
       <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.event_feedback.EventFeedback.event_translation">event_translation (cms.models.feedback.event_feedback.EventFeedback attribute)</a>
 </li>
@@ -6372,10 +6537,10 @@
         <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.search_result_feedback.SearchResultFeedback.eventlistfeedback">(cms.models.feedback.search_result_feedback.SearchResultFeedback attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.event_list_feedback.EventListFeedback.DoesNotExist">EventListFeedback.DoesNotExist</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.event_list_feedback.EventListFeedback.DoesNotExist">EventListFeedback.DoesNotExist</a>
+</li>
       <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.event_list_feedback.EventListFeedback.MultipleObjectsReturned">EventListFeedback.MultipleObjectsReturned</a>
 </li>
       <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView">EventListView (class in cms.views.events.event_list_view)</a>
@@ -6493,7 +6658,7 @@
 </li>
         <li><a href="ref-ext/cms.views.linkcheck.html#cms.views.linkcheck.linkcheck.LinkListView.extra_context">(cms.views.linkcheck.linkcheck.LinkListView attribute)</a>
 </li>
-        <li><a href="ref-ext/cms.views.media.html#cms.views.media.content_media_mixin.ContentMediaMixin.extra_context">(cms.views.media.content_media_mixin.ContentMediaMixin attribute)</a>
+        <li><a href="ref-ext/cms.views.media.html#cms.views.media.media_context_mixin.MediaContextMixin.extra_context">(cms.views.media.media_context_mixin.MediaContextMixin attribute)</a>
 </li>
         <li><a href="ref-ext/cms.views.media.html#cms.views.media.media_list_view.AdminMediaListView.extra_context">(cms.views.media.media_list_view.AdminMediaListView attribute)</a>
 </li>
@@ -6701,6 +6866,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.field_order">(cms.forms.regions.region_form.RegionForm attribute)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.field_order">(cms.forms.roles.group_form.GroupForm attribute)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.field_order">(cms.forms.roles.role_form.RoleForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.field_order">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm attribute)</a>
@@ -6822,10 +6989,10 @@
         <li><a href="ref-ext/cms.forms.pages.html#cms.forms.pages.parent_field_widget.ParentFieldWidget.format_value">(cms.forms.pages.parent_field_widget.ParentFieldWidget method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.formatException">formatException() (backend.logging_formatter.ColorFormatter method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.formatMessage">formatMessage() (backend.logging_formatter.ColorFormatter method)</a>
 </li>
       <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.formatStack">formatStack() (backend.logging_formatter.ColorFormatter method)</a>
@@ -6905,6 +7072,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.from_db">(cms.models.users.organization.Organization class method)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.from_db">(cms.models.users.role.Role class method)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.from_db">(cms.models.users.user_mfa_key.UserMfaKey class method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.from_db">(cms.models.users.user_profile.UserProfile class method)</a>
@@ -6966,6 +7135,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.full_clean">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.full_clean">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.full_clean">(cms.forms.roles.group_form.GroupForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.full_clean">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
@@ -7048,6 +7219,8 @@
         <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.full_clean">(cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.full_clean">(cms.models.users.organization.Organization method)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.full_clean">(cms.models.users.role.Role method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.full_clean">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
@@ -7307,7 +7480,7 @@
 </li>
         <li><a href="ref-ext/cms.views.linkcheck.html#cms.views.linkcheck.linkcheck.LinkListView.get_context_data">(cms.views.linkcheck.linkcheck.LinkListView method)</a>
 </li>
-        <li><a href="ref-ext/cms.views.media.html#cms.views.media.content_media_mixin.ContentMediaMixin.get_context_data">(cms.views.media.content_media_mixin.ContentMediaMixin method)</a>
+        <li><a href="ref-ext/cms.views.media.html#cms.views.media.media_context_mixin.MediaContextMixin.get_context_data">(cms.views.media.media_context_mixin.MediaContextMixin method)</a>
 </li>
         <li><a href="ref-ext/cms.views.media.html#cms.views.media.media_list_view.AdminMediaListView.get_context_data">(cms.views.media.media_list_view.AdminMediaListView method)</a>
 </li>
@@ -7443,6 +7616,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.get_deferred_fields">(cms.models.users.organization.Organization method)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.get_deferred_fields">(cms.models.users.role.Role method)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.get_deferred_fields">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.get_deferred_fields">(cms.models.users.user_profile.UserProfile method)</a>
@@ -7526,6 +7701,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.get_error_messages">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.get_error_messages">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.get_error_messages">(cms.forms.roles.group_form.GroupForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.get_error_messages">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
@@ -7667,6 +7844,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.get_initial_for_field">(cms.forms.regions.region_form.RegionForm method)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.get_initial_for_field">(cms.forms.roles.group_form.GroupForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.get_initial_for_field">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.get_initial_for_field">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
@@ -7686,6 +7865,8 @@
         <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm.get_initial_for_field">(cms.forms.users.user_profile_form.UserProfileForm method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.templatetags.html#cms.templatetags.content_filters.get_int_list">get_int_list() (in module cms.templatetags.content_filters)</a>
 </li>
       <li><a href="ref-ext/cms.templatetags.html#cms.templatetags.content_filters.get_language">get_language() (in module cms.templatetags.content_filters)</a>
@@ -7710,70 +7891,6 @@
         <li><a href="ref-ext/cms.html#cms.linklists.PageTranslationLinklist.get_linklist">(cms.linklists.PageTranslationLinklist method)</a>
 </li>
         <li><a href="ref-ext/cms.html#cms.linklists.POITranslationLinklist.get_linklist">(cms.linklists.POITranslationLinklist method)</a>
-</li>
-      </ul></li>
-      <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView.get_login_url">get_login_url() (cms.views.events.event_list_view.EventListView method)</a>
-
-      <ul>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_view.EventView.get_login_url">(cms.views.events.event_view.EventView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.get_login_url">(cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_login_url">(cms.views.feedback.region_feedback_list_view.RegionFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_login_url">(cms.views.imprint.imprint_revision_view.ImprintRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_login_url">(cms.views.imprint.imprint_sbs_view.ImprintSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_view.ImprintView.get_login_url">(cms.views.imprint.imprint_view.ImprintView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.get_login_url">(cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_view.LanguageTreeView.get_login_url">(cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_list_view.LanguageListView.get_login_url">(cms.views.languages.language_list_view.LanguageListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_view.LanguageView.get_login_url">(cms.views.languages.language_view.LanguageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_list_view.OfferTemplateListView.get_login_url">(cms.views.offer_templates.offer_template_list_view.OfferTemplateListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_view.OfferTemplateView.get_login_url">(cms.views.offer_templates.offer_template_view.OfferTemplateView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_list_view.OrganizationListView.get_login_url">(cms.views.organizations.organization_list_view.OrganizationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_view.OrganizationView.get_login_url">(cms.views.organizations.organization_view.OrganizationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_revision_view.PageRevisionView.get_login_url">(cms.views.pages.page_revision_view.PageRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_sbs_view.PageSideBySideView.get_login_url">(cms.views.pages.page_sbs_view.PageSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.get_login_url">(cms.views.pages.page_tree_view.PageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_view.PageView.get_login_url">(cms.views.pages.page_view.PageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.get_login_url">(cms.views.pois.poi_list_view.POIListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_view.POIView.get_login_url">(cms.views.pois.poi_view.POIView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.get_login_url">(cms.views.push_notifications.push_notification_list_view.PushNotificationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_view.PushNotificationView.get_login_url">(cms.views.push_notifications.push_notification_view.PushNotificationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_list_view.RegionListView.get_login_url">(cms.views.regions.region_list_view.RegionListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_view.RegionView.get_login_url">(cms.views.regions.region_view.RegionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView.get_login_url">(cms.views.roles.role_list_view.RoleListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView.get_login_url">(cms.views.roles.role_view.RoleView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_list_view.RegionUserListView.get_login_url">(cms.views.users.region_user_list_view.RegionUserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_view.RegionUserView.get_login_url">(cms.views.users.region_user_view.RegionUserView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_list_view.UserListView.get_login_url">(cms.views.users.user_list_view.UserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.get_login_url">(cms.views.users.user_view.UserView method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id">get_matomo_id() (cms.utils.matomo_api_manager.MatomoApiManager method)</a>
@@ -7804,14 +7921,14 @@
         <li><a href="ref-ext/sitemap.html#sitemap.apps.SitemapConfig.get_models">(sitemap.apps.SitemapConfig method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.get_name_display">get_name_display() (cms.models.users.role.Role method)</a>
+</li>
       <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_actions.get_new_page_order_table_ajax">get_new_page_order_table_ajax() (in module cms.views.pages.page_actions)</a>
 </li>
       <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.get_next_by_chat_last_visited">get_next_by_chat_last_visited() (cms.models.users.user_profile.UserProfile method)</a>
 </li>
       <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.get_next_by_created_at">get_next_by_created_at() (cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.event_feedback.EventFeedback.get_next_by_created_date">get_next_by_created_date() (cms.models.feedback.event_feedback.EventFeedback method)</a>
 
       <ul>
@@ -7916,134 +8033,6 @@
 </li>
       <li><a href="ref-ext/cms.views.linkcheck.html#cms.views.linkcheck.linkcheck.LinkListView.get_paginator">get_paginator() (cms.views.linkcheck.linkcheck.LinkListView method)</a>
 </li>
-      <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView.get_permission_denied_message">get_permission_denied_message() (cms.views.events.event_list_view.EventListView method)</a>
-
-      <ul>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_view.EventView.get_permission_denied_message">(cms.views.events.event_view.EventView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.get_permission_denied_message">(cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_permission_denied_message">(cms.views.feedback.region_feedback_list_view.RegionFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_permission_denied_message">(cms.views.imprint.imprint_revision_view.ImprintRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_permission_denied_message">(cms.views.imprint.imprint_sbs_view.ImprintSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_view.ImprintView.get_permission_denied_message">(cms.views.imprint.imprint_view.ImprintView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.get_permission_denied_message">(cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_view.LanguageTreeView.get_permission_denied_message">(cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_list_view.LanguageListView.get_permission_denied_message">(cms.views.languages.language_list_view.LanguageListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_view.LanguageView.get_permission_denied_message">(cms.views.languages.language_view.LanguageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_list_view.OfferTemplateListView.get_permission_denied_message">(cms.views.offer_templates.offer_template_list_view.OfferTemplateListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_view.OfferTemplateView.get_permission_denied_message">(cms.views.offer_templates.offer_template_view.OfferTemplateView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_list_view.OrganizationListView.get_permission_denied_message">(cms.views.organizations.organization_list_view.OrganizationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_view.OrganizationView.get_permission_denied_message">(cms.views.organizations.organization_view.OrganizationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_revision_view.PageRevisionView.get_permission_denied_message">(cms.views.pages.page_revision_view.PageRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_sbs_view.PageSideBySideView.get_permission_denied_message">(cms.views.pages.page_sbs_view.PageSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.get_permission_denied_message">(cms.views.pages.page_tree_view.PageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_view.PageView.get_permission_denied_message">(cms.views.pages.page_view.PageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.get_permission_denied_message">(cms.views.pois.poi_list_view.POIListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_view.POIView.get_permission_denied_message">(cms.views.pois.poi_view.POIView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.get_permission_denied_message">(cms.views.push_notifications.push_notification_list_view.PushNotificationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_view.PushNotificationView.get_permission_denied_message">(cms.views.push_notifications.push_notification_view.PushNotificationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_list_view.RegionListView.get_permission_denied_message">(cms.views.regions.region_list_view.RegionListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_view.RegionView.get_permission_denied_message">(cms.views.regions.region_view.RegionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView.get_permission_denied_message">(cms.views.roles.role_list_view.RoleListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView.get_permission_denied_message">(cms.views.roles.role_view.RoleView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_list_view.RegionUserListView.get_permission_denied_message">(cms.views.users.region_user_list_view.RegionUserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_view.RegionUserView.get_permission_denied_message">(cms.views.users.region_user_view.RegionUserView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_list_view.UserListView.get_permission_denied_message">(cms.views.users.user_list_view.UserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.get_permission_denied_message">(cms.views.users.user_view.UserView method)</a>
-</li>
-      </ul></li>
-      <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView.get_permission_required">get_permission_required() (cms.views.events.event_list_view.EventListView method)</a>
-
-      <ul>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_view.EventView.get_permission_required">(cms.views.events.event_view.EventView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.get_permission_required">(cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_permission_required">(cms.views.feedback.region_feedback_list_view.RegionFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_permission_required">(cms.views.imprint.imprint_revision_view.ImprintRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_permission_required">(cms.views.imprint.imprint_sbs_view.ImprintSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_view.ImprintView.get_permission_required">(cms.views.imprint.imprint_view.ImprintView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.get_permission_required">(cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_view.LanguageTreeView.get_permission_required">(cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_list_view.LanguageListView.get_permission_required">(cms.views.languages.language_list_view.LanguageListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_view.LanguageView.get_permission_required">(cms.views.languages.language_view.LanguageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_list_view.OfferTemplateListView.get_permission_required">(cms.views.offer_templates.offer_template_list_view.OfferTemplateListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_view.OfferTemplateView.get_permission_required">(cms.views.offer_templates.offer_template_view.OfferTemplateView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_list_view.OrganizationListView.get_permission_required">(cms.views.organizations.organization_list_view.OrganizationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_view.OrganizationView.get_permission_required">(cms.views.organizations.organization_view.OrganizationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_revision_view.PageRevisionView.get_permission_required">(cms.views.pages.page_revision_view.PageRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_sbs_view.PageSideBySideView.get_permission_required">(cms.views.pages.page_sbs_view.PageSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.get_permission_required">(cms.views.pages.page_tree_view.PageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_view.PageView.get_permission_required">(cms.views.pages.page_view.PageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.get_permission_required">(cms.views.pois.poi_list_view.POIListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_view.POIView.get_permission_required">(cms.views.pois.poi_view.POIView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.get_permission_required">(cms.views.push_notifications.push_notification_list_view.PushNotificationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_view.PushNotificationView.get_permission_required">(cms.views.push_notifications.push_notification_view.PushNotificationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_list_view.RegionListView.get_permission_required">(cms.views.regions.region_list_view.RegionListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_view.RegionView.get_permission_required">(cms.views.regions.region_view.RegionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView.get_permission_required">(cms.views.roles.role_list_view.RoleListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView.get_permission_required">(cms.views.roles.role_view.RoleView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_list_view.RegionUserListView.get_permission_required">(cms.views.users.region_user_list_view.RegionUserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_view.RegionUserView.get_permission_required">(cms.views.users.region_user_view.RegionUserView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_list_view.UserListView.get_permission_required">(cms.views.users.user_list_view.UserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.get_permission_required">(cms.views.users.user_view.UserView method)</a>
-</li>
-      </ul></li>
       <li><a href="ref-ext/api.v3.html#api.v3.offers.get_post_data">get_post_data() (in module api.v3.offers)</a>
 </li>
       <li><a href="ref-ext/cms.views.authentication.html#cms.views.authentication.account_activation_view.AccountActivationView.get_prefix">get_prefix() (cms.views.authentication.account_activation_view.AccountActivationView method)</a>
@@ -8208,70 +8197,6 @@
         <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.region_feedback.RegionFeedback.get_rating_display">(cms.models.feedback.region_feedback.RegionFeedback method)</a>
 </li>
         <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.search_result_feedback.SearchResultFeedback.get_rating_display">(cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
-</li>
-      </ul></li>
-      <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView.get_redirect_field_name">get_redirect_field_name() (cms.views.events.event_list_view.EventListView method)</a>
-
-      <ul>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_view.EventView.get_redirect_field_name">(cms.views.events.event_view.EventView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.get_redirect_field_name">(cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.get_redirect_field_name">(cms.views.feedback.region_feedback_list_view.RegionFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_revision_view.ImprintRevisionView.get_redirect_field_name">(cms.views.imprint.imprint_revision_view.ImprintRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.get_redirect_field_name">(cms.views.imprint.imprint_sbs_view.ImprintSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_view.ImprintView.get_redirect_field_name">(cms.views.imprint.imprint_view.ImprintView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.get_redirect_field_name">(cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_view.LanguageTreeView.get_redirect_field_name">(cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_list_view.LanguageListView.get_redirect_field_name">(cms.views.languages.language_list_view.LanguageListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_view.LanguageView.get_redirect_field_name">(cms.views.languages.language_view.LanguageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_list_view.OfferTemplateListView.get_redirect_field_name">(cms.views.offer_templates.offer_template_list_view.OfferTemplateListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_view.OfferTemplateView.get_redirect_field_name">(cms.views.offer_templates.offer_template_view.OfferTemplateView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_list_view.OrganizationListView.get_redirect_field_name">(cms.views.organizations.organization_list_view.OrganizationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_view.OrganizationView.get_redirect_field_name">(cms.views.organizations.organization_view.OrganizationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_revision_view.PageRevisionView.get_redirect_field_name">(cms.views.pages.page_revision_view.PageRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_sbs_view.PageSideBySideView.get_redirect_field_name">(cms.views.pages.page_sbs_view.PageSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.get_redirect_field_name">(cms.views.pages.page_tree_view.PageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_view.PageView.get_redirect_field_name">(cms.views.pages.page_view.PageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.get_redirect_field_name">(cms.views.pois.poi_list_view.POIListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_view.POIView.get_redirect_field_name">(cms.views.pois.poi_view.POIView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.get_redirect_field_name">(cms.views.push_notifications.push_notification_list_view.PushNotificationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_view.PushNotificationView.get_redirect_field_name">(cms.views.push_notifications.push_notification_view.PushNotificationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_list_view.RegionListView.get_redirect_field_name">(cms.views.regions.region_list_view.RegionListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_view.RegionView.get_redirect_field_name">(cms.views.regions.region_view.RegionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView.get_redirect_field_name">(cms.views.roles.role_list_view.RoleListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView.get_redirect_field_name">(cms.views.roles.role_view.RoleView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_list_view.RegionUserListView.get_redirect_field_name">(cms.views.users.region_user_list_view.RegionUserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_view.RegionUserView.get_redirect_field_name">(cms.views.users.region_user_view.RegionUserView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_list_view.UserListView.get_redirect_field_name">(cms.views.users.user_list_view.UserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.get_redirect_field_name">(cms.views.users.user_view.UserView method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/cms.views.authentication.html#cms.views.authentication.login_view.LoginView.get_redirect_url">get_redirect_url() (cms.views.authentication.login_view.LoginView method)</a>
@@ -8538,6 +8463,12 @@
 </li>
       <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_actions.grant_page_permission_ajax">grant_page_permission_ajax() (in module cms.views.pages.page_actions)</a>
 </li>
+      <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.group">group (cms.models.users.role.Role attribute)</a>
+</li>
+      <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.group_id">group_id (cms.models.users.role.Role attribute)</a>
+</li>
+      <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm">GroupForm (class in cms.forms.roles.group_form)</a>
+</li>
       <li>
     gvz_api
 
@@ -8575,70 +8506,6 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView.handle_no_permission">handle_no_permission() (cms.views.events.event_list_view.EventListView method)</a>
-
-      <ul>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_view.EventView.handle_no_permission">(cms.views.events.event_view.EventView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.handle_no_permission">(cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.handle_no_permission">(cms.views.feedback.region_feedback_list_view.RegionFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_revision_view.ImprintRevisionView.handle_no_permission">(cms.views.imprint.imprint_revision_view.ImprintRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.handle_no_permission">(cms.views.imprint.imprint_sbs_view.ImprintSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_view.ImprintView.handle_no_permission">(cms.views.imprint.imprint_view.ImprintView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.handle_no_permission">(cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_view.LanguageTreeView.handle_no_permission">(cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_list_view.LanguageListView.handle_no_permission">(cms.views.languages.language_list_view.LanguageListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_view.LanguageView.handle_no_permission">(cms.views.languages.language_view.LanguageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_list_view.OfferTemplateListView.handle_no_permission">(cms.views.offer_templates.offer_template_list_view.OfferTemplateListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_view.OfferTemplateView.handle_no_permission">(cms.views.offer_templates.offer_template_view.OfferTemplateView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_list_view.OrganizationListView.handle_no_permission">(cms.views.organizations.organization_list_view.OrganizationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_view.OrganizationView.handle_no_permission">(cms.views.organizations.organization_view.OrganizationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_revision_view.PageRevisionView.handle_no_permission">(cms.views.pages.page_revision_view.PageRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_sbs_view.PageSideBySideView.handle_no_permission">(cms.views.pages.page_sbs_view.PageSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.handle_no_permission">(cms.views.pages.page_tree_view.PageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_view.PageView.handle_no_permission">(cms.views.pages.page_view.PageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.handle_no_permission">(cms.views.pois.poi_list_view.POIListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_view.POIView.handle_no_permission">(cms.views.pois.poi_view.POIView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.handle_no_permission">(cms.views.push_notifications.push_notification_list_view.PushNotificationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_view.PushNotificationView.handle_no_permission">(cms.views.push_notifications.push_notification_view.PushNotificationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_list_view.RegionListView.handle_no_permission">(cms.views.regions.region_list_view.RegionListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_view.RegionView.handle_no_permission">(cms.views.regions.region_view.RegionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView.handle_no_permission">(cms.views.roles.role_list_view.RoleListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView.handle_no_permission">(cms.views.roles.role_view.RoleView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_list_view.RegionUserListView.handle_no_permission">(cms.views.users.region_user_list_view.RegionUserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_view.RegionUserView.handle_no_permission">(cms.views.users.region_user_view.RegionUserView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_list_view.UserListView.handle_no_permission">(cms.views.users.user_list_view.UserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.handle_no_permission">(cms.views.users.user_view.UserView method)</a>
-</li>
-      </ul></li>
       <li><a href="ref-ext/cms.views.error_handler.html#cms.views.error_handler.error_handler.handler400">handler400() (in module cms.views.error_handler.error_handler)</a>
 </li>
       <li><a href="ref-ext/cms.views.error_handler.html#cms.views.error_handler.error_handler.handler403">handler403() (in module cms.views.error_handler.error_handler)</a>
@@ -8699,6 +8566,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.has_changed">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.has_changed">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.has_changed">(cms.forms.roles.group_form.GroupForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.has_changed">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
@@ -8772,6 +8641,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.has_error">(cms.forms.regions.region_form.RegionForm method)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.has_error">(cms.forms.roles.group_form.GroupForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.has_error">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.has_error">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
@@ -8793,70 +8664,6 @@
       </ul></li>
       <li><a href="ref-ext/cms.models.events.html#cms.models.events.event.Event.has_location">has_location (cms.models.events.event.Event property)</a>
 </li>
-      <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView.has_permission">has_permission() (cms.views.events.event_list_view.EventListView method)</a>
-
-      <ul>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_view.EventView.has_permission">(cms.views.events.event_view.EventView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.has_permission">(cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.has_permission">(cms.views.feedback.region_feedback_list_view.RegionFeedbackListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_revision_view.ImprintRevisionView.has_permission">(cms.views.imprint.imprint_revision_view.ImprintRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.has_permission">(cms.views.imprint.imprint_sbs_view.ImprintSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_view.ImprintView.has_permission">(cms.views.imprint.imprint_view.ImprintView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.has_permission">(cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_view.LanguageTreeView.has_permission">(cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_list_view.LanguageListView.has_permission">(cms.views.languages.language_list_view.LanguageListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_view.LanguageView.has_permission">(cms.views.languages.language_view.LanguageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_list_view.OfferTemplateListView.has_permission">(cms.views.offer_templates.offer_template_list_view.OfferTemplateListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_view.OfferTemplateView.has_permission">(cms.views.offer_templates.offer_template_view.OfferTemplateView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_list_view.OrganizationListView.has_permission">(cms.views.organizations.organization_list_view.OrganizationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_view.OrganizationView.has_permission">(cms.views.organizations.organization_view.OrganizationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_revision_view.PageRevisionView.has_permission">(cms.views.pages.page_revision_view.PageRevisionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_sbs_view.PageSideBySideView.has_permission">(cms.views.pages.page_sbs_view.PageSideBySideView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.has_permission">(cms.views.pages.page_tree_view.PageTreeView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_view.PageView.has_permission">(cms.views.pages.page_view.PageView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.has_permission">(cms.views.pois.poi_list_view.POIListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_view.POIView.has_permission">(cms.views.pois.poi_view.POIView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.has_permission">(cms.views.push_notifications.push_notification_list_view.PushNotificationListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_view.PushNotificationView.has_permission">(cms.views.push_notifications.push_notification_view.PushNotificationView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_list_view.RegionListView.has_permission">(cms.views.regions.region_list_view.RegionListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_view.RegionView.has_permission">(cms.views.regions.region_view.RegionView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView.has_permission">(cms.views.roles.role_list_view.RoleListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView.has_permission">(cms.views.roles.role_view.RoleView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_list_view.RegionUserListView.has_permission">(cms.views.users.region_user_list_view.RegionUserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_view.RegionUserView.has_permission">(cms.views.users.region_user_view.RegionUserView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_list_view.UserListView.has_permission">(cms.views.users.user_list_view.UserListView method)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.has_permission">(cms.views.users.user_view.UserView method)</a>
-</li>
-      </ul></li>
       <li><a href="ref-ext/cms.views.linkcheck.html#cms.views.linkcheck.linkcheck.LinkListRedirectView.head">head() (cms.views.linkcheck.linkcheck.LinkListRedirectView method)</a>
 </li>
       <li><a href="ref-ext/cms.constants.html#cms.constants.region_status.HIDDEN">HIDDEN (in module cms.constants.region_status)</a>
@@ -8914,6 +8721,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.hidden_fields">(cms.forms.regions.region_form.RegionForm method)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.hidden_fields">(cms.forms.roles.group_form.GroupForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.hidden_fields">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.hidden_fields">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
@@ -8933,8 +8742,6 @@
         <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm.hidden_fields">(cms.forms.users.user_profile_form.UserProfileForm method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/api.v3.html#api.v3.regions.hiddenregions">hiddenregions() (in module api.v3.regions)</a>
 </li>
       <li><a href="ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatMessage.history">history (cms.models.chat.chat_message.ChatMessage attribute)</a>
@@ -8955,6 +8762,8 @@
         <li><a href="ref-ext/cms.html#cms.linklists.POITranslationLinklist.html_fields">(cms.linklists.POITranslationLinklist attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="documentation.html#conf.html_last_updated_fmt">html_last_updated_fmt (in module conf)</a>
 </li>
       <li><a href="documentation.html#conf.html_logo">html_logo (in module conf)</a>
@@ -9308,6 +9117,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.id">(cms.models.users.organization.Organization attribute)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.id">(cms.models.users.role.Role attribute)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.id">(cms.models.users.user_mfa_key.UserMfaKey attribute)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.id">(cms.models.users.user_profile.UserProfile attribute)</a>
@@ -9564,6 +9375,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.is_multipart">(cms.forms.regions.region_form.RegionForm method)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.is_multipart">(cms.forms.roles.group_form.GroupForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.is_multipart">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.is_multipart">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
@@ -9709,6 +9522,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.is_valid">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.is_valid">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.is_valid">(cms.forms.roles.group_form.GroupForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.is_valid">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
@@ -9951,6 +9766,8 @@
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.last_updated">(cms.models.users.organization.Organization attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.last_usage">last_usage (cms.models.users.user_mfa_key.UserMfaKey attribute)</a>
 </li>
       <li><a href="ref-ext/sitemap.html#sitemap.sitemaps.EventSitemap.lastmod">lastmod() (sitemap.sitemaps.EventSitemap static method)</a>
@@ -9979,8 +9796,6 @@
         <li><a href="ref-ext/cms.models.pois.html#cms.models.pois.poi_translation.POITranslation.latest_major_public_revision">(cms.models.pois.poi_translation.POITranslation property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation.latest_major_revision">latest_major_revision (cms.models.events.event_translation.EventTranslation property)</a>
 
       <ul>
@@ -10091,70 +9906,6 @@
 </li>
       <li><a href="ref-ext/backend.html#backend.settings.LOGIN_REDIRECT_URL">LOGIN_REDIRECT_URL (in module backend.settings)</a>
 </li>
-      <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView.login_url">login_url (cms.views.events.event_list_view.EventListView attribute)</a>
-
-      <ul>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_view.EventView.login_url">(cms.views.events.event_view.EventView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.login_url">(cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.login_url">(cms.views.feedback.region_feedback_list_view.RegionFeedbackListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_revision_view.ImprintRevisionView.login_url">(cms.views.imprint.imprint_revision_view.ImprintRevisionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.login_url">(cms.views.imprint.imprint_sbs_view.ImprintSideBySideView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_view.ImprintView.login_url">(cms.views.imprint.imprint_view.ImprintView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.login_url">(cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_view.LanguageTreeView.login_url">(cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_list_view.LanguageListView.login_url">(cms.views.languages.language_list_view.LanguageListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_view.LanguageView.login_url">(cms.views.languages.language_view.LanguageView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_list_view.OfferTemplateListView.login_url">(cms.views.offer_templates.offer_template_list_view.OfferTemplateListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_view.OfferTemplateView.login_url">(cms.views.offer_templates.offer_template_view.OfferTemplateView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_list_view.OrganizationListView.login_url">(cms.views.organizations.organization_list_view.OrganizationListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_view.OrganizationView.login_url">(cms.views.organizations.organization_view.OrganizationView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_revision_view.PageRevisionView.login_url">(cms.views.pages.page_revision_view.PageRevisionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_sbs_view.PageSideBySideView.login_url">(cms.views.pages.page_sbs_view.PageSideBySideView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.login_url">(cms.views.pages.page_tree_view.PageTreeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_view.PageView.login_url">(cms.views.pages.page_view.PageView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.login_url">(cms.views.pois.poi_list_view.POIListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_view.POIView.login_url">(cms.views.pois.poi_view.POIView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.login_url">(cms.views.push_notifications.push_notification_list_view.PushNotificationListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_view.PushNotificationView.login_url">(cms.views.push_notifications.push_notification_view.PushNotificationView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_list_view.RegionListView.login_url">(cms.views.regions.region_list_view.RegionListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_view.RegionView.login_url">(cms.views.regions.region_view.RegionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView.login_url">(cms.views.roles.role_list_view.RoleListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView.login_url">(cms.views.roles.role_view.RoleView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_list_view.RegionUserListView.login_url">(cms.views.users.region_user_list_view.RegionUserListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_view.RegionUserView.login_url">(cms.views.users.region_user_view.RegionUserView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_list_view.UserListView.login_url">(cms.views.users.user_list_view.UserListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.login_url">(cms.views.users.user_view.UserView attribute)</a>
-</li>
-      </ul></li>
       <li><a href="ref-ext/backend.html#backend.settings.LOGIN_URL">LOGIN_URL (in module backend.settings)</a>
 </li>
       <li><a href="ref-ext/cms.views.authentication.html#cms.views.authentication.login_view.LoginView">LoginView (class in cms.views.authentication.login_view)</a>
@@ -10178,6 +9929,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.utils.html#cms.utils.account_activation_utils.AccountActivationTokenGenerator.make_token">make_token() (cms.utils.account_activation_utils.AccountActivationTokenGenerator method)</a>
+</li>
+      <li><a href="ref-ext/cms.constants.html#cms.constants.role_names.MANAGEMENT">MANAGEMENT (in module cms.constants.role_names)</a>
 </li>
       <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.map_feedback.MapFeedback">MapFeedback (class in cms.models.feedback.map_feedback)</a>
 </li>
@@ -10296,6 +10049,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.media">(cms.forms.regions.region_form.RegionForm property)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.media">(cms.forms.roles.group_form.GroupForm property)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.media">(cms.forms.roles.role_form.RoleForm property)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.media">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm property)</a>
@@ -10320,6 +10075,8 @@
       <li><a href="ref-ext/backend.html#backend.settings.MEDIA_ROOT">MEDIA_ROOT (in module backend.settings)</a>
 </li>
       <li><a href="ref-ext/backend.html#backend.settings.MEDIA_URL">MEDIA_URL (in module backend.settings)</a>
+</li>
+      <li><a href="ref-ext/cms.views.media.html#cms.views.media.media_context_mixin.MediaContextMixin">MediaContextMixin (class in cms.views.media.media_context_mixin)</a>
 </li>
       <li><a href="ref-ext/cms.models.media.html#cms.models.media.media_file.MediaFile">MediaFile (class in cms.models.media.media_file)</a>
 </li>
@@ -10497,6 +10254,8 @@
 </li>
         <li><a href="ref-ext/cms.constants.html#module-cms.constants.region_status">cms.constants.region_status</a>
 </li>
+        <li><a href="ref-ext/cms.constants.html#module-cms.constants.role_names">cms.constants.role_names</a>
+</li>
         <li><a href="ref-ext/cms.constants.html#module-cms.constants.status">cms.constants.status</a>
 </li>
         <li><a href="ref-ext/cms.constants.html#module-cms.constants.text_directions">cms.constants.text_directions</a>
@@ -10594,6 +10353,8 @@
         <li><a href="ref-ext/cms.forms.regions.html#module-cms.forms.regions.region_form">cms.forms.regions.region_form</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#module-cms.forms.roles">cms.forms.roles</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#module-cms.forms.roles.group_form">cms.forms.roles.group_form</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#module-cms.forms.roles.role_form">cms.forms.roles.role_form</a>
 </li>
@@ -10710,6 +10471,8 @@
         <li><a href="ref-ext/cms.models.users.html#module-cms.models.users">cms.models.users</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#module-cms.models.users.organization">cms.models.users.organization</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#module-cms.models.users.role">cms.models.users.role</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">cms.models.users.user_mfa_key</a>
 </li>
@@ -10887,9 +10650,9 @@
 </li>
         <li><a href="ref-ext/cms.views.media.html#module-cms.views.media">cms.views.media</a>
 </li>
-        <li><a href="ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">cms.views.media.content_media_mixin</a>
-</li>
         <li><a href="ref-ext/cms.views.media.html#module-cms.views.media.media_actions">cms.views.media.media_actions</a>
+</li>
+        <li><a href="ref-ext/cms.views.media.html#module-cms.views.media.media_context_mixin">cms.views.media.media_context_mixin</a>
 </li>
         <li><a href="ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">cms.views.media.media_list_view</a>
 </li>
@@ -11030,6 +10793,8 @@
       </ul></li>
       <li><a href="ref-ext/cms.constants.html#cms.constants.administrative_division.MUNICIPALITY">MUNICIPALITY (in module cms.constants.administrative_division)</a>
 </li>
+      <li><a href="ref-ext/cms.constants.html#cms.constants.role_names.MUNICIPALITY_TEAM">MUNICIPALITY_TEAM (in module cms.constants.role_names)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -11050,6 +10815,8 @@
         <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.name">(cms.models.regions.region.Region attribute)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.name">(cms.models.users.organization.Organization attribute)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.name">(cms.models.users.role.Role attribute)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.name">(cms.models.users.user_mfa_key.UserMfaKey attribute)</a>
 </li>
@@ -11132,6 +10899,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.non_field_errors">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.non_field_errors">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.non_field_errors">(cms.forms.roles.group_form.GroupForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.non_field_errors">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
@@ -11300,6 +11069,8 @@
         <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.objects">(cms.models.regions.region.Region attribute)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.objects">(cms.models.users.organization.Organization attribute)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.objects">(cms.models.users.role.Role attribute)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.objects">(cms.models.users.user_mfa_key.UserMfaKey attribute)</a>
 </li>
@@ -11585,6 +11356,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.order_fields">(cms.forms.regions.region_form.RegionForm method)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.order_fields">(cms.forms.roles.group_form.GroupForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.order_fields">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.statistics.html#cms.forms.statistics.statistics_filter_form.StatisticsFilterForm.order_fields">(cms.forms.statistics.statistics_filter_form.StatisticsFilterForm method)</a>
@@ -11820,134 +11593,8 @@
       </ul></li>
       <li><a href="ref-ext/cms.views.linkcheck.html#cms.views.linkcheck.linkcheck.LinkListRedirectView.permanent">permanent (cms.views.linkcheck.linkcheck.LinkListRedirectView attribute)</a>
 </li>
-      <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView.permission_denied_message">permission_denied_message (cms.views.events.event_list_view.EventListView attribute)</a>
-
-      <ul>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_view.EventView.permission_denied_message">(cms.views.events.event_view.EventView attribute)</a>
+      <li><a href="ref-ext/cms.html#cms.decorators.permission_required">permission_required() (in module cms.decorators)</a>
 </li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.permission_denied_message">(cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.permission_denied_message">(cms.views.feedback.region_feedback_list_view.RegionFeedbackListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_revision_view.ImprintRevisionView.permission_denied_message">(cms.views.imprint.imprint_revision_view.ImprintRevisionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.permission_denied_message">(cms.views.imprint.imprint_sbs_view.ImprintSideBySideView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_view.ImprintView.permission_denied_message">(cms.views.imprint.imprint_view.ImprintView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.permission_denied_message">(cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_view.LanguageTreeView.permission_denied_message">(cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_list_view.LanguageListView.permission_denied_message">(cms.views.languages.language_list_view.LanguageListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_view.LanguageView.permission_denied_message">(cms.views.languages.language_view.LanguageView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_list_view.OfferTemplateListView.permission_denied_message">(cms.views.offer_templates.offer_template_list_view.OfferTemplateListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_view.OfferTemplateView.permission_denied_message">(cms.views.offer_templates.offer_template_view.OfferTemplateView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_list_view.OrganizationListView.permission_denied_message">(cms.views.organizations.organization_list_view.OrganizationListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_view.OrganizationView.permission_denied_message">(cms.views.organizations.organization_view.OrganizationView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_revision_view.PageRevisionView.permission_denied_message">(cms.views.pages.page_revision_view.PageRevisionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_sbs_view.PageSideBySideView.permission_denied_message">(cms.views.pages.page_sbs_view.PageSideBySideView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.permission_denied_message">(cms.views.pages.page_tree_view.PageTreeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_view.PageView.permission_denied_message">(cms.views.pages.page_view.PageView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.permission_denied_message">(cms.views.pois.poi_list_view.POIListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_view.POIView.permission_denied_message">(cms.views.pois.poi_view.POIView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.permission_denied_message">(cms.views.push_notifications.push_notification_list_view.PushNotificationListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_view.PushNotificationView.permission_denied_message">(cms.views.push_notifications.push_notification_view.PushNotificationView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_list_view.RegionListView.permission_denied_message">(cms.views.regions.region_list_view.RegionListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_view.RegionView.permission_denied_message">(cms.views.regions.region_view.RegionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView.permission_denied_message">(cms.views.roles.role_list_view.RoleListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView.permission_denied_message">(cms.views.roles.role_view.RoleView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_list_view.RegionUserListView.permission_denied_message">(cms.views.users.region_user_list_view.RegionUserListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_view.RegionUserView.permission_denied_message">(cms.views.users.region_user_view.RegionUserView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_list_view.UserListView.permission_denied_message">(cms.views.users.user_list_view.UserListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.permission_denied_message">(cms.views.users.user_view.UserView attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView.permission_required">permission_required (cms.views.events.event_list_view.EventListView attribute)</a>
-
-      <ul>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_view.EventView.permission_required">(cms.views.events.event_view.EventView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.permission_required">(cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.permission_required">(cms.views.feedback.region_feedback_list_view.RegionFeedbackListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_revision_view.ImprintRevisionView.permission_required">(cms.views.imprint.imprint_revision_view.ImprintRevisionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.permission_required">(cms.views.imprint.imprint_sbs_view.ImprintSideBySideView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_view.ImprintView.permission_required">(cms.views.imprint.imprint_view.ImprintView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.permission_required">(cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_view.LanguageTreeView.permission_required">(cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_list_view.LanguageListView.permission_required">(cms.views.languages.language_list_view.LanguageListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_view.LanguageView.permission_required">(cms.views.languages.language_view.LanguageView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_list_view.OfferTemplateListView.permission_required">(cms.views.offer_templates.offer_template_list_view.OfferTemplateListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_view.OfferTemplateView.permission_required">(cms.views.offer_templates.offer_template_view.OfferTemplateView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_list_view.OrganizationListView.permission_required">(cms.views.organizations.organization_list_view.OrganizationListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_view.OrganizationView.permission_required">(cms.views.organizations.organization_view.OrganizationView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_revision_view.PageRevisionView.permission_required">(cms.views.pages.page_revision_view.PageRevisionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_sbs_view.PageSideBySideView.permission_required">(cms.views.pages.page_sbs_view.PageSideBySideView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.permission_required">(cms.views.pages.page_tree_view.PageTreeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_view.PageView.permission_required">(cms.views.pages.page_view.PageView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.permission_required">(cms.views.pois.poi_list_view.POIListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_view.POIView.permission_required">(cms.views.pois.poi_view.POIView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.permission_required">(cms.views.push_notifications.push_notification_list_view.PushNotificationListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_view.PushNotificationView.permission_required">(cms.views.push_notifications.push_notification_view.PushNotificationView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_list_view.RegionListView.permission_required">(cms.views.regions.region_list_view.RegionListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_view.RegionView.permission_required">(cms.views.regions.region_view.RegionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView.permission_required">(cms.views.roles.role_list_view.RoleListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView.permission_required">(cms.views.roles.role_view.RoleView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_list_view.RegionUserListView.permission_required">(cms.views.users.region_user_list_view.RegionUserListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_view.RegionUserView.permission_required">(cms.views.users.region_user_view.RegionUserView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_list_view.UserListView.permission_required">(cms.views.users.user_list_view.UserListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.permission_required">(cms.views.users.user_view.UserView attribute)</a>
-</li>
-      </ul></li>
       <li><a href="ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatMessage.pk">pk (cms.models.chat.chat_message.ChatMessage property)</a>
 
       <ul>
@@ -12013,6 +11660,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.pk">(cms.models.users.organization.Organization property)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.pk">(cms.models.users.role.Role property)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.pk">(cms.models.users.user_mfa_key.UserMfaKey property)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.pk">(cms.models.users.user_profile.UserProfile property)</a>
@@ -12044,8 +11693,6 @@
 </li>
       <li><a href="ref-ext/cms.models.languages.html#cms.models.languages.language.Language.poi_translations">poi_translations (cms.models.languages.language.Language attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_context_mixin.POIContextMixin">POIContextMixin (class in cms.views.pois.poi_context_mixin)</a>
 </li>
       <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.poi_feedback.POIFeedback">POIFeedback (class in cms.models.feedback.poi_feedback)</a>
@@ -12172,6 +11819,8 @@
         <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.post">(cms.views.users.user_view.UserView method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.models.offers.html#cms.models.offers.offer_template.OfferTemplate.post_data">post_data (cms.models.offers.offer_template.OfferTemplate attribute)</a>
 </li>
       <li><a href="ref-ext/cms.views.authentication.html#cms.views.authentication.account_activation_view.AccountActivationView.post_reset_login">post_reset_login (cms.views.authentication.account_activation_view.AccountActivationView attribute)</a>
@@ -12248,6 +11897,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.prefix">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.prefix">(cms.forms.regions.region_form.RegionForm attribute)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.prefix">(cms.forms.roles.group_form.GroupForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.prefix">(cms.forms.roles.role_form.RoleForm attribute)</a>
 </li>
@@ -12349,6 +12000,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.prepare_database_save">(cms.models.users.organization.Organization method)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.prepare_database_save">(cms.models.users.role.Role method)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.prepare_database_save">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.prepare_database_save">(cms.models.users.user_profile.UserProfile method)</a>
@@ -12381,6 +12034,8 @@
 </li>
       </ul></li>
       <li><a href="documentation.html#conf.project">project (in module conf)</a>
+</li>
+      <li><a href="ref-ext/cms.constants.html#cms.constants.role_names.PROMO_TEAM">PROMO_TEAM (in module cms.constants.role_names)</a>
 </li>
       <li><a href="ref-ext/sitemap.html#sitemap.sitemaps.EventSitemap.protocol">protocol (sitemap.sitemaps.EventSitemap attribute)</a>
 
@@ -12484,70 +12139,6 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView.raise_exception">raise_exception (cms.views.events.event_list_view.EventListView attribute)</a>
-
-      <ul>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_view.EventView.raise_exception">(cms.views.events.event_view.EventView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.raise_exception">(cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.raise_exception">(cms.views.feedback.region_feedback_list_view.RegionFeedbackListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_revision_view.ImprintRevisionView.raise_exception">(cms.views.imprint.imprint_revision_view.ImprintRevisionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.raise_exception">(cms.views.imprint.imprint_sbs_view.ImprintSideBySideView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_view.ImprintView.raise_exception">(cms.views.imprint.imprint_view.ImprintView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.raise_exception">(cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_view.LanguageTreeView.raise_exception">(cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_list_view.LanguageListView.raise_exception">(cms.views.languages.language_list_view.LanguageListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_view.LanguageView.raise_exception">(cms.views.languages.language_view.LanguageView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_list_view.OfferTemplateListView.raise_exception">(cms.views.offer_templates.offer_template_list_view.OfferTemplateListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_view.OfferTemplateView.raise_exception">(cms.views.offer_templates.offer_template_view.OfferTemplateView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_list_view.OrganizationListView.raise_exception">(cms.views.organizations.organization_list_view.OrganizationListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_view.OrganizationView.raise_exception">(cms.views.organizations.organization_view.OrganizationView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_revision_view.PageRevisionView.raise_exception">(cms.views.pages.page_revision_view.PageRevisionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_sbs_view.PageSideBySideView.raise_exception">(cms.views.pages.page_sbs_view.PageSideBySideView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.raise_exception">(cms.views.pages.page_tree_view.PageTreeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_view.PageView.raise_exception">(cms.views.pages.page_view.PageView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.raise_exception">(cms.views.pois.poi_list_view.POIListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_view.POIView.raise_exception">(cms.views.pois.poi_view.POIView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.raise_exception">(cms.views.push_notifications.push_notification_list_view.PushNotificationListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_view.PushNotificationView.raise_exception">(cms.views.push_notifications.push_notification_view.PushNotificationView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_list_view.RegionListView.raise_exception">(cms.views.regions.region_list_view.RegionListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_view.RegionView.raise_exception">(cms.views.regions.region_view.RegionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView.raise_exception">(cms.views.roles.role_list_view.RoleListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView.raise_exception">(cms.views.roles.role_view.RoleView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_list_view.RegionUserListView.raise_exception">(cms.views.users.region_user_list_view.RegionUserListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_view.RegionUserView.raise_exception">(cms.views.users.region_user_view.RegionUserView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_list_view.UserListView.raise_exception">(cms.views.users.user_list_view.UserListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.raise_exception">(cms.views.users.user_view.UserView attribute)</a>
-</li>
-      </ul></li>
       <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.event_feedback.EventFeedback.rating">rating (cms.models.feedback.event_feedback.EventFeedback attribute)</a>
 
       <ul>
@@ -12735,68 +12326,6 @@
 </li>
         <li><a href="ref-ext/cms.views.authentication.mfa.html#cms.views.authentication.mfa.mfa_login_view.MfaLoginView.redirect_field_name">(cms.views.authentication.mfa.mfa_login_view.MfaLoginView attribute)</a>
 </li>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_list_view.EventListView.redirect_field_name">(cms.views.events.event_list_view.EventListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_view.EventView.redirect_field_name">(cms.views.events.event_view.EventView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.redirect_field_name">(cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.feedback.html#cms.views.feedback.region_feedback_list_view.RegionFeedbackListView.redirect_field_name">(cms.views.feedback.region_feedback_list_view.RegionFeedbackListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_revision_view.ImprintRevisionView.redirect_field_name">(cms.views.imprint.imprint_revision_view.ImprintRevisionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_sbs_view.ImprintSideBySideView.redirect_field_name">(cms.views.imprint.imprint_sbs_view.ImprintSideBySideView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.imprint.html#cms.views.imprint.imprint_view.ImprintView.redirect_field_name">(cms.views.imprint.imprint_view.ImprintView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView.redirect_field_name">(cms.views.language_tree.language_tree_node_view.LanguageTreeNodeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.language_tree.html#cms.views.language_tree.language_tree_view.LanguageTreeView.redirect_field_name">(cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_list_view.LanguageListView.redirect_field_name">(cms.views.languages.language_list_view.LanguageListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.languages.html#cms.views.languages.language_view.LanguageView.redirect_field_name">(cms.views.languages.language_view.LanguageView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_list_view.OfferTemplateListView.redirect_field_name">(cms.views.offer_templates.offer_template_list_view.OfferTemplateListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.offer_templates.html#cms.views.offer_templates.offer_template_view.OfferTemplateView.redirect_field_name">(cms.views.offer_templates.offer_template_view.OfferTemplateView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_list_view.OrganizationListView.redirect_field_name">(cms.views.organizations.organization_list_view.OrganizationListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.organizations.html#cms.views.organizations.organization_view.OrganizationView.redirect_field_name">(cms.views.organizations.organization_view.OrganizationView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_revision_view.PageRevisionView.redirect_field_name">(cms.views.pages.page_revision_view.PageRevisionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_sbs_view.PageSideBySideView.redirect_field_name">(cms.views.pages.page_sbs_view.PageSideBySideView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.redirect_field_name">(cms.views.pages.page_tree_view.PageTreeView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pages.html#cms.views.pages.page_view.PageView.redirect_field_name">(cms.views.pages.page_view.PageView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_list_view.POIListView.redirect_field_name">(cms.views.pois.poi_list_view.POIListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.pois.html#cms.views.pois.poi_view.POIView.redirect_field_name">(cms.views.pois.poi_view.POIView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_list_view.PushNotificationListView.redirect_field_name">(cms.views.push_notifications.push_notification_list_view.PushNotificationListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_view.PushNotificationView.redirect_field_name">(cms.views.push_notifications.push_notification_view.PushNotificationView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_list_view.RegionListView.redirect_field_name">(cms.views.regions.region_list_view.RegionListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.regions.html#cms.views.regions.region_view.RegionView.redirect_field_name">(cms.views.regions.region_view.RegionView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView.redirect_field_name">(cms.views.roles.role_list_view.RoleListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView.redirect_field_name">(cms.views.roles.role_view.RoleView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_list_view.RegionUserListView.redirect_field_name">(cms.views.users.region_user_list_view.RegionUserListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.region_user_view.RegionUserView.redirect_field_name">(cms.views.users.region_user_view.RegionUserView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_list_view.UserListView.redirect_field_name">(cms.views.users.user_list_view.UserListView attribute)</a>
-</li>
-        <li><a href="ref-ext/cms.views.users.html#cms.views.users.user_view.UserView.redirect_field_name">(cms.views.users.user_view.UserView attribute)</a>
-</li>
       </ul></li>
       <li><a href="ref-ext/cms.views.dashboard.html#cms.views.dashboard.redirect_view.RedirectView">RedirectView (class in cms.views.dashboard.redirect_view)</a>
 </li>
@@ -12865,6 +12394,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.refresh_from_db">(cms.models.users.organization.Organization method)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.refresh_from_db">(cms.models.users.role.Role method)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.refresh_from_db">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.refresh_from_db">(cms.models.users.user_profile.UserProfile method)</a>
@@ -12914,8 +12445,6 @@
         <li><a href="ref-ext/cms.models.push_notifications.html#cms.models.push_notifications.push_notification.PushNotification.region">(cms.models.push_notifications.push_notification.PushNotification attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.constants.html#cms.constants.administrative_division.REGION">REGION (in module cms.constants.administrative_division)</a>
 </li>
       <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.DoesNotExist">Region.DoesNotExist</a>
@@ -12992,6 +12521,8 @@
         <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.search_result_feedback.SearchResultFeedback.regionfeedback">(cms.models.feedback.search_result_feedback.SearchResultFeedback attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.region_feedback.RegionFeedback.DoesNotExist">RegionFeedback.DoesNotExist</a>
 </li>
       <li><a href="ref-ext/cms.models.feedback.html#cms.models.feedback.region_feedback.RegionFeedback.MultipleObjectsReturned">RegionFeedback.MultipleObjectsReturned</a>
@@ -13322,11 +12853,19 @@
 </li>
       <li><a href="ref-ext/cms.constants.html#cms.constants.text_directions.RIGHT_TO_LEFT">RIGHT_TO_LEFT (in module cms.constants.text_directions)</a>
 </li>
+      <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role">Role (class in cms.models.users.role)</a>
+</li>
+      <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.role">role (cms.models.users.user_profile.UserProfile property)</a>
+</li>
+      <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.DoesNotExist">Role.DoesNotExist</a>
+</li>
+      <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.MultipleObjectsReturned">Role.MultipleObjectsReturned</a>
+</li>
       <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm">RoleForm (class in cms.forms.roles.role_form)</a>
 </li>
       <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_list_view.RoleListView">RoleListView (class in cms.views.roles.role_list_view)</a>
 </li>
-      <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.roles">roles (cms.models.users.user_profile.UserProfile property)</a>
+      <li><a href="ref-ext/cms.constants.html#cms.constants.role_names.ROLES">ROLES (in module cms.constants.role_names)</a>
 </li>
       <li><a href="ref-ext/cms.views.roles.html#cms.views.roles.role_view.RoleView">RoleView (class in cms.views.roles.role_view)</a>
 </li>
@@ -13390,6 +12929,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.save">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.save">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.save">(cms.forms.roles.group_form.GroupForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.save">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
@@ -13469,6 +13010,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.save">(cms.models.users.organization.Organization method)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.save">(cms.models.users.role.Role method)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.save">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.save">(cms.models.users.user_profile.UserProfile method)</a>
@@ -13538,6 +13081,8 @@
         <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.save_base">(cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.save_base">(cms.models.users.organization.Organization method)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.save_base">(cms.models.users.role.Role method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.save_base">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
@@ -13680,6 +13225,8 @@
         <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.serializable_value">(cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.serializable_value">(cms.models.users.organization.Organization method)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.serializable_value">(cms.models.users.role.Role method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.serializable_value">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
@@ -13901,6 +13448,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.DoesNotExist.silent_variable_failure">(cms.models.users.organization.Organization.DoesNotExist attribute)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.DoesNotExist.silent_variable_failure">(cms.models.users.role.Role.DoesNotExist attribute)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.silent_variable_failure">(cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist attribute)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.DoesNotExist.silent_variable_failure">(cms.models.users.user_profile.UserProfile.DoesNotExist attribute)</a>
@@ -14023,6 +13572,10 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/cms.html#cms.decorators.staff_required">staff_required() (in module cms.decorators)</a>
+</li>
+      <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.staff_role">staff_role (cms.models.users.role.Role attribute)</a>
+</li>
+      <li><a href="ref-ext/cms.constants.html#cms.constants.role_names.STAFF_ROLES">STAFF_ROLES (in module cms.constants.role_names)</a>
 </li>
       <li><a href="ref-ext/cms.models.events.html#cms.models.events.event.Event.start_date">start_date (cms.models.events.event.Event attribute)</a>
 </li>
@@ -14422,8 +13975,6 @@
 </li>
       <li><a href="ref-ext/cms.tests.views.html#cms.tests.views.region_view_test.RegionViewTest.test_events_archived">test_events_archived() (cms.tests.views.region_view_test.RegionViewTest method)</a>
 </li>
-      <li><a href="ref-ext/cms.tests.views.html#cms.tests.views.region_view_test.RegionViewTest.test_language_tree">test_language_tree() (cms.tests.views.region_view_test.RegionViewTest method)</a>
-</li>
       <li><a href="ref-ext/cms.tests.views.html#cms.tests.views.admin_view_test.AdminViewTest.test_languages">test_languages() (cms.tests.views.admin_view_test.AdminViewTest method)</a>
 </li>
       <li><a href="ref-ext/cms.tests.views.html#cms.tests.views.no_session_view_test.NoSessionViewTest.test_login">test_login() (cms.tests.views.no_session_view_test.NoSessionViewTest method)</a>
@@ -14437,8 +13988,6 @@
       <li><a href="ref-ext/cms.tests.views.html#cms.tests.views.region_view_test.RegionViewTest.test_new_event">test_new_event() (cms.tests.views.region_view_test.RegionViewTest method)</a>
 </li>
       <li><a href="ref-ext/cms.tests.views.html#cms.tests.views.admin_view_test.AdminViewTest.test_new_language">test_new_language() (cms.tests.views.admin_view_test.AdminViewTest method)</a>
-</li>
-      <li><a href="ref-ext/cms.tests.views.html#cms.tests.views.region_view_test.RegionViewTest.test_new_language_tree_node">test_new_language_tree_node() (cms.tests.views.region_view_test.RegionViewTest method)</a>
 </li>
       <li><a href="ref-ext/cms.tests.views.html#cms.tests.views.admin_view_test.AdminViewTest.test_new_offer_template">test_new_offer_template() (cms.tests.views.admin_view_test.AdminViewTest method)</a>
 </li>
@@ -14485,8 +14034,6 @@
       <li><a href="ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatMessage.text">text (cms.models.chat.chat_message.ChatMessage attribute)</a>
 
       <ul>
-        <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.text">(cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation attribute)</a>
-</li>
         <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.imprint_page_translation.ImprintPageTranslation.text">(cms.models.pages.imprint_page_translation.ImprintPageTranslation attribute)</a>
 </li>
         <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation.text">(cms.models.pages.page_translation.PageTranslation attribute)</a>
@@ -14519,8 +14066,6 @@
       <li><a href="ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation.title">title (cms.models.events.event_translation.EventTranslation attribute)</a>
 
       <ul>
-        <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.title">(cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation attribute)</a>
-</li>
         <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.imprint_page_translation.ImprintPageTranslation.title">(cms.models.pages.imprint_page_translation.ImprintPageTranslation attribute)</a>
 </li>
         <li><a href="ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation.title">(cms.models.pages.page_translation.PageTranslation attribute)</a>
@@ -14681,6 +14226,8 @@
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.unique_error_message">(cms.models.users.organization.Organization method)</a>
 </li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.unique_error_message">(cms.models.users.role.Role method)</a>
+</li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.unique_error_message">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.unique_error_message">(cms.models.users.user_profile.UserProfile method)</a>
@@ -14798,6 +14345,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.use_required_attribute">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.use_required_attribute">(cms.forms.regions.region_form.RegionForm attribute)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.use_required_attribute">(cms.forms.roles.group_form.GroupForm attribute)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.use_required_attribute">(cms.forms.roles.role_form.RoleForm attribute)</a>
 </li>
@@ -14933,6 +14482,8 @@
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.validate_unique">(cms.forms.regions.region_form.RegionForm method)</a>
 </li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.validate_unique">(cms.forms.roles.group_form.GroupForm method)</a>
+</li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.validate_unique">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.users.html#cms.forms.users.region_user_form.RegionUserForm.validate_unique">(cms.forms.users.region_user_form.RegionUserForm method)</a>
@@ -15010,6 +14561,8 @@
         <li><a href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region.validate_unique">(cms.models.regions.region.Region method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.validate_unique">(cms.models.users.organization.Organization method)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.validate_unique">(cms.models.users.role.Role method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.validate_unique">(cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
@@ -15108,6 +14661,8 @@
         <li><a href="ref-ext/cms.forms.push_notifications.html#cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm.visible_fields">(cms.forms.push_notifications.push_notification_translation_form.PushNotificationTranslationForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.regions.html#cms.forms.regions.region_form.RegionForm.visible_fields">(cms.forms.regions.region_form.RegionForm method)</a>
+</li>
+        <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.group_form.GroupForm.visible_fields">(cms.forms.roles.group_form.GroupForm method)</a>
 </li>
         <li><a href="ref-ext/cms.forms.roles.html#cms.forms.roles.role_form.RoleForm.visible_fields">(cms.forms.roles.role_form.RoleForm method)</a>
 </li>
@@ -15274,6 +14829,10 @@
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.DoesNotExist.with_traceback">(cms.models.users.organization.Organization.DoesNotExist method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.organization.Organization.MultipleObjectsReturned.with_traceback">(cms.models.users.organization.Organization.MultipleObjectsReturned method)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.DoesNotExist.with_traceback">(cms.models.users.role.Role.DoesNotExist method)</a>
+</li>
+        <li><a href="ref-ext/cms.models.users.html#cms.models.users.role.Role.MultipleObjectsReturned.with_traceback">(cms.models.users.role.Role.MultipleObjectsReturned method)</a>
 </li>
         <li><a href="ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist.with_traceback">(cms.models.users.user_mfa_key.UserMfaKey.DoesNotExist method)</a>
 </li>

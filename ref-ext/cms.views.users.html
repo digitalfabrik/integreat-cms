@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-06-05T08:56:10+00:00" />
+    <meta property="article:modified_time" content="2021-05-16T11:40:30+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Users &mdash; integreat-cms 0.0.14 documentation</title>
@@ -294,6 +294,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#push-notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#role-names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#text-directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.constants.html#translation-status">Translation Status</a></li>
@@ -367,6 +368,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.roles.html#group-form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.roles.html#role-form">Role Form</a></li>
 </ul>
 </li>
@@ -457,6 +459,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
@@ -575,8 +578,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-context-mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -736,6 +739,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.role_names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
@@ -809,6 +813,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#module-cms.forms.roles.group_form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
 </ul>
 </li>
@@ -899,6 +904,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
@@ -1017,8 +1023,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_context_mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1279,8 +1285,8 @@
 <span id="region-user-list-view"></span><h2>Region User List View<a class="headerlink" href="#module-cms.views.users.region_user_list_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.users.region_user_list_view.</span></span><span class="sig-name descname"><span class="pre">RegionUserListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.users.region_user_list_view.</span></span><span class="sig-name descname"><span class="pre">RegionUserListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for listing region users</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.__init__">
@@ -1297,23 +1303,23 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.base_context">
-<span class="sig-name descname"><span class="pre">base_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'region_users'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.base_context" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">base_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'region_users'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.base_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.content_type">
-<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.content_type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.dispatch">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.dispatch" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.extra_context" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1343,51 +1349,15 @@ keyword arguments, and other things.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.get_login_url">
-<span class="sig-name descname"><span class="pre">get_login_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_login_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the login_url attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.get_permission_denied_message">
-<span class="sig-name descname"><span class="pre">get_permission_denied_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_denied_message attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.get_permission_required">
-<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_required attribute.
-Must return an iterable.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.get_redirect_field_name">
-<span class="sig-name descname"><span class="pre">get_redirect_field_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the redirect_field_name attribute.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.get_template_names">
 <span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.get_template_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of template names to be used for the request. Must return
 a list. May not be called if render_to_response() is overridden.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.handle_no_permission">
-<span class="sig-name descname"><span class="pre">handle_no_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.has_permission">
-<span class="sig-name descname"><span class="pre">has_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to customize the way permissions are checked.</p>
-</dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1395,38 +1365,11 @@ a list. May not be called if render_to_response() is overridden.</p>
 <span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.login_url">
-<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.login_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.options">
 <span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.permission_denied_message">
-<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.permission_required">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_region_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.raise_exception">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.redirect_field_name">
-<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.render_to_response">
@@ -1450,12 +1393,12 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.template_engine">
-<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.template_engine" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_list_view.RegionUserListView.template_name">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'users/region/list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.template_name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'users/region/list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_list_view.RegionUserListView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -1466,8 +1409,8 @@ template rendered with the given context.</p>
 <span id="region-user-view"></span><h2>Region User View<a class="headerlink" href="#module-cms.views.users.region_user_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.users.region_user_view.</span></span><span class="sig-name descname"><span class="pre">RegionUserView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.users.region_user_view.</span></span><span class="sig-name descname"><span class="pre">RegionUserView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for the user form and user profile form of region users</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.__init__">
@@ -1484,28 +1427,28 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.base_context">
-<span class="sig-name descname"><span class="pre">base_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'region_users_form'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.base_context" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">base_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'region_user_form'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.base_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.content_type">
-<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.content_type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.dispatch">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.dispatch" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.extra_context" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_form.UserForm" title="cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserForm</span></code></a> and <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a> for region users</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1530,61 +1473,20 @@ keyword arguments, and other things.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.get_login_url">
-<span class="sig-name descname"><span class="pre">get_login_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_login_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the login_url attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.get_permission_denied_message">
-<span class="sig-name descname"><span class="pre">get_permission_denied_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_denied_message attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.get_permission_required">
-<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_required attribute.
-Must return an iterable.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.get_redirect_field_name">
-<span class="sig-name descname"><span class="pre">get_redirect_field_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the redirect_field_name attribute.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.get_template_names">
 <span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.get_template_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of template names to be used for the request. Must return
 a list. May not be called if render_to_response() is overridden.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.handle_no_permission">
-<span class="sig-name descname"><span class="pre">handle_no_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.has_permission">
-<span class="sig-name descname"><span class="pre">has_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to customize the way permissions are checked.</p>
-</dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.http_method_not_allowed">
 <span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.login_url">
-<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.login_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1593,20 +1495,9 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.permission_denied_message">
-<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.permission_required">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_region_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.post">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.post" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_form.UserForm" title="cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserForm</span></code></a> and
 <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a> and save <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>
 and <a class="reference internal" href="cms.models.users.html#cms.models.users.user_profile.UserProfile" title="cms.models.users.user_profile.UserProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfile</span></code></a> objects for region users</p>
@@ -1626,17 +1517,6 @@ and <a class="reference internal" href="cms.models.users.html#cms.models.users.u
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.raise_exception">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.redirect_field_name">
-<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.render_to_response">
@@ -1660,12 +1540,12 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.template_engine">
-<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.template_engine" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.region_user_view.RegionUserView.template_name">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'users/region/user.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.template_name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'users/region/user.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/region_user_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.region_user_view.RegionUserView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -1720,8 +1600,8 @@ template rendered with the given context.</p>
 <span id="user-list-view"></span><h2>User List View<a class="headerlink" href="#module-cms.views.users.user_list_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.users.user_list_view.</span></span><span class="sig-name descname"><span class="pre">UserListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.users.user_list_view.</span></span><span class="sig-name descname"><span class="pre">UserListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for listing all users (admin users and region users)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.__init__">
@@ -1738,23 +1618,23 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.base_context">
-<span class="sig-name descname"><span class="pre">base_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'users'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.base_context" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">base_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'users'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.base_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.content_type">
-<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.content_type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.dispatch">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.dispatch" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.extra_context" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1784,51 +1664,15 @@ keyword arguments, and other things.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.get_login_url">
-<span class="sig-name descname"><span class="pre">get_login_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_login_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the login_url attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.get_permission_denied_message">
-<span class="sig-name descname"><span class="pre">get_permission_denied_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_denied_message attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.get_permission_required">
-<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_required attribute.
-Must return an iterable.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.get_redirect_field_name">
-<span class="sig-name descname"><span class="pre">get_redirect_field_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the redirect_field_name attribute.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.get_template_names">
 <span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.get_template_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of template names to be used for the request. Must return
 a list. May not be called if render_to_response() is overridden.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.handle_no_permission">
-<span class="sig-name descname"><span class="pre">handle_no_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.has_permission">
-<span class="sig-name descname"><span class="pre">has_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to customize the way permissions are checked.</p>
-</dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1836,38 +1680,11 @@ a list. May not be called if render_to_response() is overridden.</p>
 <span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.login_url">
-<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.login_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.options">
 <span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.permission_denied_message">
-<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.permission_required">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_admin_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.raise_exception">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.redirect_field_name">
-<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.render_to_response">
@@ -1891,12 +1708,12 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.template_engine">
-<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.template_engine" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_list_view.UserListView.template_name">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'users/admin/list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.template_name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'users/admin/list.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_list_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_list_view.UserListView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -1907,8 +1724,8 @@ template rendered with the given context.</p>
 <span id="user-view"></span><h2>User View<a class="headerlink" href="#module-cms.views.users.user_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.users.user_view.</span></span><span class="sig-name descname"><span class="pre">UserView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.users.user_view.</span></span><span class="sig-name descname"><span class="pre">UserView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a></p>
 <p>View for the user form and user profile form</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.__init__">
@@ -1925,28 +1742,28 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.base_context">
-<span class="sig-name descname"><span class="pre">base_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'users'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.base_context" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">base_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'user_form'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.base_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.content_type">
-<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.content_type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.dispatch">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.dispatch" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.extra_context" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_form.UserForm" title="cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserForm</span></code></a> and
 <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a></p>
 <dl class="field-list simple">
@@ -1972,61 +1789,20 @@ keyword arguments, and other things.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_view.UserView.get_login_url">
-<span class="sig-name descname"><span class="pre">get_login_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_login_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the login_url attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_view.UserView.get_permission_denied_message">
-<span class="sig-name descname"><span class="pre">get_permission_denied_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_denied_message attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_view.UserView.get_permission_required">
-<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the permission_required attribute.
-Must return an iterable.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_view.UserView.get_redirect_field_name">
-<span class="sig-name descname"><span class="pre">get_redirect_field_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to override the redirect_field_name attribute.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.get_template_names">
 <span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.get_template_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of template names to be used for the request. Must return
 a list. May not be called if render_to_response() is overridden.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_view.UserView.handle_no_permission">
-<span class="sig-name descname"><span class="pre">handle_no_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.handle_no_permission" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cms.views.users.user_view.UserView.has_permission">
-<span class="sig-name descname"><span class="pre">has_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.has_permission" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override this method to customize the way permissions are checked.</p>
-</dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.http_method_not_allowed">
 <span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.http_method_not_allowed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.user_view.UserView.login_url">
-<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.login_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2035,20 +1811,9 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.user_view.UserView.permission_denied_message">
-<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.permission_denied_message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.user_view.UserView.permission_required">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'cms.manage_admin_users'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.permission_required" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required permission of this view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.post">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.post" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.post" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_form.UserForm" title="cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserForm</span></code></a> and
 <a class="reference internal" href="cms.forms.users.html#cms.forms.users.user_profile_form.UserProfileForm" title="cms.forms.users.user_profile_form.UserProfileForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfileForm</span></code></a> and save <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>
 and <a class="reference internal" href="cms.models.users.html#cms.models.users.user_profile.UserProfile" title="cms.models.users.user_profile.UserProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfile</span></code></a> objects</p>
@@ -2068,17 +1833,6 @@ and <a class="reference internal" href="cms.models.users.html#cms.models.users.u
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.user_view.UserView.raise_exception">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.raise_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not an exception should be raised if the user is not logged in (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cms.views.users.user_view.UserView.redirect_field_name">
-<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'next'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.redirect_field_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.render_to_response">
@@ -2102,12 +1856,12 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.template_engine">
-<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.template_engine" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.users.user_view.UserView.template_name">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'users/admin/user.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.template_name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'users/admin/user.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/users/user_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.users.user_view.UserView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -2135,7 +1889,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jun 05, 2021.
+        Last updated on May 16, 2021.
       </span>
 
     </p>

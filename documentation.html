@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-05-05T09:35:26+00:00" />
+    <meta property="article:modified_time" content="2021-04-10T19:21:34+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Documentation (Sphinx) &mdash; integreat-cms 0.0.14 documentation</title>
@@ -294,6 +294,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#push-notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#role-names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#text-directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.constants.html#translation-status">Translation Status</a></li>
@@ -367,6 +368,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.roles.html#group-form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.roles.html#role-form">Role Form</a></li>
 </ul>
 </li>
@@ -457,6 +459,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#user-mfa-key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
@@ -575,8 +578,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#content-media-mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#media-context-mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.media.html#media-list-view">Media List View</a></li>
 </ul>
 </li>
@@ -736,6 +739,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.push_notifications">Push Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.recurrence">Recurrence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.role_names">Role Names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.status">Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.text_directions">Text Directions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.constants.html#module-cms.constants.translation_status">Translation Status</a></li>
@@ -809,6 +813,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.roles.html#module-cms.forms.roles.group_form">Group Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.roles.html#module-cms.forms.roles.role_form">Role Form</a></li>
 </ul>
 </li>
@@ -899,6 +904,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.role">Role</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
@@ -1017,8 +1023,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.views.media.html">Media</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.content_media_mixin">Content Media Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.media_actions">Media Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.media_context_mixin">Media Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.media.html#module-cms.views.media.media_list_view">Media List View</a></li>
 </ul>
 </li>
@@ -1222,13 +1228,13 @@
             
   <div class="section" id="documentation-sphinx">
 <h1>Documentation (Sphinx)<a class="headerlink" href="#documentation-sphinx" title="Permalink to this headline">¶</a></h1>
-<p>To generate this documentation, we use the Python documentation generator Sphinx (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/index.html" title="(in Sphinx v5.0.0+/e1d4e0307)"><span>Using Sphinx</span></a>).</p>
+<p>To generate this documentation, we use the Python documentation generator Sphinx (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/index.html" title="(in Sphinx v5.0.0+/83ef01fbd)"><span>Using Sphinx</span></a>).</p>
 <p>The generation process is divided into two stages:</p>
 <ol class="arabic simple">
-<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html" title="(in Sphinx v5.0.0+/e1d4e0307)"><span>sphinx-apidoc</span></a> is a tool which scans the whole source code of our application in the <code class="docutils literal notranslate"><span class="pre">src</span></code>
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html" title="(in Sphinx v5.0.0+/83ef01fbd)"><span>sphinx-apidoc</span></a> is a tool which scans the whole source code of our application in the <code class="docutils literal notranslate"><span class="pre">src</span></code>
 directory and generates <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files out of the Python docstrings. These files are then placed in the
 <code class="docutils literal notranslate"><span class="pre">sphinx/ref-ext</span></code> directory.</p></li>
-<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html" title="(in Sphinx v5.0.0+/e1d4e0307)"><span>sphinx-build</span></a> generates the html documentation out of the <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files located in the sphinx directory.
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-build.html" title="(in Sphinx v5.0.0+/83ef01fbd)"><span>sphinx-build</span></a> generates the html documentation out of the <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files located in the sphinx directory.
 It merges the static <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files directly in the <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> directory together with the files generated in step 1
 in <code class="docutils literal notranslate"><span class="pre">sphinx/ref-ext</span></code> and the simplified <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files in <code class="docutils literal notranslate"><span class="pre">sphinx/ref</span></code>.</p></li>
 </ol>
@@ -1297,11 +1303,11 @@ model field type.</p>
 <div class="section" id="cross-referencing">
 <h2>Cross-referencing<a class="headerlink" href="#cross-referencing" title="Permalink to this headline">¶</a></h2>
 <p>Whenever you want to reference another module, class or function inside a static documentation page or within a
-docstring, use the according <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html" title="(in Sphinx v5.0.0+/e1d4e0307)"><span>Domains</span></a> and have a look at <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#python-roles" title="(in Sphinx v5.0.0+/e1d4e0307)"><span>Cross-referencing Python objects</span></a>.</p>
+docstring, use the according <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html" title="(in Sphinx v5.0.0+/83ef01fbd)"><span>Domains</span></a> and have a look at <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#python-roles" title="(in Sphinx v5.0.0+/83ef01fbd)"><span>Cross-referencing Python objects</span></a>.</p>
 <p>Example:
 <code class="docutils literal notranslate"><span class="pre">:class:`~cms.models.regions.region.Region`</span></code> becomes <a class="reference internal" href="ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p>
 <p>Many other python projects also use Sphinx for their documentation. Whenever you use e.g. a library function or want
-to reference external classes or documentation pages, you can do this with <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx" title="(in Sphinx v5.0.0+/e1d4e0307)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">intersphinx</span></code></a>.
+to reference external classes or documentation pages, you can do this with <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx" title="(in Sphinx v5.0.0+/83ef01fbd)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">intersphinx</span></code></a>.
 All available documentations are listed in the dict <a class="reference internal" href="#conf.intersphinx_mapping" title="conf.intersphinx_mapping"><code class="xref py py-const docutils literal notranslate"><span class="pre">intersphinx_mapping</span></code></a>.
 If you want to reference another documentation which is not yet listed, just add it to this dict. After that, you can
 reference them with the normal directives plus the key specified in the <a class="reference internal" href="#conf.intersphinx_mapping" title="conf.intersphinx_mapping"><code class="xref py py-const docutils literal notranslate"><span class="pre">intersphinx_mapping</span></code></a> dict.</p>
@@ -1311,7 +1317,7 @@ reference them with the normal directives plus the key specified in the <a class
 <p class="admonition-title">Note</p>
 <p>If the cross-referenced documentation uses <a class="reference external" href="https://docutils.sourceforge.io/docs/howto/rst-roles.html">custom text roles</a>,
 the usage of these custom roles will only work after these roles have been registered in an extension’s <code class="docutils literal notranslate"><span class="pre">setup()</span></code>
-(see <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx" title="(in Sphinx v5.0.0+/e1d4e0307)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sphinx.application.Sphinx</span></code></a>).</p>
+(see <a class="reference external" href="https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx" title="(in Sphinx v5.0.0+/83ef01fbd)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sphinx.application.Sphinx</span></code></a>).</p>
 </div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
@@ -1328,7 +1334,7 @@ Remote inventory found.
 </div>
 <div class="section" id="substitutions">
 <h2>Substitutions<a class="headerlink" href="#substitutions" title="Permalink to this headline">¶</a></h2>
-<p>Whenever you use GitHub-specific strings, please use <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#default-substitutions" title="(in Sphinx v5.0.0+/e1d4e0307)"><span>Substitutions</span></a>:</p>
+<p>Whenever you use GitHub-specific strings, please use <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#default-substitutions" title="(in Sphinx v5.0.0+/83ef01fbd)"><span>Substitutions</span></a>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">|github-username|</span></code> becomes Integreat</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">|github-repository|</span></code> becomes integreat-cms</p></li>
@@ -1355,13 +1361,13 @@ Currently, the following shortcuts exists:</p>
 <span id="sphinx-extensions"></span><h2>Extensions<a class="headerlink" href="#extensions" title="Permalink to this headline">¶</a></h2>
 <p>We use the following sphinx extensions:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc" title="(in Sphinx v5.0.0+/e1d4e0307)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.autodoc</span></code></a> allows to use directives like <code class="docutils literal notranslate"><span class="pre">automodule</span></code> in <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files to automatically
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc" title="(in Sphinx v5.0.0+/83ef01fbd)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.autodoc</span></code></a> allows to use directives like <code class="docutils literal notranslate"><span class="pre">automodule</span></code> in <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files to automatically
 import the modules and pull in documentation from docstrings in a semi-automatic way.</p></li>
-<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html#module-sphinx.ext.extlinks" title="(in Sphinx v5.0.0+/e1d4e0307)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.extlinks</span></code></a> allows to use shortcuts to external links defined in <a class="reference internal" href="#conf.extlinks" title="conf.extlinks"><code class="xref py py-const docutils literal notranslate"><span class="pre">extlinks</span></code></a>.</p></li>
-<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/githubpages.html#module-sphinx.ext.githubpages" title="(in Sphinx v5.0.0+/e1d4e0307)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.githubpages</span></code></a> creates a <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code> file on generated HTML directory to publish the document
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html#module-sphinx.ext.extlinks" title="(in Sphinx v5.0.0+/83ef01fbd)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.extlinks</span></code></a> allows to use shortcuts to external links defined in <a class="reference internal" href="#conf.extlinks" title="conf.extlinks"><code class="xref py py-const docutils literal notranslate"><span class="pre">extlinks</span></code></a>.</p></li>
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/githubpages.html#module-sphinx.ext.githubpages" title="(in Sphinx v5.0.0+/83ef01fbd)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.githubpages</span></code></a> creates a <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code> file on generated HTML directory to publish the document
 on GitHub Pages.</p></li>
-<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx" title="(in Sphinx v5.0.0+/e1d4e0307)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.intersphinx</span></code></a> allows to reference other project’s documentations.</p></li>
-<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v5.0.0+/e1d4e0307)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a> adds external links to the source code of documented modules, see
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx" title="(in Sphinx v5.0.0+/83ef01fbd)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.intersphinx</span></code></a> allows to reference other project’s documentations.</p></li>
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v5.0.0+/83ef01fbd)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a> adds external links to the source code of documented modules, see
 <a class="reference internal" href="#conf.linkcode_resolve" title="conf.linkcode_resolve"><code class="xref py py-func docutils literal notranslate"><span class="pre">linkcode_resolve()</span></code></a>.</p></li>
 <li><p><a class="reference external" href="https://pypi.org/project/sphinxcontrib-django2/">sphinxcontrib_django2</a> adds improvements to the docstrings of
 Django models and forms.</p></li>
@@ -1375,7 +1381,7 @@ date on the generated html documentation by the modification date of the source 
 <span id="configuration"></span><h2>Configuration<a class="headerlink" href="#module-conf" title="Permalink to this headline">¶</a></h2>
 <p>Configuration file for the Sphinx documentation builder.</p>
 <p>This file only contains the options which deviate from the default values.
-For a full list see the documentation: <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html" title="(in Sphinx v5.0.0+/e1d4e0307)"><span>Configuration</span></a></p>
+For a full list see the documentation: <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html" title="(in Sphinx v5.0.0+/83ef01fbd)"><span>Configuration</span></a></p>
 <dl class="py data">
 <dt class="sig sig-object py" id="conf.author">
 <span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">author</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Integreat'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.author" title="Permalink to this definition">¶</a></dt>
@@ -1421,7 +1427,7 @@ For a full list see the documentation: <a class="reference external" href="https
 <dl class="py data">
 <dt class="sig sig-object py" id="conf.extlinks">
 <span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">extlinks</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'github':</span> <span class="pre">('https://github.com/Integreat/integreat-cms/%s',</span> <span class="pre">''),</span> <span class="pre">'github-source':</span> <span class="pre">('https://github.com/Integreat/integreat-cms/blob/develop/%s',</span> <span class="pre">'')}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.extlinks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Markup to shorten external links (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html" title="(in Sphinx v5.0.0+/e1d4e0307)"><span>sphinx.ext.extlinks – Markup to shorten external links</span></a>)</p>
+<dd><p>Markup to shorten external links (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html" title="(in Sphinx v5.0.0+/83ef01fbd)"><span>sphinx.ext.extlinks – Markup to shorten external links</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;github&#39;</span><span class="o">:</span> <span class="p">(</span><span class="s1">&#39;https://github.com/Integreat/integreat-cms/%s&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
     <span class="s1">&#39;github-source&#39;</span><span class="o">:</span> <span class="p">(</span>
@@ -1549,8 +1555,8 @@ For a full list see the documentation: <a class="reference external" href="https
 
 <dl class="py function">
 <dt class="sig sig-object py" id="conf.linkcode_resolve">
-<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">linkcode_resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function adds source code links to all modules (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v5.0.0+/e1d4e0307)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a>).
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">linkcode_resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L171"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function adds source code links to all modules (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v5.0.0+/83ef01fbd)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a>).
 It links all classes and functions to their source files on GitHub including line numbers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1579,11 +1585,12 @@ It links all classes and functions to their source files on GitHub including lin
 
 <dl class="py data">
 <dt class="sig sig-object py" id="conf.nitpick_ignore">
-<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">nitpick_ignore</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('py:class',</span> <span class="pre">'builtins.AssertionError'),</span> <span class="pre">('py:class',</span> <span class="pre">'builtins.int'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.chat_messages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.editable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.feedback'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.mfa_keys'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.imprint_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.poi_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.profile'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.publishable_pages'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.contrib.auth.tokens.PasswordResetTokenGenerator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.contrib.sitemaps.Sitemap._urls'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.handlers.WSGIHandler'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.forms.models.ModelChoiceIterator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.utils.text.capfirst'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.Linklist'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.models.Link'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.poi_translations'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.fields.TreeForeignKey'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.forms.TreeNodeChoiceField'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.models.MPTTModel'),</span> <span class="pre">('py:class',</span> <span class="pre">'realms.magic.unicorn'),</span> <span class="pre">('py:class',</span> <span class="pre">'webauthn.WebAuthnUser'),</span> <span class="pre">('js:func',</span> <span class="pre">'cms.static.js.pages.page_bulk_action.bulk_action_execute')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpick_ignore" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">nitpick_ignore</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('py:class',</span> <span class="pre">'builtins.AssertionError'),</span> <span class="pre">('py:class',</span> <span class="pre">'builtins.int'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.Group.role'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.chat_messages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.editable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.feedback'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.mfa_keys'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.imprint_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.poi_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.profile'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.publishable_pages'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.contrib.auth.tokens.PasswordResetTokenGenerator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.contrib.sitemaps.Sitemap._urls'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.handlers.WSGIHandler'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.forms.models.ModelChoiceIterator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.utils.text.capfirst'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.Linklist'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.models.Link'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.poi_translations'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.fields.TreeForeignKey'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.forms.TreeNodeChoiceField'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.models.MPTTModel'),</span> <span class="pre">('py:class',</span> <span class="pre">'realms.magic.unicorn'),</span> <span class="pre">('py:class',</span> <span class="pre">'webauthn.WebAuthnUser'),</span> <span class="pre">('js:func',</span> <span class="pre">'cms.static.js.pages.page_bulk_action.bulk_action_execute')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpick_ignore" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of (type, target) tuples that should be ignored when <a class="reference internal" href="#conf.nitpicky" title="conf.nitpicky"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nitpicky</span></code></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;builtins.AssertionError&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;builtins.int&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.Group.role&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.chat_messages&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.editable_pages&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.event_translations&#39;</span><span class="p">),</span>
@@ -1670,7 +1677,7 @@ It links all classes and functions to their source files on GitHub including lin
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on May 05, 2021.
+        Last updated on Apr 10, 2021.
       </span>
 
     </p>
