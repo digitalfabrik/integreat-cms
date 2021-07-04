@@ -86,22 +86,24 @@ window.addEventListener("load", () => {
         },
         insert: {
           title: "Insert",
-          items: "openmediacenter link image media "
+          items: "openmediacenter add_link image media "
         }
       },
       link_title: false,
-      contextmenu: "paste link",
+      contextmenu: "paste add_link",
       autosave_interval: "120s",
       forced_root_block: false,
       plugins:
-        "code paste fullscreen autosave link preview media image lists directionality wordcount",
+        "code paste fullscreen autosave preview media image lists directionality wordcount",
       external_plugins: {
         autolink_tel: tinymceConfig.getAttribute("data-custom-plugins"),
         mediacenter: tinymceConfig.getAttribute("data-custom-plugins"),
+        custom_link_input: tinymceConfig.getAttribute("data-custom-plugins"),
       },
       link_default_protocol: "https",
       target_list: false,
       default_link_target: '',
+      document_base_url: tinymceConfig.getAttribute("data-webapp-url"),
       relative_urls: false,
       remove_script_host: false,
       branding: false,

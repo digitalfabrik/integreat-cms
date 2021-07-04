@@ -318,6 +318,6 @@ class PageTranslation(AbstractBasePageTranslation):
         #: The plural verbose name of the model
         verbose_name_plural = _("page translations")
         #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["page", "-version"]
+        ordering = ["page__pk", "-version"]
         #: The default permissions for this model
         default_permissions = ()
