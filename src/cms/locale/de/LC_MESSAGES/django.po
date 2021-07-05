@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-03 19:08+0000\n"
+"POT-Creation-Date: 2021-08-04 15:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: constants/administrative_division.py:38 templates/events/event_form.html:250
+#: constants/administrative_division.py:38 templates/events/event_form.html:261
 #: templates/pois/poi_list.html:56 templates/pois/poi_list_archived.html:32
 msgid "City"
 msgstr "Stadt"
@@ -1439,21 +1439,35 @@ msgid "Determines whether the event is repeated at regular intervals."
 msgstr ""
 "Legt fest, ob die Veranstaltung in regelmäßigen Abständen wiederholt wird."
 
-#: forms/events/event_form.py:95
+#: forms/events/event_form.py:31
+msgid "Event does not have a physical location"
+msgstr "Diese Veranstaltung hat keinen Veranstaltungsort"
+
+#: forms/events/event_form.py:33
+msgid "Determines whether the event is assigned to a physical location."
+msgstr "Legt fest, ob zu der Veranstaltung ein Ort gespeichert wurde."
+
+#: forms/events/event_form.py:103
 msgid "If the event is not all-day, the start time is required"
 msgstr ""
 "Wenn die Veranstaltung nicht ganztägig ist, muss eine Start-Uhrzeit "
 "angegeben werden"
 
-#: forms/events/event_form.py:103
+#: forms/events/event_form.py:111
 msgid "If the event is not all-day, the end time is required"
 msgstr ""
 "Wenn die Veranstaltung nicht ganztägig ist, muss eine End-Uhrzeit angegeben "
 "werden"
 
-#: forms/events/event_form.py:119 forms/events/event_form.py:133
+#: forms/events/event_form.py:127 forms/events/event_form.py:141
 msgid "The end of the event can't be before the start of the event"
 msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
+
+#: forms/events/event_form.py:153
+msgid "Either disable the event location or provide a valid location"
+msgstr ""
+"Entweder muss der Veranstaltungsort deaktiviert werden oder es muss ein "
+"gültiger Ort angegeben werden"
 
 #: forms/events/recurrence_rule_form.py:19
 msgid "Recurrence ends"
@@ -1514,7 +1528,7 @@ msgid "Category"
 msgstr "Kategorie"
 
 #: forms/feedback/region_feedback_filter_form.py:30
-#: templates/events/event_form.html:118 templates/events/event_list.html:48
+#: templates/events/event_form.html:128 templates/events/event_list.html:48
 #: templates/events/event_list_archived.html:33
 #: templates/imprint/imprint_form.html:106
 #: templates/imprint/imprint_revisions.html:45
@@ -3492,7 +3506,7 @@ msgstr "Zur Überprüfung vorlegen"
 msgid "Create Translation"
 msgstr "Übersetzung erstellen"
 
-#: templates/events/event_form.html:116
+#: templates/events/event_form.html:114
 #: templates/events/event_list_archived.html:32
 #: templates/imprint/imprint_form.html:103
 #: templates/imprint/imprint_revisions.html:20
@@ -3504,67 +3518,67 @@ msgstr "Übersetzung erstellen"
 msgid "Version"
 msgstr "Version"
 
-#: templates/events/event_form.html:159 templates/pois/poi_form.html:156
+#: templates/events/event_form.html:167 templates/pois/poi_form.html:156
 msgid "Settings for all translations"
 msgstr "Einstellungen für alle Übersetzungen"
 
-#: templates/events/event_form.html:231
+#: templates/events/event_form.html:242
 msgid "Name of event location"
 msgstr "Name des Veranstaltungsortes"
 
-#: templates/events/event_form.html:235
+#: templates/events/event_form.html:246
 msgid "Remove location from event"
 msgstr "Veranstaltungsort von Veranstaltung entfernen"
 
-#: templates/events/event_form.html:244
+#: templates/events/event_form.html:255
 msgid ""
 "Create an event location or start typing the name of an existing location"
 msgstr ""
 "Erstellen Sie einen Veranstaltungsort oder beginnen Sie den Namen eines "
 "bestehenden Veranstaltungsortes einzutippen"
 
-#: templates/events/event_form.html:246 templates/pois/poi_form.html:164
+#: templates/events/event_form.html:257 templates/pois/poi_form.html:164
 msgid "Address"
 msgstr "Adresse"
 
-#: templates/events/event_form.html:248 templates/pois/poi_list.html:54
+#: templates/events/event_form.html:259 templates/pois/poi_list.html:54
 #: templates/pois/poi_list_archived.html:30
 msgid "Street"
 msgstr "Straße"
 
-#: templates/events/event_form.html:252 templates/pois/poi_list.html:57
+#: templates/events/event_form.html:263 templates/pois/poi_list.html:57
 #: templates/pois/poi_list_archived.html:33
 msgid "Country"
 msgstr "Land"
 
-#: templates/events/event_form.html:254
+#: templates/events/event_form.html:265
 msgid "Map"
 msgstr "Karte"
 
-#: templates/events/event_form.html:264
+#: templates/events/event_form.html:276
 #: templates/events/event_list_archived_row.html:93
 msgid "Restore event"
 msgstr "Veranstaltung wiederherstellen"
 
-#: templates/events/event_form.html:271
+#: templates/events/event_form.html:283
 msgid "Restore this event"
 msgstr "Diese Veranstaltung wiederherstellen"
 
-#: templates/events/event_form.html:274 templates/events/event_list_row.html:94
+#: templates/events/event_form.html:286 templates/events/event_list_row.html:94
 msgid "Archive event"
 msgstr "Veranstaltung archivieren"
 
-#: templates/events/event_form.html:281
+#: templates/events/event_form.html:293
 msgid "Archive this event"
 msgstr "Diese Veranstaltung archivieren"
 
-#: templates/events/event_form.html:287
+#: templates/events/event_form.html:299
 #: templates/events/event_list_archived_row.html:102
 #: templates/events/event_list_row.html:103
 msgid "Delete event"
 msgstr "Veranstaltung löschen"
 
-#: templates/events/event_form.html:294
+#: templates/events/event_form.html:306
 msgid "Delete this event"
 msgstr "Diese Veranstaltung löschen"
 
@@ -7167,9 +7181,6 @@ msgstr ""
 
 #~ msgid "Archive Pages"
 #~ msgstr "Seiten archivieren"
-
-#~ msgid "This event does not have a physical location"
-#~ msgstr "Diese Veranstaltung hat keinen Veranstaltungsort"
 
 #~ msgid "No POI found"
 #~ msgstr "Kein POI gefunden"
