@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-02-05T00:15:35+00:00" />
+    <meta property="article:modified_time" content="2021-06-29T22:02:49+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Authentication &mdash; integreat-cms 0.0.14 documentation</title>
@@ -497,7 +497,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-utils">Account Activation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-token-generator">Account Activation Token Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#media-utils">Media Utils</a></li>
@@ -506,6 +506,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.views.html">Views</a><ul>
@@ -942,7 +943,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_utils">Account Activation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_token_generator">Account Activation Token Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
@@ -951,6 +952,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="cms.views.html">Views</a><ul class="current">
@@ -1249,7 +1251,7 @@
 <span id="account-activation-view"></span><h2>Account Activation View<a class="headerlink" href="#module-cms.views.authentication.account_activation_view" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.authentication.account_activation_view.</span></span><span class="sig-name descname"><span class="pre">AccountActivationView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.authentication.account_activation_view.</span></span><span class="sig-name descname"><span class="pre">AccountActivationView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.PasswordResetConfirmView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.PasswordResetConfirmView</span></code></a></p>
 <p>View to set a new password and activate and account.</p>
 <dl class="py method">
@@ -1267,12 +1269,12 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.content_type">
-<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.content_type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.content_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.dispatch">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.dispatch" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd><p>The view part of the view. Handles all HTTP methods equally.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1292,7 +1294,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.extra_context" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.extra_context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1309,7 +1311,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.form_valid">
-<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.form_valid" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.form_valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>If the form is valid, show a success message.</p>
 </dd></dl>
 
@@ -1375,7 +1377,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.http_method_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.http_method_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1385,7 +1387,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.initial">
-<span class="sig-name descname"><span class="pre">initial</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.initial" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">initial</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.initial" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1403,17 +1405,17 @@ POST variables and then check if it’s valid.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.post_reset_login">
-<span class="sig-name descname"><span class="pre">post_reset_login</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.post_reset_login" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">post_reset_login</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.post_reset_login" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.post_reset_login_backend">
-<span class="sig-name descname"><span class="pre">post_reset_login_backend</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.post_reset_login_backend" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">post_reset_login_backend</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.post_reset_login_backend" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.prefix">
-<span class="sig-name descname"><span class="pre">prefix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.prefix" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">prefix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.prefix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1431,7 +1433,7 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.reset_url_token">
-<span class="sig-name descname"><span class="pre">reset_url_token</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'set-password'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.reset_url_token" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reset_url_token</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'set-password'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.reset_url_token" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1448,31 +1450,31 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.success_url">
-<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/login/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.success_url" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/login/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.success_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>If the password was successfully reset, redirect to the login</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.template_engine">
-<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.template_engine" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.template_engine" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.template_name">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'authentication/account_activation_form.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.template_name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'authentication/account_activation_form.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.template_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The template which should be rendered</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.title">
-<span class="sig-name descname"><span class="pre">title</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Enter</span> <span class="pre">new</span> <span class="pre">password'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.title" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Enter</span> <span class="pre">new</span> <span class="pre">password'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.title" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.authentication.account_activation_view.AccountActivationView.token_generator">
-<span class="sig-name descname"><span class="pre">token_generator</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;cms.utils.account_activation_utils.AccountActivationTokenGenerator</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.token_generator" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">token_generator</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;cms.utils.account_activation_token_generator.AccountActivationTokenGenerator</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.authentication.account_activation_view.AccountActivationView.token_generator" title="Permalink to this definition">¶</a></dt>
 <dd><p>The generator for activation tokens
-(use <a class="reference internal" href="cms.utils.html#cms.utils.account_activation_utils.AccountActivationTokenGenerator" title="cms.utils.account_activation_utils.AccountActivationTokenGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountActivationTokenGenerator</span></code></a> instead of the default one to
+(use <a class="reference internal" href="cms.utils.html#cms.utils.account_activation_token_generator.AccountActivationTokenGenerator" title="cms.utils.account_activation_token_generator.AccountActivationTokenGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountActivationTokenGenerator</span></code></a> instead of the default one to
 make sure password reset tokens are not accepted for account activation and vice versa)</p>
 </dd></dl>
 
@@ -2336,7 +2338,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Feb 05, 2021.
+        Last updated on Jun 29, 2021.
       </span>
 
     </p>
