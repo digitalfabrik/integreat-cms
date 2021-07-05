@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from ...decorators import staff_required, permission_required
 from ...forms import UserForm, UserProfileForm
 from ...models import UserProfile
-from ...utils.account_activation_utils import send_activation_link
+from ...utils.welcome_mail_utils import send_welcome_mail
 
 logger = logging.getLogger(__name__)
 
@@ -129,11 +129,12 @@ class UserView(TemplateView):
             # Save forms
             user_profile_form.instance.user = user_form.save()
             user_profile_form.save()
-            # Send activation link
-            if user_profile_form.cleaned_data.get("send_activation_link"):
-                send_activation_link(request, user_form.instance)
-            # Add the success message and redirect to the edit page
+            # Check if user was created
             if not user_instance:
+                # Send activation link or welcome mail
+                activation = user_profile_form.cleaned_data.get("send_activation_link")
+                send_welcome_mail(request, user_form.instance, activation)
+                # Add the success message and redirect to the edit page
                 messages.success(
                     request,
                     _('User "{}" was successfully created').format(

@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 from ...decorators import region_permission_required, permission_required
 from ...forms import RegionUserForm, RegionUserProfileForm
 from ...models import Region
-from ...utils.account_activation_utils import send_activation_link
+from ...utils.welcome_mail_utils import send_welcome_mail
 
 logger = logging.getLogger(__name__)
 
@@ -105,7 +105,7 @@ class RegionUserView(TemplateView):
             region_user_form.add_error_messages(request)
             user_profile_form.add_error_messages(request)
         elif not (
-            user_profile_form.cleaned_data["send_activation_link"]
+            user_profile_form.cleaned_data.get("send_activation_link")
             or region_user_form.cleaned_data["password"]
             or user_instance
         ):
@@ -114,7 +114,7 @@ class RegionUserView(TemplateView):
                 request,
                 _("Please choose either to send an activation link or set a password."),
             )
-        elif not region_user_form.has_changed() or not user_profile_form.has_changed():
+        elif not region_user_form.has_changed() and not user_profile_form.has_changed():
             # Add "no changes" messages
             messages.info(request, _("No changes made"))
         else:
@@ -122,11 +122,12 @@ class RegionUserView(TemplateView):
             user_profile_form.instance.user = region_user_form.save()
             user_profile_form.save()
             user_profile_form.instance.regions.add(region)
-            # Send activation link
-            if user_profile_form.cleaned_data["send_activation_link"]:
-                send_activation_link(request, region_user_form.instance)
-            # Add the success message and redirect to the edit page
+            # Check if user was created
             if not user_instance:
+                # Send activation link or welcome mail
+                activation = user_profile_form.cleaned_data.get("send_activation_link")
+                send_welcome_mail(request, region_user_form.instance, activation)
+                # Add the success message and redirect to the edit page
                 messages.success(
                     request,
                     _('User "{}" was successfully created').format(

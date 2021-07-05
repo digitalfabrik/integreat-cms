@@ -138,6 +138,7 @@ nitpick_ignore = [
     ("py:class", "realms.magic.unicorn"),
     ("py:class", "webauthn.WebAuthnUser"),
     ("js:func", "cms.static.js.pages.page_bulk_action.bulk_action_execute"),
+    ("py:class", "django.core.mail.EmailMultiAlternatives"),
 ]
 #: A list of prefixes that are ignored for sorting the Python module index
 modindex_common_prefix = ["cms"]
