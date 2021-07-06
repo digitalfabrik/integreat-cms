@@ -141,6 +141,7 @@ class POIView(TemplateView, POIContextMixin, MediaContextMixin):
             additional_instance_attributes={
                 "creator": request.user,
                 "language": language,
+                "poi": poi_form.instance,
             },
         )
 

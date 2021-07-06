@@ -157,6 +157,7 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
             additional_instance_attributes={
                 "creator": request.user,
                 "language": language,
+                "event": event_form.instance,
             },
         )
 
