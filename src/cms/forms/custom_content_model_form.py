@@ -60,7 +60,7 @@ class CustomContentModelForm(CustomModelForm):
                 logger.debug("Image alt text replaced: %r", media_file.alt_text)
                 image.attrib["alt"] = media_file.alt_text
 
-        return tostring(content, with_tail=False, pretty_print=True).decode("utf-8")
+        return tostring(content, with_tail=False).decode("utf-8")
 
     def add_success_message(self, request):
         """
