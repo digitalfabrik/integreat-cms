@@ -9,16 +9,20 @@
 {% endblock %}
 
 {% block dashboard_widget_content %}
-    {% for entry in feed.entries %}
-    <div class="pb-2 {% if not forloop.last %}border-b border-gray-400 mb-2{% endif %}">
-        <a href="{{ entry.link }}" target="_blank" rel="noopener noreferrer" class="block py-b font-bold text-blue-500 hover:text-blue-700">{{ entry.title }}</a>
-        <div class="text-gray-600 py-2">{{ entry.published_parsed|parse_struct_time }}</div>
-        <p class="pb-1">{{ entry.summary|striptags|truncatewords:35 }}</p>
-    </div>
-    {% endfor %}
-    <div class="my-3">
-        <a href="{{ blog_url }}" target="_blank" rel="noopener noreferrer" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded text-center">
-            <i data-feather="book-open" class="h-4"></i> {% trans "Continue reading" %}
-        </a>
-    </div>
+    {% if has_timed_out %}
+        {% trans 'There was a problem loading the news feed. You can try to reload the website.' %}
+    {% else %}
+        {% for entry in feed.entries %}
+        <div class="pb-2 {% if not forloop.last %}border-b border-gray-400 mb-2{% endif %}">
+            <a href="{{ entry.link }}" target="_blank" rel="noopener noreferrer" class="block py-b font-bold text-blue-500 hover:text-blue-700">{{ entry.title }}</a>
+            <div class="text-gray-600 py-2">{{ entry.published_parsed|parse_struct_time }}</div>
+            <p class="pb-1">{{ entry.summary|striptags|truncatewords:35 }}</p>
+        </div>
+        {% endfor %}
+        <div class="my-3">
+            <a href="{{ blog_url }}" target="_blank" rel="noopener noreferrer" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded text-center">
+                <i data-feather="book-open" class="h-4"></i> {% trans "Continue reading" %}
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}
