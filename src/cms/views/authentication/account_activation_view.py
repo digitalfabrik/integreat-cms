@@ -7,7 +7,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
-from ...utils.account_activation_utils import account_activation_token_generator
+from ...utils.account_activation_token_generator import (
+    account_activation_token_generator,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +24,7 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
     #: If the password was successfully reset, redirect to the login
     success_url = reverse_lazy("login")
     #: The generator for activation tokens
-    #: (use :class:`~cms.utils.account_activation_utils.AccountActivationTokenGenerator` instead of the default one to
+    #: (use :class:`~cms.utils.account_activation_token_generator.AccountActivationTokenGenerator` instead of the default one to
     #: make sure password reset tokens are not accepted for account activation and vice versa)
     token_generator = account_activation_token_generator
 

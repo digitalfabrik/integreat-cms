@@ -11,7 +11,7 @@ from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required, permission_required
 from ...models import Region
-from ...utils.account_activation_utils import send_activation_link
+from ...utils.welcome_mail_utils import send_welcome_mail
 
 logger = logging.getLogger(__name__)
 
@@ -84,5 +84,5 @@ def resend_activation_link_region(request, region_slug, user_id):
     """
     region = Region.get_current_region(request)
     user = get_object_or_404(region.users, id=user_id)
-    send_activation_link(request, user)
+    send_welcome_mail(request, user, activation=True)
     return redirect("region_users", region_slug=region.slug)
