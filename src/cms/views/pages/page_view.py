@@ -220,6 +220,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
             additional_instance_attributes={
                 "creator": request.user,
                 "language": language,
+                "page": page_form.instance,
             },
         )
 

@@ -154,6 +154,7 @@ window.addEventListener("load", () => {
       content_style: tinymceConfig.getAttribute("data-content-style"),
       language: tinymceConfig.getAttribute("data-language"),
       directionality: tinymceConfig.getAttribute("data-directionality") as 'ltr' | 'rtl',
+      element_format: 'html',
       setup: (editor: Editor) => {
         addIcon(editor, tinymceConfig, "pin");
         addIcon(editor, tinymceConfig, "www");

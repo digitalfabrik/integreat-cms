@@ -41,8 +41,8 @@ def generate_unique_slug_helper(form_object, foreign_model):
     if foreign_model in ["page", "event", "poi"]:
         kwargs.update(
             {
-                "region": form_object.region,
-                "language": form_object.language,
+                "region": form_object.instance.foreign_object.region,
+                "language": form_object.instance.language,
                 "fallback": "title",
             }
         )
