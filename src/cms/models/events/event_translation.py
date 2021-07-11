@@ -24,7 +24,7 @@ class EventTranslation(models.Model):
         verbose_name=_("event"),
     )
     slug = models.SlugField(
-        max_length=200,
+        max_length=1024,
         allow_unicode=True,
         verbose_name=_("URL parameter"),
         help_text=__(
@@ -40,7 +40,7 @@ class EventTranslation(models.Model):
         default=status.DRAFT,
         verbose_name=_("status"),
     )
-    title = models.CharField(max_length=250, verbose_name=_("title"))
+    title = models.CharField(max_length=1024, verbose_name=_("title"))
     description = models.TextField(blank=True, verbose_name=_("description"))
     language = models.ForeignKey(
         Language,

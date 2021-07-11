@@ -27,7 +27,7 @@ class PageTranslation(AbstractBasePageTranslation):
     """
 
     slug = models.SlugField(
-        max_length=200,
+        max_length=1024,
         allow_unicode=True,
         verbose_name=_("Page link"),
         help_text=__(
@@ -49,7 +49,7 @@ class PageTranslation(AbstractBasePageTranslation):
         verbose_name=_("language"),
     )
     title = models.CharField(
-        max_length=250,
+        max_length=1024,
         verbose_name=_("title of the page"),
     )
     text = models.TextField(

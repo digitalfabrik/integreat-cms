@@ -32,7 +32,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         verbose_name=_("language"),
     )
     title = models.CharField(
-        max_length=250,
+        max_length=1024,
         verbose_name=_("title of the imprint"),
     )
     text = models.TextField(
