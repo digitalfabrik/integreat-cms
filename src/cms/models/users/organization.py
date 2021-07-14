@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from ..media.media_file import MediaFile
+
 
 class Organization(models.Model):
     """
@@ -16,11 +18,14 @@ class Organization(models.Model):
         verbose_name=_("slug"),
         help_text=_("Unique string identifier without spaces and special characters."),
     )
-    icon = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to="organizations/%Y/%m/%d",
+
+    icon = models.ForeignKey(
+        MediaFile,
         verbose_name=_("logo"),
+        on_delete=models.SET_NULL,
+        related_name="icon_organizations",
+        blank=True,
+        null=True,
     )
 
     created_date = models.DateTimeField(

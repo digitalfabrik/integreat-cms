@@ -10,6 +10,8 @@ from django.views.generic import TemplateView
 from ...decorators import staff_required, permission_required
 from ...forms import OrganizationForm
 from ...models import Organization
+from ..media.media_context_mixin import MediaContextMixin
+
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +20,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(staff_required, name="dispatch")
 @method_decorator(permission_required("cms.view_organization"), name="dispatch")
 @method_decorator(permission_required("cms.change_organization"), name="post")
-class OrganizationView(TemplateView):
+class OrganizationView(TemplateView, MediaContextMixin):
     """
     View for the organization form
     """
@@ -50,7 +52,11 @@ class OrganizationView(TemplateView):
             form = OrganizationForm(instance=organization)
         else:
             form = OrganizationForm()
-        return render(request, self.template_name, {"form": form, **self.base_context})
+
+        context = self.get_context_data(**kwargs)
+        return render(
+            request, self.template_name, {**self.base_context, **context, "form": form}
+        )
 
     def post(self, request, organization_id=None):
         """
