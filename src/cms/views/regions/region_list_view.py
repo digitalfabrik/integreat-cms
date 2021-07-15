@@ -44,7 +44,7 @@ class RegionListView(TemplateView):
         """
         regions = Region.objects.all()
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(regions.order_by("created_date"), PER_PAGE)
+        paginator = Paginator(regions, PER_PAGE)
         chunk = request.GET.get("page")
         region_chunk = paginator.get_page(chunk)
         return render(

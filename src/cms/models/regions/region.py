@@ -408,3 +408,5 @@ class Region(models.Model):
         verbose_name_plural = _("regions")
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view")
+        #: The default sorting for this model
+        ordering = ["name"]
