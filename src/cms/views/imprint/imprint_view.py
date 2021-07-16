@@ -12,6 +12,7 @@ from backend.settings import IMPRINT_SLUG, WEBAPP_URL
 from ...decorators import region_permission_required, permission_required
 from ...forms import ImprintTranslationForm
 from ...models import ImprintPageTranslation, ImprintPage, Region
+from ...constants import status
 
 logger = logging.getLogger(__name__)
 
@@ -191,6 +192,11 @@ class ImprintView(TemplateView):
         if not imprint_translation_form.is_valid():
             # Add error messages
             imprint_translation_form.add_error_messages(request)
+        elif (
+            imprint_translation_form.instance.status == status.AUTO_SAVE
+            and not imprint_translation_form.has_changed()
+        ):
+            messages.info(request, _("No changes detected, autosave skipped"))
         else:
             # Create imprint instance if not exists
             imprint_translation_form.instance.page = (

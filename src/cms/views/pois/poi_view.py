@@ -15,7 +15,7 @@ from ...forms import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Region, Language
 from .poi_context_mixin import POIContextMixin
 from ..media.media_context_mixin import MediaContextMixin
-
+from ...constants import status
 
 logger = logging.getLogger(__name__)
 
@@ -149,6 +149,12 @@ class POIView(TemplateView, POIContextMixin, MediaContextMixin):
             # Add error messages
             poi_form.add_error_messages(request)
             poi_translation_form.add_error_messages(request)
+        elif (
+            poi_translation_form.instance.status == status.AUTO_SAVE
+            and not poi_form.has_changed()
+            and not poi_translation_form.has_changed()
+        ):
+            messages.info(request, _("No changes detected, autosave skipped"))
         else:
             # Save forms
             poi_translation_form.instance.poi = poi_form.save()
