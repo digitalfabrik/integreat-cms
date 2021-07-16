@@ -2,6 +2,7 @@ import logging
 
 from urllib.parse import urlparse
 
+from lxml.etree import LxmlError
 from lxml.html import fromstring, tostring
 
 from django.db.models import Q
@@ -31,7 +32,11 @@ class CustomContentModelForm(CustomModelForm):
         :return: The valid content
         :rtype: str
         """
-        content = fromstring(self.cleaned_data[field_name])
+        try:
+            content = fromstring(self.cleaned_data[field_name])
+        except LxmlError:
+            # The content is not guaranteed to be valid html, for example it may be empty
+            return self.cleaned_data[field_name]
 
         # Convert heading 1 to heading 2
         for heading in content.iter("h1"):
