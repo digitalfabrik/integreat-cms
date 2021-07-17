@@ -48,7 +48,7 @@ class Event(models.Model):
         MediaFile,
         verbose_name=_("icon"),
         on_delete=models.SET_NULL,
-        related_name="event_icon_of",
+        related_name="icon_events",
         blank=True,
         null=True,
     )
