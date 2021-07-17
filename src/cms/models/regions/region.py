@@ -142,7 +142,7 @@ class Region(models.Model):
         "cms.MediaFile",
         verbose_name=_("logo"),
         on_delete=models.SET_NULL,
-        related_name="icon_of",
+        related_name="icon_regions",
         blank=True,
         null=True,
     )

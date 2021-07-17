@@ -39,7 +39,7 @@ class POI(models.Model):
         MediaFile,
         verbose_name=_("icon"),
         on_delete=models.SET_NULL,
-        related_name="poi_icon_of",
+        related_name="icon_pois",
         blank=True,
         null=True,
     )

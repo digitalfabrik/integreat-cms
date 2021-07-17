@@ -11,8 +11,8 @@
 	</td>
 	<td class="pr-2">
         {% if organization.icon %}
-            <a href="{{ organization.icon.url }}" target="_blank" rel="noopener noreferrer" class="bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer">
-                {{ organization.icon.url }}
+            <a href="{% url 'edit_organization' organization_id=organization.id %}">
+                <img src="{{organization.icon.url}}" alt="{{organization.icon.url}}" style="max-height:48px">
             </a>
         {% else %}
             <i data-feather="x" class="text-red-500"></i>

@@ -36,7 +36,7 @@ class Page(MPTTModel, AbstractBasePage):
         MediaFile,
         verbose_name=_("icon"),
         on_delete=models.SET_NULL,
-        related_name="page_icon_of",
+        related_name="icon_pages",
         blank=True,
         null=True,
     )
