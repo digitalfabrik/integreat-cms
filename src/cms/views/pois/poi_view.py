@@ -169,8 +169,11 @@ class POIView(TemplateView, POIContextMixin, MediaContextMixin):
                         "language_slug": language.slug,
                     }
                 )
-            # Add the success message
-            poi_translation_form.add_success_message(request)
+            if not poi_form.has_changed() and not poi_translation_form.has_changed():
+                messages.info(request, _("No changes detected, but date refreshed"))
+            else:
+                # Add the success message
+                poi_translation_form.add_success_message(request)
 
         return render(
             request,

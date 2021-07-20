@@ -205,8 +205,15 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
                         "language_slug": language.slug,
                     },
                 )
-            # Add the success message
-            event_translation_form.add_success_message(request)
+            if (
+                not event_form.has_changed()
+                and not event_translation_form.has_changed()
+                and not recurrence_rule_form.has_changed()
+            ):
+                messages.info(request, _("No changes detected, but date refreshed"))
+            else:
+                # Add the success message
+                event_translation_form.add_success_message(request)
 
         return render(
             request,
