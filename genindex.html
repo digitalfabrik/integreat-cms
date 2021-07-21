@@ -472,6 +472,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#poi-filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#settings-tags">Settings Tags</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#tree-filters">Tree Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.templatetags.html#user-filters">User Filters</a></li>
@@ -644,6 +645,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.views.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.views.utils.html#search-content-ajax">Search Content Ajax</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.views.utils.html#slugify-ajax">Slugify Ajax</a></li>
 </ul>
 </li>
@@ -918,6 +920,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.settings_tags">Settings Tags</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.tree_filters">Tree Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.templatetags.html#module-cms.templatetags.user_filters">User Filters</a></li>
@@ -1090,6 +1093,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.views.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.utils.html#module-cms.views.utils.search_content_ajax">Search Content Ajax</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.views.utils.html#module-cms.views.utils.slugify_ajax">Slugify Ajax</a></li>
 </ul>
 </li>
@@ -4413,8 +4417,6 @@
         <li><a href="ref-ext/cms.models.media.html#module-cms.models.media.media_file">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cms.models.offers
 
@@ -4422,6 +4424,8 @@
         <li><a href="ref-ext/cms.models.offers.html#module-cms.models.offers">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cms.models.offers.offer_template
 
@@ -4644,6 +4648,13 @@
 
       <ul>
         <li><a href="ref-ext/cms.templatetags.html#module-cms.templatetags.push_notification_filters">module</a>
+</li>
+      </ul></li>
+      <li>
+    cms.templatetags.settings_tags
+
+      <ul>
+        <li><a href="ref-ext/cms.templatetags.html#module-cms.templatetags.settings_tags">module</a>
 </li>
       </ul></li>
       <li>
@@ -5526,6 +5537,13 @@
 
       <ul>
         <li><a href="ref-ext/cms.views.utils.html#module-cms.views.utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    cms.views.utils.search_content_ajax
+
+      <ul>
+        <li><a href="ref-ext/cms.views.utils.html#module-cms.views.utils.search_content_ajax">module</a>
 </li>
       </ul></li>
       <li>
@@ -6914,6 +6932,8 @@
 </li>
       <li><a href="ref-ext/cms.utils.html#cms.utils.filter_links.filter_links">filter_links() (in module cms.utils.filter_links)</a>
 </li>
+      <li><a href="ref-ext/cms.views.utils.html#cms.views.utils.search_content_ajax.find_objects">find_objects() (in module cms.views.utils.search_content_ajax)</a>
+</li>
       <li><a href="ref-ext/cms.constants.html#cms.constants.weeks.FIRST">FIRST (in module cms.constants.weeks)</a>
 </li>
       <li><a href="ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatHistoryManager.first">first() (cms.models.chat.chat_message.ChatHistoryManager method)</a>
@@ -6992,16 +7012,18 @@
       </ul></li>
       <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.format">format() (backend.logging_formatter.ColorFormatter method)</a>
 </li>
+      <li><a href="ref-ext/cms.views.utils.html#cms.views.utils.search_content_ajax.format_object_translation">format_object_translation() (in module cms.views.utils.search_content_ajax)</a>
+</li>
       <li><a href="ref-ext/cms.forms.html#cms.forms.icon_widget.IconWidget.format_value">format_value() (cms.forms.icon_widget.IconWidget method)</a>
 
       <ul>
         <li><a href="ref-ext/cms.forms.pages.html#cms.forms.pages.parent_field_widget.ParentFieldWidget.format_value">(cms.forms.pages.parent_field_widget.ParentFieldWidget method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.formatException">formatException() (backend.logging_formatter.ColorFormatter method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.formatException">formatException() (backend.logging_formatter.ColorFormatter method)</a>
+</li>
       <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.formatMessage">formatMessage() (backend.logging_formatter.ColorFormatter method)</a>
 </li>
       <li><a href="ref-ext/backend.html#backend.logging_formatter.ColorFormatter.formatStack">formatStack() (backend.logging_formatter.ColorFormatter method)</a>
@@ -7405,6 +7427,8 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/cms.views.push_notifications.html#cms.views.push_notifications.push_notification_sender.PushNotificationSender.get_auth_key">get_auth_key() (cms.views.push_notifications.push_notification_sender.PushNotificationSender static method)</a>
+</li>
+      <li><a href="ref-ext/cms.templatetags.html#cms.templatetags.settings_tags.get_base_url">get_base_url() (in module cms.templatetags.settings_tags)</a>
 </li>
       <li><a href="ref-ext/cms.models.push_notifications.html#cms.models.push_notifications.push_notification.PushNotification.get_channel_display">get_channel_display() (cms.models.push_notifications.push_notification.PushNotification method)</a>
 </li>
@@ -8451,6 +8475,8 @@
       <li><a href="ref-ext/cms.views.statistics.html#cms.views.statistics.statistics_actions.get_visits_per_language_ajax">get_visits_per_language_ajax() (in module cms.views.statistics.statistics_actions)</a>
 </li>
       <li><a href="ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoApiManager.get_visits_per_language_async">get_visits_per_language_async() (cms.utils.matomo_api_manager.MatomoApiManager method)</a>
+</li>
+      <li><a href="ref-ext/cms.templatetags.html#cms.templatetags.settings_tags.get_webapp_url">get_webapp_url() (in module cms.templatetags.settings_tags)</a>
 </li>
       <li><a href="ref-ext/cms.models.events.html#cms.models.events.recurrence_rule.RecurrenceRule.get_week_for_monthly_display">get_week_for_monthly_display() (cms.models.events.recurrence_rule.RecurrenceRule method)</a>
 </li>
@@ -10519,6 +10545,8 @@
 </li>
         <li><a href="ref-ext/cms.templatetags.html#module-cms.templatetags.push_notification_filters">cms.templatetags.push_notification_filters</a>
 </li>
+        <li><a href="ref-ext/cms.templatetags.html#module-cms.templatetags.settings_tags">cms.templatetags.settings_tags</a>
+</li>
         <li><a href="ref-ext/cms.templatetags.html#module-cms.templatetags.text_filters">cms.templatetags.text_filters</a>
 </li>
         <li><a href="ref-ext/cms.templatetags.html#module-cms.templatetags.tree_filters">cms.templatetags.tree_filters</a>
@@ -10770,6 +10798,8 @@
         <li><a href="ref-ext/cms.views.users.html#module-cms.views.users.user_view">cms.views.users.user_view</a>
 </li>
         <li><a href="ref-ext/cms.views.utils.html#module-cms.views.utils">cms.views.utils</a>
+</li>
+        <li><a href="ref-ext/cms.views.utils.html#module-cms.views.utils.search_content_ajax">cms.views.utils.search_content_ajax</a>
 </li>
         <li><a href="ref-ext/cms.views.utils.html#module-cms.views.utils.slugify_ajax">cms.views.utils.slugify_ajax</a>
 </li>
@@ -13111,6 +13141,8 @@
       <li><a href="ref-ext/cms.html#cms.page_xliff_converter.PageXliffHelper.save_page_translation">save_page_translation() (cms.page_xliff_converter.PageXliffHelper static method)</a>
 </li>
       <li><a href="ref-ext/gvz_api.html#gvz_api.utils.GvzApiWrapper.search">search() (gvz_api.utils.GvzApiWrapper method)</a>
+</li>
+      <li><a href="ref-ext/cms.views.utils.html#cms.views.utils.search_content_ajax.search_content_ajax">search_content_ajax() (in module cms.views.utils.search_content_ajax)</a>
 </li>
       <li><a href="ref-ext/cms.views.events.html#cms.views.events.event_actions.search_poi_ajax">search_poi_ajax() (in module cms.views.events.event_actions)</a>
 </li>

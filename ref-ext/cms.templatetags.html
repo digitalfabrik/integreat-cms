@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-05-16T11:40:30+00:00" />
+    <meta property="article:modified_time" content="2021-07-04T19:02:23+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Templatetags &mdash; integreat-cms 0.0.14 documentation</title>
@@ -475,6 +475,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#poi-filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#settings-tags">Settings Tags</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#tree-filters">Tree Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#user-filters">User Filters</a></li>
@@ -647,6 +648,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.utils.html#search-content-ajax">Search Content Ajax</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.utils.html#slugify-ajax">Slugify Ajax</a></li>
 </ul>
 </li>
@@ -921,6 +923,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.settings_tags">Settings Tags</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.tree_filters">Tree Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.user_filters">User Filters</a></li>
@@ -1093,6 +1096,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.utils.html#module-cms.views.utils.search_content_ajax">Search Content Ajax</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.utils.html#module-cms.views.utils.slugify_ajax">Slugify Ajax</a></li>
 </ul>
 </li>
@@ -1532,6 +1536,38 @@ objects.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-cms.templatetags.settings_tags">
+<span id="settings-tags"></span><h2>Settings Tags<a class="headerlink" href="#module-cms.templatetags.settings_tags" title="Permalink to this headline">¶</a></h2>
+<p>This contains tags for accessing settings</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="cms.templatetags.settings_tags.get_base_url">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.settings_tags.</span></span><span class="sig-name descname"><span class="pre">get_base_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/settings_tags.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.settings_tags.get_base_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tag returns the <code class="docutils literal notranslate"><span class="pre">BASE_URL</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The base url of the current web application</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cms.templatetags.settings_tags.get_webapp_url">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.settings_tags.</span></span><span class="sig-name descname"><span class="pre">get_webapp_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/settings_tags.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.settings_tags.get_webapp_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tag returns the <code class="docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The url of the current web application</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cms.templatetags.text_filters">
 <span id="text-filters"></span><h2>Text Filters<a class="headerlink" href="#module-cms.templatetags.text_filters" title="Permalink to this headline">¶</a></h2>
 <p>This is a collection of tags and filters for strings.</p>
@@ -1655,7 +1691,7 @@ this filter reduced the output when display in list view</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on May 16, 2021.
+        Last updated on Jul 04, 2021.
       </span>
 
     </p>
