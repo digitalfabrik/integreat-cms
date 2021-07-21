@@ -310,6 +310,6 @@ class EventTranslation(models.Model):
         #: The plural verbose name of the model
         verbose_name_plural = _("event translations")
         #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["event", "-version"]
+        ordering = ["event__pk", "-version"]
         #: The default permissions for this model
         default_permissions = ()

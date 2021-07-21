@@ -311,6 +311,6 @@ class POITranslation(models.Model):
         #: The plural verbose name of the model
         verbose_name_plural = _("location translations")
         #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["poi", "-version"]
+        ordering = ["poi__pk", "-version"]
         #: The default permissions for this model
         default_permissions = ()
