@@ -20,17 +20,19 @@ class MediaFile(models.Model):
     file = models.FileField(
         upload_to="%Y/%m/%d",
         verbose_name=_("file"),
+        max_length=512,
     )
     thumbnail = models.FileField(
         upload_to="%Y/%m/%d/thumbnails",
         verbose_name=_("thumbnail file"),
+        max_length=512,
     )
     type = models.CharField(
         choices=allowed_media.CHOICES,
-        max_length=255,
+        max_length=64,
         verbose_name=_("file type"),
     )
-    name = models.CharField(max_length=255, verbose_name=_("name"))
+    name = models.CharField(max_length=512, verbose_name=_("name"))
     parent_directory = models.ForeignKey(
         Directory,
         related_name="files",
@@ -48,7 +50,7 @@ class MediaFile(models.Model):
         verbose_name=_("region"),
     )
     alt_text = models.CharField(
-        max_length=255, blank=True, verbose_name=_("description")
+        max_length=512, blank=True, verbose_name=_("description")
     )
     uploaded_date = models.DateTimeField(
         auto_now_add=True,
