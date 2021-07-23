@@ -9,10 +9,3 @@ declare module "htmldiff-js" {
   };
   export default InputMask;
 }
-
-declare module "tablesort" {
-  class TableSort {
-    constructor(node: HTMLElement);
-  }
-  export default TableSort;
-}

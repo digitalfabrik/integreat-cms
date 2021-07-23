@@ -15,7 +15,6 @@ import "./js/copy-clipboard.ts";
 import "./js/bulk-actions.ts";
 import "./js/confirmation-popups.ts";
 import "./js/revisions.ts";
-import "./js/tablesort.ts";
 
 import "./js/forms/slug-error.ts";
 import "./js/forms/update-permalink.ts";
