@@ -191,7 +191,9 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
             if event_form.cleaned_data.get("is_recurring"):
                 # If event is recurring, save recurrence rule
                 event_form.instance.recurrence_rule = recurrence_rule_form.save()
-            elif event_form.fields["is_recurring"].has_changed():
+            elif event_instance and event_form.fields["is_recurring"].has_changed(
+                event_instance.is_recurring, event_form.cleaned_data.get("is_recurring")
+            ):
                 # If the event is not recurring but it was before, delete the associated recurrence rule
                 event_form.instance.recurrence_rule.delete()
             event_translation_form.instance.event = event_form.save()
