@@ -263,7 +263,7 @@
                 <i data-feather="grid"></i>
                 {% trans 'Admin Dashboard' %}
             </a>
-            {% if perms.cms.view_regions %}
+            {% if perms.cms.view_region %}
                 <a href="{% url 'regions' %}" class="{% if current_menu_item == 'regions' %} active {% endif %}">
                     <i data-feather="map"></i>
                     {% trans 'Regions' %}
@@ -275,7 +275,7 @@
                 {% trans 'Media Library' %}
             </a>
             {% endif %}
-            {% if perms.cms.view_languages %}
+            {% if perms.cms.view_language %}
                 <a href="{% url 'languages' %}" class="{% if current_menu_item == 'languages' %} active {% endif %}">
                     <i data-feather="flag"></i>
                     {% trans 'Languages' %}
@@ -307,13 +307,13 @@
                     {% trans 'Roles' %}
                 </a>
             {% endif %}
-            {% if perms.cms.view_organizations %}
+            {% if perms.cms.view_organization %}
                 <a href="{% url 'organizations' %}" class="{% if current_menu_item == 'organizations' %} active {% endif %}">
                     <i data-feather="umbrella"></i>
                     {% trans 'Organizations' %}
                 </a>
             {% endif %}
-            {% if perms.cms.view_offer_templates %}
+            {% if perms.cms.view_offer_template %}
                 <a href="{% url 'offer_templates' %}" class="{% if current_menu_item == 'offer_templates' %} active {% endif %}">
                     <i data-feather="star"></i>
                     {% trans 'Offer Templates' %}
