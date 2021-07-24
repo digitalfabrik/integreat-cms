@@ -54,6 +54,7 @@ export type MediaLibraryEntry = Directory | File;
 interface Props {
   apiEndpoints: MediaApiPaths;
   mediaTranslations: any;
+  onlyImage?: boolean;
   globalEdit?: boolean;
   expertMode?: boolean;
   allowedMediaTypes?: string;

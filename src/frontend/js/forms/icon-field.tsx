@@ -29,7 +29,7 @@ window.addEventListener("load", () => {
    *
    * @param string - path of the selected icon
    */
-  function updateIconDisplay( file : any) {
+  function updateIconDisplay(file: any) {
     // Fill in uploaded file path
     document
       .querySelector("#icon_preview img")
@@ -78,17 +78,18 @@ window.addEventListener("load", () => {
     render(
       <SelectMedia
         {...mediaConfigData}
+        onlyImage={true}
         cancel={() => el.remove()}
         selectMedia={(file) => {
           console.log("File selected as icon:");
           console.log(file);
           (iconField as HTMLInputElement).value = file.id.toString();
-          el.remove()
+          el.remove();
           updateIconDisplay(file);
+          setIcon();
         }}
       />,
       el
     );
-    setIcon();
   }
 });

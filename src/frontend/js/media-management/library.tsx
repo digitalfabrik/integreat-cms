@@ -26,6 +26,7 @@ interface Props {
   expertMode?: boolean;
   allowedMediaTypes?: string;
   selectionMode?: boolean;
+  onlyImage?: boolean;
   selectMedia?: (file: File) => any;
 }
 
@@ -40,6 +41,7 @@ export default function Library({
   expertMode,
   allowedMediaTypes,
   selectionMode,
+  onlyImage,
   selectMedia,
 }: Props) {
   // The directory path contains the current directory and all its parents
@@ -47,7 +49,9 @@ export default function Library({
   // The current directory is the last element of the directory path
   const directory = directoryPath[directoryPath.length - 1];
   // The directory content contains all subdirectories and files of the current directory
-  const [directoryContent, setDirectoryContent] = useState<MediaLibraryEntry[]>([]);
+  const [directoryContent, setDirectoryContent] = useState<MediaLibraryEntry[]>(
+    []
+  );
   // The file index contains the index of the file which is currently opened in the sidebar
   const [fileIndex, setFileIndex] = useState<number | null>(null);
   // This state is a semaphore to block actions while an ajax call is running
@@ -62,7 +66,10 @@ export default function Library({
   const [isUploadFile, setUploadFile] = useState<boolean>(false);
 
   // This submit function is used for all form submissions
-  const submitForm = async (event: Event, successCallback?: (data: any) => void) => {
+  const submitForm = async (
+    event: Event,
+    successCallback?: (data: any) => void
+  ) => {
     event.preventDefault();
     setLoading(true);
     console.log("Submitting form:");
@@ -114,7 +121,9 @@ export default function Library({
     successCallback: (data: any) => void
   ) => {
     try {
-      const response = await fetch(`${url}${directoryId && "?directory="}${directoryId}`);
+      const response = await fetch(
+        `${url}${directoryId && "?directory="}${directoryId}`
+      );
       if (response.status === 200) {
         successCallback((await response.json()).data);
       } else {
@@ -143,13 +152,21 @@ export default function Library({
     }
     // Load the new directory path
     if (directoryId) {
-      getDirectoryInfo(apiEndpoints.getDirectoryPath, directoryId, setDirectoryPath);
+      getDirectoryInfo(
+        apiEndpoints.getDirectoryPath,
+        directoryId,
+        setDirectoryPath
+      );
     } else {
       // The root directory is no real directory object, so the path is empty
       setDirectoryPath([]);
     }
     // Load the new directory content
-    getDirectoryInfo(apiEndpoints.getDirectoryContent, directoryId, setDirectoryContent);
+    getDirectoryInfo(
+      apiEndpoints.getDirectoryContent,
+      directoryId,
+      setDirectoryContent
+    );
     // Close the file sidebar
     setFileIndex(null);
   }, [directoryId, refresh]);
@@ -179,7 +196,9 @@ export default function Library({
 
   return (
     <div className={`flex flex-col flex-grow`}>
-      <h1 className="w-full heading p-2">{mediaTranslations.heading_media_library}</h1>
+      <h1 className="w-full heading p-2">
+        {mediaTranslations.heading_media_library}
+      </h1>
       <div className="flex flex-wrap justify-between gap-x-2 gap-y-4">
         <form class="table-search relative">
           <Search class="absolute m-2" />
@@ -237,7 +256,10 @@ export default function Library({
           onClick={() => setFileIndex(null)}
         >
           <div class="rounded w-full bg-blue-500 text-white font-bold">
-            <Breadcrumbs breadCrumbs={directoryPath} mediaTranslations={mediaTranslations} />
+            <Breadcrumbs
+              breadCrumbs={directoryPath}
+              mediaTranslations={mediaTranslations}
+            />
           </div>
           <div class="p-4">
             <DirectoryContent
@@ -259,6 +281,7 @@ export default function Library({
             submitForm={submitForm}
             selectionMode={selectionMode}
             selectMedia={selectMedia}
+            onlyImage={onlyImage}
             globalEdit={globalEdit}
             expertMode={expertMode}
             isLoading={isLoading}

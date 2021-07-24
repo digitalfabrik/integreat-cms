@@ -8,6 +8,7 @@ import MediaManagement, { File, MediaApiPaths } from ".";
 
 interface Props {
   cancel: () => any;
+  onlyImage: boolean;
   selectMedia: (file: File) => any;
   apiEndpoints: MediaApiPaths;
   mediaTranslations: any;
@@ -15,6 +16,7 @@ interface Props {
 
 export default function SelectMedia({
   cancel,
+  onlyImage,
   selectMedia,
   apiEndpoints,
   mediaTranslations,
@@ -28,6 +30,7 @@ export default function SelectMedia({
         <div class="flex w-full h-full content bg-gray-200 p-4 shadow-md rounded overflow-auto">
           <MediaManagement
             selectionMode
+            onlyImage={onlyImage}
             selectMedia={selectMedia}
             apiEndpoints={apiEndpoints}
             mediaTranslations={mediaTranslations}
