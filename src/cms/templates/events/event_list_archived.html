@@ -25,10 +25,10 @@
         {% include 'events/_event_filter_form.html' %}
     </div>
     <div class="table-listing">
-        <table id="event-list" data-enable-table-sort class="sort w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <table id="event-list" class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
             <tr class="border-b border-solid border-gray-200">
-                <th class="text-sm text-left uppercase py-3 px-2 min" data-sort-default>{% trans 'ID' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'ID' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'Version' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Status' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
@@ -37,7 +37,7 @@
                 {% if backend_language and backend_language != language %}
                     <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
                 {% endif %}
-                <th class="text-sm text-left uppercase py-3 px-2 no-sort" data-sort-method="none">
+                <th class="text-sm text-left uppercase py-3 px-2">
                     <div class="lang-grid flags whitespace-nowrap">
                         {% for lang in languages %}
                             <a href="{% url 'events' region_slug=region.slug language_slug=lang.slug %}">
@@ -49,7 +49,7 @@
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Event location' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Start' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2">{% trans 'End' %}</th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min no-sort" data-sort-method="none">{% trans 'Options' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% trans 'Options' %}</th>
             </tr>
             </thead>
             <tbody>
