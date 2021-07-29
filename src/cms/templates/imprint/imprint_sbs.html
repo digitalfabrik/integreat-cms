@@ -140,9 +140,9 @@
 </form>
 
 {% if not perms.cms.change_imprintpage or imprint_translation_form.instance.id and imprint_translation_form.instance.page.archived %}
-    {% include '../_tinymce_config.html' with readonly=1 %}
+    {% include '../_tinymce_config.html' with readonly=1 language=target_language %}
 {% else %}
-    {% include '../_tinymce_config.html' %}
+    {% include '../_tinymce_config.html' with language=target_language %}
 {% endif %}
 
 {% endblock %}
