@@ -6,11 +6,13 @@ export async function autosaveEditor() {
   tinymce.triggerSave();
   let formData = new FormData(form);
   formData.append("submit_auto", "true");
-  const data = await fetch(window.location.href, {
+  const data = await fetch(form.action, {
     method: "POST",
     headers: {
       "X-CSRFToken": getCsrfToken(),
     },
     body: formData
   });
+  // Set the form action to the url of the server response to make sure new pages aren't created multiple times
+  form.action = data.url;
 }
