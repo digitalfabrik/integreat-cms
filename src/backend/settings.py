@@ -636,7 +636,7 @@ USE_TZ = True
 # STATIC FILES #
 ################
 
-if "DJANGO_STATIC_PARENT" in os.environ:
+if "DJANGO_STATIC_ROOT" in os.environ:
     STATIC_ROOT = os.environ["DJANGO_STATIC_ROOT"]
 else:
     #: The absolute path to the directory where :mod:`django.contrib.staticfiles` will collect static files for
