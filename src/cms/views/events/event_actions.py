@@ -182,12 +182,16 @@ def delete(request, event_id, region_slug, language_slug):
 @login_required
 @region_permission_required
 @permission_required("cms.view_event")
-def search_poi_ajax(request):
+# pylint: disable=unused-argument
+def search_poi_ajax(request, region_slug):
     """
     AJAX endpoint for searching POIs
 
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
+
+    :param region_slug: The current regions slug
+    :type region_slug: str
 
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse

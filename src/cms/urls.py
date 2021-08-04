@@ -473,7 +473,11 @@ urlpatterns = [
                     pages.get_page_order_table_ajax,
                     name="get_page_order_table_ajax",
                 ),
-                url(r"^search_poi$", events.search_poi_ajax, name="search_poi_ajax"),
+                url(
+                    r"^(?P<region_slug>[-\w]+)/search_poi$",
+                    events.search_poi_ajax,
+                    name="search_poi_ajax",
+                ),
                 url(
                     r"^(?P<region_slug>[-\w]+)/(?P<language_slug>[-\w]+)/search_content$",
                     utils.search_content_ajax,
