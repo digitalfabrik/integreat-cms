@@ -128,7 +128,7 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
         """
         region = Region.get_current_region(request)
         language = Language.objects.get(slug=kwargs.get("language_slug"))
-        poi = POI.objects.filter(id=request.POST.get("poi_id")).first()
+        poi = POI.objects.filter(id=request.POST.get("location")).first()
 
         event_instance = Event.objects.filter(id=kwargs.get("event_id")).first()
         recurrence_rule_instance = RecurrenceRule.objects.filter(

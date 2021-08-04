@@ -105,7 +105,7 @@ function renderPoiData(
   document
     .getElementById("poi-query-input")
     .setAttribute("placeholder", queryPlaceholder);
-  document.getElementById("poi-id").setAttribute("value", id);
+  document.getElementById("id_location").setAttribute("value", id);
   document.getElementById("poi-address").setAttribute("value", address);
   document.getElementById("poi-city").setAttribute("value", city);
   document.getElementById("poi-country").setAttribute("value", country);
