@@ -30,9 +30,9 @@ def slugify_ajax(request, region_slug, language_slug, model_type):
     :raises ~django.core.exceptions.PermissionDenied: If the user does not have the permission to access this function
     """
     required_permission = {
-        "event": "cms.edit_events",
-        "page": "cms.edit_pages",
-        "poi": "cms.manage_pois",
+        "event": "cms.change_event",
+        "page": "cms.change_page",
+        "poi": "cms.change_poi",
     }[model_type]
     if not request.user.has_perms((required_permission,)):
         raise PermissionDenied
