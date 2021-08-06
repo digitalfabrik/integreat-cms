@@ -78,16 +78,13 @@ window.addEventListener("load", () => {
   }
 
   // event handler to show location selection
-  const locationCheckbox = document.getElementById(
-    "id_has_not_location"
-  );
-  if (locationCheckbox) {
-    locationCheckbox.addEventListener("click", () => {
+  document
+    .getElementById("id_has_not_location")
+    ?.addEventListener("click", () => {
       document
         .getElementById("location-block")
         .classList.toggle("hidden");
-      let locationInput = document.getElementById("id_location") as HTMLInputElement;
+      const locationInput = document.getElementById("id_location") as HTMLInputElement;
       locationInput.disabled = !locationInput.disabled;
     });
-  }
 });
