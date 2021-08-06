@@ -172,7 +172,9 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
             # Add error messages
             event_form.add_error_messages(request)
             event_translation_form.add_error_messages(request)
-            recurrence_rule_form.add_error_messages(request)
+            # do not call recurrence rule form clean method when recurrence rule is not set
+            if event_form.cleaned_data["is_recurring"]:
+                recurrence_rule_form.add_error_messages(request)
         elif (
             event_translation_form.instance.status == status.AUTO_SAVE
             and not event_form.has_changed()

@@ -58,6 +58,13 @@ class EventForm(CustomModelForm):
             "end_time": forms.TimeInput(format="%H:%M", attrs={"type": "time"}),
             "icon": IconWidget(),
         }
+        error_messages = {
+            "location": {
+                "invalid_choice": _(
+                    "Either disable the event location or provide a valid location"
+                ),
+            },
+        }
 
     def __init__(self, **kwargs):
         """
@@ -143,17 +150,6 @@ class EventForm(CustomModelForm):
                                 code="invalid",
                             ),
                         )
-        if not cleaned_data.get("has_not_location") and not cleaned_data.get(
-            "location"
-        ):
-            # if event supplies physical location
-            self.add_error(
-                "has_not_location",
-                forms.ValidationError(
-                    _("Either disable the event location or provide a valid location"),
-                    code="invalid",
-                ),
-            )
 
         logger.debug("EventForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data
