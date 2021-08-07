@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-07-17T08:01:19+00:00" />
+    <meta property="article:modified_time" content="2021-08-06T09:36:42+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Events &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1451,10 +1451,11 @@ The opposite of the hidden_fields() method.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">location</span></code>: Location (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">is_all_day</span></code>: All-day (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">is_recurring</span></code>: Recurring (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">has_not_location</span></code>: Event does not have a physical location (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.forms.events.event_form.EventForm.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/events/event_form.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.events.event_form.EventForm.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/events/event_form.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.events.event_form.EventForm.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize event form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1531,7 +1532,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.forms.events.event_form.EventForm.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/events/event_form.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.events.event_form.EventForm.clean" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/events/event_form.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.forms.events.event_form.EventForm.clean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -2274,7 +2275,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Jul 17, 2021.
+        Last updated on Aug 06, 2021.
       </span>
 
     </p>
