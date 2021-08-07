@@ -128,7 +128,7 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
         """
         region = Region.get_current_region(request)
         language = Language.objects.get(slug=kwargs.get("language_slug"))
-        poi = POI.objects.filter(id=request.POST.get("poi_id")).first()
+        poi = POI.objects.filter(id=request.POST.get("location")).first()
 
         event_instance = Event.objects.filter(id=kwargs.get("event_id")).first()
         recurrence_rule_instance = RecurrenceRule.objects.filter(
@@ -172,7 +172,9 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
             # Add error messages
             event_form.add_error_messages(request)
             event_translation_form.add_error_messages(request)
-            recurrence_rule_form.add_error_messages(request)
+            # do not call recurrence rule form clean method when recurrence rule is not set
+            if event_form.cleaned_data["is_recurring"]:
+                recurrence_rule_form.add_error_messages(request)
         elif (
             event_translation_form.instance.status == status.AUTO_SAVE
             and not event_form.has_changed()

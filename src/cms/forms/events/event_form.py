@@ -25,6 +25,13 @@ class EventForm(CustomModelForm):
         label=_("Recurring"),
         help_text=_("Determines whether the event is repeated at regular intervals."),
     )
+    # Whether or not the event has a physical location
+    has_not_location = forms.BooleanField(
+        required=False,
+        label=_("Event does not have a physical location"),
+        label_suffix="",
+        help_text=_("Determines whether the event is assigned to a physical location."),
+    )
 
     class Meta:
         """
@@ -51,6 +58,13 @@ class EventForm(CustomModelForm):
             "end_time": forms.TimeInput(format="%H:%M", attrs={"type": "time"}),
             "icon": IconWidget(),
         }
+        error_messages = {
+            "location": {
+                "invalid_choice": _(
+                    "Either disable the event location or provide a valid location"
+                ),
+            },
+        }
 
     def __init__(self, **kwargs):
         """
@@ -67,6 +81,7 @@ class EventForm(CustomModelForm):
             # Initialize BooleanFields based on Event properties
             self.fields["is_all_day"].initial = self.instance.is_all_day
             self.fields["is_recurring"].initial = self.instance.is_recurring
+            self.fields["has_not_location"].initial = not self.instance.has_location
 
     def clean(self):
         """

@@ -32,6 +32,7 @@ import "./js/chat/delete-chat-message.ts";
 
 import "./js/events/event-query-pois.ts";
 import "./js/events/conditional-fields.ts";
+import "./js/events/auto-complete.ts";
 
 import "./js/pages/collapse-subpages.ts";
 import "./js/pages/page-mirroring.ts";
