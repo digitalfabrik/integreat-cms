@@ -170,6 +170,25 @@ class Page(MPTTModel, AbstractBasePage):
             super().get_siblings(include_self=include_self).filter(region=self.region)
         )
 
+    def get_descendants_max_depth(self, include_self, max_depth):
+        """
+        Return all descendants with depth less or euqual to max depth relative to this nodes depth
+
+        :param include_self: Whether to include this node in the result
+        :type include_self: bool
+
+        :param max_depth: The nodes maximum depth in the tree
+        :type max_depth: int
+
+        :return: All descendants of this node with relative max depth
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        """
+        return (
+            super()
+            .get_descendants(include_self=include_self)
+            .filter(level__lte=self.get_level() + max_depth)
+        )
+
     def get_mirrored_page_translation(self, language_slug):
         """
         Mirrored content always includes the live content from another page. This content needs to be added when
