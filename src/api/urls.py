@@ -20,22 +20,22 @@ from .v3.feedback import (
 from .v3.imprint import imprint
 from .v3.languages import languages
 from .v3.locations import locations
-from .v3.pages import pages
+from .v3.pages import pages, children, single_page
 from .v3.pdf_export import pdf_export
 from .v3.push_notifications import sent_push_notifications
 from .v3.regions import regions, liveregions, hiddenregions, pushnew
 from .v3.offers import offers
-from .v3.single_page import single_page
 
 content_api_urlpatterns = [
     url(r"^pages/?$", pages, name="api_pages"),
     url(r"^locations/?$", locations, name="api_locations"),
     url(r"^events/?$", events, name="api_events"),
     url(
-        r"^page/?$",
+        r"^(?:page|post)/?$",
         single_page,
         name="api_single_page",
     ),
+    url(r"^children/?$", children, name="api_children"),
     url(
         r"^pdf/?$",
         pdf_export,
@@ -115,7 +115,6 @@ content_api_urlpatterns = [
         ),
     ),
 ]
-
 
 region_api_urlpatterns = [
     url(r"^$", regions, name="api_regions"),

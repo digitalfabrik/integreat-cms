@@ -1,7 +1,8 @@
 """
 pages API endpoint
 """
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
+from django.shortcuts import get_object_or_404
 
 from backend.settings import BASE_URL
 from cms.models import Region
@@ -76,3 +77,96 @@ def pages(request, region_slug, language_slug):
     return JsonResponse(
         result, safe=False
     )  # Turn off Safe-Mode to allow serializing arrays
+
+
+def get_single_page(request, language_slug):
+    """
+    Helper function returning the desired page or a 404 if the
+    requested page does not exist.
+
+    :param request: The request that has been sent to the Django server
+    :type request: ~django.http.HttpRequest
+
+    :param language_slug: Code to identify the desired language
+    :type language_slug: str
+
+    :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
+
+    :raises RuntimeError: If neither the id nor the url parameter is given
+
+    :return: Return the requested page
+    :rtype: ~cms.models.pages.page.Page
+    """
+    region = Region.get_current_region(request)
+
+    if request.GET.get("id"):
+        page = get_object_or_404(region.pages, id=request.GET.get("id"))
+
+    elif request.GET.get("url"):
+        # Strip leading and trailing slashes to avoid ambiguous urls
+        url = request.GET.get("url").strip("/")
+        # The last path component of the url is the page translation slug
+        page_translation_slug = url.split("/")[-1]
+        # Get page by filtering for translation slug and translation language slug
+        page = get_object_or_404(
+            region.pages,
+            translations__slug=page_translation_slug,
+            translations__language__slug=language_slug,
+        )
+
+    else:
+        raise RuntimeError("Either the id or the url parameter is required.")
+
+    return page
+
+
+@json_response
+# pylint: disable=unused-argument
+def single_page(request, region_slug, language_slug):
+    """
+    View function returning the desired page as a JSON or a 404 if the
+    requested page does not exist.
+
+    :param request: The request that has been sent to the Django server
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: Slug defining the region
+    :type region_slug: str
+
+    :param language_slug: Code to identify the desired language
+    :type language_slug: str
+
+    :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
+
+    :return: Return a JSON with the requested page and a HTTP status 200.
+    :rtype: ~django.http.JsonResponse
+    """
+    try:
+        page = get_single_page(request, language_slug)
+    except RuntimeError as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    # Get most recent public revision of the page
+    page_translation = page.get_public_translation(language_slug)
+    if page_translation:
+        return JsonResponse(transform_page(page_translation), safe=False)
+
+    raise Http404("No Page matches the given url or id.")
+
+
+@json_response
+# pylint: disable=unused-argument
+def children(request, region_slug, language_slug):
+    """
+    Retrieves all children for a single page
+    """
+    try:
+        page = get_single_page(request, language_slug)
+    except RuntimeError as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    descendants = page.get_descendants_max_depth(True, int(request.GET.get("depth", 1)))
+    result = []
+    for descendant in descendants:
+        public_translation = descendant.get_public_translation(language_slug)
+        if public_translation:
+            result.append(transform_page(public_translation))
+    return JsonResponse(result, safe=False)
