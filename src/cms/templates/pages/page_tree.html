@@ -115,7 +115,7 @@
                 id="pdf-export-option"
                 data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_slug=language.slug %}"
                 data-target="_blank" data-language-slug="{{ language.slug }}">
-                {% trans 'Export as PDF' %}
+                {% trans 'Export published pages as PDF' %}
             </option>
             <option
                 {% if request.user.expert_mode and language != region.default_language %}
