@@ -35,7 +35,9 @@ import { getCsrfToken } from "../../utils/csrf-token";
     }
 
     function updateLink(editor, anchorElm, text, linkAttrs) {
-        anchorElm.textContent = text;
+        if (text !== null) {
+            anchorElm.textContent = text;
+        }
 
         editor.dom.setAttribs(anchorElm, linkAttrs);
         editor.selection.select(anchorElm);
@@ -47,14 +49,22 @@ import { getCsrfToken } from "../../utils/csrf-token";
             return node.nodeName.toLowerCase() === 'a' && node.href;
         }
         function getAnchor() {
-            var node = editor.selection.getNode();
-            return isAnchor(node) ? node : null;
+            let node = editor.selection.getNode();
+            while (node !== null) {
+                if (isAnchor(node)) {
+                    return node;
+                }
+                node = node.parentNode;
+            }
+            return null;
         };
 
         const openDialog = function () {
-            const initial_text = getAnchor() ? getAnchor().innerText : editor.selection.getContent({ format: "text" });
-            const initial_url = editor.selection.getStart().getAttribute("href") || "";
+            const anchor = getAnchor();
+            const initial_text = anchor ? anchor.textContent : editor.selection.getContent({ format: "text" });
+            const initial_url = anchor ? anchor.getAttribute("href") : "";
 
+            const text_disabled = anchor ? anchor.children.length > 0 : false;
             let prev_search_text = "";
             let prev_link_url = initial_url;
             let prev_selected_completion = "";
@@ -92,19 +102,19 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         url_changed_by_search = true;
                         api.setData({ url: data.completions });
                         // if the text is not defined by the user, set it to the current completion item
-                        if (!data.text || user_data.text != data.text) {
+                        if (!data.text || user_data.text != data.text && !text_disabled) {
                             api.setData({ text: current_completion_text });
                         }
                     } else {
                         // restore the original user data
-                        api.setData({ url: user_data.url, text: user_data.text });
+                        api.setData({ url: user_data.url, text: text_disabled ? "" : user_data.text });
                     }
                 }
                 prev_selected_completion = data.completions;
 
                 // Automatically update the text input to the url by default
                 data = api.getData();
-                if (!url_changed_by_search && data.url != data.text && prev_link_url != data.url && (data.text != user_data.text || !data.text)) {
+                if (!text_disabled && !url_changed_by_search && data.url != data.text && prev_link_url != data.url && (data.text != user_data.text || !data.text)) {
                     api.setData({ text: data.url });
                 }
                 prev_link_url = data.url;
@@ -113,13 +123,13 @@ import { getCsrfToken } from "../../utils/csrf-token";
                 if (data.url != data.completions) {
                     user_data.url = data.url;
                 }
-                if (data.text != data.url && data.text != current_completion_text) {
+                if (!text_disabled && data.text != data.url && data.text != current_completion_text) {
                     user_data.text = data.text;
                 }
 
                 // Disable the submit button if either of url and text are empty
                 data = api.getData();
-                if (data.url.trim() && data.text.trim()) {
+                if (data.url.trim() && (text_disabled || data.text.trim())) {
                     api.enable("submit");
                 } else {
                     api.disable("submit");
@@ -184,7 +194,8 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         {
                             type: "input",
                             name: "text",
-                            label: tinymceConfig.getAttribute("data-link-dialog-text-text")
+                            label: tinymceConfig.getAttribute("data-link-dialog-text-text"),
+                            disabled: text_disabled
                         },
                         {
                             type: "label",
@@ -224,7 +235,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
                 onSubmit: function (api) {
                     const data = api.getData();
                     let url = data.url;
-                    const text = data.text || url;
+                    const text = text_disabled ? null : data.text || url;
 
                     if (data.url.trim() == "") {
                         return;
@@ -281,9 +292,11 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     },
                     onAction: (formApi) => {
                         const url = formApi.getValue();
-                        const real_url = checkUrlHttps(url);
-                        const anchor = getAnchor();
-                        updateLink(editor, anchor, anchor.innerText, { 'href': real_url });
+                        if (url) {
+                            const real_url = checkUrlHttps(url);
+                            const anchor = getAnchor();
+                            updateLink(editor, anchor, null, { 'href': real_url });
+                        }
                         formApi.hide();
                     }
                 },
@@ -295,7 +308,8 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     onAction: (formApi) => {
                         let elm = getAnchor();
                         if (!!elm) {
-                            elm.replaceWith(elm.innerHTML)
+                            elm.insertAdjacentHTML('beforebegin', elm.innerHTML);
+                            elm.remove();
                         }
                         formApi.hide();
                     }
