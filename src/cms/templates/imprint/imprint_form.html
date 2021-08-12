@@ -214,6 +214,8 @@
     </div>
 </form>
 
+{{ media_config_data|json_script:"media_config_data" }}
+
 {% if not perms.cms.change_imprintpage or imprint.id and imprint.archived %}
     {% include '../_tinymce_config.html' with readonly=1 %}
 {% else %}
