@@ -45,7 +45,7 @@ def archive_imprint(request, region_slug):
     except ImprintPage.DoesNotExist as e:
         raise Http404 from e
 
-    imprint.archived = True
+    imprint.explicitly_archived = True
     imprint.save()
 
     logger.debug("%r archived by %r", imprint, request.user.profile)
@@ -86,7 +86,7 @@ def restore_imprint(request, region_slug):
     except ImprintPage.DoesNotExist as e:
         raise Http404 from e
 
-    imprint.archived = False
+    imprint.explicitly_archived = False
     imprint.save()
 
     logger.debug("%r restored by %r", imprint, request.user.profile)
