@@ -9,6 +9,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from backend.settings import IMPRINT_SLUG, WEBAPP_URL
+from ..media.media_context_mixin import MediaContextMixin
 from ...decorators import region_permission_required, permission_required
 from ...forms import ImprintTranslationForm
 from ...models import ImprintPageTranslation, ImprintPage, Region
@@ -21,7 +22,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_imprintpage"), name="dispatch")
 @method_decorator(permission_required("cms.change_imprintpage"), name="post")
-class ImprintView(TemplateView):
+class ImprintView(TemplateView, MediaContextMixin):
     """
     View for the imprint page form and imprint page translation form
     """
@@ -133,11 +134,13 @@ class ImprintView(TemplateView):
             region, language, imprint
         )
 
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
                 **self.base_context,
+                **context,
                 "imprint_translation_form": imprint_translation_form,
                 "imprint": imprint,
                 "language": language,
