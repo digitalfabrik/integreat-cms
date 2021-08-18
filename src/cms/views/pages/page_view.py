@@ -244,8 +244,13 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
             messages.info(request, _("No changes detected, autosave skipped"))
 
         else:
-            # Save forms
-            page_translation_form.instance.page = page_form.save()
+            # Only save page form if page does not yet exist or if translation is no auto save
+            if (
+                not page_instance
+                or page_translation_form.instance.status != status.AUTO_SAVE
+            ):
+                page_translation_form.instance.page = page_form.save()
+            # Save page translation form
             page_translation_form.save()
             # Add the success message and redirect to the edit page
             if not page_instance:
