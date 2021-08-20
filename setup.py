@@ -37,6 +37,7 @@ setup(
         "Django>=3.2,<4.0",
         "django-cacheops",
         "django-cors-headers",
+        "django-debug-toolbar",
         "django-linkcheck",
         "django-mptt",
         "django-redis",

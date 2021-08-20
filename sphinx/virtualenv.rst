@@ -26,7 +26,7 @@ Add dependencies
 
 When adding new functional dependencies, please add them to :github-source:`setup.py` and execute::
 
-    pipenv install -e .
+    pipenv install --dev
 
 When adding a new dev dependency ``package``, just use::
 
