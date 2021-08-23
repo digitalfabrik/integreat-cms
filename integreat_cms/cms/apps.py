@@ -1,7 +1,5 @@
 import logging
-import sys
 
-from django.conf import settings
 from django.apps import AppConfig
 from django.contrib.auth.signals import (
     user_logged_in,
@@ -24,22 +22,6 @@ class CmsConfig(AppConfig):
     """
 
     name = "integreat_cms.cms"
-
-    def ready(self):
-        """
-        This function gets executed exactly once each time the cms starts. We use it to check wether the secret key was
-        not changed in production mode and show an error message if this is the case.
-
-        See :meth:`django.apps.AppConfig.ready` for more information.
-        """
-        if (
-            settings.SECRET_KEY == "-!v282$zj815_q@htaxcubylo)(l%a+k*-xi78hw*#s2@i86@_"
-            and not settings.DEBUG
-        ):
-            logger.critical(
-                "You are running the Integreat CMS in production mode. Change the SECRET_KEY in the settings.py!"
-            )
-            sys.exit(1)
 
 
 authlog = logging.getLogger("auth")
