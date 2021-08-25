@@ -1,8 +1,4 @@
-import html
 import logging
-import requests
-
-import feedparser
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -68,31 +64,13 @@ class DashboardView(TemplateView, ChatContextMixin):
 
         # RSS FEED
         language_slug = translation.get_language()
-        has_timed_out = False
-        feed = []
-        rss_feed_url = RSS_FEED_URLS[language_slug]
-
-        try:
-            response = requests.get(rss_feed_url, timeout=5)
-            feed = feedparser.parse(response.text)
-            # select five most recent feeds
-            feed["entries"] = feed["entries"][:5]
-            # decode html entities like dash and split after line break
-            for entry in feed["entries"]:
-                entry["summary"] = html.unescape(entry["summary"]).split("\n")[0]
-        except requests.ReadTimeout:
-            logger.debug(
-                "Rss-feed timed out. Continue loading site without news column."
-            )
-            has_timed_out = True
 
         return render(
             request,
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
-                "feed": feed,
                 "blog_url": BLOG_URLS[language_slug],
-                "has_timed_out": has_timed_out,
+                "feed_url": RSS_FEED_URLS[language_slug],
             },
         )
