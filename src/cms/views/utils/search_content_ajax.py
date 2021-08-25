@@ -2,14 +2,21 @@ import logging
 import json
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
 from backend.settings import WEBAPP_URL
 from ...constants import status
+from ...utils.user_utils import search_users
 from ...decorators import region_permission_required
-from ...models import Region, EventTranslation, PageTranslation, POITranslation
+from ...models import (
+    Region,
+    EventTranslation,
+    PageTranslation,
+    POITranslation,
+    Feedback,
+    PushNotificationTranslation,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -35,50 +42,11 @@ def format_object_translation(object_translation, typ):
     }
 
 
-def find_objects(manager, obj_type, region, language_slug, query, hierarchical=False):
-    """
-    Filters all object translations from ``manager`` of this language that match the ``query``
-
-    :param manager: The manager for a specific model
-    :type manager: ~django.db.models.Manager
-    :param obj_type: The content type of the queried translations
-    :type obj_type: str
-    :param region: The current region
-    :type region: ~cms.models.regions.region.Region
-    :param language_slug: The language slug
-    :type language_slug: str
-    :param query: The query string used for filtering the objects
-    :type query: str
-    :param hierarchical: Whether or not the given model is hiearchical (which impacts the method for filtering out
-                         archived results)
-    :type hierarchical: bool
-    :return: A list of translation objects (formatted as dict)
-    :rtype: list [ dict ]
-    """
-    archived_flag = "explicitly_archived" if hierarchical else "archived"
-    result = (
-        manager.objects.filter(
-            **{
-                obj_type + "__region": region,
-                obj_type + "__" + archived_flag: False,
-                "language__slug": language_slug,
-                "status": status.PUBLIC,
-            }
-        )
-        .filter(Q(slug__icontains=query) | Q(title__icontains=query))
-        .distinct(obj_type)
-    )
-    # If the object type is hierarchical, filter out implicitly archived objects (objects with archived ancestors)
-    if hierarchical:
-        result = filter(lambda x: not getattr(x, obj_type).implicitly_archived, result)
-    return [format_object_translation(obj, obj_type) for obj in result]
-
-
 @require_POST
 @login_required
 @region_permission_required
 # pylint: disable=unused-argument
-def search_content_ajax(request, region_slug, language_slug):
+def search_content_ajax(request, region_slug=None, language_slug=None):
     """Searches all pois, events and pages for the current region and returns all that
     match the search query. Results which match the query in the title or slug get ranked
     higher than results which only match through their text content.
@@ -91,34 +59,103 @@ def search_content_ajax(request, region_slug, language_slug):
     :type language_slug: str
     :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
     :rtype: ~django.http.JsonResponse
+    :raises AttributeError: If the request contains an object type which is unknown or if the user has no permission for it
     """
 
     region = Region.get_current_region(request)
-    query = json.loads(request.body.decode("utf-8"))["query_string"]
+    body = json.loads(request.body.decode("utf-8"))
+    query = body["query_string"]
+    # whether to return only archived object, ignored if not applicable
+    archived_flag = body["archived"]
+    object_types = set(body.get("object_types", []))
 
-    logger.debug(
-        "Ajax call: Live search for pois, events and pages with query %r", query
-    )
+    logger.debug("Ajax call: Live search for %r with query %r", object_types, query)
 
     results = []
 
     user = request.user
-    if user.has_perm("cms.view_event"):
+    if user.has_perm("cms.view_event") and "event" in object_types:
+        object_types.remove("event")
+        event_translations = EventTranslation.search(
+            region, language_slug, query
+        ).filter(event__archived=archived_flag, status=status.PUBLIC)
         results.extend(
-            find_objects(EventTranslation, "event", region, language_slug, query)
+            format_object_translation(obj, "event") for obj in event_translations
         )
 
-    if user.has_perm("cms.view_page"):
+    if user.has_perm("cms.view_feedback") and "feedback" in object_types:
+        object_types.remove("feedback")
         results.extend(
-            find_objects(
-                PageTranslation, "page", region, language_slug, query, hierarchical=True
+            {
+                "title": feedback.comment,
+                "url": None,
+                "type": "feedback",
+            }
+            for feedback in Feedback.search(region, query)
+        )
+
+    if user.has_perm("cms.view_page") and "page" in object_types:
+        object_types.remove("page")
+        # Here a filter is not possible since archived is a property on PageTranslation
+        page_translations = (
+            page_translation
+            for page_translation in PageTranslation.search(region, language_slug, query)
+            if page_translation.page.archived == archived_flag
+            and page_translation.status == status.PUBLIC
+        )
+        results.extend(
+            format_object_translation(obj, "page") for obj in page_translations
+        )
+
+    if user.has_perm("cms.view_poi") and "poi" in object_types:
+        object_types.remove("poi")
+        poi_translations = POITranslation.search(region, language_slug, query).filter(
+            poi__archived=archived_flag, status=status.PUBLIC
+        )
+        results.extend(
+            format_object_translation(obj, "poi") for obj in poi_translations
+        )
+
+    if (
+        user.has_perm("cms.view_pushnotification")
+        and "push_notification" in object_types
+    ):
+        object_types.remove("push_notification")
+        results.extend(
+            {
+                "title": push_notification.title,
+                "url": None,
+                "type": "push_notification",
+            }
+            for push_notification in PushNotificationTranslation.search(
+                region, language_slug, query
             )
         )
 
-    if user.has_perm("cms.view_poi"):
+    if user.has_perm("cms.view_region") and "region" in object_types:
+        object_types.remove("region")
         results.extend(
-            find_objects(POITranslation, "poi", region, language_slug, query)
+            {
+                "title": region.name,
+                "url": None,
+                "type": "region",
+            }
+            for region in Region.search(query)
         )
+
+    if user.has_perm("auth.view_user") and "user" in object_types:
+        object_types.remove("user")
+        results.extend(
+            {
+                "title": user.username,
+                "url": None,
+                "type": "user",
+            }
+            for user in search_users(region, query)
+        )
+
+    if object_types:
+        raise AttributeError(f"Unexpected object type(s): {object_types}")
 
     # sort alphabetically by title
     results.sort(key=lambda k: k["title"])

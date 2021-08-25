@@ -373,6 +373,17 @@ class Region(models.Model):
             pages = self.pages.filter(id__in=page_ids)
         return pages
 
+    @classmethod
+    def search(cls, query):
+        """
+        Searches for all regions which match the given `query` in their name.
+        :param query: The query string used for filtering the regions
+        :type query: str
+        :return: A query for all matching objects
+        :rtype: ~django.db.models.QuerySet
+        """
+        return cls.objects.filter(name__icontains=query)
+
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Region object (id)``.

@@ -7,6 +7,8 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
+from cms.models.pages.page_translation import PageTranslation
+
 from ...constants import translation_status
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageFilterForm
@@ -97,12 +99,23 @@ class PageTreeView(TemplateView, PageContextMixin):
 
         pages = region.get_pages(archived=self.archived)
         enable_drag_and_drop = True
+        query = None
         # Filter pages according to given filters, if any
         filter_data = kwargs.get("filter_data")
         if filter_data:
             # Set data for filter form rendering
             filter_form = PageFilterForm(data=filter_data)
             if filter_form.is_valid():
+                query = filter_form.cleaned_data["query"]
+                if query:
+                    page_translation_ids = set(
+                        page_translation.page.pk
+                        for page_translation in PageTranslation.search(
+                            region, language_slug, query
+                        )
+                    )
+                    pages = [page for page in pages if page.pk in page_translation_ids]
+
                 selected_status = filter_form.cleaned_data["translation_status"]
                 # only filter if at least one checkbox but not all are checked
                 if 0 < len(selected_status) < len(translation_status.CHOICES):
@@ -136,6 +149,7 @@ class PageTreeView(TemplateView, PageContextMixin):
                 "languages": region.languages,
                 "filter_form": filter_form,
                 "enable_drag_and_drop": enable_drag_and_drop,
+                "search_query": query,
             },
         )
 

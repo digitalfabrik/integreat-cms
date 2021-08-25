@@ -19,10 +19,11 @@ window.addEventListener("load", () => {
   if (resetFilterButton) {
     resetFilterButton.addEventListener("click", ({ target }) => {
       const form = (target as HTMLElement).closest("form");
-      [
-        ...form.querySelectorAll("input"),
-        ...form.getElementsByTagName("select"),
-      ].forEach((node) => resetToDefaultValue(node));
+      for (let node of form.elements) {
+        if (node.matches("input") || node.matches("select")) {
+          resetToDefaultValue(node as HTMLInputElement | HTMLSelectElement);
+        }
+      }
     });
   }
 });

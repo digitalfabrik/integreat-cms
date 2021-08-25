@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
 from linkcheck.models import Link
@@ -283,6 +284,31 @@ class EventTranslation(models.Model):
         :rtype: bool
         """
         return not self.currently_in_translation and not self.is_outdated
+
+    @classmethod
+    def search(cls, region, language_slug, query):
+        """
+        Searches for all event translations and match the given `query` in their title or slug.
+
+        :param region: The current region
+        :type region: ~cms.models.regions.region.Region
+        :param language_slug: The language slug
+        :type language_slug: str
+        :param query: The query string used for filtering the events
+        :type query: str
+        :return: A query for all matching objects
+        :rtype: ~django.db.models.query.QuerySet
+        """
+        return (
+            cls.objects.filter(
+                **{
+                    "event__region": region,
+                    "language__slug": language_slug,
+                }
+            )
+            .filter(Q(slug__icontains=query) | Q(title__icontains=query))
+            .distinct("event")
+        )
 
     def __str__(self):
         """

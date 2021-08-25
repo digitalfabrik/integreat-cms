@@ -484,6 +484,16 @@ urlpatterns = [
                     name="search_content_ajax",
                 ),
                 url(
+                    r"^(?P<region_slug>[-\w]+)/search_content$",
+                    utils.search_content_ajax,
+                    name="search_content_ajax",
+                ),
+                url(
+                    r"^search_content$",
+                    utils.search_content_ajax,
+                    name="search_content_ajax",
+                ),
+                url(
                     r"^(?P<region_slug>[-\w]+)/(?P<language_slug>[-\w]+)/(?P<model_type>event|page|poi)/slugify$",
                     utils.slugify_ajax,
                     name="slugify_ajax",

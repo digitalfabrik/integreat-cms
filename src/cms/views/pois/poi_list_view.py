@@ -9,9 +9,11 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from backend.settings import PER_PAGE
+from cms.models.pois.poi_translation import POITranslation
 
 from ...decorators import region_permission_required, permission_required
 from ...models import Region, Language
+from ...forms import ObjectSearchForm
 from .poi_context_mixin import POIContextMixin
 
 logger = logging.getLogger(__name__)
@@ -43,6 +45,7 @@ class POIListView(TemplateView, POIContextMixin):
         """
         return self.template_archived if self.archived else self.template
 
+    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         """
         Render POI list
@@ -98,7 +101,19 @@ class POIListView(TemplateView, POIContextMixin):
                 )
                 % {"language": region.default_language.translated_name},
             )
+
         pois = region.pois.filter(archived=self.archived)
+        query = None
+
+        search_data = kwargs.get("search_data")
+        search_form = ObjectSearchForm(search_data)
+        if search_form.is_valid():
+            query = search_form.cleaned_data["query"]
+            poi_keys = POITranslation.search(region, language_slug, query).values(
+                "poi__pk"
+            )
+            pois = pois.filter(pk__in=poi_keys)
+
         # for consistent pagination querysets should be ordered
         paginator = Paginator(pois.order_by("region__slug"), PER_PAGE)
         chunk = request.GET.get("page")
@@ -113,6 +128,22 @@ class POIListView(TemplateView, POIContextMixin):
                 "archived_count": region.pois.filter(archived=True).count(),
                 "language": language,
                 "languages": region.languages,
+                "search_query": query,
                 **context,
             },
         )
+
+    def post(self, request, *args, **kwargs):
+        """
+        Apply the query and filter the rendered pois
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+        :param args: The supplied arguments
+        :type args: list
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
+        return self.get(request, *args, **kwargs, search_data=request.POST)

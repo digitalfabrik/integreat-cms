@@ -13,7 +13,9 @@ import { getCsrfToken } from "../../utils/csrf-token";
                 "X-CSRFToken": getCsrfToken(),
             },
             body: JSON.stringify({
-                query_string: query
+                query_string: query,
+                object_types: ["event", "page", "poi"],
+                archived: false,
             })
         });
         if (response.status != 200) {

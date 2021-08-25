@@ -47,12 +47,18 @@ class AdminFeedbackListView(TemplateView):
 
         admin_feedback = Feedback.objects.filter(is_technical=True)
 
+        query = None
+
         # Filter pages according to given filters, if any
         filter_data = kwargs.get("filter_data")
         if filter_data:
             # Set data for filter form rendering
             filter_form = AdminFeedbackFilterForm(data=filter_data)
             if filter_form.is_valid():
+                query = filter_form.cleaned_data["query"]
+                if query:
+                    admin_feedback = Feedback.search(region=None, query=query)
+
                 # Filter feedback for region
                 if filter_form.cleaned_data["region"]:
                     admin_feedback = admin_feedback.filter(
@@ -116,6 +122,7 @@ class AdminFeedbackListView(TemplateView):
                 "current_menu_item": "admin_feedback",
                 "admin_feedback": admin_feedback_chunk,
                 "filter_form": filter_form,
+                "search_query": query,
             },
         )
 

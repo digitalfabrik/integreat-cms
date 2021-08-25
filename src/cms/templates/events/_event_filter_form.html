@@ -4,7 +4,7 @@
 {% load content_filters %}
 {% load poi_filters %}
 
-<form method="post">
+<form method="post" id="event-filter-form">
     {% csrf_token %}
     {% get_current_language as LANGUAGE_CODE %}
     {% get_language LANGUAGE_CODE as current_language %}
@@ -37,9 +37,9 @@
                 {% trans 'Search' as search_placeholder %}
                 <input id="poi-query-input" type="search" autocomplete="off" class="no-new-poi" placeholder="{% if filter_poi %}{{ filter_poi|poi_translation_title:current_language }}{% else %}{{ search_placeholder }}{% endif %}" data-url="{% url 'search_poi_ajax' region_slug=region.slug %}" data-region-slug="{{ region.slug }}" data-default-placeholder="{{ search_placeholder }}">
                 <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                    <button id="poi-remove" title="{% trans 'Empty query input' %}">
+                    <a id="poi-remove" title="{% trans 'Empty query input' %}">
                         <i data-feather="trash-2" class="h-5 w-5"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
             {% render_field filter_form.poi_id id="poi-id" class+="hidden" %}

@@ -16,3 +16,11 @@ class PageFilterForm(forms.Form):
         initial=[key for (key, val) in translation_status.CHOICES],
         required=False,
     )
+    query = forms.CharField(required=False)
+
+    def filters_visible(self):
+        """
+        :return: whether any filters (other than search were changed)
+        :rtype: bool
+        """
+        return self.has_changed() and self.changed_data != ["query"]
