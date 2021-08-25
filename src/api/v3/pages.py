@@ -5,7 +5,7 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 
 from backend.settings import BASE_URL
-from cms.models import Region
+from cms.models import Region, Page
 
 from ..decorators import json_response
 
@@ -158,15 +158,34 @@ def single_page(request, region_slug, language_slug):
 def children(request, region_slug, language_slug):
     """
     Retrieves all children for a single page
+
+    :param request: The request that has been sent to the Django server
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: Slug defining the region
+    :type region_slug: str
+
+    :param language_slug: Code to identify the desired language
+    :type language_slug: str
+
+    :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
+
+    :return: Return a JSON with the requested page descendants
+    :rtype: ~django.http.JsonResponse
     """
     try:
-        page = get_single_page(request, language_slug)
-    except RuntimeError as e:
-        return JsonResponse({"error": str(e)}, status=400)
-    descendants = page.get_descendants_max_depth(True, int(request.GET.get("depth", 1)))
+        # try to get a single ancestor page based on the requests query string
+        root_pages = [get_single_page(request, language_slug)]
+    except RuntimeError:
+        # if neither id nor url is set then get all root pages
+        root_pages = Page.get_root_pages(region_slug)
     result = []
-    for descendant in descendants:
-        public_translation = descendant.get_public_translation(language_slug)
-        if public_translation:
-            result.append(transform_page(public_translation))
+    for root in root_pages:
+        descendants = root.get_descendants_max_depth(
+            True, int(request.GET.get("depth", 1))
+        )
+        for descendant in descendants:
+            public_translation = descendant.get_public_translation(language_slug)
+            if public_translation:
+                result.append(transform_page(public_translation))
     return JsonResponse(result, safe=False)

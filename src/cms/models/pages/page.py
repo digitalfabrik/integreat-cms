@@ -154,6 +154,19 @@ class Page(MPTTModel, AbstractBasePage):
         """
         return len(self.get_ancestors())
 
+    @classmethod
+    def get_root_pages(cls, region_slug):
+        """
+        Gets all root pages
+
+        :param region_slug: Slug defining the region
+        :type region_slug: str
+
+        :return: All root pages i.e. pages without parents
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        """
+        return Page.objects.filter(region__slug=region_slug, parent=None)
+
     def get_previous_sibling(self, *filter_args, **filter_kwargs):
         # Only consider siblings from this region
         filter_kwargs["region"] = self.region
