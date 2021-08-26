@@ -9,8 +9,6 @@ from ...constants import translation_status
 from ...models import PageTranslation, Region
 from ...decorators import region_permission_required
 
-logger = logging.getLogger(__name__)
-
 
 logger = logging.getLogger(__name__)
 

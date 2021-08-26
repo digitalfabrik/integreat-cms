@@ -26,7 +26,7 @@ def application(environ, start_response):
     :rtype: ~django.core.handlers.WSGIHandler
     """
     for key in environ:
-        if key.startswith("DJANGO_"):
+        if key.startswith("INTEGREAT_CMS_"):
             os.environ[key] = environ[key]
 
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
