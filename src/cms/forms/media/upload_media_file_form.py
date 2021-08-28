@@ -44,11 +44,11 @@ class UploadMediaFileForm(CustomModelForm):
         :param data: submitted POST data
         :type data: dict
 
-        :param data: uploaded FILES
-        :type data: dict
+        :param data: A dictionary-like object containing all given HTTP POST parameters
+        :type data: django.http.QueryDict
 
-        :param files: abstract file
-        :type files: multiValueDict
+        :param files: A dictionary-like object containing all uploaded files
+        :type files: django.utils.datastructures.MultiValueDict
 
         :param instance: This form's instance
         :type instance: ~cms.models.media.media_file.MediaFile

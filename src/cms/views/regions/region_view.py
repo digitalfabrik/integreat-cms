@@ -74,6 +74,7 @@ class RegionView(TemplateView, MediaContextMixin):
         """
 
         region_instance = Region.objects.filter(slug=kwargs.get("region_slug")).first()
+        context = self.get_context_data(**kwargs)
 
         form = RegionForm(
             data=request.POST, files=request.FILES, instance=region_instance
@@ -106,4 +107,6 @@ class RegionView(TemplateView, MediaContextMixin):
                 _('Region "{}" was successfully saved').format(form.instance.name),
             )
 
-        return render(request, self.template_name, {"form": form, **self.base_context})
+        return render(
+            request, self.template_name, {"form": form, **self.base_context, **context}
+        )

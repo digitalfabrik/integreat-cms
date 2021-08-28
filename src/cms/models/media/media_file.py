@@ -141,7 +141,7 @@ class MediaFile(models.Model):
         if not self.thumbnail:
             if self.type.startswith("image"):
                 #: Returns the path to the file itself
-                return self.url
+                return BASE_URL + self.url
             return None
         return BASE_URL + self.thumbnail.url
 

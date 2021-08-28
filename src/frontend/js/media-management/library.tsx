@@ -2,7 +2,7 @@
  * This component renders the media library in edit mode,
  * so new directories and files can be added and the existing entries can be modified
  */
-import { FilePlus, FolderPlus, Search } from "preact-feather";
+import { FilePlus, FolderPlus, Search, Loader } from "preact-feather";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 
 import { Directory, MediaApiPaths, MediaLibraryEntry, File } from ".";
@@ -49,9 +49,7 @@ export default function Library({
   // The current directory is the last element of the directory path
   const directory = directoryPath[directoryPath.length - 1];
   // The directory content contains all subdirectories and files of the current directory
-  const [directoryContent, setDirectoryContent] = useState<MediaLibraryEntry[]>(
-    []
-  );
+  const [directoryContent, setDirectoryContent] = useState<MediaLibraryEntry[]>([]);
   // The file index contains the index of the file which is currently opened in the sidebar
   const [fileIndex, setFileIndex] = useState<number | null>(null);
   // This state is a semaphore to block actions while an ajax call is running
@@ -66,10 +64,7 @@ export default function Library({
   const [isUploadFile, setUploadFile] = useState<boolean>(false);
 
   // This submit function is used for all form submissions
-  const submitForm = async (
-    event: Event,
-    successCallback?: (data: any) => void
-  ) => {
+  const submitForm = async (event: Event, successCallback?: (data: any) => void) => {
     event.preventDefault();
     setLoading(true);
     console.log("Submitting form:");
@@ -120,6 +115,7 @@ export default function Library({
     directoryId: string,
     successCallback: (data: any) => void
   ) => {
+    setLoading(true);
     try {
       const response = await fetch(
         `${url}${directoryId && "?directory="}${directoryId}`
@@ -141,6 +137,7 @@ export default function Library({
         text: mediaTranslations.text_network_error,
       });
     }
+    setLoading(false);
   };
 
   // Load the directory path each time the directory id changes
@@ -152,11 +149,7 @@ export default function Library({
     }
     // Load the new directory path
     if (directoryId) {
-      getDirectoryInfo(
-        apiEndpoints.getDirectoryPath,
-        directoryId,
-        setDirectoryPath
-      );
+      getDirectoryInfo(apiEndpoints.getDirectoryPath, directoryId, setDirectoryPath);
     } else {
       // The root directory is no real directory object, so the path is empty
       setDirectoryPath([]);
@@ -196,9 +189,7 @@ export default function Library({
 
   return (
     <div className={`flex flex-col flex-grow`}>
-      <h1 className="w-full heading p-2">
-        {mediaTranslations.heading_media_library}
-      </h1>
+      <h1 className="w-full heading p-2">{mediaTranslations.heading_media_library}</h1>
       <div className="flex flex-wrap justify-between gap-x-2 gap-y-4">
         <form class="table-search relative">
           <Search class="absolute m-2" />
@@ -252,7 +243,7 @@ export default function Library({
       )}
       <div className="flex flex-1 flex-col-reverse lg:flex-row gap-4 mt-4">
         <div
-          className="flex-1 bg-white border-gray-800 shadow-xl rounded-lg"
+          className="relative flex-1 bg-white border-gray-800 shadow-xl rounded-lg"
           onClick={() => setFileIndex(null)}
         >
           <div class="rounded w-full bg-blue-500 text-white font-bold">
@@ -261,15 +252,19 @@ export default function Library({
               mediaTranslations={mediaTranslations}
             />
           </div>
-          <div class="p-4">
-            <DirectoryContent
-              fileIndexState={[fileIndex, setFileIndex]}
-              directoryContent={directoryContent}
-              mediaTranslations={mediaTranslations}
-              selectionMode={selectionMode}
-              globalEdit={globalEdit}
-            />
-          </div>
+          {isLoading ? (
+            <Loader class="absolute w-32 h-32 -mt-9 -ml-16 inset-1/2 text-gray-600 animate-spin" />
+          ) : (
+            <div class="p-4">
+              <DirectoryContent
+                fileIndexState={[fileIndex, setFileIndex]}
+                directoryContent={directoryContent}
+                mediaTranslations={mediaTranslations}
+                selectionMode={selectionMode}
+                globalEdit={globalEdit}
+              />
+            </div>
+          )}
         </div>
         {fileIndex !== null ? (
           <EditSidebar

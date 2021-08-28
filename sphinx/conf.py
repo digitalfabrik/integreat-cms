@@ -118,8 +118,9 @@ nitpick_ignore = [
     ("py:attr", "django.contrib.auth.models.User.feedback"),
     ("py:attr", "django.contrib.auth.models.User.mfa_keys"),
     ("py:attr", "django.contrib.auth.models.User.imprint_translations"),
-    ("py:attr", "django.contrib.auth.models.User.page_translations"),
+    ("py:class", "django.utils.datastructures.MultiValueDict"),
     ("py:attr", "django.contrib.auth.models.User.poi_translations"),
+    ("py:attr", "django.contrib.auth.models.User.page_translations"),
     ("py:attr", "django.contrib.auth.models.User.profile"),
     ("py:attr", "django.contrib.auth.models.User.publishable_pages"),
     ("py:class", "django.contrib.auth.tokens.PasswordResetTokenGenerator"),
@@ -154,7 +155,7 @@ html_theme_options = {
 }
 #: The logo shown in the menu bar
 html_logo = "../src/frontend/images/integreat-logo-white.png"
-#: The facivon of the html doc files
+#: The favicon of the html doc files
 html_favicon = "../src/frontend/images/integreat-icon.png"
 #: The url where the docs should be published (via gh-pages)
 html_baseurl = github_pages_url
