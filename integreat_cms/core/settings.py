@@ -5,7 +5,7 @@ This file only contains the options which deviate from the default values.
 For the full list of settings and their values, see :doc:`django:ref/settings`.
 
 For production use, some of the settings can be set with environment variables
-(use the prefix ``INTEGREAT_CMS_``) or via the config file `/etc/integreat.ini`.
+(use the prefix ``INTEGREAT_CMS_``) or via the config file `/etc/integreat-cms.ini`.
 See :doc:`/prod-server` for details.
 """
 import os

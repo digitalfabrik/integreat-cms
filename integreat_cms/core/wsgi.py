@@ -7,7 +7,7 @@ python frameworks (in our case Django).
 
 For more information on this file, see :doc:`howto/deployment/wsgi/index`.
 """
-
+import configparser
 import os
 from django.core.wsgi import get_wsgi_application
 
@@ -25,11 +25,20 @@ def application(environ, start_response):
     :return: The WSGI callable
     :rtype: ~django.core.handlers.WSGIHandler
     """
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
+
+    # Read config from config file
+    config = configparser.ConfigParser()
+    config.read("/etc/integreat-cms.ini")
+    for section in config.sections():
+        for KEY, VALUE in config.items(section):
+            os.environ.setdefault(f"INTEGREAT_CMS_{KEY.upper()}", VALUE)
+
+    # Read config from environment
     for key in environ:
         if key.startswith("INTEGREAT_CMS_"):
             os.environ[key] = environ[key]
 
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
     _application = get_wsgi_application()
 
     return _application(environ, start_response)
