@@ -47,6 +47,9 @@ class UploadMediaFileForm(CustomModelForm):
         :param data: uploaded FILES
         :type data: dict
 
+        :param files: abstract file
+        :type files: multiValueDict
+
         :param instance: This form's instance
         :type instance: ~cms.models.media.media_file.MediaFile
         """
