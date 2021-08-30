@@ -4,7 +4,6 @@ import "tinymce/icons/default";
 
 import "tinymce/themes/silver";
 
-import "tinymce/plugins/paste";
 import "tinymce/plugins/fullscreen";
 import "tinymce/plugins/autosave";
 import "tinymce/plugins/link";
@@ -75,6 +74,10 @@ window.addEventListener("load", () => {
       selector: ".tinymce_textarea",
       menubar: "edit view insert format icon",
       menu: {
+        edit: {
+          title: "Edit",
+          items: "undo redo | cut copy | selectall",
+        },
         icon: {
           title: "Icons",
           items: "pin www email call clock idea",
@@ -86,15 +89,14 @@ window.addEventListener("load", () => {
         },
         insert: {
           title: "Insert",
-          items: "openmediacenter add_link image media "
+          items: "openmediacenter add_link image media"
         }
       },
       link_title: false,
-      contextmenu: "paste add_link",
       autosave_interval: "120s",
       forced_root_block: false,
       plugins:
-        "code paste fullscreen autosave preview media image lists directionality wordcount",
+        "code fullscreen autosave preview media image lists directionality wordcount",
       external_plugins: {
         autolink_tel: tinymceConfig.getAttribute("data-custom-plugins"),
         mediacenter: tinymceConfig.getAttribute("data-custom-plugins"),
