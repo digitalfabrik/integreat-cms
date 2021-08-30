@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-08-10T10:53:19+00:00" />
+    <meta property="article:modified_time" content="2021-08-25T15:47:04+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>V3 &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1564,6 +1564,24 @@ the url has to end with the name of the required parameter-name, e.g. <code clas
 <dt class="sig sig-object py" id="api.v3.pages.children">
 <span class="sig-prename descclassname"><span class="pre">api.v3.pages.</span></span><span class="sig-name descname"><span class="pre">children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/api/v3/pages.py#L156"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.v3.pages.children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves all children for a single page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The request that has been sent to the Django server</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Slug defining the region</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Code to identify the desired language</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – HTTP status 404 if the request is malformed or no page with the given id or url exists.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Return a JSON with the requested page descendants</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)">JsonResponse</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -1847,7 +1865,7 @@ problem.</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Aug 10, 2021.
+        Last updated on Aug 25, 2021.
       </span>
 
     </p>
