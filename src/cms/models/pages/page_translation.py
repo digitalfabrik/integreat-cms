@@ -126,6 +126,30 @@ class PageTranslation(AbstractBasePageTranslation):
         )
 
     @property
+    def backend_base_link(self):
+        """
+        This property calculates the absolute page link on the CMS domain
+
+        :return: The base link of the page
+        :rtype: str
+        """
+        return (
+            "/".join(
+                filter(
+                    None,
+                    [
+                        BASE_URL,
+                        self.page.region.slug,
+                        self.language.slug,
+                        self.ancestor_path,
+                        self.slug,
+                    ],
+                )
+            )
+            + "/"
+        )
+
+    @property
     def short_url(self):
         """
         This function returns the absolute short url to the page translation

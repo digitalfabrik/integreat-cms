@@ -29,17 +29,23 @@ def transform_page(page_translation):
             "id": page_translation.page.parent.id,
             "url": page_translation.page.parent.get_translation(
                 page_translation.language.slug
-            ).permalink,
-            "path": page_translation.page.parent.get_translation(
+            ).backend_base_link,
+            "path": "/"
+            + page_translation.page.parent.get_translation(
                 page_translation.language.slug
-            ).slug,
+            ).permalink
+            + "/",
         }
     else:
-        parent = None
+        parent = {
+            "id": 0,
+            "url": None,
+            "path": None,
+        }
     return {
         "id": page_translation.id,
-        "url": page_translation.permalink,
-        "path": page_translation.slug,
+        "url": page_translation.backend_base_link,
+        "path": "/" + page_translation.permalink + "/",
         "title": page_translation.title,
         "modified_gmt": page_translation.combined_last_updated,
         "excerpt": page_translation.text,
@@ -173,17 +179,20 @@ def children(request, region_slug, language_slug):
     :return: Return a JSON with the requested page descendants
     :rtype: ~django.http.JsonResponse
     """
+    depth = int(request.GET.get("depth", 1))
     try:
         # try to get a single ancestor page based on the requests query string
         root_pages = [get_single_page(request, language_slug)]
     except RuntimeError:
         # if neither id nor url is set then get all root pages
         root_pages = Page.get_root_pages(region_slug)
+        # simulate a virtual root node for WP compatibility
+        # so that depth = 1 returns only those pages without parents (immediate children of this virtual root page)
+        # like in wordpress depth = 0 will return no results in this case
+        depth = depth - 1
     result = []
     for root in root_pages:
-        descendants = root.get_descendants_max_depth(
-            True, int(request.GET.get("depth", 1))
-        )
+        descendants = root.get_descendants_max_depth(True, depth)
         for descendant in descendants:
             public_translation = descendant.get_public_translation(language_slug)
             if public_translation:

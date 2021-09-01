@@ -137,7 +137,8 @@ class AbstractBasePageTranslation(models.Model):
             if other_translation:
                 available_languages[language.slug] = {
                     "id": other_translation.id,
-                    "url": other_translation.permalink,
+                    "url": other_translation.backend_base_link,
+                    "path": "/" + other_translation.permalink + "/",
                 }
         return available_languages
 
