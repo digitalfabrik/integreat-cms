@@ -81,14 +81,10 @@ class PushNotificationSender:
         :return: FCM API auth key
         :rtype: str
         """
-        fcm_auth_config_key = "fcm_auth_key"
         auth_key = settings.FCM_KEY
-        if auth_key.exists():
-            logger.debug("Got fcm_auth_key from database")
-            return auth_key.first().value
-        logger.warning(
-            "Could not get %r from configuration database", fcm_auth_config_key
-        )
+        if auth_key and isinstance(auth_key, str):
+            return auth_key
+        logger.warning("Could not get a proper fcm_auth_key")
         return None
 
     def send_pn(self, pnt):
