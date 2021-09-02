@@ -98,7 +98,7 @@ API_EVENTS_MAX_TIME_SPAN_DAYS = 31
 ###############################
 
 #: Authentification Token for the Firebase API. This needs to be set for a correct usage of the Messages Feature.
-FCM_KEY = ""
+FCM_KEY = None
 
 ###########
 # GVZ API #

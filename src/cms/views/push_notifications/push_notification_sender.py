@@ -38,7 +38,10 @@ class PushNotificationSender:
         if len(self.primary_pnt.title) > 0:
             self.prepared_pnts.append(self.primary_pnt)
         self.load_secondary_pnts()
-        self.auth_key = self.get_auth_key()
+
+        self.auth_key = settings.FCM_KEY
+        if not self.auth_key:
+            logger.warning("Could not get a proper fcm_auth_key")
 
     def load_secondary_pnts(self):
         """
@@ -65,27 +68,13 @@ class PushNotificationSender:
         :return: all prepared push notification translations are valid
         :rtype: bool
         """
-        if self.auth_key is None:
+        if not self.auth_key:
             return False
         for pnt in self.prepared_pnts:
             if not pnt.title:
                 logger.debug("%r has no title", pnt)
                 return False
         return True
-
-    @staticmethod
-    def get_auth_key():
-        """
-        Get FCM API auth key
-
-        :return: FCM API auth key
-        :rtype: str
-        """
-        auth_key = settings.FCM_KEY
-        if auth_key and isinstance(auth_key, str):
-            return auth_key
-        logger.warning("Could not get a proper fcm_auth_key")
-        return None
 
     def send_pn(self, pnt):
         """
