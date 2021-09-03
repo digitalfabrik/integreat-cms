@@ -26,9 +26,6 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     scripts=[f"{package_dir}/integreat-cms-cli"],
-    data_files=[
-        ("etc/apache2/site-available", ["example-configs/apache2-integreat-vhost.conf"])
-    ],
     install_requires=[
         "aiohttp",
         "argon2-cffi",
