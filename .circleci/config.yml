@@ -152,9 +152,6 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Create MANIFEST.in file
-          command: echo -e "graft integreat_cms\nprune integreat_cms/static/src" > MANIFEST.in
-      - run:
           name: Build integreat-cms package
           command: python setup.py sdist bdist_wheel
       - persist_to_workspace:

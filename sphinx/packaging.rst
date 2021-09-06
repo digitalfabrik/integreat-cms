@@ -18,15 +18,7 @@ Packaging for a Python repository like e.g. `PyPI <https://pypi.org/>`__ is auto
     # Bundle static files
     npm run prod
 
-2. Create a ``MANIFEST.in`` file with the following contents::
-
-    graft integreat_cms
-    prune integreat_cms/static/src
-
-   This tells the setup script to include all non-python files in the ``integreat_cms`` directory except those in
-   ``integreat_cms/static/src``.
-
-3. After that, you can build the python package with :doc:`setuptools:index`::
+2. After that, you can build the python package with :doc:`setuptools:index`::
 
     pip3 install --upgrade pip setuptools wheel
     python3 setup.py sdist bdist_wheel
