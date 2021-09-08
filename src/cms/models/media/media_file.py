@@ -1,3 +1,4 @@
+from time import strftime
 from django.db import models
 from django.utils import timezone
 from django.utils.formats import localize
@@ -10,6 +11,27 @@ from ..regions.region import Region
 from .directory import Directory
 
 
+def upload_directory(instance, filename):
+    """
+    The function sets the path for the media library. It contains the region id, the datestring and filename.
+
+    :param instance: media library object
+    :type instance: cms.models.media.media_file.MediaFile
+
+    :param filename: filename of media library object
+    :type filename: str
+
+    :return: the directory path
+    :rtype: str
+    """
+    datestring = strftime("%Y/%m")
+    if instance and instance.region:
+        path = f"sites/{instance.region.id}/{datestring}/{filename}"
+    else:
+        path = f"{datestring}/{filename}"
+    return path
+
+
 class MediaFile(models.Model):
     """
     The MediaFile model is used to store basic information about files which are uploaded to the CMS. This is only a
@@ -18,12 +40,12 @@ class MediaFile(models.Model):
     """
 
     file = models.FileField(
-        upload_to="%Y/%m/%d",
+        upload_to=upload_directory,
         verbose_name=_("file"),
         max_length=512,
     )
     thumbnail = models.FileField(
-        upload_to="%Y/%m/%d/thumbnails",
+        upload_to=upload_directory,
         verbose_name=_("thumbnail file"),
         max_length=512,
     )
