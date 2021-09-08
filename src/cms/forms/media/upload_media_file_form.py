@@ -113,7 +113,7 @@ class UploadMediaFileForm(CustomModelForm):
 
         # If everything looks good until now, generate a thumbnail for the file
         if not self.errors and cleaned_data.get("type").startswith("image"):
-            cleaned_data["thumbnail"] = generate_thumbnail(file, 300, 300, False)
+            cleaned_data["thumbnail"] = generate_thumbnail(file)
 
         logger.debug(
             "UploadMediaFileForm validated [2] with cleaned data %r", cleaned_data

@@ -620,9 +620,13 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
+
+#################
+# MEDIA LIBRARY #
+#################
+
 #: URL that handles the media served from :setting:`MEDIA_ROOT` (see :setting:`django:MEDIA_URL`)
 MEDIA_URL = "/media/"
-
 
 if "DJANGO_MEDIA_ROOT" in os.environ:
     MEDIA_ROOT = os.environ["DJANGO_MEDIA_ROOT"]
@@ -630,9 +634,11 @@ else:
     #: Absolute filesystem path to the directory that will hold user-uploaded files (see :setting:`django:MEDIA_ROOT`)
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+#: The maximum size of media thumbnails in pixels
+MEDIA_THUMBNAIL_SIZE = 300
 
-#: Defines the path element common to all canonical file URLs. (see :doc:`Django Filer Settings<django-filer:settings>`)
-FILER_CANONICAL_URL = "media/"
+#: Whether thumbnails should be cropped (resulting in square thumbnails regardless of the aspect ratio of the image)
+MEDIA_THUMBNAIL_CROP = False
 
 
 #########
@@ -646,14 +652,6 @@ CACHES = {
         "LOCATION": os.path.join(STATIC_ROOT, "CACHE/django_cache"),
     }
 }
-
-
-###################
-# EASY THUMBNAILS #
-###################
-
-#: Whether thumbnails should be stored in high resolution (used by :doc:`easy-thumbnails:index`)
-THUMBNAIL_HIGH_RESOLUTION = True
 
 
 ##############
