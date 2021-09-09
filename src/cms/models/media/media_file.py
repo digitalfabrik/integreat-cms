@@ -1,4 +1,12 @@
+"""
+This module contains the :class:`~cms.models.media.media_file.MediaFile` model as well as the helper functions
+:func:`~cms.models.media.media_file.upload_path` and :func:`~cms.models.media.media_file.upload_path_thumbnail` which
+are used to determine the file system path to which the files should be uploaded.
+"""
+import logging
+from os.path import splitext
 from time import strftime
+
 from django.db import models
 from django.utils import timezone
 from django.utils.formats import localize
@@ -10,25 +18,57 @@ from ...constants import allowed_media
 from ..regions.region import Region
 from .directory import Directory
 
+logger = logging.getLogger(__name__)
 
-def upload_directory(instance, filename):
+
+def upload_path(instance, filename):
     """
-    The function sets the path for the media library. It contains the region id, the datestring and filename.
+    This function calculates the path for a file which is uploaded to the media library.
+    It contains the region id, the current year and month as subdirectories and the filename.
+    It is just the provisionally requested path for the media storage.
+    If it already exists, Django will automatically append a random string to make sure the file name is unique.
 
-    :param instance: media library object
-    :type instance: cms.models.media.media_file.MediaFile
+    :param instance: The media library object
+    :type instance: ~cms.models.media.media_file.MediaFile
 
-    :param filename: filename of media library object
+    :param filename: The filename of media library object
     :type filename: str
 
-    :return: the directory path
+    :return: The upload path of the file
     :rtype: str
     """
-    datestring = strftime("%Y/%m")
-    if instance and instance.region:
-        path = f"sites/{instance.region.id}/{datestring}/{filename}"
-    else:
-        path = f"{datestring}/{filename}"
+    # If the media file is uploaded to a specific region, prepend a region id subdirectory
+    region_directory = f"sites/{instance.region.id}/" if instance.region else ""
+    # Calculate the remaining upload path
+    path = f"{region_directory}{strftime('%Y/%m')}/{filename}"
+    logger.debug("Upload path for media file %r: %r", instance.file, path)
+    return path
+
+
+# pylint: disable=unused-argument
+def upload_path_thumbnail(instance, filename):
+    """
+    This function derives the upload path of a thumbnail file from it's original file.
+    This makes it a bit easier to determine which thumbnail belongs to which file if there are multiple files with the
+    same file name (in which case Django automatically appends a random string to the original's file name).
+
+    E.g. if the files ``A.jpg`` and ``A_thumbnail.jpg`` already exist, and ``A.jpg`` is uploaded again, the resulting
+    file names might be e.g. ``A_EOHRFQ2.jpg`` and ``A_thumbnail_IWxPiOq.jpg``, while with this function, the thumbnail
+    will be stored as ``A_EOHRFQ2_thumbnail.jpg``, making it easier to examine these files on the file system.
+
+    :param instance: The media library object
+    :type instance: ~cms.models.media.media_file.MediaFile
+
+    :param filename: The (unused) initial filename of thumbnail
+    :type filename: str
+
+    :return: The upload path of the thumbnail
+    :rtype: str
+    """
+    # Derive the thumbnail name from the original file name
+    name, extension = splitext(instance.file.name)
+    path = f"{name}_thumbnail{extension}"
+    logger.debug("Upload path for thumbnail of %r: %r", instance.thumbnail, path)
     return path
 
 
@@ -40,12 +80,12 @@ class MediaFile(models.Model):
     """
 
     file = models.FileField(
-        upload_to=upload_directory,
+        upload_to=upload_path,
         verbose_name=_("file"),
         max_length=512,
     )
     thumbnail = models.FileField(
-        upload_to=upload_directory,
+        upload_to=upload_path_thumbnail,
         verbose_name=_("thumbnail file"),
         max_length=512,
     )
