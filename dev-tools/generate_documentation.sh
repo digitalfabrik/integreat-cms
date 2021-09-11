@@ -107,14 +107,8 @@ sed --in-place '/\.\. autofunction:: /a \ \ \ \ \ \ :noindex:' ${SPHINX_DIR}/${S
 
 echo -e "Compiling reStructuredText files to HTML documentation..." | print_info
 
-# Check if script is running in CircleCI context
-if [[ -n "$CIRCLECI" ]]; then
-    # Compile .rst files to html documentation (deactivate parallel build due to EOFError - see https://github.com/sphinx-doc/sphinx/issues/8973)
-    pipenv run sphinx-build -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
-else
-    # Compile .rst files to html documentation
-    pipenv run sphinx-build -j auto -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
-fi
+# Compile .rst files to html documentation
+pipenv run sphinx-build -j auto -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
 
 # Check if script is running in CircleCI context
 if [[ -n "$CIRCLECI" ]]; then

@@ -19,8 +19,8 @@ It contains all the jobs listed below.
 See `Configuring CircleCI <https://circleci.com/docs/2.0/configuration-reference/>`__ for a full reference.
 
 
-Workflow ``main``
-=================
+Workflow ``develop``
+====================
 
 .. image:: images/circleci-main-workflow.png
     :alt: CircleCI main workflow
@@ -31,11 +31,12 @@ pipenv-install
 This job executes ``pipenv install --dev`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
 It passes the virtual environment ``.venv`` to the subsequent jobs.
 
-npm-install
------------
+webpack
+-------
 
 This job executes ``npm install`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
-It passes the installed ``node_modules`` to the subsequent jobs.
+After that, it compiles all static files with webpack (``npm run prod``) and passes the output in
+``integreat_cms/static/dist`` to the subsequent jobs.
 
 pylint
 ------
@@ -60,18 +61,15 @@ check-translations
 This job uses the dev-tool ``./dev-tools/check_translations.sh`` to check whether the translation file is up to date and
 does not contain any empty or fuzzy entries.
 
-.. _circleci-bundle-static-files:
+compile-translations
+--------------------
 
-bundle-static-files
--------------------
+This job compiles the translation file and passes the resulting ``django.mo`` to the packaging job.
 
-This job compiles and compresses all static files, e.g. CSS, JS as well as the compiled translation file.
-It passes the resulting objects to the testing and packaging jobs.
+.. _circleci-build-package:
 
-.. _circleci-packaging:
-
-packaging
----------
+build-package
+-------------
 
 This job creates a debian package with ``python3 setup.py --command-packages=stdeb.command bdist_deb`` and passes the
 resulting files in ``dist`` to the build artifacts.
@@ -132,8 +130,7 @@ more information.
 Custom Docker Images
 ====================
 
-To speed up the jobs :ref:`circleci-bundle-static-files` and :ref:`circleci-packaging`, we use the custom docker images
-`integreat/python-node-gettext <https://hub.docker.com/r/integreat/python-node-gettext>`__ and
+To speed up the job :ref:`circleci-build-package`, we use the custom docker image
 `integreat/bionic-setuptools <https://hub.docker.com/r/integreat/bionic-setuptools>`__.
 
 .. Note::
@@ -146,10 +143,6 @@ The Dockerfiles are managed via GitHub in :github-source:`.circleci/images/bioni
 Every time a change is pushed to GitHub (no matter on which branch), they are tagged with the commit's SHA1 hash and
 pushed to `Docker Hub <https://hub.docker.com/u/integreat>`__ (see :ref:`circleci-docker-images` for more information).
 Don't forget to change the image tag in :github-source:`.circleci/config.yml` after you made changes to the Dockerfile::
-
-  bundle-static-files:
-    docker:
-      - image: integreat/python-node-gettext:<INSERT-NEW-COMMIT-SHA1-HERE>
 
   packaging:
     docker:
