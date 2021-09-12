@@ -1,7 +1,7 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import get_language, ugettext_lazy as _
 
-from backend.settings import CHANNELS
 from ..regions.region import Region
 from ...constants.push_notifications import PN_MODES
 
@@ -19,7 +19,7 @@ class PushNotification(models.Model):
     )
     channel = models.CharField(
         max_length=60,
-        choices=CHANNELS,
+        choices=settings.CHANNELS,
         verbose_name=_("channel"),
     )
     draft = models.BooleanField(

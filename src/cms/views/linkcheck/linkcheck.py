@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -8,7 +9,6 @@ from django.views.generic import ListView
 from django.views.generic.base import RedirectView
 
 from linkcheck.models import Link
-from backend.settings import PER_PAGE
 
 from ...decorators import region_permission_required
 from ...utils.filter_links import filter_links
@@ -23,7 +23,7 @@ class LinkListView(ListView):
 
     template_name = "linkcheck/links_by_filter.html"
     context_object_name = "filtered_links"
-    paginate_by = PER_PAGE
+    paginate_by = settings.PER_PAGE
     extra_context = {"current_menu_item": "linkcheck"}
 
     def get_queryset(self):

@@ -1,9 +1,8 @@
 """
 This contains tags for accessing settings
 """
+from django.conf import settings
 from django import template
-
-from backend.settings import BASE_URL, WEBAPP_URL
 
 
 register = template.Library()
@@ -17,7 +16,7 @@ def get_webapp_url():
     :return: The url of the current web application
     :rtype: str
     """
-    return WEBAPP_URL
+    return settings.WEBAPP_URL
 
 
 @register.simple_tag
@@ -28,4 +27,4 @@ def get_base_url():
     :return: The base url of the current web application
     :rtype: str
     """
-    return BASE_URL
+    return settings.BASE_URL

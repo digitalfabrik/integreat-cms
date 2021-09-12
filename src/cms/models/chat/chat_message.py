@@ -3,8 +3,6 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
-from backend.settings import AUTHOR_CHAT_HISTORY_DAYS
-
 
 # pylint: disable=too-few-public-methods
 class ChatHistoryManager(models.Manager):
@@ -25,7 +23,7 @@ class ChatHistoryManager(models.Manager):
             .get_queryset()
             .filter(
                 sent_datetime__gt=timezone.now()
-                - timezone.timedelta(days=AUTHOR_CHAT_HISTORY_DAYS)
+                - timezone.timedelta(days=settings.AUTHOR_CHAT_HISTORY_DAYS)
             )
         )
 

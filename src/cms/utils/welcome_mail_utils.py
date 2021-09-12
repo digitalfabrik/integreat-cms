@@ -2,6 +2,7 @@ import logging
 
 from email.mime.image import MIMEImage
 
+from django.conf import settings
 from django.contrib import messages
 from django.core.mail import BadHeaderError, EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -9,8 +10,6 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext as _
 
-
-from backend.settings import BASE_URL, STATIC_ROOT
 from .account_activation_token_generator import account_activation_token_generator
 from ..models import Region
 
@@ -38,7 +37,7 @@ def send_welcome_mail(request, user, activation):
     debug_mail_type = _("welcome mail")
     context = {
         "user": user,
-        "base_url": BASE_URL,
+        "base_url": settings.BASE_URL,
         "region": Region.get_current_region(request),
     }
 
@@ -66,7 +65,7 @@ def send_welcome_mail(request, user, activation):
     email.attach_alternative(html_message, "text/html")
 
     # attach logo
-    image_path = f"{STATIC_ROOT}images/integreat-logo.png"
+    image_path = f"{settings.STATIC_ROOT}images/integreat-logo.png"
     try:
         with open(image_path, mode="rb") as f:
             image = MIMEImage(f.read())

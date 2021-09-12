@@ -1,12 +1,8 @@
 from datetime import timedelta
+from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
 
-from backend.settings import (
-    WEBAPP_URL,
-    CURRENT_TIME_ZONE,
-    API_EVENTS_MAX_TIME_SPAN_DAYS,
-)
 from cms.models import Region
 from cms.models.events.event_translation import EventTranslation
 from cms.utils.slug_utils import generate_unique_slug
@@ -32,7 +28,7 @@ def transform_event(event):
         "start_time": event.start_time,
         "end_time": event.end_time,
         "recurrence_id": event.recurrence_rule.id if event.recurrence_rule else None,
-        "timezone": CURRENT_TIME_ZONE,
+        "timezone": settings.CURRENT_TIME_ZONE,
     }
 
 
@@ -59,7 +55,7 @@ def transform_event_translation(event_translation):
 
     return {
         "id": event_translation.id,
-        "url": WEBAPP_URL + event_translation.get_absolute_url(),
+        "url": settings.WEBAPP_URL + event_translation.get_absolute_url(),
         "path": event_translation.get_absolute_url(),
         "title": event_translation.title,
         "modified_gmt": event_translation.last_updated.strftime("%Y-%m-%d %H:%M:%S"),
@@ -83,7 +79,7 @@ def transform_event_recurrences(event_translation, today):
     :param today: The first date at which event may be yielded
     :type today: ~datetime.date
 
-    :return: An iterator over all future recurrences up to ``API_EVENTS_MAX_TIME_SPAN_DAYS``
+    :return: An iterator over all future recurrences up to ``settings.API_EVENTS_MAX_TIME_SPAN_DAYS``
     :rtype: Iterator[:class:`~datetime.date`]
     """
     recurrence_rule = event_translation.event.recurrence_rule
@@ -107,7 +103,7 @@ def transform_event_recurrences(event_translation, today):
     start_date = event_translation.event.start_date
     for recurrence_date in recurrence_rule.iter_after(start_date):
         if recurrence_date - max(start_date, today) > timedelta(
-            days=API_EVENTS_MAX_TIME_SPAN_DAYS
+            days=settings.API_EVENTS_MAX_TIME_SPAN_DAYS
         ):
             break
         if recurrence_date < today or recurrence_date == start_date:

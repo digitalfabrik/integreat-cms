@@ -1,12 +1,12 @@
 import logging
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils import translation
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from backend.settings import RSS_FEED_URLS, BLOG_URLS
 from ...decorators import region_permission_required
 from ...utils.filter_links import filter_links
 from ..chat.chat_context_mixin import ChatContextMixin
@@ -66,7 +66,7 @@ class DashboardView(TemplateView, ChatContextMixin):
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
-                "blog_url": BLOG_URLS[language_slug],
-                "feed_url": RSS_FEED_URLS[language_slug],
+                "blog_url": settings.BLOG_URLS[language_slug],
+                "feed_url": settings.RSS_FEED_URLS[language_slug],
             },
         )

@@ -5,6 +5,7 @@ The views are class-based patches of the inbuilt views :func:`~django.contrib.si
 """
 import logging
 
+from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -13,7 +14,6 @@ from django.utils.http import http_date
 from django.views.generic.base import TemplateResponseMixin, View
 
 
-from backend.settings import WEBAPP_URL
 from cms.constants import region_status
 from cms.models import Region
 
@@ -70,7 +70,7 @@ class SitemapIndexView(TemplateResponseMixin, View):
                             "language_slug": language_tree_node.slug,
                         },
                     )
-                    absolute_url = f"{WEBAPP_URL}{sitemap_url}"
+                    absolute_url = f"{settings.WEBAPP_URL}{sitemap_url}"
                     sitemaps.append(absolute_url)
 
         logger.debug("Sitemap index: %r", sitemaps)

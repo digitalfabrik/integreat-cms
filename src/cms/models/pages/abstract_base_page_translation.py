@@ -1,7 +1,7 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from backend.settings import WEBAPP_URL
 from ...constants import status
 
 
@@ -159,7 +159,7 @@ class AbstractBasePageTranslation(models.Model):
             if other_translation:
                 available_languages.append(
                     {
-                        "location": f"{WEBAPP_URL}{other_translation.get_absolute_url()}",
+                        "location": f"{settings.WEBAPP_URL}{other_translation.get_absolute_url()}",
                         "lang_slug": other_translation.language.slug,
                     }
                 )

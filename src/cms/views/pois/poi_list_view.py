@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -8,12 +9,9 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from backend.settings import PER_PAGE, WEBAPP_URL
-from cms.models.pois.poi_translation import POITranslation
-
 from ...constants import status
 from ...decorators import region_permission_required, permission_required
-from ...models import Region, Language
+from ...models import Region, Language, POITranslation
 from ...forms import ObjectSearchForm
 from .poi_context_mixin import POIContextMixin
 
@@ -115,7 +113,7 @@ class POIListView(TemplateView, POIContextMixin):
             )
             pois = pois.filter(pk__in=poi_keys)
 
-        chunk_size = int(request.GET.get("size", PER_PAGE))
+        chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
         paginator = Paginator(pois.order_by("region__slug"), chunk_size)
         chunk = request.GET.get("page")
@@ -131,7 +129,7 @@ class POIListView(TemplateView, POIContextMixin):
                 "language": language,
                 "languages": region.languages,
                 "search_query": query,
-                "WEBAPP_URL": WEBAPP_URL,
+                "WEBAPP_URL": settings.WEBAPP_URL,
                 "PUBLIC": status.PUBLIC,
                 **context,
             },

@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -8,7 +9,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from backend.settings import WEBAPP_URL
 
 from ...constants import status
 from ...decorators import region_permission_required, permission_required
@@ -93,7 +93,7 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
             instance=recurrence_rule_instance, disabled=disabled
         )
         context = self.get_context_data(**kwargs)
-        url_link = f"{WEBAPP_URL}/{region.slug}/{language.slug}/events/"
+        url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/events/"
         return render(
             request,
             self.template_name,

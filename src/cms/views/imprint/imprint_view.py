@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -8,7 +9,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from backend.settings import IMPRINT_SLUG, WEBAPP_URL
 from ..media.media_context_mixin import MediaContextMixin
 from ...decorators import region_permission_required, permission_required
 from ...forms import ImprintTranslationForm
@@ -30,8 +30,8 @@ class ImprintView(TemplateView, MediaContextMixin):
     template_name = "imprint/imprint_form.html"
     base_context = {
         "current_menu_item": "imprint",
-        "WEBAPP_URL": WEBAPP_URL,
-        "IMPRINT_SLUG": IMPRINT_SLUG,
+        "WEBAPP_URL": settings.WEBAPP_URL,
+        "IMPRINT_SLUG": settings.IMPRINT_SLUG,
     }
 
     def get(self, request, *args, **kwargs):

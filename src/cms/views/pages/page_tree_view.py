@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -7,13 +8,10 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from backend.settings import WEBAPP_URL
-from cms.models.pages.page_translation import PageTranslation
-
 from ...constants import translation_status, status
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageFilterForm
-from ...models import Region, Language, Page
+from ...models import Region, Language, Page, PageTranslation
 from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
@@ -161,7 +159,7 @@ class PageTreeView(TemplateView, PageContextMixin):
                 "enable_drag_and_drop": enable_drag_and_drop,
                 "search_query": query,
                 "PUBLIC": status.PUBLIC,
-                "WEBAPP_URL": WEBAPP_URL,
+                "WEBAPP_URL": settings.WEBAPP_URL,
             },
         )
 

@@ -1,12 +1,12 @@
 import logging
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from backend.settings import PER_PAGE
 from ...forms import ObjectSearchForm
 from ...decorators import region_permission_required, permission_required
 from ...models import Region
@@ -61,7 +61,7 @@ class RegionUserListView(TemplateView):
             user_keys = search_users(region, query).values("pk")
             users = users.filter(pk__in=user_keys)
 
-        chunk_size = int(request.GET.get("size", PER_PAGE))
+        chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
         paginator = Paginator(users, chunk_size)
         chunk = request.GET.get("page")

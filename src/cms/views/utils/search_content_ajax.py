@@ -1,11 +1,11 @@
 import logging
 import json
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-from backend.settings import WEBAPP_URL
 from ...constants import status
 from ...utils.user_utils import search_users
 from ...decorators import region_permission_required
@@ -37,7 +37,7 @@ def format_object_translation(object_translation, typ):
     """
     return {
         "title": object_translation.title,
-        "url": f"{WEBAPP_URL}/{object_translation.permalink}",
+        "url": f"{settings.WEBAPP_URL}/{object_translation.permalink}",
         "type": typ,
     }
 

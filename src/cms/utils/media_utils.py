@@ -7,16 +7,17 @@ import logging
 
 from PIL import Image, ImageOps
 
+from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
-
-from backend.settings import MEDIA_THUMBNAIL_SIZE, MEDIA_THUMBNAIL_CROP
 
 logger = logging.getLogger(__name__)
 
 
 # pylint: disable=too-many-locals
 def generate_thumbnail(
-    original_image, size=MEDIA_THUMBNAIL_SIZE, crop=MEDIA_THUMBNAIL_CROP
+    original_image,
+    size=settings.MEDIA_THUMBNAIL_SIZE,
+    crop=settings.MEDIA_THUMBNAIL_CROP,
 ):
     """
     Creates a thumbnail for a given media_file.

@@ -1,10 +1,10 @@
 """
 pages API endpoint
 """
+from django.conf import settings
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 
-from backend.settings import BASE_URL
 from cms.models import Region, Page
 
 from ..decorators import json_response
@@ -21,7 +21,7 @@ def transform_page(page_translation):
     :rtype: dict
     """
     if page_translation.page.icon:
-        thumbnail = BASE_URL + page_translation.page.icon.url
+        thumbnail = settings.BASE_URL + page_translation.page.icon.url
     else:
         thumbnail = None
     if page_translation.page.parent:

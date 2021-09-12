@@ -7,12 +7,12 @@ import logging
 from os.path import splitext, getmtime
 from time import strftime
 
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.translation import ugettext_lazy as _
 
-from backend.settings import BASE_URL
 
 from ...constants import allowed_media
 from ..regions.region import Region
@@ -150,7 +150,7 @@ class MediaFile(models.Model):
         :return: The path of the file
         :rtype: str
         """
-        return BASE_URL + self.file.url if self.file else None
+        return settings.BASE_URL + self.file.url if self.file else None
 
     @property
     def thumbnail_url(self):
@@ -165,7 +165,7 @@ class MediaFile(models.Model):
                 #: Returns the path to the file itself
                 return self.url
             return None
-        return BASE_URL + self.thumbnail.url
+        return settings.BASE_URL + self.thumbnail.url
 
     def serialize(self):
         """

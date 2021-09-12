@@ -5,7 +5,6 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from backend.settings import BASE_URL, IMPRINT_SLUG, WEBAPP_URL
 from .abstract_base_page_translation import AbstractBasePageTranslation
 from .imprint_page import ImprintPage
 from ..languages.language import Language
@@ -58,7 +57,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         return "/".join(
             filter(
                 None,
-                [self.page.region.slug, self.language.slug, IMPRINT_SLUG],
+                [self.page.region.slug, self.language.slug, settings.IMPRINT_SLUG],
             )
         )
 
@@ -73,7 +72,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         return (
             "/".join(
                 [
-                    WEBAPP_URL,
+                    settings.WEBAPP_URL,
                     self.page.region.slug,
                     self.language.slug,
                 ]
@@ -90,7 +89,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         :rtype: str
         """
 
-        return BASE_URL + reverse(
+        return settings.BASE_URL + reverse(
             "expand_imprint_translation_id", kwargs={"imprint_translation_id": self.id}
         )
 

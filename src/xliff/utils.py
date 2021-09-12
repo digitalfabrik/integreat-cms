@@ -8,6 +8,7 @@ import glob
 import os
 import uuid
 
+from django.conf import settings
 from django.contrib import messages
 from django.core import serializers
 from django.core.cache import cache
@@ -16,12 +17,6 @@ from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
 from django.utils.translation import ugettext as _
 
-from backend.settings import (
-    XLIFF_EXPORT_VERSION,
-    XLIFF_UPLOAD_DIR,
-    XLIFF_DOWNLOAD_DIR,
-    XLIFF_URL,
-)
 from cms.constants import text_directions
 from cms.forms import PageTranslationForm
 from cms.models import Page, PageTranslation, Region
@@ -29,8 +24,10 @@ from cms.utils.file_utils import create_zip_archive
 from cms.utils.translation_utils import ugettext_many_lazy as __
 
 
-upload_storage = FileSystemStorage(location=XLIFF_UPLOAD_DIR)
-download_storage = FileSystemStorage(location=XLIFF_DOWNLOAD_DIR, base_url=XLIFF_URL)
+upload_storage = FileSystemStorage(location=settings.XLIFF_UPLOAD_DIR)
+download_storage = FileSystemStorage(
+    location=settings.XLIFF_DOWNLOAD_DIR, base_url=settings.XLIFF_URL
+)
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +71,7 @@ def pages_to_xliff_file(request, pages, target_language):
         # If only one xliff file was created, return it directly instead of creating zip file
         page, xliff_file_path = xliff_paths.popitem()
         xliff_file_url = download_storage.url(
-            os.path.relpath(xliff_file_path, XLIFF_DOWNLOAD_DIR)
+            os.path.relpath(xliff_file_path, settings.XLIFF_DOWNLOAD_DIR)
         )
         logger.info(
             "XLIFF export: %r converted to XLIFF file %r by %r",
@@ -146,7 +143,7 @@ def page_to_xliff(page, target_language, dir_name):
 
     try:
         xliff_content = serializers.serialize(
-            XLIFF_EXPORT_VERSION, [target_page_translation]
+            settings.XLIFF_EXPORT_VERSION, [target_page_translation]
         )
     except Exception as e:
         # All these error should already have been prevented

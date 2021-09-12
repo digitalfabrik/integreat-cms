@@ -1,13 +1,14 @@
 """
 This module contains all sitemap classes which are all based on :class:`django.contrib.sitemaps.Sitemap`.
 """
+import logging
+
 from abc import ABC, abstractmethod
 from urllib.parse import urlsplit
 
-import logging
+from django.conf import settings
 from django.contrib.sitemaps import Sitemap
 
-from backend.settings import WEBAPP_URL
 from cms.models import PageTranslation, EventTranslation, POITranslation, OfferTemplate
 from cms.constants import status
 
@@ -75,7 +76,7 @@ class WebappSitemap(ABC, Sitemap):
         to the list of urls.
         This patch is required because the inbuilt function can only deal with the i18n backend languages and not with
         our custom language model.
-        Additionally, it overwrites the protocol and domain of the urls with :attr:`~backend.settings.WEBAPP_URL` because
+        Additionally, it overwrites the protocol and domain of the urls with :attr:`~backend.settings.settings.WEBAPP_URL` because
         out of the box, :doc:`ref/contrib/sitemaps` does only support this functionality when used together with
         :doc:`ref/contrib/sites`.
 
@@ -91,7 +92,7 @@ class WebappSitemap(ABC, Sitemap):
         :return: A list of urls
         :rtype: list [ dict ]
         """
-        splitted_url = urlsplit(WEBAPP_URL)
+        splitted_url = urlsplit(settings.WEBAPP_URL)
         # Generate list of urls without alternative languages
         urls = super()._urls(page, splitted_url.scheme, splitted_url.hostname)
         for url in urls:
@@ -267,7 +268,7 @@ class OfferSitemap(WebappSitemap):
         """
         return [
             {
-                "location": f"{WEBAPP_URL}/{self.region.slug}/{language_tree_node.slug}/offers/{obj.slug}",
+                "location": f"{settings.WEBAPP_URL}/{self.region.slug}/{language_tree_node.slug}/offers/{obj.slug}",
                 "lang_slug": language_tree_node.slug,
             }
             for language_tree_node in self.region.language_tree_nodes.filter(

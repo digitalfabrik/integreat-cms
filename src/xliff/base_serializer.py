@@ -15,8 +15,6 @@ from django.core.serializers import xml_serializer
 from django.core.serializers.base import DeserializedObject, DeserializationError
 from django.utils.xmlutils import SimplerXMLGenerator
 
-from backend.settings import XLIFF_DEFAULT_FIELDS, XLIFF_LEGACY_FIELDS
-
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +51,7 @@ class Serializer(xml_serializer.Serializer):
 
     def serialize(self, queryset, *args, **kwargs):
         """
-        Initialize serialization and set the :attr:`backend.settings.XLIFF_DEFAULT_FIELDS`.
+        Initialize serialization and set the :attr:`backend.settings.settings.XLIFF_DEFAULT_FIELDS`.
 
         :param queryset: QuerySet of all :class:`~cms.models.pages.page_translation.PageTranslation` objects which
                          should be serialized
@@ -68,7 +66,7 @@ class Serializer(xml_serializer.Serializer):
         :return: The serialized XLIFF string
         :rtype: str
         """
-        kwargs.setdefault("fields", XLIFF_DEFAULT_FIELDS)
+        kwargs.setdefault("fields", settings.XLIFF_DEFAULT_FIELDS)
         return super().serialize(queryset, *args, **kwargs)
 
     def start_serialization(self):
@@ -239,7 +237,7 @@ class Deserializer(xml_serializer.Deserializer):
                 field = page_translation._meta.get_field(field_name)
             except FieldDoesNotExist as e:
                 # If the field doesn't exist, check if a legacy field is supported
-                field_name = XLIFF_LEGACY_FIELDS.get(field_name)
+                field_name = settings.XLIFF_LEGACY_FIELDS.get(field_name)
                 try:
                     field = page_translation._meta.get_field(field_name)
                 except FieldDoesNotExist:

@@ -1,6 +1,7 @@
 from datetime import date, time
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -8,8 +9,6 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
-
-from backend.settings import PER_PAGE, WEBAPP_URL
 
 from ...constants import all_day, recurrence, status
 from ...decorators import region_permission_required, permission_required
@@ -171,7 +170,7 @@ class EventListView(TemplateView, EventContextMixin):
             event_filter_form = EventFilterForm()
             event_filter_form.changed_data.clear()
             poi = None
-        chunk_size = int(request.GET.get("size", PER_PAGE))
+        chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
         paginator = Paginator(events.order_by("start_date", "start_time"), chunk_size)
         chunk = request.GET.get("page")
@@ -190,7 +189,7 @@ class EventListView(TemplateView, EventContextMixin):
                 "filter_form": event_filter_form,
                 "filter_poi": poi,
                 "search_query": query,
-                "WEBAPP_URL": WEBAPP_URL,
+                "WEBAPP_URL": settings.WEBAPP_URL,
                 "PUBLIC": status.PUBLIC,
             },
         )

@@ -5,11 +5,11 @@ from urllib.parse import urlparse
 from lxml.etree import LxmlError
 from lxml.html import fromstring, tostring
 
+from django.conf import settings
 from django.db.models import Q
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 
-from backend.settings import MEDIA_URL
 from ..constants import status
 from ..models import MediaFile
 from .custom_model_form import CustomModelForm
@@ -65,8 +65,8 @@ class CustomContentModelForm(CustomModelForm):
             # Remove host
             relative_url = urlparse(image.attrib["src"]).path
             # Remove media url prefix if exists
-            if relative_url.startswith(MEDIA_URL):
-                relative_url = relative_url[len(MEDIA_URL) :]
+            if relative_url.startswith(settings.MEDIA_URL):
+                relative_url = relative_url[len(settings.MEDIA_URL) :]
             # Check whether media file exists in database
             media_file = MediaFile.objects.filter(
                 Q(file=relative_url) | Q(thumbnail=relative_url)

@@ -11,7 +11,6 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from linkcheck.models import Link
-from backend.settings import BASE_URL, WEBAPP_URL
 
 from .abstract_base_page_translation import AbstractBasePageTranslation
 from .page import Page
@@ -116,7 +115,7 @@ class PageTranslation(AbstractBasePageTranslation):
                 filter(
                     None,
                     [
-                        WEBAPP_URL,
+                        settings.WEBAPP_URL,
                         self.page.region.slug,
                         self.language.slug,
                         self.ancestor_path,
@@ -139,7 +138,7 @@ class PageTranslation(AbstractBasePageTranslation):
                 filter(
                     None,
                     [
-                        BASE_URL,
+                        settings.BASE_URL,
                         self.page.region.slug,
                         self.language.slug,
                         self.ancestor_path,
@@ -176,7 +175,7 @@ class PageTranslation(AbstractBasePageTranslation):
         :rtype: str
         """
 
-        return BASE_URL + reverse(
+        return settings.BASE_URL + reverse(
             "expand_page_translation_id", kwargs={"short_url_id": self.id}
         )
 

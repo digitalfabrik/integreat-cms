@@ -8,6 +8,7 @@ import uuid
 
 from mptt.exceptions import InvalidMove
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -17,7 +18,6 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from backend.settings import WEBAPP_URL, XLIFF_UPLOAD_DIR
 from xliff.utils import pages_to_xliff_file
 from ...constants import text_directions
 from ...decorators import region_permission_required, permission_required
@@ -290,7 +290,7 @@ def expand_page_translation_id(request, short_url_id):
     ).latest_public_revision
 
     if page_translation and not page_translation.page.archived:
-        return redirect(WEBAPP_URL + page_translation.get_absolute_url())
+        return redirect(settings.WEBAPP_URL + page_translation.get_absolute_url())
     return HttpResponseNotFound("<h1>Page not found</h1>")
 
 
@@ -424,7 +424,7 @@ def upload_xliff(request, region_slug, language_slug):
     xliff_dir_uuid = str(uuid.uuid4())
     if upload_files:
         logger.debug("Uploaded files: %r", upload_files)
-        upload_dir = os.path.join(XLIFF_UPLOAD_DIR, xliff_dir_uuid)
+        upload_dir = os.path.join(settings.XLIFF_UPLOAD_DIR, xliff_dir_uuid)
         os.makedirs(upload_dir, exist_ok=True)
         for upload_file in upload_files:
             # Check whether the file is valid

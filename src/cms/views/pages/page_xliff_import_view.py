@@ -1,6 +1,7 @@
 import os
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
@@ -8,7 +9,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from backend.settings import XLIFF_UPLOAD_DIR
 from xliff.utils import get_xliff_import_diff, xliff_import_confirm
 from ...decorators import region_permission_required, permission_required
 from ...models import Region
@@ -82,7 +82,9 @@ class PageXliffImportView(TemplateView, PageContextMixin):
             self.region.languages, slug=kwargs.get("language_slug")
         )
         # Get directory path of the uploaded XLIFF files
-        self.xliff_dir = os.path.join(XLIFF_UPLOAD_DIR, kwargs.get("xliff_dir"))
+        self.xliff_dir = os.path.join(
+            settings.XLIFF_UPLOAD_DIR, kwargs.get("xliff_dir")
+        )
 
         if not os.path.isdir(self.xliff_dir):
             messages.error(

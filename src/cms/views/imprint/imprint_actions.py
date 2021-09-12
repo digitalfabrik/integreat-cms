@@ -3,6 +3,7 @@ This module contains view actions related to the imprint.
 """
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -11,7 +12,6 @@ from django.utils.translation import ugettext as _
 from django.http import HttpResponseNotFound
 from django.views.decorators.http import require_POST
 
-from backend.settings import WEBAPP_URL
 from ...decorators import region_permission_required, permission_required
 from ...models import Region, ImprintPage, ImprintPageTranslation
 
@@ -159,5 +159,5 @@ def expand_imprint_translation_id(request, imprint_translation_id):
     ).latest_public_revision
 
     if imprint_translation and not imprint_translation.page.archived:
-        return redirect(WEBAPP_URL + imprint_translation.get_absolute_url())
+        return redirect(settings.WEBAPP_URL + imprint_translation.get_absolute_url())
     return HttpResponseNotFound("<h1>Imprint not found</h1>")

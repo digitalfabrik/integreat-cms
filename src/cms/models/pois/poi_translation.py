@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
 from linkcheck.models import Link
-from backend.settings import WEBAPP_URL
 
 from .poi import POI
 from ..languages.language import Language
@@ -175,7 +174,7 @@ class POITranslation(models.Model):
             if other_translation:
                 available_languages.append(
                     {
-                        "location": f"{WEBAPP_URL}{other_translation.get_absolute_url()}",
+                        "location": f"{settings.WEBAPP_URL}{other_translation.get_absolute_url()}",
                         "lang_slug": other_translation.language.slug,
                     }
                 )

@@ -1,9 +1,9 @@
 """
 imprint API endpoint
 """
+from django.conf import settings
 from django.http import JsonResponse
 
-from backend.settings import BASE_URL
 from cms.models import Region
 
 from ..decorators import json_response
@@ -20,7 +20,7 @@ def transform_imprint(imprint_translation):
     :rtype: dict
     """
     if imprint_translation.page.icon:
-        thumbnail = BASE_URL + imprint_translation.page.icon.url
+        thumbnail = settings.BASE_URL + imprint_translation.page.icon.url
     else:
         thumbnail = None
     return {

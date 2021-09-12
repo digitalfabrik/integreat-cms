@@ -2,13 +2,13 @@ import logging
 
 from datetime import date
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from backend.settings import PER_PAGE
 from ...constants import feedback_ratings, feedback_read_status
 from ...decorators import region_permission_required, permission_required
 from ...forms import RegionFeedbackFilterForm
@@ -112,7 +112,7 @@ class RegionFeedbackListView(TemplateView):
             filter_form = RegionFeedbackFilterForm()
             filter_form.changed_data.clear()
 
-        chunk_size = int(request.GET.get("size", PER_PAGE))
+        chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         paginator = Paginator(region_feedback, chunk_size)
         chunk = request.GET.get("page")
         region_feedback_chunk = paginator.get_page(chunk)

@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -8,7 +9,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from backend.settings import IMPRINT_SLUG, WEBAPP_URL
 from ...decorators import region_permission_required, permission_required
 from ...forms import ImprintTranslationForm
 from ...models import Region, Language, ImprintPage
@@ -30,8 +30,8 @@ class ImprintSideBySideView(TemplateView):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {
         "current_menu_item": "imprint",
-        "WEBAPP_URL": WEBAPP_URL,
-        "IMPRINT_SLUG": IMPRINT_SLUG,
+        "WEBAPP_URL": settings.WEBAPP_URL,
+        "IMPRINT_SLUG": settings.IMPRINT_SLUG,
     }
 
     def get(self, request, *args, **kwargs):

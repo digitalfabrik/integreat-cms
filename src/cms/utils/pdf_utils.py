@@ -1,6 +1,7 @@
 import hashlib
 import logging
 
+from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.core.cache import caches
 from django.db.models import Min
@@ -10,8 +11,6 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 
 from xhtml2pdf import pisa
-
-from backend.settings import MEDIA_URL, STATIC_URL
 
 from ..constants import text_directions
 from ..models import Language
@@ -129,12 +128,12 @@ def link_callback(uri, rel):
     :return: The absolute path on the file system according to django's static file settings
     :rtype: str
     """
-    if uri.startswith(MEDIA_URL):
+    if uri.startswith(settings.MEDIA_URL):
         # Remove the MEDIA_URL from the start of the uri
-        uri = uri[len(MEDIA_URL) :]
-    elif uri.startswith(STATIC_URL):
+        uri = uri[len(settings.MEDIA_URL) :]
+    elif uri.startswith(settings.STATIC_URL):
         # Remove the STATIC_URL from the start of the uri
-        uri = uri[len(STATIC_URL) :]
+        uri = uri[len(settings.STATIC_URL) :]
     elif uri.startswith("../"):
         # Remove ../ from the start of the uri
         uri = uri[3:]
@@ -142,8 +141,8 @@ def link_callback(uri, rel):
         logger.warning(
             "The file %r is not inside the static directories %r and %r.",
             uri,
-            STATIC_URL,
-            MEDIA_URL,
+            settings.STATIC_URL,
+            settings.MEDIA_URL,
         )
         return uri
     result = finders.find(uri)
