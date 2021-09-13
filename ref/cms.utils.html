@@ -1536,22 +1536,23 @@ Matomo API request</p>
 <p>Utility functions for the media management. Most of the functions are used to transform media data to other data types.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">cms.utils.media_utils.</span></span><span class="sig-name descname"><span class="pre">generate_thumbnail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/media_utils.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.utils.media_utils.</span></span><span class="sig-name descname"><span class="pre">generate_thumbnail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/media_utils.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Creates a thumbnail for a given media_file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>original_image</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/files/uploads/#django.core.files.uploadedfile.InMemoryUploadedFile" title="(in Django v3.2)"><em>django.core.files.uploadedfile.InMemoryUploadedFile</em></a>) – Original image for the thumbnail</p></li>
-<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Width of the desired thumbnail</p></li>
-<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Height of the desired thumbnail</p></li>
-<li><p><strong>crop</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Option to either crop the thumbnail or not.</p></li>
+<li><p><strong>original_image</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/files/uploads/#django.core.files.uploadedfile.InMemoryUploadedFile" title="(in Django v3.2)"><em>InMemoryUploadedFile</em></a>) – Original image for the thumbnail</p></li>
+<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Desired size of the thumbnail (maximum for height and with), defaults to
+<a class="reference internal" href="../ref-ext/backend.html#backend.settings.MEDIA_THUMBNAIL_SIZE" title="backend.settings.MEDIA_THUMBNAIL_SIZE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MEDIA_THUMBNAIL_SIZE</span></code></a></p></li>
+<li><p><strong>crop</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether the thumbnail should be cropped (resulting in a square regardless of the initial aspect ratio),
+defaults to <a class="reference internal" href="../ref-ext/backend.html#backend.settings.MEDIA_THUMBNAIL_CROP" title="backend.settings.MEDIA_THUMBNAIL_CROP"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MEDIA_THUMBNAIL_CROP</span></code></a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The physical path to the created thumbnail.</p>
+<dd class="field-even"><p>The created thumbnail in memory</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/files/uploads/#django.core.files.uploadedfile.InMemoryUploadedFile" title="(in Django v3.2)">InMemoryUploadedFile</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1593,7 +1594,7 @@ For more information on xhtml2pdf, see <a class="reference external" href="https
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>Region</em></a>) – region which requested the pdf document</p></li>
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – bcp47 slug of the current language</p></li>
-<li><p><strong>pages</strong> (<a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.querysets.html#mptt.querysets.TreeQuerySet" title="(in django-mptt v0.13.2)"><em>TreeQuerySet</em></a>) – at least on page to render as PDF document</p></li>
+<li><p><strong>pages</strong> (<a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.querysets.html#mptt.querysets.TreeQuerySet" title="(in django-mptt v0.13.3)"><em>TreeQuerySet</em></a>) – at least on page to render as PDF document</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

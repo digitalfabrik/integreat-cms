@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-09-02T08:14:42+00:00" />
+    <meta property="article:modified_time" content="2021-09-08T11:20:14+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1614,12 +1614,6 @@ If empty, Django won’t attempt authentication.</p>
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">FILER_CANONICAL_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'media/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Defines the path element common to all canonical file URLs. (see <a class="reference external" href="https://django-filer.readthedocs.io/en/latest/settings.html" title="(in django-filer v1.4)"><span class="xref std std-doc">Django Filer Settings</span></a>)</p>
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">FIXTURE_DIRS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('/home/circleci/project/src/cms/fixtures/',)</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Directory for initial database contents (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-FIXTURE_DIRS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">FIXTURE_DIRS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;/home/circleci/project/src/cms/fixtures/&#39;</span><span class="p">,</span> <span class="p">)</span>
@@ -1861,6 +1855,18 @@ Defaults to <a class="reference internal" href="../ref-ext/backend.html#backend.
 
 <dl class="py data">
 <dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">MEDIA_THUMBNAIL_CROP</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Whether thumbnails should be cropped (resulting in square thumbnails regardless of the aspect ratio of the image)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">MEDIA_THUMBNAIL_SIZE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">300</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The maximum size of media thumbnails in pixels</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">MEDIA_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/media/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>URL that handles the media served from <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MEDIA_ROOT" title="(in Django v3.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a> (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MEDIA_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code></a>)</p>
 </dd></dl>
@@ -2000,12 +2006,6 @@ deployment (see <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">THUMBNAIL_HIGH_RESOLUTION</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Whether thumbnails should be stored in high resolution (used by <a class="reference external" href="https://easy-thumbnails.readthedocs.io/en/latest/" title="(in easy-thumbnails v2.7)"><span>Easy Thumbnails</span></a>)</p>
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">TIME_ZONE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'UTC'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A string representing the time zone for this installation
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-TIME_ZONE" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
@@ -2141,7 +2141,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Sep 02, 2021.
+        Last updated on Sep 08, 2021.
       </span>
 
     </p>
