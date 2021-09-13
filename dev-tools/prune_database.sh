@@ -53,3 +53,7 @@ fi
 # Remove migrations
 rm -rfv "${BASE_DIR}/src/cms/migrations"
 echo "Removed database migrations" | print_info
+
+# Remove media files (because they are no longer usable without the corresponding database entries)
+rm -rfv "${BASE_DIR}/src/media"
+echo "Removed media files" | print_info

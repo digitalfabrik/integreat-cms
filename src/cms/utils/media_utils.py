@@ -1,98 +1,72 @@
 """
 Utility functions for the media management. Most of the functions are used to transform media data to other data types.
 """
+from io import BytesIO
+
 import logging
-import math
-import os
 
-from PIL import Image
+from PIL import Image, ImageOps
 
-from ..models import MediaFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
+from backend.settings import MEDIA_THUMBNAIL_SIZE, MEDIA_THUMBNAIL_CROP
 
 logger = logging.getLogger(__name__)
 
+
 # pylint: disable=too-many-locals
-def generate_thumbnail(original_image, width, height, crop):
+def generate_thumbnail(
+    original_image, size=MEDIA_THUMBNAIL_SIZE, crop=MEDIA_THUMBNAIL_CROP
+):
     """
     Creates a thumbnail for a given media_file.
 
     :param original_image: Original image for the thumbnail
-    :type original_image: django.core.files.uploadedfile.InMemoryUploadedFile
+    :type original_image: ~django.core.files.uploadedfile.InMemoryUploadedFile
 
-    :param width: Width of the desired thumbnail
-    :type width: int
+    :param size: Desired size of the thumbnail (maximum for height and with), defaults to
+                 :attr:`~backend.settings.MEDIA_THUMBNAIL_SIZE`
+    :type size: int
 
-    :param height: Height of the desired thumbnail
-    :type height: int
-
-    :param crop: Option to either crop the thumbnail or not.
+    :param crop: Whether the thumbnail should be cropped (resulting in a square regardless of the initial aspect ratio),
+                 defaults to :attr:`~backend.settings.MEDIA_THUMBNAIL_CROP`
     :type crop: bool
 
-    :return: The physical path to the created thumbnail.
-    :rtype: str
+    :return: The created thumbnail in memory
+    :rtype: ~django.core.files.uploadedfile.InMemoryUploadedFile
     """
     logger.debug(
-        "Generating thumbnail for %r with size: %sx%s%s",
+        "Generating thumbnail for %r with max size: %spx%s",
         original_image,
-        width,
-        height,
+        size,
         " (cropped)" if crop else "",
     )
-    # Split original filename into name and extension
-    name, extension = os.path.splitext(original_image.name)
-    # Generate a valid filename for this field
-    thumbnail_filename = MediaFile.thumbnail.field.generate_filename(
-        None, f"{name}_thumbnail{extension}"
-    )
-    # Make filename unique
-    thumbnail_filename = MediaFile.thumbnail.field.storage.get_available_name(
-        thumbnail_filename
-    )
-    # Get absolute file path
-    thumbnail_path = MediaFile.thumbnail.field.storage.path(thumbnail_filename)
-    logger.debug(
-        "Thumbnail path: %r",
-        thumbnail_path,
-    )
-
     try:
         image = Image.open(original_image)
-        original_width = image.width
-        original_height = image.height
-        width_ratio = original_width / width
-        height_ratio = original_height / height
+        # Save format, as this information will be lost when resizing the image
+        image_format = image.format
         if crop:
-            if width_ratio < height_ratio:
-                resized_image = image.resize(
-                    (width, math.ceil(original_height / width_ratio))
-                )
-            else:
-                resized_image = image.resize(
-                    (math.ceil(original_width / height_ratio), height)
-                )
-            offset_x = math.floor(resized_image.width - width) / 2
-            offset_y = math.floor(resized_image.height - height) / 2
-            print(resized_image.width, resized_image.height)
-            thumbnail = resized_image.crop(
-                (offset_x, offset_y, width + offset_x, height + offset_y)
-            )
+            # Get minimum of original size of the image because ImageOps.fit would otherwise increase the image size
+            size = min(image.width, image.height, size)
+            # Resize and crop the image into a square of at most the specified size.
+            image = ImageOps.fit(image, (size, size), method=Image.ANTIALIAS)
         else:
-            if width_ratio > height_ratio:
-                thumbnail = image.resize(
-                    (width, math.ceil(original_height / width_ratio))
-                )
-            else:
-                thumbnail = image.resize(
-                    (math.ceil(original_width / height_ratio), height)
-                )
-        # Make sure directory of thumbnail exists
-        directory = os.path.dirname(thumbnail_path)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-            print("created")
-        with open(thumbnail_path, "w+b") as thumbnail_file:
-            thumbnail.save(thumbnail_file, image.format)
-        return thumbnail_filename
+            # Resize the image so that the longer side is at most the specified size
+            image.thumbnail((size, size), resample=Image.ANTIALIAS)
+        # Write PIL image to BytesIO buffer
+        buffer = BytesIO()
+        image.save(buffer, format=image_format)
+        # Construct InMemoryUploadedFile from buffer
+        thumbnail = InMemoryUploadedFile(
+            file=buffer,
+            field_name="thumbnail",
+            name=original_image.name,
+            content_type=Image.MIME[image_format],
+            size=buffer.tell,
+            charset=None,
+        )
+        logger.debug("Successfully generated thumbnail %r", thumbnail)
+        return thumbnail
     except IOError as e:
         logger.error("Thumbnail generation for %r failed", original_image)
         logger.exception(e)
