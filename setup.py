@@ -1,32 +1,21 @@
 #!/usr/bin/env python3
 """ Setup.py """
 
-import os
-import sys
-
 from setuptools import find_packages, setup
 
-# Add source directory to PATH variable to enable import of version number
-sys.path.append(os.path.abspath("src"))
-# pylint: disable=wrong-import-position
-from backend.settings import VERSION
+from integreat_cms.backend.settings import VERSION
+
+
+package_name = "integreat-cms"
+package_dir = "integreat_cms"
 
 setup(
-    name="integreat-cms",
+    name=package_name,
     version=VERSION,
-    packages=find_packages("src"),
-    package_dir={"": "src"},
+    packages=find_packages(),
     include_package_data=True,
-    scripts=["src/integreat-cms-cli"],
+    scripts=[f"{package_dir}/integreat-cms-cli"],
     data_files=[
-        (f"lib/integreat-{root}", [os.path.join(root, f) for f in files])
-        for root, _, files in os.walk("src/cms/templates/")
-    ]
-    + [
-        (f"lib/integreat-{root}", [os.path.join(root, f) for f in files])
-        for root, _, files in os.walk("src/cms/static/")
-    ]
-    + [
         ("etc/apache2/site-available", ["example-configs/apache2-integreat-vhost.conf"])
     ],
     install_requires=[

@@ -89,7 +89,7 @@ echo "✔ All system requirements are satisfied" | print_success
 if [[ "$*" == *"--clean"* ]]; then
     echo "Removing installed dependencies and compiled static files..." | print_info
     # Report deleted files but only the explicitly deleted directories
-    rm -rfv .venv node_modules src/cms/static | grep -E -- \'.venv\''|'\'node_modules\''|'\'src/cms/static\'
+    rm -rfv .venv node_modules "${PACKAGE_DIR:?}/static/dist" | grep -E -- "'.venv'|'node_modules'|'${PACKAGE_DIR}/static/dist'"
 fi
 
 # Install npm dependencies

@@ -10,7 +10,7 @@ require_installed
 ensure_not_root
 
 # Relative path to translation file from the base directory
-TRANSLATION_FILE="src/locale/de/LC_MESSAGES/django.po"
+TRANSLATION_FILE="integreat_cms/locale/de/LC_MESSAGES/django.po"
 
 echo "Resolving translation conflicts..." | print_info
 

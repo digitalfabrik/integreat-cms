@@ -25,17 +25,17 @@ Webserver
        You can use the :github-source:`example-configs/apache2-integreat-vhost.conf`.
     2. Set the following environment variables in the Apache2 config to ensure a safe and secure service:
 
-        * ``DJANGO_SECRET_KEY``: :attr:`~backend.settings.SECRET_KEY`
-        * ``DJANGO_DEBUG``: :attr:`~backend.settings.DEBUG`
-        * ``DJANGO_LOGFILE``: :attr:`~backend.settings.LOGFILE`
-        * ``DJANGO_WEBAPP_URL``: :attr:`~backend.settings.WEBAPP_URL`
-        * ``DJANGO_MATOMO_URL``: :attr:`~backend.settings.MATOMO_URL`
-        * ``DJANGO_BASE_URL``: :attr:`~backend.settings.BASE_URL`
-        * ``DJANGO_STATIC_ROOT``: :attr:`~backend.settings.STATIC_ROOT`
-        * ``DJANGO_MEDIA_ROOT``: :attr:`~backend.settings.MEDIA_ROOT`
-        * ``DJANGO_XLIFF_ROOT``: :attr:`~backend.settings.XLIFF_ROOT`
+        * ``DJANGO_SECRET_KEY``: :attr:`~integreat_cms.backend.settings.SECRET_KEY`
+        * ``DJANGO_DEBUG``: :attr:`~integreat_cms.backend.settings.DEBUG`
+        * ``DJANGO_LOGFILE``: :attr:`~integreat_cms.backend.settings.LOGFILE`
+        * ``DJANGO_WEBAPP_URL``: :attr:`~integreat_cms.backend.settings.WEBAPP_URL`
+        * ``DJANGO_MATOMO_URL``: :attr:`~integreat_cms.backend.settings.MATOMO_URL`
+        * ``DJANGO_BASE_URL``: :attr:`~integreat_cms.backend.settings.BASE_URL`
+        * ``DJANGO_STATIC_ROOT``: :attr:`~integreat_cms.backend.settings.STATIC_ROOT`
+        * ``DJANGO_MEDIA_ROOT``: :attr:`~integreat_cms.backend.settings.MEDIA_ROOT`
+        * ``DJANGO_XLIFF_ROOT``: :attr:`~integreat_cms.backend.settings.XLIFF_ROOT`
 
-       Database settings: :attr:`~backend.settings.DATABASES`
+       Database settings: :attr:`~integreat_cms.backend.settings.DATABASES`
 
         * ``DJANGO_DB_HOST``
         * ``DJANGO_DB_NAME``
@@ -45,12 +45,12 @@ Webserver
 
        Email settings:
 
-        * ``DJANGO_EMAIL_HOST``: :attr:`~backend.settings.EMAIL_HOST`
-        * ``DJANGO_EMAIL_HOST_PASSWORD``: :attr:`~backend.settings.EMAIL_HOST_PASSWORD`
-        * ``DJANGO_EMAIL_HOST_USER``: :attr:`~backend.settings.EMAIL_HOST_USER`
-        * ``DJANGO_EMAIL_PORT``: :attr:`~backend.settings.EMAIL_PORT`
+        * ``DJANGO_EMAIL_HOST``: :attr:`~integreat_cms.backend.settings.EMAIL_HOST`
+        * ``DJANGO_EMAIL_HOST_PASSWORD``: :attr:`~integreat_cms.backend.settings.EMAIL_HOST_PASSWORD`
+        * ``DJANGO_EMAIL_HOST_USER``: :attr:`~integreat_cms.backend.settings.EMAIL_HOST_USER`
+        * ``DJANGO_EMAIL_PORT``: :attr:`~integreat_cms.backend.settings.EMAIL_PORT`
 
-       Cache settings: :attr:`~backend.settings.CACHES`
+       Cache settings: :attr:`~integreat_cms.backend.settings.CACHES`
 
         * ``DJANGO_REDIS_CACHE``: Whether or not the Redis cache should be enabled
         * ``DJANGO_REDIS_UNIX_SOCKET``: If Redis is enabled and available via a unix socket, set this environment
@@ -58,7 +58,7 @@ Webserver
           Otherwise, the connection falls back to a regular TCP connection on port ``6379``.
 
     3. Clone this repo into ``/opt/``.
-    4. Edit the :github-source:`src/backend/settings.py` if a setting you want to change is not configurable via
+    4. Edit the :github-source:`integreat_cms/backend/settings.py` if a setting you want to change is not configurable via
        environment variables.
     5. Create a virtual environment::
 

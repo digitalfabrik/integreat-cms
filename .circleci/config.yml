@@ -89,11 +89,11 @@ jobs:
       - run:
           name: Migrate database
           command: |
-            pipenv run integreat-cms-cli makemigrations cms --settings=backend.circleci_settings
-            pipenv run integreat-cms-cli migrate --settings=backend.circleci_settings
+            pipenv run integreat-cms-cli makemigrations cms --settings=integreat_cms.backend.circleci_settings
+            pipenv run integreat-cms-cli migrate --settings=integreat_cms.backend.circleci_settings
       - run:
           name: Run tests
-          command: pipenv run integreat-cms-cli test cms --set=COVERAGE --settings=backend.circleci_settings
+          command: pipenv run integreat-cms-cli test integreat_cms --set=COVERAGE --settings=integreat_cms.backend.circleci_settings
       - store_artifacts:
           path: htmlcov
   check-translations:
@@ -121,14 +121,14 @@ jobs:
       - run:
           name: Compile translation file
           command: |
-            cd src
-            pipenv run integreat-cms-cli compilemessages --settings=backend.circleci_settings
+            cd src/integreat_cms
+            pipenv run integreat-cms-cli compilemessages --settings=integreat_cms.backend.circleci_settings
       - persist_to_workspace:
           root: .
           paths:
-            - src/cms/static
-            - src/locale/de/LC_MESSAGES/django.mo
-            - webpack-stats.json
+            - src/integreat_cms/cms/static
+            - src/integreat_cms/locale/de/LC_MESSAGES/django.mo
+            - src/integreat_cms/webpack-stats.json
   packaging:
     docker:
       - image: integreat/bionic-setuptools:78c07dc

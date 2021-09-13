@@ -3,7 +3,6 @@
 # This script generates the documentation by scanning the source code and extracting definitions and doc strings.
 
 # Configuration
-SRC_DIR="src"
 DOC_DIR="docs"
 SPHINX_DIR="sphinx"
 SPHINX_APIDOC_DIR="ref"
@@ -57,12 +56,12 @@ echo -e "Scanning Python source code and generating reStructuredText files from 
 
 # Generate new .rst files from source code for maximum verbosity
 export SPHINX_APIDOC_OPTIONS="members,undoc-members,inherited-members,show-inheritance"
-pipenv run sphinx-apidoc --no-toc --module-first -o ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} ${SRC_DIR} ${SRC_DIR}/cms/migrations
+pipenv run sphinx-apidoc --no-toc --module-first -o "${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}" "${PACKAGE_DIR}" "${PACKAGE_DIR}/cms/migrations"
 
 echo -e "Patching reStructuredText files..." | print_info
 
 # Modify .rst files to remove unnecessary submodule- & subpackage-titles
-# Example: "cms.models.push_notifications.push_notification_translation module" becomes "Push Notification Translation"
+# Example: "integreat_cms.cms.models.push_notifications.push_notification_translation module" becomes "Push Notification Translation"
 # At first, the 'find'-command returns all .rst files in the sphinx directory
 # The sed pattern replacement is divided into five stages explained below:
 find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "*.rst" -print0 | xargs -0 --no-run-if-empty sed --in-place \
@@ -73,17 +72,17 @@ find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "*.rst" -print0 | xarg
     -e 's/Cms/CMS/g;s/Api/API/g;s/Poi/POI/g;s/Mfa/MFA/g;s/Pdf/PDF/g;s/Xliff1/XLIFF 1.2/g;s/Xliff2/XLIFF 2.0/g;s/Xliff/XLIFF/g' # Make specific keywords uppercase
 
 # Remove inherited members from tests
-find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "cms.tests*.rst" -print0 | xargs -0 --no-run-if-empty sed --in-place '/:inherited-members:/d'
+find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "integreat_cms.cms.tests*.rst" -print0 | xargs -0 --no-run-if-empty sed --in-place '/:inherited-members:/d'
 
 # Include _urls in sitemap automodule
 # shellcheck disable=SC2251
-! grep --recursive --files-without-match ":private-members:" ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}/sitemap.rst --null | xargs --null --no-run-if-empty sed --in-place '/^\.\. automodule:: sitemap\.sitemaps/a \ \ \ :private-members:'
+! grep --recursive --files-without-match ":private-members:" ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}/integreat_cms.sitemap.rst --null | xargs --null --no-run-if-empty sed --in-place '/^\.\. automodule:: integreat_cms.sitemap\.sitemaps/a \ \ \ :private-members:'
 
-# Patch cms.rst to add the decorated functions
-PATCH_STDOUT=$(patch --forward ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}/cms.rst ${SPHINX_DIR}/patches/cms.diff) && PATCH_STATUS=$? || PATCH_STATUS=$?
+# Patch integreat_cms.cms.rst to add the decorated functions
+PATCH_STDOUT=$(patch --forward ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}/integreat_cms.cms.rst ${SPHINX_DIR}/patches/cms.diff) && PATCH_STATUS=$? || PATCH_STATUS=$?
 # Check if the patch failed and a real error occurred (not only skipping because the patch is already applied)
 if [[ "$PATCH_STATUS" -ne 0 ]] && ! echo "$PATCH_STDOUT" | grep --quiet "Reversed (or previously applied) patch detected!  Skipping patch."; then
-    echo -e "\nThe patch for cms.rst could not be applied correctly." | print_error
+    echo -e "\nThe patch for integreat_cms.cms.rst could not be applied correctly." | print_error
     echo "Presumably the structure of the cms package changed." | print_error
     echo "Please adapt ${SPHINX_DIR}/patches/cms.diff to the structure changes." | print_error
     exit 1
@@ -99,8 +98,8 @@ find ${SPHINX_DIR}/${SPHINX_APIDOC_DIR} -type f -name "*.rst" -print0 | xargs -0
     -e '/:inherited-members:/d' `# Remove inherited-members from normal ref` \
     -e '/:show-inheritance:/a \ \ \ :noindex:' # Insert :noindex: after :show-inheritance: option
 
-# Add :noindex: to decorated functions in cms.rst inserted by the patch
-sed --in-place '/\.\. autofunction:: /a \ \ \ \ \ \ :noindex:' ${SPHINX_DIR}/${SPHINX_APIDOC_DIR}/cms.rst
+# Add :noindex: to decorated functions in integreat_cms.cms.rst inserted by the patch
+sed --in-place '/\.\. autofunction:: /a \ \ \ \ \ \ :noindex:' ${SPHINX_DIR}/${SPHINX_APIDOC_DIR}/integreat_cms.cms.rst
 
 # Set verbose reference as orphans to suppress warnings about toctree
 # shellcheck disable=SC2251

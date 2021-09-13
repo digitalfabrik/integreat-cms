@@ -8,10 +8,10 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed
 
-# Change directory to make sure to ignore files in the venv
-cd "${BASE_DIR}/src"
+# Change directory to make sure to only check translations of this package
+cd "${PACKAGE_DIR}" || exit 1
 
-# Relative path from src
+# Relative path from package directory
 TRANSLATION_FILE="locale/de/LC_MESSAGES/django.po"
 
 # Re-generating translation file
@@ -50,14 +50,14 @@ if [ $UP_TO_DATE -ne 0 ] || [ $EMPTY_ENTRIES -eq 0 ] || [ $FUZZY_ENTRIES -eq 0 ]
     # Check for empty entries
     if [ $EMPTY_ENTRIES -eq 0 ]; then
         echo -e "❌ You have empty entries in your translation file. Please translate them manually:\n" | print_error
-        echo -e "src/$TRANSLATION_FILE"
+        echo -e "${PACKAGE_DIR_REL}/${TRANSLATION_FILE}"
         pcregrep -M -B2 -n --color=never 'msgstr ""\n\n' $TRANSLATION_FILE | sed '4~5d' | format_grep_output | print_with_borders
     fi
     # Check for fuzzy headers (automatic translation proposals)
     if [ $FUZZY_ENTRIES -eq 0 ]; then
         echo -e "❌ You have fuzzy headers in your translation file (See [1] for more information)." | print_error
         echo -e "Please review them manually, adjust the translation if necessary and remove the fuzzy header afterwards.\n" | print_error
-        echo -e "src/$TRANSLATION_FILE"
+        echo -e "${PACKAGE_DIR_REL}/${TRANSLATION_FILE}"
         grep -A3 -B1 -n --color=never "#, fuzzy" $TRANSLATION_FILE | format_grep_output | print_with_borders
         echo -e "[1]: https://www.gnu.org/software/gettext/manual/html_node/Fuzzy-Entries.html\n\n" >&2
     fi
