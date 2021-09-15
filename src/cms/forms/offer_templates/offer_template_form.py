@@ -51,5 +51,5 @@ class OfferTemplateForm(CustomModelForm):
         """
         cleaned_post_data = self.cleaned_data["post_data"]
         if not cleaned_post_data:
-            cleaned_post_data = dict()
+            cleaned_post_data = {}
         return cleaned_post_data
