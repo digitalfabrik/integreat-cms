@@ -86,6 +86,7 @@
             {% get_last_root_page pages as last_root_page %}
             {% recursetree pages %}
                 {% get_translation node language.slug as page_translation %}
+                {% get_depth_in node pages as page_depth %}
                 {% include "pages/page_tree_node.html" with page=node %}
                 {% if not node.is_leaf_node %}
                     {{children}}

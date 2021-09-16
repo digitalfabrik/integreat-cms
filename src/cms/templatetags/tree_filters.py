@@ -32,4 +32,4 @@ def get_children(node):
     :return: The list of all the node's children's ids
     :rtype: list [ int ]
     """
-    return [child.id for child in node.children.all()]
+    return [child.id for child in node.get_children()]

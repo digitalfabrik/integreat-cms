@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 from ...constants import translation_status
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageFilterForm
-from ...models import Region, Language
+from ...models import Region, Language, Page
 from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
@@ -118,7 +118,8 @@ class PageTreeView(TemplateView, PageContextMixin):
                             return translation_status.OUTDATED in selected_status
                         return translation_status.UP_TO_DATE in selected_status
 
-                    pages = list(filter(page_filter, pages))
+                    pages = map(lambda p: p.id, list(filter(page_filter, pages)))
+                    pages = Page.objects.filter(id__in=pages).order_by()
         else:
             filter_form = PageFilterForm()
             filter_form.changed_data.clear()

@@ -19,3 +19,40 @@ def get_last_root_page(pages):
     """
     root_pages = list(filter(lambda p: not p.parent, pages))
     return root_pages[-1] if root_pages else None
+
+
+@register.simple_tag
+def get_depth_in(node, pageset):
+    """
+    This tag returns the depth of node whithin the tree/pages in pageset.
+
+    :param node : the page
+    :type node : ~cms.models.pages.page.Page
+
+    :param pageset: The pages (all pages or pages chosen by filter)
+    :type pageset: list [ ~cms.models.pages.page.Page ]
+
+    :return: the depth of node whithin the tree/pages in pageset
+    :rtype: int
+    """
+    if not node.parent in pageset:
+        return 0
+    return node.depth - get_highest_anscentor_in(node, pageset).depth
+
+
+def get_highest_anscentor_in(node, pageset):
+    """
+    This tag returns the highest (farthest) anscestor of node whithin the tree/pages in pageset.
+
+    :param node : the page
+    :type node : ~cms.models.pages.page.Page
+
+    :param pageset: The pages (all pages or pages chosen by filter)
+    :type pageset: list [ ~cms.models.pages.page.Page ]
+
+    :return: the highest (farthest) anscestor of node whithin the tree/pages in pageset
+    :rtype:  ~cms.models.pages.page.Page
+    """
+    if node.parent in pageset:
+        return get_highest_anscentor_in(node.parent, pageset)
+    return node
