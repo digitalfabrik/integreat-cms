@@ -30,7 +30,7 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns.append(url(r"^admin/", admin.site.urls))
 
-# Unfortunatly we need to do this in such way, as the admin endpoint needs to be added before the endpoints of the other apps.
+# Unfortunately we need to do this in such way, as the admin endpoint needs to be added before the endpoints of the other apps.
 urlpatterns += [
     url(r"^", include("sitemap.urls")),
     url(r"^", include("cms.urls")),

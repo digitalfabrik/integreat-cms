@@ -2,7 +2,7 @@
  * This component renders the media library in edit mode,
  * so new directories and files can be added and the existing entries can be modified
  */
-import { FilePlus, FolderPlus, Search } from "preact-feather";
+import { FilePlus, FolderPlus, Search, Loader } from "preact-feather";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 
 import { Directory, MediaApiPaths, MediaLibraryEntry, File } from ".";
@@ -26,6 +26,7 @@ interface Props {
   expertMode?: boolean;
   allowedMediaTypes?: string;
   selectionMode?: boolean;
+  onlyImage?: boolean;
   selectMedia?: (file: File) => any;
 }
 
@@ -40,6 +41,7 @@ export default function Library({
   expertMode,
   allowedMediaTypes,
   selectionMode,
+  onlyImage,
   selectMedia,
 }: Props) {
   // The directory path contains the current directory and all its parents
@@ -113,8 +115,11 @@ export default function Library({
     directoryId: string,
     successCallback: (data: any) => void
   ) => {
+    setLoading(true);
     try {
-      const response = await fetch(`${url}${directoryId && "?directory="}${directoryId}`);
+      const response = await fetch(
+        `${url}${directoryId && "?directory="}${directoryId}`
+      );
       if (response.status === 200) {
         successCallback((await response.json()).data);
       } else {
@@ -132,6 +137,7 @@ export default function Library({
         text: mediaTranslations.text_network_error,
       });
     }
+    setLoading(false);
   };
 
   // Load the directory path each time the directory id changes
@@ -149,7 +155,11 @@ export default function Library({
       setDirectoryPath([]);
     }
     // Load the new directory content
-    getDirectoryInfo(apiEndpoints.getDirectoryContent, directoryId, setDirectoryContent);
+    getDirectoryInfo(
+      apiEndpoints.getDirectoryContent,
+      directoryId,
+      setDirectoryContent
+    );
     // Close the file sidebar
     setFileIndex(null);
   }, [directoryId, refresh]);
@@ -233,21 +243,28 @@ export default function Library({
       )}
       <div className="flex flex-1 flex-col-reverse lg:flex-row gap-4 mt-4">
         <div
-          className="flex-1 bg-white border-gray-800 shadow-xl rounded-lg"
+          className="relative flex-1 bg-white border-gray-800 shadow-xl rounded-lg"
           onClick={() => setFileIndex(null)}
         >
           <div class="rounded w-full bg-blue-500 text-white font-bold">
-            <Breadcrumbs breadCrumbs={directoryPath} mediaTranslations={mediaTranslations} />
-          </div>
-          <div class="p-4">
-            <DirectoryContent
-              fileIndexState={[fileIndex, setFileIndex]}
-              directoryContent={directoryContent}
+            <Breadcrumbs
+              breadCrumbs={directoryPath}
               mediaTranslations={mediaTranslations}
-              selectionMode={selectionMode}
-              globalEdit={globalEdit}
             />
           </div>
+          {isLoading ? (
+            <Loader class="absolute w-32 h-32 -mt-9 -ml-16 inset-1/2 text-gray-600 animate-spin" />
+          ) : (
+            <div class="p-4">
+              <DirectoryContent
+                fileIndexState={[fileIndex, setFileIndex]}
+                directoryContent={directoryContent}
+                mediaTranslations={mediaTranslations}
+                selectionMode={selectionMode}
+                globalEdit={globalEdit}
+              />
+            </div>
+          )}
         </div>
         {fileIndex !== null ? (
           <EditSidebar
@@ -259,6 +276,7 @@ export default function Library({
             submitForm={submitForm}
             selectionMode={selectionMode}
             selectMedia={selectMedia}
+            onlyImage={onlyImage}
             globalEdit={globalEdit}
             expertMode={expertMode}
             isLoading={isLoading}

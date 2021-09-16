@@ -64,6 +64,7 @@ class MediaContextMixin(ContextMixin):
                 "text_dir_readonly": _(
                     "This directory is read-only and cannot be edited."
                 ),
+                "text_only_image": _("Only images can be selected as an icon."),
                 "text_file_delete_confirm": _(
                     "Please confirm that you really want to delete this file"
                 ),

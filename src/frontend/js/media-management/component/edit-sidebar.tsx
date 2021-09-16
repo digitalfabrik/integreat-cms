@@ -24,6 +24,7 @@ import {
   XCircle,
   Edit3,
   ExternalLink,
+  Info,
 } from "preact-feather";
 import cn from "classnames";
 
@@ -39,6 +40,7 @@ interface Props {
   selectionMode?: boolean;
   globalEdit?: boolean;
   expertMode?: boolean;
+  onlyImage?: boolean;
   selectMedia?: (file: File) => any;
   submitForm: (event: Event) => void;
   isLoading: boolean;
@@ -53,6 +55,7 @@ export default function EditSidebar({
   selectMedia,
   globalEdit,
   expertMode,
+  onlyImage,
   submitForm,
   isLoading,
 }: Props) {
@@ -119,9 +122,13 @@ export default function EditSidebar({
         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-t border-b">
           <label
             for="filename-input"
-            className={cn("secondary my-0", { "cursor-auto": !isEditingAllowed })}
+            className={cn("secondary my-0", {
+              "cursor-auto": !isEditingAllowed,
+            })}
             onClick={() =>
-              isEditingAllowed && !isLoading && setFileNameEditable(!isFileNameEditable)
+              isEditingAllowed &&
+              !isLoading &&
+              setFileNameEditable(!isFileNameEditable)
             }
           >
             {mediaTranslations.label_file_name}
@@ -161,8 +168,14 @@ export default function EditSidebar({
         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
           <label
             for="alt-text-input"
-            className={cn("secondary my-0", { "cursor-auto": !isEditingAllowed })}
-            onClick={() => isEditingAllowed && !isLoading && setAltTextEditable(!isAltTextEditable)}
+            className={cn("secondary my-0", {
+              "cursor-auto": !isEditingAllowed,
+            })}
+            onClick={() =>
+              isEditingAllowed &&
+              !isLoading &&
+              setAltTextEditable(!isAltTextEditable)
+            }
           >
             {mediaTranslations.label_alt_text}
           </label>
@@ -198,11 +211,15 @@ export default function EditSidebar({
           />
         </div>
         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
-          <label class="secondary my-0">{mediaTranslations.label_data_type}</label>
+          <label class="secondary my-0">
+            {mediaTranslations.label_data_type}
+          </label>
           <p>{file.typeDisplay}</p>
         </div>
         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
-          <label class="secondary my-0">{mediaTranslations.label_file_uploaded}</label>
+          <label class="secondary my-0">
+            {mediaTranslations.label_file_uploaded}
+          </label>
           <p>{file.uploadedDate}</p>
         </div>
         {expertMode && (
@@ -221,19 +238,26 @@ export default function EditSidebar({
         )}
         <div class="p-4">
           {selectionMode ? (
-            <button
-              title={mediaTranslations.btn_select}
-              onClick={(e) => {
-                e.preventDefault();
-                if (selectMedia) {
-                  selectMedia(file);
-                }
-              }}
-              class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-              type="submit"
-            >
-              {mediaTranslations.btn_select}
-            </button>
+            !(onlyImage && !file.type.startsWith("image/")) ? (
+              <button
+                title={mediaTranslations.btn_select}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (selectMedia) {
+                    selectMedia(file);
+                  }
+                }}
+                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+              >
+                {mediaTranslations.btn_select}
+              </button>
+            ) : (
+              <p class="italic">
+                <Info class="mr-1 inline-block h-5" />
+                {mediaTranslations.text_only_image}
+              </p>
+            )
           ) : (
             <div>
               {isEditingAllowed ? (
@@ -260,7 +284,9 @@ export default function EditSidebar({
                       { "cursor-not-allowed bg-gray-500": isLoading },
                       { "bg-red-500 hover:bg-red-600": !isLoading }
                     )}
-                    data-confirmation-title={mediaTranslations.text_file_delete_confirm}
+                    data-confirmation-title={
+                      mediaTranslations.text_file_delete_confirm
+                    }
                     data-confirmation-subject={file.name}
                     data-ajax
                     disabled={isLoading}
@@ -280,7 +306,11 @@ export default function EditSidebar({
         </div>
       </form>
       {/* Hidden form for file deletion (on success, close sidebar) */}
-      <form onSubmit={submitForm} action={apiEndpoints.deleteFile} class="hidden">
+      <form
+        onSubmit={submitForm}
+        action={apiEndpoints.deleteFile}
+        class="hidden"
+      >
         <input name="id" type="hidden" value={file.id} />
         <button id="delete-file" type="submit"></button>
       </form>

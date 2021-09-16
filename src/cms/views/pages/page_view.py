@@ -187,6 +187,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
 
         region = Region.get_current_region(request)
         language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
+        context = self.get_context_data(**kwargs)
 
         page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
 
@@ -280,6 +281,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
             self.template_name,
             {
                 **self.base_context,
+                **context,
                 "page_form": page_form,
                 "page_translation_form": page_translation_form,
                 "page": page_instance,

@@ -130,6 +130,21 @@ class MediaFile(models.Model):
         """
         return BASE_URL + self.file.url if self.file else None
 
+    @property
+    def thumbnail_url(self):
+        """
+        Return the path of the image that should be used as the thumbnail.
+
+        :return: The path of the file. If the file is an image and no thumbnail could be generated the file itself will be returned.
+        :rtype: str
+        """
+        if not self.thumbnail:
+            if self.type.startswith("image"):
+                #: Returns the path to the file itself
+                return BASE_URL + self.url
+            return None
+        return BASE_URL + self.thumbnail.url
+
     def serialize(self):
         """
         This methods creates a serialized string of that document. This can later be used in the AJAX calls.
@@ -143,7 +158,7 @@ class MediaFile(models.Model):
             "altText": self.alt_text,
             "type": self.type,
             "typeDisplay": self.get_type_display(),
-            "thumbnailUrl": BASE_URL + self.thumbnail.url if self.thumbnail else None,
+            "thumbnailUrl": self.thumbnail_url,
             "url": self.url,
             "uploadedDate": localize(timezone.localtime(self.uploaded_date)),
             "isGlobal": not self.region,
