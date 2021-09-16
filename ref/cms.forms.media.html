@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   
-    <meta property="article:modified_time" content="2021-09-09T11:23:15+00:00" />
+    <meta property="article:modified_time" content="2021-09-08T11:20:14+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Media &mdash; integreat-cms 0.0.14 documentation</title>
@@ -1320,8 +1320,9 @@ logging</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – submitted POST data</p></li>
-<li><p><strong>data</strong> – uploaded FILES</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.QueryDict" title="(in Django v3.2)"><em>django.http.QueryDict</em></a>) – submitted POST data</p></li>
+<li><p><strong>data</strong> – A dictionary-like object containing all given HTTP POST parameters</p></li>
+<li><p><strong>files</strong> (<em>django.utils.datastructures.MultiValueDict</em>) – A dictionary-like object containing all uploaded files</p></li>
 <li><p><strong>instance</strong> (<a class="reference internal" href="../ref-ext/cms.models.media.html#cms.models.media.media_file.MediaFile" title="cms.models.media.media_file.MediaFile"><em>MediaFile</em></a>) – This form’s instance</p></li>
 </ul>
 </dd>
@@ -1330,7 +1331,7 @@ logging</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/upload_media_file_form.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a>:
 Don’t allow multiple root nodes for one region:
 If the file type is invalid, add a <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValidationError</span></code></a>.</p>
@@ -1368,7 +1369,7 @@ If the file type is invalid, add a <a class="reference external" href="https://d
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
       <span class="lastupdated">
-        Last updated on Sep 09, 2021.
+        Last updated on Sep 08, 2021.
       </span>
 
     </p>
