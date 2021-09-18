@@ -9,4 +9,4 @@ class ApiConfig(AppConfig):
     Configuration parameters for the API app
     """
 
-    name = "api"
+    name = "integreat_cms.api"

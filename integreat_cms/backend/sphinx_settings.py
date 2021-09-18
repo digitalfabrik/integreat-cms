@@ -1,6 +1,6 @@
 """
 Django settings for the Sphinx documentation builder.
-All configuration is imported from :mod:`backend.settings` except it sets :attr:`USE_I18N` to ``False`` to make sure
+All configuration is imported from :mod:`~integreat_cms.backend.settings` except it sets :attr:`USE_I18N` to ``False`` to make sure
 the documentation is not partially translated.
 
 For more information on this file, see :doc:`topics/settings`.

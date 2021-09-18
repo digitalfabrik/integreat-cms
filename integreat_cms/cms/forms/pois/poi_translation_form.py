@@ -75,7 +75,7 @@ class POITranslationForm(CustomContentModelForm):
         :type commit: bool
 
         :return: The saved POI translation object
-        :rtype: ~cms.models.pois.poi_translation.POITranslation
+        :rtype: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
         """
 
         # Create new version if content changed

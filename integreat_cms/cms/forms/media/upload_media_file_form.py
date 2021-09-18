@@ -51,7 +51,7 @@ class UploadMediaFileForm(CustomModelForm):
         :type files: django.utils.datastructures.MultiValueDict
 
         :param instance: This form's instance
-        :type instance: ~cms.models.media.media_file.MediaFile
+        :type instance: ~integreat_cms.cms.models.media.media_file.MediaFile
         """
 
         # instantiate ModelForm

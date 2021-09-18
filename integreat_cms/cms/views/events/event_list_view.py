@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class EventListView(TemplateView, EventContextMixin):
     """
     View for listing events (either non-archived or archived events depending on
-    :attr:`~cms.views.events.event_list_view.EventListView.archived`)
+    :attr:`~integreat_cms.cms.views.events.event_list_view.EventListView.archived`)
     """
 
     #: Template for list of non-archived events
@@ -38,7 +38,7 @@ class EventListView(TemplateView, EventContextMixin):
     @property
     def template_name(self):
         """
-        Select correct HTML template, depending on :attr:`~cms.views.events.event_list_view.EventListView.archived` flag
+        Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.events.event_list_view.EventListView.archived` flag
         (see :class:`~django.views.generic.base.TemplateResponseMixin`)
 
         :return: Path to HTML template

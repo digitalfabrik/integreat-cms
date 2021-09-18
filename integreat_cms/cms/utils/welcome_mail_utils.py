@@ -4,6 +4,7 @@ from email.mime.image import MIMEImage
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.staticfiles import finders
 from django.core.mail import BadHeaderError, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
@@ -64,16 +65,17 @@ def send_welcome_mail(request, user, activation):
     email.mixed_subtype = "related"
     email.attach_alternative(html_message, "text/html")
 
-    # attach logo
-    image_path = f"{settings.STATIC_ROOT}images/integreat-logo.png"
-    try:
+    # Attach logo
+    image_path = finders.find("images/integreat-logo.png")
+    if image_path:
         with open(image_path, mode="rb") as f:
             image = MIMEImage(f.read())
             email.attach(image)
             image.add_header("Content-ID", "<logo>")
-    except FileNotFoundError:
+    else:
         logger.debug(
-            "Logo not found at %s, will proceed without attaching.", image_path
+            "Logo not found at %s, will proceed without attaching.",
+            finders.searched_locations,
         )
 
     try:

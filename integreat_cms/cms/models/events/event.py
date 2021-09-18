@@ -15,7 +15,7 @@ from .recurrence_rule import RecurrenceRule
 class Event(models.Model):
     """
     Data model representing an event.
-    Can be directly imported from :mod:`cms.models`.
+    Can be directly imported from :mod:`~integreat_cms.cms.models`.
     """
 
     region = models.ForeignKey(
@@ -57,11 +57,11 @@ class Event(models.Model):
     @property
     def languages(self):
         """
-        This property returns a QuerySet of all :class:`~cms.models.languages.language.Language` objects, to which an event
+        This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to which an event
         translation exists.
 
-        :return: QuerySet of all :class:`~cms.models.languages.language.Language` an event is translated into
-        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.languages.language.Language ]
+        :return: QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` an event is translated into
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
         """
         return Language.objects.filter(event_translations__event=self)
 
@@ -91,7 +91,7 @@ class Event(models.Model):
     @property
     def has_location(self):
         """
-        This property checks whether the event has a physical location (:class:`~cms.models.pois.poi.POI`).
+        This property checks whether the event has a physical location (:class:`~integreat_cms.cms.models.pois.poi.POI`).
 
         :return: Whether event has a physical location
         :rtype: bool
@@ -101,14 +101,14 @@ class Event(models.Model):
     def get_translation(self, language_slug):
         """
         This function uses the reverse foreign key ``self.translations`` to get all translations of ``self``
-        and filters them to the requested :class:`~cms.models.languages.language.Language` slug.
+        and filters them to the requested :class:`~integreat_cms.cms.models.languages.language.Language` slug.
 
-        :param language_slug: The slug of the desired :class:`~cms.models.languages.language.Language`
+        :param language_slug: The slug of the desired :class:`~integreat_cms.cms.models.languages.language.Language`
         :type language_slug: str
 
-        :return: The event translation in the requested :class:`~cms.models.languages.language.Language` or :obj:`None`
+        :return: The event translation in the requested :class:`~integreat_cms.cms.models.languages.language.Language` or :obj:`None`
                  if no translation exists
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         return self.translations.filter(language__slug=language_slug).first()
 
@@ -184,11 +184,11 @@ class Event(models.Model):
         """
         This function retrieves the newest public translation of an event.
 
-        :param language_slug: The slug of the requested :class:`~cms.models.languages.language.Language`
+        :param language_slug: The slug of the requested :class:`~integreat_cms.cms.models.languages.language.Language`
         :type language_slug: str
 
         :return: The public translation of an event
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         return self.translations.filter(
             language__slug=language_slug,
@@ -201,7 +201,7 @@ class Event(models.Model):
         This function returns the translation of this event in the current backend language.
 
         :return: The backend translation of a event
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         return self.translations.filter(language__slug=get_language()).first()
 
@@ -213,7 +213,7 @@ class Event(models.Model):
         an event translation.
 
         :return: The default translation of an event
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         return self.translations.filter(language=self.region.default_language).first()
 
@@ -224,7 +224,7 @@ class Event(models.Model):
         provides a fallback to the translation in the region's default language.
 
         :return: The "best" translation of an event for displaying in the backend
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         return self.backend_translation or self.default_translation
 
@@ -237,7 +237,7 @@ class Event(models.Model):
         :type user: ~django.contrib.auth.models.User
 
         :return: A copy of this event
-        :rtype: ~cms.models.events.event.Event
+        :rtype: ~integreat_cms.cms.models.events.event.Event
         """
         # save all translations on the original object, so that they can be duplicated later
         translations = list(self.translations.all())

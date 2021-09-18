@@ -7,9 +7,8 @@ import logging
 
 from django.shortcuts import get_object_or_404
 
-from cms.models import Region
-from cms.utils.pdf_utils import generate_pdf
-
+from ...cms.models import Region
+from ...cms.utils.pdf_utils import generate_pdf
 from ..decorators import json_response
 
 logger = logging.getLogger(__name__)
@@ -21,7 +20,7 @@ def pdf_export(request, region_slug, language_slug):
     """
     View function that either returns the requested page specified by the
     url parameter or returns all pages of current region and language as PDF document
-    by forwarding the request to :func:`~cms.utils.pdf_utils.generate_pdf`
+    by forwarding the request to :func:`~integreat_cms.cms.utils.pdf_utils.generate_pdf`
 
     :param request: request that was sent to the server
     :type request: ~django.http.HttpRequest

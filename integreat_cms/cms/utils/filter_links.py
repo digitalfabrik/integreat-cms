@@ -1,4 +1,4 @@
-from cms.models import PageTranslation, EventTranslation, POITranslation
+from ..models import PageTranslation, EventTranslation, POITranslation
 
 
 def filter_links(region_slug, link_filter=None):

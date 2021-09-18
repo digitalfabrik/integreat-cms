@@ -5,8 +5,8 @@ from functools import wraps
 from django.http import JsonResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 
-from cms.models import Region, Language
-from cms.constants import feedback_ratings
+from ..cms.models import Region, Language
+from ..cms.constants import feedback_ratings
 
 
 def feedback_handler(func):

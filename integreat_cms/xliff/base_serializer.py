@@ -40,7 +40,7 @@ class Serializer(xml_serializer.Serializer):
     (see :ref:`django:topics/serialization:xml`).
 
     The XLIFF file can be extended by writing to ``self.xml``, which is an instance of
-    :class:`xliff.base_serializer.XMLGeneratorWithCDATA`.
+    :class:`~integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA`.
 
     For details, look at the implementation of :django-source:`django/core/serializers/base.py` and
     :django-source:`django/core/serializers/xml_serializer.py`.
@@ -51,11 +51,11 @@ class Serializer(xml_serializer.Serializer):
 
     def serialize(self, queryset, *args, **kwargs):
         """
-        Initialize serialization and set the :attr:`backend.settings.settings.XLIFF_DEFAULT_FIELDS`.
+        Initialize serialization and set the :attr:`~integreat_cms.backend.settings.XLIFF_DEFAULT_FIELDS`.
 
-        :param queryset: QuerySet of all :class:`~cms.models.pages.page_translation.PageTranslation` objects which
-                         should be serialized
-        :type queryset: ~django.db.models.query.QuerySet [ ~cms.models.pages.page_translation.PageTranslation ]
+        :param queryset: QuerySet of all :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation`
+                         objects which should be serialized
+        :type queryset: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.pages.page_translation.PageTranslation ]
 
         :param args: The remaining arguments
         :type args: list
@@ -83,7 +83,7 @@ class Serializer(xml_serializer.Serializer):
         Called when serializing of an object starts.
 
         :param obj: The page translation object which is started
-        :type obj: ~cms.models.pages.page_translation.PageTranslation
+        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
         :raises NotImplementedError: If the property is not implemented in the subclass
         """
@@ -96,7 +96,7 @@ class Serializer(xml_serializer.Serializer):
         Called to handle each field on an object (except for ForeignKeys and ManyToManyFields)
 
         :param obj: The page translation object which is handled
-        :type obj: ~cms.models.pages.page_translation.PageTranslation
+        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
         :param field: The model field
         :type field: ~django.db.models.Field
@@ -113,7 +113,7 @@ class Serializer(xml_serializer.Serializer):
         They will just be ignored and are not contained in the resulting XLIFF file.
 
         :param obj: The page translation object which is handled
-        :type obj: ~cms.models.pages.page_translation.PageTranslation
+        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
         :param field: The foreign key field
         :type field: ~django.db.models.ForeignKey
@@ -125,7 +125,7 @@ class Serializer(xml_serializer.Serializer):
         They will just be ignored and are not contained in the resulting XLIFF file.
 
         :param obj: The page translation object which is handled
-        :type obj: ~cms.models.pages.page_translation.PageTranslation
+        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
         :param field: The many to many field
         :type field: ~django.db.models.ManyToManyField
@@ -136,7 +136,7 @@ class Serializer(xml_serializer.Serializer):
         Called when serializing of an object ends.
 
         :param obj: The page translation object which is finished
-        :type obj: ~cms.models.pages.page_translation.PageTranslation
+        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
 
     def end_serialization(self):

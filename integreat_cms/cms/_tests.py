@@ -22,7 +22,7 @@ class SetupClass(TestCase):
         :type region_data: dict
 
         :return: the created region
-        :rtype: ~cms.models.regions.region.Region
+        :rtype: ~integreat_cms.cms.models.regions.region.Region
         """
         region_form = RegionForm(data=region_data)
         region_form.is_valid()
@@ -39,7 +39,7 @@ class SetupClass(TestCase):
         :type language_data: dict
 
         :return: the created language
-        :rtype: ~cms.models.languages.language.Language
+        :rtype: ~integreat_cms.cms.models.languages.language.Language
         """
         language_form = LanguageForm(data=language_data)
         language_form.is_valid()
@@ -59,7 +59,7 @@ class SetupClass(TestCase):
         :type region_slug: str
 
         :return: the created language tree node
-        :rtype: ~cms.models.languages.language_tree_node.LanguageTreeNode
+        :rtype: ~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode
         """
 
         region = Region.objects.get(slug=region_slug)
@@ -106,7 +106,7 @@ class SetupClass(TestCase):
         :type explicitly_archived: bool
 
         :return: the created page
-        :rtype: ~cms.models.pages.page.Page
+        :rtype: ~integreat_cms.cms.models.pages.page.Page
         """
         page_form = PageForm(
             data=page_data,

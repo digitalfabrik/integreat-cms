@@ -42,7 +42,7 @@ class PushNotificationTranslation(models.Model):
         """
         Searches for all push notifications which match the given `query` in their title.
         :param region: The current region
-        :type region: ~cms.models.regions.region.Region
+        :type region: ~integreat_cms.cms.models.regions.region.Region
         :param language_slug: The language slug
         :type language_slug: str
         :param query: The query string used for filtering the push notifications

@@ -51,7 +51,7 @@ class POIFeedback(Feedback):
         This property returns all feedback entries which relate to the same object and have the same is_technical value.
 
         :return: The queryset of related feedback
-        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.feedback.poi_feedback.POIFeedback ]
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.feedback.poi_feedback.POIFeedback ]
         """
         return POIFeedback.objects.filter(
             poi_translation__poi=self.poi_translation.poi,

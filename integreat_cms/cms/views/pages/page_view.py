@@ -38,7 +38,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.pages.page_form.PageForm` and :class:`~cms.forms.pages.page_translation_form.PageTranslationForm`
+        Render :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -164,9 +164,9 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
     # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
         """
-        Submit :class:`~cms.forms.pages.page_form.PageForm` and
-        :class:`~cms.forms.pages.page_translation_form.PageTranslationForm` and save :class:`~cms.models.pages.page.Page`
-        and :class:`~cms.models.pages.page_translation.PageTranslation` objects.
+        Submit :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and
+        :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` and save :class:`~integreat_cms.cms.models.pages.page.Page`
+        and :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` objects.
         Forms containing images/files need to be additionally instantiated with the FILES attribute of request objects,
         see :doc:`django:topics/http/file-uploads`
 
@@ -304,13 +304,13 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         This is a helper function to generate the side-by-side language options for both the get and post requests.
 
         :param region: The current region
-        :type region: ~cms.models.regions.region.Region
+        :type region: ~integreat_cms.cms.models.regions.region.Region
 
         :param language: The current language
-        :type language: ~cms.models.languages.language.Language
+        :type language: ~integreat_cms.cms.models.languages.language.Language
 
         :param page: The current page
-        :type page: ~cms.models.pages.page.Page
+        :type page: ~integreat_cms.cms.models.pages.page.Page
 
         :return: The list of language options, each represented by a dict
         :rtype: list

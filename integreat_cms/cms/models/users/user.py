@@ -59,7 +59,7 @@ class User(AbstractUser):
         We refer to Django user groups as roles.
 
         :return: The role of this user
-        :rtype: ~cms.models.users.role.Role
+        :rtype: ~integreat_cms.cms.models.users.role.Role
         """
         groups = self.groups.all()
         if groups:
@@ -84,15 +84,15 @@ class User(AbstractUser):
         Return all unread messages of this user
 
         :return: The unread messages of this user
-        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.chat.chat_message.ChatMessage ]
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.chat.chat_message.ChatMessage ]
         """
         return ChatMessage.history.filter(sent_datetime__gt=self.chat_last_visited)
 
     def update_chat_last_visited(self):
         """
-        Update the :attr:`~cms.models.users.user.User.chat_last_visited` to the current time
+        Update the :attr:`~integreat_cms.cms.models.users.user.User.chat_last_visited` to the current time
 
-        :return: the previous :attr:`~cms.models.users.user.User.chat_last_visited` value
+        :return: the previous :attr:`~integreat_cms.cms.models.users.user.User.chat_last_visited` value
         :rtype: ~datetime.datetime
         """
         previous_chat_last_visited = self.chat_last_visited
@@ -138,7 +138,7 @@ class User(AbstractUser):
                     optional_fields += f", role: {self.role.english_name}"
                 regions = self.regions.all()
                 if len(regions) == 1:
-                    optional_fields += f", region: {self.regions[0].name}"
+                    optional_fields += f", region: {regions[0].name}"
         return f"<User (id: {self.id}, username: {self.username}{optional_fields})>"
 
     class Meta:

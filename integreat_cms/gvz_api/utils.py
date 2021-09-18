@@ -4,8 +4,10 @@ Helper classes for Gemeindeverzeichnis API
 import logging
 import json
 import requests
+
 from django.conf import settings
-from cms.constants import administrative_division as ad
+
+from ..cms.constants import administrative_division as ad
 
 logger = logging.getLogger(__name__)
 
@@ -131,7 +133,7 @@ class GvzApiWrapper:
         :param region_name: name of a region (city name, county name, etc)
         :type region_name: str
 
-        :param division_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`)
+        :param division_type: administrative division type of region (choices: :mod:`~integreat_cms.cms.constants.administrative_division`)
         :type division_type: str
 
         :return: JSON search results defined in the GVZ API
@@ -171,7 +173,7 @@ class GvzRegion:
     :param region_name: name of a region (city name, county name, etc), defaults to ``None``
     :type region_name: str
 
-    :param division_type: administrative division type of region (choices: :mod:`cms.constants.administrative_division`), defaults to ``None``
+    :param division_type: administrative division type of region (choices: :mod:`~integreat_cms.cms.constants.administrative_division`), defaults to ``None``
     :type division_type: str
     """
 

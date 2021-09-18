@@ -27,8 +27,8 @@ class UserSettingsView(TemplateView):
     @never_cache
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.users.user_email_form.UserEmailForm` and
-        :class:`~cms.forms.users.user_password_form.UserPasswordForm`
+        Render :class:`~integreat_cms.cms.forms.users.user_email_form.UserEmailForm` and
+        :class:`~integreat_cms.cms.forms.users.user_password_form.UserPasswordForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -60,8 +60,8 @@ class UserSettingsView(TemplateView):
     # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         """
-        Submit :class:`~cms.forms.users.user_email_form.UserEmailForm` and
-        :class:`~cms.forms.users.user_password_form.UserPasswordForm` and save :class:`~django.contrib.auth.models.User`
+        Submit :class:`~integreat_cms.cms.forms.users.user_email_form.UserEmailForm` and
+        :class:`~integreat_cms.cms.forms.users.user_password_form.UserPasswordForm` and save :class:`~django.contrib.auth.models.User`
         object
 
         :param request: The current request

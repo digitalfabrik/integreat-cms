@@ -36,7 +36,7 @@ class ImprintSideBySideView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` on the side by side view
+        Render :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` on the side by side view
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -126,8 +126,8 @@ class ImprintSideBySideView(TemplateView):
     # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         """
-        Submit :class:`~cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` and save
-        :class:`~cms.models.pages.imprint_page_translation.ImprintPageTranslation` object
+        Submit :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` and save
+        :class:`~integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation` object
 
         :param request: The current request
         :type request: ~django.http.HttpResponse

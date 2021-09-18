@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 class MfaVerifyView(View):
     """
-    Verify the response to the challenge generated in :class:`~cms.views.authentication.mfa.mfa_assert_view.MfaAssertView`.
+    Verify the response to the challenge generated in :class:`~integreat_cms.cms.views.authentication.mfa.mfa_assert_view.MfaAssertView`.
     After a successful verification, the user is logged in.
     """
 

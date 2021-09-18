@@ -3,11 +3,11 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
 
-from cms.models import Region
-from cms.models.events.event_translation import EventTranslation
-from cms.utils.slug_utils import generate_unique_slug
-from .locations import transform_poi
+from ...cms.models import Region
+from ...cms.models.events.event_translation import EventTranslation
+from ...cms.utils.slug_utils import generate_unique_slug
 from ..decorators import json_response
+from .locations import transform_poi
 
 
 def transform_event(event):
@@ -15,7 +15,7 @@ def transform_event(event):
     Function to create a JSON from a single event object.
 
     :param event: The event which should be converted
-    :type event: ~cms.models.events.event.Event
+    :type event: ~integreat_cms.cms.models.events.event.Event
 
     :return: data necessary for API
     :rtype: dict
@@ -37,7 +37,7 @@ def transform_event_translation(event_translation):
     Function to create a JSON from a single event_translation object.
 
     :param event_translation: The event translation object which should be converted
-    :type event_translation: ~cms.models.events.event_translation.EventTranslation
+    :type event_translation: ~integreat_cms.cms.models.events.event_translation.EventTranslation
 
     :return: data necessary for API
     :rtype: dict
@@ -74,7 +74,7 @@ def transform_event_recurrences(event_translation, today):
     Yield all future recurrences of the event.
 
     :param event_translation: The event translation object which should be converted
-    :type event_translation: ~cms.models.events.event_translation.EventTranslation
+    :type event_translation: ~integreat_cms.cms.models.events.event_translation.EventTranslation
 
     :param today: The first date at which event may be yielded
     :type today: ~datetime.date

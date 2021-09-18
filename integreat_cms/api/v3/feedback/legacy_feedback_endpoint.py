@@ -4,9 +4,9 @@ APIv3 legacy feedback endpoint for pages, events and imprint
 from django.conf import settings
 from django.http import JsonResponse
 
-from api.v3.feedback.event_feedback import event_feedback_internal
-from api.v3.feedback.imprint_page_feedback import imprint_page_feedback_internal
-from api.v3.feedback.page_feedback import page_feedback_internal
+from .event_feedback import event_feedback_internal
+from .imprint_page_feedback import imprint_page_feedback_internal
+from .page_feedback import page_feedback_internal
 
 from ...decorators import json_response, feedback_handler
 
@@ -22,10 +22,10 @@ def legacy_feedback_endpoint(data, region, language, comment, rating, is_technic
     :type data: dict
 
     :param region: The region of this sitemap's urls
-    :type region: ~cms.models.regions.region.Region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
 
     :param language: The language of this sitemap's urls
-    :type language: ~cms.models.languages.language.Language
+    :type language: ~integreat_cms.cms.models.languages.language.Language
 
     :param comment: The comment sent as feedback
     :type comment: str

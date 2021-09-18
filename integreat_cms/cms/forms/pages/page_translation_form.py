@@ -76,7 +76,7 @@ class PageTranslationForm(CustomContentModelForm):
         :type commit: bool
 
         :return: The saved page translation object
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
 
         # Create new version if content changed

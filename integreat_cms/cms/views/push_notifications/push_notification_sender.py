@@ -27,7 +27,7 @@ class PushNotificationSender:
         Load relevant push notification translations and prepare content for sending
 
         :param push_notification: the push notification that should be sent
-        :type push_notification: ~cms.models.push_notifications.push_notification.PushNotification
+        :type push_notification: ~integreat_cms.cms.models.push_notifications.push_notification.PushNotification
         """
         self.push_notification = push_notification
         self.prepared_pnts = []
@@ -81,7 +81,7 @@ class PushNotificationSender:
         Send single push notification translation
 
         :param pnt: the prepared push notification translation to be sent
-        :type pnt: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
+        :type pnt: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
 
         :return: Response of the :mod:`requests` library
         :rtype: ~requests.Response

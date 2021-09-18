@@ -14,8 +14,8 @@ from django.utils.http import http_date
 from django.views.generic.base import TemplateResponseMixin, View
 
 
-from cms.constants import region_status
-from cms.models import Region
+from ..cms.constants import region_status
+from ..cms.models import Region
 
 from .utils import get_sitemaps
 
@@ -28,7 +28,7 @@ class SitemapIndexView(TemplateResponseMixin, View):
     It is a patched version of :func:`django.contrib.sitemaps.views.index` with the following changes:
 
     * Sitemaps dynamically queried on each request, not on the application startup
-    * :attr:`~backend.settings.WEBAPP_URL` is used for the domain instead of the host of the sitemap
+    * :attr:`~integreat_cms.backend.settings.WEBAPP_URL` is used for the domain instead of the host of the sitemap
     * Empty sitemaps are not included in the index
     """
 
@@ -81,7 +81,7 @@ class SitemapIndexView(TemplateResponseMixin, View):
 class SitemapView(TemplateResponseMixin, View):
     """
     This view allows to generate a sitemap dynamically.
-    A sitemap contains the urls of multiple :class:`~sitemap.sitemaps.WebappSitemap` instances, one for each content type.
+    A sitemap contains the urls of multiple :class:`~integreat_cms.sitemap.sitemaps.WebappSitemap` instances, one for each content type.
     It is a patched version of :func:`django.contrib.sitemaps.views.sitemap` with the following changes:
 
     * Sitemaps dynamically queried on each request, not on the application startup

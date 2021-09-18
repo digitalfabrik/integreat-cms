@@ -23,7 +23,7 @@ class AbstractBasePage(models.Model):
     def archived(self):
         """
         This is an alias of ``explicitly_archived``. Used for hierarchical pages to implement a more complex notion of
-        explicitly and implicitly archived pages (see :func:`~cms.models.pages.page.Page.archived`).
+        explicitly and implicitly archived pages (see :func:`~integreat_cms.cms.models.pages.page.Page.archived`).
 
         :return: Whether or not this page is archived
         :rtype: bool
@@ -33,7 +33,7 @@ class AbstractBasePage(models.Model):
     @property
     def languages(self):
         """
-        This property returns a list of all :class:`~cms.models.languages.language.Language` objects, to which a page
+        This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to which a page
         translation exists.
         To be implemented in the inheriting model.
 
@@ -54,14 +54,14 @@ class AbstractBasePage(models.Model):
     def get_translation(self, language_slug):
         """
         This function uses the reverse foreign key ``self.translations`` to get all translations of ``self``
-        and filters them to the requested :class:`~cms.models.languages.language.Language` slug.
+        and filters them to the requested :class:`~integreat_cms.cms.models.languages.language.Language` slug.
 
-        :param language_slug: The slug of the desired :class:`~cms.models.languages.language.Language`
+        :param language_slug: The slug of the desired :class:`~integreat_cms.cms.models.languages.language.Language`
         :type language_slug: str
 
-        :return: The page translation in the requested :class:`~cms.models.languages.language.Language` or :obj:`None`
+        :return: The page translation in the requested :class:`~integreat_cms.cms.models.languages.language.Language` or :obj:`None`
                  if no translation exists
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         return self.translations.filter(language__slug=language_slug).first()
 
@@ -69,11 +69,11 @@ class AbstractBasePage(models.Model):
         """
         This function retrieves the newest public translation of a page.
 
-        :param language_slug: The slug of the requested :class:`~cms.models.languages.language.Language`
+        :param language_slug: The slug of the requested :class:`~integreat_cms.cms.models.languages.language.Language`
         :type language_slug: str
 
         :return: The public translation of a page
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         return self.translations.filter(
             language__slug=language_slug,
@@ -86,7 +86,7 @@ class AbstractBasePage(models.Model):
         This function returns the translation of this page in the current backend language.
 
         :return: The backend translation of a page
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         return self.translations.filter(language__slug=get_language()).first()
 
@@ -98,7 +98,7 @@ class AbstractBasePage(models.Model):
         a page translation.
 
         :return: The default translation of a page
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         return self.translations.filter(language=self.region.default_language).first()
 
@@ -109,7 +109,7 @@ class AbstractBasePage(models.Model):
         provides a fallback to the translation in the region's default language.
 
         :return: The "best" translation of a page for displaying in the backend
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         return self.backend_translation or self.default_translation
 

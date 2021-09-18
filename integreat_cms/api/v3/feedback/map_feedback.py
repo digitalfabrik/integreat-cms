@@ -3,8 +3,7 @@ APIv3 endpoint for the map (POIs in general)
 """
 from django.http import JsonResponse
 
-from cms.models import MapFeedback
-
+from ....cms.models import MapFeedback
 from ...decorators import json_response, feedback_handler
 
 
@@ -19,10 +18,10 @@ def map_feedback(data, region, language, comment, rating, is_technical):
     :type data: dict
 
     :param region: The region of this sitemap's urls
-    :type region: ~cms.models.regions.region.Region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
 
     :param language: The language of this sitemap's urls
-    :type language: ~cms.models.languages.language.Language
+    :type language: ~integreat_cms.cms.models.languages.language.Language
 
     :param comment: The comment sent as feedback
     :type comment: str

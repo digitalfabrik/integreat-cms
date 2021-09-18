@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from cms.constants import translation_status
+from ...constants import translation_status
 
 
 class PageFilterForm(forms.Form):

@@ -1,6 +1,6 @@
 """
 Django URL dispatcher for the cms package.
-See :mod:`backend.urls` for the other namespaces of this application.
+See :mod:`~integreat_cms.backend.urls` for the other namespaces of this application.
 
 For more information on this file, see :doc:`topics/http/urls`.
 """
@@ -647,7 +647,7 @@ urlpatterns = [
                                                         pages.delete_page,
                                                         name="delete_page",
                                                     ),
-                                                    # warning: the move url is also hardcoded in src/cms/static/js/tree_drag_and_drop.js
+                                                    # warning: the move url is also hardcoded in src/integreat_cms/static/js/tree_drag_and_drop.js
                                                     url(
                                                         r"^move/(?P<target_id>[0-9]+)/(?P<position>[-\w]+)$",
                                                         pages.move_page,
@@ -944,7 +944,7 @@ urlpatterns = [
                                             language_tree.delete_language_tree_node,
                                             name="delete_language_tree_node",
                                         ),
-                                        # warning: the move url is also hardcoded in src/cms/static/js/tree_drag_and_drop.js
+                                        # warning: the move url is also hardcoded in src/integreat_cms/static/js/tree_drag_and_drop.js
                                         url(
                                             r"^move/(?P<target_id>[0-9]+)/(?P<target_position>[-\w]+)$",
                                             language_tree.move_language_tree_node,

@@ -36,7 +36,7 @@ def archive_poi(request, poi_id, region_slug, language_slug):
     :param language_slug: The slug of the current language
     :type language_slug: str
 
-    :return: A redirection to the :class:`~cms.views.pois.poi_list_view.POIListView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pois.poi_list_view.POIListView`
     :rtype: ~django.http.HttpResponseRedirect
     """
     poi = POI.objects.get(id=poi_id)
@@ -76,7 +76,7 @@ def restore_poi(request, poi_id, region_slug, language_slug):
     :param language_slug: The slug of the current language
     :type language_slug: str
 
-    :return: A redirection to the :class:`~cms.views.pois.poi_list_view.POIListView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pois.poi_list_view.POIListView`
     :rtype: ~django.http.HttpResponseRedirect
     """
     poi = POI.objects.get(id=poi_id)
@@ -116,7 +116,7 @@ def delete_poi(request, poi_id, region_slug, language_slug):
     :param language_slug: The slug of the current language
     :type language_slug: str
 
-    :return: A redirection to the :class:`~cms.views.pois.poi_list_view.POIListView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pois.poi_list_view.POIListView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -156,7 +156,7 @@ def view_poi(request, poi_id, region_slug, language_slug):
 
     :raises ~django.http.Http404: If user no translation exists for the requested POI and language
 
-    :return: A redirection to the :class:`~cms.views.pois.poi_list_view.POIListView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pois.poi_list_view.POIListView`
     :rtype: ~django.http.HttpResponseRedirect
     """
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)

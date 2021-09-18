@@ -51,7 +51,7 @@ class PageFeedback(Feedback):
         This property returns all feedback entries which relate to the same object and have the same is_technical value.
 
         :return: The queryset of related feedback
-        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.feedback.page_feedback.PageFeedback ]
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.feedback.page_feedback.PageFeedback ]
         """
         return PageFeedback.objects.filter(
             page_translation__page=self.page_translation.page,

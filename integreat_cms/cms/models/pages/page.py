@@ -108,7 +108,7 @@ class Page(MPTTModel, AbstractBasePage):
         This returns all of the page's ancestors which are archived.
 
         :return: The QuerySet of archived ancestors
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         return self.get_ancestors().filter(explicitly_archived=True)
 
@@ -136,11 +136,11 @@ class Page(MPTTModel, AbstractBasePage):
     @property
     def languages(self):
         """
-        This property returns a list of all :class:`~cms.models.languages.language.Language` objects, to which a page
+        This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to which a page
         translation exists.
 
-        :return: list of all :class:`~cms.models.languages.language.Language` a page is translated into
-        :rtype: list [ ~cms.models.languages.language.Language ]
+        :return: list of all :class:`~integreat_cms.cms.models.languages.language.Language` a page is translated into
+        :rtype: list [ ~integreat_cms.cms.models.languages.language.Language ]
         """
         return Language.objects.filter(page_translations__page=self)
 
@@ -163,7 +163,7 @@ class Page(MPTTModel, AbstractBasePage):
         :type region_slug: str
 
         :return: All root pages i.e. pages without parents
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         return Page.objects.filter(region__slug=region_slug, parent=None)
 
@@ -178,7 +178,7 @@ class Page(MPTTModel, AbstractBasePage):
         :type filter_kwargs: list
 
         :return: The previous sibling
-        :rtype: ~cms.models.pages.page.Page
+        :rtype: ~integreat_cms.cms.models.pages.page.Page
         """
         # Only consider siblings from this region
         filter_kwargs["region"] = self.region
@@ -195,7 +195,7 @@ class Page(MPTTModel, AbstractBasePage):
         :type filter_kwargs: list
 
         :return: The next sibling
-        :rtype: ~cms.models.pages.page.Page
+        :rtype: ~integreat_cms.cms.models.pages.page.Page
         """
         # Only consider siblings from this region
         filter_kwargs["region"] = self.region
@@ -209,7 +209,7 @@ class Page(MPTTModel, AbstractBasePage):
         :type include_self: bool
 
         :return: All siblings of this page
-        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.pages.page.Page ]
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         # Return only siblings from the same region
         return (
@@ -227,7 +227,7 @@ class Page(MPTTModel, AbstractBasePage):
         :type max_depth: int
 
         :return: All descendants of this node with relative max depth
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         return (
             super()
@@ -240,7 +240,7 @@ class Page(MPTTModel, AbstractBasePage):
         Mirrored content always includes the live content from another page. This content needs to be added when
         delivering content to end users.
 
-        :param language_slug: The slug of the requested :class:`~cms.models.languages.language.Language`
+        :param language_slug: The slug of the requested :class:`~integreat_cms.cms.models.languages.language.Language`
         :type language_slug: str
 
         :return: The content of a mirrored page

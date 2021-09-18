@@ -2,8 +2,7 @@ import logging
 
 from django.core.serializers import base
 
-from cms.models import Language, Page, PageTranslation
-
+from ..cms.models import Language, Page, PageTranslation
 from . import base_serializer
 
 
@@ -14,7 +13,7 @@ class Serializer(base_serializer.Serializer):
     """
     XLIFF serializer class for XLIFF version 2.0
 
-    Serializes :class:`~cms.models.pages.page_translation.PageTranslation` objects into translatable XLIFF files.
+    Serializes :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` objects into translatable XLIFF files.
     """
 
     #: The source language of this serializer instance
@@ -26,9 +25,9 @@ class Serializer(base_serializer.Serializer):
         """
         Initialize serialization and find out in which source and target language the given elements are.
 
-        :param queryset: QuerySet of all :class:`~cms.models.pages.page_translation.PageTranslation` objects which
+        :param queryset: QuerySet of all :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` objects which
                          should be serialized
-        :type queryset: ~django.db.models.query.QuerySet [ ~cms.models.pages.page_translation.PageTranslation ]
+        :type queryset: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.pages.page_translation.PageTranslation ]
 
         :param args: The remaining arguments
         :type args: list
@@ -104,7 +103,7 @@ class Serializer(base_serializer.Serializer):
         Adds an XLIFF ``<file>``-block with meta-information about the object.
 
         :param obj: The page translation object which is started
-        :type obj: ~cms.models.pages.page_translation.PageTranslation
+        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         logger.debug("XLIFF 2.0 serialization starting object %r", obj)
         self.xml.startElement(
@@ -119,7 +118,7 @@ class Serializer(base_serializer.Serializer):
         Called to handle each field on an object (except for ForeignKeys and ManyToManyFields)
 
         :param obj: The page translation object which is handled
-        :type obj: ~cms.models.pages.page_translation.PageTranslation
+        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
         :param field: The model field
         :type field: ~django.db.models.Field
@@ -162,7 +161,7 @@ class Serializer(base_serializer.Serializer):
         Ends the ``<file>``-block.
 
         :param obj: The page translation object which is finished
-        :type obj: ~cms.models.pages.page_translation.PageTranslation
+        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         logger.debug("XLIFF 2.0 serialization ending object %r", obj)
         self.xml.endElement("file")
@@ -173,7 +172,7 @@ class Deserializer(base_serializer.Deserializer):
     """
     XLIFF deserializer class for XLIFF version 2.0
 
-    Deserializes XLIFF files into :class:`~cms.models.pages.page_translation.PageTranslation` objects.
+    Deserializes XLIFF files into :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` objects.
     """
 
     #: The node name of serialized fields
@@ -223,7 +222,7 @@ class Deserializer(base_serializer.Deserializer):
         :type node: xml.dom.minidom.Element
 
         :return: The original page translation
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         # Get the page to which this serialized object belongs to
         page_id = self.require_attribute(node, "original")

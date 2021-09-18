@@ -12,13 +12,13 @@ logger = logging.getLogger(__name__)
 def get_sitemaps(region, language):
     """
     This helper function generates a list of all non-empty sitemaps for a given region and language
-    It is used in :class:`~sitemap.views.SitemapIndexView` and :class:`~sitemap.views.SitemapView`.
+    It is used in :class:`~integreat_cms.sitemap.views.SitemapIndexView` and :class:`~integreat_cms.sitemap.views.SitemapView`.
 
     :param region: The requested region
-    :type region: ~cms.models.regions.region.Region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
 
     :param language: The requested language
-    :type language: ~cms.models.languages.language.Language
+    :type language: ~integreat_cms.cms.models.languages.language.Language
 
 
     :return: All sitemaps for the given region and language

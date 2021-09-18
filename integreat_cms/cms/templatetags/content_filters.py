@@ -1,6 +1,6 @@
 """
-This is a collection of tags and filters which are useful for all content types (:class:`~cms.models.pages.page.Page`,
-:class:`~cms.models.events.event.Event` and :class:`~cms.models.pois.poi.POI`).
+This is a collection of tags and filters which are useful for all content types (:class:`~integreat_cms.cms.models.pages.page.Page`,
+:class:`~integreat_cms.cms.models.events.event.Event` and :class:`~integreat_cms.cms.models.pois.poi.POI`).
 """
 import logging
 
@@ -18,14 +18,14 @@ def get_translation(instance, language_slug):
     This tag returns the most recent translation of the requested content object in the requested language.
 
     :param instance: The content object instance
-    :type instance: ~cms.models.pages.page.Page, ~cms.models.events.event.Event or ~cms.models.pois.poi.POI
+    :type instance: ~integreat_cms.cms.models.pages.page.Page, ~integreat_cms.cms.models.events.event.Event or ~integreat_cms.cms.models.pois.poi.POI
 
     :param language_slug: The slug of the requested language
     :type language_slug: str
 
     :return: The translation object of the requested instance
-    :rtype: ~cms.models.pages.page_translation.PageTranslation, ~cms.models.events.event_translation.EventTranslation,
-            or ~cms.models.pois.poi_translation.POITranslation
+    :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation, ~integreat_cms.cms.models.events.event_translation.EventTranslation,
+            or ~integreat_cms.cms.models.pois.poi_translation.POITranslation
     """
     return instance.get_translation(language_slug)
 
@@ -36,14 +36,14 @@ def get_public_translation(instance, language_slug):
     This tag returns the most recent public translation of the requested content object in the requested language.
 
     :param instance: The content object instance
-    :type instance: ~cms.models.pages.page.Page, ~cms.models.events.event.Event or ~cms.models.pois.poi.POI
+    :type instance: ~integreat_cms.cms.models.pages.page.Page, ~integreat_cms.cms.models.events.event.Event or ~integreat_cms.cms.models.pois.poi.POI
 
     :param language_slug: The slug of the requested language
     :type language_slug: str
 
     :return: The translation object of the requested instance
-    :rtype: ~cms.models.pages.page_translation.PageTranslation, ~cms.models.events.event_translation.EventTranslation,
-            or ~cms.models.pois.poi_translation.POITranslation
+    :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation, ~integreat_cms.cms.models.events.event_translation.EventTranslation,
+            or ~integreat_cms.cms.models.pois.poi_translation.POITranslation
     """
     return instance.get_public_translation(language_slug)
 
@@ -74,7 +74,7 @@ def get_language(language_slug):
     :type language_slug: str
 
     :return: The requested language
-    :rtype: ~cms.models.languages.language.Language
+    :rtype: ~integreat_cms.cms.models.languages.language.Language
     """
     return Language.objects.filter(slug=language_slug).first()
 
@@ -134,11 +134,11 @@ def object_translation_has_view_perm(user, obj):
     whether the user has the permission to view this object
 
     :param user: The requested user
-    :type user: ~cms.models.users.user.User
+    :type user: ~integreat_cms.cms.models.users.user.User
 
     :param obj: The requested object
-    :type obj: ~cms.models.pages.page_translation.PageTranslation,
-               ~cms.models.events.event_translation.EventTranslation, or ~cms.models.pois.poi_translation.POITranslation
+    :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation,
+               ~integreat_cms.cms.models.events.event_translation.EventTranslation, or ~integreat_cms.cms.models.pois.poi_translation.POITranslation
 
     :raises ValueError: if the object is not a translation of Event, Page or Poi
 

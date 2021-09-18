@@ -4,8 +4,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.apps import apps
 
-from gvz_api.utils import GvzRegion
-
+from ....gvz_api.utils import GvzRegion
 from ...models import Region, PageTranslation, LanguageTreeNode
 from ...utils.matomo_api_manager import MatomoException
 from ...utils.slug_utils import generate_unique_slug_helper
@@ -87,7 +86,7 @@ class RegionForm(CustomModelForm):
         :type commit: bool
 
         :return: The saved region object
-        :rtype: ~cms.models.regions.region.Region
+        :rtype: ~integreat_cms.cms.models.regions.region.Region
         """
 
         # Only duplicate content if region is created and a region was selected
@@ -302,10 +301,10 @@ def duplicate_media(source_region, target_region):
     Function to duplicate all media of one region to another.
 
     :param source_region: the source region from which the pages should be duplicated
-    :type source_region: ~cms.models.regions.region.Region
+    :type source_region: ~integreat_cms.cms.models.regions.region.Region
 
     :param target_region: the target region
-    :type target_region: ~cms.models.regions.region.Region
+    :type target_region: ~integreat_cms.cms.models.regions.region.Region
 
     """
     # TODO: implement duplication of all media files

@@ -243,14 +243,14 @@ class PageTranslation(AbstractBasePageTranslation):
     @classmethod
     def get_translations(cls, region, language):
         """
-        This function retrieves the most recent versions of a all :class:`~cms.models.pages.page_translation.PageTranslation`
-        objects of a :class:`~cms.models.regions.region.Region` in a specific :class:`~cms.models.languages.language.Language`
+        This function retrieves the most recent versions of a all :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation`
+        objects of a :class:`~integreat_cms.cms.models.regions.region.Region` in a specific :class:`~integreat_cms.cms.models.languages.language.Language`
 
-        :param region: The requested :class:`~cms.models.regions.region.Region`
-        :type region: ~cms.models.regions.region.Region
+        :param region: The requested :class:`~integreat_cms.cms.models.regions.region.Region`
+        :type region: ~integreat_cms.cms.models.regions.region.Region
 
-        :param language: The requested :class:`~cms.models.languages.language.Language`
-        :type language: ~cms.models.languages.language.Language
+        :param language: The requested :class:`~integreat_cms.cms.models.languages.language.Language`
+        :type language: ~integreat_cms.cms.models.languages.language.Language
 
         :return: A :class:`~django.db.models.query.QuerySet` of all page translations of a region in a specific language
         :rtype: ~django.db.models.query.QuerySet
@@ -262,17 +262,17 @@ class PageTranslation(AbstractBasePageTranslation):
     @classmethod
     def get_up_to_date_translations(cls, region, language):
         """
-        This function is similar to :func:`~cms.models.pages.page_translation.PageTranslation.get_translations` but
+        This function is similar to :func:`~integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations` but
         returns only page translations which are up to date
 
-        :param region: The requested :class:`~cms.models.regions.region.Region`
-        :type region: ~cms.models.regions.region.Region
+        :param region: The requested :class:`~integreat_cms.cms.models.regions.region.Region`
+        :type region: ~integreat_cms.cms.models.regions.region.Region
 
-        :param language: The requested :class:`~cms.models.languages.language.Language`
-        :type language: ~cms.models.languages.language.Language
+        :param language: The requested :class:`~integreat_cms.cms.models.languages.language.Language`
+        :type language: ~integreat_cms.cms.models.languages.language.Language
 
         :return: All up to date translations of a region in a specific language
-        :rtype: list [ ~cms.models.pages.page_translation.PageTranslation ]
+        :rtype: list [ ~integreat_cms.cms.models.pages.page_translation.PageTranslation ]
         """
         return [
             t
@@ -285,17 +285,17 @@ class PageTranslation(AbstractBasePageTranslation):
     @classmethod
     def get_current_translations(cls, region, language):
         """
-        This function is similar to :func:`~cms.models.pages.page_translation.PageTranslation.get_translations` but
+        This function is similar to :func:`~integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations` but
         returns only page translations which are currently being translated by an external translator
 
-        :param region: The requested :class:`~cms.models.regions.region.Region`
-        :type region: ~cms.models.regions.region.Region
+        :param region: The requested :class:`~integreat_cms.cms.models.regions.region.Region`
+        :type region: ~integreat_cms.cms.models.regions.region.Region
 
-        :param language: The requested :class:`~cms.models.languages.language.Language`
-        :type language: ~cms.models.languages.language.Language
+        :param language: The requested :class:`~integreat_cms.cms.models.languages.language.Language`
+        :type language: ~integreat_cms.cms.models.languages.language.Language
 
         :return: All currently translated translations of a region in a specific language
-        :rtype: list [ ~cms.models.pages.page_translation.PageTranslation ]
+        :rtype: list [ ~integreat_cms.cms.models.pages.page_translation.PageTranslation ]
         """
         return [
             t
@@ -308,17 +308,17 @@ class PageTranslation(AbstractBasePageTranslation):
     @classmethod
     def get_outdated_translations(cls, region, language):
         """
-        This function is similar to :func:`~cms.models.pages.page_translation.PageTranslation.get_translations` but
+        This function is similar to :func:`~integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations` but
         returns only page translations which are outdated
 
-        :param region: The requested :class:`~cms.models.regions.region.Region`
-        :type region: ~cms.models.regions.region.Region
+        :param region: The requested :class:`~integreat_cms.cms.models.regions.region.Region`
+        :type region: ~integreat_cms.cms.models.regions.region.Region
 
-        :param language: The requested :class:`~cms.models.languages.language.Language`
-        :type language: ~cms.models.languages.language.Language
+        :param language: The requested :class:`~integreat_cms.cms.models.languages.language.Language`
+        :type language: ~integreat_cms.cms.models.languages.language.Language
 
         :return: All outdated translations of a region in a specific language
-        :rtype: list [ ~cms.models.pages.page_translation.PageTranslation ]
+        :rtype: list [ ~integreat_cms.cms.models.pages.page_translation.PageTranslation ]
         """
         return [
             t
@@ -333,7 +333,7 @@ class PageTranslation(AbstractBasePageTranslation):
         """
         Searches for all page translations which match the given `query` in their title or slug.
         :param region: The current region
-        :type region: ~cms.models.regions.region.Region
+        :type region: ~integreat_cms.cms.models.regions.region.Region
         :param language_slug: The language slug
         :type language_slug: str
         :param query: The query string used for filtering the pages

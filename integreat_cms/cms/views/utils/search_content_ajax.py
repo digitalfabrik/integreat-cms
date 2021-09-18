@@ -29,7 +29,7 @@ def format_object_translation(object_translation, typ):
     Formats the [poi/event/page]-translation as json
 
     :param object_translation: A translation object which has a title and a permalink
-    :type object_translation: ~cms.models.events.event.Event or ~cms.models.pages.page.Page or ~cms.models.pois.poi.POI
+    :type object_translation: ~integreat_cms.cms.models.events.event.Event or ~integreat_cms.cms.models.pages.page.Page or ~integreat_cms.cms.models.pois.poi.POI
     :param typ: The type of this object
     :type typ: str
     :return: A dictionary with the title, url and type of the translation object

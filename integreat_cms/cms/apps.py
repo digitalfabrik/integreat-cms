@@ -23,7 +23,7 @@ class CmsConfig(AppConfig):
     :type name: str
     """
 
-    name = "cms"
+    name = "integreat_cms.cms"
 
     def ready(self):
         """

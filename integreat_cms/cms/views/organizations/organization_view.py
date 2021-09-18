@@ -33,7 +33,7 @@ class OrganizationView(TemplateView, OrganizationContextMixin, MediaContextMixin
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.organizations.organization_form.OrganizationForm`
+        Render :class:`~integreat_cms.cms.forms.organizations.organization_form.OrganizationForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -61,8 +61,8 @@ class OrganizationView(TemplateView, OrganizationContextMixin, MediaContextMixin
 
     def post(self, request, organization_id=None):
         """
-        Submit :class:`~cms.forms.organizations.organization_form.OrganizationForm` and save
-        :class:`~cms.models.users.organization.Organization` object
+        Submit :class:`~integreat_cms.cms.forms.organizations.organization_form.OrganizationForm` and save
+        :class:`~integreat_cms.cms.models.users.organization.Organization` object
 
         :param request: The current request
         :type request: ~django.http.HttpResponse

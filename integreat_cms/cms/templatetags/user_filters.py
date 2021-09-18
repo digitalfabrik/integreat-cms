@@ -18,9 +18,9 @@ def remaining_regions(user, region_to_remove):
     :type user: ~django.contrib.auth.models.User
 
     :param region_to_remove: The region which should be removed from the user's regions
-    :type region_to_remove:  ~cms.models.regions.region.Region
+    :type region_to_remove:  ~integreat_cms.cms.models.regions.region.Region
 
     :return: The Queryset of regions
-    :rtype: ~django.db.models.query.QuerySet [ ~cms.models.regions.region.Region ]
+    :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.regions.region.Region ]
     """
     return user.regions.exclude(slug=region_to_remove.slug)

@@ -1,5 +1,5 @@
 """
-This is a collection of tags and filters for points of interest (:class:`~cms.models.pois.poi.POI`).
+This is a collection of tags and filters for points of interest (:class:`~integreat_cms.cms.models.pois.poi.POI`).
 """
 from django import template
 
@@ -12,10 +12,10 @@ def poi_translation_title(poi, language):
     This tag returns the title of the most recent translation of the requested point of interest in the requested language.
 
     :param poi: The requested point of interest
-    :type poi: ~cms.models.pois.poi.POI
+    :type poi: ~integreat_cms.cms.models.pois.poi.POI
 
     :param language: The requested language
-    :type language: ~cms.models.languages.language.Language
+    :type language: ~integreat_cms.cms.models.languages.language.Language
 
     :return: The title of the requested translation
     :rtype: str

@@ -27,7 +27,7 @@ class Feedback(models.Model):
         related_name="feedback",
         verbose_name=_("language"),
     )
-    #: Manage choices in :mod:`cms.constants.feedback_ratings`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.feedback_ratings`
     rating = models.BooleanField(
         null=True,
         blank=True,
@@ -123,7 +123,7 @@ class Feedback(models.Model):
         This property returns all feedback entries which relate to the same object and have the same is_technical value.
 
         :return: The queryset of related feedback
-        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.feedback.feedback.Feedback ]
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.feedback.feedback.Feedback ]
         """
         return self.submodel_instance.related_feedback
 
@@ -169,7 +169,8 @@ class Feedback(models.Model):
     def read(self):
         """
         This property returns whether or not the feedback is marked as read or not.
-        It is ``True`` if :attr:`~cms.models.feedback.feedback.Feedback.read_by` is set and ``False`` otherwise.
+        It is ``True`` if :attr:`~integreat_cms.cms.models.feedback.feedback.Feedback.read_by` is set and ``False``
+        otherwise.
 
         :return: Whether the feedback is marked as read
         :rtype: bool
@@ -181,7 +182,7 @@ class Feedback(models.Model):
         """
         Searches for all feedbacks which match the given `query` in their comment.
         :param region: The current region or None for non-regional feedback
-        :type region: ~cms.models.regions.region.Region
+        :type region: ~integreat_cms.cms.models.regions.region.Region
         :param query: The query string used for filtering the events
         :type query: str
         :return: A query for all matching objects

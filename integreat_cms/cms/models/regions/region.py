@@ -45,7 +45,7 @@ class Region(models.Model):
             _("Leave blank to generate unique parameter from name"),
         ),
     )
-    #: Manage choices in :mod:`cms.constants.region_status`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.region_status`
     status = models.CharField(
         max_length=8,
         choices=region_status.CHOICES,
@@ -53,7 +53,7 @@ class Region(models.Model):
         verbose_name=_("status"),
     )
 
-    #: Manage choices in :mod:`cms.constants.administrative_division`.
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.administrative_division`.
     #: Also see `administrative division <https://en.wikipedia.org/wiki/Administrative_division>`__.
     administrative_division = models.CharField(
         max_length=24,
@@ -193,11 +193,11 @@ class Region(models.Model):
     @property
     def languages(self):
         """
-        This property returns a QuerySet of all :class:`~cms.models.languages.language.Language` objects which have a
-        :class:`~cms.models.languages.language_tree_node.LanguageTreeNode` which belongs to this region.
+        This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects which have a
+        :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode` which belongs to this region.
 
-        :return: A QuerySet of all :class:`~cms.models.languages.language.Language` object instances of a region
-        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.languages.language.Language ]
+        :return: A QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` object instances of a region
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
         """
         return Language.objects.filter(language_tree_nodes__region=self).order_by(
             "language_tree_nodes__level", "language_tree_nodes__lft"
@@ -206,11 +206,11 @@ class Region(models.Model):
     @cached_property
     def default_language(self):
         """
-        This property returns the language :class:`~cms.models.languages.language.Language` which corresponds to the
-        root :class:`~cms.models.languages.language_tree_node.LanguageTreeNode` of this region.
+        This property returns the language :class:`~integreat_cms.cms.models.languages.language.Language` which corresponds to the
+        root :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode` of this region.
 
-        :return: The root :class:`~cms.models.languages.language.Language` of a region
-        :rtype: ~cms.models.languages.language.Language
+        :return: The root :class:`~integreat_cms.cms.models.languages.language.Language` of a region
+        :rtype: ~integreat_cms.cms.models.languages.language.Language
         """
         tree_root = self.language_tree_nodes.filter(level=0).first()
         return tree_root.language if tree_root else None
@@ -273,17 +273,16 @@ class Region(models.Model):
     def get_current_region(cls, request):
         """
         This class method returns the current region based on the current request and is used in
+        :func:`~integreat_cms.backend.context_processors.region_slug_processor`
 
         :param request: Django request
         :type request: ~django.http.HttpRequest
 
-        :func:`backend.context_processors.region_slug_processor`
-
         :raises ~django.http.Http404: When the current request has a ``region_slug`` parameter, but there is no region
                                       with that slug.
 
-        :return: The root :class:`~cms.models.languages.language.Language` of a region
-        :rtype: ~cms.models.languages.language.Language
+        :return: The root :class:`~integreat_cms.cms.models.languages.language.Language` of a region
+        :rtype: ~integreat_cms.cms.models.languages.language.Language
         """
         # if rendered url is edit_region, the region slug originates from the region form.
         if (
@@ -303,11 +302,11 @@ class Region(models.Model):
 
         Per default, the returned queryset has some limitations because of the usage of
         :meth:`~django.db.models.query.QuerySet.union`. To perform the extra effort of returning an unrestricted
-        queryset, use :meth:`~cms.models.regions.region.Region.get_pages` with the parameters ``archived`` and
+        queryset, use :meth:`~integreat_cms.cms.models.regions.region.Region.get_pages` with the parameters ``archived`` and
         ``return_unrestricted_queryset`` set to ``True``.
 
         :return: A QuerySet of all archived pages of this region
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         # Queryset of explicitly archived pages
         explicitly_archived_pages = self.pages.filter(explicitly_archived=True)
@@ -334,11 +333,11 @@ class Region(models.Model):
         Per default, the returned queryset has some limitations because of the usage of
         :meth:`~django.db.models.query.QuerySet.difference` (see :meth:`~django.db.models.query.QuerySet.union` for some
         restrictions). To perform the extra effort of returning an unrestricted queryset, use
-        :meth:`~cms.models.regions.region.Region.get_pages` with the parameter ``return_unrestricted_queryset`` set to
+        :meth:`~integreat_cms.cms.models.regions.region.Region.get_pages` with the parameter ``return_unrestricted_queryset`` set to
         ``True``.
 
         :return: A QuerySet of all non-archived pages of this region
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         # Multiple order_by clauses are not allowed in sql queries, so to make combined queries with difference() work,
         # we have to remove ordering from the input querysets and apply the default ordering to the resulting queryset.
@@ -353,7 +352,7 @@ class Region(models.Model):
         """
         This method returns either all archived or all non-archived pages of this region.
         To retrieve all pages independently from their archived-state, use the reverse foreign key
-        :attr:`~cms.models.regions.region.Region.pages`.
+        :attr:`~integreat_cms.cms.models.regions.region.Region.pages`.
 
         Per default, the returned queryset has some limitations because of the usage of
         :meth:`~django.db.models.query.QuerySet.difference` and :meth:`~django.db.models.query.QuerySet.union`.
@@ -368,7 +367,7 @@ class Region(models.Model):
         :type return_unrestricted_queryset: bool
 
         :return: Either the archived or the non-archived pages of this region
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~cms.models.pages.page.Page ]
+        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         if archived:
             pages = self.archived_pages

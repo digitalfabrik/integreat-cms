@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(modify_mfa_authenticated, name="dispatch")
 class RegisterUserMfaKeyView(CreateView):
     """
-    View to render a form for creating :class:`~cms.models.users.user_mfa_key.UserMfaKey` objects
+    View to render a form for creating :class:`~integreat_cms.cms.models.users.user_mfa_key.UserMfaKey` objects
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)

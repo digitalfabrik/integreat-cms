@@ -12,7 +12,7 @@ class Role(models.Model):
     Meta information about the default Django auth group model
     """
 
-    #: Manage choices in :mod:`cms.constants.role_names`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.role_names`
     name = models.CharField(
         max_length=50,
         choices=role_names.CHOICES,

@@ -3,8 +3,7 @@ Retrieve push notifications that have been sent, optionally filtering by channel
 """
 from django.http import JsonResponse
 
-from cms.models import PushNotificationTranslation
-
+from ...cms.models import PushNotificationTranslation
 from ..decorators import json_response
 
 
@@ -43,7 +42,7 @@ def transform_notification(pnt):
     Function to create a JSON from a single push notification translation Object.
 
     :param pnt: A push notification translation
-    :type pnt: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
+    :type pnt: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
 
     :return: data necessary for API
     :rtype: dict

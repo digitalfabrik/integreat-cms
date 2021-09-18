@@ -1,5 +1,5 @@
 """
 This package contains all media-related models:
-:class:`~cms.models.media.media_file.MediaFile` and
-:class:`~cms.models.media.directory.Directory`
+:class:`~integreat_cms.cms.models.media.media_file.MediaFile` and
+:class:`~integreat_cms.cms.models.media.directory.Directory`
 """

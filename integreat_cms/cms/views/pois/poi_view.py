@@ -36,7 +36,7 @@ class POIView(TemplateView, POIContextMixin, MediaContextMixin):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.pois.poi_form.POIForm` and :class:`~cms.forms.pois.poi_translation_form.POITranslationForm`
+        Render :class:`~integreat_cms.cms.forms.pois.poi_form.POIForm` and :class:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -91,9 +91,9 @@ class POIView(TemplateView, POIContextMixin, MediaContextMixin):
     # pylint: disable=too-many-branches,too-many-locals,unused-argument
     def post(self, request, *args, **kwargs):
         """
-        Submit :class:`~cms.forms.pois.poi_form.POIForm` and
-        :class:`~cms.forms.pois.poi_translation_form.POITranslationForm` and save :class:`~cms.models.pois.poi.POI` and
-        :class:`~cms.models.pois.poi_translation.POITranslation` objects
+        Submit :class:`~integreat_cms.cms.forms.pois.poi_form.POIForm` and
+        :class:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm` and save :class:`~integreat_cms.cms.models.pois.poi.POI` and
+        :class:`~integreat_cms.cms.models.pois.poi_translation.POITranslation` objects
 
         :param request: The current request
         :type request: ~django.http.HttpResponse

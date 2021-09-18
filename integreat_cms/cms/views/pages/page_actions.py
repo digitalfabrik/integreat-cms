@@ -18,7 +18,7 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from xliff.utils import pages_to_xliff_file
+from ....xliff.utils import pages_to_xliff_file
 from ...constants import text_directions
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageForm
@@ -51,7 +51,7 @@ def archive_page(request, page_id, region_slug, language_slug):
 
     :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
-    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -99,7 +99,7 @@ def restore_page(request, page_id, region_slug, language_slug):
 
     :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
-    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -166,7 +166,7 @@ def view_page(request, page_id, region_slug, language_slug):
     :param language_slug: The slug of the current language
     :type language_slug: str
 
-    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -212,7 +212,7 @@ def delete_page(request, page_id, region_slug, language_slug):
     :param language_slug: The slug of the current language
     :type language_slug: str
 
-    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -242,7 +242,7 @@ def delete_page(request, page_id, region_slug, language_slug):
 def export_pdf(request, region_slug, language_slug):
     """
     Function for handling a pdf export request for pages.
-    The pages get extracted from request.GET attribute and the request is forwarded to :func:`~cms.utils.pdf_utils.generate_pdf`
+    The pages get extracted from request.GET attribute and the request is forwarded to :func:`~integreat_cms.cms.utils.pdf_utils.generate_pdf`
 
     :param request: Request submitted for rendering pdf document
     :type request: ~django.http.HttpRequest
@@ -281,7 +281,7 @@ def expand_page_translation_id(request, short_url_id):
     :param short_url_id: The id of the requested page
     :type short_url_id: int
 
-    :return: A redirection to :class:`~backend.settings.WEBAPP_URL`
+    :return: A redirection to :class:`~integreat_cms.backend.settings.WEBAPP_URL`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -311,7 +311,7 @@ def download_xliff(request, region_slug, language_slug):
     :param language_slug: The slug of the target language
     :type language_slug: str
 
-    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -416,7 +416,7 @@ def upload_xliff(request, region_slug, language_slug):
     :param language_slug: The slug of the current language
     :type language_slug: str
 
-    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
     xliff_paths = []
@@ -528,10 +528,10 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
     :param target_id: The id of the page which determines the new position
     :type target_id: int
 
-    :param position: The new position of the page relative to the target (choices: :mod:`cms.constants.position`)
+    :param position: The new position of the page relative to the target (choices: :mod:`~integreat_cms.cms.constants.position`)
     :type position: str
 
-    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 

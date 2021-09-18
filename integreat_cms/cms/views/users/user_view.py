@@ -31,7 +31,7 @@ class UserView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.users.user_form.UserForm`
+        Render :class:`~integreat_cms.cms.forms.users.user_form.UserForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -65,7 +65,7 @@ class UserView(TemplateView):
     # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         """
-        Submit :class:`~cms.forms.users.user_form.UserForm` and save :class:`~cms.models.users.user.User`
+        Submit :class:`~integreat_cms.cms.forms.users.user_form.UserForm` and save :class:`~integreat_cms.cms.models.users.user.User`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse

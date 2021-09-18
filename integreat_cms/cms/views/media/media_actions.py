@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 
-from api.decorators import json_response
+from ....api.decorators import json_response
 from ...decorators import region_permission_required, permission_required
 
 from ...forms import (

@@ -17,11 +17,11 @@ from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
 from django.utils.translation import ugettext as _
 
-from cms.constants import text_directions
-from cms.forms import PageTranslationForm
-from cms.models import Page, PageTranslation, Region
-from cms.utils.file_utils import create_zip_archive
-from cms.utils.translation_utils import ugettext_many_lazy as __
+from ..cms.constants import text_directions
+from ..cms.forms import PageTranslationForm
+from ..cms.models import Page, PageTranslation, Region
+from ..cms.utils.file_utils import create_zip_archive
+from ..cms.utils.translation_utils import ugettext_many_lazy as __
 
 
 upload_storage = FileSystemStorage(location=settings.XLIFF_UPLOAD_DIR)
@@ -41,10 +41,10 @@ def pages_to_xliff_file(request, pages, target_language):
     :type request: ~django.http.HttpRequest
 
     :param pages: list of pages which should be translated
-    :type pages: list [ ~cms.models.pages.page.Page ]
+    :type pages: list [ ~integreat_cms.cms.models.pages.page.Page ]
 
     :param target_language: The target language (should not be the region's default language)
-    :type target_language: :class:`~cms.models.languages.language.Language`
+    :type target_language: :class:`~integreat_cms.cms.models.languages.language.Language`
 
     :return: The path of the generated zip file
     :rtype: str
@@ -104,10 +104,10 @@ def page_to_xliff(page, target_language, dir_name):
     Export a page to an XLIFF file for a specified target language
 
     :param page: Page which should be translated
-    :type page: ~cms.models.pages.page.Page
+    :type page: ~integreat_cms.cms.models.pages.page.Page
 
     :param target_language: The target language (should not be the region's default language)
-    :type target_language: :class:`~cms.models.languages.language.Language`
+    :type target_language: :class:`~integreat_cms.cms.models.languages.language.Language`
 
     :param dir_name: The directory in which the xliff files should be created
     :type dir_name: uuid.UUID
@@ -371,7 +371,7 @@ def get_xliff_import_errors(request, page_translation):
     :type request: ~django.http.HttpRequest
 
     :param page_translation: The page translation which is being imported
-    :type page_translation: ~cms.models.pages.page_translation.PageTranslation
+    :type page_translation: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
     :return: All errors of this XLIFF import
     :rtype: list [ dict ]

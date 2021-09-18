@@ -36,7 +36,7 @@ class POIListView(TemplateView, POIContextMixin):
     @property
     def template_name(self):
         """
-        Select correct HTML template, depending on :attr:`~cms.views.pois.poi_list_view.POIListView.archived` flag
+        Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.pois.poi_list_view.POIListView.archived` flag
         (see :class:`~django.views.generic.base.TemplateResponseMixin`)
 
         :return: Path to HTML template

@@ -7,14 +7,15 @@ import sys
 
 def main():
     """" Application entry point """
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.backend.settings")
     running_tests = False
     for arg in sys.argv:
-        if arg == '--set=COVERAGE':
+        if arg == "--set=COVERAGE":
             running_tests = True
     if running_tests:
         # pylint: disable=import-outside-toplevel
         from coverage import Coverage
+
         cov = Coverage()
         cov.erase()
         cov.start()
@@ -46,5 +47,5 @@ def main():
         cov.erase()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

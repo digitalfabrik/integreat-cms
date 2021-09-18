@@ -13,7 +13,7 @@ class RecurrenceRule(models.Model):
     Data model representing the recurrence frequency and interval of an event
     """
 
-    #: Manage choices in :mod:`cms.constants.frequency`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.frequency`
     frequency = models.CharField(
         max_length=7,
         choices=frequency.CHOICES,
@@ -27,7 +27,7 @@ class RecurrenceRule(models.Model):
         verbose_name=_("Repeat every ... time(s)"),
         help_text=_("The interval in which the event recurs."),
     )
-    #: Manage choices in :mod:`cms.constants.weekdays`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.weekdays`
     weekdays_for_weekly = ArrayField(
         models.IntegerField(choices=weekdays.CHOICES),
         blank=True,
@@ -36,7 +36,7 @@ class RecurrenceRule(models.Model):
             "If the frequency is weekly, this field determines on which days the event takes place"
         ),
     )
-    #: Manage choices in :mod:`cms.constants.weekdays`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.weekdays`
     weekday_for_monthly = models.IntegerField(
         choices=weekdays.CHOICES,
         null=True,
@@ -46,7 +46,7 @@ class RecurrenceRule(models.Model):
             "If the frequency is monthly, this field determines on which days the event takes place"
         ),
     )
-    #: Manage choices in :mod:`cms.constants.weeks`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.weeks`
     week_for_monthly = models.IntegerField(
         choices=weeks.CHOICES,
         null=True,

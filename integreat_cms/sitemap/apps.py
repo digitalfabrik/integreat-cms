@@ -6,4 +6,4 @@ class SitemapConfig(AppConfig):
     This is the basic configuration for the sitemap app
     """
 
-    name = "sitemap"
+    name = "integreat_cms.sitemap"

@@ -1,6 +1,6 @@
 /**
  * This file contains all event handlers and functions which are needed for drag & drop functionality in trees.
- * Currently, this is used in src/cms/templates/pages/page_tree.html and src/cms/templates/language_tree/language_tree.html
+ * Currently, this is used in integreat_cms/cms/templates/pages/page_tree.html and integreat_cms/cms/templates/language_tree/language_tree.html
  */
 
 import { off, on } from "./utils/wrapped-events";

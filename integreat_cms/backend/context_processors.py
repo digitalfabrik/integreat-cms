@@ -1,7 +1,7 @@
 """
 Context processors pass additional variables to templates (see :ref:`context-processors`).
 """
-from cms.models import Region
+from ..cms.models import Region
 
 
 def region_slug_processor(request):

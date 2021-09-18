@@ -45,7 +45,7 @@ class ImprintPageFeedback(Feedback):
         This property returns all feedback entries which relate to the same object and have the same is_technical value.
 
         :return: The queryset of related feedback
-        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.feedback.imprint_page_feedback.ImprintPageFeedback ]
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.feedback.imprint_page_feedback.ImprintPageFeedback ]
         """
         return ImprintPageFeedback.objects.filter(
             region=self.region, language=self.language, is_technical=self.is_technical

@@ -3,8 +3,7 @@ API-endpoint to deliver a JSON with all active languages of an region.
 """
 from django.http import JsonResponse
 
-from cms.models import Region
-
+from ...cms.models import Region
 from ..decorators import json_response
 
 

@@ -26,7 +26,10 @@ class APIViewTest(ViewTest):
     This test checks whether all api views return status code 200.
     """
 
-    fixtures = ["src/cms/fixtures/roles.json", "src/cms/fixtures/test_data.json"]
+    fixtures = [
+        "integreat_cms/cms/fixtures/roles.json",
+        "integreat_cms/cms/fixtures/test_data.json",
+    ]
 
     @classmethod
     def setUpClass(cls):

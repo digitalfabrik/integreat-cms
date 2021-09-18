@@ -10,7 +10,7 @@ class OfferTemplate(models.Model):
     """
     The OfferTemplate model is used to store templates of offers which can be activated for specific regions. The
     information stored in an offer template is global, so if you need parameters, which depend on local information
-    of a region, it has to be added to the :class:`~cms.models.regions.region.Region` model.
+    of a region, it has to be added to the :class:`~integreat_cms.cms.models.regions.region.Region` model.
     """
 
     name = models.CharField(max_length=250, verbose_name=_("name"))
@@ -39,7 +39,7 @@ class OfferTemplate(models.Model):
             _("Additional POST data for retrieving the URL."), _("Specify as JSON.")
         ),
     )
-    #: Manage choices in :mod:`cms.constants.postal_code`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.postal_code`
     use_postal_code = models.CharField(
         max_length=4,
         choices=postal_code.CHOICES,

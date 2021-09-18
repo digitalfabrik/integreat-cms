@@ -9,4 +9,4 @@ class XLIFFConfig(AppConfig):
     XLIFF config inheriting the django AppConfig
     """
 
-    name = "xliff"
+    name = "integreat_cms.xliff"

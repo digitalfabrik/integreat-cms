@@ -50,14 +50,14 @@ class Language(models.Model):
         verbose_name=_("name in English"),
         help_text=_("The name of the language in English."),
     )
-    #: Manage choices in :mod:`cms.constants.text_directions`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.text_directions`
     text_direction = models.CharField(
         default=text_directions.LEFT_TO_RIGHT,
         choices=text_directions.CHOICES,
         max_length=13,
         verbose_name=_("text direction"),
     )
-    #: Manage choices in :mod:`cms.constants.countries`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.countries`
     primary_country_code = models.CharField(
         choices=countries.CHOICES,
         max_length=2,
@@ -67,7 +67,7 @@ class Language(models.Model):
             _("This flag is used to represent the language graphically."),
         ),
     )
-    #: Manage choices in :mod:`cms.constants.countries`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.countries`
     secondary_country_code = models.CharField(
         choices=countries.CHOICES,
         blank=True,
@@ -111,10 +111,10 @@ class Language(models.Model):
         This returns the source language of this language in the given region
 
         :param region: The requested region
-        :type region: ~cms.models.regions.region.Region
+        :type region: ~integreat_cms.cms.models.regions.region.Region
 
         :return: The source language of the language
-        :rtype: ~cms.models.languages.language.Language
+        :rtype: ~integreat_cms.cms.models.languages.language.Language
         """
         # Since LanguageTreeNodes are unique per region and language, this is unambiguous
         language_tree_node = self.language_tree_nodes.filter(region=region).first()

@@ -41,7 +41,7 @@ def move_language_tree_node(
     :param target_id: The id of the target language tree node
     :type target_id: int
 
-    :param target_position: The desired position (choices: :mod:`cms.constants.position`)
+    :param target_position: The desired position (choices: :mod:`~integreat_cms.cms.constants.position`)
     :type target_position: str
 
     :return: A redirection to the language tree

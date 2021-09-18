@@ -51,17 +51,17 @@ def generate_unique_slug_helper(form_object, foreign_model):
 
 def generate_unique_slug(**kwargs):
     """
-    This function can be used in :mod:`~cms.forms` to clean slug fields. It will make sure the slug field contains a
+    This function can be used in :mod:`~integreat_cms.cms.forms` to clean slug fields. It will make sure the slug field contains a
     unique identifier per region and language. It can also be used for region slugs (``foreign_model`` is ``None`` in
     this case). If the slug field is empty, it creates a fallback value from either the ``title`` or the ``name`` field.
     In case the slug exists already, it appends a counter which is increased until the slug is unique.
 
     Example usages:
 
-    * :func:`cms.forms.regions.region_form.RegionForm.clean_slug`
-    * :func:`cms.forms.pages.page_translation_form.PageTranslationForm.clean_slug`
-    * :func:`cms.forms.events.event_translation_form.EventTranslationForm.clean_slug`
-    * :func:`cms.forms.pois.poi_translation_form.POITranslationForm.clean_slug`
+    * :func:`~integreat_cms.cms.forms.regions.region_form.RegionForm.clean_slug`
+    * :func:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm.clean_slug`
+    * :func:`~integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm.clean_slug`
+    * :func:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm.clean_slug`
 
     :param kwargs: The supplied keyword arguments
     :type kwargs: dict

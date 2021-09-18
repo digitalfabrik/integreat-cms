@@ -24,14 +24,14 @@ class LoginView(auth_views.LoginView):
         """
         This function overwrites :meth:`~django.views.generic.edit.FormMixin.form_valid` which is called if the login
         form is valid. In case the user has mfa-keys configured, the login is delegated to
-        :class:`~cms.views.authentication.mfa.mfa_login_view.MfaLoginView`. Else, the default method
+        :class:`~integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView`. Else, the default method
         :func:`~django.contrib.auth.login` is used to log the user in. After that, the user is redirected to
-        :attr:`~backend.settings.LOGIN_REDIRECT_URL`.
+        :attr:`~integreat_cms.backend.settings.LOGIN_REDIRECT_URL`.
 
         :param form: User login form
         :type form: ~django.contrib.auth.forms.AuthenticationForm
 
-        :return: Redirect user to mfa login view or to :attr:`~backend.settings.LOGIN_REDIRECT_URL`
+        :return: Redirect user to mfa login view or to :attr:`~integreat_cms.backend.settings.LOGIN_REDIRECT_URL`
         :rtype: ~django.http.HttpResponseRedirect
         """
 

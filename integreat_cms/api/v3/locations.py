@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.http import JsonResponse
 
-from cms.models import Region
+from ...cms.models import Region
 from ..decorators import json_response
 
 
@@ -12,10 +12,10 @@ def transform_poi(poi, poi_translation):
     passed as the second parameter.
 
     :param poi: The poi object which should be converted
-    :type poi: ~cms.models.pois.poi.POI
+    :type poi: ~integreat_cms.cms.models.pois.poi.POI
 
     :param poi_translation: The translation of the POI which should be used for the title
-    :type poi_translation: ~cms.models.pois.poi_translation.POITranslation
+    :type poi_translation: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
 
     :return: data necessary for API
     :rtype: dict
@@ -39,7 +39,7 @@ def transform_poi_translation(poi_translation):
     Function to create a JSON from a single poi_translation object.
 
     :param poi_translation: The poi translation object which should be converted
-    :type poi_translation: ~cms.models.pois.poi_translation.POITranslation
+    :type poi_translation: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
 
     :return: data necessary for API
     :rtype: dict

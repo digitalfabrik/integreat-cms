@@ -17,7 +17,7 @@ class GvzApiConfig(AppConfig):
     GVZ API config inheriting the django AppConfig
     """
 
-    name = "gvz_api"
+    name = "integreat_cms.gvz_api"
     api_available = False
 
     def ready(self):

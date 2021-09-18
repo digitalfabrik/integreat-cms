@@ -3,17 +3,17 @@ We use `django-rules <https://pypi.org/project/rules/>`_ to add custom permissio
 
 For a given user and page, the following permissions are added:
 
-* ``cms.edit_page`` if one of the following predicates return true:
+* ``~integreat_cms.cms.edit_page`` if one of the following predicates return true:
 
-    * :func:`~cms.rules.can_edit_all_pages`
-    * :func:`~cms.rules.is_page_editor`
-    * :func:`~cms.rules.can_publish_all_pages`
-    * :func:`~cms.rules.is_page_publisher`
+    * :func:`~integreat_cms.cms.rules.can_edit_all_pages`
+    * :func:`~integreat_cms.cms.rules.is_page_editor`
+    * :func:`~integreat_cms.cms.rules.can_publish_all_pages`
+    * :func:`~integreat_cms.cms.rules.is_page_publisher`
 
-* ``cms.publish_page_object`` if one of the following predicates return true:
+* ``~integreat_cms.cms.publish_page_object`` if one of the following predicates return true:
 
-    * :func:`~cms.rules.can_publish_all_pages`
-    * :func:`~cms.rules.is_page_publisher`
+    * :func:`~integreat_cms.cms.rules.can_publish_all_pages`
+    * :func:`~integreat_cms.cms.rules.is_page_publisher`
 
 See the project's `README <https://github.com/dfunckt/django-rules/blob/master/README.rst>`_ to learn more.
 """
@@ -32,7 +32,7 @@ def is_page_editor(user, page):
     :type user: ~django.contrib.auth.models.User
 
     :param page: The requested page
-    :type page: ~cms.models.pages.page.Page
+    :type page: ~integreat_cms.cms.models.pages.page.Page
 
     :return: Whether or not ``user`` is an editor of ``page``
     :rtype: bool
@@ -51,7 +51,7 @@ def is_page_publisher(user, page):
     :type user: ~django.contrib.auth.models.User
 
     :param page: The requested page
-    :type page: ~cms.models.pages.page.Page
+    :type page: ~integreat_cms.cms.models.pages.page.Page
 
     :return: Whether or not ``user`` is a publisher of ``page``
     :rtype: bool
@@ -70,7 +70,7 @@ def can_edit_all_pages(user, page):
     :type user: ~django.contrib.auth.models.User
 
     :param page: The page parameter is used for the region check
-    :type page: ~cms.models.pages.page.Page
+    :type page: ~integreat_cms.cms.models.pages.page.Page
 
     :return: Whether or not ``user`` can edit all pages
     :rtype: bool
@@ -90,7 +90,7 @@ def can_publish_all_pages(user, page):
     :type user: ~django.contrib.auth.models.User
 
     :param page: The page parameter is used for the region check
-    :type page: ~cms.models.pages.page.Page
+    :type page: ~integreat_cms.cms.models.pages.page.Page
 
     :return: Whether or not ``user`` can publish all pages
     :rtype: bool
@@ -110,7 +110,7 @@ def is_in_responsible_organization(user, page):
     :type user: ~django.contrib.auth.models.User
 
     :param page: The requested page
-    :type page: ~cms.models.pages.page.Page
+    :type page: ~integreat_cms.cms.models.pages.page.Page
 
     :return: Whether or not ``user`` is a member of ``page.organization``
     :rtype: bool
@@ -129,7 +129,7 @@ def can_delete_chat_message(user, chat_message):
     :type user: ~django.contrib.auth.models.User
 
     :param chat_message: The requested chat message
-    :type chat_message: ~cms.models.chat.chat_message.ChatMessage
+    :type chat_message: ~integreat_cms.cms.models.chat.chat_message.ChatMessage
 
     :return: Whether or not ``user`` is allowed to delete ``chat_message``
     :rtype: bool

@@ -34,7 +34,7 @@ class EventTranslation(models.Model):
             _("Leave blank to generate unique parameter from title."),
         ),
     )
-    #: Manage choices in :mod:`cms.constants.status`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.status`
     status = models.CharField(
         max_length=9,
         choices=status.CHOICES,
@@ -80,11 +80,11 @@ class EventTranslation(models.Model):
     @property
     def foreign_object(self):
         """
-        This property is an alias of the event foreign key and is needed to generalize the :mod:`~cms.utils.slug_utils`
+        This property is an alias of the event foreign key and is needed to generalize the :mod:`~integreat_cms.cms.utils.slug_utils`
         for all content types
 
         :return: The event to which the translation belongs
-        :rtype: ~cms.models.events.event.Event
+        :rtype: ~integreat_cms.cms.models.events.event.Event
         """
         return self.event
 
@@ -129,7 +129,7 @@ class EventTranslation(models.Model):
     @property
     def available_languages(self):
         """
-        This property checks in which :class:`~cms.models.languages.language.Language` the event is translated apart
+        This property checks in which :class:`~integreat_cms.cms.models.languages.language.Language` the event is translated apart
         from ``self.language``.
         It only returns languages which have a public translation, so drafts are not included here.
         The returned dict has the following format::
@@ -160,7 +160,7 @@ class EventTranslation(models.Model):
     def sitemap_alternates(self):
         """
         This property returns the language alternatives of a event translation for the use in sitemaps.
-        Similar to :func:`cms.models.events.event_translation.EventTranslation.available_languages`, but in a slightly
+        Similar to :func:`~integreat_cms.cms.models.events.event_translation.EventTranslation.available_languages`, but in a slightly
         different format.
 
         :return: A list of dictionaries containing the alternative translations of a event translation
@@ -183,13 +183,13 @@ class EventTranslation(models.Model):
     def source_translation(self):
         """
         This property returns the translation which was used to create the ``self`` translation.
-        It derives this information from the :class:`~cms.models.regions.region.Region`'s root
-        :class:`~cms.models.languages.language_tree_node.LanguageTreeNode`.
+        It derives this information from the :class:`~integreat_cms.cms.models.regions.region.Region`'s root
+        :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode`.
 
-        :return: The event translation in the source :class:`~cms.models.languages.language.Language` (:obj:`None` if
-                 the translation is in the :class:`~cms.models.regions.region.Region`'s default
-                 :class:`~cms.models.languages.language.Language`)
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :return: The event translation in the source :class:`~integreat_cms.cms.models.languages.language.Language` (:obj:`None` if
+                 the translation is in the :class:`~integreat_cms.cms.models.regions.region.Region`'s default
+                 :class:`~integreat_cms.cms.models.languages.language.Language`)
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         source_language_tree_node = self.event.region.language_tree_nodes.get(
             language=self.language
@@ -204,7 +204,7 @@ class EventTranslation(models.Model):
         This property is a link to the most recent version of this translation.
 
         :return: The latest revision of the translation
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
             language=self.language,
@@ -217,7 +217,7 @@ class EventTranslation(models.Model):
         If the translation itself is not public, this property can return a revision which is older than ``self``.
 
         :return: The latest public revision of the translation
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
             language=self.language,
@@ -230,7 +230,7 @@ class EventTranslation(models.Model):
         This property is a link to the most recent major version of this translation.
 
         :return: The latest major revision of the translation
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
             language=self.language,
@@ -244,7 +244,7 @@ class EventTranslation(models.Model):
         This is used when translations, which are derived from this translation, check whether they are up to date.
 
         :return: The latest major public revision of the translation
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         return self.event.translations.filter(
             language=self.language,
@@ -258,7 +258,7 @@ class EventTranslation(models.Model):
         This property is a shortcut to the previous revision of this translation
 
         :return: The previous translation
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         version = self.version - 1
         return self.event.translations.filter(
@@ -320,7 +320,7 @@ class EventTranslation(models.Model):
         Searches for all event translations and match the given `query` in their title or slug.
 
         :param region: The current region
-        :type region: ~cms.models.regions.region.Region
+        :type region: ~integreat_cms.cms.models.regions.region.Region
         :param language_slug: The language slug
         :type language_slug: str
         :param query: The query string used for filtering the events

@@ -3,9 +3,8 @@ Provides an endpoint for delivering a JSON with all active offers.
 """
 from django.http import JsonResponse
 
-from cms.constants import postal_code
-from cms.models import Region
-
+from ...cms.constants import postal_code
+from ...cms.models import Region
 from ..decorators import json_response
 
 
@@ -14,14 +13,14 @@ def get_url(offer, region):
     The offer should inherit the slug property from its template. This is the url to an API endpoint in most cases.
     Some offers depend on the location which is realized by adding the postal code of the current region to the
     request. If the offer template indicates that the postal code should be used as ``GET``-parameter, the class
-    attribute ``use_postal_code`` has to be set to ``postal_code.GET`` (see :mod:`cms.constants.postal_code`) and
+    attribute ``use_postal_code`` has to be set to ``postal_code.GET`` (see :mod:`~integreat_cms.cms.constants.postal_code`) and
     the url has to end with the name of the required parameter-name, e.g. ``https://example.com/api?location=``.
 
     :param offer: one offer (formerly extra)
-    :type offer: ~cms.models.offers.offer_template.OfferTemplate
+    :type offer: ~integreat_cms.cms.models.offers.offer_template.OfferTemplate
 
     :param region: current region object
-    :type region: ~cms.models.regions.region.Region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
 
     :return: The url of an offer
     :rtype: str
@@ -36,15 +35,15 @@ def get_post_data(offer, region):
     In case the url expects additional post data, it is stored inside the ``post_data``-dict. Some offers depend on
     the location which is realized by adding the postal code of the current region to the request. If the offer
     template indicates that the postal code should be used as ``GET``-parameter, the class attribute
-    ``use_postal_code`` has to be set to ``postal_code.POST`` (see :mod:`cms.constants.postal_code`) and then the
+    ``use_postal_code`` has to be set to ``postal_code.POST`` (see :mod:`~integreat_cms.cms.constants.postal_code`) and then the
     key ``search-plz`` is automatically added to the post data. In case a third party service needs a different
     format, it has to be hard-coded here or we need other changes to the offer model.
 
     :param offer: one offer (formerly extra)
-    :type offer: ~cms.models.offers.offer_template.OfferTemplate
+    :type offer: ~integreat_cms.cms.models.offers.offer_template.OfferTemplate
 
     :param region: current region object
-    :type region: ~cms.models.regions.region.Region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
 
     :return: The post data of the offer's url
     :rtype: dict
@@ -60,10 +59,10 @@ def transform_offer(offer, region):
     Function to create a JSON from a single offer Object.
 
     :param offer: one offer (formerly extra)
-    :type offer: ~cms.models.offers.offer_template.OfferTemplate
+    :type offer: ~integreat_cms.cms.models.offers.offer_template.OfferTemplate
 
     :param region: current region object
-    :type region: ~cms.models.regions.region.Region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
 
     :return: data necessary for API
     :rtype: dict

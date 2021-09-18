@@ -31,7 +31,7 @@ class LanguageTreeNodeView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm`
+        Render :class:`~integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse

@@ -33,10 +33,10 @@ class ImprintPage(AbstractBasePage):
     @property
     def languages(self):
         """
-        This property returns a list of all :class:`~cms.models.languages.language.Language` objects, to which an
+        This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to which an
         imprint translation exists.
 
-        :return: list of all :class:`~cms.models.languages.language.Language` an imprint is translated into
-        :rtype: list [ ~cms.models.languages.language.Language ]
+        :return: list of all :class:`~integreat_cms.cms.models.languages.language.Language` an imprint is translated into
+        :rtype: list [ ~integreat_cms.cms.models.languages.language.Language ]
         """
         return Language.objects.filter(imprint_translations__page=self)

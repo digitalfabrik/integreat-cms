@@ -36,7 +36,7 @@ class ImprintView(TemplateView, MediaContextMixin):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.imprint.imprint_translation_form.ImprintTranslationForm`
+        Render :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -242,13 +242,13 @@ class ImprintView(TemplateView, MediaContextMixin):
         This is a helper function to generate the side-by-side language options for both the get and post requests.
 
         :param region: The current region
-        :type region: ~cms.models.regions.region.Region
+        :type region: ~integreat_cms.cms.models.regions.region.Region
 
         :param language: The current language
-        :type language: ~cms.models.languages.language.Language
+        :type language: ~integreat_cms.cms.models.languages.language.Language
 
         :param imprint: The current imprint
-        :type imprint: ~cms.models.pages.imprint_page.ImprintPage
+        :type imprint: ~integreat_cms.cms.models.pages.imprint_page.ImprintPage
 
         :return: The list of language options, each represented by a dict
         :rtype: list

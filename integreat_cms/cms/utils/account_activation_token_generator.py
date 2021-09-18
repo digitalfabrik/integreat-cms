@@ -1,6 +1,6 @@
 """
 This module contains helpers for the account activation process
-(also see :class:`~cms.views.authentication.account_activation_view.AccountActivationView`).
+(also see :class:`~integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView`).
 """
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
@@ -13,11 +13,9 @@ class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
     """
 
     #: The key salt which is passed to the HMAC function
-    key_salt = (
-        "cms.utils.account_activation_token_generator.AccountActivationTokenGenerator"
-    )
+    key_salt = "integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator"
 
 
 #: The token generator for the account activation process
-#: (an instance of :class:`~cms.utils.account_activation_token_generator.AccountActivationTokenGenerator`)
+#: (an instance of :class:`~integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator`)
 account_activation_token_generator = AccountActivationTokenGenerator()

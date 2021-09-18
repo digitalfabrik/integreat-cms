@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 class ChatHistoryManager(models.Manager):
     """
     Custom manager for returning the chat history of the last x days
-    (as configured in :attr:`backend.settings.AUTHOR_CHAT_HISTORY_DAYS`)
+    (as configured in :attr:`~integreat_cms.backend.settings.AUTHOR_CHAT_HISTORY_DAYS`)
     """
 
     def get_queryset(self):
@@ -16,7 +16,7 @@ class ChatHistoryManager(models.Manager):
         Custom queryset with applied filters to return the chat messages of the last x days
 
         :return: The QuerySet of the most recent chat history
-        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.chat.chat_message.ChatMessage ]
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.chat.chat_message.ChatMessage ]
         """
         return (
             super()

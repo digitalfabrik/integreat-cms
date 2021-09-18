@@ -40,7 +40,7 @@ class PushNotification(models.Model):
         auto_now_add=True,
         verbose_name=_("creation date"),
     )
-    #: Manage choices in :mod:`cms.constants.push_notifications`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.push_notifications`
     mode = models.CharField(
         max_length=128,
         choices=PN_MODES,
@@ -56,7 +56,7 @@ class PushNotification(models.Model):
         This function returns the translation of this push notification in the current backend language.
 
         :return: The backend translation of a push notification
-        :rtype: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
+        :rtype: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
         """
         return self.translations.filter(language__slug=get_language()).first()
 
@@ -68,7 +68,7 @@ class PushNotification(models.Model):
         guaranteed to return a push notification translation.
 
         :return: The default translation of a push notification
-        :rtype: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
+        :rtype: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
         """
         return self.translations.filter(language=self.region.default_language).first()
 
@@ -79,7 +79,7 @@ class PushNotification(models.Model):
         doesn't exist, it provides a fallback to the translation in the region's default language.
 
         :return: The "best" translation of a push notification for displaying in the backend
-        :rtype: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
+        :rtype: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
         """
         return self.backend_translation or self.default_translation
 

@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from xliff.utils import get_xliff_import_diff, xliff_import_confirm
+from ....xliff.utils import get_xliff_import_diff, xliff_import_confirm
 from ...decorators import region_permission_required, permission_required
 from ...models import Region
 from .page_context_mixin import PageContextMixin

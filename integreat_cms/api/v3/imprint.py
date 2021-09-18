@@ -4,8 +4,7 @@ imprint API endpoint
 from django.conf import settings
 from django.http import JsonResponse
 
-from cms.models import Region
-
+from ...cms.models import Region
 from ..decorators import json_response
 
 
@@ -14,7 +13,7 @@ def transform_imprint(imprint_translation):
     Function to create a JSON from a single imprint_translation object.
 
     :param imprint_translation: single page translation object
-    :type imprint_translation: ~cms.models.pages.page_translation.PageTranslation
+    :type imprint_translation: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
     :return: data necessary for API
     :rtype: dict

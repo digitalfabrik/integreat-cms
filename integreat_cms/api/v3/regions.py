@@ -3,9 +3,8 @@ Views to return JSON representations of regions
 """
 from django.http import JsonResponse
 
-from cms.models import Region, Language
-from cms.constants import region_status
-
+from ...cms.models import Region, Language
+from ...cms.constants import region_status
 from ..decorators import json_response
 
 
@@ -14,7 +13,7 @@ def transform_region(region):
     Function to create a JSON from a single region object, including information if region is live/active.
 
     :param region: The region object which should be converted
-    :type region: ~cms.models.regions.region.Region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
 
     :return: data necessary for API
     :rtype: dict
@@ -41,7 +40,7 @@ def transform_region_by_status(region):
     Function to create a JSON from a single "active" region object.
 
     :param region: The region object which should be converted
-    :type region: ~cms.models.regions.region.Region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
 
     :return: data necessary for API
     :rtype: dict

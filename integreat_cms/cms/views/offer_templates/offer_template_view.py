@@ -30,7 +30,7 @@ class OfferTemplateView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.offer_templates.offer_template_form.OfferTemplateForm`
+        Render :class:`~integreat_cms.cms.forms.offer_templates.offer_template_form.OfferTemplateForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -54,8 +54,8 @@ class OfferTemplateView(TemplateView):
 
     def post(self, request, offer_template_id=None):
         """
-        Submit :class:`~cms.forms.offer_templates.offer_template_form.OfferTemplateForm` and save
-        :class:`~cms.models.offers.offer_template.OfferTemplate` object
+        Submit :class:`~integreat_cms.cms.forms.offer_templates.offer_template_form.OfferTemplateForm` and save
+        :class:`~integreat_cms.cms.models.offers.offer_template.OfferTemplate` object
 
         :param request: The current request
         :type request: ~django.http.HttpResponse

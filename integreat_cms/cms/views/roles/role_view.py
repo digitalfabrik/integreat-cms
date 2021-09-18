@@ -30,7 +30,7 @@ class RoleView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.roles.role_form.RoleForm`
+        Render :class:`~integreat_cms.cms.forms.roles.role_form.RoleForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -60,7 +60,7 @@ class RoleView(TemplateView):
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         """
-        Submit :class:`~cms.forms.roles.role_form.RoleForm` and save :class:`~django.contrib.auth.models.Group` object
+        Submit :class:`~integreat_cms.cms.forms.roles.role_form.RoleForm` and save :class:`~django.contrib.auth.models.Group` object
 
         :param request: The current request
         :type request: ~django.http.HttpResponse

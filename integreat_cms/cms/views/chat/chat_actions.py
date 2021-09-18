@@ -23,7 +23,7 @@ def send_chat_message(request):
     :param request: The current request
     :type request: ~django.http.HttpRequest
 
-    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
     chat_form = ChatMessageForm(data=request.POST, sender=request.user)
@@ -65,7 +65,7 @@ def delete_chat_message(request, message_id):
 
     :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to delete the specific message
 
-    :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
     message = get_object_or_404(ChatMessage, id=message_id)

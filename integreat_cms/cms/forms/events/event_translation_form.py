@@ -73,7 +73,7 @@ class EventTranslationForm(CustomContentModelForm):
         :type commit: bool
 
         :return: The saved event object
-        :rtype: ~cms.models.events.event_translation.EventTranslation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
 
         # Create new version if content changed

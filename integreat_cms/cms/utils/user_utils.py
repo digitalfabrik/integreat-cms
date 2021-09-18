@@ -7,7 +7,7 @@ def search_users(region, query):
     Searches for all users that match the given `query`.
     If region is None, all users are searched.
     :param region: The current region
-    :type region: ~cms.models.regions.region.Region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
     :param query: The query string used for filtering the regions
     :type query: str
     :return: A query for all matching objects

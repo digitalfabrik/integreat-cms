@@ -31,7 +31,7 @@ class RegionView(TemplateView, MediaContextMixin):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.regions.region_form.RegionForm`
+        Render :class:`~integreat_cms.cms.forms.regions.region_form.RegionForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -57,7 +57,7 @@ class RegionView(TemplateView, MediaContextMixin):
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.regions.region_form.RegionForm` and save :class:`~cms.models.regions.region.Region`
+        Render :class:`~integreat_cms.cms.forms.regions.region_form.RegionForm` and save :class:`~integreat_cms.cms.models.regions.region.Region`
         object
 
         :param request: The current request

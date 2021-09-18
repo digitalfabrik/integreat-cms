@@ -31,7 +31,7 @@ class RegionUserView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.users.user_form.UserForm` for region users
+        Render :class:`~integreat_cms.cms.forms.users.user_form.UserForm` for region users
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -68,7 +68,7 @@ class RegionUserView(TemplateView):
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         """
-        Submit :class:`~cms.forms.users.user_form.UserForm` and  save :class:`~django.contrib.auth.models.User`
+        Submit :class:`~integreat_cms.cms.forms.users.user_form.UserForm` and  save :class:`~django.contrib.auth.models.User`
         object for region users
 
         :param request: The current request

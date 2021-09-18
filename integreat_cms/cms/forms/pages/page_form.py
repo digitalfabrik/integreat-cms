@@ -154,7 +154,7 @@ class PageForm(CustomModelForm):
         :type commit: bool
 
         :return: The saved page object
-        :rtype: ~cms.models.pages.page.Page
+        :rtype: ~integreat_cms.cms.models.pages.page.Page
         """
 
         page = super().save(commit=commit)

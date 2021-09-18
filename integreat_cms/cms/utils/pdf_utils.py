@@ -23,12 +23,11 @@ logger = logging.getLogger(__name__)
 def generate_pdf(region, language_slug, pages):
     """
     Function for handling a pdf export request for pages.
-    The pages were either selected by cms user (see :js:func:`cms.static.js.pages.page_bulk_action.bulk_action_execute`)
-    or by API request (see :func:`api.v3.pdf_export`)
+    The pages were either selected by cms user or by API request (see :func:`~integreat_cms.api.v3.pdf_export`)
     For more information on xhtml2pdf, see :doc:`xhtml2pdf:index`
 
     :param region: region which requested the pdf document
-    :type region: ~cms.models.regions.region.Region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
 
     :param language_slug: bcp47 slug of the current language
     :type language_slug: str

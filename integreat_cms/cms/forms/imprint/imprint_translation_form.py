@@ -55,7 +55,7 @@ class ImprintTranslationForm(CustomContentModelForm):
         :type commit: bool
 
         :return: The saved imprint page translation object
-        :rtype: ~cms.models.pages.imprint_page_translation.ImprintPageTranslation
+        :rtype: ~integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation
         """
 
         # Create new version if content changed

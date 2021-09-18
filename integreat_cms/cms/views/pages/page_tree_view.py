@@ -35,7 +35,7 @@ class PageTreeView(TemplateView, PageContextMixin):
     @property
     def template_name(self):
         """
-        Select correct HTML template, depending on :attr:`~cms.views.pages.page_tree_view.PageTreeView.archived` flag
+        Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView.archived` flag
         (see :class:`~django.views.generic.base.TemplateResponseMixin`)
 
         :return: Path to HTML template
@@ -125,7 +125,7 @@ class PageTreeView(TemplateView, PageContextMixin):
                         Filters page
 
                         :param page: The according page
-                        :type page: ~cms.models.pages.page.Page
+                        :type page: ~integreat_cms.cms.models.pages.page.Page
 
                         :return: Whether or not the page should be filtered based on its translation status
                         :rtype: bool

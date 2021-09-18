@@ -1,3 +1,3 @@
 """
-This package contains :class:`~cms.models.offers.offer_template.OfferTemplate`
+This package contains :class:`~integreat_cms.cms.models.offers.offer_template.OfferTemplate`
 """

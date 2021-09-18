@@ -1,6 +1,6 @@
 """
 This is a collection of tags and filters for models which inherit from the MPTT model
-(:class:`~cms.models.pages.page.Page` and :class:`~cms.models.languages.language_tree_node.LanguageTreeNode`).
+(:class:`~integreat_cms.cms.models.pages.page.Page` and :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode`).
 """
 from django import template
 
@@ -13,7 +13,7 @@ def get_descendants(node):
     This filter returns the ids of all the node's descendants.
 
     :param node: The requested node
-    :type node: ~cms.models.pages.page.Page or ~cms.models.languages.language_tree_node.LanguageTreeNode
+    :type node: ~integreat_cms.cms.models.pages.page.Page or ~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode
 
     :return: The list of all the node's descendants' ids
     :rtype: list [ int ]
@@ -27,7 +27,7 @@ def get_children(node):
     This filter returns the ids of all the node's direct children.
 
     :param node: The requested node
-    :type node: ~cms.models.pages.page.Page or ~cms.models.languages.language_tree_node.LanguageTreeNode
+    :type node: ~integreat_cms.cms.models.pages.page.Page or ~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode
 
     :return: The list of all the node's children's ids
     :rtype: list [ int ]

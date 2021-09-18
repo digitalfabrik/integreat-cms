@@ -1,6 +1,6 @@
 """
-This module contains the :class:`~cms.models.media.media_file.MediaFile` model as well as the helper functions
-:func:`~cms.models.media.media_file.upload_path` and :func:`~cms.models.media.media_file.upload_path_thumbnail` which
+This module contains the :class:`~integreat_cms.cms.models.media.media_file.MediaFile` model as well as the helper functions
+:func:`~integreat_cms.cms.models.media.media_file.upload_path` and :func:`~integreat_cms.cms.models.media.media_file.upload_path_thumbnail` which
 are used to determine the file system path to which the files should be uploaded.
 """
 import logging
@@ -29,7 +29,7 @@ def upload_path(instance, filename):
     If it already exists, Django will automatically append a random string to make sure the file name is unique.
 
     :param instance: The media library object
-    :type instance: ~cms.models.media.media_file.MediaFile
+    :type instance: ~integreat_cms.cms.models.media.media_file.MediaFile
 
     :param filename: The filename of media library object
     :type filename: str
@@ -68,7 +68,7 @@ def upload_path_thumbnail(instance, filename):
     will be stored as ``A_EOHRFQ2_thumbnail.jpg``, making it easier to examine these files on the file system.
 
     :param instance: The media library object
-    :type instance: ~cms.models.media.media_file.MediaFile
+    :type instance: ~integreat_cms.cms.models.media.media_file.MediaFile
 
     :param filename: The (unused) initial filename of thumbnail
     :type filename: str

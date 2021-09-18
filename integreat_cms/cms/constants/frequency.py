@@ -1,6 +1,6 @@
 """
-This module contains all constants representing the frequency of an :class:`~cms.models.events.event.Event`'s
-:class:`~cms.models.events.recurrence_rule.RecurrenceRule`.
+This module contains all constants representing the frequency of an :class:`~integreat_cms.cms.models.events.event.Event`'s
+:class:`~integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule`.
 """
 from django.utils.translation import ugettext_lazy as _
 

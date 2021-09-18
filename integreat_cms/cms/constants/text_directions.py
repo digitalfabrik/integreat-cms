@@ -1,5 +1,5 @@
 """
-This module contains all constants representing the text directions of a :class:`~cms.models.languages.language.Language`.
+This module contains all constants representing the text directions of a :class:`~integreat_cms.cms.models.languages.language.Language`.
 """
 from django.utils.translation import ugettext_lazy as _
 

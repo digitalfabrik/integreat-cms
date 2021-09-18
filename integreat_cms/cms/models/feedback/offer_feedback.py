@@ -46,7 +46,7 @@ class OfferFeedback(Feedback):
         This property returns all feedback entries which relate to the same object and have the same is_technical value.
 
         :return: The queryset of related feedback
-        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.feedback.offer_feedback.OfferFeedback ]
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.feedback.offer_feedback.OfferFeedback ]
         """
         return OfferFeedback.objects.filter(
             offer=self.offer, is_technical=self.is_technical

@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 
 from django.core.serializers import base
 
-from cms.models import Page, PageTranslation, Language
+from ..cms.models import Page, PageTranslation, Language
 
 from . import base_serializer
 
@@ -36,7 +36,7 @@ class Serializer(base_serializer.Serializer):
         additional ``<body>`` for XLIFF version 1.2.
 
         :param obj: The page translation object which is started
-        :type obj: ~cms.models.pages.page_translation.PageTranslation
+        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
         :raises ~django.core.serializers.base.SerializationError: If the serialization fails
         """
@@ -61,7 +61,7 @@ class Serializer(base_serializer.Serializer):
         Called to handle each field on an object (except for ForeignKeys and ManyToManyFields)
 
         :param obj: The page translation object which is handled
-        :type obj: ~cms.models.pages.page_translation.PageTranslation
+        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
         :param field: The model field
         :type field: ~django.db.models.Field
@@ -91,7 +91,7 @@ class Serializer(base_serializer.Serializer):
         Ends the ``<file>``-block.
 
         :param obj: The page translation object which is finished
-        :type obj: ~cms.models.pages.page_translation.PageTranslation
+        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         self.xml.endElement("body")
         self.xml.endElement("file")
@@ -116,7 +116,7 @@ class Deserializer(base_serializer.Deserializer):
         :raises ~django.core.serializers.base.DeserializationError: If the deserialization fails
 
         :return: The original page translation
-        :rtype: ~cms.models.pages.page_translation.PageTranslation
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
         """
         # Get original page

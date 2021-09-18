@@ -33,13 +33,13 @@ class AuthenticateModifyMfaView(FormView):
     def form_valid(self, form):
         """
         This function overwrites :meth:`~django.views.generic.edit.FormMixin.form_valid` which is called if the
-        :class:`~cms.forms.users.authentication_form.AuthenticationForm` is valid. In case the user provided correct credentials,
+        :class:`~integreat_cms.cms.forms.users.authentication_form.AuthenticationForm` is valid. In case the user provided correct credentials,
         the current time is saved in a session variable so a timeout of the authentication can be implemented.
 
         :param form: Authentication form
-        :type form: ~cms.forms.users.authentication_form.AuthenticationForm
+        :type form: ~integreat_cms.cms.forms.users.authentication_form.AuthenticationForm
 
-        :return: Redirect user to mfa login view or to :attr:`~backend.settings.LOGIN_REDIRECT_URL`
+        :return: Redirect user to mfa login view or to :attr:`~integreat_cms.backend.settings.LOGIN_REDIRECT_URL`
         :rtype: ~django.http.HttpResponseRedirect
         """
         if check_password(form.cleaned_data["password"], self.request.user.password):

@@ -29,7 +29,7 @@ def staff_required(function):
         This function checks, whether or not a user is a superuser or staff member.
 
         :param user: The user, that is checked
-        :type user: ~cms.models.users.user.User
+        :type user: ~integreat_cms.cms.models.users.user.User
 
         :raises ~django.core.exceptions.PermissionDenied: If user doesn't have the permission to access the staff area
 
@@ -63,7 +63,7 @@ def permission_required(permission):
         This function checks the permission of a user
 
         :param user: The user, that is checked
-        :type user: ~cms.models.users.user.User
+        :type user: ~integreat_cms.cms.models.users.user.User
 
         :raises ~django.core.exceptions.PermissionDenied: If user doesn't have the given permission
 

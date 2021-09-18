@@ -5,8 +5,7 @@ from django.conf import settings
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 
-from cms.models import Region, Page
-
+from ...cms.models import Region, Page
 from ..decorators import json_response
 
 
@@ -15,7 +14,7 @@ def transform_page(page_translation):
     Function to create a dict from a single page_translation Object.
 
     :param page_translation: single page translation object
-    :type page_translation: ~cms.models.pages.page_translation.PageTranslation
+    :type page_translation: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
     :return: data necessary for API
     :rtype: dict
@@ -101,7 +100,7 @@ def get_single_page(request, language_slug):
     :raises RuntimeError: If neither the id nor the url parameter is given
 
     :return: the requested page
-    :rtype: ~cms.models.pages.page.Page
+    :rtype: ~integreat_cms.cms.models.pages.page.Page
     """
     region = Region.get_current_region(request)
 

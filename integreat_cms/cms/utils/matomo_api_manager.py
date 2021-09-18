@@ -28,9 +28,9 @@ class MatomoApiManager:
     This class helps to interact with Matomo API.
     There are three functions which can be used publicly:
 
-    * :func:`~cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id`: Retrieve the Metomo ID belonging to the given Matomo access token
-    * :func:`~cms.utils.matomo_api_manager.MatomoApiManager.get_total_visits`: Retrieve the total visits for the current region
-    * :func:`~cms.utils.matomo_api_manager.MatomoApiManager.get_visits_per_language`: Retrieve the visits for the current region by language
+    * :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id`: Retrieve the Metomo ID belonging to the given Matomo access token
+    * :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_total_visits`: Retrieve the total visits for the current region
+    * :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_visits_per_language`: Retrieve the visits for the current region by language
     """
 
     #: Matomo API-key
@@ -45,7 +45,7 @@ class MatomoApiManager:
         Constructor initializes the class variables
 
         :param region: The region this Matomo API Manager connects to
-        :type region: ~cms.models.regions.region.Region
+        :type region: ~integreat_cms.cms.models.regions.region.Region
         """
         self.matomo_token = region.matomo_token
         self.matomo_id = region.matomo_id
@@ -61,7 +61,7 @@ class MatomoApiManager:
         :param kwargs: The parameters which are passed to the Matomo API
         :type kwargs: dict
 
-        :raises ~cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+        :raises ~integreat_cms.cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request
 
         :return: The parsed :mod:`json` result
@@ -98,13 +98,13 @@ class MatomoApiManager:
     async def get_matomo_id_async(self, **query_params):
         """
         Async wrapper to fetch the Matomo ID with :mod:`aiohttp`.
-        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~cms.utils.matomo_api_manager.MatomoApiManager.fetch`.
-        Called from :func:`~cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id`.
+        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.fetch`.
+        Called from :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id`.
 
         :param query_params: The parameters which are passed to the Matomo API
         :type query_params: dict
 
-        :raises ~cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+        :raises ~integreat_cms.cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request
 
         :return: The parsed :mod:`json` result
@@ -120,7 +120,7 @@ class MatomoApiManager:
         :param token_auth: The Matomo authentication token which should be used
         :type token_auth: str
 
-        :raises ~cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+        :raises ~integreat_cms.cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request or the access token is not correct
 
         :return: ID of the connected Matomo instance
@@ -145,13 +145,13 @@ class MatomoApiManager:
     async def get_total_visits_async(self, query_params):
         """
         Async wrapper to fetch the total visits with :mod:`aiohttp`.
-        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~cms.utils.matomo_api_manager.MatomoApiManager.fetch`.
-        Called from :func:`~cms.utils.matomo_api_manager.MatomoApiManager.get_total_visits`.
+        Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.fetch`.
+        Called from :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_total_visits`.
 
         :param query_params: The parameters which are passed to the Matomo API
         :type query_params: dict
 
-        :raises ~cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+        :raises ~integreat_cms.cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request
 
         :return: The parsed :mod:`json` result
@@ -173,11 +173,11 @@ class MatomoApiManager:
         :param end_date: End date
         :type end_date: ~datetime.date
 
-        :param period: The period (one of :attr:`cms.constants.matomo_periods.CHOICES` -
-                       defaults to :attr:`~cms.constants.matomo_periods.DAY`)
+        :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES` -
+                       defaults to :attr:`~integreat_cms.cms.constants.matomo_periods.DAY`)
         :type period: str
 
-        :raises ~cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+        :raises ~integreat_cms.cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request
 
         :return: The total visits in the ChartData format expected by ChartJs
@@ -217,11 +217,11 @@ class MatomoApiManager:
         """
         Async wrapper to fetch the total visits with :mod:`aiohttp`.
         Opens a :class:`~aiohttp.ClientSession`, creates a :class:`~asyncio.Task` for each language to call
-        :func:`~cms.utils.matomo_api_manager.MatomoApiManager.fetch` and waits for all tasks to finish with
+        :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.fetch` and waits for all tasks to finish with
         :func:`~asyncio.gather`.
         The returned list of gathered results has the correct order in which the tasks were created (at first the
         ordered list of languages and the last element is the task for the total visits).
-        Called from :func:`~cms.utils.matomo_api_manager.MatomoApiManager.get_visits_per_language`.
+        Called from :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_visits_per_language`.
 
         :param loop: The asyncio event loop
         :type loop: asyncio.AbstractEventLoop
@@ -230,9 +230,9 @@ class MatomoApiManager:
         :type query_params: dict
 
         :param languages: The list of languages which should be retrieved
-        :type languages: list [ ~cms.models.languages.language.Language ]
+        :type languages: list [ ~integreat_cms.cms.models.languages.language.Language ]
 
-        :raises ~cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+        :raises ~integreat_cms.cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request
 
         :return: The list of gathered results
@@ -273,10 +273,10 @@ class MatomoApiManager:
         :param end_date: End date
         :type end_date: ~datetime.date
 
-        :param period: The period (one of :attr:`cms.constants.matomo_periods.CHOICES`)
+        :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
         :type period: str
 
-        :raises ~cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+        :raises ~integreat_cms.cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request
 
         :return: The visits per language in the ChartData format expected by ChartJs

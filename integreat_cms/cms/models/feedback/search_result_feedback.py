@@ -37,7 +37,7 @@ class SearchResultFeedback(Feedback):
         This property returns all feedback entries which relate to the same object and have the same is_technical value.
 
         :return: The queryset of related feedback
-        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.feedback.search_result_feedback.SearchResultFeedback ]
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback ]
         """
         return SearchResultFeedback.objects.filter(
             region=self.region,

@@ -31,7 +31,7 @@ class PageSideBySideView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.pages.page_translation_form.PageTranslationForm` on the side by side view
+        Render :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` on the side by side view
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -109,8 +109,8 @@ class PageSideBySideView(TemplateView):
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         """
-        Submit :class:`~cms.forms.pages.page_translation_form.PageTranslationForm` and save
-        :class:`~cms.models.pages.page_translation.PageTranslation` object
+        Submit :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` and save
+        :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` object
 
         :param request: The current request
         :type request: ~django.http.HttpResponse

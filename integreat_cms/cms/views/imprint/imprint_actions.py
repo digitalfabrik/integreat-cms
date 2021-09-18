@@ -34,7 +34,7 @@ def archive_imprint(request, region_slug):
 
     :raises ~django.http.Http404: If no imprint exists for the region
 
-    :return: A redirection to the :class:`~cms.views.imprint.imprint_view.ImprintView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.imprint.imprint_view.ImprintView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -75,7 +75,7 @@ def restore_imprint(request, region_slug):
 
     :raises ~django.http.Http404: If no imprint exists for the region
 
-    :return: A redirection to the :class:`~cms.views.imprint.imprint_view.ImprintView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.imprint.imprint_view.ImprintView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -116,7 +116,7 @@ def delete_imprint(request, region_slug):
 
     :raises ~django.http.Http404: If no imprint exists for the region
 
-    :return: A redirection to the :class:`~cms.views.imprint.imprint_view.ImprintView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.imprint.imprint_view.ImprintView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -150,7 +150,7 @@ def expand_imprint_translation_id(request, imprint_translation_id):
     :param imprint_translation_id: The id of the requested imprint translation
     :type imprint_translation_id: int
 
-    :return: A redirection to :class:`~backend.settings.WEBAPP_URL`
+    :return: A redirection to :class:`~integreat_cms.backend.settings.WEBAPP_URL`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
