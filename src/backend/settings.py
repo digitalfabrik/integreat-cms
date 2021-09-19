@@ -170,9 +170,11 @@ INSTALLED_APPS = [
     "webpack_loader",
 ]
 
-# The default Django Admin application will only be activated if the system is in debug mode.
+# The default Django Admin application and debug toolbar will only be activated if the system is in debug mode.
 if DEBUG:
     INSTALLED_APPS.append("django.contrib.admin")
+    # Comment out the following line if you want to disable the Django debug toolbar
+    INSTALLED_APPS.append("debug_toolbar")
 
 #: Activated middlewares (see :setting:`django:MIDDLEWARE`)
 MIDDLEWARE = [
@@ -187,6 +189,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "cms.middleware.timezone_middleware.TimezoneMiddleware",
 ]
+
+# The Django debug toolbar middleware will only be activated if the debug_toolbar app is installed
+if "debug_toolbar" in INSTALLED_APPS:
+    # The debug toolbar middleware should be put first (see :doc:`django-debug-toolbar:installation`)
+    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
 #: Default URL dispatcher (see :setting:`django:ROOT_URLCONF`)
 ROOT_URLCONF = "backend.urls"
@@ -688,3 +695,26 @@ WEBPACK_LOADER = {
         "BUNDLE_DIR_NAME": "",
     }
 }
+
+
+########################
+# DJANGO DEBUG TOOLBAR #
+########################
+
+#: This setting specifies the full Python path to each panel that you want included in the toolbar.
+#:  (see :doc:`django-debug-toolbar:configuration`)
+DEBUG_TOOLBAR_PANELS = [
+    "debug_toolbar.panels.timer.TimerPanel",
+    "debug_toolbar.panels.sql.SQLPanel",
+    "debug_toolbar.panels.cache.CachePanel",
+    "debug_toolbar.panels.signals.SignalsPanel",
+    "debug_toolbar.panels.templates.TemplatesPanel",
+    "debug_toolbar.panels.staticfiles.StaticFilesPanel",
+    "debug_toolbar.panels.logging.LoggingPanel",
+    "debug_toolbar.panels.redirects.RedirectsPanel",
+    "debug_toolbar.panels.profiling.ProfilingPanel",
+    "debug_toolbar.panels.request.RequestPanel",
+    "debug_toolbar.panels.headers.HeadersPanel",
+    "debug_toolbar.panels.history.HistoryPanel",
+    "debug_toolbar.panels.settings.SettingsPanel",
+]
