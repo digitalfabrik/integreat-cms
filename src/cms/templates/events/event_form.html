@@ -6,6 +6,7 @@
 {% load content_filters %}
 {% load poi_filters %}
 {% load rules %}
+{% load render_bundle from webpack_loader %}
 
 {% block content %}
 <form id="content_form" method="post" enctype="multipart/form-data" {% if event_form.disabled %}data-disable-poi-query{% endif %}>
@@ -328,5 +329,5 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'editor.js' %}"></script>
+{% render_bundle 'editor' 'js' %}
 {% endblock %}

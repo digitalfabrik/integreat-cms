@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
   entry: {
@@ -12,8 +13,9 @@ module.exports = {
     pdf: "./src/frontend/pdf.ts",
   },
   output: {
-    filename: "[name].js",
+    filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "src/cms/static"),
+    clean: true,
   },
   module: {
     rules: [
@@ -114,16 +116,11 @@ module.exports = {
         { from: "src/frontend/images", to: "images" },
       ],
     }),
+    new BundleTracker({filename: 'webpack-stats.json'}),
   ],
   optimization: {
     minimize: process.env.NODE_ENV === "production",
     minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
   },
   devtool: process.env.NODE_ENV !== "production" ? "inline-source-map" : false,
-  devServer: {
-    contentBase: path.resolve(__dirname, "src/cms/static"),
-    compress: true,
-    port: 9000,
-    writeToDisk: true,
-  },
 };

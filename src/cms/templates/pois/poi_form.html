@@ -6,6 +6,7 @@
 {% load content_filters %}
 {% load rules %}
 {% load poi_filters %}
+{% load render_bundle from webpack_loader %}
 
 {% block content %}
 <form id="content_form" method="post" enctype="multipart/form-data">
@@ -244,5 +245,5 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'editor.js' %}"></script>
+{% render_bundle 'editor' 'js' %}
 {% endblock %}

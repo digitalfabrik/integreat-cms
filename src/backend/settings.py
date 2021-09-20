@@ -167,6 +167,7 @@ INSTALLED_APPS = [
     "mptt",
     "rules.apps.AutodiscoverRulesConfig",
     "linkcheck",
+    "webpack_loader",
 ]
 
 # The default Django Admin application will only be activated if the system is in debug mode.
@@ -679,3 +680,15 @@ if "LINKCHECK_DISABLE_LISTENERS" in os.environ:
 #############################
 
 CHANNELS = (("News", "News"),)
+
+
+#########################
+# DJANGO WEBPACK LOADER #
+#########################
+
+#: Overwrite default bundle directory
+WEBPACK_LOADER = {
+    "DEFAULT": {
+        "BUNDLE_DIR_NAME": "",
+    }
+}

@@ -6,6 +6,7 @@
 {% load content_filters %}
 {% load page_filters %}
 {% load rules %}
+{% load render_bundle from webpack_loader %}
 
 {% block content %}
 <form method="post" id="content_form">
@@ -226,5 +227,5 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'editor.js' %}"></script>
+{% render_bundle 'editor' 'js' %}
 {% endblock %}
