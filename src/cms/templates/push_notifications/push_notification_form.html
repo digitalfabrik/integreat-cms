@@ -23,10 +23,10 @@
             </h1>
         </div>
             <div class="w-1/5 flex justify-end">
-                {% if perms.auth.change_pushnotification %}
+                {% if perms.cms.change_pushnotification %}
                     <input type="submit" name="submit_save" class="{% if public %}bg-blue-500 hover:bg-blue-600{% else %}bg-gray-400 hover:bg-gray-500{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
                 {% endif %}
-                {% if perms.auth.send_push_notification %}
+                {% if perms.cms.send_push_notification %}
                     <input type="submit" name="submit_send" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save & Send' %}" />
                 {% endif %}
             </div>

@@ -17,7 +17,7 @@
                 {% trans 'Create new region' %}
             {% endif %}
         </h1>
-        {% if perms.auth.change_region %}
+        {% if perms.cms.change_region %}
             <input type="submit" name="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
         {% endif %}
     </div>
@@ -160,7 +160,7 @@
         {% endif %}
     </div>
     </div>
-    {% if form.instance.id and perms.auth.delete_region %}
+    {% if form.instance.id and perms.cms.delete_region %}
         <div class="pt-2 pb-4">
             <button title="{% trans 'Delete region' %}" class="confirmation-button bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
                     data-confirmation-title="{% trans 'Please confirm that you really want to delete this region.' %}"

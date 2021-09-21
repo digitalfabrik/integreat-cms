@@ -32,7 +32,7 @@
             </h1>
         </div>
         <div class="w-1/5 flex justify-end mb-6">
-        {% if not poi_form.instance.archived and perms.auth.change_imprintpage %}
+        {% if not poi_form.instance.archived and perms.cms.change_imprintpage %}
             <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
             <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
         {% endif %}

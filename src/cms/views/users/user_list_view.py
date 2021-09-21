@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-@method_decorator(permission_required("auth.view_user"), name="dispatch")
+@method_decorator(permission_required("cms.view_user"), name="dispatch")
 class UserListView(TemplateView):
     """
     View for listing all users (admin users and region users)

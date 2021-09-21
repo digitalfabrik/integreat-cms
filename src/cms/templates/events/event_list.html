@@ -27,7 +27,7 @@
                     <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans 'Show filters' %}</span>
                     <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans 'Hide filters' %}</span>
                 </button>
-                {% if region.default_language == language and perms.auth.change_event %}
+                {% if region.default_language == language and perms.cms.change_event %}
                     <a href="{% url 'new_event' region_slug=region.slug language_slug=language.slug %}"
                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         {% trans 'Create event' %}

@@ -102,7 +102,7 @@ def get_directory_content_ajax(request, region_slug=None):
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.add_mediafile")
+@permission_required("cms.upload_mediafile")
 @json_response
 # pylint: disable=unused-argument
 def upload_file_ajax(request, region_slug=None):

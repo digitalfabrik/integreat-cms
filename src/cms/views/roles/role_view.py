@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-@method_decorator(permission_required("cms.view_group"), name="dispatch")
-@method_decorator(permission_required("cms.change_group"), name="post")
+@method_decorator(permission_required("auth.view_group"), name="dispatch")
+@method_decorator(permission_required("auth.change_group"), name="post")
 class RoleView(TemplateView):
     """
     View for the role form
@@ -80,7 +80,7 @@ class RoleView(TemplateView):
         if not role_form.is_valid() or not group_form.is_valid():
             # Add error messages
             role_form.add_error_messages(request)
-        elif not role_form.has_changed():
+        elif not role_form.has_changed() and not group_form.has_changed():
             # Add "no changes" messages
             messages.info(request, _("No changes made"))
         else:
