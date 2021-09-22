@@ -8,7 +8,7 @@
     <span class="inline-block h-5 w-5 align-text-top bg-icon bg-contain bg-center bg-no-repeat"></span>
     {% endif %}
     <span class="font-bold">
-        {{ message.sender.profile.full_user_name }}
+        {{ message.sender.full_user_name }}
     </span>
     {% if message.sender.email %}
     ({{ message.sender.email|urlize }})
@@ -16,7 +16,7 @@
     {% has_perm 'cms.delete_chat_message_object' request.user message as can_delete_message %}
     <button title="{% trans 'Delete chat message' %}" class="{% if not can_delete_message %} invisible {% endif %} confirmation-button cursor-pointer text-gray-600 hover:text-gray-800 float-right ml-2"
             data-confirmation-title="{% trans 'Please confirm that you really want to delete this chat message:' %}"
-            data-confirmation-text="{% trans 'Sender:' %} {{ message.sender.profile.full_user_name }}<br>{% trans 'Sent on:' %} {{ message.sent_datetime }}"
+            data-confirmation-text="{% trans 'Sender:' %} {{ message.sender.full_user_name }}<br>{% trans 'Sent on:' %} {{ message.sent_datetime }}"
             data-confirmation-subject="{{ message.text }}"
             data-action="{% url 'delete_chat_message' message_id=message.id %}">
         <i data-feather="trash-2"></i>

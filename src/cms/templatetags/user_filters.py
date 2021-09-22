@@ -23,4 +23,4 @@ def remaining_regions(user, region_to_remove):
     :return: The Queryset of regions
     :rtype: ~django.db.models.query.QuerySet [ ~cms.models.regions.region.Region ]
     """
-    return user.profile.regions.exclude(slug=region_to_remove.slug)
+    return user.regions.exclude(slug=region_to_remove.slug)

@@ -130,7 +130,7 @@ class PushNotificationView(TemplateView):
         if not request.user.has_perm("cms.change_pushnotification"):
             logger.warning(
                 "%r tried to edit %r",
-                request.user.profile,
+                request.user,
                 push_notification_instance,
             )
             raise PermissionDenied
@@ -195,7 +195,7 @@ class PushNotificationView(TemplateView):
                 if not request.user.has_perm("cms.send_push_notification"):
                     logger.warning(
                         "%r does not have the permission to send %r",
-                        request.user.profile,
+                        request.user,
                         push_notification_instance,
                     )
                     raise PermissionDenied

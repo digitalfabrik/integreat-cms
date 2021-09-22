@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from ..custom_model_form import CustomModelForm
 from ...models import Role
+from ...utils.translation_utils import ugettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +38,19 @@ class UserForm(CustomModelForm):
         help_text=password_validators_help_texts,
         required=False,
     )
+    send_activation_link = forms.BooleanField(
+        initial=True,
+        required=False,
+        label=_("Send activation link"),
+        help_text=__(
+            _(
+                "Select this option to create an inactive user account and send an activation link per email to the user."
+            ),
+            _(
+                "This link allows the user to choose a password and activates the account after confirmation."
+            ),
+        ),
+    )
 
     class Meta:
         """
@@ -55,6 +69,11 @@ class UserForm(CustomModelForm):
             "is_staff",
             "is_active",
             "is_superuser",
+            "organization",
+            "expert_mode",
+            "regions",
+            "role",
+            "send_activation_link",
         ]
 
     def __init__(self, **kwargs):
@@ -72,9 +91,9 @@ class UserForm(CustomModelForm):
         if self.instance.id:
             # set initial role data
             if self.instance.is_staff:
-                self.fields["staff_role"].initial = self.instance.profile.role
+                self.fields["staff_role"].initial = self.instance.role
             else:
-                self.fields["role"].initial = self.instance.profile.role
+                self.fields["role"].initial = self.instance.role
             # don't require password if user already exists
             self.fields["password"].required = False
             # adapt placeholder of password input field
@@ -122,12 +141,12 @@ class UserForm(CustomModelForm):
             logger.info(
                 "%r was removed from %r",
                 removed_group.role,
-                getattr(user, "profile", user),
+                user,
             )
         if role.group not in user.groups.all():
             # Assign the selected role
             role.group.user_set.add(user)
-            logger.info("%r was assigned to %r", role, getattr(user, "profile", user))
+            logger.info("%r was assigned to %r", role, user)
 
         return user
 
@@ -192,6 +211,21 @@ class UserForm(CustomModelForm):
                         code="required",
                     ),
                 )
+
+        if not (
+            cleaned_data.get("send_activation_link")
+            or cleaned_data.get("password")
+            or self.instance
+        ):
+            self.add_error(
+                "send_activation_link",
+                forms.ValidationError(
+                    _(
+                        "Please choose either to send an activation link or set a password."
+                    ),
+                    code="required",
+                ),
+            )
 
         logger.debug("UserForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data

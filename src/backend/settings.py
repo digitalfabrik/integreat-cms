@@ -143,6 +143,8 @@ else:
 # DJANGO CORE SETTINGS #
 ########################
 
+AUTH_USER_MODEL = "cms.User"
+
 if "DJANGO_DEBUG" in os.environ:
     DEBUG = bool(os.environ["DJANGO_DEBUG"])
 else:

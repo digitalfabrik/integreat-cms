@@ -49,14 +49,14 @@ def delete_region(request, *args, **kwargs):
     deleted_objects = region.delete()
     logger.info(
         "%r deleted %r, cascade deleted objects: %r",
-        request.user.profile,
+        request.user,
         region,
         deleted_objects,
     )
     # Get orphan users who aren't superuser or staff and don't have a region assigned
     # (Creating users with these combination is impossible, so they were region users of the deleted region before)
     orphan_users = get_user_model().objects.filter(
-        is_superuser=False, is_staff=False, profile__regions=None
+        is_superuser=False, is_staff=False, regions=None
     )
     if orphan_users.exists():
         logger.info(

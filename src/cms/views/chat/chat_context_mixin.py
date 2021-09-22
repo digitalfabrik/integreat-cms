@@ -44,5 +44,5 @@ class ChatContextMixin(ContextMixin):
         return {
             "chat_form": ChatMessageForm(),
             "chat_messages": ChatMessage.history.all(),
-            "chat_last_visited": self.request.user.profile.update_chat_last_visited(),
+            "chat_last_visited": self.request.user.update_chat_last_visited(),
         }

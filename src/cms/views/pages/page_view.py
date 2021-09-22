@@ -193,7 +193,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
 
         if not request.user.has_perm("cms.change_page_object", page_instance):
             raise PermissionDenied(
-                f"{request.user.profile!r} does not have the permission to edit {page_instance!r}"
+                f"{request.user!r} does not have the permission to edit {page_instance!r}"
             )
 
         page_translation_instance = PageTranslation.objects.filter(
@@ -235,7 +235,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         ):
             # Raise PermissionDenied if user wants to publish page but doesn't have the permission
             raise PermissionDenied(
-                f"{request.user.profile!r} does not have the permission to publish {page_form.instance!r}"
+                f"{request.user!r} does not have the permission to publish {page_form.instance!r}"
             )
         elif (
             page_translation_form.instance.status == status.AUTO_SAVE

@@ -69,7 +69,7 @@ def move_language_tree_node(
             language_tree_node,
             target_position,
             target,
-            request.user.profile,
+            request.user,
         )
     except (ValueError, InvalidMove) as e:
         messages.error(request, e)
@@ -124,7 +124,7 @@ def delete_language_tree_node(request, region_slug, language_tree_node_id):
     # filter those translation that belong to the region and delete them
     push_notification_translations.filter(push_notification__region=region).delete()
 
-    logger.debug("%r deleted by %r", language_node, request.user.profile)
+    logger.debug("%r deleted by %r", language_node, request.user)
     language_node.delete()
     messages.success(
         request,

@@ -9,7 +9,7 @@
             <i data-feather="search" class="absolute"></i>
             <input type="search" placeholder="{% trans 'Search' %}" class="pl-10">
         </form>
-        {% if perms.auth.change_user %}
+        {% if perms.cms.change_user %}
             <a href="{% url 'new_user' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 {% trans 'Create user' %}
             </a>

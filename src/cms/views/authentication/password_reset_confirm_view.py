@@ -71,5 +71,5 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
                 ]
             ),
         )
-        logger.info("The password for %r was changed.", form.user.profile)
+        logger.info("The password for %r was changed.", form.user)
         return super().form_valid(form)

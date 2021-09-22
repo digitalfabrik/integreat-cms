@@ -187,7 +187,7 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
             if event_translation_form.instance.status == status.PUBLIC:
                 if not request.user.has_perm("cms.publish_event"):
                     raise PermissionDenied(
-                        f"{request.user.profile!r} does not have the permission 'cms.publish_event'"
+                        f"{request.user!r} does not have the permission 'cms.publish_event'"
                     )
             # Save forms
             if event_form.cleaned_data.get("is_recurring"):

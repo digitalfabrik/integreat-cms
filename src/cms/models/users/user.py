@@ -1,9 +1,13 @@
+"""
+Custom user model that is used instead of the default Django user model
+"""
+
 import logging
 
-from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import AbstractUser
 
 from .organization import Organization
 from ..chat.chat_message import ChatMessage
@@ -12,21 +16,15 @@ from ..regions.region import Region
 logger = logging.getLogger(__name__)
 
 
-class UserProfile(models.Model):
+class User(AbstractUser):
     """
-    Data model representing a user profile
+    A custom User model that replaces the default Django User model
     """
 
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name="profile",
-        verbose_name=_("user"),
-    )
     regions = models.ManyToManyField(
         Region,
         blank=True,
-        related_name="user_profiles",
+        related_name="users",
         verbose_name=_("regions"),
         help_text=_("The regions to which the user has access"),
     )
@@ -62,8 +60,8 @@ class UserProfile(models.Model):
         :return: The role of this user
         :rtype: ~cms.models.users.role.Role
         """
-        if self.user.groups.exists():
-            return self.user.groups.first().role
+        if self.groups.exists():
+            return self.groups.first().role
         return None
 
     @property
@@ -75,7 +73,7 @@ class UserProfile(models.Model):
         :return: The full name of the user
         :rtype: str
         """
-        return self.user.get_full_name() or self.user.get_username()
+        return self.get_full_name() or self.get_username()
 
     @property
     def unread_chat_messages(self):
@@ -89,9 +87,9 @@ class UserProfile(models.Model):
 
     def update_chat_last_visited(self):
         """
-        Update the :attr:`cms.models.users.user_profile.UserProfile.chat_last_visited` to the current time
+        Update the :attr:`~cms.models.users.user.User.chat_last_visited` to the current time
 
-        :return: Return the previous :attr:`cms.models.users.user_profile.UserProfile.chat_last_visited` value
+        :return: Return the previous :attr:`~cms.models.users.user.User.chat_last_visited` value
         :rtype: ~datetime.datetime
         """
         previous_chat_last_visited = self.chat_last_visited
@@ -99,7 +97,7 @@ class UserProfile(models.Model):
         self.save()
         logger.debug(
             "Field chat_last_visited of %r updated from %s to %s",
-            self.user.profile,
+            self,
             previous_chat_last_visited.strftime("%Y-%m-%d %H:%M:%S"),
             self.chat_last_visited.strftime("%Y-%m-%d %H:%M:%S"),
         )
@@ -107,41 +105,49 @@ class UserProfile(models.Model):
 
     def __str__(self):
         """
-        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``UserProfile object (id)``.
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``User object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
-        :return: A readable string representation of the user profile
+        :return: A readable string representation of the user
         :rtype: str
         """
         return self.full_user_name
 
     def __repr__(self):
         """
-        This overwrites the default Django ``__repr__()`` method which would return ``<UserProfile: UserProfile object (id)>``.
+        This overwrites the default Django ``__repr__()`` method which would return ``<User: User object (id)>``.
         It is used for logging.
 
-        :return: The canonical string representation of the user profile
+        :return: The canonical string representation of the user
         :rtype: str
         """
         optional_fields = ""
-        if self.user.is_staff:
-            if self.role:
-                optional_fields += f", team: {self.role.english_name}"
-            if self.user.is_superuser:
-                optional_fields += ", superuser"
+        if not self._state.adding:
+            if self.is_staff:
+                if self.role:
+                    optional_fields += f", team: {self.role.english_name}"
+                if self.is_superuser:
+                    optional_fields += ", superuser"
+                else:
+                    optional_fields += ", staff"
             else:
-                optional_fields += ", staff"
-        else:
-            if self.role:
-                optional_fields += f", role: {self.role.english_name}"
-            if self.regions.count() == 1:
-                optional_fields += f", region: {self.regions.first().name}"
-        return f"<UserProfile (id: {self.id}, username: {self.user.username}{optional_fields})>"
+                if self.role:
+                    optional_fields += f", role: {self.role.english_name}"
+                if self.regions.count() == 1:
+                    optional_fields += f", region: {self.regions.first().name}"
+        return f"<User (id: {self.id}, username: {self.username}{optional_fields})>"
 
     class Meta:
         #: The verbose name of the model
-        verbose_name = _("user profile")
+        verbose_name = _("user")
         #: The plural verbose name of the model
-        verbose_name_plural = _("user profiles")
+        verbose_name_plural = _("users")
         #: The default permissions for this model
         default_permissions = ()
+        #: Persmissions for the model (default)
+        permissions = [
+            ("add_user", "Can add user"),
+            ("change_user", "Can change user"),
+            ("del_user", "Can delete user"),
+            ("view_user", "Can view user"),
+        ]

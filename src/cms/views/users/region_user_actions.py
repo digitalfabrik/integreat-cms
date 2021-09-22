@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("auth.delete_user")
+@permission_required("cms.delete_user")
 # pylint: disable=unused-argument
 def delete_region_user(request, region_slug, user_id):
     """
@@ -40,17 +40,17 @@ def delete_region_user(request, region_slug, user_id):
 
     region = Region.get_current_region(request)
     user = get_object_or_404(region.users, id=user_id)
-    if user.profile.regions.count() == 1:
-        logger.info("%r deleted %r", request.user.profile, user.profile)
+    if user.regions.count() == 1:
+        logger.info("%r deleted %r", request.user, user)
         user.delete()
         messages.success(request, _("User {} was successfully deleted.").format(user))
     else:
-        user.profile.regions.remove(region)
-        user.profile.save()
+        user.regions.remove(region)
+        user.save()
         logger.info(
             "%r removed %r from %r",
-            request.user.profile,
-            user.profile,
+            request.user,
+            user,
             region,
         )
         messages.success(

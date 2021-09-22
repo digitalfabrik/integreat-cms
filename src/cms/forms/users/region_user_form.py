@@ -22,4 +22,14 @@ class RegionUserForm(UserForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = get_user_model()
         #: The fields of the model which should be handled by this form
-        fields = ["username", "first_name", "last_name", "email", "is_active"]
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "is_active",
+            "role",
+            "send_activation_link",
+            "organization",
+            "expert_mode",
+        ]

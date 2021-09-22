@@ -112,17 +112,7 @@ nitpick_ignore = [
     ("py:class", "builtins.AssertionError"),
     ("py:class", "builtins.int"),
     ("py:attr", "django.contrib.auth.models.Group.role"),
-    ("py:attr", "django.contrib.auth.models.User.chat_messages"),
-    ("py:attr", "django.contrib.auth.models.User.editable_pages"),
-    ("py:attr", "django.contrib.auth.models.User.event_translations"),
-    ("py:attr", "django.contrib.auth.models.User.feedback"),
-    ("py:attr", "django.contrib.auth.models.User.mfa_keys"),
-    ("py:attr", "django.contrib.auth.models.User.imprint_translations"),
     ("py:class", "django.utils.datastructures.MultiValueDict"),
-    ("py:attr", "django.contrib.auth.models.User.poi_translations"),
-    ("py:attr", "django.contrib.auth.models.User.page_translations"),
-    ("py:attr", "django.contrib.auth.models.User.profile"),
-    ("py:attr", "django.contrib.auth.models.User.publishable_pages"),
     ("py:class", "django.contrib.auth.tokens.PasswordResetTokenGenerator"),
     ("py:func", "django.contrib.sitemaps.Sitemap._urls"),
     ("py:class", "django.core.handlers.WSGIHandler"),
@@ -140,6 +130,9 @@ nitpick_ignore = [
     ("py:class", "webauthn.WebAuthnUser"),
     ("js:func", "cms.static.js.pages.page_bulk_action.bulk_action_execute"),
     ("py:class", "django.core.mail.EmailMultiAlternatives"),
+    ("py:attr", "django.contrib.auth.models.Permission.user_set"),
+    ("py:attr", "django.contrib.auth.models.Group.user_set"),
+    ("py:class", "django.contrib.auth.base_user.BaseUserManager"),
 ]
 #: A list of prefixes that are ignored for sorting the Python module index
 modindex_common_prefix = ["cms"]

@@ -23,14 +23,14 @@
 	</td>
 	<td>
         <a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
-			{% if user.profile.organization %}
-				{{ user.profile.organization }}
+			{% if user.organization %}
+				{{ user.organization }}
 			{% endif %}
         </a>
 	</td>
 	<td>
 		<a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
-			{{ user.profile.role }}
+			{{ user.role }}
 		</a>
 	</td>
 	<td>
