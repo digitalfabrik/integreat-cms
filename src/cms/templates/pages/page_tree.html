@@ -27,7 +27,7 @@
             </form>
         </div>
         <div class="flex flex-wrap gap-4">
-            {% if request.user.profile.expert_mode %}
+            {% if request.user.expert_mode %}
             <button id="filter-toggle"
                     class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 <span class="filter-toggle-text">{% trans 'Show filters' %}</span>
@@ -112,7 +112,7 @@
                 <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
                 <option id="pdf-export-option" data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_slug=language.slug %}"
                     data-target="_blank" data-language-slug="{{ language.slug }}">{% trans 'Export as PDF' %}</option>
-                {% if request.user.profile.expert_mode and language != region.default_language %}
+                {% if request.user.expert_mode and language != region.default_language %}
                     <option data-bulk-action="{% url 'download_xliff' region_slug=region.slug language_slug=language.slug %}">{% trans 'Export XLIFF for translation to' %} {{ language.translated_name }}</option>
                 {% endif %}
             </select>
@@ -120,7 +120,7 @@
         </div>
     </div>
 </form>
-{% if request.user.profile.expert_mode %}
+{% if request.user.expert_mode %}
 <div class="flex-wrap relative w-auto mt-4">
     <h3 class="font-bold">{% trans 'Upload XLIFF File' %}</h3>
     <form class="table-search relative flex flex-wrap h-full mt-2" method="post" enctype="multipart/form-data"

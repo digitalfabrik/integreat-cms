@@ -160,7 +160,7 @@
                     </div>
                     {% render_field page_translation_form.title|add_error_class:"border-red-500" %}
                     {% if page_translation_form.instance.id %}
-                        {% if region.short_urls_enabled and request.user.profile.expert_mode %}
+                        {% if region.short_urls_enabled and request.user.expert_mode %}
                             <label class="inline-block mt-4">{% trans 'Short URL' %}:</label>
                             <a href="{{ page_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
                             <a href="#" data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
@@ -250,7 +250,7 @@
                         {% include "pages/_page_order_table.html" %}
                     </div>
                 </div>
-                <div {% if not request.user.profile.expert_mode %}hidden{% endif %}>
+                <div {% if not request.user.expert_mode %}hidden{% endif %}>
                     <label for="mirrored_page_region">{% trans 'Embed live content' %}</label>
                     {% render_field page_form.mirrored_page_region id="mirrored_page_region" %}
                     <div class="relative my-2 {% if not page.mirrored_page %} hidden {% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' region_slug=region.slug %}?{% if page_form.instance.id %}page_id={{ page_form.instance.id }}&{% endif %}region_id=">
@@ -260,7 +260,7 @@
                         {% render_field page_form.mirrored_page_first id="mirrored_page_first" %}
                     </div>
                 </div>
-                {% if request.user.profile.expert_mode %}
+                {% if request.user.expert_mode %}
                     {% if perms.cms.grant_page_permissions and region.page_permissions_enabled %}
                         <div>
                             <label>{% trans 'Additional permissions for this page' %}</label>
@@ -271,7 +271,7 @@
                         </div>
                     {% endif %}
                 {% endif %}
-                <div {% if not request.user.profile.expert_mode %}hidden{% endif %}>
+                <div {% if not request.user.expert_mode %}hidden{% endif %}>
                     <label for="{{ page_form.organization.id_for_label }}">{{ page_form.organization.label }}</label>
                     <div class="help-text">{{ page_form.organization.help_text }}</div>
                     {% render_field page_form.organization|add_error_class:"border-red-500" %}

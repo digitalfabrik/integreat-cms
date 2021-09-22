@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group as Role
 
-from ...models import UserProfile, Region, Language, LanguageTreeNode
+from ...models import Region, Language, LanguageTreeNode
 from .view_test import ViewTest
 from .view_test_utils import generate_test_functions
 
@@ -44,10 +44,9 @@ class RegionViewTest(ViewTest):
             slug="te-st", native_name="test_language", english_name="test_language"
         )
         LanguageTreeNode.objects.create(language=language, region=region)
-        user = get_user_model().objects.create_user(username="region_user")
-        user_profile = UserProfile.objects.create(user=user)
-        user_profile.regions.add(region)
-        user_profile.save()
+        user = get_user_model().objects.create_user("region_user")
+        user.regions.add(region)
+        user.save()
         Role.objects.get(name="MANAGEMENT").user_set.add(user)
         self.client.force_login(user)
 

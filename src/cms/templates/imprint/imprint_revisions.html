@@ -41,7 +41,7 @@
     </div>
 
     {% for imprint_translation in imprint_translations %}
-    <div class="w-full hidden revision-wrapper" id="revision-{{ imprint_translation.version }}" data-date="{{ imprint_translation.last_updated }}" data-editor="{{ imprint_translation.creator.profile.full_user_name }}">
+    <div class="w-full hidden revision-wrapper" id="revision-{{ imprint_translation.version }}" data-date="{{ imprint_translation.last_updated }}" data-editor="{{ imprint_translation.creator.full_user_name }}">
         <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
         {{ imprint_translation.get_status_display }}
         {% if imprint_translation == api_revision %}

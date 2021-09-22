@@ -81,14 +81,14 @@ def send_welcome_mail(request, user, activation):
         email.send()
         logger.debug(
             "%r sent an welcome mail to %r. Activation link attached: %s",
-            request.user.profile,
-            user.profile,
+            request.user,
+            user,
             activation,
         )
         messages.success(
             request,
             _("{} was successfully sent to user {}.").format(
-                debug_mail_type, user.profile.full_user_name
+                debug_mail_type, user.full_user_name
             ),
         )
     except BadHeaderError as e:

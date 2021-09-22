@@ -59,13 +59,13 @@ def archive_page(request, page_id, region_slug, language_slug):
 
     if not request.user.has_perm("cms.change_page_object", page):
         raise PermissionDenied(
-            f"{request.user.profile!r} does not have the permission to archive {page!r}"
+            f"{request.user!r} does not have the permission to archive {page!r}"
         )
 
     page.explicitly_archived = True
     page.save()
 
-    logger.debug("%r archived by %r", page, request.user.profile)
+    logger.debug("%r archived by %r", page, request.user)
     messages.success(request, _("Page was successfully archived"))
 
     return redirect(
@@ -107,7 +107,7 @@ def restore_page(request, page_id, region_slug, language_slug):
 
     if not request.user.has_perm("cms.change_page_object", page):
         raise PermissionDenied(
-            f"{request.user.profile!r} does not have the permission to restore {page!r}"
+            f"{request.user!r} does not have the permission to restore {page!r}"
         )
 
     page.explicitly_archived = False
@@ -117,7 +117,7 @@ def restore_page(request, page_id, region_slug, language_slug):
         logger.debug(
             "%r restored by %r but still implicitly archived",
             page,
-            request.user.profile,
+            request.user,
         )
         messages.info(
             request,
@@ -134,7 +134,7 @@ def restore_page(request, page_id, region_slug, language_slug):
                 "language_slug": language_slug,
             },
         )
-    logger.debug("%r restored by %r", page, request.user.profile)
+    logger.debug("%r restored by %r", page, request.user)
     messages.success(request, _("Page was successfully restored."))
     return redirect(
         "pages",
@@ -221,7 +221,7 @@ def delete_page(request, page_id, region_slug, language_slug):
     if page.children.exists():
         messages.error(request, _("You cannot delete a page which has subpages."))
     else:
-        logger.info("%r deleted by %r", page, request.user.profile)
+        logger.info("%r deleted by %r", page, request.user)
         page.delete()
         messages.success(request, _("Page was successfully deleted"))
 
@@ -333,7 +333,7 @@ def download_xliff(request, region_slug, language_slug):
             logger.info(
                 "XLIFFS for pages %r exported by %r",
                 page_ids,
-                request.user.profile,
+                request.user,
             )
             response = serve(
                 request, zip_path.split(XLIFFS_DIR)[1], document_root=XLIFFS_DIR
@@ -472,7 +472,7 @@ def confirm_xliff_import(request, region_slug, language_slug):
         logger.info(
             "XLIFFS of directory %r imported by %r",
             upload_dir,
-            request.user.profile,
+            request.user,
         )
     return redirect(
         "pages",
@@ -525,7 +525,7 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
             page,
             position,
             target,
-            request.user.profile,
+            request.user,
         )
         messages.success(
             request,
@@ -574,8 +574,8 @@ def grant_page_permission_ajax(request):
 
         logger.debug(
             "[AJAX] %r wants to grant %r the permission to %s %r",
-            request.user.profile,
-            user.profile,
+            request.user,
+            user,
             permission,
             page,
         )
@@ -587,19 +587,19 @@ def grant_page_permission_ajax(request):
 
         if not (request.user.is_superuser or request.user.is_staff):
             # additional checks if requesting user is no superuser or staff
-            if page.region not in request.user.profile.regions:
+            if page.region not in request.user.regions:
                 # requesting user can only grant permissions for pages of his region
                 logger.warning(
                     "Error: %r cannot grant permissions for %r",
-                    request.user.profile,
+                    request.user,
                     page.region,
                 )
                 raise PermissionDenied
-            if page.region not in user.profile.regions:
+            if page.region not in user.regions:
                 # user can only receive permissions for pages of his region
                 logger.warning(
                     "Error: %r cannot receive permissions for %r",
-                    user.profile,
+                    user,
                     page.region,
                 )
                 raise PermissionDenied
@@ -684,10 +684,10 @@ def revoke_page_permission_ajax(request):
 
         logger.debug(
             "[AJAX] %r wants to revoke the permission to %s %r from %r",
-            request.user.profile,
+            request.user,
             permission,
             page,
-            user.profile,
+            user,
         )
 
         if not page.region.page_permissions_enabled:
@@ -697,11 +697,11 @@ def revoke_page_permission_ajax(request):
 
         if not (request.user.is_superuser or request.user.is_staff):
             # additional checks if requesting user is no superuser or staff
-            if page.region not in request.user.profile.regions:
+            if page.region not in request.user.regions:
                 # requesting user can only revoke permissions for pages of his region
                 logger.warning(
                     "Error: %r cannot revoke permissions for %r",
-                    request.user.profile,
+                    request.user,
                     page.region,
                 )
                 raise PermissionDenied

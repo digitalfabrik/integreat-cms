@@ -80,7 +80,7 @@ class MediaContextMixin(ContextMixin):
                     + _("Please try again later.")
                 ),
             },
-            "expertMode": self.request.user.profile.expert_mode,
+            "expertMode": self.request.user.expert_mode,
             "allowedMediaTypes": ", ".join(dict(allowed_media.CHOICES)),
         }
         kwargs = {"region_slug": region.slug} if region else {}

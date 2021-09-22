@@ -98,6 +98,6 @@ class RegisterUserMfaKeyView(CreateView):
             # If user is region-user, return to user settings in first region
             success_url = reverse(
                 "user_settings",
-                kwargs={"region_slug": request.user.profile.regions.first().slug},
+                kwargs={"region_slug": request.user.regions.first().slug},
             )
         return JsonResponse({"success": True, "successUrl": success_url})

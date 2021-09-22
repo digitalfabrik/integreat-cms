@@ -139,7 +139,7 @@
                 </button>
             {% endif %}
         {% endif %}
-        {% if region.short_urls_enabled and request.user.profile.expert_mode %}
+        {% if region.short_urls_enabled and request.user.expert_mode %}
             {% if page_translation %}
             <a href="#" data-copy-to-clipboard="{{ page_translation.short_url }}" title="{% trans 'Copy short link' %}" class="py-3 px-2">
                 <i data-feather="copy" class="text-gray-800"></i>

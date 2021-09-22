@@ -36,7 +36,7 @@ class RedirectView(TemplateView):
         """
 
         user = request.user
-        regions = user.profile.regions
+        regions = user.regions
         if user.is_superuser or user.is_staff:
             return redirect("admin_dashboard")
 
@@ -46,4 +46,4 @@ class RedirectView(TemplateView):
         if regions.exists():
             return redirect("region_selection")
 
-        raise PermissionDenied(f"{user.profile!r} is neither staff not a region user")
+        raise PermissionDenied(f"{user!r} is neither staff not a region user")

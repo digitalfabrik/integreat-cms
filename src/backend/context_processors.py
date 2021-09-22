@@ -8,7 +8,7 @@ def region_slug_processor(request):
     """
     This context processor retrieves the current ``region`` parameter and passes it to the templates.
     Additionally, the ``other_regions``-variable contains all other regions which are available via quick access.
-    Usually, these are the regions configured in each user's user profile, but if there are none set, we just list all
+    Usually, these are the regions configured in each user's profile, but if there are none set, we just list all
     available regions, ordered by the ``last_updated`` attribute.
 
     :param request: The current http request
@@ -18,8 +18,8 @@ def region_slug_processor(request):
     :rtype: dict
     """
     current_region = Region.get_current_region(request)
-    if request.user.is_authenticated and request.user.profile.regions.exists():
-        other_regions = request.user.profile.regions
+    if request.user.is_authenticated and request.user.regions.exists():
+        other_regions = request.user.regions
     else:
         other_regions = Region.objects
     if current_region:

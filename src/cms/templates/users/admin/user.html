@@ -15,7 +15,7 @@
                 {% trans 'Create new user' %}
             {% endif %}
         </h1>
-        {% if perms.auth.change_user %}
+        {% if perms.cms.change_user %}
             <input type="submit" name="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save' %}" />
         {% endif %}
     </div>
@@ -58,9 +58,9 @@
 
                 {% if not user_form.instance.id %}
                 <div>
-                    {% render_field user_profile_form.send_activation_link %}
-                    <label for="{{ user_profile_form.send_activation_link.id_for_label }}">{{ user_profile_form.send_activation_link.label }}</label>
-                    <div class="help-text">{{ user_profile_form.send_activation_link.help_text }}</div>
+                    {% render_field user_form.send_activation_link %}
+                    <label for="{{ user_form.send_activation_link.id_for_label }}">{{ user_form.send_activation_link.label }}</label>
+                    <div class="help-text">{{ user_form.send_activation_link.help_text }}</div>
                 </div>
                 {% endif %}
                 <div>
@@ -94,9 +94,9 @@
                         <div class="help-text">{% trans 'Designates whether the user has access to the network management.' %}</div>
                     </div>
                     <div>
-                        {% render_field user_profile_form.expert_mode %}
-                        <label for="{{ user_profile_form.expert_mode.id_for_label }}">{{ user_profile_form.expert_mode.label }}</label>
-                        <div class="help-text">{{ user_profile_form.expert_mode.help_text }}</div>
+                        {% render_field user_form.expert_mode %}
+                        <label for="{{ user_form.expert_mode.id_for_label }}">{{ user_form.expert_mode.label }}</label>
+                        <div class="help-text">{{ user_form.expert_mode.help_text }}</div>
                     </div>
                 </div>
                 <div class="show-for-staff">
@@ -110,21 +110,21 @@
                     <div class="help-text">{{ user_form.role.help_text }}</div>
                 </div>
                 <div>
-                    <label for="{{ user_profile_form.regions.id_for_label }}" class="show-for-non-staff">{{ user_profile_form.regions.label }}</label>
-                    <label for="{{ user_profile_form.regions.id_for_label }}" class="show-for-staff">{% trans 'Preferred regions' %}</label>
-                    {% render_field user_profile_form.regions|add_error_class:"border-red-500" %}
-                    <div class="help-text show-for-non-staff">{{ user_profile_form.regions.help_text }}</div>
+                    <label for="{{ user_form.regions.id_for_label }}" class="show-for-non-staff">{{ user_form.regions.label }}</label>
+                    <label for="{{ user_form.regions.id_for_label }}" class="show-for-staff">{% trans 'Preferred regions' %}</label>
+                    {% render_field user_form.regions|add_error_class:"border-red-500" %}
+                    <div class="help-text show-for-non-staff">{{ user_form.regions.help_text }}</div>
                     <div class="help-text show-for-staff">{% trans 'The regions to which the user has quick access' %}</div>
                 </div>
                 <div>
-                    <label for="{{ user_profile_form.organization.id_for_label }}">{{ user_profile_form.organization.label }}</label>
-                    {% render_field user_profile_form.organization %}
-                    <div class="help-text">{{ user_profile_form.organization.help_text }}</div>
+                    <label for="{{ user_form.organization.id_for_label }}">{{ user_form.organization.label }}</label>
+                    {% render_field user_form.organization %}
+                    <div class="help-text">{{ user_form.organization.help_text }}</div>
                 </div>
 			</div>
         </div>
     </div>
-    {% if user_form.instance.id and perms.auth.delete_user %}
+    {% if user_form.instance.id and perms.cms.delete_user %}
         <div class="pt-2 pb-4">
             <button title="{% trans 'Delete user' %}" class="confirmation-button bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
                     data-confirmation-title="{% trans 'Please confirm that you really want to delete this user' %}"

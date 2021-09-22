@@ -83,5 +83,5 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
         )
         form.user.is_active = True
         form.user.save()
-        logger.info("Account activation for user %r was successful", form.user.profile)
+        logger.info("Account activation for user %r was successful", form.user)
         return super().form_valid(form)

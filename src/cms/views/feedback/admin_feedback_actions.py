@@ -35,9 +35,7 @@ def mark_admin_feedback_as_read(request):
         read_by=request.user
     )
 
-    logger.debug(
-        "Feedback objects %r marked as read by %r", selected_ids, request.user.profile
-    )
+    logger.debug("Feedback objects %r marked as read by %r", selected_ids, request.user)
     messages.success(request, _("Feedback was successfully marked as read"))
 
     return redirect("admin_feedback")
@@ -62,7 +60,7 @@ def mark_admin_feedback_as_unread(request):
     Feedback.objects.filter(id__in=selected_ids, is_technical=True).update(read_by=None)
 
     logger.debug(
-        "Feedback objects %r marked as unread by %r", selected_ids, request.user.profile
+        "Feedback objects %r marked as unread by %r", selected_ids, request.user
     )
     messages.success(request, _("Feedback was successfully marked as unread"))
 
@@ -87,7 +85,7 @@ def delete_admin_feedback(request):
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(id__in=selected_ids, is_technical=True).delete()
 
-    logger.info("Feedback objects %r deleted by %r", selected_ids, request.user.profile)
+    logger.info("Feedback objects %r deleted by %r", selected_ids, request.user)
     messages.success(request, _("Feedback was successfully deleted"))
 
     return redirect("admin_feedback")

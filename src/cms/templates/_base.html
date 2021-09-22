@@ -63,7 +63,7 @@
     <div id="user-info" class="relative px-2 text-gray-800 flex flex-col justify-center cursor-pointer hover:bg-gray-200">
         <a href="{% if region %}{% url 'user_settings' region_slug=region.slug %}{% else %}{% url 'user_settings' %}{% endif %}" class="relative block whitespace-nowrap">
             <i data-feather="user"></i>
-            {{ request.user.profile.full_user_name }}
+            {{ request.user.full_user_name }}
             <i data-feather="chevron-down"></i>
         </a>
         <div id="user-menu" class="absolute hidden shadow rounded-b top-full right-0 bg-gray-200">
@@ -226,19 +226,19 @@
                     {% trans 'Imprint' %}
                 </a>
             {% endif %}
-            {% if perms.auth.view_user or perms.cms.view_languagetreenode %}
+            {% if perms.cms.view_user or perms.cms.view_languagetreenode %}
                 <!-- Settings Section-->
                 <div class="min-h-3 pl-2">
                     <p class="font-bold"> {% trans "Settings" %} </p>
                 </div>
             {% endif %}
-            {% if perms.auth.view_user %}
+            {% if perms.cms.view_user %}
                 <div class="{% if current_menu_item|in_list:'region_users,region_user_form' %} active {% endif %}">
                     <a href="{% url 'region_users' region_slug=region.slug %}">
                         <i data-feather="users"></i>
                         {% trans 'Users' %}
                     </a>
-                    {% if perms.auth.change_user %}
+                    {% if perms.cms.change_user %}
                         <div class="dropdown-container">
                             <a href="{% url 'region_users' region_slug=region.slug %}"
                                class="{% if current_menu_item == 'region_users' %} active {% endif %}">
@@ -281,13 +281,13 @@
                     {% trans 'Languages' %}
                 </a>
             {% endif %}
-            {% if perms.auth.view_user %}
+            {% if perms.cms.view_user %}
                 <div class="{% if current_menu_item|in_list:'users,user_form' %} active {% endif %}">
                     <a href="{% url 'users' %}">
                         <i data-feather="users"></i>
                         {% trans 'Users' %}
                     </a>
-                    {% if perms.auth.change_user %}
+                    {% if perms.cms.change_user %}
                     <div class="dropdown-container">
                         <a href="{% url 'users' %}"
                            class="{% if current_menu_item == 'users' %} active {% endif %}">

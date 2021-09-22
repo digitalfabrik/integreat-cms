@@ -132,7 +132,7 @@ class PageSideBySideView(TemplateView):
 
         if not request.user.has_perm("cms.change_page_object", page):
             raise PermissionDenied(
-                f"{request.user.profile!r} does not have the permission to edit {page!r}"
+                f"{request.user!r} does not have the permission to edit {page!r}"
             )
 
         target_language = Language.objects.get(slug=kwargs.get("language_slug"))
@@ -200,7 +200,7 @@ class PageSideBySideView(TemplateView):
         ):
             # Raise PermissionDenied if user wants to publish page but doesn't have the permission
             raise PermissionDenied(
-                f"{request.user.profile!r} does not have the permission to publish {page!r}"
+                f"{request.user!r} does not have the permission to publish {page!r}"
             )
         else:
             # Save form

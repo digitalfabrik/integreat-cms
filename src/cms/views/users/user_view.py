@@ -9,8 +9,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...decorators import staff_required, permission_required
-from ...forms import UserForm, UserProfileForm
-from ...models import UserProfile
+from ...forms import UserForm
 from ...utils.welcome_mail_utils import send_welcome_mail
 
 logger = logging.getLogger(__name__)
@@ -18,11 +17,11 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-@method_decorator(permission_required("auth.view_user"), name="dispatch")
-@method_decorator(permission_required("auth.change_user"), name="post")
+@method_decorator(permission_required("cms.view_user"), name="dispatch")
+@method_decorator(permission_required("cms.change_user"), name="post")
 class UserView(TemplateView):
     """
-    View for the user form and user profile form
+    View for the user form and user form
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
@@ -32,8 +31,7 @@ class UserView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         """
-        Render :class:`~cms.forms.users.user_form.UserForm` and
-        :class:`~cms.forms.users.user_profile_form.UserProfileForm`
+        Render :class:`~cms.forms.users.user_form.UserForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -49,10 +47,8 @@ class UserView(TemplateView):
         """
 
         user = get_user_model().objects.filter(id=kwargs.get("user_id")).first()
-        user_profile = UserProfile.objects.filter(user=user).first()
 
         user_form = UserForm(instance=user)
-        user_profile_form = UserProfileForm(instance=user_profile)
 
         if user and not user.is_active:
             messages.info(request, _("Pending account activation"))
@@ -63,16 +59,13 @@ class UserView(TemplateView):
             {
                 **self.base_context,
                 "user_form": user_form,
-                "user_profile_form": user_profile_form,
             },
         )
 
     # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         """
-        Submit :class:`~cms.forms.users.user_form.UserForm` and
-        :class:`~cms.forms.users.user_profile_form.UserProfileForm` and save :class:`~django.contrib.auth.models.User`
-        and :class:`~cms.models.users.user_profile.UserProfile` objects
+        Submit :class:`~cms.forms.users.user_form.UserForm` and save :class:`~cms.models.users.user.User`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -89,21 +82,16 @@ class UserView(TemplateView):
         user_instance = (
             get_user_model().objects.filter(id=kwargs.get("user_id")).first()
         )
-        user_profile_instance = UserProfile.objects.filter(user=user_instance).first()
 
         user_form = UserForm(data=request.POST, instance=user_instance)
-        user_profile_form = UserProfileForm(
-            data=request.POST, instance=user_profile_instance
-        )
 
-        if not user_form.is_valid() or not user_profile_form.is_valid():
+        if not user_form.is_valid():
             # Add error messages
             user_form.add_error_messages(request)
-            user_profile_form.add_error_messages(request)
         elif not (
             user_form.cleaned_data["is_superuser"]
             or user_form.cleaned_data["is_staff"]
-            or user_profile_form.cleaned_data["regions"]
+            or user_form.cleaned_data["regions"]
         ):
             # Add error message
             messages.error(
@@ -112,33 +100,22 @@ class UserView(TemplateView):
                     "A user has to be either staff/superuser or needs to be restricted to at least one region."
                 ),
             )
-        elif not (
-            user_profile_form.cleaned_data.get("send_activation_link")
-            or user_form.cleaned_data["password"]
-            or user_instance
-        ):
-            # Add error message
-            messages.error(
-                request,
-                _("Please choose either to send an activation link or set a password."),
-            )
-        elif not user_form.has_changed() and not user_profile_form.has_changed():
+        elif not user_form.has_changed():
             # Add "no changes" messages
             messages.info(request, _("No changes made"))
         else:
             # Save forms
-            user_profile_form.instance.user = user_form.save()
-            user_profile_form.save()
+            user_form.save()
             # Check if user was created
             if not user_instance:
                 # Send activation link or welcome mail
-                activation = user_profile_form.cleaned_data.get("send_activation_link")
+                activation = user_form.cleaned_data.get("send_activation_link")
                 send_welcome_mail(request, user_form.instance, activation)
                 # Add the success message and redirect to the edit page
                 messages.success(
                     request,
                     _('User "{}" was successfully created').format(
-                        user_profile_form.instance.full_user_name
+                        user_form.instance.full_user_name
                     ),
                 )
                 return redirect(
@@ -149,7 +126,7 @@ class UserView(TemplateView):
             messages.success(
                 request,
                 _('User "{}" was successfully saved').format(
-                    user_profile_form.instance.full_user_name
+                    user_form.instance.full_user_name
                 ),
             )
 
@@ -162,6 +139,5 @@ class UserView(TemplateView):
             {
                 **self.base_context,
                 "user_form": user_form,
-                "user_profile_form": user_profile_form,
             },
         )

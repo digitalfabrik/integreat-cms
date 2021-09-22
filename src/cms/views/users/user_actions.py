@@ -34,7 +34,7 @@ def delete_user(request, user_id):
     """
 
     user = get_object_or_404(get_user_model(), id=user_id)
-    logger.info("%r deleted %r", request.user.profile, user.profile)
+    logger.info("%r deleted %r", request.user, user)
     user.delete()
 
     messages.success(request, _("User was successfully deleted"))
