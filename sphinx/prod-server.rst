@@ -49,6 +49,13 @@ Webserver
         * ``DJANGO_EMAIL_HOST_USER``: :attr:`~backend.settings.EMAIL_HOST_USER`
         * ``DJANGO_EMAIL_PORT``: :attr:`~backend.settings.EMAIL_PORT`
 
+       Cache settings: :attr:`~backend.settings.CACHES`
+
+        * ``DJANGO_REDIS_CACHE``: Whether or not the Redis cache should be enabled
+        * ``DJANGO_REDIS_UNIX_SOCKET``: If Redis is enabled and available via a unix socket, set this environment
+          variable to the location of the socket, e.g. ``/var/run/redis/redis.sock``.
+          Otherwise, the connection falls back to a regular TCP connection on port ``6379``.
+
     3. Clone this repo into ``/opt/``.
     4. Edit the :github-source:`src/backend/settings.py` if a setting you want to change is not configurable via
        environment variables.
@@ -62,3 +69,14 @@ Webserver
        but this requires changes to the ``wsgi.py`` path in the Apache2 config.
     7. Run the database migrations: ``integreat-cms-cli migrate``
     8. Collect static files: ``integreat-cms-cli collectstatic``
+
+
+Redis Cache
+===========
+
+Install a Redis database on your system which can be used as cache.
+
+    * Installation process varies across different distros (e.g. on `Ubuntu <https://wiki.ubuntuusers.de/Redis//>`__).
+    * Set the environment variable ``DJANGO_REDIS_CACHE`` to activate the cache
+    * Ideally, the connection is established via a unix socket instead of TCP (Set the environment variable
+      ``DJANGO_REDIS_UNIX_SOCKET`` to the location of the unix socket).

@@ -13,3 +13,7 @@ from .settings import *
 #: A boolean that specifies whether Django’s translation system should be enabled
 #: (see :setting:`django:USE_I18N` and :doc:`topics/i18n/index`)
 USE_I18N = False
+
+# Remove cacheops during documentation build because it changes related names
+if "cacheops" in INSTALLED_APPS:
+    INSTALLED_APPS.remove("cacheops")

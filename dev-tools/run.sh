@@ -15,6 +15,9 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 # Require that integreat-cms is installed
 require_installed
 
+# Initialize the Redis cache settings by setting the correct environment variables
+configure_redis_cache
+
 # Require that a database server is up and running. Place this command at the beginning because it might require the restart of the script with higher privileges.
 require_database
 
