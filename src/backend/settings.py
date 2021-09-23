@@ -484,10 +484,6 @@ LOGGING = {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },
-        "filer": {
-            "handlers": ["console", "logfile"],
-            "level": DEPS_LOG_LEVEL,
-        },
         "PIL": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
