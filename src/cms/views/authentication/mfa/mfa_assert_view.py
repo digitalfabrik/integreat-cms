@@ -48,7 +48,7 @@ class MfaAssertView(View):
             webauthn.WebAuthnUser(
                 user.id,
                 user.username,
-                "%s %s" % (user.first_name, user.last_name),
+                f"{user.first_name} {user.last_name}",
                 "",
                 str(key.key_id, "utf-8"),
                 key.public_key,

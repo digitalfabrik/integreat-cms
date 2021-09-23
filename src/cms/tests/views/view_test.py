@@ -18,5 +18,5 @@ class ViewTest(TestCase):
         self.assertEqual(
             status_code,
             200,
-            "Expected a HTTP 200 response, but got HTTP %d" % status_code,
+            f"Expected a HTTP 200 response, but got HTTP {status_code}",
         )

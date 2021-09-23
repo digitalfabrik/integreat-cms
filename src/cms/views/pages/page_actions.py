@@ -338,9 +338,8 @@ def download_xliff(request, region_slug, language_slug):
             response = serve(
                 request, zip_path.split(XLIFFS_DIR)[1], document_root=XLIFFS_DIR
             )
-            response["Content-Disposition"] = 'attachment; filename="{}"'.format(
-                zip_path.split(os.sep)[-1]
-            )
+            filename = zip_path.split(os.sep)[-1]
+            response["Content-Disposition"] = f'attachment; filename="{filename}"'
             PageXliffHelper.post_translation_state(pages, target_language.slug, True)
             return response
     return redirect(
