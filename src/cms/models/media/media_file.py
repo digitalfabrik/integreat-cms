@@ -91,7 +91,7 @@ class MediaFile(models.Model):
     )
     type = models.CharField(
         choices=allowed_media.CHOICES,
-        max_length=64,
+        max_length=128,
         verbose_name=_("file type"),
     )
     name = models.CharField(max_length=512, verbose_name=_("name"))
@@ -141,7 +141,7 @@ class MediaFile(models.Model):
         if not self.thumbnail:
             if self.type.startswith("image"):
                 #: Returns the path to the file itself
-                return BASE_URL + self.url
+                return self.url
             return None
         return BASE_URL + self.thumbnail.url
 

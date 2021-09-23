@@ -78,8 +78,8 @@ class UploadMediaFileForm(CustomModelForm):
         # Only validate type if a file is uploaded - otherwise, the form throws an error anyways
         if file:
             # Check magic bytes for actual file type - the content_type of the file can easily be forged
-            cleaned_data["type"] = magic.from_buffer(file.read(2048), mime=True)
-            if cleaned_data.get("type") not in dict(allowed_media.CHOICES):
+            cleaned_data["type"] = magic.from_buffer(file.read(), mime=True)
+            if cleaned_data.get("type") not in dict(allowed_media.UPLOAD_CHOICES):
                 self.add_error(
                     "type",
                     forms.ValidationError(
@@ -89,7 +89,9 @@ class UploadMediaFileForm(CustomModelForm):
                         + " "
                         + _("Allowed file types")
                         + ": "
-                        + ", ".join(map(str, dict(allowed_media.CHOICES).values())),
+                        + ", ".join(
+                            map(str, dict(allowed_media.UPLOAD_CHOICES).values())
+                        ),
                         code="invalid",
                     ),
                 )

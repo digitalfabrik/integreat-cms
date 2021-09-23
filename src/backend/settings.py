@@ -640,6 +640,9 @@ MEDIA_THUMBNAIL_SIZE = 300
 #: Whether thumbnails should be cropped (resulting in square thumbnails regardless of the aspect ratio of the image)
 MEDIA_THUMBNAIL_CROP = False
 
+#: Enables the possibility to upload further file formats (e.g. DOC, GIF).
+LEGACY_FILE_UPLOAD = False
+
 
 #########
 # CACHE #
