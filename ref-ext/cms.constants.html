@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-07-16T01:00:17+00:00" />
+    <meta property="article:modified_time" content="2021-09-22T17:59:05+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Constants &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1316,15 +1316,38 @@ instances in <a class="reference internal" href="cms.forms.events.html#cms.forms
 <p>This module contains a list of Mime-Types that are allowed to be uploaded.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="cms.constants.allowed_media.CHOICES">
-<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">CHOICES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('image/png',</span> <span class="pre">'PNG</span> <span class="pre">image'),</span> <span class="pre">('image/jpeg',</span> <span class="pre">'JPEG</span> <span class="pre">image'),</span> <span class="pre">('application/pdf',</span> <span class="pre">'PDF</span> <span class="pre">document')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.CHOICES" title="Permalink to this definition"></a></dt>
-<dd><p>Allowed MIME types that can be uploaded.</p>
+<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">CHOICES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('image/png',</span> <span class="pre">'PNG</span> <span class="pre">image'),</span> <span class="pre">('image/jpeg',</span> <span class="pre">'JPEG</span> <span class="pre">image'),</span> <span class="pre">('application/pdf',</span> <span class="pre">'PDF</span> <span class="pre">document'),</span> <span class="pre">('image/svg+xml',</span> <span class="pre">'SVG</span> <span class="pre">image'),</span> <span class="pre">('image/gif',</span> <span class="pre">'GIF</span> <span class="pre">image'),</span> <span class="pre">('application/msword',</span> <span class="pre">'DOC</span> <span class="pre">document'),</span> <span class="pre">('application/vnd.openxmlformats-officedocument.wordprocessingml.document',</span> <span class="pre">'DOCX</span> <span class="pre">document'),</span> <span class="pre">('application/vnd.ms-excel',</span> <span class="pre">'XLS</span> <span class="pre">document'),</span> <span class="pre">('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',</span> <span class="pre">'XLSX</span> <span class="pre">document'),</span> <span class="pre">('application/vnd.ms-powerpoint',</span> <span class="pre">'PPT</span> <span class="pre">document'),</span> <span class="pre">('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',</span> <span class="pre">'PPTX</span> <span class="pre">document')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.CHOICES" title="Permalink to this definition"></a></dt>
+<dd><p>Allowed MIME types that are allowed in the database.</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">(</span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span> <span class="s1">&#39;PNG image&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;image/jpeg&#39;</span><span class="p">,</span> <span class="s1">&#39;JPEG image&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;application/pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;PDF document&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;image/svg+xml&#39;</span><span class="p">,</span> <span class="s1">&#39;SVG image&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;image/gif&#39;</span><span class="p">,</span> <span class="s1">&#39;GIF image&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;application/msword&#39;</span><span class="p">,</span> <span class="s1">&#39;DOC document&#39;</span><span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;application/vnd.openxmlformats-officedocument.wordprocessingml.document&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;DOCX document&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;application/vnd.ms-excel&#39;</span><span class="p">,</span> <span class="s1">&#39;XLS document&#39;</span><span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;XLSX document&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;application/vnd.ms-powerpoint&#39;</span><span class="p">,</span> <span class="s1">&#39;PPT document&#39;</span><span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;PPTX document&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
 <span class="p">]</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="cms.constants.allowed_media.DOC">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">DOC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'application/msword'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.DOC" title="Permalink to this definition"></a></dt>
+<dd><p>MIME type of legacy 97-2007 Word files</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1334,6 +1357,18 @@ instances in <a class="reference internal" href="cms.forms.events.html#cms.forms
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[(</span><span class="s1">&#39;application/pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;PDF document&#39;</span><span class="p">)]</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="cms.constants.allowed_media.DOCX">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">DOCX</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'application/vnd.openxmlformats-officedocument.wordprocessingml.document'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.DOCX" title="Permalink to this definition"></a></dt>
+<dd><p>MIME type of default Word files</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="cms.constants.allowed_media.GIF">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">GIF</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'image/gif'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.GIF" title="Permalink to this definition"></a></dt>
+<dd><p>MIME type of GIF files</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1352,6 +1387,33 @@ instances in <a class="reference internal" href="cms.forms.events.html#cms.forms
 </dd></dl>
 
 <dl class="py data">
+<dt class="sig sig-object py" id="cms.constants.allowed_media.LEGACY_TYPES">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">LEGACY_TYPES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('image/svg+xml',</span> <span class="pre">'SVG</span> <span class="pre">image'),</span> <span class="pre">('image/gif',</span> <span class="pre">'GIF</span> <span class="pre">image'),</span> <span class="pre">('application/msword',</span> <span class="pre">'DOC</span> <span class="pre">document'),</span> <span class="pre">('application/vnd.openxmlformats-officedocument.wordprocessingml.document',</span> <span class="pre">'DOCX</span> <span class="pre">document'),</span> <span class="pre">('application/vnd.ms-excel',</span> <span class="pre">'XLS</span> <span class="pre">document'),</span> <span class="pre">('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',</span> <span class="pre">'XLSX</span> <span class="pre">document'),</span> <span class="pre">('application/vnd.ms-powerpoint',</span> <span class="pre">'PPT</span> <span class="pre">document'),</span> <span class="pre">('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',</span> <span class="pre">'PPTX</span> <span class="pre">document')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.LEGACY_TYPES" title="Permalink to this definition"></a></dt>
+<dd><p>Legacy MIME types that existed in the former Wordpress system.</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;image/svg+xml&#39;</span><span class="p">,</span> <span class="s1">&#39;SVG image&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;image/gif&#39;</span><span class="p">,</span> <span class="s1">&#39;GIF image&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;application/msword&#39;</span><span class="p">,</span> <span class="s1">&#39;DOC document&#39;</span><span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;application/vnd.openxmlformats-officedocument.wordprocessingml.document&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;DOCX document&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;application/vnd.ms-excel&#39;</span><span class="p">,</span> <span class="s1">&#39;XLS document&#39;</span><span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;XLSX document&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;application/vnd.ms-powerpoint&#39;</span><span class="p">,</span> <span class="s1">&#39;PPT document&#39;</span><span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;PPTX document&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="cms.constants.allowed_media.PDF">
 <span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">PDF</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'application/pdf'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.PDF" title="Permalink to this definition"></a></dt>
 <dd><p>MIME type of PDF files</p>
@@ -1361,6 +1423,49 @@ instances in <a class="reference internal" href="cms.forms.events.html#cms.forms
 <dt class="sig sig-object py" id="cms.constants.allowed_media.PNG">
 <span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">PNG</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'image/png'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.PNG" title="Permalink to this definition"></a></dt>
 <dd><p>MIME type of PNG files</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="cms.constants.allowed_media.PPT">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">PPT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'application/vnd.ms-powerpoint'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.PPT" title="Permalink to this definition"></a></dt>
+<dd><p>MIME type of legacy 97-2007 PowerPoint files</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="cms.constants.allowed_media.PPTX">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">PPTX</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'application/vnd.openxmlformats-officedocument.presentationml.presentation'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.PPTX" title="Permalink to this definition"></a></dt>
+<dd><p>MIME type of default PowerPoint files</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="cms.constants.allowed_media.SVG">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">SVG</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'image/svg+xml'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.SVG" title="Permalink to this definition"></a></dt>
+<dd><p>MIME type of SVG files</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="cms.constants.allowed_media.UPLOAD_CHOICES">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">UPLOAD_CHOICES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('image/png',</span> <span class="pre">'PNG</span> <span class="pre">image'),</span> <span class="pre">('image/jpeg',</span> <span class="pre">'JPEG</span> <span class="pre">image'),</span> <span class="pre">('application/pdf',</span> <span class="pre">'PDF</span> <span class="pre">document')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.UPLOAD_CHOICES" title="Permalink to this definition"></a></dt>
+<dd><p>Allowed MIME types that can be uploaded.</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span> <span class="s1">&#39;PNG image&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;image/jpeg&#39;</span><span class="p">,</span> <span class="s1">&#39;JPEG image&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;application/pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;PDF document&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="cms.constants.allowed_media.XLS">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">XLS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'application/vnd.ms-excel'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.XLS" title="Permalink to this definition"></a></dt>
+<dd><p>MIME type of legacy 97-2007 Excel files</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="cms.constants.allowed_media.XLSX">
+<span class="sig-prename descclassname"><span class="pre">cms.constants.allowed_media.</span></span><span class="sig-name descname"><span class="pre">XLSX</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/constants/allowed_media.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.constants.allowed_media.XLSX" title="Permalink to this definition"></a></dt>
+<dd><p>MIME type of default Excel files</p>
 </dd></dl>
 
 </section>
@@ -2402,7 +2507,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 16, 2021.
+      <span class="lastupdated">Last updated on Sep 22, 2021.
       </span></p>
   </div>
 
