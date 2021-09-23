@@ -135,6 +135,7 @@ nitpick_ignore = [
     ("py:attr", "django.contrib.auth.models.Permission.user_set"),
     ("py:attr", "django.contrib.auth.models.Group.user_set"),
     ("py:class", "django.contrib.auth.base_user.BaseUserManager"),
+    ("py:class", "django.contrib.auth.hashers.BCryptSHA256PasswordHasher"),
 ]
 #: A list of prefixes that are ignored for sorting the Python module index
 modindex_common_prefix = ["cms"]
