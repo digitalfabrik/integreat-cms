@@ -50,6 +50,8 @@ setup(
         "webauthn",
         "xhtml2pdf",
         "Pillow",
+        "argon2-cffi",
+        "bcrypt",
     ],
     author="Integreat App Project",
     author_email="info@integreat-app.de",

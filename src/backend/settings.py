@@ -323,6 +323,13 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",  # this is default
 )
 
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "cms.auth.WPBCryptPasswordHasher",
+]
+
+
 #: The list of validators that are used to check the strength of user’s passwords
 #: (see :setting:`django:AUTH_PASSWORD_VALIDATORS` and :ref:`django:password-validation`)
 AUTH_PASSWORD_VALIDATORS = [
