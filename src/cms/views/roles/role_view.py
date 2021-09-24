@@ -2,7 +2,6 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -45,10 +44,13 @@ class RoleView(TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        role_instance = Role.objects.filter(id=kwargs.get("role_id")).first()
-        group_instance = Group.objects.filter(role=role_instance).first()
+        role_instance = (
+            Role.objects.filter(id=kwargs.get("role_id"))
+            .select_related("group")
+            .first()
+        )
         role_form = RoleForm(instance=role_instance)
-        group_form = GroupForm(instance=group_instance)
+        group_form = GroupForm(instance=getattr(role_instance, "group", None))
         return render(
             request,
             self.template_name,
@@ -72,10 +74,15 @@ class RoleView(TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        role_instance = Role.objects.filter(id=kwargs.get("role_id")).first()
-        group_instance = Group.objects.filter(role=role_instance).first()
+        role_instance = (
+            Role.objects.filter(id=kwargs.get("role_id"))
+            .select_related("group")
+            .first()
+        )
         role_form = RoleForm(data=request.POST, instance=role_instance)
-        group_form = GroupForm(data=request.POST, instance=group_instance)
+        group_form = GroupForm(
+            data=request.POST, instance=getattr(role_instance, "group", None)
+        )
 
         if not role_form.is_valid() or not group_form.is_valid():
             # Add error messages

@@ -45,7 +45,12 @@ class UserListView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        users = get_user_model().objects.all()
+        users = (
+            get_user_model()
+            .objects.select_related("organization")
+            .prefetch_related("groups__role")
+            .order_by("username")
+        )
         query = None
 
         search_data = kwargs.get("search_data")
@@ -56,7 +61,7 @@ class UserListView(TemplateView):
             users = users.filter(pk__in=user_keys)
 
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(users.order_by("username"), PER_PAGE)
+        paginator = Paginator(users, PER_PAGE)
         chunk = request.GET.get("page")
         user_chunk = paginator.get_page(chunk)
         return render(

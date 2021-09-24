@@ -6,6 +6,7 @@ import logging
 
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 
@@ -52,7 +53,7 @@ class User(AbstractUser):
         ),
     )
 
-    @property
+    @cached_property
     def role(self):
         """
         We refer to Django user groups as roles.
@@ -60,8 +61,10 @@ class User(AbstractUser):
         :return: The role of this user
         :rtype: ~cms.models.users.role.Role
         """
-        if self.groups.exists():
-            return self.groups.first().role
+        groups = self.groups.all()
+        if groups:
+            # Assume users only have one group/role
+            return groups[0].role
         return None
 
     @property
@@ -133,8 +136,9 @@ class User(AbstractUser):
             else:
                 if self.role:
                     optional_fields += f", role: {self.role.english_name}"
-                if self.regions.count() == 1:
-                    optional_fields += f", region: {self.regions.first().name}"
+                regions = self.regions.all()
+                if len(regions) == 1:
+                    optional_fields += f", region: {self.regions[0].name}"
         return f"<User (id: {self.id}, username: {self.username}{optional_fields})>"
 
     class Meta:
