@@ -55,7 +55,7 @@ media_ajax_urlpatterns = [
                     name="mediacenter_upload_file",
                 ),
                 url(
-                    r"^edit-file",
+                    r"^edit-file$",
                     media.edit_file_ajax,
                     name="mediacenter_edit_file",
                 ),
@@ -63,6 +63,11 @@ media_ajax_urlpatterns = [
                     r"^delete-file$",
                     media.delete_file_ajax,
                     name="mediacenter_delete_file",
+                ),
+                url(
+                    r"^replace-file$",
+                    media.replace_file_ajax,
+                    name="mediacenter_replace_file",
                 ),
                 url(
                     r"^create-directory$",

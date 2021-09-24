@@ -19,6 +19,7 @@ from .languages.language_form import LanguageForm
 from .language_tree.language_tree_node_form import LanguageTreeNodeForm
 
 from .media.upload_media_file_form import UploadMediaFileForm
+from .media.replace_media_file_form import ReplaceMediaFileForm
 from .media.media_file_form import MediaFileForm
 from .media.create_directory_form import CreateDirectoryForm
 from .media.directory_form import DirectoryForm

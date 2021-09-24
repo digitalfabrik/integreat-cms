@@ -10,6 +10,7 @@ from .media_actions import (
     create_directory_ajax,
     edit_directory_ajax,
     delete_directory_ajax,
+    replace_file_ajax,
 )
 from .media_list_view import MediaListView, AdminMediaListView
 from .media_context_mixin import MediaContextMixin

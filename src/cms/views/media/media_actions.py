@@ -12,8 +12,10 @@ from django.views.decorators.http import require_POST
 
 from api.decorators import json_response
 from ...decorators import region_permission_required, permission_required
+
 from ...forms import (
     UploadMediaFileForm,
+    ReplaceMediaFileForm,
     MediaFileForm,
     CreateDirectoryForm,
     DirectoryForm,
@@ -201,6 +203,62 @@ def edit_file_ajax(request, region_slug=None):
 
     # Save form
     media_file_form.save()
+
+    return JsonResponse(
+        {
+            "messages": [
+                {
+                    "type": "success",
+                    "text": _('File "{}" was saved successfully').format(
+                        media_file.name
+                    ),
+                }
+            ],
+            "file": media_file.serialize(),
+        }
+    )
+
+
+@require_POST
+@login_required
+@region_permission_required
+@permission_required("cms.replace_mediafile")
+@json_response
+# pylint: disable=unused-argument
+def replace_file_ajax(request, region_slug=None):
+    """
+    View provides the replacement of a file via AJAX.
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :return: JSON response which indicates error or success
+    :rtype: ~django.http.JsonResponse
+    """
+    region = Region.get_current_region(request)
+
+    media_file = get_object_or_404(
+        MediaFile.objects.filter(region=region), id=request.POST.get("id")
+    )
+
+    media_file_form = ReplaceMediaFileForm(
+        data=request.POST, instance=media_file, files=request.FILES
+    )
+
+    if not media_file_form.is_valid():
+        return JsonResponse(
+            {
+                "messages": media_file_form.get_error_messages(),
+            },
+            status=400,
+        )
+
+    # Save form
+    media_file_form.save()
+    logger.info("%r was replaced by %r", media_file, request.user)
 
     return JsonResponse(
         {

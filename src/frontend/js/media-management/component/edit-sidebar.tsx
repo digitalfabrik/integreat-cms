@@ -25,6 +25,7 @@ import {
   Edit3,
   ExternalLink,
   Info,
+  RefreshCw
 } from "preact-feather";
 import cn from "classnames";
 
@@ -277,6 +278,21 @@ export default function EditSidebar({
                       {mediaTranslations.btn_save_file}
                     </button>
                   )}
+
+                  <label
+                    for="replace-file-input"
+                    title={mediaTranslations.btn_replace_file} 
+                    className={cn(
+                      "w-full text-white text-center font-bold py-2 px-4 mb-4 rounded",
+                      { "cursor-not-allowed bg-gray-500": isLoading },
+                      { "bg-blue-500 hover:bg-blue-600": !isLoading }
+                    )}
+                    disabled={isLoading} 
+                  >
+                    <RefreshCw class="mr-1 inline-block h-5" />
+                    {mediaTranslations.btn_replace_file}
+                  </label>
+
                   <button
                     title={mediaTranslations.btn_delete_file}
                     className={cn(
@@ -305,6 +321,30 @@ export default function EditSidebar({
           )}
         </div>
       </form>
+
+      {/* Hidden form for file replacement */}
+      <form
+        onSubmit={submitForm}
+        action={apiEndpoints.replaceFile}
+        class="hidden"
+      >
+        <input name="id" type="hidden" value={file.id} />
+        <input
+          id="replace-file-input"
+          name="file"
+          type="file"
+          maxLength={255}
+          accept={file.type}
+          disabled={isLoading}
+          onChange={
+            () => {
+              document.getElementById("replace-file").click();
+            }
+          }
+        />
+        <button id="replace-file" type="submit"></button>
+      </form>
+
       {/* Hidden form for file deletion (on success, close sidebar) */}
       <form
         onSubmit={submitForm}
