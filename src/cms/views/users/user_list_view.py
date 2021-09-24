@@ -45,7 +45,7 @@ class UserListView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        users = get_user_model().objects.all()
+        users = get_user_model().objects.all().select_related("organization")
         query = None
 
         search_data = kwargs.get("search_data")

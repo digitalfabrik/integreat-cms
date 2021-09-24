@@ -58,7 +58,9 @@ class RegionUserListView(TemplateView):
             users = users.filter(pk__in=user_keys)
 
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(users.order_by("username"), PER_PAGE)
+       paginator = Paginator(
+            region.users.order_by("username").select_related("organization") PER_PAGE
+        )
         chunk = request.GET.get("page")
         user_chunk = paginator.get_page(chunk)
         return render(
