@@ -1,6 +1,6 @@
 """
 Django URL dispatcher for the cms package.
-See :mod:`~integreat_cms.backend.urls` for the other namespaces of this application.
+See :mod:`~integreat_cms.core.urls` for the other namespaces of this application.
 
 For more information on this file, see :doc:`topics/http/urls`.
 """

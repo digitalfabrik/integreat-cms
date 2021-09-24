@@ -6,7 +6,7 @@ It contains the following routes:
 
 * ``/<region_slug>/<language_slug>/sitemap.xml`` is routed to :mod:`~integreat_cms.sitemap.views.SitemapView`
 
-See :mod:`~integreat_cms.backend.urls` for the other namespaces of this application.
+See :mod:`~integreat_cms.core.urls` for the other namespaces of this application.
 
 For more information on this file, see :doc:`topics/http/urls`.
 """

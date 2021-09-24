@@ -36,4 +36,4 @@ Whenever you want to document module/class attributes which are not parameters (
     #: Description of attribute
     attribute = "value of this attribute"
 
-See the configuration files :mod:`~integreat_cms.backend.settings` and :mod:`conf` or :mod:`~integreat_cms.cms.constants` for examples.
+See the configuration files :mod:`~integreat_cms.core.settings` and :mod:`conf` or :mod:`~integreat_cms.cms.constants` for examples.

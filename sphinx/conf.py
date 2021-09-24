@@ -14,14 +14,14 @@ import importlib
 
 from django import VERSION as django_version
 
-from integreat_cms.backend.settings import VERSION
+from integreat_cms.core.settings import VERSION
 
 # Append project source directory to path environment variable
 sys.path.append(os.path.abspath(".."))
 # Append sphinx source directory to path environment variable to allow documentation for this file
 sys.path.append(os.path.abspath("."))
 #: The path to the django settings module (see :doc:`sphinxcontrib-django2:readme`)
-django_settings = "integreat_cms.backend.sphinx_settings"
+django_settings = "integreat_cms.core.sphinx_settings"
 #: The "major.minor" version of Django
 django_version = f"{django_version[0]}.{django_version[1]}"
 

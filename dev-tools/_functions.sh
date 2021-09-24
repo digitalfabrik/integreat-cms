@@ -305,7 +305,7 @@ function require_database {
         fi
 
         # Set docker settings
-        export DJANGO_SETTINGS_MODULE="integreat_cms.backend.docker_settings"
+        export DJANGO_SETTINGS_MODULE="integreat_cms.core.docker_settings"
         # Make sure a docker container is up and running
         ensure_docker_container_running
     fi

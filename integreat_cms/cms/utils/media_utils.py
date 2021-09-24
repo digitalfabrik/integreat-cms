@@ -26,11 +26,11 @@ def generate_thumbnail(
     :type original_image: ~django.core.files.uploadedfile.InMemoryUploadedFile
 
     :param size: Desired size of the thumbnail (maximum for height and with), defaults to
-                 :attr:`~integreat_cms.backend.settings.MEDIA_THUMBNAIL_SIZE`
+                 :attr:`~integreat_cms.core.settings.MEDIA_THUMBNAIL_SIZE`
     :type size: int
 
     :param crop: Whether the thumbnail should be cropped (resulting in a square regardless of the initial aspect ratio),
-                 defaults to :attr:`~integreat_cms.backend.settings.MEDIA_THUMBNAIL_CROP`
+                 defaults to :attr:`~integreat_cms.core.settings.MEDIA_THUMBNAIL_CROP`
     :type crop: bool
 
     :return: The created thumbnail in memory

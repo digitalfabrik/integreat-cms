@@ -11,7 +11,7 @@ Two different types of local database servers are supported:
 * `Docker <https://www.docker.com/>`_ container (recommended)
 
   - Will be automatically created and started if you use the ``run.sh`` script without a local server running on port 5432
-  - Uses the alternate port 5433 (configured at :mod:`~integreat_cms.backend.docker_settings`)
+  - Uses the alternate port 5433 (configured at :mod:`~integreat_cms.core.docker_settings`)
   - Requires permissions to connect to the docker daemon:
 
     + If the user is in the ``docker`` group, no ``sudo`` is required
@@ -22,7 +22,7 @@ Two different types of local database servers are supported:
 
   - Install and run manually before starting the local webserver
   - Installation process varies across different distros (e.g. on `Ubuntu <https://wiki.ubuntuusers.de/PostgreSQL/>`_)
-  - Configuration: (see :mod:`~integreat_cms.backend.settings`)
+  - Configuration: (see :mod:`~integreat_cms.core.settings`)
 
     + Port: ``5432``
     + Database: ``integreat``
@@ -54,7 +54,7 @@ If you want to speed up this process and don't need the extra functionality, you
 
 or directly::
 
-    pipenv run integreat-cms-cli runserver localhost:8000 --settings=backend.docker_settings
+    pipenv run integreat-cms-cli runserver localhost:8000 --settings=integreat_cms.core.docker_settings
 
 or::
 

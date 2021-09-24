@@ -39,7 +39,7 @@ class AuthenticateModifyMfaView(FormView):
         :param form: Authentication form
         :type form: ~integreat_cms.cms.forms.users.authentication_form.AuthenticationForm
 
-        :return: Redirect user to mfa login view or to :attr:`~integreat_cms.backend.settings.LOGIN_REDIRECT_URL`
+        :return: Redirect user to mfa login view or to :attr:`~integreat_cms.core.settings.LOGIN_REDIRECT_URL`
         :rtype: ~django.http.HttpResponseRedirect
         """
         if check_password(form.cleaned_data["password"], self.request.user.password):

@@ -51,7 +51,7 @@ class Serializer(xml_serializer.Serializer):
 
     def serialize(self, queryset, *args, **kwargs):
         """
-        Initialize serialization and set the :attr:`~integreat_cms.backend.settings.XLIFF_DEFAULT_FIELDS`.
+        Initialize serialization and set the :attr:`~integreat_cms.core.settings.XLIFF_DEFAULT_FIELDS`.
 
         :param queryset: QuerySet of all :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation`
                          objects which should be serialized

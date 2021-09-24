@@ -3,7 +3,7 @@
 
 from setuptools import find_packages, setup
 
-from integreat_cms.backend.settings import VERSION
+from integreat_cms.core.settings import VERSION
 
 
 package_name = "integreat-cms"

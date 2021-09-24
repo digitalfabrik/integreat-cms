@@ -82,7 +82,7 @@ class WebappSitemap(ABC, Sitemap):
         This patch is required because the inbuilt function can only deal with the i18n backend languages and not with
         our custom language model.
         Additionally, it overwrites the protocol and domain of the urls with
-        :attr:`~integreat_cms.backend.settings.WEBAPP_URL` because out of the box, :doc:`ref/contrib/sitemaps` does only
+        :attr:`~integreat_cms.core.settings.WEBAPP_URL` because out of the box, :doc:`ref/contrib/sitemaps` does only
         support this functionality when used together with :doc:`ref/contrib/sites`.
 
         :param page: The page for the paginator (will always be ``1`` in our case)

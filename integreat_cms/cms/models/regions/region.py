@@ -273,7 +273,7 @@ class Region(models.Model):
     def get_current_region(cls, request):
         """
         This class method returns the current region based on the current request and is used in
-        :func:`~integreat_cms.backend.context_processors.region_slug_processor`
+        :func:`~integreat_cms.core.context_processors.region_slug_processor`
 
         :param request: Django request
         :type request: ~django.http.HttpRequest

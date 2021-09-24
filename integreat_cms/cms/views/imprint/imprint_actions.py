@@ -150,7 +150,7 @@ def expand_imprint_translation_id(request, imprint_translation_id):
     :param imprint_translation_id: The id of the requested imprint translation
     :type imprint_translation_id: int
 
-    :return: A redirection to :class:`~integreat_cms.backend.settings.WEBAPP_URL`
+    :return: A redirection to :class:`~integreat_cms.core.settings.WEBAPP_URL`
     :rtype: ~django.http.HttpResponseRedirect
     """
 

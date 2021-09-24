@@ -28,7 +28,7 @@ class SitemapIndexView(TemplateResponseMixin, View):
     It is a patched version of :func:`django.contrib.sitemaps.views.index` with the following changes:
 
     * Sitemaps dynamically queried on each request, not on the application startup
-    * :attr:`~integreat_cms.backend.settings.WEBAPP_URL` is used for the domain instead of the host of the sitemap
+    * :attr:`~integreat_cms.core.settings.WEBAPP_URL` is used for the domain instead of the host of the sitemap
     * Empty sitemaps are not included in the index
     """
 

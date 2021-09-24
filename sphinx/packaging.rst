@@ -30,7 +30,7 @@ Then install both packages with gdebi::
     gdebi django-widget-tweaks/deb_dist/python3-django-widget-tweaks_1.4.3-1_all.deb
     gdebi |github-repository|/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
 
-In the end, create a PostgreSQL user and database and adjust the ``/usr/lib/python3/dist-packages/backend/settings.py``.
+In the end, create a PostgreSQL user and database and adjust the ``/usr/lib/python3/dist-packages/core/settings.py``.
 
 .. Note::
 
