@@ -32,9 +32,7 @@ class AdminViewTest(ViewTest):
     """
 
     def setUp(self):
-        user = get_user_model().objects.create_superuser(
-            username="root", password="", email="root@local.host"
-        )
+        user = get_user_model().objects.create_superuser("root")
         self.client.force_login(user)
 
     generate_test_functions(class_variables=vars(), views=admin_views, kwargs={})
