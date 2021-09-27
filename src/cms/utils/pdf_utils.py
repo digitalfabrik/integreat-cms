@@ -90,24 +90,8 @@ def generate_pdf(region, language_slug, pages):
         "amount_pages": amount_pages,
         "prevent_italics": ["ar", "fa"],
     }
-    response = HttpResponse(content_type="application/pdf")
-    response["Content-Disposition"] = f'filename="{filename}"'
-    html = get_template("pages/page_pdf.html").render(context)
-    pisa_status = pisa.CreatePDF(
-        html, dest=response, link_callback=link_callback, encoding="UTF-8"
-    )
-    # pylint: disable=no-member
-    if pisa_status.err:
-        logger.error(
-            "The following PDF could not be rendered: %r, %r, %r",
-            region,
-            language,
-            pages,
-        )
-        return HttpResponse(
-            _("The PDF could not be successfully generated."), status=500
-        )
-    cache.set(pdf_hash, response, 60 * 60 * 24)
+    response = HttpResponse()
+    response.write("<p>foo</p>")
     return response
 
 
