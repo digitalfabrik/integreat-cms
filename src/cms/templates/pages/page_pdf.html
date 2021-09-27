@@ -2,6 +2,7 @@
 {% load mptt_tags %}
 {% load i18n %}
 {% load content_filters %}
+{% load render_bundle from webpack_loader %}
 
 {% comment %}
     These file does not inherit from _raw.html,
@@ -16,7 +17,7 @@
         <!-- these style settings are only set to pdf exported pages
         for detailed information about the applied library concepts see
         the documentation of xhtml2pdf -->
-        <link href="{% static 'pdf.css' %}" rel="stylesheet" type="text/css">
+        {% render_bundle 'pdf' 'css' %}
         <style>
             {% if language.slug == "zh-CN" %}
                 html, body {

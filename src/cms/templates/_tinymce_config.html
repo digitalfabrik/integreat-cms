@@ -1,8 +1,11 @@
 {% load i18n %}
 {% load static %}
 {% load settings_tags %}
+{% load get_files from webpack_loader %}
 
 {% get_current_language as LANGUAGE_CODE %}
+{% get_files 'editor_content' 'js' as editor_content_js_files %}
+{% get_files 'editor_content' 'css' as editor_content_css_files %}
 
 {% if language.slug == 'zh-CN' %}
     {% firstof "body { font-family: 'Noto Sans SC', sans-serif; }" as content_style %}
@@ -43,8 +46,8 @@
         data-link-dialog-url-text="{% trans 'URL' %}"
         data-link-dialog-text-text="{% trans 'Text to display' %}"
         data-link-dialog-internal_link-text="{% trans 'Or link to existing content' %}"
-        data-custom-plugins="{% get_base_url %}{% static 'editor_content.js' %}"
-        data-content-css="{% get_base_url %}{% static 'editor_content.css' %}"
+        data-custom-plugins="{% get_base_url %}{{ editor_content_js_files.0.url }}"
+        data-content-css="{% get_base_url %}{{ editor_content_css_files.0.url }}"
         data-content-style="{{ content_style }}"
         data-media-button-translation="{% trans 'Media Library' %}"
         data-media-item-translation="{% trans 'Media Library...' %}"

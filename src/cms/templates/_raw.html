@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +10,8 @@
     <title>{% trans 'Integreat Editorial System' %}</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'images/integreat-icon.png' %}">
 
-    <script src="{% static 'main.js' %}"></script>
-    <link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
+    {% render_bundle 'main' 'js' %}
+    {% render_bundle 'main' 'css' %}
 
     {% block javascript_head %}{% endblock %}
 </head>

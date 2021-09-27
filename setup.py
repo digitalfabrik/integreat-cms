@@ -37,6 +37,7 @@ setup(
         "django-linkcheck",
         "django-mptt",
         "django-widget-tweaks",
+        "django-webpack-loader",
         "feedparser",
         "idna",
         "lxml",

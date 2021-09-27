@@ -36,7 +36,11 @@ echo -e "Starting WebPack dev server in background..." | print_info | print_pref
 deescalate_privileges npm run dev 2>&1 | print_prefix "webpack" 36 &
 
 # Waiting for initial WebPack dev build
-while [[ ! -f "${BASE_DIR}/src/cms/static/main.js" ]]; do sleep 1; done
+compgen -G "${BASE_DIR}/src/cms/static/main.*.js" > /dev/null
+while [[ $? -eq 1 ]]; do 
+    sleep 1
+    compgen -G "${BASE_DIR}/src/cms/static/main.*.js" > /dev/null
+done
 
 # Show success message once dev server is up
 listen_for_devserver &
