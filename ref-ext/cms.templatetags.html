@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-07-04T19:02:23+00:00" />
+    <meta property="article:modified_time" content="2021-09-16T19:54:23+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Templatetags &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1369,6 +1369,44 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 <span id="page-filters"></span><h2>Page Filters<a class="headerlink" href="#module-cms.templatetags.page_filters" title="Permalink to this headline"></a></h2>
 <p>This is a collection of tags and filters for <a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> objects.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="cms.templatetags.page_filters.get_depth_in">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.page_filters.</span></span><span class="sig-name descname"><span class="pre">get_depth_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pageset</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/page_filters.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.page_filters.get_depth_in" title="Permalink to this definition"></a></dt>
+<dd><p>This tag returns the depth of node whithin the tree/pages in pageset.</p>
+<p>:param node : the page
+:type node : ~cms.models.pages.page.Page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pageset</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> [ </em><a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a><em> ]</em>) – The pages (all pages or pages chosen by filter)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the depth of node whithin the tree/pages in pageset</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cms.templatetags.page_filters.get_highest_anscentor_in">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.page_filters.</span></span><span class="sig-name descname"><span class="pre">get_highest_anscentor_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pageset</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/page_filters.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.page_filters.get_highest_anscentor_in" title="Permalink to this definition"></a></dt>
+<dd><p>This tag returns the highest (farthest) anscestor of node whithin the tree/pages in pageset.</p>
+<p>:param node : the page
+:type node : ~cms.models.pages.page.Page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pageset</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> [ </em><a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><em>Page</em></a><em> ]</em>) – The pages (all pages or pages chosen by filter)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the highest (farthest) anscestor of node whithin the tree/pages in pageset</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page">Page</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="cms.templatetags.page_filters.get_last_root_page">
 <span class="sig-prename descclassname"><span class="pre">cms.templatetags.page_filters.</span></span><span class="sig-name descname"><span class="pre">get_last_root_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/page_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.page_filters.get_last_root_page" title="Permalink to this definition"></a></dt>
 <dd><p>This tag returns the last page on the root level.</p>
@@ -1606,7 +1644,7 @@ this filter reduced the output when display in list view</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 04, 2021.
+      <span class="lastupdated">Last updated on Sep 16, 2021.
       </span></p>
   </div>
 
