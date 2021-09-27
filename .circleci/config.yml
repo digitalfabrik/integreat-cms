@@ -86,11 +86,11 @@ jobs:
       - run:
           name: Migrate database
           command: |
-            pipenv run integreat-cms-cli makemigrations cms
-            pipenv run integreat-cms-cli migrate
+            pipenv run integreat-cms-cli makemigrations cms --settings=backend.circleci_settings
+            pipenv run integreat-cms-cli migrate --settings=backend.circleci_settings
       - run:
           name: Run tests
-          command: pipenv run integreat-cms-cli test cms --set=COVERAGE
+          command: pipenv run integreat-cms-cli test cms --set=COVERAGE --settings=backend.circleci_settings
       - store_artifacts:
           path: htmlcov
   check-translations:
@@ -119,7 +119,7 @@ jobs:
           name: Compile translation file
           command: |
             cd src/cms
-            pipenv run integreat-cms-cli compilemessages
+            pipenv run integreat-cms-cli compilemessages --settings=backend.circleci_settings
       - persist_to_workspace:
           root: .
           paths:
