@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-22T17:59:05+00:00" />
+    <meta property="article:modified_time" content="2021-09-20T12:01:54+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1580,7 +1580,7 @@ Used in the following views:</p>
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">INSTALLED_APPS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['cms.apps.CmsConfig',</span> <span class="pre">'gvz_api.apps.GvzApiConfig',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig',</span> <span class="pre">'linkcheck',</span> <span class="pre">'django.contrib.admin']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">INSTALLED_APPS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['cms.apps.CmsConfig',</span> <span class="pre">'gvz_api.apps.GvzApiConfig',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig',</span> <span class="pre">'linkcheck',</span> <span class="pre">'webpack_loader',</span> <span class="pre">'django.contrib.admin']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Enabled applications (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-INSTALLED_APPS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;cms.apps.CmsConfig&#39;</span><span class="p">,</span>
@@ -1596,6 +1596,7 @@ Used in the following views:</p>
     <span class="s1">&#39;mptt&#39;</span><span class="p">,</span>
     <span class="s1">&#39;rules.apps.AutodiscoverRulesConfig&#39;</span><span class="p">,</span>
     <span class="s1">&#39;linkcheck&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;webpack_loader&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
@@ -1975,6 +1976,15 @@ deployment (see <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py data">
 <dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">WEBPACK_LOADER</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'DEFAULT':</span> <span class="pre">{'BUNDLE_DIR_NAME':</span> <span class="pre">''}}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Overwrite default bundle directory</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;DEFAULT&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;BUNDLE_DIR_NAME&#39;</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">}}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">WEBSITE_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'https://integreat-app.de'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>URL to the Integreat Website</p>
 </dd></dl>
@@ -2066,7 +2076,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 22, 2021.
+      <span class="lastupdated">Last updated on Sep 20, 2021.
       </span></p>
   </div>
 
