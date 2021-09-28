@@ -73,11 +73,14 @@ jobs:
   tests:
     docker:
       - image: circleci/python:3.7
+        environment:
+          DJANGO_REDIS_CACHE: true
       - image: circleci/postgres:alpine
         environment:
           POSTGRES_USER: integreat
           POSTGRES_DB: integreat
           POSTGRES_PASSWORD: password
+      - image: redis
     resource_class: small
     steps:
       - checkout

@@ -85,9 +85,11 @@ intersphinx_mapping = {
         f"https://docs.djangoproject.com/en/{django_doc_version}/",
         f"https://docs.djangoproject.com/en/{django_doc_version}/_objects/",
     ),
-    "django-filer": ("https://django-filer.readthedocs.io/en/latest/", None),
+    "django-debug-toolbar": (
+        "https://django-debug-toolbar.readthedocs.io/en/latest/",
+        None,
+    ),
     "django-mptt": ("https://django-mptt.readthedocs.io/en/latest/", None),
-    "easy-thumbnails": ("https://easy-thumbnails.readthedocs.io/en/latest/", None),
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
     "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest/", None),
 }

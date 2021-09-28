@@ -15,6 +15,8 @@ fi
 INTEGREAT_CMS_PORT=8000
 # The name of the used database docker container
 DOCKER_CONTAINER_NAME="integreat_django_postgres"
+# Write the path to the redis socket into this file if you want to use the unix socket connection for your dev redis cache
+REDIS_SOCKET_LOCATION="./.redis_socket_location"
 # Change to dev tools directory
 cd "$(dirname "${BASH_SOURCE[0]}")"
 # The absolute path to the dev tools directory
@@ -303,6 +305,27 @@ function require_database {
         export DJANGO_SETTINGS_MODULE="backend.docker_settings"
         # Make sure a docker container is up and running
         ensure_docker_container_running
+    fi
+}
+
+# This function sets the correct environment variables for the local Redis cache
+function configure_redis_cache {
+    # Check if local Redis server is running
+    echo "Checking if local Redis server is running..." | print_info
+    if nc -z localhost 6379; then
+        # Enable redis cache if redis server is running
+        export DJANGO_REDIS_CACHE=1
+        # Check if enhanced connection via unix socket is available (write the location into $REDIS_SOCKET_LOCATION)
+        if [[ -f "$REDIS_SOCKET_LOCATION" ]]; then
+            # Set location of redis unix socket
+            DJANGO_REDIS_UNIX_SOCKET=$(cat "$REDIS_SOCKET_LOCATION")
+            export DJANGO_REDIS_UNIX_SOCKET
+            echo "✔ Running Redis server on socket $DJANGO_REDIS_UNIX_SOCKET detected. Caching enabled." | print_success
+        else
+            echo "✔ Running Redis server on port 6379 detected. Caching enabled." | print_success
+        fi
+    else
+        echo "❌No Redis server detected. Falling back to local-memory cache." | print_warning
     fi
 }
 

@@ -2,7 +2,7 @@ import hashlib
 import logging
 
 from django.contrib.staticfiles import finders
-from django.core.cache import cache
+from django.core.cache import caches
 from django.db.models import Min
 from django.http import HttpResponse
 from django.template.loader import get_template
@@ -57,6 +57,7 @@ def generate_pdf(region, language_slug, pages):
     pdf_key_string = "_".join(map(str, pdf_key_list))
     # compute the hash value based on the hash key
     pdf_hash = hashlib.sha256(bytes(pdf_key_string, "utf-8")).hexdigest()
+    cache = caches["pdf"]
     cached_response = cache.get(pdf_hash, "has_expired")
     if cached_response != "has_expired":
         # if django cache already contains a response object

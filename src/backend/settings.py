@@ -30,6 +30,14 @@ Email settings:
     * ``DJANGO_EMAIL_HOST_USER``: :attr:`~backend.settings.EMAIL_HOST_USER`
     * ``DJANGO_EMAIL_PORT``: :attr:`~backend.settings.EMAIL_PORT`
 
+Cache settings: :attr:`~backend.settings.CACHES`
+
+    * ``DJANGO_REDIS_CACHE``: Whether or not the Redis cache should be enabled
+    * ``DJANGO_REDIS_UNIX_SOCKET``:  If Redis is enabled and available via a unix socket, set this environment variable
+      to the location of the socket, e.g. ``/var/run/redis/redis.sock``.
+      Otherwise, the connection falls back to a regular TCP connection on port ``6379``.
+      For development, this can also be set via the file ``.redis_socket_location``.
+
 """
 import os
 import urllib
@@ -154,25 +162,34 @@ else:
 
 #: Enabled applications (see :setting:`django:INSTALLED_APPS`)
 INSTALLED_APPS = [
+    # Installed custom apps
     "cms.apps.CmsConfig",
     "gvz_api.apps.GvzApiConfig",
+    # Installed Django apps
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.messages",
     "django.contrib.sessions",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
+    # Installed third-party-apps
     "corsheaders",
-    "widget_tweaks",
+    "linkcheck",
     "mptt",
     "rules.apps.AutodiscoverRulesConfig",
-    "linkcheck",
     "webpack_loader",
+    "widget_tweaks",
 ]
 
-# The default Django Admin application will only be activated if the system is in debug mode.
+# Install cacheops only if redis cache is available
+if "DJANGO_REDIS_CACHE" in os.environ:
+    INSTALLED_APPS.append("cacheops")
+
+# The default Django Admin application and debug toolbar will only be activated if the system is in debug mode.
 if DEBUG:
     INSTALLED_APPS.append("django.contrib.admin")
+    # Comment out the following line if you want to disable the Django debug toolbar
+    INSTALLED_APPS.append("debug_toolbar")
 
 #: Activated middlewares (see :setting:`django:MIDDLEWARE`)
 MIDDLEWARE = [
@@ -187,6 +204,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "cms.middleware.timezone_middleware.TimezoneMiddleware",
 ]
+
+# The Django debug toolbar middleware will only be activated if the debug_toolbar app is installed
+if "debug_toolbar" in INSTALLED_APPS:
+    # The debug toolbar middleware should be put first (see :doc:`django-debug-toolbar:installation`)
+    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
 #: Default URL dispatcher (see :setting:`django:ROOT_URLCONF`)
 ROOT_URLCONF = "backend.urls"
@@ -294,7 +316,7 @@ CSRF_FAILURE_VIEW = "cms.views.error_handler.csrf_failure"
 #: (see `django-cors-headers/ <https://pypi.org/project/django-cors-headers/>`__)
 CORS_ORIGIN_ALLOW_ALL = True
 
-#: Extend default headers with development header to differenciate dev traffic in statistics
+#: Extend default headers with development header to differentiate dev traffic in statistics
 #: (see `django-cors-headers/ <https://pypi.org/project/django-cors-headers/>`__)
 CORS_ALLOW_HEADERS = [
     "accept",
@@ -484,10 +506,6 @@ LOGGING = {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },
-        "filer": {
-            "handlers": ["console", "logfile"],
-            "level": DEPS_LOG_LEVEL,
-        },
         "PIL": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
@@ -649,13 +667,49 @@ LEGACY_FILE_UPLOAD = False
 # CACHE #
 #########
 
-#: Configuration for PDF cache (see :setting:`django:CACHES`)
+#: Configuration for caches (see :setting:`django:CACHES` and :doc:`django:topics/cache`).
+#: Use a ``LocMemCache`` for development and a ``RedisCache`` whenever available.
+#: Additionally, a ``FileBasedCache`` is used for PDF caching.
 CACHES = {
     "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    },
+    "pdf": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": os.path.join(STATIC_ROOT, "CACHE/django_cache"),
-    }
+        "LOCATION": os.path.join(STATIC_ROOT, "CACHE/pdf"),
+    },
 }
+
+# Use RedisCache when activated
+if os.getenv("DJANGO_REDIS_CACHE"):
+    unix_socket = os.getenv("DJANGO_REDIS_UNIX_SOCKET")
+    if unix_socket:
+        # Use unix socket if available
+        redis_location = f"unix://{unix_socket}?db=1"
+    else:
+        # If not, fall back to normal TCP connection
+        redis_location = "redis://127.0.0.1:6379/1"
+    CACHES["default"] = {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": redis_location,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "IGNORE_EXCEPTIONS": True,  # Don't throw exceptions when redis is not available
+        },
+    }
+
+#: Default cache timeout for cacheops
+CACHEOPS_DEFAULTS = {"timeout": 60 * 60}
+
+#: Which database tables should be cached
+CACHEOPS = {
+    "auth.*": {"ops": "all"},
+    "cms.*": {"ops": "all"},
+    "*.*": {},
+}
+
+#: Degrade gracefully on redis fail
+CACHEOPS_DEGRADE_ON_FAILURE = True
 
 
 ##############
@@ -675,6 +729,7 @@ PER_PAGE = 16
 if "LINKCHECK_DISABLE_LISTENERS" in os.environ:
     LINKCHECK_DISABLE_LISTENERS = True
 
+
 #############################
 # Push Notification Channel #
 #############################
@@ -692,3 +747,26 @@ WEBPACK_LOADER = {
         "BUNDLE_DIR_NAME": "",
     }
 }
+
+
+########################
+# DJANGO DEBUG TOOLBAR #
+########################
+
+#: This setting specifies the full Python path to each panel that you want included in the toolbar.
+#:  (see :doc:`django-debug-toolbar:configuration`)
+DEBUG_TOOLBAR_PANELS = [
+    "debug_toolbar.panels.timer.TimerPanel",
+    "debug_toolbar.panels.sql.SQLPanel",
+    "debug_toolbar.panels.cache.CachePanel",
+    "debug_toolbar.panels.signals.SignalsPanel",
+    "debug_toolbar.panels.templates.TemplatesPanel",
+    "debug_toolbar.panels.staticfiles.StaticFilesPanel",
+    "debug_toolbar.panels.logging.LoggingPanel",
+    "debug_toolbar.panels.redirects.RedirectsPanel",
+    "debug_toolbar.panels.profiling.ProfilingPanel",
+    "debug_toolbar.panels.request.RequestPanel",
+    "debug_toolbar.panels.headers.HeadersPanel",
+    "debug_toolbar.panels.history.HistoryPanel",
+    "debug_toolbar.panels.settings.SettingsPanel",
+]
