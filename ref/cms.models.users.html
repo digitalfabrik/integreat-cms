@@ -344,11 +344,9 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#authentication-form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#region-user-form">Region User Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-email-form">User Email Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-form">User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-password-form">User Password Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
@@ -425,8 +423,8 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#organization">Organization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#role">Role</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#user">User</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#user-mfa-key">User MFA Key</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#user-profile">User Profile</a></li>
 </ul>
 </li>
 </ul>
@@ -621,6 +619,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#page-xliff-converter">Page Xliff Converter</a></li>
@@ -792,11 +791,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.authentication_form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_form">User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_password_form">User Password Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
@@ -873,8 +870,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.role">Role</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user">User</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
 </li>
 </ul>
@@ -1069,6 +1066,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
@@ -1163,7 +1161,7 @@
   <section id="users">
 <h1>Users<a class="headerlink" href="#users" title="Permalink to this headline"></a></h1>
 <p>This package contains all user-related data models:
-<a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile" title="cms.models.users.user_profile.UserProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfile</span></code></a>,
+<a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user.User" title="cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>,
 <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.organization.Organization" title="cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a> and
 <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey" title="cms.models.users.user_mfa_key.UserMfaKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserMfaKey</span></code></a>
 (see also <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User</span></code></a> for Django’s base user model)</p>
@@ -1196,7 +1194,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All pages of this organization (related name of <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page.organization" title="cms.models.pages.page.Page.organization"><code class="xref py py-attr docutils literal notranslate"><span class="pre">organization</span></code></a>)</p></li>
-<li><p><strong>members</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile" title="cms.models.users.user_profile.UserProfile"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserProfile</span></code></a>) – All members of this organization (related name of <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.organization" title="cms.models.users.user_profile.UserProfile.organization"><code class="xref py py-attr docutils literal notranslate"><span class="pre">organization</span></code></a>)</p></li>
+<li><p><strong>members</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user.User" title="cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – All members of this organization (related name of <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user.User.organization" title="cms.models.users.user.User.organization"><code class="xref py py-attr docutils literal notranslate"><span class="pre">organization</span></code></a>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -1284,6 +1282,133 @@
 </dd></dl>
 
 </section>
+<section id="user">
+<h2>User<a class="headerlink" href="#user" title="Permalink to this headline"></a></h2>
+<p>Custom user model that is used instead of the default Django user model</p>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.models.users.user.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#django.contrib.auth.models.AbstractUser" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.AbstractUser</span></code></a></p>
+<p>A custom User model that replaces the default Django User model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Password</p></li>
+<li><p><strong>last_login</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Last login</p></li>
+<li><p><strong>is_superuser</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Superuser status. Designates that this user has all permissions without explicitly assigning them.</p></li>
+<li><p><strong>username</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Username. Required. 150 characters or fewer. Letters, digits and &#64;/./+/-/_ only.</p></li>
+<li><p><strong>first_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – First name</p></li>
+<li><p><strong>last_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Last name</p></li>
+<li><p><strong>email</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.EmailField" title="(in Django v3.2)"><em>EmailField</em></a>) – Email address</p></li>
+<li><p><strong>is_staff</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Staff status. Designates whether the user can log into this admin site.</p></li>
+<li><p><strong>is_active</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Active. Designates whether this user should be treated as active. Unselect this instead of deleting accounts.</p></li>
+<li><p><strong>date_joined</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Date joined</p></li>
+<li><p><strong>chat_last_visited</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Last chat visit date. The date and time when the user did read the chat the last time</p></li>
+<li><p><strong>expert_mode</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Experienced user. Enable this option to show up additional features like XLIFF import/export, page filtering, mirrored pages, page-based permissions, Do-Not-Translate-Tag and recurring events</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>organization</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.organization.Organization" title="cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a>) – Organization. This allows the user to edit and publish all pages for which the organisation is registered as the responsible organisation (related name: <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.organization.Organization.members" title="cms.models.users.organization.Organization.members"><code class="xref py py-attr docutils literal notranslate"><span class="pre">members</span></code></a>)</p></li>
+<li><p><strong>groups</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.Group" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a>) – Groups. The groups this user belongs to. A user will get all permissions granted to each of their groups. (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">user_set</span></code>)</p></li>
+<li><p><strong>user_permissions</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.Permission" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Permission</span></code></a>) – User permissions. Specific permissions for this user. (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">user_set</span></code>)</p></li>
+<li><p><strong>regions</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Regions. The regions to which the user has access (related name: <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region.users" title="cms.models.regions.region.Region.users"><code class="xref py py-attr docutils literal notranslate"><span class="pre">users</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chat_messages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatMessage" title="cms.models.chat.chat_message.ChatMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChatMessage</span></code></a>) – All chat messages of this user (related name of <a class="reference internal" href="../ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatMessage.sender" title="cms.models.chat.chat_message.ChatMessage.sender"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sender</span></code></a>)</p></li>
+<li><p><strong>event_translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a>) – All event translations of this user (related name of <a class="reference internal" href="../ref-ext/cms.models.events.html#cms.models.events.event_translation.EventTranslation.creator" title="cms.models.events.event_translation.EventTranslation.creator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">creator</span></code></a>)</p></li>
+<li><p><strong>feedback</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.feedback.html#cms.models.feedback.feedback.Feedback" title="cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – All feedback of this user (related name of <a class="reference internal" href="../ref-ext/cms.models.feedback.html#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a>)</p></li>
+<li><p><strong>poi_translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a>) – All poi translations of this user (related name of <a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi_translation.POITranslation.creator" title="cms.models.pois.poi_translation.POITranslation.creator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">creator</span></code></a>)</p></li>
+<li><p><strong>editable_pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All editable pages of this user (related name of <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page.editors" title="cms.models.pages.page.Page.editors"><code class="xref py py-attr docutils literal notranslate"><span class="pre">editors</span></code></a>)</p></li>
+<li><p><strong>publishable_pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All publishable pages of this user (related name of <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page.publishers" title="cms.models.pages.page.Page.publishers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">publishers</span></code></a>)</p></li>
+<li><p><strong>page_translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>) – All page translations of this user (related name of <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page_translation.PageTranslation.creator" title="cms.models.pages.page_translation.PageTranslation.creator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">creator</span></code></a>)</p></li>
+<li><p><strong>imprint_translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.imprint_page_translation.ImprintPageTranslation" title="cms.models.pages.imprint_page_translation.ImprintPageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPageTranslation</span></code></a>) – All imprint translations of this user (related name of <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.imprint_page_translation.ImprintPageTranslation.creator" title="cms.models.pages.imprint_page_translation.ImprintPageTranslation.creator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">creator</span></code></a>)</p></li>
+<li><p><strong>mfa_keys</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey" title="cms.models.users.user_mfa_key.UserMfaKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserMfaKey</span></code></a>) – All mfa keys of this user (related name of <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user_mfa_key.UserMfaKey.user" title="cms.models.users.user_mfa_key.UserMfaKey.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p></li>
+<li><p><strong>logentry</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#django.contrib.admin.models.LogEntry" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogEntry</span></code></a>) – All log entries of this user (related name of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#django.contrib.admin.models.LogEntry.user" title="(in Django v3.2)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">full_user_name</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return the full name of the user. If either the first or the last name are present, return them, otherwise
+return the username.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The full name of the user</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">role</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>We refer to Django user groups as roles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The role of this user</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.role.Role" title="cms.models.users.role.Role">Role</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">unread_chat_messages</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return all unread messages of this user</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The unread messages of this user</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatMessage" title="cms.models.chat.chat_message.ChatMessage">ChatMessage</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">update_chat_last_visited</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user.py#L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Update the <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user.User.chat_last_visited" title="cms.models.users.user.User.chat_last_visited"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chat_last_visited</span></code></a> to the current time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Return the previous <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user.User.chat_last_visited" title="cms.models.users.user.User.chat_last_visited"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chat_last_visited</span></code></a> value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="user-mfa-key">
 <h2>User MFA Key<a class="headerlink" href="#user-mfa-key" title="Permalink to this headline"></a></h2>
 <dl class="py class">
@@ -1307,7 +1432,7 @@
 <p>Relationship fields:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – User (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">mfa_keys</span></code>)</p>
+<dd class="field-odd"><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user.User" title="cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – User (related name: <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user.User.mfa_keys" title="cms.models.users.user.User.mfa_keys"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mfa_keys</span></code></a>)</p>
 </dd>
 </dl>
 <dl class="py exception">
@@ -1320,104 +1445,6 @@
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_mfa_key.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="user-profile">
-<h2>User Profile<a class="headerlink" href="#user-profile" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.models.users.user_profile.</span></span><span class="sig-name descname"><span class="pre">UserProfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
-<p>Data model representing a user profile</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
-<li><p><strong>chat_last_visited</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Last chat visit date. The date and time when the user did read the chat the last time</p></li>
-<li><p><strong>expert_mode</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Experienced user. Enable this option to show up additional features like XLIFF import/export, page filtering, mirrored pages, page-based permissions, Do-Not-Translate-Tag and recurring events</p></li>
-</ul>
-</dd>
-</dl>
-<p>Relationship fields:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – User (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">profile</span></code>)</p></li>
-<li><p><strong>organization</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.organization.Organization" title="cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a>) – Organization. This allows the user to edit and publish all pages for which the organisation is registered as the responsible organisation (related name: <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.organization.Organization.members" title="cms.models.users.organization.Organization.members"><code class="xref py py-attr docutils literal notranslate"><span class="pre">members</span></code></a>)</p></li>
-<li><p><strong>regions</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Regions. The regions to which the user has access (related name: <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region.user_profiles" title="cms.models.regions.region.Region.user_profiles"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user_profiles</span></code></a>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py exception">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
-</dd></dl>
-
-<dl class="py exception">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">full_user_name</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Return the full name of the user. If either the first or the last name are present, return them, otherwise
-return the username.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The full name of the user</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">role</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>We refer to Django user groups as roles.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The role of this user</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.role.Role" title="cms.models.users.role.Role">Role</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">unread_chat_messages</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Return all unread messages of this user</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The unread messages of this user</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/cms.models.chat.html#cms.models.chat.chat_message.ChatMessage" title="cms.models.chat.chat_message.ChatMessage">ChatMessage</a> ]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">update_chat_last_visited</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/users/user_profile.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Update the <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.chat_last_visited" title="cms.models.users.user_profile.UserProfile.chat_last_visited"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cms.models.users.user_profile.UserProfile.chat_last_visited</span></code></a> to the current time</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Return the previous <a class="reference internal" href="../ref-ext/cms.models.users.html#cms.models.users.user_profile.UserProfile.chat_last_visited" title="cms.models.users.user_profile.UserProfile.chat_last_visited"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cms.models.users.user_profile.UserProfile.chat_last_visited</span></code></a> value</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime</a></p>
-</dd>
-</dl>
 </dd></dl>
 
 </dd></dl>

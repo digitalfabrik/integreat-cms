@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-01T09:34:09+00:00" />
+    <meta property="article:modified_time" content="2021-09-23T14:26:10+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CMS &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -344,11 +344,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#authentication-form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#region-user-form">Region User Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-email-form">User Email Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-form">User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-password-form">User Password Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
@@ -425,8 +423,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#organization">Organization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#role">Role</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user">User</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-mfa-key">User MFA Key</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
 </li>
 </ul>
@@ -621,6 +619,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#page-xliff-converter">Page Xliff Converter</a></li>
@@ -792,11 +791,9 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.authentication_form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_form">User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_password_form">User Password Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
@@ -873,8 +870,8 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.role">Role</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user">User</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
 </li>
 </ul>
@@ -1069,6 +1066,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cms.admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cms.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-cms.auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cms.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cms.linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
@@ -1263,11 +1261,9 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.authentication_form">Authentication Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_form">User Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_password_form">User Password Form</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
@@ -1344,8 +1340,8 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.role">Role</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user">User</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
 </li>
 </ul>
@@ -1676,13 +1672,125 @@ not changed in production mode and show an error message if this is the case.</p
 </dd></dl>
 
 </section>
+<section id="module-cms.auth">
+<span id="auth"></span><h2>Auth<a class="headerlink" href="#module-cms.auth" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.auth.</span></span><span class="sig-name descname"><span class="pre">WPBCryptPasswordHasher</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/auth.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.hashers.BCryptSHA256PasswordHasher</span></code></p>
+<p>A PHP (and WordPress) compatible BCrypt password hasher that supports hashes with <code class="docutils literal notranslate"><span class="pre">$2y$10$</span></code>.
+See <a class="reference external" href="https://www.php.net/manual/en/function.password-hash.php">https://www.php.net/manual/en/function.password-hash.php</a>.
+For PHP style hashes only verification is supported.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/auth.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.algorithm">
+<span class="sig-name descname"><span class="pre">algorithm</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'bcrypt_php'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/auth.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.algorithm" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.decode">
+<span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoded</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/hashers.py#L457"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.decode" title="Permalink to this definition"></a></dt>
+<dd><p>Return a decoded database value.</p>
+<p>The result is a dictionary and should contain <cite>algorithm</cite>, <cite>hash</cite>, and
+<cite>salt</cite>. Extra keys can be algorithm specific like <cite>iterations</cite> or
+<cite>work_factor</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.digest">
+<span class="sig-name descname"><span class="pre">digest</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/auth.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.digest" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a sha256 hash object; optionally initialized with a string</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">salt</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/hashers.py#L445"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.encode" title="Permalink to this definition"></a></dt>
+<dd><p>Create an encoded database value.</p>
+<p>The result is normally formatted as “algorithm$salt$hash” and
+must be fewer than 128 characters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.harden_runtime">
+<span class="sig-name descname"><span class="pre">harden_runtime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoded</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/hashers.py#L487"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.harden_runtime" title="Permalink to this definition"></a></dt>
+<dd><p>Bridge the runtime gap between the work factor supplied in <cite>encoded</cite>
+and the work factor suggested by this hasher.</p>
+<p>Taking PBKDF2 as an example, if <cite>encoded</cite> contains 20000 iterations and
+<cite>self.iterations</cite> is 30000, this method should run password through
+another 10000 iterations of PBKDF2. Similar approaches should exist
+for any hasher that has a work factor. If not, this method should be
+defined as a no-op to silence the warning.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.library">
+<span class="sig-name descname"><span class="pre">library</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('bcrypt',</span> <span class="pre">'bcrypt')</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/auth.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.library" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.must_update">
+<span class="sig-name descname"><span class="pre">must_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoded</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/hashers.py#L483"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.must_update" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.rounds">
+<span class="sig-name descname"><span class="pre">rounds</span></span><em class="property"> <span class="pre">=</span> <span class="pre">10</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/auth.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.rounds" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.safe_summary">
+<span class="sig-name descname"><span class="pre">safe_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoded</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/hashers.py#L474"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.safe_summary" title="Permalink to this definition"></a></dt>
+<dd><p>Return a summary of safe values.</p>
+<p>The result is a dictionary and will be used where the password field
+must be displayed to construct a safe representation of the password.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.salt">
+<span class="sig-name descname"><span class="pre">salt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/contrib/auth/hashers.py#L441"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.salt" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a cryptographically secure nonce salt in ASCII with an entropy
+of at least <cite>salt_entropy</cite> bits.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.salt_entropy">
+<span class="sig-name descname"><span class="pre">salt_entropy</span></span><em class="property"> <span class="pre">=</span> <span class="pre">128</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/auth.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.salt_entropy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cms.auth.WPBCryptPasswordHasher.verify">
+<span class="sig-name descname"><span class="pre">verify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoded</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/auth.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.auth.WPBCryptPasswordHasher.verify" title="Permalink to this definition"></a></dt>
+<dd><p>Validate that entered password matches stored hash</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – the plain text password</p></li>
+<li><p><strong>encoded</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – the hashed and salted password, i.e. from database</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>entered password matches the hash</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-cms.decorators">
 <span id="decorators"></span><h2>Decorators<a class="headerlink" href="#module-cms.decorators" title="Permalink to this headline"></a></h2>
 <p>Django view decorators can be used to restrict the execution of a view function on certain conditions.</p>
 <p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/decorators/" title="(in Django v3.2)"><span>View decorators</span></a>.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="cms.decorators.modify_mfa_authenticated">
-<span class="sig-prename descclassname"><span class="pre">cms.decorators.</span></span><span class="sig-name descname"><span class="pre">modify_mfa_authenticated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.decorators.modify_mfa_authenticated" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.decorators.</span></span><span class="sig-name descname"><span class="pre">modify_mfa_authenticated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.decorators.modify_mfa_authenticated" title="Permalink to this definition"></a></dt>
 <dd><p>This decorator can be used to make sure a user can only modify his 2FA settings when he has a valid 2FA session.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1717,7 +1825,7 @@ If not, the PermissionDenied exception is raised.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cms.decorators.region_permission_required">
-<span class="sig-prename descclassname"><span class="pre">cms.decorators.</span></span><span class="sig-name descname"><span class="pre">region_permission_required</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.decorators.region_permission_required" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.decorators.</span></span><span class="sig-name descname"><span class="pre">region_permission_required</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/decorators.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.decorators.region_permission_required" title="Permalink to this definition"></a></dt>
 <dd><p>This decorator can be used to make sure a view can only be retrieved by users of the requested region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2514,7 +2622,7 @@ See <a class="reference internal" href="backend.html#module-backend.urls" title=
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 01, 2021.
+      <span class="lastupdated">Last updated on Sep 23, 2021.
       </span></p>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-19T08:49:24+00:00" />
+    <meta property="article:modified_time" content="2021-09-23T14:26:10+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Documentation (Sphinx) &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -344,11 +344,9 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.users.html#authentication-form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.users.html#region-user-form">Region User Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.users.html#user-email-form">User Email Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.users.html#user-form">User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.users.html#user-password-form">User Password Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
@@ -425,8 +423,8 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#organization">Organization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#role">Role</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#user">User</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#user-mfa-key">User MFA Key</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref/cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
 </li>
 </ul>
@@ -621,6 +619,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.html#admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ref/cms.html#auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.html#decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.html#linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/cms.html#page-xliff-converter">Page Xliff Converter</a></li>
@@ -792,11 +791,9 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.users.html#module-cms.forms.users.authentication_form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.users.html#module-cms.forms.users.user_form">User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.users.html#module-cms.forms.users.user_password_form">User Password Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
@@ -873,8 +870,8 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.role">Role</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.user">User</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
 </li>
 </ul>
@@ -1069,6 +1066,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
@@ -1484,7 +1482,7 @@ For a full list see the documentation: <a class="reference external" href="https
 
 <dl class="py function">
 <dt class="sig sig-object py" id="conf.linkcode_resolve">
-<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">linkcode_resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">linkcode_resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py#L169"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.linkcode_resolve" title="Permalink to this definition"></a></dt>
 <dd><p>This function adds source code links to all modules (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html#module-sphinx.ext.linkcode" title="(in Sphinx v5.0.0+)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.linkcode</span></code></a>).
 It links all classes and functions to their source files on GitHub including line numbers.</p>
 <dl class="field-list simple">
@@ -1514,23 +1512,13 @@ It links all classes and functions to their source files on GitHub including lin
 
 <dl class="py data">
 <dt class="sig sig-object py" id="conf.nitpick_ignore">
-<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">nitpick_ignore</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('py:class',</span> <span class="pre">'builtins.AssertionError'),</span> <span class="pre">('py:class',</span> <span class="pre">'builtins.int'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.Group.role'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.chat_messages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.editable_pages'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.feedback'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.mfa_keys'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.imprint_translations'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.utils.datastructures.MultiValueDict'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.poi_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.profile'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.User.publishable_pages'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.contrib.auth.tokens.PasswordResetTokenGenerator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.contrib.sitemaps.Sitemap._urls'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.handlers.WSGIHandler'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.forms.models.ModelChoiceIterator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.utils.text.capfirst'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.Linklist'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.models.Link'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.poi_translations'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.fields.TreeForeignKey'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.forms.TreeNodeChoiceField'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.models.MPTTModel'),</span> <span class="pre">('py:class',</span> <span class="pre">'realms.magic.unicorn'),</span> <span class="pre">('py:class',</span> <span class="pre">'webauthn.WebAuthnUser'),</span> <span class="pre">('js:func',</span> <span class="pre">'cms.static.js.pages.page_bulk_action.bulk_action_execute'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.mail.EmailMultiAlternatives')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpick_ignore" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">nitpick_ignore</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[('py:class',</span> <span class="pre">'builtins.AssertionError'),</span> <span class="pre">('py:class',</span> <span class="pre">'builtins.int'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.Group.role'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.utils.datastructures.MultiValueDict'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.contrib.auth.tokens.PasswordResetTokenGenerator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.contrib.sitemaps.Sitemap._urls'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.handlers.WSGIHandler'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.forms.models.ModelChoiceIterator'),</span> <span class="pre">('py:func',</span> <span class="pre">'django.utils.text.capfirst'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.Linklist'),</span> <span class="pre">('py:class',</span> <span class="pre">'linkcheck.models.Link'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.event_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.page_translations'),</span> <span class="pre">('py:attr',</span> <span class="pre">'linkcheck.models.Link.poi_translations'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.fields.TreeForeignKey'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.forms.TreeNodeChoiceField'),</span> <span class="pre">('py:class',</span> <span class="pre">'mptt.models.MPTTModel'),</span> <span class="pre">('py:class',</span> <span class="pre">'realms.magic.unicorn'),</span> <span class="pre">('py:class',</span> <span class="pre">'webauthn.WebAuthnUser'),</span> <span class="pre">('js:func',</span> <span class="pre">'cms.static.js.pages.page_bulk_action.bulk_action_execute'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.core.mail.EmailMultiAlternatives'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.Permission.user_set'),</span> <span class="pre">('py:attr',</span> <span class="pre">'django.contrib.auth.models.Group.user_set'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.contrib.auth.base_user.BaseUserManager'),</span> <span class="pre">('py:class',</span> <span class="pre">'django.contrib.auth.hashers.BCryptSHA256PasswordHasher')]</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.nitpick_ignore" title="Permalink to this definition"></a></dt>
 <dd><p>A list of (type, target) tuples that should be ignored when <a class="reference internal" href="#conf.nitpicky" title="conf.nitpicky"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nitpicky</span></code></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;builtins.AssertionError&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;builtins.int&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.Group.role&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.chat_messages&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.editable_pages&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.event_translations&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.feedback&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.mfa_keys&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.imprint_translations&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;django.utils.datastructures.MultiValueDict&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.poi_translations&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.page_translations&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.profile&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.User.publishable_pages&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.tokens.PasswordResetTokenGenerator&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:func&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.sitemaps.Sitemap._urls&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;django.core.handlers.WSGIHandler&#39;</span><span class="p">),</span>
@@ -1548,6 +1536,10 @@ It links all classes and functions to their source files on GitHub including lin
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;webauthn.WebAuthnUser&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;js:func&#39;</span><span class="p">,</span> <span class="s1">&#39;cms.static.js.pages.page_bulk_action.bulk_action_execute&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;django.core.mail.EmailMultiAlternatives&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.Permission.user_set&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;py:attr&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.models.Group.user_set&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.base_user.BaseUserManager&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;py:class&#39;</span><span class="p">,</span> <span class="s1">&#39;django.contrib.auth.hashers.BCryptSHA256PasswordHasher&#39;</span><span class="p">),</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -1604,7 +1596,7 @@ It links all classes and functions to their source files on GitHub including lin
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 19, 2021.
+      <span class="lastupdated">Last updated on Sep 23, 2021.
       </span></p>
   </div>
 

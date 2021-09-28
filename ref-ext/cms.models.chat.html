@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-05-16T11:40:30+00:00" />
+    <meta property="article:modified_time" content="2021-09-22T12:25:11+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chat &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -344,11 +344,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#authentication-form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#region-user-form">Region User Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#region-user-profile-form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-email-form">User Email Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-form">User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-password-form">User Password Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.forms.users.html#user-profile-form">User Profile Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
@@ -425,8 +423,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#organization">Organization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#role">Role</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user">User</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-mfa-key">User MFA Key</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/cms.models.users.html#user-profile">User Profile</a></li>
 </ul>
 </li>
 </ul>
@@ -621,6 +619,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#page-xliff-converter">Page Xliff Converter</a></li>
@@ -792,11 +791,9 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.authentication_form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_form">Region User Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.region_user_profile_form">Region User Profile Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_email_form">User Email Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_form">User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_password_form">User Password Form</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.forms.users.html#module-cms.forms.users.user_profile_form">User Profile Form</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
@@ -873,8 +870,8 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.models.users.html">Users</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.organization">Organization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.role">Role</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user">User</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_mfa_key">User MFA Key</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cms.models.users.html#module-cms.models.users.user_profile">User Profile</a></li>
 </ul>
 </li>
 </ul>
@@ -1069,6 +1066,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.admin">Admin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.linklists">Linklists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
@@ -1261,7 +1259,7 @@ and returning the created object.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.chat.chat_message.ChatHistoryManager.creation_counter">
-<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"> <span class="pre">=</span> <span class="pre">41</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/chat/chat_message.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.chat.chat_message.ChatHistoryManager.creation_counter" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"> <span class="pre">=</span> <span class="pre">40</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/chat/chat_message.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.chat.chat_message.ChatHistoryManager.creation_counter" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1541,7 +1539,7 @@ thus be available in e.g. RunPython operations.</p>
 <p>Relationship fields:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>sender</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Sender (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">chat_messages</span></code>)</p>
+<dd class="field-odd"><p><strong>sender</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.users.html#cms.models.users.user.User" title="cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Sender (related name: <a class="reference internal" href="cms.models.users.html#cms.models.users.user.User.chat_messages" title="cms.models.users.user.User.chat_messages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chat_messages</span></code></a>)</p>
 </dd>
 </dl>
 <dl class="py exception">
@@ -1732,8 +1730,8 @@ is used by fixture loading.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.chat.chat_message.ChatMessage.sender">
 <span class="sig-name descname"><span class="pre">sender</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/chat/chat_message.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.chat.chat_message.ChatMessage.sender" title="Permalink to this definition"></a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
-<p>Sender (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">chat_messages</span></code>)</p>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.users.html#cms.models.users.user.User" title="cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
+<p>Sender (related name: <a class="reference internal" href="cms.models.users.html#cms.models.users.user.User.chat_messages" title="cms.models.users.user.User.chat_messages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chat_messages</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1800,7 +1798,7 @@ failed.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 16, 2021.
+      <span class="lastupdated">Last updated on Sep 22, 2021.
       </span></p>
   </div>
 
