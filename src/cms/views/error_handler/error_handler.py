@@ -25,7 +25,6 @@ def render_error_template(context):
     return render_to_string("error_handler/http_error.html", context)
 
 
-# pylint: disable=unused-argument
 def handler400(request, exception):
     """
     Render a HTTP 400 Error code
@@ -40,6 +39,7 @@ def handler400(request, exception):
     :rtype: ~django.template.response.TemplateResponse
     """
     context = {
+        "request": request,
         "code": 400,
         "title": _("Bad request"),
         "message": _("There was an error in your request."),
@@ -48,7 +48,6 @@ def handler400(request, exception):
     return HttpResponseBadRequest(render_error_template(context))
 
 
-# pylint: disable=unused-argument
 def handler403(request, exception):
     """
     Render a HTTP 403 Error code
@@ -63,6 +62,7 @@ def handler403(request, exception):
     :rtype: ~django.template.response.TemplateResponse
     """
     context = {
+        "request": request,
         "code": 403,
         "title": _("Forbidden"),
         "message": _("You don't have the permission to access this page."),
@@ -71,7 +71,6 @@ def handler403(request, exception):
     return HttpResponseForbidden(render_error_template(context))
 
 
-# pylint: disable=unused-argument
 def handler404(request, exception):
     """
     Render a HTTP 404 Error code
@@ -86,6 +85,7 @@ def handler404(request, exception):
     :rtype: ~django.template.response.TemplateResponse
     """
     context = {
+        "request": request,
         "code": 404,
         "title": _("Page not found"),
         "message": _("The page you requested could not be found."),
@@ -105,6 +105,7 @@ def handler500(request):
     :rtype: ~django.template.response.TemplateResponse
     """
     context = {
+        "request": request,
         "code": 500,
         "title": _("Internal Server Error"),
         "message": _("An unexpected error has occurred."),
@@ -112,7 +113,6 @@ def handler500(request):
     return HttpResponseServerError(render_error_template(context))
 
 
-# pylint: disable=unused-argument
 def csrf_failure(request, reason):
     """
     Render a CSRF failure notice
@@ -127,6 +127,7 @@ def csrf_failure(request, reason):
     :rtype: ~django.template.response.TemplateResponse
     """
     context = {
+        "request": request,
         "code": 403,
         "title": _("CSRF Error"),
         "message": _("Please try to reload the page."),

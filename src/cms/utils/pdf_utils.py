@@ -4,7 +4,7 @@ import logging
 from django.contrib.staticfiles import finders
 from django.core.cache import caches
 from django.db.models import Min
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.template.loader import get_template
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
@@ -90,6 +90,7 @@ def generate_pdf(region, language_slug, pages):
         "language": language,
         "amount_pages": amount_pages,
         "prevent_italics": ["ar", "fa"],
+        "request": HttpRequest(),
     }
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = f'filename="{filename}"'
