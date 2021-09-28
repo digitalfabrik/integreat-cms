@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-02-06T00:31:34+00:00" />
+    <meta property="article:modified_time" content="2021-09-22T16:28:41+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Production Server &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -164,6 +164,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Production Server</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#webserver">Webserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#redis-cache">Redis Cache</a></li>
 </ul>
 </li>
 </ul>
@@ -1209,6 +1210,15 @@ You can use the <a class="reference external" href="https://github.com/Integreat
 <li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_EMAIL_PORT</span></code>: <a class="reference internal" href="ref-ext/backend.html#backend.settings.EMAIL_PORT" title="backend.settings.EMAIL_PORT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EMAIL_PORT</span></code></a></p></li>
 </ul>
 </div></blockquote>
+<p>Cache settings: <a class="reference internal" href="ref-ext/backend.html#backend.settings.CACHES" title="backend.settings.CACHES"><code class="xref py py-attr docutils literal notranslate"><span class="pre">CACHES</span></code></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_REDIS_CACHE</span></code>: Whether or not the Redis cache should be enabled</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_REDIS_UNIX_SOCKET</span></code>: If Redis is enabled and available via a unix socket, set this environment
+variable to the location of the socket, e.g. <code class="docutils literal notranslate"><span class="pre">/var/run/redis/redis.sock</span></code>.
+Otherwise, the connection falls back to a regular TCP connection on port <code class="docutils literal notranslate"><span class="pre">6379</span></code>.</p></li>
+</ul>
+</div></blockquote>
 </li>
 <li><p>Clone this repo into <code class="docutils literal notranslate"><span class="pre">/opt/</span></code>.</p></li>
 <li><p>Edit the <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py">src/backend/settings.py</a> if a setting you want to change is not configurable via
@@ -1225,6 +1235,18 @@ but this requires changes to the <code class="docutils literal notranslate"><spa
 <li><p>Run the database migrations: <code class="docutils literal notranslate"><span class="pre">integreat-cms-cli</span> <span class="pre">migrate</span></code></p></li>
 <li><p>Collect static files: <code class="docutils literal notranslate"><span class="pre">integreat-cms-cli</span> <span class="pre">collectstatic</span></code></p></li>
 </ol>
+</div></blockquote>
+</section>
+<section id="redis-cache">
+<h2>Redis Cache<a class="headerlink" href="#redis-cache" title="Permalink to this headline"></a></h2>
+<p>Install a Redis database on your system which can be used as cache.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Installation process varies across different distros (e.g. on <a class="reference external" href="https://wiki.ubuntuusers.de/Redis//">Ubuntu</a>).</p></li>
+<li><p>Set the environment variable <code class="docutils literal notranslate"><span class="pre">DJANGO_REDIS_CACHE</span></code> to activate the cache</p></li>
+<li><p>Ideally, the connection is established via a unix socket instead of TCP (Set the environment variable
+<code class="docutils literal notranslate"><span class="pre">DJANGO_REDIS_UNIX_SOCKET</span></code> to the location of the unix socket).</p></li>
+</ul>
 </div></blockquote>
 </section>
 </section>
@@ -1244,7 +1266,7 @@ but this requires changes to the <code class="docutils literal notranslate"><spa
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 06, 2021.
+      <span class="lastupdated">Last updated on Sep 22, 2021.
       </span></p>
   </div>
 
