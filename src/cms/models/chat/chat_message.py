@@ -60,7 +60,7 @@ class ChatMessage(models.Model):
         :return: A readable string representation of the chat message
         :rtype: str
         """
-        return f"{self.sent_datetime.strftime('%Y-%m-%d %H:%M')} - {self.sender.profile.full_user_name}: {self.text}"
+        return f"{self.sent_datetime.strftime('%Y-%m-%d %H:%M')} - {self.sender.full_user_name}: {self.text}"
 
     def __repr__(self):
         """

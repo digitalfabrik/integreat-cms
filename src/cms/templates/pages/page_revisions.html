@@ -45,7 +45,7 @@
     </div>
 
     {% for page_translation in page_translations %}
-    <div class="w-full hidden revision-wrapper" id="revision-{{ page_translation.version }}" data-date="{{ page_translation.last_updated }}" data-editor="{{ page_translation.creator.profile.full_user_name }}">
+    <div class="w-full hidden revision-wrapper" id="revision-{{ page_translation.version }}" data-date="{{ page_translation.last_updated }}" data-editor="{{ page_translation.creator.full_user_name }}">
         <label class="inline-block">{% trans 'Status' %}:</label>
         {{ page_translation.get_status_display }}
         {% if page_translation == api_revision %}

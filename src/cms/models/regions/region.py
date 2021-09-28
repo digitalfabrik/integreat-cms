@@ -251,7 +251,7 @@ class Region(models.Model):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
         return get_user_model().objects.filter(
-            profile__regions=self,
+            regions=self,
             is_superuser=False,
             is_staff=False,
         )

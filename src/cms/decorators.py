@@ -28,7 +28,7 @@ def staff_required(function):
         if user.is_superuser or user.is_staff:
             return True
         raise PermissionDenied(
-            f"{user.profile!r} does not have the permission to access this staff area"
+            f"{user!r} does not have the permission to access this staff area"
         )
 
     return user_passes_test(is_staff)(function)
@@ -49,9 +49,7 @@ def permission_required(permission):
     def check_permission(user):
         if user.has_perm(permission):
             return True
-        raise PermissionDenied(
-            f"{user.profile!r} does not have the permission {permission!r}"
-        )
+        raise PermissionDenied(f"{user!r} does not have the permission {permission!r}")
 
     return user_passes_test(check_permission)
 
@@ -74,10 +72,10 @@ def region_permission_required(function):
         if user.is_superuser or user.is_staff:
             return function(request, *args, **kwargs)
         region = Region.get_current_region(request)
-        if region in user.profile.regions.all():
+        if region in user.regions.all():
             return function(request, *args, **kwargs)
         raise PermissionDenied(
-            f"{user.profile!r} does not have the permission to access {region!r}"
+            f"{user!r} does not have the permission to access {region!r}"
         )
 
     return wrap

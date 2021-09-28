@@ -41,8 +41,8 @@ def send_chat_message(request):
         request,
         "chat/_chat_messages.html",
         {
-            "chat_messages": request.user.profile.unread_chat_messages,
-            "chat_last_visited": request.user.profile.update_chat_last_visited(),
+            "chat_messages": request.user.unread_chat_messages,
+            "chat_last_visited": request.user.update_chat_last_visited(),
         },
         status=201,  # HTTP 201 Created
     )
@@ -64,11 +64,11 @@ def delete_chat_message(request, message_id):
     if not request.user.has_perm("cms.delete_chat_message_object", message):
         # If the user is neither superuser or staff, nor the sender of the message, he cannot delete it
         raise PermissionDenied(
-            f"{request.user.profile!r} does not have the permission to delete {message!r}"
+            f"{request.user!r} does not have the permission to delete {message!r}"
         )
 
     message.delete()
-    logger.debug("%r deleted by %r", message, request.user.profile)
+    logger.debug("%r deleted by %r", message, request.user)
 
     return JsonResponse(
         {

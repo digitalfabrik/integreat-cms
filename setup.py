@@ -31,6 +31,8 @@ setup(
     ],
     install_requires=[
         "aiohttp",
+        "argon2-cffi",
+        "bcrypt",
         "cffi",
         "Django>=3.2,<4.0",
         "django-cacheops",

@@ -148,7 +148,7 @@ class PageRevisionView(TemplateView):
 
         if not request.user.has_perm("cms.change_page_object", page):
             raise PermissionDenied(
-                f"{request.user.profile!r} does not have the permission to restore {revision!r} of {page!r}"
+                f"{request.user!r} does not have the permission to restore {revision!r} of {page!r}"
             )
 
         current_revision = page.get_translation(language.slug)
@@ -183,7 +183,7 @@ class PageRevisionView(TemplateView):
         elif request.POST.get("submit_public"):
             if not request.user.has_perm("cms.publish_page_object", page):
                 raise PermissionDenied(
-                    f"{request.user.profile!r} does not have the permission to restore the public {revision!r} of {page!r}"
+                    f"{request.user!r} does not have the permission to restore the public {revision!r} of {page!r}"
                 )
             revision.status = status.PUBLIC
 

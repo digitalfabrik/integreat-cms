@@ -45,7 +45,7 @@ class UserMfaKey(models.Model):
         :return: A readable string representation of the user MFA
         :rtype: str
         """
-        return f"{self.name} ({self.user.profile.full_user_name})"
+        return f"{self.name} ({self.user.full_user_name})"
 
     def __repr__(self):
         """

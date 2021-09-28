@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-26 18:36+0000\n"
+"POT-Creation-Date: 2021-09-28 11:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1674,55 +1674,81 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
-#: forms/users/authentication_form.py:11 forms/users/user_form.py:88
+#: forms/users/authentication_form.py:11 forms/users/user_form.py:107
 #: templates/authentication/password_reset_confirm.html:25
 msgid "Password"
 msgstr "Passwort"
 
-#: forms/users/user_form.py:25 templates/users/admin/list.html:29
+#: forms/users/user_form.py:26 templates/users/admin/list.html:29
 #: templates/users/region/list.html:29
 msgid "Role"
 msgstr "Rolle"
 
-#: forms/users/user_form.py:26
+#: forms/users/user_form.py:27
 msgid "This grants the user all permissions of the selected role"
 msgstr "Dies gewährt dem Benutzer alle Berechtigungen der ausgewählten Rolle"
 
-#: forms/users/user_form.py:31
+#: forms/users/user_form.py:32
 msgid "Team"
 msgstr "Team"
 
-#: forms/users/user_form.py:32
+#: forms/users/user_form.py:33
 msgid "This grants the user all permissions of the selected team"
 msgstr "Dies gewährt dem Benutzer alle Berechtigungen des ausgewählten Teams"
 
-#: forms/users/user_form.py:82
+#: forms/users/user_form.py:44
+msgid "Send activation link"
+msgstr "Aktivierungslink versenden"
+
+#: forms/users/user_form.py:47
+msgid ""
+"Select this option to create an inactive user account and send an activation "
+"link per email to the user."
+msgstr ""
+"Wählen Sie diese Option, um ein inaktives Nutzerkonto zu erstellen und einen "
+"Link zu dessen Aktivierung per Email an den Nutzer zu senden."
+
+#: forms/users/user_form.py:50
+msgid ""
+"This link allows the user to choose a password and activates the account "
+"after confirmation."
+msgstr ""
+"Dieser Link erlaubt es dem Nutzer ein Passwort auszuwählen und aktiviert das "
+"Konto nach Bestätigung."
+
+#: forms/users/user_form.py:101
 msgid "Leave empty to keep unchanged"
 msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
 
-#: forms/users/user_form.py:90
+#: forms/users/user_form.py:109
 msgid "Integreat team member"
 msgstr "Integreat-Teammitglied"
 
-#: forms/users/user_form.py:148
+#: forms/users/user_form.py:167
 msgid "Only staff members can be superusers"
 msgstr "Nur Mitarbeiter können Administratoren sein"
 
-#: forms/users/user_form.py:161
+#: forms/users/user_form.py:180
 msgid "Staff members can only have staff roles"
 msgstr "Mitarbeiter können nur Mitarbeiterrollen haben"
 
-#: forms/users/user_form.py:170
+#: forms/users/user_form.py:189
 msgid "Staff members have to be member of a team"
 msgstr "Mitarbeiter müssen Mitglied eines Teams sein"
 
-#: forms/users/user_form.py:182
+#: forms/users/user_form.py:201
 msgid "Only staff members can be member of a team"
 msgstr "Nur Mitarbeiter können Mitglied eines Teams sein"
 
-#: forms/users/user_form.py:191
+#: forms/users/user_form.py:210
 msgid "Please select a role"
 msgstr "Bitte wählen Sie eine Rolle aus"
+
+#: forms/users/user_form.py:224
+msgid "Please choose either to send an activation link or set a password."
+msgstr ""
+"Bitte wählen Sie entweder ein Passwort aus oder wählen die Option zum Senden "
+"eines Aktivierungslinks."
 
 #: forms/users/user_password_form.py:24
 msgid "My old password"
@@ -1743,26 +1769,6 @@ msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
 #: forms/users/user_password_form.py:88
 msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
-
-#: forms/users/user_profile_form.py:24
-msgid "Send activation link"
-msgstr "Aktivierungslink versenden"
-
-#: forms/users/user_profile_form.py:27
-msgid ""
-"Select this option to create an inactive user account and send an activation "
-"link per email to the user."
-msgstr ""
-"Wählen Sie diese Option, um ein inaktives Nutzerkonto zu erstellen und einen "
-"Link zu dessen Aktivierung per Email an den Nutzer zu senden."
-
-#: forms/users/user_profile_form.py:30
-msgid ""
-"This link allows the user to choose a password and activates the account "
-"after confirmation."
-msgstr ""
-"Dieser Link erlaubt es dem Nutzer ein Passwort auszuwählen und aktiviert das "
-"Konto nach Bestätigung."
 
 #: models/chat/chat_message.py:42
 msgid "sender"
@@ -2786,11 +2792,11 @@ msgstr "Kurz-URLs aktivieren"
 msgid "Please check the box if you want to use short urls."
 msgstr "Kreuzen Sie an, wenn Sie Kurz-URLs benutzen wollen."
 
-#: models/regions/region.py:408 models/users/user_profile.py:30
+#: models/regions/region.py:408 models/users/user.py:28
 msgid "regions"
 msgstr "Regionen"
 
-#: models/users/organization.py:62 models/users/user_profile.py:39
+#: models/users/organization.py:62 models/users/user.py:37
 msgid "organization"
 msgstr "Organisation"
 
@@ -2818,8 +2824,49 @@ msgstr "Rolle"
 msgid "roles"
 msgstr "Rollen"
 
-#: models/users/user_mfa_key.py:15 models/users/user_profile.py:24
+#: models/users/user.py:29
+msgid "The regions to which the user has access"
+msgstr "Die Regionen, auf die der Benutzer Zugriff hat"
+
+#: models/users/user.py:39
+msgid ""
+"This allows the user to edit and publish all pages for which the "
+"organisation is registered as the responsible organisation"
+msgstr ""
+"Dies erlaubt dem Benutzer, alle Seiten zu bearbeiten und zu veröffentlichen, "
+"für die die Organisation als zuständige Organisation eingetragen ist"
+
+#: models/users/user.py:44
+msgid "last chat visit date"
+msgstr "Datum des letzten Chat-Besuchs"
+
+#: models/users/user.py:45
+msgid "The date and time when the user did read the chat the last time"
+msgstr ""
+"Das Datum und die Uhrzeit, wann der Benutzer den Chat das letzte Mal gelesen "
+"hat"
+
+#: models/users/user.py:49
+msgid "experienced user"
+msgstr "Erfahrener Anwender"
+
+#: models/users/user.py:51
+msgid ""
+"Enable this option to show up additional features like XLIFF import/export, "
+"page filtering, mirrored pages, page-based permissions, Do-Not-Translate-Tag "
+"and recurring events"
+msgstr ""
+"Aktiviert den Expertenmodus und ermöglicht zusätzliche Features wie XLIFF-"
+"Dateien zu importieren/exportieren, Seitenfilterung, Live-Inhalte, "
+"seitenbasierte Berechtigungen, Nicht-Übersetzen-Tag und wiederkehrende "
+"Veranstaltungen"
+
+#: models/users/user.py:142 models/users/user_mfa_key.py:15
 msgid "user"
+msgstr "Benutzer"
+
+#: models/users/user.py:144
+msgid "users"
 msgstr "Benutzer"
 
 #: models/users/user_mfa_key.py:17
@@ -2853,51 +2900,6 @@ msgstr "Multi-Faktor-Authentifizierungsschlüssel"
 #: models/users/user_mfa_key.py:64
 msgid "multi-factor authentication keys"
 msgstr "Multi-Faktor-Authentifizierungsschlüssel"
-
-#: models/users/user_profile.py:31
-msgid "The regions to which the user has access"
-msgstr "Die Regionen, auf die der Benutzer Zugriff hat"
-
-#: models/users/user_profile.py:41
-msgid ""
-"This allows the user to edit and publish all pages for which the "
-"organisation is registered as the responsible organisation"
-msgstr ""
-"Dies erlaubt dem Benutzer, alle Seiten zu bearbeiten und zu veröffentlichen, "
-"für die die Organisation als zuständige Organisation eingetragen ist"
-
-#: models/users/user_profile.py:46
-msgid "last chat visit date"
-msgstr "Datum des letzten Chat-Besuchs"
-
-#: models/users/user_profile.py:47
-msgid "The date and time when the user did read the chat the last time"
-msgstr ""
-"Das Datum und die Uhrzeit, wann der Benutzer den Chat das letzte Mal gelesen "
-"hat"
-
-#: models/users/user_profile.py:51
-msgid "experienced user"
-msgstr "Erfahrener Anwender"
-
-#: models/users/user_profile.py:53
-msgid ""
-"Enable this option to show up additional features like XLIFF import/export, "
-"page filtering, mirrored pages, page-based permissions, Do-Not-Translate-Tag "
-"and recurring events"
-msgstr ""
-"Aktiviert den Expertenmodus und ermöglicht zusätzliche Features wie XLIFF-"
-"Dateien zu importieren/exportieren, Seitenfilterung, Live-Inhalte, "
-"seitenbasierte Berechtigungen, Nicht-Übersetzen-Tag und wiederkehrende "
-"Veranstaltungen"
-
-#: models/users/user_profile.py:143
-msgid "user profile"
-msgstr "Benutzerprofil"
-
-#: models/users/user_profile.py:145
-msgid "user profiles"
-msgstr "Benutzerprofile"
 
 #: templates/_base.html:16
 msgid "Django Admin"
@@ -4591,8 +4593,8 @@ msgstr ""
 #: views/organizations/organization_view.py:85 views/pages/page_sbs_view.py:196
 #: views/regions/region_view.py:88 views/roles/role_view.py:85
 #: views/settings/user_settings_view.py:93
-#: views/settings/user_settings_view.py:110 views/users/region_user_view.py:119
-#: views/users/user_view.py:127
+#: views/settings/user_settings_view.py:110 views/users/region_user_view.py:99
+#: views/users/user_view.py:105
 msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
@@ -5356,17 +5358,17 @@ msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
-#: views/feedback/admin_feedback_actions.py:41
+#: views/feedback/admin_feedback_actions.py:39
 #: views/feedback/region_feedback_actions.py:48
 msgid "Feedback was successfully marked as read"
 msgstr "Feedback wurde als gelesen markiert"
 
-#: views/feedback/admin_feedback_actions.py:67
+#: views/feedback/admin_feedback_actions.py:65
 #: views/feedback/region_feedback_actions.py:83
 msgid "Feedback was successfully marked as unread"
 msgstr "Feedback wurde als ungelesen markiert"
 
-#: views/feedback/admin_feedback_actions.py:91
+#: views/feedback/admin_feedback_actions.py:89
 #: views/feedback/region_feedback_actions.py:114
 msgid "Feedback was successfully deleted"
 msgstr "Feedback wurde erfolgreich gelöscht"
@@ -6025,22 +6027,16 @@ msgstr "Benutzer {} wurde erfolgreich gelöscht."
 msgid "User {} was successfully removed from this region."
 msgstr "Benutzer {} wurde erfolgreich von dieser Region entfernt."
 
-#: views/users/region_user_view.py:59 views/users/region_user_view.py:151
-#: views/users/user_view.py:58 views/users/user_view.py:157
+#: views/users/region_user_view.py:57 views/users/region_user_view.py:131
+#: views/users/user_view.py:54 views/users/user_view.py:134
 msgid "Pending account activation"
 msgstr "Aktivierung des Benutzerkontos noch ausstehend"
 
-#: views/users/region_user_view.py:115 views/users/user_view.py:123
-msgid "Please choose either to send an activation link or set a password."
-msgstr ""
-"Bitte wählen Sie entweder ein Passwort aus oder wählen die Option zum Senden "
-"eines Aktivierungslinks."
-
-#: views/users/region_user_view.py:133 views/users/user_view.py:140
+#: views/users/region_user_view.py:113 views/users/user_view.py:117
 msgid "User \"{}\" was successfully created"
 msgstr "Benutzer \"{}\" wurde erfolgreich erstellt"
 
-#: views/users/region_user_view.py:145 views/users/user_view.py:151
+#: views/users/region_user_view.py:125 views/users/user_view.py:128
 msgid "User \"{}\" was successfully saved"
 msgstr "Benutzer \"{}\" wurde erfolgreich gespeichert"
 
@@ -6048,7 +6044,7 @@ msgstr "Benutzer \"{}\" wurde erfolgreich gespeichert"
 msgid "User was successfully deleted"
 msgstr "Benutzer wurde erfolgreich gelöscht"
 
-#: views/users/user_view.py:112
+#: views/users/user_view.py:100
 msgid ""
 "A user has to be either staff/superuser or needs to be restricted to at "
 "least one region."
@@ -6058,6 +6054,12 @@ msgstr ""
 
 #~ msgid "Help"
 #~ msgstr "Hilfe"
+
+#~ msgid "user profile"
+#~ msgstr "Benutzerprofil"
+
+#~ msgid "user profiles"
+#~ msgstr "Benutzerprofile"
 
 #~ msgid "Read more"
 #~ msgstr "Weiterlesen"
