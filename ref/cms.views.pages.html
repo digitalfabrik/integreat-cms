@@ -352,6 +352,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#object-search-form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
@@ -470,6 +471,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -799,6 +801,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.object_search_form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.middleware.html">Middleware</a><ul>
@@ -917,6 +920,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -1674,18 +1678,18 @@ not have the permission to revoke page permissions</p>
 <h2>Page Tree View<a class="headerlink" href="#page-tree-view" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.pages.page_tree_view.</span></span><span class="sig-name descname"><span class="pre">PageTreeView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.pages.page_tree_view.</span></span><span class="sig-name descname"><span class="pre">PageTreeView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></a>, <a class="reference internal" href="../ref-ext/cms.views.pages.html#cms.views.pages.page_context_mixin.PageContextMixin" title="cms.views.pages.page_context_mixin.PageContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.views.pages.page_context_mixin.PageContextMixin</span></code></a></p>
 <p>View for showing the page tree</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">archived</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">archived</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Whether or not to show archived pages</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Render page tree</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1706,7 +1710,7 @@ not have the permission to revoke page permissions</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L142"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L156"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Apply page filters and render page tree</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1727,19 +1731,19 @@ not have the permission to revoke page permissions</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">template</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'pages/page_tree.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">template</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'pages/page_tree.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Template for list of non-archived pages</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">template_archived</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'pages/page_tree_archived.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">template_archived</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'pages/page_tree_archived.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Template for list of archived pages</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">template_name</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">template_name</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/pages/page_tree_view.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Select correct HTML template, depending on <a class="reference internal" href="../ref-ext/cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView.archived" title="cms.views.pages.page_tree_view.PageTreeView.archived"><code class="xref py py-attr docutils literal notranslate"><span class="pre">archived</span></code></a> flag
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 <dl class="field-list simple">

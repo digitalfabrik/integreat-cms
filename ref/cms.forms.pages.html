@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-22T12:25:11+00:00" />
+    <meta property="article:modified_time" content="2021-08-25T15:47:04+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pages &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -352,6 +352,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#object-search-form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
@@ -470,6 +471,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -799,6 +801,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.object_search_form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.middleware.html">Middleware</a><ul>
@@ -917,6 +920,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -1171,7 +1175,21 @@
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">translation_status</span></code>: Translation status (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.MultipleChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">query</span></code>: Query (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 </ul>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">filters_visible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_filter_form.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>whether any filters (other than search were changed)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/pages/page_filter_form.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1411,7 +1429,7 @@ which are not directly determined by input fields.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 22, 2021.
+      <span class="lastupdated">Last updated on Aug 25, 2021.
       </span></p>
   </div>
 

@@ -352,6 +352,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#icon-widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#object-search-form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
@@ -470,6 +471,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -799,6 +801,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.object_search_form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.middleware.html">Middleware</a><ul>
@@ -917,6 +920,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -1395,6 +1399,26 @@ logging</p>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'icon_widget.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/icon_widget.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The template to use for this widget</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="object-search-form">
+<h2>Object Search Form<a class="headerlink" href="#object-search-form" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.object_search_form.</span></span><span class="sig-name descname"><span class="pre">ObjectSearchForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data=None</span></em>, <em class="sig-param"><span class="pre">files=None</span></em>, <em class="sig-param"><span class="pre">auto_id='id_%s'</span></em>, <em class="sig-param"><span class="pre">prefix=None</span></em>, <em class="sig-param"><span class="pre">initial=None</span></em>, <em class="sig-param"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></em>, <em class="sig-param"><span class="pre">label_suffix=None</span></em>, <em class="sig-param"><span class="pre">empty_permitted=False</span></em>, <em class="sig-param"><span class="pre">field_order=None</span></em>, <em class="sig-param"><span class="pre">use_required_attribute=None</span></em>, <em class="sig-param"><span class="pre">renderer=None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/object_search_form.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.Form</span></code></a></p>
+<p>Form for searching objects</p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">query</span></code>: Query (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+</ul>
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/object_search_form.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
 </dd></dl>
 
 </dd></dl>

@@ -352,6 +352,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#object-search-form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.middleware.html">Middleware</a><ul>
@@ -470,6 +471,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -799,6 +801,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.object_search_form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
@@ -917,6 +920,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.utils.translation_utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -1699,6 +1703,22 @@ which improves the translation memory.</p>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
 </dd>
 </dl>
+</dd></dl>
+
+</section>
+<section id="module-cms.utils.user_utils">
+<span id="user-utils"></span><h2>User Utils<a class="headerlink" href="#module-cms.utils.user_utils" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="cms.utils.user_utils.search_users">
+<span class="sig-prename descclassname"><span class="pre">cms.utils.user_utils.</span></span><span class="sig-name descname"><span class="pre">search_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/user_utils.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.utils.user_utils.search_users" title="Permalink to this definition"></a></dt>
+<dd><p>Searches for all users that match the given <cite>query</cite>.
+If region is None, all users are searched.
+:param region: The current region
+:type region: ~cms.models.regions.region.Region
+:param query: The query string used for filtering the regions
+:type query: str
+:return: A query for all matching objects
+:rtype: ~django.db.models.QuerySet</p>
 </dd></dl>
 
 </section>

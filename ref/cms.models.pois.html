@@ -352,6 +352,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#icon-widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#object-search-form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
@@ -470,6 +471,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -799,6 +801,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.forms.html#module-cms.forms.object_search_form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.middleware.html">Middleware</a><ul>
@@ -917,6 +920,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -1321,7 +1325,7 @@ translation exists.</p>
 <h2>POI Translation<a class="headerlink" href="#poi-translation" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.models.pois.poi_translation.</span></span><span class="sig-name descname"><span class="pre">POITranslation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.models.pois.poi_translation.</span></span><span class="sig-name descname"><span class="pre">POITranslation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
 <p>Data model representing a POI translation</p>
 <dl class="field-list simple">
@@ -1359,19 +1363,19 @@ translation exists.</p>
 </dl>
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">available_languages</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">available_languages</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property checks in which <a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> the POI is translated apart
 from <code class="docutils literal notranslate"><span class="pre">self.language</span></code>.
 It only returns languages which have a public translation, so drafts are not included here.
@@ -1397,7 +1401,7 @@ The returned dict has the following format:</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">foreign_object</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">foreign_object</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is an alias of the POI foreign key and is needed to generalize the <a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.slug_utils" title="cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
 for all content types</p>
 <dl class="field-list simple">
@@ -1412,7 +1416,7 @@ for all content types</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This helper function returns the absolute url to the webapp view of the poi translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1426,7 +1430,7 @@ for all content types</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_outdated</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_outdated</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property checks whether a translation is outdated and thus needs a new revision of the content.
 This happens, when the source translation is updated and the update is no <cite>minor_edit</cite>.</p>
 <ul class="simple">
@@ -1452,7 +1456,7 @@ source translation.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_up_to_date</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_up_to_date</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property checks whether a translation is up to date.
 A translation is considered up to date when it is not outdated and not being translated at the moment.</p>
 <dl class="field-list simple">
@@ -1467,7 +1471,7 @@ A translation is considered up to date when it is not outdated and not being tra
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_major_public_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_major_public_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is a link to the most recent major public version of this translation.
 This is used when translations, which are derived from this translation, check whether they are up to date.</p>
 <dl class="field-list simple">
@@ -1482,7 +1486,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_major_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_major_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is a link to the most recent major version of this translation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1496,7 +1500,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_public_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_public_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is a link to the most recent public version of this translation.
 If the translation itself is not public, this property can return a revision which is older than <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <dl class="field-list simple">
@@ -1511,7 +1515,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">permalink</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">permalink</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property calculates the permalink dynamically by joining the parent path together with the slug</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1525,7 +1529,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">previous_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">previous_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is a shortcut to the previous revision of this translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1537,9 +1541,23 @@ If the translation itself is not public, this property can return a revision whi
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Searches for all poi translations which match the given <cite>query</cite> in their title or slug.
+:param region: The current region
+:type region: ~cms.models.regions.region.Region
+:param language_slug: The language slug
+:type language_slug: str
+:param query: The query string used for filtering the pois
+:type query: str
+:return: A query for all matching objects
+:rtype: ~django.db.models.QuerySet</p>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">sitemap_alternates</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">sitemap_alternates</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property returns the language alternatives of a POI translation for the use in sitemaps.
 Similar to <a class="reference internal" href="../ref-ext/cms.models.pois.html#cms.models.pois.poi_translation.POITranslation.available_languages" title="cms.models.pois.poi_translation.POITranslation.available_languages"><code class="xref py py-func docutils literal notranslate"><span class="pre">cms.models.pois.poi_translation.POITranslation.available_languages()</span></code></a>, but in a slightly
 different format.</p>
@@ -1555,7 +1573,7 @@ different format.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">source_translation</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">source_translation</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property returns the translation which was used to create the <code class="docutils literal notranslate"><span class="pre">self</span></code> translation.
 It derives this information from the <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s root
 <a class="reference internal" href="../ref-ext/cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>.</p>
@@ -1573,7 +1591,7 @@ the translation is in the <a class="reference internal" href="../ref-ext/cms.mod
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">status</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">status</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
 <p>Status</p>
 <p>Choices:</p>

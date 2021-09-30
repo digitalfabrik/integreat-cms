@@ -352,6 +352,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#icon-widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.forms.html#object-search-form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.middleware.html">Middleware</a><ul>
@@ -470,6 +471,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -799,6 +801,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.icon_widget">Icon Widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.forms.html#module-cms.forms.object_search_form">Object Search Form</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.middleware.html">Middleware</a><ul>
@@ -917,6 +920,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.translation_utils">Translation Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
@@ -1691,7 +1695,7 @@ failed.</p>
 <span id="event-translation"></span><h2>Event Translation<a class="headerlink" href="#module-cms.models.events.event_translation" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.models.events.event_translation.</span></span><span class="sig-name descname"><span class="pre">EventTranslation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.models.events.event_translation.</span></span><span class="sig-name descname"><span class="pre">EventTranslation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
 <p>Data model representing an event translation</p>
 <dl class="field-list simple">
@@ -1728,26 +1732,26 @@ failed.</p>
 </dl>
 <dl class="py exception">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.DoesNotExist">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.DoesNotExist.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist.__init__" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.DoesNotExist.args">
-<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist.args" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist.args" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.DoesNotExist.silent_variable_failure">
-<span class="sig-name descname"><span class="pre">silent_variable_failure</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist.silent_variable_failure" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">silent_variable_failure</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist.silent_variable_failure" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.DoesNotExist.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist.with_traceback" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.DoesNotExist.with_traceback" title="Permalink to this definition"></a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -1756,21 +1760,21 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned.__init__" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned.args">
-<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned.args" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">args</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned.args" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned.with_traceback">
-<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned.with_traceback" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned.with_traceback" title="Permalink to this definition"></a></dt>
 <dd><p>Exception.with_traceback(tb) –
 set self.__traceback__ to tb and return self.</p>
 </dd></dl>
@@ -1784,7 +1788,7 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.available_languages">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">available_languages</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.available_languages" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">available_languages</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.available_languages" title="Permalink to this definition"></a></dt>
 <dd><p>This property checks in which <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> the event is translated apart
 from <code class="docutils literal notranslate"><span class="pre">self.language</span></code>.
 It only returns languages which have a public translation, so drafts are not included here.
@@ -1831,20 +1835,20 @@ of all validation errors if any occur.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.creator">
-<span class="sig-name descname"><span class="pre">creator</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.creator" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">creator</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.creator" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.users.html#cms.models.users.user.User" title="cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
 <p>Creator (related name: <a class="reference internal" href="cms.models.users.html#cms.models.users.user.User.event_translations" title="cms.models.users.user.User.event_translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">event_translations</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.creator_id">
-<span class="sig-name descname"><span class="pre">creator_id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.creator_id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">creator_id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.creator_id" title="Permalink to this definition"></a></dt>
 <dd><p>Internal field, use <a class="reference internal" href="#cms.models.events.event_translation.EventTranslation.creator" title="cms.models.events.event_translation.EventTranslation.creator"><code class="xref py py-class docutils literal notranslate"><span class="pre">creator</span></code></a> instead.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.currently_in_translation">
-<span class="sig-name descname"><span class="pre">currently_in_translation</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.currently_in_translation" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">currently_in_translation</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.currently_in_translation" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
 <p>Currently in translation. Flag to indicate a translation is being updated by an external translator</p>
 </dd></dl>
@@ -1861,34 +1865,34 @@ of all validation errors if any occur.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.description">
-<span class="sig-name descname"><span class="pre">description</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.description" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">description</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.description" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></p>
 <p>Description</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.event">
-<span class="sig-name descname"><span class="pre">event</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.event" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">event</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.event" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#cms.models.events.event.Event" title="cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a></p>
 <p>Event (related name: <a class="reference internal" href="#cms.models.events.event.Event.translations" title="cms.models.events.event.Event.translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">translations</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.event_id">
-<span class="sig-name descname"><span class="pre">event_id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.event_id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">event_id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.event_id" title="Permalink to this definition"></a></dt>
 <dd><p>Internal field, use <a class="reference internal" href="#cms.models.events.event_translation.EventTranslation.event" title="cms.models.events.event_translation.EventTranslation.event"><code class="xref py py-class docutils literal notranslate"><span class="pre">event</span></code></a> instead.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.feedback">
-<span class="sig-name descname"><span class="pre">feedback</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.feedback" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">feedback</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.feedback" title="Permalink to this definition"></a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.event_feedback.EventFeedback" title="cms.models.feedback.event_feedback.EventFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventFeedback</span></code></a></p>
 <p>All feedback of this event translation (related name of <a class="reference internal" href="cms.models.feedback.html#cms.models.feedback.event_feedback.EventFeedback.event_translation" title="cms.models.feedback.event_feedback.EventFeedback.event_translation"><code class="xref py py-attr docutils literal notranslate"><span class="pre">event_translation</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.foreign_object">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">foreign_object</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.foreign_object" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">foreign_object</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.foreign_object" title="Permalink to this definition"></a></dt>
 <dd><p>This property is an alias of the event foreign key and is needed to generalize the <a class="reference internal" href="cms.utils.html#module-cms.utils.slug_utils" title="cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
 for all content types</p>
 <dl class="field-list simple">
@@ -1915,7 +1919,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.get_absolute_url">
-<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.get_absolute_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.get_absolute_url" title="Permalink to this definition"></a></dt>
 <dd><p>This helper function returns the absolute url to the webapp view of the event translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1953,14 +1957,14 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.id" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
 <p>Primary key: ID</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.is_outdated">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_outdated</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.is_outdated" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_outdated</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.is_outdated" title="Permalink to this definition"></a></dt>
 <dd><p>This property checks whether a translation is outdated and thus needs a new revision of the content.
 This happens, when the source translation is updated and the update is no <cite>minor_edit</cite>.</p>
 <ul class="simple">
@@ -1986,7 +1990,7 @@ source translation.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.is_up_to_date">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_up_to_date</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.is_up_to_date" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_up_to_date</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.is_up_to_date" title="Permalink to this definition"></a></dt>
 <dd><p>This property checks whether a translation is up to date.
 A translation is considered up to date when it is not outdated and not being translated at the moment.</p>
 <dl class="field-list simple">
@@ -2001,27 +2005,27 @@ A translation is considered up to date when it is not outdated and not being tra
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.language">
-<span class="sig-name descname"><span class="pre">language</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.language" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">language</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.language" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language" title="cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
 <p>Language (related name: <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language.Language.event_translations" title="cms.models.languages.language.Language.event_translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">event_translations</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.language_id">
-<span class="sig-name descname"><span class="pre">language_id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.language_id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">language_id</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.language_id" title="Permalink to this definition"></a></dt>
 <dd><p>Internal field, use <a class="reference internal" href="#cms.models.events.event_translation.EventTranslation.language" title="cms.models.events.event_translation.EventTranslation.language"><code class="xref py py-class docutils literal notranslate"><span class="pre">language</span></code></a> instead.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.last_updated">
-<span class="sig-name descname"><span class="pre">last_updated</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.last_updated" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">last_updated</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.last_updated" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
 <p>Modification date</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.latest_major_public_revision">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_major_public_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_major_public_revision" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_major_public_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_major_public_revision" title="Permalink to this definition"></a></dt>
 <dd><p>This property is a link to the most recent major public version of this translation.
 This is used when translations, which are derived from this translation, check whether they are up to date.</p>
 <dl class="field-list simple">
@@ -2036,7 +2040,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.latest_major_revision">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_major_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_major_revision" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_major_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_major_revision" title="Permalink to this definition"></a></dt>
 <dd><p>This property is a link to the most recent major version of this translation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -2050,7 +2054,7 @@ This is used when translations, which are derived from this translation, check w
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.latest_public_revision">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_public_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_public_revision" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">latest_public_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.latest_public_revision" title="Permalink to this definition"></a></dt>
 <dd><p>This property is a link to the most recent public version of this translation.
 If the translation itself is not public, this property can return a revision which is older than <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <dl class="field-list simple">
@@ -2065,26 +2069,26 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.links">
-<span class="sig-name descname"><span class="pre">links</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.links" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">links</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.links" title="Permalink to this definition"></a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/contenttypes/#django.contrib.contenttypes.fields.GenericRelation" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericRelation</span></code></a> from <a class="reference internal" href="#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a></p>
 <p>All event translations of this link (related name of <a class="reference internal" href="#cms.models.events.event_translation.EventTranslation.links" title="cms.models.events.event_translation.EventTranslation.links"><code class="xref py py-attr docutils literal notranslate"><span class="pre">links</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.minor_edit">
-<span class="sig-name descname"><span class="pre">minor_edit</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.minor_edit" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">minor_edit</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.minor_edit" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
 <p>Minor edit. Tick if this change does not require an update of translations in other languages</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.objects">
-<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.objects" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.objects" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.permalink">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">permalink</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.permalink" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">permalink</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.permalink" title="Permalink to this definition"></a></dt>
 <dd><p>This property calculates the permalink dynamically by joining the parent path together with the slug</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -2098,7 +2102,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.pk">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">pk</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.pk" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">pk</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.pk" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2108,7 +2112,7 @@ If the translation itself is not public, this property can return a revision whi
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.previous_revision">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">previous_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.previous_revision" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">previous_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.previous_revision" title="Permalink to this definition"></a></dt>
 <dd><p>This property is a shortcut to the previous revision of this translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -2156,6 +2160,27 @@ is used by fixture loading.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.search">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.search" title="Permalink to this definition"></a></dt>
+<dd><p>Searches for all event translations and match the given <cite>query</cite> in their title or slug.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><em>Region</em></a>) – The current region</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The language slug</p></li>
+<li><p><strong>query</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The query string used for filtering the events</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A query for all matching objects</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.serializable_value">
 <span class="sig-name descname"><span class="pre">serializable_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.serializable_value" title="Permalink to this definition"></a></dt>
 <dd><p>Return the value of the field name for this instance. If the field is
@@ -2169,7 +2194,7 @@ and not use this method.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.sitemap_alternates">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">sitemap_alternates</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.sitemap_alternates" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">sitemap_alternates</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.sitemap_alternates" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the language alternatives of a event translation for the use in sitemaps.
 Similar to <a class="reference internal" href="#cms.models.events.event_translation.EventTranslation.available_languages" title="cms.models.events.event_translation.EventTranslation.available_languages"><code class="xref py py-func docutils literal notranslate"><span class="pre">cms.models.events.event_translation.EventTranslation.available_languages()</span></code></a>, but in a slightly
 different format.</p>
@@ -2185,14 +2210,14 @@ different format.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.slug">
-<span class="sig-name descname"><span class="pre">slug</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.slug" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">slug</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.slug" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlugField</span></code></a></p>
 <p>URL parameter. String identifier without spaces and special characters. Unique per region and language. Leave blank to generate unique parameter from title.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.source_translation">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">source_translation</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.source_translation" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">source_translation</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.source_translation" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the translation which was used to create the <code class="docutils literal notranslate"><span class="pre">self</span></code> translation.
 It derives this information from the <a class="reference internal" href="cms.models.regions.html#cms.models.regions.region.Region" title="cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s root
 <a class="reference internal" href="cms.models.languages.html#cms.models.languages.language_tree_node.LanguageTreeNode" title="cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>.</p>
@@ -2210,7 +2235,7 @@ the translation is in the <a class="reference internal" href="cms.models.regions
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.status">
-<span class="sig-name descname"><span class="pre">status</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.status" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">status</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.status" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
 <p>Status</p>
 <p>Choices:</p>
@@ -2225,7 +2250,7 @@ the translation is in the <a class="reference internal" href="cms.models.regions
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.title">
-<span class="sig-name descname"><span class="pre">title</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.title" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">title</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.title" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
 <p>Title</p>
 </dd></dl>
@@ -2244,7 +2269,7 @@ failed.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.models.events.event_translation.EventTranslation.version">
-<span class="sig-name descname"><span class="pre">version</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.version" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">version</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.events.event_translation.EventTranslation.version" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PositiveIntegerField</span></code></a></p>
 <p>Revision</p>
 </dd></dl>
