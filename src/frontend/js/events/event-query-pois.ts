@@ -105,10 +105,10 @@ function renderPoiData(
   document
     .getElementById("poi-query-input")
     .setAttribute("placeholder", queryPlaceholder);
-  document.getElementById("id_location").setAttribute("value", id);
-  document.getElementById("poi-address").setAttribute("value", address);
-  document.getElementById("poi-city").setAttribute("value", city);
-  document.getElementById("poi-country").setAttribute("value", country);
+  document.getElementById("id_location")?.setAttribute("value", id);
+  document.getElementById("poi-address")?.setAttribute("value", address);
+  document.getElementById("poi-city")?.setAttribute("value", city);
+  document.getElementById("poi-country")?.setAttribute("value", country);
 
   document.getElementById("poi-query-result").classList.add("hidden");
   (document.getElementById("poi-query-input") as HTMLInputElement).value = "";

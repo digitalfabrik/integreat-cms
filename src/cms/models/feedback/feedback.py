@@ -157,6 +157,26 @@ class Feedback(models.Model):
         """
         return bool(self.read_by)
 
+    @classmethod
+    def search(cls, region, query):
+        """
+        Searches for all feedbacks which match the given `query` in their comment.
+        :param region: The current region or None for non-regional feedback
+        :type region: ~cms.models.regions.region.Region
+        :param query: The query string used for filtering the events
+        :type query: str
+        :return: A query for all matching objects
+        :rtype: ~django.db.models.QuerySet
+        """
+        kwargs = {"comment__icontains": query}
+        if region is None:
+            kwargs["is_technical"] = True
+        else:
+            kwargs["is_technical"] = False
+            kwargs["region"] = region
+
+        return cls.objects.filter(**kwargs)
+
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Feedback object (id)``.

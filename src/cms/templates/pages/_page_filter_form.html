@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load widget_tweaks %}
 
-<form method="post" class="p-4">
+<form method="post" class="p-4" id="page-filter-form">
     {% csrf_token %}
     <label for="{{ filter_form.translation_status.id_for_label }}">
         {{ filter_form.translation_status.label }} ({{ language.translated_name }})

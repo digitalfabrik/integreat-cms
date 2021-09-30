@@ -5,10 +5,7 @@
 <div class="table-header">
     <h1 class="heading">{% trans 'User Management' %}</h1>
     <div class="flex justify-between">
-        <form class="table-search relative">
-            <i data-feather="search" class="absolute"></i>
-            <input type="search" placeholder="{% trans 'Search' %}" class="pl-10">
-        </form>
+        {% include "search_input_form.html" with object_type="user" %}
         {% if perms.cms.change_user %}
             <a href="{% url 'new_region_user' region_slug=region.slug %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 {% trans 'Create user' %}
@@ -37,7 +34,11 @@
         {% empty %}
             <tr>
 	            <td colspan="6" class="px-4 py-3">
-		            {% trans 'No users available yet.' %}
+		            {% if search_query %}
+                        {% trans 'No users found with these filters.' %}
+                    {% else %}
+		                {% trans 'No users available yet.' %}
+                    {% endif %}
 	            </td>
             </tr>
         {% endfor %}

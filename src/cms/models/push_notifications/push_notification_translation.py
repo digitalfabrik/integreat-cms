@@ -37,6 +37,25 @@ class PushNotificationTranslation(models.Model):
         verbose_name=_("modification date"),
     )
 
+    @classmethod
+    def search(cls, region, language_slug, query):
+        """
+        Searches for all push notifications which match the given `query` in their title.
+        :param region: The current region
+        :type region: ~cms.models.regions.region.Region
+        :param language_slug: The language slug
+        :type language_slug: str
+        :param query: The query string used for filtering the push notifications
+        :type query: str
+        :return: A query for all matching objects
+        :rtype: ~django.db.models.QuerySet
+        """
+        return cls.objects.filter(
+            push_notification__region=region,
+            language__slug=language_slug,
+            title__icontains=query,
+        )
+
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``PushNotificationTranslation object (id)``.

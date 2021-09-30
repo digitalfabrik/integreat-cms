@@ -6,21 +6,22 @@
 {% load text_filters %}
 
 {% block content %}
-<div class="flex flex-wrap">
-    <div class="w-1/2 flex">
-        <h1 class="heading">{% trans 'Technical Feedback' %}</h1>
-    </div>
-    <div class="w-1/2 flex justify-end">
+{% with filter_form.filters_visible as filters_visible %}
+<div class="table-header">
+    <h1 class="heading">{% trans 'Technical Feedback' %}</h1>
+    <div class="flex justify-between">
+        {% include "search_input_form.html" with object_type="feedback" related_form='admin-feedback-filter-form' %}
         <button id="filter-toggle"
                 class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
-            <span class="filter-toggle-text">{% trans 'Show filters' %}</span>
-            <span class="filter-toggle-text hidden">{% trans 'Hide filters' %}</span>
+            <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans 'Show filters' %}</span>
+            <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans 'Hide filters' %}</span>
         </button>
     </div>
 </div>
-<div id="filter-form-container" class="{% if not filter_form.has_changed %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+<div id="filter-form-container" class="{% if not filters_visible %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
     {% include 'feedback/_admin_feedback_filter_form.html' %}
 </div>
+{% endwith %}
 
 <form id="bulk-action-form" method="POST">
     {% csrf_token %}

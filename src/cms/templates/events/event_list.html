@@ -4,6 +4,7 @@
 {% load content_filters %}
 
 {% block content %}
+    {% with filter_form.filters_visible as filters_visible %}
     <div class="table-header">
         <div class="flex flex-wrap justify-between">
             <h1 class="heading">{% trans 'Events' %}</h1>
@@ -18,16 +19,13 @@
         <div class="flex flex-wrap justify-between gap-4">
             <div class="flex flex-wrap gap-4">
                 {% include "generic_language_switcher.html" with target='events' %}
-                <form class="table-search relative">
-                    <i data-feather="search" class="absolute"></i>
-                    <input type="search" placeholder="{% trans 'Search' %}" class="pl-10">
-                </form>
+                {% include "_search_input.html" with object_type='event' related_form='event-filter-form' %}
             </div>
             <div class="flex flex-wrap gap-4">
                 <button id="filter-toggle"
                         class="bg-gray-500 hover:bg-gray-600 text-white hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    <span class="filter-toggle-text">{% trans 'Show filters' %}</span>
-                    <span class="filter-toggle-text hidden">{% trans 'Hide filters' %}</span>
+                    <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans 'Show filters' %}</span>
+                    <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans 'Hide filters' %}</span>
                 </button>
                 {% if region.default_language == language and perms.auth.change_event %}
                     <a href="{% url 'new_event' region_slug=region.slug language_slug=language.slug %}"
@@ -38,9 +36,10 @@
             </div>
         </div>
     </div>
-    <div id="filter-form-container" class="{% if not filter_form.has_changed %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+    <div id="filter-form-container" class="{% if not filters_visible %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
         {% include 'events/_event_filter_form.html' %}
     </div>
+    {% endwith %}
     <div class="table-listing">
         <table id="event-list" class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>

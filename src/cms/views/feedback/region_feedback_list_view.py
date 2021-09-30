@@ -51,12 +51,18 @@ class RegionFeedbackListView(TemplateView):
 
         region_feedback = Feedback.objects.filter(region=region, is_technical=False)
 
+        query = None
+
         # Filter pages according to given filters, if any
         filter_data = kwargs.get("filter_data")
         if filter_data:
             # Set data for filter form rendering
             filter_form = RegionFeedbackFilterForm(data=filter_data)
             if filter_form.is_valid():
+                query = filter_form.cleaned_data["query"]
+                if query:
+                    region_feedback = Feedback.search(region, query)
+
                 # Filter feedback for language
                 if filter_form.cleaned_data["language"]:
                     region_feedback = region_feedback.filter(
@@ -117,6 +123,7 @@ class RegionFeedbackListView(TemplateView):
                 "current_menu_item": "region_feedback",
                 "region_feedback": region_feedback_chunk,
                 "filter_form": filter_form,
+                "search_query": query,
             },
         )
 

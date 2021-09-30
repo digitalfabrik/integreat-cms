@@ -1,0 +1,26 @@
+{% load i18n %}
+
+<div id="table-search" class="flex">
+    <div class="relative">
+        <input
+            {% if related_form %}form="{{ related_form }}"{% endif %}
+            {% if search_query %}value="{{ search_query }}"{% endif %}
+            data-default-value=""
+            type="search"
+            name="query"
+            autocomplete="off"
+            id="table-search-input"
+            placeholder="{% trans 'Search' %}"
+            class="default-value rounded-r-none"
+            data-url="{% if region_slug and language_slug %}{% url 'search_content_ajax' region_slug language_slug %}{% elif region_slug %}{% url 'search_content_ajax' region_slug %}{% else %}{% url 'search_content_ajax' %}{% endif %}"
+            data-object-type="{{ object_type }}"
+            data-archived="{% if object_archived %}true{% else %}false{% endif %}"
+        >
+        <div id="table-search-suggestions" class="absolute hidden shadow rounded-b top-full bg-graz-200 w-full z-10 max-h-60 overflow-y-auto cursor-pointer">
+        </div>
+    </div>
+    <button type="submit" title="{% trans 'Search' %}" {% if related_form %}form={{ related_form }}{% endif %}
+            class="bg-blue-500 hover:bg-blue-600 text-white pl-1 pr-3 rounded-r focus:outline-none focus:shadow-outline">
+        <i data-feather="search" class="pl-2"></i>
+    </button>
+</div>

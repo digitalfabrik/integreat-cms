@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from backend.settings import PER_PAGE
+from ...forms import ObjectSearchForm
 from ...decorators import staff_required, permission_required
 from ...models import Region
 
@@ -42,11 +43,38 @@ class RegionListView(TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
+
         regions = Region.objects.all()
+        query = None
+
+        search_data = kwargs.get("search_data")
+        search_form = ObjectSearchForm(search_data)
+        if search_form.is_valid():
+            query = search_form.cleaned_data["query"]
+            region_keys = Region.search(query).values("pk")
+            regions = regions.filter(pk__in=region_keys)
+
         # for consistent pagination querysets should be ordered
         paginator = Paginator(regions, PER_PAGE)
         chunk = request.GET.get("page")
         region_chunk = paginator.get_page(chunk)
         return render(
-            request, self.template_name, {**self.base_context, "regions": region_chunk}
+            request,
+            self.template_name,
+            {**self.base_context, "regions": region_chunk, "search_query": query},
         )
+
+    def post(self, request, *args, **kwargs):
+        """
+        Apply the query and filter the rendered regions
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+        :param args: The supplied arguments
+        :type args: list
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+        :return: The rendered template response
+        :rtype: ~django.template.response.TemplateResponse
+        """
+        return self.get(request, *args, **kwargs, search_data=request.POST)

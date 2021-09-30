@@ -13,7 +13,7 @@ from backend.settings import PER_PAGE
 
 from ...constants import all_day, recurrence
 from ...decorators import region_permission_required, permission_required
-from ...models import Region
+from ...models import Region, EventTranslation
 from ...forms import EventFilterForm
 from .event_context_mixin import EventContextMixin
 
@@ -48,6 +48,7 @@ class EventListView(TemplateView, EventContextMixin):
         return self.template_archived if self.archived else self.template
 
     # pylint: disable=too-many-branches
+    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         """
         Render events list for HTTP GET requests
@@ -93,6 +94,8 @@ class EventListView(TemplateView, EventContextMixin):
 
         # all events of the current region in the current language
         events = region.events.filter(archived=self.archived)
+
+        query = None
 
         # Filter events according to given filters, if any
         filter_data = kwargs.get("filter_data")
@@ -157,6 +160,13 @@ class EventListView(TemplateView, EventContextMixin):
                 ):
                     # Only non-recurring events
                     events = events.filter(recurrence_rule__isnull=True)
+                # Filter events by the search query
+                query = event_filter_form.cleaned_data["query"]
+                if query:
+                    event_ids = EventTranslation.search(
+                        region, language_slug, query
+                    ).values("event__pk")
+                    events = events.filter(pk__in=event_ids)
         else:
             event_filter_form = EventFilterForm()
             event_filter_form.changed_data.clear()
@@ -178,6 +188,7 @@ class EventListView(TemplateView, EventContextMixin):
                 "languages": region.languages,
                 "filter_form": event_filter_form,
                 "filter_poi": poi,
+                "search_query": query,
             },
         )
 
