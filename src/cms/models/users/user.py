@@ -143,11 +143,4 @@ class User(AbstractUser):
         #: The plural verbose name of the model
         verbose_name_plural = _("users")
         #: The default permissions for this model
-        default_permissions = ()
-        #: Persmissions for the model (default)
-        permissions = [
-            ("add_user", "Can add user"),
-            ("change_user", "Can change user"),
-            ("del_user", "Can delete user"),
-            ("view_user", "Can view user"),
-        ]
+        default_permissions = ("change", "delete", "view")

@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 @require_POST
 @login_required
 @staff_required
-@permission_required("auth.delete_user")
+@permission_required("cms.delete_user")
 def delete_user(request, user_id):
     """
     This view deletes a user
@@ -45,7 +45,7 @@ def delete_user(request, user_id):
 @require_POST
 @login_required
 @staff_required
-@permission_required("auth.cange_user")
+@permission_required("cms.change_user")
 def resend_activation_link(request, user_id):
     """
     Resends an activation link to an user

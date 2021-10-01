@@ -192,3 +192,10 @@ class MediaFile(models.Model):
         verbose_name_plural = _("media files")
         #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["-region", "name"]
+        #: The default permissions for this model
+        default_permissions = ("change", "delete", "view")
+        #: The custom permissions for this model
+        permissions = (
+            ("upload_mediafile", "Can upload media file"),
+            ("replace_mediafile", "Can replace media file"),
+        )

@@ -64,7 +64,7 @@ def delete_region_user(request, region_slug, user_id):
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("auth.cange_user")
+@permission_required("cms.change_user")
 # pylint: disable=unused-argument
 def resend_activation_link_region(request, region_slug, user_id):
     """
