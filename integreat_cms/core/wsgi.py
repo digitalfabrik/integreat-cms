@@ -29,7 +29,7 @@ def application(environ, start_response):
         if key.startswith("DJANGO_"):
             os.environ[key] = environ[key]
 
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.backend.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
     _application = get_wsgi_application()
 
     return _application(environ, start_response)

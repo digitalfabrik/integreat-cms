@@ -2,7 +2,7 @@
 Django settings for different database configuration.
 The docker container started in :github-source:`dev-tools/run.sh` exposes the alternative port ``5433``.
 
-All other settings are imported from :mod:`~integreat_cms.backend.settings`.
+All other settings are imported from :mod:`~integreat_cms.core.settings`.
 
 For more information on this file, see :doc:`django:topics/settings`.
 For the full list of settings and their values, see :doc:`django:ref/settings`.

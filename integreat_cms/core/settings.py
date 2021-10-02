@@ -6,17 +6,17 @@ For the full list of settings and their values, see :doc:`django:ref/settings`.
 
 For production use, the following settings can be set with environment variables (use the prefix ``DJANGO_``):
 
-    * ``DJANGO_SECRET_KEY``: :attr:`~integreat_cms.backend.settings.SECRET_KEY`
-    * ``DJANGO_DEBUG``: :attr:`~integreat_cms.backend.settings.DEBUG`
-    * ``DJANGO_LOGFILE``: :attr:`~integreat_cms.backend.settings.LOGFILE`
-    * ``DJANGO_WEBAPP_URL``: :attr:`~integreat_cms.backend.settings.WEBAPP_URL`
-    * ``DJANGO_MATOMO_URL``: :attr:`~integreat_cms.backend.settings.MATOMO_URL`
-    * ``DJANGO_BASE_URL``: :attr:`~integreat_cms.backend.settings.BASE_URL`
-    * ``DJANGO_STATIC_ROOT``: :attr:`~integreat_cms.backend.settings.STATIC_ROOT`
-    * ``DJANGO_MEDIA_ROOT``: :attr:`~integreat_cms.backend.settings.MEDIA_ROOT`
-    * ``DJANGO_XLIFF_ROOT``: :attr:`~integreat_cms.backend.settings.XLIFF_ROOT`
+    * ``DJANGO_SECRET_KEY``: :attr:`~integreat_cms.core.settings.SECRET_KEY`
+    * ``DJANGO_DEBUG``: :attr:`~integreat_cms.core.settings.DEBUG`
+    * ``DJANGO_LOGFILE``: :attr:`~integreat_cms.core.settings.LOGFILE`
+    * ``DJANGO_WEBAPP_URL``: :attr:`~integreat_cms.core.settings.WEBAPP_URL`
+    * ``DJANGO_MATOMO_URL``: :attr:`~integreat_cms.core.settings.MATOMO_URL`
+    * ``DJANGO_BASE_URL``: :attr:`~integreat_cms.core.settings.BASE_URL`
+    * ``DJANGO_STATIC_ROOT``: :attr:`~integreat_cms.core.settings.STATIC_ROOT`
+    * ``DJANGO_MEDIA_ROOT``: :attr:`~integreat_cms.core.settings.MEDIA_ROOT`
+    * ``DJANGO_XLIFF_ROOT``: :attr:`~integreat_cms.core.settings.XLIFF_ROOT`
 
-Database settings: :attr:`~integreat_cms.backend.settings.DATABASES`
+Database settings: :attr:`~integreat_cms.core.settings.DATABASES`
 
     * ``DJANGO_DB_HOST``
     * ``DJANGO_DB_NAME``
@@ -26,12 +26,12 @@ Database settings: :attr:`~integreat_cms.backend.settings.DATABASES`
 
 Email settings:
 
-    * ``DJANGO_EMAIL_HOST``: :attr:`~integreat_cms.backend.settings.EMAIL_HOST`
-    * ``DJANGO_EMAIL_HOST_PASSWORD``: :attr:`~integreat_cms.backend.settings.EMAIL_HOST_PASSWORD`
-    * ``DJANGO_EMAIL_HOST_USER``: :attr:`~integreat_cms.backend.settings.EMAIL_HOST_USER`
-    * ``DJANGO_EMAIL_PORT``: :attr:`~integreat_cms.backend.settings.EMAIL_PORT`
+    * ``DJANGO_EMAIL_HOST``: :attr:`~integreat_cms.core.settings.EMAIL_HOST`
+    * ``DJANGO_EMAIL_HOST_PASSWORD``: :attr:`~integreat_cms.core.settings.EMAIL_HOST_PASSWORD`
+    * ``DJANGO_EMAIL_HOST_USER``: :attr:`~integreat_cms.core.settings.EMAIL_HOST_USER`
+    * ``DJANGO_EMAIL_PORT``: :attr:`~integreat_cms.core.settings.EMAIL_PORT`
 
-Cache settings: :attr:`~integreat_cms.backend.settings.CACHES`
+Cache settings: :attr:`~integreat_cms.core.settings.CACHES`
 
     * ``DJANGO_REDIS_CACHE``: Whether or not the Redis cache should be enabled
     * ``DJANGO_REDIS_UNIX_SOCKET``:  If Redis is enabled and available via a unix socket, set this environment variable
@@ -78,7 +78,7 @@ TEST_BLOG_ID = 154
 #: URL to the Integreat Website
 WEBSITE_URL = "https://integreat-app.de"
 
-#: An alias of :attr:`~integreat_cms.backend.settings.WEBAPP_URL`. Used by django-linkcheck to determine whether a link is internal.
+#: An alias of :attr:`~integreat_cms.core.settings.WEBAPP_URL`. Used by django-linkcheck to determine whether a link is internal.
 SITE_DOMAIN = WEBAPP_URL
 
 #: URLs to the Integreat blog
@@ -212,7 +212,7 @@ if "debug_toolbar" in INSTALLED_APPS:
     MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
 #: Default URL dispatcher (see :setting:`django:ROOT_URLCONF`)
-ROOT_URLCONF = "integreat_cms.backend.urls"
+ROOT_URLCONF = "integreat_cms.core.urls"
 
 #: Config for HTML templates (see :setting:`django:TEMPLATES`)
 TEMPLATES = [
@@ -226,7 +226,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "integreat_cms.backend.context_processors.region_slug_processor",
+                "integreat_cms.core.context_processors.region_slug_processor",
             ],
             "debug": DEBUG,
         },
@@ -234,7 +234,7 @@ TEMPLATES = [
 ]
 
 #: WSGI (Web Server Gateway Interface) config (see :setting:`django:WSGI_APPLICATION`)
-WSGI_APPLICATION = "integreat_cms.backend.wsgi.application"
+WSGI_APPLICATION = "integreat_cms.core.wsgi.application"
 
 
 ############
@@ -401,7 +401,7 @@ if "DJANGO_LOGFILE" in os.environ and os.access(os.environ["DJANGO_LOGFILE"], os
     LOGFILE = os.environ["DJANGO_LOGFILE"]
 elif DEBUG or not os.access(DEFAULT_LOGFILE, os.W_OK):
     #: The file path of the logfile. Needs to be writable by the application.
-    #: Defaults to :attr:`~integreat_cms.backend.settings.DEFAULT_LOGFILE`.
+    #: Defaults to :attr:`~integreat_cms.core.settings.DEFAULT_LOGFILE`.
     LOGFILE = os.path.join(BASE_DIR, "integreat-cms.log")
 else:
     LOGFILE = DEFAULT_LOGFILE
@@ -563,11 +563,11 @@ else:
 #: (see :setting:`django:DEFAULT_FROM_EMAIL`)
 DEFAULT_FROM_EMAIL = "keineantwort@integreat-app.de"
 
-#: The email address that error messages come from, such as those sent to :attr:`~integreat_cms.backend.settings.ADMINS`.
+#: The email address that error messages come from, such as those sent to :attr:`~integreat_cms.core.settings.ADMINS`.
 #: (see :setting:`django:SERVER_EMAIL`)
 SERVER_EMAIL = "keineantwort@integreat-app.de"
 
-#: A list of all the people who get code error notifications. When :attr:`~integreat_cms.backend.settings.DEBUG` is ``False``,
+#: A list of all the people who get code error notifications. When :attr:`~integreat_cms.core.settings.DEBUG` is ``False``,
 #: Django emails these people the details of exceptions raised in the request/response cycle.
 ADMINS = [("Integreat Helpdesk", "tech@integreat-app.de")]
 
@@ -580,21 +580,21 @@ else:
 if "DJANGO_EMAIL_HOST_PASSWORD" in os.environ:
     EMAIL_HOST_PASSWORD = os.environ["DJANGO_EMAIL_HOST_PASSWORD"]
 else:
-    #: Password to use for the SMTP server defined in :attr:`~integreat_cms.backend.settings.EMAIL_HOST`.
+    #: Password to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`.
     #: If empty, Django won’t attempt authentication.
     EMAIL_HOST_PASSWORD = ""
 
 if "DJANGO_EMAIL_HOST_USER" in os.environ:
     EMAIL_HOST_USER = os.environ["DJANGO_EMAIL_HOST_USER"]
 else:
-    #: Username to use for the SMTP server defined in :attr:`~integreat_cms.backend.settings.EMAIL_HOST`.
+    #: Username to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`.
     #: If empty, Django won’t attempt authentication.
     EMAIL_HOST_USER = ""
 
 if "DJANGO_EMAIL_PORT" in os.environ:
     EMAIL_PORT = os.environ["DJANGO_EMAIL_PORT"]
 else:
-    #: Port to use for the SMTP server defined in :attr:`~integreat_cms.backend.settings.EMAIL_HOST`.
+    #: Port to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`.
     EMAIL_PORT = 25
 
 
@@ -830,7 +830,7 @@ else:
 XLIFF_UPLOAD_DIR = os.path.join(XLIFF_ROOT, "upload")
 
 #: The directory from which xliff files can be downloaded (this should be publicly available under the url specified in
-#: :attr:`~integreat_cms.backend.settings.XLIFF_URL`)
+#: :attr:`~integreat_cms.core.settings.XLIFF_URL`)
 XLIFF_DOWNLOAD_DIR = os.path.join(XLIFF_ROOT, "download")
 
 #: The URL path where XLIFF files are served for download
