@@ -10,9 +10,7 @@ window.addEventListener("load", () => {
   // event handler for showing confirmation popups
   refreshAjaxConfirmationHandlers();
   // event handler for closing confirmation popups
-  document
-    .querySelectorAll("#confirmation-dialog button")
-    .forEach((el) => el.addEventListener("click", closeConfirmationPopup));
+  document.getElementById("close-confirmation-popup")?.addEventListener("click", closeConfirmationPopup);
 });
 
 

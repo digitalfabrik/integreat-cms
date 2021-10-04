@@ -58,7 +58,7 @@
 		<div class="flex justify-center">
 			{% if perms.cms.delete_languagetreenode %}
 				<button title="{% if not node.is_leaf_node %}{% trans 'You cannot delete a node which has children.' %}{% else %}{% trans 'Delete entire language node' %}{% endif %}"
-					class="confirmation-button"
+					class="btn-icon confirmation-button"
 					{% if not node.is_leaf_node %}disabled{% endif %}
 					data-confirmation-title="{{ delete_dialog_title }}"
 					data-confirmation-text="{{ delete_dialog_text }}"

@@ -15,11 +15,12 @@
         <p id="confirmation-text" class="mt-4 mb-6"></p>
         <form method="post" action="#">
             {% csrf_token %}
-            <div class="flex justify-end">
-                <input type="submit" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mx-2 rounded"
-                    value="{% trans 'Confirm' %}" />
-                <button class="cursor-pointer bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded">
+            <div class="flex justify-end gap-2">
+                <button id="close-confirmation-popup" class="btn btn-gray">
                     {% trans 'Cancel' %}
+                </button>
+                <button class="btn">
+                    {% trans 'Confirm' %}
                 </button>
             </div>
         </form>

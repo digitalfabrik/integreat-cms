@@ -26,7 +26,7 @@
             <div class="rounded p-4 bg-blue-500">
                 <h3 class="heading font-bold text-white"><i data-feather="calendar" class="pb-1"></i> {% trans 'Adjust time period' %}</h3>
             </div>
-            <form id="statistics-form" class="px-8 pt-6 pb-8">
+            <form id="statistics-form" class="flex flex-col p-4 pt-2">
                 {% csrf_token %}
                 <label for="{{ form.start_date.id_for_label }}">{{ form.start_date.label }}</label>
                 {% render_field form.start_date|add_error_class:"border-red-500" %}
@@ -37,21 +37,21 @@
                 <label for="{{ form.period.id_for_label }}">{{ form.period.label }}</label>
                 {% render_field form.period|add_error_class:"border-red-500" %}
                 <div id="period_error" class="chart-client-error text-red-500 pb-2 hidden"><i data-feather="alert-triangle"></i> <span></span></div>
-                <input type="submit" class="w-full cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-2 rounded" value="{% trans 'Customize view' %}" />
+                <button class="btn mt-4">{% trans 'Customize view' %}</button>
             </form>
         </div>
         <div class="rounded border border-solid border-gray-200 shadow bg-white">
             <div class="rounded p-4 bg-blue-500">
                 <h3 class="heading font-bold text-white"><i data-feather="download" class="pb-1"></i> {% trans 'Export' %}</h3>
             </div>
-            <div class="px-8 pt-6 pb-8">
+            <div class="flex flex-col gap-4 p-4 pt-2">
                 <label for="export-format">{% trans 'Choose format' %}</label>
                 <select id="export-format" data-filename-prefix="{% trans 'Statistics' %} {{ region.name }}" data-language-column-title="{% trans 'Language' %}">
                     <option value="" selected>--- {% trans 'please select' %} ---</option>
                     <option value="image">{% trans 'Image/PNG' %}</option>
                     <option value="csv">{% trans 'Table Document/CSV' %}</option>
                 </select>
-                <input id="export-button"  type="submit" class="w-full mt-2 bg-gray-500 text-white font-bold py-3 px-4 rounded cursor-not-allowed" value="{% trans 'Export' %}"  disabled="disabled"/>
+                <button id="export-button" class="btn" disabled>{% trans 'Export' %}</button>
                 <a id="export-download-link" class="hidden"></a>
             </div>
         </div>

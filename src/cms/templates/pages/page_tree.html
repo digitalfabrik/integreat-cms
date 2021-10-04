@@ -26,8 +26,7 @@
         </div>
         <div class="flex flex-wrap gap-4">
             {% if request.user.expert_mode %}
-            <button id="filter-toggle"
-                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button id="filter-toggle" class="btn btn-gray">
                 <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans 'Show filters' %}</span>
                 <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans 'Hide filters' %}</span>
             </button>
@@ -35,11 +34,11 @@
             {% has_perm 'cms.change_page_object' request.user as can_edit_pages %}
             {% if can_edit_pages %}
                 {% if region.default_language == language %}
-                    <a href="{% url 'new_page' region_slug=region.slug language_slug=language.slug %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    <a href="{% url 'new_page' region_slug=region.slug language_slug=language.slug %}" class="btn">
                         {% trans 'Create page' %}
                     </a>
                 {% else %}
-                    <button title="{% trans 'You can only create pages in the default language' %} {{ region.default_language.translated_name }}." class="bg-gray-400 text-white font-bold py-2 px-4 rounded cursor-not-allowed">
+                    <button title="{% trans 'You can only create pages in the default language' %} {{ region.default_language.translated_name }}." class="btn" disabled>
                         {% trans 'Create page' %}
                     </button>
                 {% endif %}
@@ -108,19 +107,17 @@
         {% endif %}
         </tbody>
     </table>
-    <div class="flex flex-wrap mt-5">
-        <div class="flex-wrap relative w-1/2">
-            <select id="bulk-action" class="w-auto">
-                <option>{% trans 'Select bulk action' %}</option>
-                <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
-                <option id="pdf-export-option" data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_slug=language.slug %}"
-                    data-target="_blank" data-language-slug="{{ language.slug }}">{% trans 'Export as PDF' %}</option>
-                {% if request.user.expert_mode and language != region.default_language %}
-                    <option data-bulk-action="{% url 'download_xliff' region_slug=region.slug language_slug=language.slug %}">{% trans 'Export XLIFF for translation to' %} {{ language.translated_name }}</option>
-                {% endif %}
-            </select>
-            <input id="bulk-action-execute" type="submit" class="inline-block bg-gray-500 cursor-not-allowed h-full text-white font-bold py-2 px-4 ml-2 rounded" value="{% trans 'Execute' %}" />
-        </div>
+    <div class="flex flex-wrap gap-2 mt-4">
+        <select id="bulk-action" class="w-auto max-w-full">
+            <option>{% trans 'Select bulk action' %}</option>
+            <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
+            <option id="pdf-export-option" data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_slug=language.slug %}"
+                data-target="_blank" data-language-slug="{{ language.slug }}">{% trans 'Export as PDF' %}</option>
+            {% if request.user.expert_mode and language != region.default_language %}
+                <option data-bulk-action="{% url 'download_xliff' region_slug=region.slug language_slug=language.slug %}">{% trans 'Export XLIFF for translation to' %} {{ language.translated_name }}</option>
+            {% endif %}
+        </select>
+        <button id="bulk-action-execute" class="btn">{% trans 'Execute' %}</button>
     </div>
 </form>
 {% if request.user.expert_mode %}
@@ -132,10 +129,7 @@
         <input type="file" name="xliff_file" class="h-full p-2 pl-10 rounded shadow bg-white block">
         {% csrf_token %}
         <div class="pl-3">
-            <input type="submit"
-                   class="inline-block cursor-pointer bg-blue-500
-            hover:bg-blue-600 text-white h-full
-            font-bold py-2 px-4 rounded" value="{% trans 'Upload' %}" />
+            <button class="btn">{% trans 'Upload' %}</button>
         </div>
     </form>
 </div>

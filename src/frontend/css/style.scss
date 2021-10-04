@@ -30,9 +30,8 @@ body, html {
   @apply h-full;
 }
 
-/* Adjust font size to reduce size difference between fonts (currently poor browser support, but better than nothing) */
-body {
-  font-size-adjust: 0.5;
+a:hover {
+  cursor:pointer;
 }
 
 header {
@@ -78,6 +77,62 @@ nav#primary-navigation {
 h1.heading {
   @apply text-3xl mb-2;
 }
+
+/***********
+ * BUTTONS *
+ ***********/
+
+button, a, input[type="submit"] {
+  // Normal buttons
+  &.btn {
+    @apply font-bold rounded inline-block bg-blue-500 text-white py-3 px-4;
+    svg {
+      @apply pr-1;
+    }
+    // Pseudo-classes
+    &:hover {
+      @apply bg-blue-600;
+    }
+    &:focus {
+      @apply outline-none;
+    }
+    &:disabled, &[disabled]{
+      @apply bg-gray-500 cursor-not-allowed;
+    }
+    // Different types of buttons
+    &.btn-small {
+      @apply py-2 px-3;
+    }
+    &.btn-gray {
+      @apply bg-gray-500;
+      &:hover {
+        @apply bg-gray-600;
+      }
+    }
+    &.btn-red {
+      @apply bg-red-500;
+      &:hover {
+        @apply bg-red-600;
+      }
+    }
+    // Override base styles
+    &.hidden {
+      display: none;
+    }
+  }
+  // Icon buttons
+  &.btn-icon {
+    @apply text-gray-800;
+    // Pseudo-classes
+    &:hover {
+      @apply text-blue-500;
+    }
+    &:disabled, &[disabled]{
+      @apply text-gray-400 cursor-not-allowed;
+    }
+  }
+}
+
 
 /*********
  * FORMS *

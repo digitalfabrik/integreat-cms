@@ -15,7 +15,7 @@
 <form enctype="multipart/form-data" method="post" id="content_form">
     {% csrf_token %}
     <div class="flex flex-wrap items-start">
-        <div class="w-4/5 mb-6">
+        <div class="w-full flex flex-wrap justify-between mb-6">
             <h1 class="heading">
                 {% if page %}
                     {% if page_translation_form.instance.id %}
@@ -34,24 +34,25 @@
                     {% trans 'Create new page' %}
                 {% endif %}
             </h1>
-        </div>
-        <div class="w-1/5 flex justify-end mb-6">
-        {% if not page_form.instance.id or not page_form.instance.archived %}
-            {% if can_edit_page %}
-                <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
+            {% if not page_form.instance.id or not page_form.instance.archived %}
+                <div class="flex flex-wrap gap-4">
+                    {% if can_edit_page %}
+                        <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
+                    {% endif %}
+                    {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
+                    {% if can_publish_page %}
+                        <button name="submit_public" class="btn whitespace-nowrap">
+                            {% if page_translation_form.instance.status == PUBLIC %}
+                                {% trans 'Update' %}
+                            {% else %}
+                                {% trans 'Publish' %}
+                            {% endif %}
+                        </button>
+                    {% else %}
+                        <button name="submit_review" class="btn">{% trans 'Submit for review' %}</button>
+                    {% endif %}
+                </div>
             {% endif %}
-            {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
-            {% if can_publish_page %}
-                <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2 whitespace-nowrap"
-                    value="{% if page_translation_form.instance.status == PUBLIC %}
-                            {% trans 'Update' %}
-                        {% else %}
-                            {% trans 'Publish' %}
-                        {% endif %}"/>
-            {% else %}
-                <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-60 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Submit for review' %}" />
-            {% endif %}
-        {% endif %}
         </div>
         <div class="flex flex-wrap flex-col flex-grow pr-2 w-2/3">
             <ul class="flex flex-wrap items-end pl-4">
@@ -188,23 +189,23 @@
                         <label for="{{ page_translation_form.slug.id_for_label }}" class="mr-2">
                             {{ page_translation_form.slug.label }}:
                         </label>
-                        <a href="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}" class="text-blue-500 hover:underline">{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}</a>
-                        <button id="edit-slug-btn" type="button" class="mx-2 text-gray-800 hover:text-blue-500">
+                        <a id="slug-link" href="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}" class="text-blue-500 hover:underline">{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}</a>
+                        <a id="edit-slug-btn" class="mx-2 btn-icon">
                             <i data-feather="edit-3"></i>
-                        </button>
-                        <button id="copy-slug-btn" type="button" class="text-gray-800 hover:text-blue-500">
+                        </a>
+                        <a id="copy-slug-btn" class="btn-icon">
                             <i data-feather="copy"></i>
-                        </button>
+                        </a>
                         <div class="slug-field hidden">
                             <label for="{{ page_translation_form.slug.id_for_label }}">{{ page_translation_form.instance.base_link }}</label>
                             {% render_field page_translation_form.slug|add_error_class:"slug-error" %}
                         </div>
-                        <button id="save-slug-btn" type="button" class="mx-2 text-gray-800 hover:text-blue-500 hidden">
+                        <a id="save-slug-btn" class="mx-2 btn-icon hidden">
                             <i data-feather="save"></i>
-                        </button>
-                        <button id="restore-slug-btn" type="button" class="text-gray-800 hover:text-blue-500 hidden">
+                        </a>
+                        <a id="restore-slug-btn" class="btn-icon hidden">
                             <i data-feather="x-circle"></i>
-                        </button>
+                        </a>
                     </div>
                     <label for="{{ page_translation_form.text.id_for_label }}">{{ page_translation_form.text.label }}</label>
                     {% render_field page_translation_form.text class="tinymce_textarea" %}
@@ -245,7 +246,7 @@
                     {% render_field page_form.related_page %}
                     {% render_field page_form.position %}
                     {% render_field page_form.parent id="parent" %}
-                    <label class="secondary">{% trans 'Order' %}</label>
+                    <label class="btn-gray">{% trans 'Order' %}</label>
                     <div id="page_order_table" class="mb-4">
                         {% include "pages/_page_order_table.html" %}
                     </div>
@@ -292,75 +293,71 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                        <div class="pt-2 pb-4">
-                            {% if page.explicitly_archived %}
-                                <label>{% trans 'Restore page' %}</label>
-                                <button title="{% trans 'Restore page' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                    data-confirmation-title="{{ restore_dialog_title }}"
-                                    data-confirmation-text="{{ restore_dialog_text }}"
-                                    data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                    data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                    <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this page' %}
-                                </button>
-                            {% elif page.implicitly_archived %}
-                                <label>{% trans 'Restore page' %}</label>
+                    <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white flex flex-col">
+                        {% if page.explicitly_archived %}
+                            <label>{% trans 'Restore page' %}</label>
+                            <button title="{% trans 'Restore page' %}" class="btn confirmation-button"
+                                data-confirmation-title="{{ restore_dialog_title }}"
+                                data-confirmation-text="{{ restore_dialog_text }}"
+                                data-confirmation-subject="{{ page_translation_form.instance.title }}"
+                                data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this page' %}
+                            </button>
+                        {% elif page.implicitly_archived %}
+                            <label>{% trans 'Restore page' %}</label>
+                            <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
+                                <p>
+                                    {% blocktrans count counter=page.explicitly_archived_ancestors.count trimmed %}
+                                        To restore this page, you have to restore its parent page:
+                                    {% plural %}
+                                        To restore this page, you have to restore all its archived parent pages:
+                                    {% endblocktrans %}
+                                </p>
+                            </div>
+                            {% for ancestor in page.explicitly_archived_ancestors %}
+                                <a href="{% url 'edit_page' page_id=ancestor.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
+                                    <i data-feather="edit" class="mr-2"></i> {{ ancestor.best_translation.title }}
+                                </a>
+                            {% endfor %}
+                        {% else %}
+                            <label>{% trans 'Archive page' %}</label>
+                            <button title="{% trans 'Archive page' %}" class="btn confirmation-button"
+                                data-confirmation-title="{{ archive_dialog_title }}"
+                                data-confirmation-text="{{ archive_dialog_text }}"
+                                data-confirmation-subject="{{ page_translation_form.instance.title }}"
+                                data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                <i data-feather="archive" class="mr-2"></i>
+                                {% trans 'Archive this page' %}
+                            </button>
+                        {% endif %}
+                        {% if perms.cms.delete_page %}
+                            <label>{% trans 'Delete page' %}</label>
+                            {% if page.children.exists %}
                                 <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
                                     <p>
-                                        {% blocktrans count counter=page.explicitly_archived_ancestors.count trimmed %}
-                                            To restore this page, you have to restore its parent page:
+                                        {% trans 'You cannot delete a page which has subpages.' %}<br>
+                                        {% blocktrans count counter=page.get_descendants.count trimmed %}
+                                            To delete this page, you have to delete or move its subpage first:
                                         {% plural %}
-                                            To restore this page, you have to restore all its archived parent pages:
+                                            To delete this page, you have to delete or move its subpages first:
                                         {% endblocktrans %}
                                     </p>
                                 </div>
-                                {% for ancestor in page.explicitly_archived_ancestors %}
-                                    <a href="{% url 'edit_page' page_id=ancestor.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
-                                        <i data-feather="edit" class="mr-2"></i> {{ ancestor.best_translation.title }}
-                                    </a>
+                                {% for descendant in page.get_descendants %}
+                                <a href="{% url 'edit_page' page_id=descendant.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
+                                    <i data-feather="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
+                                </a>
                                 {% endfor %}
                             {% else %}
-                                <label>{% trans 'Archive page' %}</label>
-                                <button title="{% trans 'Archive page' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                    data-confirmation-title="{{ archive_dialog_title }}"
-                                    data-confirmation-text="{{ archive_dialog_text }}"
+                                <button title="{% trans 'Delete page' %}" class="btn confirmation-button btn-red"
+                                    data-confirmation-title="{{ delete_dialog_title }}"
+                                    data-confirmation-text="{{ delete_dialog_text }}"
                                     data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                    data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                    <i data-feather="archive" class="mr-2"></i>
-                                    {% trans 'Archive this page' %}
+                                    data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                    <i data-feather="trash-2" class="mr-2"></i>
+                                    {% trans 'Delete this page' %}
                                 </button>
                             {% endif %}
-                        </div>
-                        {% if perms.cms.delete_page %}
-                            <div class="pt-2 pb-4">
-                                <label>{% trans 'Delete page' %}</label>
-                                {% if page.children.exists %}
-                                    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
-                                        <p>
-                                            {% trans 'You cannot delete a page which has subpages.' %}<br>
-                                            {% blocktrans count counter=page.get_descendants.count trimmed %}
-                                                To delete this page, you have to delete or move its subpage first:
-                                            {% plural %}
-                                                To delete this page, you have to delete or move its subpages first:
-                                            {% endblocktrans %}
-                                        </p>
-                                    </div>
-                                    {% for descendant in page.get_descendants %}
-                                    <a href="{% url 'edit_page' page_id=descendant.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
-                                        <i data-feather="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
-                                    </a>
-                                    {% endfor %}
-                                {% else %}
-                                    <button title="{% trans 'Delete page' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                                        data-confirmation-title="{{ delete_dialog_title }}"
-                                        data-confirmation-text="{{ delete_dialog_text }}"
-                                        data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                        data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
-                                        <i data-feather="trash-2" class="mr-2"></i>
-                                        {% trans 'Delete this page' %}
-                                    </button>
-                                {% endif %}
-                            </div>
                         {% endif %}
                     </div>
                 {% endif %}
@@ -376,16 +373,16 @@
                     </li>
                 </ul>
                 <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                    <div class="w-full p-4">
+                    <div class="w-full p-4 flex flex-col gap-4">
                         <label for="side-by-side-select">{% trans 'Direction of translation' %}</label>
                         <select id="side-by-side-select">
                             <option value="">---------</option>
                             {% for side_by_side_language_option in side_by_side_language_options %}
-                            <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_slug=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled="disabled"{% elif side_by_side_language_option.selected %}selected="selected"{% endif %}>{{ side_by_side_language_option.label }}</option>
+                            <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_slug=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled{% elif side_by_side_language_option.selected %}selected{% endif %}>{{ side_by_side_language_option.label }}</option>
                             {% endfor %}
                         </select>
-                        <a id="side-by-side-link" class="block pointer-events-none w-full bg-gray-400 text-white text-center font-bold py-2 px-4 mt-2 rounded">
-                            <i data-feather="external-link" class="mr-2"></i>
+                        <a id="side-by-side-link" class="btn" disabled="disabled">
+                            <i data-feather="external-link"></i>
                             {% trans 'Show translator view' %}
                         </a>
                     </div>

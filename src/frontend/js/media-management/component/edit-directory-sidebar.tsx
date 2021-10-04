@@ -115,15 +115,11 @@ export default function EditDirectorySidebar({
           {!selectionMode && (
             <div class="p-4">
               {isEditingAllowed ? (
-                <div>
+                <div class="flex flex-col gap-4">
                   {isDirectoryNameEditable && (
                     <button
                       title={mediaTranslations.btn_rename_directory}
-                      className={cn(
-                        "w-full text-white font-bold py-2 px-4 mb-4 rounded",
-                        { "cursor-not-allowed bg-gray-500": isLoading },
-                        { "bg-blue-500 hover:bg-blue-600": !isLoading }
-                      )}
+                      class="btn"
                       type="submit"
                       disabled={isLoading}
                     >
@@ -137,17 +133,7 @@ export default function EditDirectorySidebar({
                         ? mediaTranslations.btn_delete_directory
                         : mediaTranslations.btn_delete_empty_directory
                     }`}
-                    className={cn(
-                      "confirmation-button w-full text-white font-bold py-2 px-4 rounded",
-                      {
-                        "cursor-not-allowed bg-gray-500":
-                          isLoading || directory.numberOfEntries !== 0,
-                      },
-                      {
-                        "bg-red-500 hover:bg-red-600":
-                          !isLoading && directory.numberOfEntries === 0,
-                      }
-                    )}
+                    class="btn btn-red confirmation-button"
                     data-confirmation-title={mediaTranslations.text_dir_delete_confirm}
                     data-confirmation-subject={directory.name}
                     data-ajax
@@ -175,7 +161,7 @@ export default function EditDirectorySidebar({
           class="hidden"
         >
           <input name="id" type="hidden" value={directory.id} />
-          <button id="delete-directory" type="submit"></button>
+          <button id="delete-directory" />
         </form>
       </div>
     );

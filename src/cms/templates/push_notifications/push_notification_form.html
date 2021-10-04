@@ -11,7 +11,7 @@
 <form method="post">
     {% csrf_token %}
     <div class="flex flex-wrap">
-        <div class="w-4/5 flex flex-wrap flex-col justify-center">
+        <div class="w-full flex flex-wrap justify-between gap-4 mb-6">
             <h1 class="heading">
                 {% if push_notification_form.instance.id %}
                     {% with push_notification_form.instance as push_notification_title %}
@@ -21,15 +21,15 @@
                     {% trans 'Create news message' %}
                 {% endif %}
             </h1>
-        </div>
-            <div class="w-1/5 flex justify-end">
+            <div class="flex flex-wrap gap-4">
                 {% if perms.cms.change_pushnotification %}
-                    <input type="submit" name="submit_save" class="{% if public %}bg-blue-500 hover:bg-blue-600{% else %}bg-gray-400 hover:bg-gray-500{% endif %} cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save' %}" />
+                    <button name="submit_save" class="btn btn-gray">{% trans 'Save' %}</button>
                 {% endif %}
                 {% if perms.cms.send_push_notification %}
-                    <input type="submit" name="submit_send" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Save & Send' %}" />
+                    <button name="submit_send" class="btn">{% trans 'Save & Send' %}</button>
                 {% endif %}
             </div>
+        </div>
         <div class="w-2/3 flex flex-wrap flex-col pr-2 tabbed">
             <ul class="flex flex-wrap pl-4">
                 {% for other_language in languages %}

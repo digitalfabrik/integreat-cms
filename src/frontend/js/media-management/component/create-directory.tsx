@@ -55,16 +55,12 @@ export default function CreateDirectory({
             disabled={isLoading}
             required
           />
-          <input
-            type="submit"
+          <button
             disabled={isLoading}
-            className={cn(
-              "text-white font-bold py-2 px-4 rounded",
-              { "cursor-not-allowed bg-gray-500": isLoading },
-              { "cursor-pointer bg-blue-500 hover:bg-blue-600": !isLoading }
-            )}
-            value={mediaTranslations.btn_create}
-          />
+            class="btn"
+          >
+            {mediaTranslations.btn_create}
+          </button>
         </div>
       </form>
     </div>

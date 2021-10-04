@@ -11,8 +11,7 @@
     <h1 class="heading">{% trans 'Feedback' %}</h1>
     <div class="flex justify-between">
         {% include "_search_input.html" with object_type="feedback" region_slug=region.slug related_form='region-feedback-filter-form' %}
-        <button id="filter-toggle"
-                class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+        <button id="filter-toggle" class="btn btn-gray">
             <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans 'Show filters' %}</span>
             <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans 'Hide filters' %}</span>
         </button>
@@ -116,7 +115,7 @@
 
     </table>
     <div class="flex justify-between mt-5">
-        <div class="flex">
+        <div class="flex gap-2">
             <select id="bulk-action">
                 <option>{% trans 'Select bulk action' %}</option>
                 <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=region.slug %}">{% trans 'Mark as read' %}</option>
@@ -125,7 +124,7 @@
                     <option data-bulk-action="{% url 'delete_region_feedback' region_slug=region.slug %}">{% trans 'Delete' %}</option>
                 {% endif %}
             </select>
-            <input id="bulk-action-execute" type="submit" class="inline-block bg-gray-500 cursor-not-allowed text-white h-full font-bold py-2 px-4 ml-2 rounded" value="{% trans 'Execute' %}" />
+            <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
         </div>
         <div>
             {% include "pagination.html" with url=url chunk=region_feedback %}

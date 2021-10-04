@@ -4,27 +4,19 @@
 
 function toggle_sbs_button({ target }: Event) {
   const link_target = (target as HTMLInputElement).value;
-  const sideBySideLink = document.getElementById("side-by-side-link");
+  const sideBySideLink = document.getElementById("side-by-side-link") as HTMLLinkElement;
   if (link_target !== "") {
     sideBySideLink.setAttribute("href", encodeURI(link_target));
-    sideBySideLink.classList.remove("bg-gray-400");
-    sideBySideLink.classList.remove("pointer-events-none");
-    document.getElementById("side-by-side-link").classList.add("bg-blue-500");
-    sideBySideLink.classList.add("hover:bg-blue-600");
+    sideBySideLink.removeAttribute("disabled");
   } else {
-    document.getElementById("side-by-side-link").removeAttribute("href");
-    sideBySideLink.classList.remove("bg-blue-500");
-    sideBySideLink.classList.remove("hover:bg-blue-600");
-    document.getElementById("side-by-side-link").classList.add("bg-gray-400");
-    sideBySideLink.classList.add("pointer-events-none");
+    sideBySideLink.removeAttribute("href");
+    sideBySideLink.setAttribute("disabled", "disabled");
   }
 }
 document.addEventListener("DOMContentLoaded", () => {
   const sideBySideSelect = document.getElementById(
     "side-by-side-select"
   ) as HTMLSelectElement;
-  if (sideBySideSelect) {
-    sideBySideSelect.addEventListener("change", toggle_sbs_button);
-    sideBySideSelect.dispatchEvent(new Event("change"));
-  }
+  sideBySideSelect?.addEventListener("change", toggle_sbs_button);
+  sideBySideSelect?.dispatchEvent(new Event("change"));
 });
