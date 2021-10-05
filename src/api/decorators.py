@@ -21,6 +21,7 @@ def feedback_handler(func):
     """
 
     @csrf_exempt
+    @wraps(func)
     def handle_feedback(request, region_slug, language_slug):
         """
         Parse feedback API request parameters
