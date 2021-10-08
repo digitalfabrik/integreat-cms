@@ -55,8 +55,10 @@ You want to merge recent changes of the develop branch into your current feature
 
 You have many small commits which clutter the git history, or want to combine rearrange commits on your current feature branch::
 
+    # fetch upstream changes of origin/develop
+    git fetch --all
     # interactive rebase starting at the commit where your current branch was forked from develop
-    git rebase --interactive $(git merge-base --fork-point develop $(git rev-parse --abbrev-ref HEAD))
+    git rebase --interactive $(git merge-base --fork-point origin/develop $(git rev-parse --abbrev-ref HEAD))
     # sort and modify your commits as you want
     # exit the editor and save
     # if the rebase cannot be performed automatically, resolve the conflicts and continue
