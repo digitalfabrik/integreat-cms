@@ -4,7 +4,7 @@ This module contains the :class:`~cms.models.media.media_file.MediaFile` model a
 are used to determine the file system path to which the files should be uploaded.
 """
 import logging
-from os.path import splitext
+from os.path import splitext, getmtime
 from time import strftime
 
 from django.db import models
@@ -37,6 +37,17 @@ def upload_path(instance, filename):
     :return: The upload path of the file
     :rtype: str
     """
+    # If the instance already exists in the database, make sure the upload path doesn't change
+    if instance.id:
+        original_instance = MediaFile.objects.get(id=instance.id)
+        if original_instance.file:
+            logger.debug(
+                "%r already exists in the database, keeping original upload path: %r",
+                instance,
+                original_instance.file.name,
+            )
+            return original_instance.file.name
+
     # If the media file is uploaded to a specific region, prepend a region id subdirectory
     region_directory = f"sites/{instance.region.id}/" if instance.region else ""
     # Calculate the remaining upload path
@@ -65,6 +76,17 @@ def upload_path_thumbnail(instance, filename):
     :return: The upload path of the thumbnail
     :rtype: str
     """
+    # If the instance already exists in the database, make sure the upload path doesn't change
+    if instance.id:
+        original_instance = MediaFile.objects.get(id=instance.id)
+        if original_instance.thumbnail:
+            logger.debug(
+                "%r already exists in the database, keeping original thumbnail upload path: %r",
+                instance,
+                original_instance.thumbnail.name,
+            )
+            return original_instance.thumbnail.name
+
     # Derive the thumbnail name from the original file name
     name, extension = splitext(instance.file.name)
     path = f"{name}_thumbnail{extension}"
@@ -152,13 +174,24 @@ class MediaFile(models.Model):
         :return: A serialized string representation of the document for JSON concatenation
         :rtype: str
         """
+
+        thumbnail_url = self.thumbnail_url
+        if thumbnail_url:
+            # Make sure replaced images are not cached
+            try:
+                thumbnail_url += f"?{getmtime(self.file.path)}"
+            except OSError as e:
+                logger.error(
+                    "The physical file of %r could not be accessed: %r", self, e
+                )
+
         return {
             "id": self.id,
             "name": self.name,
             "altText": self.alt_text,
             "type": self.type,
             "typeDisplay": self.get_type_display(),
-            "thumbnailUrl": self.thumbnail_url,
+            "thumbnailUrl": thumbnail_url,
             "url": self.url,
             "uploadedDate": localize(timezone.localtime(self.uploaded_date)),
             "isGlobal": not self.region,
@@ -182,8 +215,10 @@ class MediaFile(models.Model):
         :return: The canonical string representation of the document
         :rtype: str
         """
-        region = f"region: {self.region.slug}" if self.region else "global"
-        return f"<MediaFile (id: {self.id}, name: {self.name}, path: {self.file.path}, {region})>"
+        file_path = f"path: {self.file.path}, " if self.file else ""
+        return (
+            f"<MediaFile (id: {self.id}, name: {self.name}, {file_path}{self.region})>"
+        )
 
     class Meta:
         #: The verbose name of the model

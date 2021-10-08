@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-30 10:24+0000\n"
+"POT-Creation-Date: 2021-10-08 09:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1613,6 +1613,13 @@ msgstr ""
 msgid "A directory with the name \"{}\" already exists."
 msgstr "Ein Ordner mit diesem Namen existiert bereits"
 
+#: forms/media/replace_media_file_form.py:89
+msgid ""
+"The file type of the new file ({}) does not match the original file's type "
+"({})."
+msgstr ""
+"Der Dateityp {} stimmt nicht mit dem Typ der Originaldatei ({}) überein."
+
 #: forms/media/upload_media_file_form.py:86
 msgid "The file type {} is not allowed."
 msgstr "Der Dateityp {} ist nicht erlaubt."
@@ -1794,7 +1801,7 @@ msgstr "Chat-Nachrichten"
 
 #: models/events/event.py:25 models/feedback/feedback.py:22
 #: models/languages/language_tree_node.py:37 models/media/directory.py:22
-#: models/media/media_file.py:112 models/pages/imprint_page.py:22
+#: models/media/media_file.py:134 models/pages/imprint_page.py:22
 #: models/pages/page.py:47 models/pois/poi.py:19
 #: models/push_notifications/push_notification.py:18
 #: models/regions/region.py:417
@@ -1879,7 +1886,7 @@ msgstr "Status"
 msgid "title"
 msgstr "Titel"
 
-#: models/events/event_translation.py:45 models/media/media_file.py:115
+#: models/events/event_translation.py:45 models/media/media_file.py:137
 msgid "description"
 msgstr "Beschreibung"
 
@@ -2264,13 +2271,13 @@ msgstr "Sprach-Knoten"
 msgid "language tree nodes"
 msgstr "Sprach-Knoten"
 
-#: models/media/directory.py:15 models/media/media_file.py:97
+#: models/media/directory.py:15 models/media/media_file.py:119
 #: models/offers/offer_template.py:16 models/regions/region.py:26
 #: models/users/organization.py:13 models/users/role.py:18
 msgid "name"
 msgstr "Name"
 
-#: models/media/directory.py:30 models/media/media_file.py:104
+#: models/media/directory.py:30 models/media/media_file.py:126
 msgid "parent directory"
 msgstr "Elternverzeichnis"
 
@@ -2286,31 +2293,31 @@ msgstr "Medien-Verzeichnis"
 msgid "media directories"
 msgstr "Medien-Verzeichnisse"
 
-#: models/media/media_file.py:84 templates/pages/page_xliff_confirm.html:46
+#: models/media/media_file.py:106 templates/pages/page_xliff_confirm.html:46
 msgid "file"
 msgstr "Datei"
 
-#: models/media/media_file.py:89
+#: models/media/media_file.py:111
 msgid "thumbnail file"
 msgstr "Vorschaubild-Datei"
 
-#: models/media/media_file.py:95
+#: models/media/media_file.py:117
 msgid "file type"
 msgstr "Dateityp"
 
-#: models/media/media_file.py:119
+#: models/media/media_file.py:141
 msgid "uploaded date"
 msgstr "Upload-Datum"
 
-#: models/media/media_file.py:120
+#: models/media/media_file.py:142
 msgid "The date and time when the media file was uploaded"
 msgstr "Das Datum und die Uhrzeit, zu der die Medien-Datei hochgeladen wurde"
 
-#: models/media/media_file.py:190
+#: models/media/media_file.py:225
 msgid "media file"
 msgstr "Medien-Datei"
 
-#: models/media/media_file.py:192
+#: models/media/media_file.py:227
 msgid "media files"
 msgstr "Medien-Dateien"
 
@@ -2331,7 +2338,7 @@ msgstr "Vorschaubild-URL"
 #: models/offers/offer_template.py:30 templates/_tinymce_config.html:46
 #: templates/linkcheck/links_by_filter.html:39
 #: templates/offer_templates/offer_template_list.html:22
-#: views/media/media_context_mixin.py:56
+#: views/media/media_context_mixin.py:57
 msgid "URL"
 msgstr "URL"
 
@@ -3385,14 +3392,14 @@ msgstr "Nachricht abschicken"
 #: templates/chat/_chat_widget.html:23
 #: templates/statistics/_statistics_widget.html:18
 #: templates/statistics/statistics_overview.html:18
-#: views/media/media_context_mixin.py:78
+#: views/media/media_context_mixin.py:79
 msgid "A network error has occurred."
 msgstr "Ein Netzwerkfehler ist aufgetreten."
 
 #: templates/chat/_chat_widget.html:23
 #: templates/statistics/_statistics_widget.html:18
 #: templates/statistics/statistics_overview.html:18
-#: views/media/media_context_mixin.py:75 views/media/media_context_mixin.py:80
+#: views/media/media_context_mixin.py:76 views/media/media_context_mixin.py:81
 msgid "Please try again later."
 msgstr "Bitte versuchen Sie es später erneut."
 
@@ -5532,35 +5539,35 @@ msgstr "Links werden nicht mehr ignoriert"
 msgid "Links were successfully checked"
 msgstr "Links wurden erfolgreich geprüft"
 
-#: views/media/media_actions.py:144
+#: views/media/media_actions.py:146
 msgid "File \"{}\" was uploaded successfully"
 msgstr "Datei \"{}\"wurde erfolgreich hochgeladen"
 
-#: views/media/media_actions.py:195 views/media/media_actions.py:356
+#: views/media/media_actions.py:197 views/media/media_actions.py:414
 msgid "No changes detected"
 msgstr "Keine Änderungen vorgenommen"
 
-#: views/media/media_actions.py:210
+#: views/media/media_actions.py:212 views/media/media_actions.py:268
 msgid "File \"{}\" was saved successfully"
 msgstr "Datei \"{}\" wurde erfolgreich gespeichert"
 
-#: views/media/media_actions.py:256
+#: views/media/media_actions.py:314
 msgid "File \"{}\" was successfully deleted"
 msgstr "Datei \"{}\" wurde erfolgreich gelöscht"
 
-#: views/media/media_actions.py:308
+#: views/media/media_actions.py:366
 msgid "Directory \"{}\" was created successfully"
 msgstr "Verzeichnis \"{}\" wurde erfolgreich erstellt"
 
-#: views/media/media_actions.py:369
+#: views/media/media_actions.py:427
 msgid "Directory \"{}\" was saved successfully"
 msgstr "Verzeichnis \"{}\" wurde erfolgreich gespeichert"
 
-#: views/media/media_actions.py:413
+#: views/media/media_actions.py:471
 msgid "Directory \"{}\" cannot be deleted because it is not empty"
 msgstr "Verzeichnis \"{}\" kann nicht gelöscht werden, da es nicht leer ist"
 
-#: views/media/media_actions.py:426
+#: views/media/media_actions.py:484
 msgid "Directory \"{}\" was successfully deleted"
 msgstr "Verzeichnis \"{}\" wurde erfolgreich gelöscht"
 
@@ -5637,55 +5644,59 @@ msgid "Select file"
 msgstr "Datei auswählen"
 
 #: views/media/media_context_mixin.py:55
+msgid "Replace file"
+msgstr "Datei ersetzen"
+
+#: views/media/media_context_mixin.py:56
 msgid "File name:"
 msgstr "Dateiname:"
 
-#: views/media/media_context_mixin.py:57
+#: views/media/media_context_mixin.py:58
 msgid "Directory name:"
 msgstr "Verzeichnisname:"
 
-#: views/media/media_context_mixin.py:58
+#: views/media/media_context_mixin.py:59
 msgid "Filetype:"
 msgstr "Dateityp:"
 
-#: views/media/media_context_mixin.py:59
+#: views/media/media_context_mixin.py:60
 msgid "File uploaded on:"
 msgstr "Datei hochgeladen am:"
 
-#: views/media/media_context_mixin.py:60
+#: views/media/media_context_mixin.py:61
 msgid "Directory created on:"
 msgstr "Verzeichnis erstellt am:"
 
-#: views/media/media_context_mixin.py:61
+#: views/media/media_context_mixin.py:62
 msgid "Alternative text:"
 msgstr "Alternativer Text:"
 
-#: views/media/media_context_mixin.py:62
+#: views/media/media_context_mixin.py:63
 msgid "Enter directory name here"
 msgstr "Verzeichnisname hier eingeben"
 
-#: views/media/media_context_mixin.py:63
+#: views/media/media_context_mixin.py:64
 msgid "This file is read-only and cannot be edited."
 msgstr "Diese Datei ist schreibgeschützt und kann nicht bearbeitet werden."
 
-#: views/media/media_context_mixin.py:65
+#: views/media/media_context_mixin.py:66
 msgid "This directory is read-only and cannot be edited."
 msgstr ""
 "Dieses Verzeichnis ist schreibgeschützt und kann nicht bearbeitet werden."
 
-#: views/media/media_context_mixin.py:67
+#: views/media/media_context_mixin.py:68
 msgid "Only images can be selected as an icon."
 msgstr "Es können nur Bilder als Icon ausgewählt werden."
 
-#: views/media/media_context_mixin.py:69
+#: views/media/media_context_mixin.py:70
 msgid "Please confirm that you really want to delete this file"
 msgstr "Bitte bestätigen Sie, dass diese Datei gelöscht werden soll"
 
-#: views/media/media_context_mixin.py:72
+#: views/media/media_context_mixin.py:73
 msgid "Please confirm that you really want to delete this directory"
 msgstr "Bitte bestätigen Sie, dass dieses Verzeichnis gelöscht werden soll"
 
-#: views/media/media_context_mixin.py:75
+#: views/media/media_context_mixin.py:76
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 

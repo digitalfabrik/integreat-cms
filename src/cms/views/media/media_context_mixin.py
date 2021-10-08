@@ -52,6 +52,7 @@ class MediaContextMixin(ContextMixin):
                 "btn_submit": _("Submit"),
                 "btn_select": _("Select"),
                 "btn_select_file": _("Select file"),
+                "btn_replace_file": _("Replace file"),
                 "label_file_name": _("File name:"),
                 "label_url": _("URL") + ":",
                 "label_directory_name": _("Directory name:"),
@@ -96,6 +97,7 @@ class MediaContextMixin(ContextMixin):
             "uploadFile": reverse("mediacenter_upload_file", kwargs=kwargs),
             "editFile": reverse("mediacenter_edit_file", kwargs=kwargs),
             "deleteFile": reverse("mediacenter_delete_file", kwargs=kwargs),
+            "replaceFile": reverse("mediacenter_replace_file", kwargs=kwargs),
         }
 
         context["media_config_data"] = media_config_data
