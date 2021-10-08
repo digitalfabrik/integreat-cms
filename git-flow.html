@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-04-30T22:44:08+00:00" />
+    <meta property="article:modified_time" content="2021-10-03T21:32:34+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GitHub Workflow &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -1201,8 +1201,10 @@ git push --force-with-lease
 <section id="clean-up-git-history">
 <h3>2. Clean up git history<a class="headerlink" href="#clean-up-git-history" title="Permalink to this headline"></a></h3>
 <p>You have many small commits which clutter the git history, or want to combine rearrange commits on your current feature branch:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># interactive rebase starting at the commit where your current branch was forked from develop</span>
-git rebase --interactive <span class="k">$(</span>git merge-base --fork-point develop <span class="k">$(</span>git rev-parse --abbrev-ref HEAD<span class="k">))</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># fetch upstream changes of origin/develop</span>
+git fetch --all
+<span class="c1"># interactive rebase starting at the commit where your current branch was forked from develop</span>
+git rebase --interactive <span class="k">$(</span>git merge-base --fork-point origin/develop <span class="k">$(</span>git rev-parse --abbrev-ref HEAD<span class="k">))</span>
 <span class="c1"># sort and modify your commits as you want</span>
 <span class="c1"># exit the editor and save</span>
 <span class="c1"># if the rebase cannot be performed automatically, resolve the conflicts and continue</span>
@@ -1287,7 +1289,7 @@ At the moment, the following hooks are configured:</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Apr 30, 2021.
+      <span class="lastupdated">Last updated on Oct 03, 2021.
       </span></p>
   </div>
 
