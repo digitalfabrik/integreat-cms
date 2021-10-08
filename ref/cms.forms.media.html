@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-22T17:59:05+00:00" />
+    <meta property="article:modified_time" content="2021-09-24T20:07:17+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Media &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -300,6 +300,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#create-directory-form">Create Directory Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#directory-form">Directory Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#replace-media-file-form">Replace Media File Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
@@ -749,6 +750,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.directory_form">Directory Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.replace_media_file_form">Replace Media File Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
@@ -1242,6 +1244,78 @@ logging</p>
 </dd></dl>
 
 </section>
+<section id="replace-media-file-form">
+<h2>Replace Media File Form<a class="headerlink" href="#replace-media-file-form" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.forms.media.replace_media_file_form.</span></span><span class="sig-name descname"><span class="pre">ReplaceMediaFileForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/replace_media_file_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/cms.forms.html#cms.forms.custom_model_form.CustomModelForm" title="cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
+<p>Form for replacing media file objects</p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: File (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FileField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">thumbnail</span></code>: Thumbnail file (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FileField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileField</span></code></a>)</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/replace_media_file_form.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Initialize UploadMediaFileForm form</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.QueryDict" title="(in Django v3.2)"><em>django.http.QueryDict</em></a>) – submitted POST data</p></li>
+<li><p><strong>data</strong> – A dictionary-like object containing all given HTTP POST parameters</p></li>
+<li><p><strong>files</strong> (<em>django.utils.datastructures.MultiValueDict</em>) – A dictionary-like object containing all uploaded files</p></li>
+<li><p><strong>instance</strong> (<a class="reference internal" href="../ref-ext/cms.models.media.html#cms.models.media.media_file.MediaFile" title="cms.models.media.media_file.MediaFile"><em>MediaFile</em></a>) – This form’s instance</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/replace_media_file_form.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a>:
+Check whether a file was uploaded and whether it’s type matches the original file’s type.
+If the file type is invalid, add a <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValidationError</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The cleaned form data</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/replace_media_file_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/media/replace_media_file_form.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
+logging</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>commit</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether or not the changes should be written to the database</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The saved object returned by <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#topics-modelform-save" title="(in Django v3.2)"><span>The save() method</span></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="upload-media-file-form">
 <h2>Upload Media File Form<a class="headerlink" href="#upload-media-file-form" title="Permalink to this headline"></a></h2>
 <dl class="py class">
@@ -1315,7 +1389,7 @@ If the file type is invalid, add a <a class="reference external" href="https://d
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 22, 2021.
+      <span class="lastupdated">Last updated on Sep 24, 2021.
       </span></p>
   </div>
 

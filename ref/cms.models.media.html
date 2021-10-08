@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-21T10:13:25+00:00" />
+    <meta property="article:modified_time" content="2021-09-24T20:07:17+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Media &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -300,6 +300,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#directory-form">Directory Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#replace-media-file-form">Replace Media File Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
 </ul>
 </li>
@@ -749,6 +750,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.create_directory_form">Create Directory Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.directory_form">Directory Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.media_file_form">Media File Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.replace_media_file_form">Replace Media File Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.forms.media.html#module-cms.forms.media.upload_media_file_form">Upload Media File Form</a></li>
 </ul>
 </li>
@@ -1238,7 +1240,7 @@ exist on the actual file system. Each directory is tied to a region.</p>
 are used to determine the file system path to which the files should be uploaded.</p>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.models.media.media_file.</span></span><span class="sig-name descname"><span class="pre">MediaFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.models.media.media_file.</span></span><span class="sig-name descname"><span class="pre">MediaFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
 <p>The MediaFile model is used to store basic information about files which are uploaded to the CMS. This is only a
 virtual document and does not necessarily exist on the actual file system. Each document is tied to a region via its
@@ -1279,19 +1281,19 @@ directory.</p>
 </dl>
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span> </em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This methods creates a serialized string of that document. This can later be used in the AJAX calls.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1305,7 +1307,7 @@ directory.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">thumbnail_url</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">thumbnail_url</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Return the path of the image that should be used as the thumbnail.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1319,7 +1321,7 @@ directory.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">url</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">url</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the path of the physical file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1358,7 +1360,7 @@ If it already exists, Django will automatically append a random string to make s
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">cms.models.media.media_file.</span></span><span class="sig-name descname"><span class="pre">upload_path_thumbnail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.models.media.media_file.</span></span><span class="sig-name descname"><span class="pre">upload_path_thumbnail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/media/media_file.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function derives the upload path of a thumbnail file from it’s original file.
 This makes it a bit easier to determine which thumbnail belongs to which file if there are multiple files with the
 same file name (in which case Django automatically appends a random string to the original’s file name).</p>
@@ -1399,7 +1401,7 @@ will be stored as <code class="docutils literal notranslate"><span class="pre">A
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 21, 2021.
+      <span class="lastupdated">Last updated on Sep 24, 2021.
       </span></p>
   </div>
 
