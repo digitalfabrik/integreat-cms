@@ -8,6 +8,18 @@ package_name = "integreat-cms"
 package_dir = "integreat_cms"
 version = "2021.9.0-beta"
 
+
+def readme():
+    """
+    Read the readme file which is intended for the description on PyPI
+
+    :return: The contents of the readme file
+    :rtype: str
+    """
+    with open(f"{package_dir}/README.md", mode="r", encoding="utf8") as f:
+        return f.read()
+
+
 setup(
     name=package_name,
     version=version,
@@ -46,6 +58,8 @@ setup(
     author="Integreat App Project",
     author_email="info@integreat-app.de",
     description="Content Management System for the Integreat App",
+    long_description=readme(),
+    long_description_content_type="text/markdown",
     license="GPL-2.0-or-later",
     keywords="Django Integreat CMS",
     url="http://github.com/Integreat/",

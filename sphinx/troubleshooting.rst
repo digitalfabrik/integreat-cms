@@ -79,7 +79,7 @@ Not a git repository
         sudo apt-get update
 
 
-.. _circleci-unauthorized:
+.. _troubleshooting-unauthorized:
 
 ⚠ Unauthorized (CircleCI)
 =========================
@@ -98,7 +98,7 @@ Not a git repository
     * Is your GitHub user a member of the `Integreat/cms <https://github.com/orgs/Integreat/teams/cms>`__ team?
     * Is your GitHub account connected with `CircleCI <https://circleci.com/vcs-authorize/>`__?
 
-    See :ref:`circleci-docker-images` for background information on this error.
+    See :ref:`circleci-unauthorized` for background information on this error.
 
 
 MacOS on M1

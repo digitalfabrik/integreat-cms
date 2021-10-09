@@ -4,36 +4,40 @@ Packaging
 
 .. highlight:: bash
 
-.. Attention::
 
-    This guide is not the final packaging workflow and will probably change in the near future.
-
-
-Create debian package
+Create python package
 =====================
 
-Packaging for Debian can be done with setuptools::
+Packaging for a Python repository like e.g. `PyPI <https://pypi.org/>`__ is automated via our
+:doc:`continuous-integration` (see :ref:`circleci-build-package`). If you want to do the packaging process manually, follow these steps:
 
-    pip3 install stdeb --user
-    python3 setup.py --command-packages=stdeb.command bdist_deb
+1. Build all static files which are required::
 
-The project requires the package python3-django-widget-tweaks which has to be built manually::
+    # Compile translation file
+    pipenv run integreat-cms-cli compilemessages
+    # Bundle static files
+    npm run prod
 
-    git clone git@github.com:jazzband/django-widget-tweaks.git
-    cd django-widget-tweaks
-    pip3 install stdeb
-    python3 setup.py --command-packages=stdeb.command bdist_deb
+2. Create a ``MANIFEST.in`` file with the following contents::
 
-Then install both packages with gdebi::
+    graft integreat_cms
+    prune integreat_cms/static/src
 
-    apt install gdebi postgresql
-    gdebi django-widget-tweaks/deb_dist/python3-django-widget-tweaks_1.4.3-1_all.deb
-    gdebi |github-repository|/deb_dist/python3-integreat-cms_0.0.13-1_all.deb
+   This tells the setup script to include all non-python files in the ``integreat_cms`` directory except those in
+   ``integreat_cms/static/src``.
 
-In the end, create a PostgreSQL user and database and adjust the ``/usr/lib/python3/dist-packages/core/settings.py``.
+3. After that, you can build the python package with :doc:`setuptools:index`::
 
-.. Note::
+    pip3 install --upgrade pip setuptools wheel
+    python3 setup.py sdist bdist_wheel
 
-    In some cases, you can just use the developer tool :github-source:`dev-tools/package.sh`::
+   Then, the built package can be found in ``./dist/``.
 
-        ./dev-tools/package.sh
+Publish package
+===============
+
+You can publish the package to a python repository like e.g. `PyPI <https://pypi.org/>`__ with :doc:`twine:index`::
+
+    pipenv run twine upload ./dist/integreat-cms-*.tar.gz
+
+See the :doc:`Twine documentation <twine:index>` for all configuration options of this command.

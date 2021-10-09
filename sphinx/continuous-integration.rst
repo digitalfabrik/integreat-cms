@@ -79,15 +79,22 @@ bump-dev-version
 
 This job modifies the ``bumpver`` config to make sure the changes are only temporary and not committed, then it bumps
 the version to the next alpha version which is not yet published on
-`TestPyPI <https://test.pypi.org/project/integreat-cms/#history>`_.
+`TestPyPI <https://test.pypi.org/project/integreat-cms/#history>`__.
 
 .. _circleci-build-package:
 
 build-package
 -------------
 
-This job creates a debian package with ``python3 setup.py --command-packages=stdeb.command bdist_deb`` and passes the
-resulting files in ``dist`` to the build artifacts.
+This job creates a python package and passes the resulting files in ``dist`` to the :ref:`circleci-publish-package` job.
+See :doc:`packaging` for more information.
+
+.. _circleci-publish-package:
+
+publish-package
+---------------
+
+This job publishes the built package to `TestPyPI <https://test.pypi.org/project/integreat-cms/>`__ via :doc:`twine:index`.
 
 build-documentation
 -------------------
@@ -104,23 +111,6 @@ deploy-documentation
 This job authenticates as the user `DigitalfabrikMember <https://github.com/DigitalfabrikMember>`_ and commits all changes to the
 documentation to the branch `gh-pages <https://github.com/Integreat/cms-django/tree/gh-pages>`_
 which is then deployed to ``https://integreat.github.io/cms-django/`` by GitHub.
-
-.. _circleci-docker-images:
-
-docker-images
--------------
-This job builds the docker images used for this CircleCI workflow (see :ref:`circleci-custom-docker-images` for more information).
-After a successful docker build, the images are pushed to `Docker Hub <https://hub.docker.com/u/integreat>`__
-
-To login to our organization's docker hub account, the job needs to access the secret ``DOCKER_PASSWORD``, which is
-available to all users of the GitHub team `Integreat/cms <https://github.com/orgs/Integreat/teams/cms>`__.
-This is also the reason why the job is not executed on branches of the dependabot, because the bot does not have the
-permissions to access the Docker Hub credentials.
-
-.. admonition:: Got error "Unauthorized"?
-    :class: error
-
-    If you get an ``Unauthorized`` error on this job, see :ref:`circleci-unauthorized`.
 
 .. _circleci-shellcheck:
 
@@ -174,6 +164,11 @@ build-package
 
 See :ref:`circleci-build-package`.
 
+publish-package
+---------------
+
+See :ref:`circleci-build-package`. The only difference is that PyPI is used as repository instead of TestPyPI.
+
 
 Debugging with SSH
 ==================
@@ -183,25 +178,14 @@ server and examine the problem. See `Debugging with SSH <https://circleci.com/do
 more information.
 
 
-.. _circleci-custom-docker-images:
+.. _circleci-unauthorized:
 
-Custom Docker Images
-====================
+⚠ Unauthorized (CircleCI)
+=========================
 
-To speed up the job :ref:`circleci-build-package`, we use the custom docker image
-`integreat/bionic-setuptools <https://hub.docker.com/r/integreat/bionic-setuptools>`__.
+.. admonition:: Got error "Unauthorized"?
+    :class: error
 
-.. Note::
-
-    See `Using Custom-Built Docker Images <https://circleci.com/docs/2.0/custom-images/>`__ for more information on custom
-    docker images for CircleCI builds.
-
-The Dockerfiles are managed via GitHub in :github-source:`.circleci/images/bionic-setuptools/Dockerfile` and
-:github-source:`.circleci/images/python-node-gettext/Dockerfile`.
-Every time a change is pushed to GitHub (no matter on which branch), they are tagged with the commit's SHA1 hash and
-pushed to `Docker Hub <https://hub.docker.com/u/integreat>`__ (see :ref:`circleci-docker-images` for more information).
-Don't forget to change the image tag in :github-source:`.circleci/config.yml` after you made changes to the Dockerfile::
-
-  packaging:
-    docker:
-      - image: integreat/bionic-setuptools:<INSERT-NEW-COMMIT-SHA1-HERE>
+    Some jobs need secrets that are passed into the execution via `contexts <https://circleci.com/docs/2.0/contexts/>`_.
+    If you get the error "unauthorized", you have to make sure you have the correct permissions to access these secrets.
+    See :ref:`troubleshooting-unauthorized` for typical solutions to this problem.

@@ -146,16 +146,31 @@ jobs:
           path: htmlcov
   build-package:
     docker:
-      - image: integreat/bionic-setuptools:78c07dc
+      - image: cimg/python:3.7
     steps:
       - checkout
       - attach_workspace:
           at: .
       - run:
-          name: Create integreat-cms package
-          command: python3 setup.py --command-packages=stdeb.command bdist_deb
-      - store_artifacts:
-          path: dist
+          name: Create MANIFEST.in file
+          command: echo -e "graft integreat_cms\nprune integreat_cms/static/src" > MANIFEST.in
+      - run:
+          name: Build integreat-cms package
+          command: python setup.py sdist bdist_wheel
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+  publish-package:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Publish integreat-cms package to (Test-)PyPI
+          command: pipenv run twine upload --non-interactive ./dist/integreat-cms-*.tar.gz
   build-documentation:
     docker:
       - image: cimg/python:3.7
@@ -213,27 +228,6 @@ jobs:
             git add --all
             git commit -m "Update documentation of commit ${CIRCLE_SHA1} [skip ci]" || true
             git push origin $BRANCH
-  docker-images:
-    docker:
-        - image: cimg/base:stable
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Build Docker images
-          command: |
-            if git diff --name-only HEAD~1 HEAD | grep -q .circleci/images/bionic-setuptools; then
-              docker build -t integreat/bionic-setuptools:$(echo $CIRCLE_SHA1 | cut -c -7) -t integreat/bionic-setuptools:latest .circleci/images/bionic-setuptools
-            fi
-      - run:
-          name: Push Docker images
-          command: |
-            if git diff --name-only HEAD~1 HEAD | grep -q .circleci/images; then
-              echo $DOCKER_PASSWORD | docker login -u integreat --password-stdin
-            fi
-            if git diff --name-only HEAD~1 HEAD | grep -q .circleci/images/bionic-setuptools; then
-              docker push integreat/bionic-setuptools
-            fi
   bump-dev-version:
     docker:
       - image: cimg/python:3.7
@@ -347,6 +341,14 @@ workflows:
             - webpack
             - compile-translations
             - bump-dev-version
+      - publish-package:
+          name: publish-dev-package
+          context: pypi-test
+          filters:
+            branches:
+              only: develop
+          requires:
+            - build-dev-package
       - black:
           requires:
             - pipenv-install
@@ -365,8 +367,6 @@ workflows:
           filters:
             branches:
               only: develop
-      - docker-images:
-          context: docker-hub
   main:
     jobs:
       - pipenv-install:
@@ -405,6 +405,13 @@ workflows:
           requires:
             - webpack-deploy
             - compile-translations-deploy
+          filters:
+            tags:
+              only: /.*/
+      - publish-package:
+          context: pypi
+          requires:
+            - build-package
           filters:
             tags:
               only: /.*/
