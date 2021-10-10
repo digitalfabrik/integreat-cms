@@ -88,7 +88,7 @@ It passes the html documentation in ``docs`` to the :ref:`circleci-deploy-docume
 deploy-documentation
 --------------------
 
-This job authenticates as the user `IntegreatAPI <https://github.com/IntegreatAPI>`_ and commits all changes to the
+This job authenticates as the user `DigitalfabrikMember <https://github.com/DigitalfabrikMember>`_ and commits all changes to the
 documentation to the branch `gh-pages <https://github.com/Integreat/cms-django/tree/gh-pages>`_
 which is then deployed to ``https://integreat.github.io/cms-django/`` by GitHub.
 
