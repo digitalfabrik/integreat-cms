@@ -2,12 +2,12 @@ import logging
 
 from html import escape
 
-from mptt.models import MPTTModel, TreeForeignKey
-
 from django.conf import settings
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+
+from mptt.models import MPTTModel, TreeForeignKey
 
 from .abstract_base_page import AbstractBasePage
 from ..languages.language import Language
@@ -218,7 +218,7 @@ class Page(MPTTModel, AbstractBasePage):
 
     def get_descendants_max_depth(self, include_self, max_depth):
         """
-        Return all descendants with depth less or euqual to max depth relative to this nodes depth
+        Return all descendants with depth less or equal to max depth relative to this nodes depth
 
         :param include_self: Whether to include this node in the result
         :type include_self: bool
