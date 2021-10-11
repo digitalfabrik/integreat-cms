@@ -3,15 +3,11 @@
 {% block content %}
 {% load static %}
 <div class="table-header">
-    <div class="flex flex-wrap">
-        <div class="w-1/2 flex flex-wrap">
-            <h1 class="heading">{% trans 'Manage Roles' %}</h1>
-        </div>
-        <div class="w-1/2 flex flex-wrap justify-end">
-            <a href="{% url 'new_role' %}" class="bg-blue-500 hover:bg-blue-600 hover:text-gray-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-	            {% trans 'Create role' %}
-            </a>
-        </div>
+    <div class="flex flex-wrap justify-between gap-4">
+        <h1 class="heading">{% trans 'Manage Roles' %}</h1>
+        <a href="{% url 'new_role' %}" class="btn">
+            {% trans 'Create role' %}
+        </a>
     </div>
 </div>
 

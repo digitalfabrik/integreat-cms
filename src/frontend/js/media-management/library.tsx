@@ -199,7 +199,7 @@ export default function Library({
           <div className="flex flex-wrap justify-start gap-2">
             <button
               title={mediaTranslations.btn_create_directory}
-              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded cursor-pointer"
+              class="btn"
               onClick={() => setCreateDirectory(!isCreateDirectory)}
             >
               <FolderPlus class="inline-block mr-2 h-5" />
@@ -207,7 +207,7 @@ export default function Library({
             </button>
             <button
               title={mediaTranslations.btn_upload_file}
-              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded cursor-pointer"
+              class="btn"
               onClick={() => setUploadFile(!isUploadFile)}
             >
               <FilePlus class="inline-block mr-2 h-5" />

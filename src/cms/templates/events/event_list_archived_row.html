@@ -83,28 +83,28 @@
     <td>
         <i data-feather="calendar"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
     </td>
-    <td class="pl-2 pr-4 flex min">
+    <td class="pl-2 pr-4 py-3 flex flex-nowrap justify-end gap-2 min">
         <!-- TODO: add link to view event in web app -->
-        <a href="" class="py-3 px-2">
-            <i data-feather="eye" class="text-gray-800"></i>
+        <a href="" class="btn-icon">
+            <i data-feather="eye"></i>
         </a>
         {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if can_edit_event %}
-            <button title="{% trans 'Restore event' %}" class="confirmation-button py-3 px-2" 
+            <button title="{% trans 'Restore event' %}" class="confirmation-button btn-icon"
                 data-confirmation-title="{{ restore_dialog_title }}"
                 data-confirmation-text="{{ restore_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}"
                 data-action="{% url 'restore_event' event_id=event.id region_slug=region.slug language_slug=language.slug %}">
-                <i data-feather="refresh-ccw" class="text-gray-800"></i>
+                <i data-feather="refresh-ccw"></i>
             </button>
         {% endif %}
         {% if perms.cms.delete_event %}
-            <button title="{% trans 'Delete event' %}" class="confirmation-button py-3 px-2"
+            <button title="{% trans 'Delete event' %}" class="confirmation-button btn-icon"
                 data-confirmation-title="{{ delete_dialog_title }}"
                 data-confirmation-text="{{ delete_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}"
                 data-action="{% url 'delete_event' event_id=event.id region_slug=region.slug language_slug=language.slug %}">
-                <i data-feather="trash-2" class="text-gray-800"></i>
+                <i data-feather="trash-2"></i>
             </button>
         {% endif %}
     </td>

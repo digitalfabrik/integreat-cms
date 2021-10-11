@@ -10,7 +10,7 @@
 
 {% block dashboard_widget_content %}
     <div class="mb-1 text-s text-gray-600">{% trans 'The five most recent entries are listed.' %}</div>
-    <table class="w-full rounded border border-solid border-gray-200 shadow bg-white">
+    <table class="w-full rounded border border-solid border-gray-200 shadow bg-white mb-4">
         <tr class="border-b border-solid border-gray-200">
             <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Feedback on' %}</th>
             <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Comment' %}</th>
@@ -64,9 +64,7 @@
             <tr><td colspan="6" class="px-2 py-3">{% trans 'No Feedback available yet.' %} </td></tr>
         {% endfor %}
     </table>
-    <span>
-        <a href="{% url 'admin_feedback'%}" class="inline-block bg-blue-500 hover:bg-blue-600 cursor-pointer text-white font-bold py-3 px-4 mt-2 rounded">
-            {% trans 'Open feedback list' %}
-        </a>
-    </span>
+    <a href="{% url 'admin_feedback'%}" class="btn">
+        {% trans 'Open feedback list' %}
+    </a>
 {% endblock %}

@@ -58,12 +58,12 @@
             </div>
         </div>
     </div>
-    <div class="w-full flex p-4 justify-end">
-        <button type="button" id="filter-reset"
-                class="bg-gray-500 hover:bg-gray-600 text-white hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-3">
+    <div class="w-full flex p-4 justify-end gap-4">
+        <a id="filter-reset" class="btn btn-gray">
             {% trans 'Reset filter' %}
+        </a>
+        <button name="filter" class="btn">
+            {% trans 'Apply filter' %}
         </button>
-        <input type="submit" name="filter" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded"
-               value="{% trans 'Apply filter' %}"/>
     </div>
 </form>

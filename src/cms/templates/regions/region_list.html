@@ -7,7 +7,7 @@
     <div class="flex justify-between">
         {% include "search_input_form.html" with object_type="region" region_slug="" language_slug="" %}
         {% if perms.cms.change_region %}
-            <a href="{% url 'new_region' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <a href="{% url 'new_region' %}" class="btn">
                 {% trans 'Create region' %}
             </a>
         {% endif %}

@@ -53,7 +53,6 @@ export default function UploadFile({
               { "cursor-pointer bg-gray-500 hover:bg-gray-600": !isLoading && selectedFile },
               { "cursor-pointer bg-blue-500 hover:bg-blue-600": !isLoading && !selectedFile }
             )}
-            type="submit"
             disabled={isLoading}
           >
             {selectedFile ? (
@@ -83,17 +82,13 @@ export default function UploadFile({
             required
             disabled={isLoading}
           />
-          <input
+          <button
             title={mediaTranslations.btn_upload}
-            className={cn(
-              "block text-white font-bold py-2 px-4 rounded",
-              { "cursor-pointer bg-blue-500 hover:bg-blue-600": selectedFile && !isLoading },
-              { "cursor-not-allowed bg-gray-500": !selectedFile || isLoading }
-            )}
-            type="submit"
-            disabled={isLoading}
-            value={mediaTranslations.btn_upload}
-          />
+            class="btn"
+            disabled={!selectedFile || isLoading}
+          >
+            {mediaTranslations.btn_upload}
+          </button>
         </div>
       </form>
     </div>

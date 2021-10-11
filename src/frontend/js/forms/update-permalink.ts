@@ -31,26 +31,23 @@ window.addEventListener("load", () => {
       });
   }
 
-
   function toggleSlugMode(){
-    // toggle all permalink buttons
-    let buttonList = document.getElementById("link-container").querySelectorAll("button");
-    for (let button of buttonList) {
-      button.classList.toggle("hidden");
-    }
-    // switch between link and slug field
-    linkContainer.querySelector("a").classList.toggle("hidden");
+    // Toggle all permalink buttons (and the rendered link)
+    linkContainer.querySelectorAll("a").forEach(
+        (link) => link.classList.toggle("hidden")
+    );
+    // Toggle slug field
     linkContainer.querySelector("div").classList.toggle("hidden");
   }
 
-
   function updatePermalink(currentSlug: string){
     // get complete permalink string
-    let currentLink = linkContainer.querySelector("a").textContent;
+    let linkElement = document.getElementById("slug-link");
+    let currentLink = linkElement.textContent;
     // remove trailing slug from link
     let updatedLink = currentLink.substr(0, currentLink.lastIndexOf("/")+1);
     // update only inner html and keep href until form submission
-    linkContainer.querySelector("a").textContent = updatedLink.concat(currentSlug);
+    linkElement.textContent = updatedLink.concat(currentSlug);
   }
 
   document.getElementById("edit-slug-btn")?.addEventListener("click", function(e){
@@ -59,18 +56,15 @@ window.addEventListener("load", () => {
     toggleSlugMode();
   });
 
-
   document.getElementById("save-slug-btn")?.addEventListener("click", function(e){
     updatePermalink(slugField.value);
     toggleSlugMode();
   });
 
-
   document.getElementById("copy-slug-btn")?.addEventListener("click", function(e){
     // copy whole permalink to clipboard
-    copyToClipboard(linkContainer.querySelector("a").textContent);
+    copyToClipboard(document.getElementById("slug-link").textContent);
   });
-
 
   document.getElementById("restore-slug-btn")?.addEventListener("click", function(e){
     // hide slug field and restore slug value

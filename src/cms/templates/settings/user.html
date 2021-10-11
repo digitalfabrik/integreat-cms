@@ -29,7 +29,7 @@
                         </option>
                         {% endfor %}
                     </select>
-                    <button type="submit" class="self-start bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-4 rounded inline-block">
+                    <button class="btn mt-4">
                         {% trans 'Change language' %}
                     </button>
                 </form>
@@ -45,7 +45,7 @@
                     <label for="{{ user_email_form.email.label }}">{{ user_email_form.email.label }}</label>
                     {% render_field user_email_form.email|add_error_class:"border-red-500" %}
 
-                    <button type="submit"  name="submit_form" value="email_form" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-2 rounded">{% trans 'Change e-mail-address' %}</button>
+                    <button name="submit_form" value="email_form" class="btn mt-4">{% trans 'Change e-mail-address' %}</button>
                 </form>
             </div>
         </div>
@@ -70,7 +70,7 @@
                         <li class="py-1">{{ item }}</li>
                     {% endfor %}
                 </ul>
-                <button type="submit" name="submit_form" value="password_form" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mt-2">{% trans 'Change password' %}</button>
+                <button name="submit_form" value="password_form" class="btn">{% trans 'Change password' %}</button>
                 </form>
             </div>
         </div>
@@ -84,7 +84,7 @@
                 {% trans "To make sure that you don't loose access to your account when you loose your FIDO2 key it is recommended to add multiple keys. Just make sure to keep at least one key at a secure place." %}
             </div>
             <div class="w-full p-4 table-listing">
-                <table class="w-full rounded border border-solid border-gray-200 shadow bg-white">
+                <table class="w-full rounded border border-solid border-gray-200 shadow bg-white mb-4">
                     <thead>
                     <tr class="border-b border-solid border-gray-200">
                         <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'Key name' %}</th>
@@ -99,7 +99,7 @@
                             <td class="pl-4">{{ key.name }}</td>
                             <td class="pl-2 whitespace-nowrap">{{ key.last_usage }}</td>
                             <td class="pl-2 whitespace-nowrap">{{ key.created_at }}</td>
-                            <td class="pr-4 p-2 text-right"><a class="button" href="{% url 'delete_mfa_key' key_id=key.id %}"><i data-feather="trash-2" class="text-gray-800"></i></a></td>
+                            <td class="pr-4 p-2 text-right"><a class="btn btn-red" href="{% url 'delete_mfa_key' key_id=key.id %}"><i data-feather="trash-2" class="text-gray-800"></i></a></td>
                         </tr>
                     {% empty %}
                         <tr>
@@ -110,7 +110,7 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                <p><a class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded inline-block my-4" href="{% url 'register_new_mfa_key' %}">{% trans 'Add a new 2FA key' %}</a></p>
+                <p><a class="btn" href="{% url 'register_new_mfa_key' %}">{% trans 'Add a new 2FA key' %}</a></p>
             </div>
         </div>
 </div>

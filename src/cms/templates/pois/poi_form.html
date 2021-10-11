@@ -33,8 +33,8 @@
         </div>
         <div class="w-1/5 flex justify-end mb-6">
         {% if not poi_form.instance.archived and perms.cms.change_imprintpage %}
-            <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
-            <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
+            <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
+            <button name="submit_public" class="btn">{% trans 'Publish' %}</button>
         {% endif %}
         </div>
         <div class="w-2/3 flex flex-wrap flex-col pr-2">
@@ -120,25 +120,25 @@
                             {{ poi_translation_form.slug.label }}:
                         </label>
                         {% spaceless %}
-                            <a href="https://integreat.app/{{ region.slug }}/{{ language.slug }}/" class="mr-2 text-blue-500 hover:underline">https://integreat.app/{{ region.slug }}/{{ language.slug }}/</a>
-                            <button id="edit-slug-btn" type="button" class="mx-2 text-gray-800 hover:text-blue-500">
+                            <a id="slug-link" href="https://integreat.app/{{ region.slug }}/{{ language.slug }}/" class="text-blue-500 hover:underline">https://integreat.app/{{ region.slug }}/{{ language.slug }}/</a>
+                            <a id="edit-slug-btn" class="mx-2 btn-icon">
                                 <i data-feather="edit-3"></i>
-                            </button>
-                            <button id="copy-slug-btn" type="button" class="text-gray-800 hover:text-blue-500">
+                            </a>
+                            <a id="copy-slug-btn" class="btn-icon">
                                 <i data-feather="copy"></i>
-                            </button>
+                            </a>
                             <div class="slug-field hidden">
                                 <label for="{{ poi_translation_form.slug.id_for_label }}">
                                     https://integreat.app/{{ region.slug }}/{{ language.slug }}/
                                 </label>
                                 {% render_field poi_translation_form.slug|add_error_class:"slug-error" class="flex-grow appearance-none rounded bg-gray-200" %}
                             </div>
-                            <button id="save-slug-btn" type="button" class="mx-2 text-gray-800 hover:text-blue-500 hidden">
+                            <a id="save-slug-btn" class="mx-2 btn-icon hidden">
                                 <i data-feather="save"></i>
-                            </button>
-                            <button id="restore-slug-btn" type="button" class="text-gray-800 hover:text-blue-500 hidden">
+                            </a>
+                            <a id="restore-slug-btn" class="btn-icon hidden">
                                 <i data-feather="x-circle"></i>
-                            </button>
+                            </a>
                         {% endspaceless %}
                     </div>
                     <label for="{{ poi_translation_form.short_description.id_for_label }}">{{ poi_translation_form.short_description.label }}</label>
@@ -194,7 +194,7 @@
                         <div>
                             {% if poi_form.instance.archived %}
                             <label>{% trans 'Restore location' %}</label>
-                                <button title="{% trans 'Restore location' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                <button title="{% trans 'Restore location' %}" class="btn confirmation-button w-full"
                                     data-confirmation-title="{{ restore_dialog_title }}"
                                     data-confirmation-text="{{ restore_dialog_text }}"
                                     data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
@@ -203,7 +203,7 @@
                                 </button>
                             {% else %}
                             <label>{% trans 'Archive location' %}</label>
-                                <button title="{% trans 'Archive location' %}" class="confirmation-button w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                <button title="{% trans 'Archive location' %}" class="btn confirmation-button w-full"
                                     data-confirmation-title="{{ archive_dialog_title }}"
                                     data-confirmation-text="{{ archive_dialog_text }}"
                                     data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
@@ -215,7 +215,7 @@
                         {% if perms.cms.delete_poi %}
                             <div>
                                 <label>{% trans 'Delete location' %}</label>
-                                <button title="{% trans 'Delete location' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                                <button title="{% trans 'Delete location' %}" class="btn confirmation-button w-full btn-red"
                                     data-confirmation-title="{{ delete_dialog_title }}"
                                     data-confirmation-text="{{ delete_dialog_text }}"
                                     data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"

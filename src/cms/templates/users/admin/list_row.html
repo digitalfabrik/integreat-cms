@@ -55,8 +55,9 @@
 			</span>
 			<form method="post" action="{% url 'resend_activation_link' user_id=user.id %}" class="inline">
 				{% csrf_token %}
-				<input type="submit" value="{% trans 'Resend activation link' %}"
-					   class="bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer" />
+				<button class="btn bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer">
+					{% trans 'Resend activation link' %}
+				</button>
 			</form>
 		{% endif %}
 	</td>

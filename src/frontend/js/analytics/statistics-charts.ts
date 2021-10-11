@@ -167,25 +167,9 @@ async function updateChart(): Promise<void> {
 function toggleExportButton() {
   // Only activate button if an export format is selected
   const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
-  if (!exportFormat) return;
   const exportButton = document.getElementById("export-button") as HTMLInputElement;
-  if (exportFormat.value) {
-    exportButton.classList.remove("bg-gray-500", "cursor-not-allowed");
-    exportButton.classList.add(
-        "bg-blue-500",
-        "hover:bg-blue-600",
-        "cursor-pointer"
-    );
-    exportButton.disabled = false;
-  } else {
-    exportButton.classList.remove(
-        "bg-blue-500",
-        "hover:bg-blue-600",
-        "cursor-pointer"
-    );
-    exportButton.classList.add("bg-gray-500", "cursor-not-allowed");
-    exportButton.disabled = true;
-  }
+  if (!exportFormat || !exportButton) return;
+  exportButton.disabled = (exportFormat.value === "");
 }
 
 /*

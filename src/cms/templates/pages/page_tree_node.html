@@ -29,19 +29,19 @@
         {% endif %}
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
             {{ page_translation.get_status_display }}
         </a>
     </td>
     <td class="whitespace-nowrap">
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
             {% for tag in page_translation.tags %}
                 <span class="bg-orange-400 text-white rounded px-2 py-1">{{ tag }}</span>
             {% endfor %}
         </a>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
@@ -53,7 +53,7 @@
     {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 text-gray-800">
+            <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 pl-2 text-gray-800">
                 <div class="translation-title">
                     {% if page.backend_translation %}
                         {{ page.backend_translation.title }}
@@ -65,7 +65,7 @@
         </td>
     {% endif %}
     <td class="whitespace-nowrap">
-        <div class="block py-3 px-2 text-gray-800">
+        <div class="block py-3 pl-2 text-gray-800">
             <div class="lang-grid">
                 {% for other_language in languages %}
                     <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=other_language.slug %}"
@@ -103,51 +103,51 @@
         </div>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
             {{ page_translation.last_updated }}
         </a>
     </td>
-    <td class="pl-2 pr-4 text-right min">
+    <td class="pl-2 pr-4 py-3 text-right flex flex-nowrap gap-2">
         <!-- TODO: add link to view page in web app -->
         <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
-           target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="py-3 px-2">
-            <i data-feather="eye" class="text-gray-800"></i>
+           target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="btn-icon">
+            <i data-feather="eye"></i>
         </a>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" title="{% trans 'Edit page' %}" class="py-3 px-2">
-            <i data-feather="edit" class="text-gray-800"></i>
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" title="{% trans 'Edit page' %}" class="btn-icon">
+            <i data-feather="edit"></i>
         </a>
 
-        <button title="{% trans 'Archive page' %}" class="confirmation-button py-3 px-2"
+        <button title="{% trans 'Archive page' %}" class="confirmation-button btn-icon"
                 data-confirmation-title="{{ archive_dialog_title }}"
                 data-confirmation-text="{{ archive_dialog_text }}"
                 data-confirmation-subject="{{ page.best_translation.title }}"
                 data-action="{% url 'archive_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
-            <i data-feather="archive" class="text-gray-800"></i>
+            <i data-feather="archive"></i>
         </button>
         {% if perms.cms.delete_page %}
             {% if page.children.all %}
-                <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}" class="py-3 px-2">
-                    <i data-feather="trash-2" class="text-gray-400"></i>
+                <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}" class="btn-icon" disabled>
+                    <i data-feather="trash-2"></i>
                 </button>
             {% else %}
-                <button title="{% trans 'Delete page' %}" class="confirmation-button py-3 px-2"
+                <button title="{% trans 'Delete page' %}" class="confirmation-button btn-icon"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ page.best_translation.title }}"
                         data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
-                    <i data-feather="trash-2" class="text-gray-800"></i>
+                    <i data-feather="trash-2"></i>
                 </button>
             {% endif %}
         {% endif %}
         {% if region.short_urls_enabled and request.user.expert_mode %}
             {% if page_translation %}
-            <a href="#" data-copy-to-clipboard="{{ page_translation.short_url }}" title="{% trans 'Copy short link' %}" class="py-3 px-2">
-                <i data-feather="copy" class="text-gray-800"></i>
-            </a>
+            <button data-copy-to-clipboard="{{ page_translation.short_url }}" title="{% trans 'Copy short link' %}" class="btn-icon">
+                <i data-feather="copy"></i>
+            </button>
             {% else %}
-            <a title="{% trans 'You cannot copy a short link of a page which has no translation.' %}" class="py-3 px-2">
-                <i data-feather="copy" class="text-gray-400"></i>
-            </a>
+            <button title="{% trans 'You cannot copy a short link of a page which has no translation.' %}" class="btn-icon" disabled>
+                <i data-feather="copy"></i>
+            </button>
             {% endif %}
         {% endif %}
     </td>

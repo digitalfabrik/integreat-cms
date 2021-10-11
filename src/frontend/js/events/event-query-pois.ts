@@ -7,10 +7,7 @@ window.addEventListener("load", () => {
   ) {
     setPoiQueryEventListeners();
     // event handler to reset filter form
-    const resetFilter = document.getElementById("filter-reset");
-    if (resetFilter) {
-      resetFilter.addEventListener("click", removePoi);
-    }
+    document.getElementById("filter-reset")?.addEventListener("click", removePoi);
   }
 });
 

@@ -11,7 +11,7 @@
             {% blocktrans %}Page versions of "{{ page_title }}"{% endblocktrans %}
         {% endwith %}
     </h1>
-    <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold p-2 rounded">
+    <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="btn btn-gray">
         <i data-feather="arrow-left-circle" class="align-top"></i> {% trans 'Go Back to Page Editor' %}
     </a>
 </div>
@@ -83,16 +83,16 @@
             <label>{% trans 'Content' %}</label>
         </div>
     </div>
-    <div class="w-full p-4 flex justify-end">
+    <div class="w-full p-4 flex justify-end gap-4">
         {% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
         {% if not page.archived %}
             {% if can_edit_page %}
-                <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore this version as draft' %}" />
+                <button name="submit_draft" class="btn btn-gray">{% trans 'Restore this version as draft' %}</button>
                 {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
                 {% if can_publish_page %}
-                    <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore and publish this version' %}" />
+                    <button name="submit_public" class="btn">{% trans 'Restore and publish this version' %}</button>
                 {% else %}
-                    <input type="submit" name="submit_review" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Restore this version and submit for review' %}" />
+                    <button name="submit_review" class="btn">{% trans 'Restore this version and submit for review' %}</button>
                 {% endif %}
             {% endif %}
         {% endif %}

@@ -119,7 +119,7 @@ export default function EditSidebar({
       <form onSubmit={submitForm} action={apiEndpoints.editFile}>
         <input name="id" type="hidden" value={file.id} />
         {/* Add button which submits the form when the enter-key is pressed (otherwise, the edit-buttons would be triggered) */}
-        <button class="hidden" type="submit" disabled={isLoading}></button>
+        <button class="hidden" disabled={isLoading}></button>
         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-t border-b">
           <label
             for="filename-input"
@@ -248,8 +248,7 @@ export default function EditSidebar({
                     selectMedia(file);
                   }
                 }}
-                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                type="submit"
+                class="w-full"
               >
                 {mediaTranslations.btn_select}
               </button>
@@ -262,19 +261,14 @@ export default function EditSidebar({
           ) : (
             <div>
               {isEditingAllowed ? (
-                <div>
+                <div class="flex flex-col gap-4">
                   {(isFileNameEditable || isAltTextEditable) && (
                     <button
                       title={mediaTranslations.btn_save_file}
-                      className={cn(
-                        "w-full text-white font-bold py-2 px-4 mb-4 rounded",
-                        { "cursor-not-allowed bg-gray-500": isLoading },
-                        { "bg-blue-500 hover:bg-blue-600": !isLoading }
-                      )}
-                      type="submit"
+                      class="btn"
                       disabled={isLoading}
                     >
-                      <Save class="mr-1 inline-block h-5" />
+                      <Save class="inline-block" />
                       {mediaTranslations.btn_save_file}
                     </button>
                   )}
@@ -283,7 +277,7 @@ export default function EditSidebar({
                     for="replace-file-input"
                     title={mediaTranslations.btn_replace_file} 
                     className={cn(
-                      "w-full text-white text-center font-bold py-2 px-4 mb-4 rounded",
+                      "w-full text-white text-center font-bold py-3 px-4 m-0 rounded",
                       { "cursor-not-allowed bg-gray-500": isLoading },
                       { "bg-blue-500 hover:bg-blue-600": !isLoading }
                     )}
@@ -295,11 +289,7 @@ export default function EditSidebar({
 
                   <button
                     title={mediaTranslations.btn_delete_file}
-                    className={cn(
-                      "confirmation-button w-full text-white font-bold py-2 px-4 rounded",
-                      { "cursor-not-allowed bg-gray-500": isLoading },
-                      { "bg-red-500 hover:bg-red-600": !isLoading }
-                    )}
+                    class="confirmation-button btn btn-red"
                     data-confirmation-title={
                       mediaTranslations.text_file_delete_confirm
                     }
@@ -307,7 +297,7 @@ export default function EditSidebar({
                     data-ajax
                     disabled={isLoading}
                   >
-                    <Trash2 class="mr-2 inline-block h-5" />
+                    <Trash2 class="inline-block" />
                     {mediaTranslations.btn_delete_file}
                   </button>
                 </div>
@@ -352,7 +342,7 @@ export default function EditSidebar({
         class="hidden"
       >
         <input name="id" type="hidden" value={file.id} />
-        <button id="delete-file" type="submit"></button>
+        <button id="delete-file" />
       </form>
     </div>
   );

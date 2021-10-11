@@ -8,14 +8,14 @@
 {% endblock %}
 
 {% block dashboard_widget_content %}
-    <div class="flex justify-between">
+    <div class="flex flex-wrap justify-between gap-2">
         <p class="py-3">{% trans 'The list below shows all detected errors related to links.' %}</p>
-        <a href="{% url 'linkcheck_landing' region_slug=region.slug %}" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded text-center">
+        <a href="{% url 'linkcheck_landing' region_slug=region.slug %}" class="btn">
             {% trans "Details" %}
         </a>
     </div>
     <div class="mt-4">
-    <table class="w-full max-w-xl">
+    <table class="w-full max-w-xl mb-4">
         <tbody>
             <tr>
                 <td>{% trans 'Invalid links' %}</td>

@@ -26,9 +26,9 @@ pre {
       <form action="{% url 'confirm_xliff_import' region_slug=region.slug language_slug=language.slug%}" method="POST">
         <h1 class="heading">{% trans 'Review XLIFF Import' %}</h1>
         <p class="pb-4">{% trans 'Please review the changes that will be applied to the page translations below.' %}</p>
-        <input type="submit" value="{% trans 'Confirm' %}" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white h-full font-bold py-2 px-4 rounded p-4">
-        <input type="button" value="{% trans 'Abort' %}" onclick="window.location='{% url 'pages' region_slug=region.slug language_slug=language.slug %}';" class="inline-block cursor-pointer bg-red-500 hover:bg-red-600 text-white h-full font-bold py-2 px-4 rounded p-4">
-        <input type="hidden" value={{ upload_dir }} name="upload_dir">
+        <button class="btn">{% trans 'Confirm' %}</button>
+        <button onclick="window.location='{% url 'pages' region_slug=region.slug language_slug=language.slug %}';" class="btn red">{% trans 'Abort' %}</button>
+        <input type="hidden" value={{ upload_dir }} name="upload_dir"/>
         {% csrf_token %}
       </form>
     </div>

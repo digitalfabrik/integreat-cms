@@ -17,7 +17,7 @@
  *             <option data-bulk-action="{% url 'option_url' %}" data-target="_blank">{% trans 'Option opened in new tab' %}</option>
  *         </select>
  *
- * - Add submit button: <input id="bulk-action-execute" type="submit" value="{% trans 'Execute' %}" />
+ * - Add submit button: <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
  *
  *  VIEW
  * ######
@@ -39,7 +39,7 @@ window.addEventListener("load", () => {
   const selectItems = Array.from(document.getElementsByClassName("bulk-select-item"));
   const bulkActionButton = document.getElementById(
     "bulk-action-execute"
-  ) as HTMLInputElement;
+  ) as HTMLButtonElement;
 
   if (selectAllCheckbox && isInputElement(selectAllCheckbox)) {
     selectAllCheckbox.addEventListener("click", () => {
@@ -60,7 +60,7 @@ window.addEventListener("load", () => {
   }
 
   selectItems.forEach((el) => {
-    el.addEventListener("click", toggleBulkActionButton);
+    el.addEventListener("change", toggleBulkActionButton);
   });
 
   function toggleBulkActionButton() {
@@ -74,20 +74,8 @@ window.addEventListener("load", () => {
       bulkAction.selectedIndex === 0 ||
       (selectedAction.id === "pdf-export-option" && !hasTranslation())
     ) {
-      bulkActionButton.classList.remove(
-        "bg-blue-500",
-        "hover:bg-blue-600",
-        "cursor-pointer"
-      );
-      bulkActionButton.classList.add("bg-gray-500", "cursor-not-allowed");
       bulkActionButton.disabled = true;
     } else {
-      bulkActionButton.classList.remove("bg-gray-500", "cursor-not-allowed");
-      bulkActionButton.classList.add(
-        "bg-blue-500",
-        "hover:bg-blue-600",
-        "cursor-pointer"
-      );
       bulkActionButton.disabled = false;
     }
   }
