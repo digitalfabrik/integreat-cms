@@ -98,7 +98,7 @@ If you want to provide new substitutions, add them to :const:`~conf.rst_epilog`.
 GitHub Pages
 ============
 
-The CircleCI job ``deploy-documentation`` uses the GitHub user `IntegreatAPI <https://github.com/IntegreatAPI>`__ to
+The CircleCI job ``deploy-documentation`` uses the GitHub user `DigitalfabrikMember <https://github.com/DigitalfabrikMember>`__ to
 push all changes to the documentation on the ``develop`` branch to our repository's ``gh-pages`` branch.
 This branch is then automatically deployed to |github-pages-url|.
 
