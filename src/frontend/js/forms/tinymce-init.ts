@@ -129,7 +129,6 @@ window.addEventListener("load", () => {
             { title: "Strikethrough", format: "strikethrough" },
             { title: "Superscript", format: "superscript" },
             { title: "Subscript", format: "subscript" },
-            { title: "Code", format: "code" },
           ],
         },
         {
@@ -138,7 +137,6 @@ window.addEventListener("load", () => {
             { title: "Paragraph", format: "p" },
             { title: "Blockquote", format: "blockquote" },
             { title: "Div", format: "div" },
-            { title: "Pre", format: "pre" },
           ],
         },
         {
