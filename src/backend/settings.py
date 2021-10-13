@@ -14,6 +14,7 @@ For production use, the following settings can be set with environment variables
     * ``DJANGO_BASE_URL``: :attr:`~backend.settings.BASE_URL`
     * ``DJANGO_STATIC_ROOT``: :attr:`~backend.settings.STATIC_ROOT`
     * ``DJANGO_MEDIA_ROOT``: :attr:`~backend.settings.MEDIA_ROOT`
+    * ``DJANGO_XLIFF_ROOT``: :attr:`~backend.settings.XLIFF_ROOT`
 
 Database settings: :attr:`~backend.settings.DATABASES`
 
@@ -807,12 +808,18 @@ XLIFF_DEFAULT_FIELDS = ("title", "text")
 #: A mapping for changed field names to preserve backward compatibility after a database field was renamed
 XLIFF_LEGACY_FIELDS = {"body": "text"}
 
-#: The directory to which xliff files should be uploaded (this should not be reachable by the webserver)
-XLIFF_UPLOAD_DIR = os.path.join(BASE_DIR, "xliff/upload/")
+if "DJANGO_XLIFF_ROOT" in os.environ:
+    XLIFF_ROOT = os.environ["DJANGO_XLIFF_ROOT"]
+else:
+    #: The directory where xliff files are stored
+    XLIFF_ROOT = os.path.join(BASE_DIR, "xliff")
 
-#: The directory from which xliff files can be downloaded (this should be publicly available under the url specified
-#: in :attr:`~backend.settings.XLIFF_URL`)
-XLIFF_DOWNLOAD_DIR = os.path.join(BASE_DIR, "xliff/download/")
+#: The directory to which xliff files should be uploaded (this should not be reachable by the webserver)
+XLIFF_UPLOAD_DIR = os.path.join(XLIFF_ROOT, "upload")
+
+#: The directory from which xliff files can be downloaded (this should be publicly available under the url specified in
+#: :attr:`~backend.settings.XLIFF_URL`)
+XLIFF_DOWNLOAD_DIR = os.path.join(XLIFF_ROOT, "download")
 
 #: The URL path where XLIFF files are served for download
 XLIFF_URL = "/xliff/"
