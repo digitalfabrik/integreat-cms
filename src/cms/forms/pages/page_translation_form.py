@@ -43,6 +43,7 @@ class PageTranslationForm(CustomContentModelForm):
         if "data" in kwargs:
             # Copy QueryDict because it is immutable
             data = kwargs.pop("data").copy()
+            previous_value = data.get("status")
             # Update the POST field with the status corresponding to the submitted button
             if "submit_auto" in data:
                 data["status"] = status.AUTO_SAVE
@@ -54,14 +55,16 @@ class PageTranslationForm(CustomContentModelForm):
                 data["status"] = status.PUBLIC
             # Set the kwargs to updated POST data again
             kwargs["data"] = data
-            logger.debug(
-                "Changed POST data 'status' manually to %r", data.get("status")
-            )
+            if previous_value != data.get("status"):
+                logger.debug(
+                    "Changed POST data 'status' manually to %r",
+                    data.get("status"),
+                )
 
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
 
-        # The slug is not rquired because it will be auto-generated if left blank
+        # The slug is not required because it will be auto-generated if left blank
         self.fields["slug"].required = False
 
     def save(self, commit=True):

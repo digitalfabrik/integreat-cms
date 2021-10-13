@@ -46,7 +46,7 @@ After you finished your changes to the code base, run the following command::
     cd src/cms
     pipenv run integreat-cms-cli makemessages -l de
 
-Then, open the file :github-source:`src/cms/locale/de/LC_MESSAGES/django.po` and fill in the german translations::
+Then, open the file :github-source:`src/locale/de/LC_MESSAGES/django.po` and fill in the german translations::
 
     msgid "Your string"
     msgstr "Deine Zeichenkette"

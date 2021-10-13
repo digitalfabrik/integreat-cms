@@ -181,6 +181,7 @@ INSTALLED_APPS = [
     "rules.apps.AutodiscoverRulesConfig",
     "webpack_loader",
     "widget_tweaks",
+    "xliff",
 ]
 
 # Install cacheops only if redis cache is available
@@ -501,6 +502,10 @@ LOGGING = {
             "handlers": ["console-colored", "logfile", "mail_admins"],
             "level": LOG_LEVEL,
         },
+        "xliff": {
+            "handlers": ["console-colored", "logfile", "mail_admins"],
+            "level": LOG_LEVEL,
+        },
         # Syslog for authentication
         "auth": {
             "handlers": ["console", "logfile", "authlog", "syslog"],
@@ -779,3 +784,35 @@ DEBUG_TOOLBAR_PANELS = [
     "debug_toolbar.panels.history.HistoryPanel",
     "debug_toolbar.panels.settings.SettingsPanel",
 ]
+
+
+#######################
+# XLIFF SERIALIZATION #
+#######################
+
+#: A dictionary of modules containing serializer definitions (provided as strings),
+#: keyed by a string identifier for that serialization type (see :setting:`django:SERIALIZATION_MODULES`).
+SERIALIZATION_MODULES = {
+    "xliff": "xliff.generic_serializer",
+    "xliff-1.2": "xliff.xliff1_serializer",
+    "xliff-2.0": "xliff.xliff2_serializer",
+}
+
+#: The xliff version to be used for exports
+XLIFF_EXPORT_VERSION = "xliff-1.2"
+
+#: The default fields to be used for the XLIFF serialization
+XLIFF_DEFAULT_FIELDS = ("title", "text")
+
+#: A mapping for changed field names to preserve backward compatibility after a database field was renamed
+XLIFF_LEGACY_FIELDS = {"body": "text"}
+
+#: The directory to which xliff files should be uploaded (this should not be reachable by the webserver)
+XLIFF_UPLOAD_DIR = os.path.join(BASE_DIR, "xliff/upload/")
+
+#: The directory from which xliff files can be downloaded (this should be publicly available under the url specified
+#: in :attr:`~backend.settings.XLIFF_URL`)
+XLIFF_DOWNLOAD_DIR = os.path.join(BASE_DIR, "xliff/download/")
+
+#: The URL path where XLIFF files are served for download
+XLIFF_URL = "/xliff/"

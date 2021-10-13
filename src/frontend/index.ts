@@ -7,8 +7,10 @@ require("element-closest").default(window); // IE11: Element.closest
 import feather from 'feather-icons';
 import "./css/style.scss";
 
+import "./js/auto-file-download.ts";
 import "./js/tree-drag-and-drop.ts";
-import "./js/toggle-dashboard-section.ts";
+import "./js/rss-feed.ts";
+import "./js/collapsible-boxes.ts";
 import "./js/push-notifications.ts";
 import "./js/filter-form.ts";
 import "./js/copy-clipboard.ts";
@@ -41,6 +43,8 @@ import "./js/pages/page-order.ts";
 import "./js/pages/page-permissions.ts";
 import "./js/pages/page-side-by-side.ts";
 import "./js/pages/unset-translation-state.ts";
+import "./js/pages/xliff-file-upload.ts";
+import "./js/pages/xliff-import.ts";
 
 import "./js/mfa/add-key.ts";
 import "./js/mfa/login.ts";

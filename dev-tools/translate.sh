@@ -10,7 +10,7 @@ require_installed
 ensure_not_root
 
 # Change directory to make sure to ignore files in the venv
-cd "${BASE_DIR}/src/cms" || exit 1
+cd "${BASE_DIR}/src" || exit 1
 
 # Re-generating translation file
 echo "Scanning Python and HTML source code and extracting translatable strings from it..." | print_info

@@ -1,13 +1,17 @@
-{% extends "dashboard/_dashboard_widget.html" %}
+{% extends "_collapsible_box.html" %}
 
 {% load i18n %}
 {% load static %}
 
-{% block dashboard_widget_title %}
-    <i data-feather="trending-up" class="pb-1"></i> {% trans 'Statistics' %}
+{% block collapsible_box_icon %}
+    trending-up
 {% endblock %}
 
-{% block dashboard_widget_content %}
+{% block collapsible_box_title %}
+    {% trans 'Statistics' %}
+{% endblock %}
+
+{% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
         <p class="py-3">{% trans 'Number of online accesses over the last 14 days.' %}</p>
         <a href="{% url 'statistics' region_slug=region.slug %}" id="statistics_details" class="btn">
