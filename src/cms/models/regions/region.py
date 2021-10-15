@@ -4,6 +4,7 @@ from html import escape
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import activate
 from django.utils.translation import get_language
@@ -202,7 +203,7 @@ class Region(models.Model):
             "language_tree_nodes__level", "language_tree_nodes__lft"
         )
 
-    @property
+    @cached_property
     def default_language(self):
         """
         This property returns the language :class:`~cms.models.languages.language.Language` which corresponds to the
@@ -214,15 +215,17 @@ class Region(models.Model):
         tree_root = self.language_tree_nodes.filter(level=0).first()
         return tree_root.language if tree_root else None
 
-    @property
+    @cached_property
     def prefix(self):
         """
-        This property returns the administrative division of a region if it's included in the name
+        This property returns the administrative division of a region if it's included in the name.
+        If this region has no default language, this property returns an empty string
 
         :return: The prefix of the region
         :rtype: str
         """
-        if self.administrative_division_included:
+
+        if self.administrative_division_included and self.default_language:
             # Get administrative division in region's default language
             current_language = get_language()
             activate(self.default_language.slug)
