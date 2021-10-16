@@ -43,7 +43,21 @@
 			</div>
 		</div>
 	</div>
+	{% if form.instance.id and perms.cms.delete_organization %}
+	<div class="pt-2 pb-4">
+		<button title="{% trans 'Delete organization' %}" class="btn confirmation-button btn-red"
+				data-confirmation-title="{{ delete_dialog_title }}"
+				data-confirmation-text="{{ delete_dialog_text }}"
+				data-confirmation-subject="{{ form.name.value }}"
+				data-action="{% url 'delete_organization' organization_id=form.instance.id %}">
+			<i data-feather="trash-2" class="mr-2"></i>
+			{% trans 'Delete this organization' %}
+		</button>
+	</div>
+	{% endif %}
 </form>
+
+{% include "generic_confirmation_dialog.html" %}
 {{ media_config_data|json_script:"media_config_data" }}
 
 {% endblock %}

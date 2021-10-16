@@ -9,6 +9,7 @@ from django.views.generic import TemplateView
 from backend.settings import PER_PAGE
 from ...decorators import staff_required, permission_required
 from ...models import Organization
+from .organization_context_mixin import OrganizationContextMixin
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +17,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
 @method_decorator(permission_required("cms.view_organization"), name="dispatch")
-class OrganizationListView(TemplateView):
+class OrganizationListView(TemplateView, OrganizationContextMixin):
     """
     View for listing organizations
     """
@@ -47,8 +48,10 @@ class OrganizationListView(TemplateView):
         paginator = Paginator(organizations.order_by("slug"), PER_PAGE)
         chunk = request.GET.get("page")
         organization_chunk = paginator.get_page(chunk)
+
+        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
-            {**self.base_context, "organizations": organization_chunk},
+            {**self.base_context, **context, "organizations": organization_chunk},
         )

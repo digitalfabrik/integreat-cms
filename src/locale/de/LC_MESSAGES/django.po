@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 11:10+0000\n"
+"POT-Creation-Date: 2021-10-17 09:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -4355,6 +4355,15 @@ msgstr "Organisation \"%(organization_name)s\" bearbeiten"
 msgid "Create new organization"
 msgstr "Neue Organisation erstellen"
 
+#: cms/templates/organizations/organization_form.html:48
+#: cms/templates/organizations/organization_list_row.html:25
+msgid "Delete organization"
+msgstr "Organisation löschen"
+
+#: cms/templates/organizations/organization_form.html:54
+msgid "Delete this organization"
+msgstr "Diese Organisation löschen"
+
 #: cms/templates/organizations/organization_list.html:7
 msgid "Manage Organizations"
 msgstr "Organisationen"
@@ -5597,7 +5606,7 @@ msgstr ""
 #: cms/views/language_tree/language_tree_node_view.py:107
 #: cms/views/languages/language_view.py:81
 #: cms/views/offer_templates/offer_template_view.py:81
-#: cms/views/organizations/organization_view.py:85
+#: cms/views/organizations/organization_view.py:86
 #: cms/views/pages/page_sbs_view.py:196 cms/views/regions/region_view.py:88
 #: cms/views/roles/role_view.py:85 cms/views/settings/user_settings_view.py:93
 #: cms/views/settings/user_settings_view.py:110
@@ -5864,11 +5873,25 @@ msgstr "Angebots-Vorlage \"{}\" wurde erfolgreich erstellt"
 msgid "Offer template \"{}\" was successfully saved"
 msgstr "Angebots-Vorlage \"{}\" wurde erfolgreich gespeichert"
 
-#: cms/views/organizations/organization_view.py:93
+#: cms/views/organizations/organization_actions.py:36
+msgid "Organization was succesfully deleted"
+msgstr "Organisation wurde erfolgreich gelöscht"
+
+#: cms/views/organizations/organization_context_mixin.py:12
+msgid "Please confirm that you really want to delete this organization"
+msgstr "Bitte bestätigen Sie, dass diese Organisation gelöscht werden soll"
+
+#: cms/views/organizations/organization_context_mixin.py:15
+msgid ""
+"This will update all pages and users that are part of this organization."
+msgstr ""
+"Dadurch werden alle Seiten und Benutzer dieser Organisation aktualisiert."
+
+#: cms/views/organizations/organization_view.py:94
 msgid "Organization \"{}\" was successfully created"
 msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/organizations/organization_view.py:104
+#: cms/views/organizations/organization_view.py:105
 msgid "Organization \"{}\" was successfully saved"
 msgstr "Organisation \"{}\" wurde erfolgreich gespeichert"
 
@@ -6596,9 +6619,6 @@ msgstr ""
 
 #~ msgid "Create new translation for news message"
 #~ msgstr "Neue Übersetzung für Nachricht erstellen"
-
-#~ msgid "Organization was successfully created"
-#~ msgstr "Organisation wurde erfolgreich erstellt"
 
 #~ msgid "Offer {} was successfully activated"
 #~ msgstr "Angebot {} wurde erfolgreich aktiviert."
