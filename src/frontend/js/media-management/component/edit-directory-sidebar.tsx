@@ -36,8 +36,7 @@ export default function EditDirectorySidebar({
   const isEditingAllowed = !selectionMode && (globalEdit || !directory.isGlobal);
 
   useEffect(() => {
-    console.log("Opening sidebar for directory:");
-    console.log(directory);
+    console.debug("Opening sidebar for directory:", directory);
     // Reset changed directory buffer
     setChangedDirectory(directory);
     // Hide input field
