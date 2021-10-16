@@ -66,7 +66,7 @@ async function sendChatMessage(event: Event) {
       );
     }
   } catch (error) {
-    console.log(error);
+    console.error("Sending Chat Message failed:", error);
     if (error instanceof TypeError) {
       // Handle network error
       chatNetworkError.classList.remove("hidden");

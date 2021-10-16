@@ -136,7 +136,7 @@ async function updateChart(): Promise<void> {
     } else if (response.status === 400) {
       // Client error - invalid form parameters supplied
       let data = await response.json();
-      console.log(data)
+      console.error("Invalid form parameters supplied.", data)
       // Mark fields red and show error message
       for (let [field_id, errors] of Object.entries(data.errors)) {
         let form_field = document.getElementById("id_" + field_id);
@@ -148,12 +148,12 @@ async function updateChart(): Promise<void> {
       }
     } else {
       // Server error - CMS or Matomo server down/malfunctioning
-      console.log(await response.json());
+      console.error("Server Error:", await response.json());
       chartServerError.classList.remove("hidden");
     }
   } catch (error) {
     // Network error during fetch
-    console.log(error);
+    console.error("Network error during fetch:", error);
     chartNetworkError.classList.remove("hidden");
   } finally {
     // Hide loading icon
@@ -208,7 +208,8 @@ function exportStatisticsData(): void {
       download_file(filename + ".csv", "data:text/csv;charset=utf-8;base64," + btoa(csvContent));
       break;
     default:
-      console.log("Export format not supported");
+      alert("Export format is not supported.")
+      console.error("Export format not supported");
   }
 }
 

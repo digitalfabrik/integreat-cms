@@ -50,10 +50,9 @@ async function queryPois(
   });
 
   document.querySelectorAll(".option-existing-poi").forEach((node) => {
-    console.log("add", node);
+    console.debug("add", node);
     node.addEventListener("click", (event) => {
       event.preventDefault();
-      console.log("click");
       setPoi(event);
     });
   });

@@ -67,8 +67,7 @@ export default function Library({
   const submitForm = async (event: Event, successCallback?: (data: any) => void) => {
     event.preventDefault();
     setLoading(true);
-    console.log("Submitting form:");
-    console.log(event.target);
+    console.debug("Submitting form:", event.target);
     let form = event.target as HTMLFormElement;
     try {
       const response = await fetch(form.action, {
@@ -80,12 +79,12 @@ export default function Library({
       });
       const data = await response.json();
       if (response.status === 200) {
-        console.log("Form submission successful!");
+        console.debug("Form submission successful!");
         if (typeof successCallback === "function") {
-          console.log("Calling success callback...");
+          console.debug("Calling success callback...");
           successCallback(data);
         }
-        console.log("Refreshing media library...");
+        console.debug("Refreshing media library...");
         setRefresh(!refresh);
         if (data.file) {
           setSidebarFile(data.file);
@@ -100,7 +99,7 @@ export default function Library({
         });
       }
     } catch (error) {
-      console.log(error);
+      console.error("Submitting Form failed:", error);
       showMessage({
         type: "error",
         text: mediaTranslations.text_network_error,
@@ -123,15 +122,14 @@ export default function Library({
       if (response.status === 200) {
         successCallback((await response.json()).data);
       } else {
-        console.log("Server error:");
-        console.log(response);
+        console.error("Server error:", response);
         showMessage({
           type: "error",
           text: mediaTranslations.text_error,
         });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       showMessage({
         type: "error",
         text: mediaTranslations.text_network_error,
@@ -143,9 +141,9 @@ export default function Library({
   // Load the directory path each time the directory id changes
   useEffect(() => {
     if (directoryId) {
-      console.log(`Loading directory with id ${directoryId}...`);
+      console.debug(`Loading directory with id ${directoryId}...`);
     } else {
-      console.log(`Loading root directory...`);
+      console.debug(`Loading root directory...`);
     }
     // Load the new directory path
     if (directoryId) {
@@ -169,7 +167,7 @@ export default function Library({
     // Search for the sidebar file in the directory content
     let index = directoryContent.findIndex((x) => x.id === sidebarFile?.id);
     if (index !== -1) {
-      console.log("Open changed file in the sidebar again after reload...");
+      console.debug("Open changed file in the sidebar again after reload...");
       // Open file in the sidebar
       setFileIndex(index);
       // Reset sidebar buffer
@@ -180,10 +178,9 @@ export default function Library({
   // Debug output on directory change
   useEffect(() => {
     if (directory) {
-      console.log(`Changed to directory with id ${directoryId}:`);
-      console.log(directory);
+      console.debug(`Changed to directory with id ${directoryId}:`, directory);
     } else if (!directoryId) {
-      console.log("Changed to root directory");
+      console.debug("Changed to root directory");
     }
   }, [directory]);
 

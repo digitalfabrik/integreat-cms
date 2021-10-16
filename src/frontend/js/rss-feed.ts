@@ -41,7 +41,7 @@ async function loadRssFeed() {
         clearTimeout(timeoutId);
         let parser = new DOMParser;
         let feedHtml = parser.parseFromString(rawFeed, "text/xml");
-        console.log(feedHtml);
+        console.debug("The parsed feed html:", feedHtml);
 
         let firstEntry = 0, lastEntry = 3; 
         feedWidget.innerHTML += loadRssEntries(feedHtml, firstEntry, lastEntry);
