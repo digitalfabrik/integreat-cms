@@ -74,8 +74,7 @@ export default function EditSidebar({
   const isEditingAllowed = !selectionMode && (globalEdit || !file.isGlobal);
 
   useEffect(() => {
-    console.log("Opening sidebar for file:");
-    console.log(file);
+    console.debug("Opening sidebar for file:", file);
     // Reset temporary file buffer
     setChangedFile(file);
     // Hide input fields
@@ -86,7 +85,7 @@ export default function EditSidebar({
       document.getElementById("delete-file").click();
     });
     return () => {
-      console.log("Closing file sidebar...");
+      console.debug("Closing file sidebar...");
     };
   }, [file]);
 

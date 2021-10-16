@@ -42,7 +42,7 @@ export async function deleteChatMessage(event: Event) {
       );
     }
   } catch (error) {
-    console.log(error);
+    console.error("Deleting Chat Message failed:", error);
     if (error instanceof TypeError) {
       // Handle network error
       chatNetworkError.classList.remove("hidden");

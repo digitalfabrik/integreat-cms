@@ -81,8 +81,7 @@ window.addEventListener("load", () => {
         onlyImage={true}
         cancel={() => el.remove()}
         selectMedia={(file) => {
-          console.log("File selected as icon:");
-          console.log(file);
+          console.debug("File selected as icon:", file);
           (iconField as HTMLInputElement).value = file.id.toString();
           el.remove();
           updateIconDisplay(file);
