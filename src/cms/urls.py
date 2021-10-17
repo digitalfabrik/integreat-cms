@@ -244,7 +244,7 @@ urlpatterns = [
                             ),
                             url(
                                 r"^delete$",
-                                organizations.OrganizationView.as_view(),
+                                organizations.organization_actions.delete,
                                 name="delete_organization",
                             ),
                         ]

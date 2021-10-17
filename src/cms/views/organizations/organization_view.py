@@ -11,6 +11,7 @@ from ...decorators import staff_required, permission_required
 from ...forms import OrganizationForm
 from ...models import Organization
 from ..media.media_context_mixin import MediaContextMixin
+from .organization_context_mixin import OrganizationContextMixin
 
 
 logger = logging.getLogger(__name__)
@@ -20,7 +21,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(staff_required, name="dispatch")
 @method_decorator(permission_required("cms.view_organization"), name="dispatch")
 @method_decorator(permission_required("cms.change_organization"), name="post")
-class OrganizationView(TemplateView, MediaContextMixin):
+class OrganizationView(TemplateView, OrganizationContextMixin, MediaContextMixin):
     """
     View for the organization form
     """
@@ -104,4 +105,7 @@ class OrganizationView(TemplateView, MediaContextMixin):
                 _('Organization "{}" was successfully saved').format(form.instance),
             )
 
-        return render(request, self.template_name, {"form": form, **self.base_context})
+        context = self.get_context_data()
+        return render(
+            request, self.template_name, {**context, "form": form, **self.base_context}
+        )
