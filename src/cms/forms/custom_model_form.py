@@ -125,6 +125,9 @@ class CustomModelForm(forms.ModelForm):
             type(self).__name__,
             self.changed_data,
         )
+        # Update submitted data with cleaned data if changes are saved
+        self.data = self.cleaned_data
+
         # Save ModelForm
         return super().save(commit=commit)
 
