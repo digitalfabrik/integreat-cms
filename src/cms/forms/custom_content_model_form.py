@@ -43,6 +43,14 @@ class CustomContentModelForm(CustomModelForm):
             heading.tag = "h2"
             logger.debug("Replaced heading 1 with heading 2: %r", tostring(heading))
 
+        # Convert pre and code tags to p tags
+        for monospaced in content.iter("pre", "code"):
+            tag_type = monospaced.tag
+            monospaced.tag = "p"
+            logger.debug(
+                "Replaced %r tag with p tag: %r", tag_type, tostring(monospaced)
+            )
+
         # Remove external links
         for link in content.iter("a"):
             link.attrib.pop("target", None)
