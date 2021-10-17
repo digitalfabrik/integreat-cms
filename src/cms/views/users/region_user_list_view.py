@@ -47,7 +47,11 @@ class RegionUserListView(TemplateView):
 
         region = Region.get_current_region(request)
 
-        users = region.users
+        users = (
+            region.users.select_related("organization")
+            .prefetch_related("groups__role")
+            .order_by("username")
+        )
         query = None
 
         search_data = kwargs.get("search_data")
@@ -58,7 +62,7 @@ class RegionUserListView(TemplateView):
             users = users.filter(pk__in=user_keys)
 
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(users.order_by("username"), PER_PAGE)
+        paginator = Paginator(users, PER_PAGE)
         chunk = request.GET.get("page")
         user_chunk = paginator.get_page(chunk)
         return render(

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Group
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
 
@@ -30,7 +31,7 @@ class Role(models.Model):
         help_text=_("Whether or not this role is designed for staff members"),
     )
 
-    @property
+    @cached_property
     def english_name(self):
         """
         This returns the english name of a role which is used for logging
