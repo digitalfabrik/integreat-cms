@@ -20,6 +20,9 @@ def send_chat_message(request):
     """
     Send chat message
 
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
     :return: A redirection to the :class:`~cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
@@ -53,6 +56,12 @@ def send_chat_message(request):
 def delete_chat_message(request, message_id):
     """
     Delete chat message
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param message_id: The id of the message
+    :type message_id: int
 
     :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to delete the specific message
 

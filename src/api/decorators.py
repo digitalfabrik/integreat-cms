@@ -16,7 +16,7 @@ def feedback_handler(func):
     :param func: decorated function
     :type func: ~collections.abc.Callable
 
-    :return: return handle_feedback function
+    :return: The decorated feedback view function
     :rtype: ~collections.abc.Callable
     """
 
@@ -35,7 +35,7 @@ def feedback_handler(func):
         :param language_slug: slug of a language
         :type language_slug: str
 
-        :return: return decorated function
+        :return: The decorated feedback view function
         :rtype: ~collections.abc.Callable
         """
         if request.method != "POST":
@@ -91,6 +91,23 @@ def json_response(function):
 
     @wraps(function)
     def wrap(request, *args, **kwargs):
+        """
+        The inner function for this decorator.
+        It tries to execute the decorated view function and returns the unaltered result with the exception of a
+        :class:`~django.http.Http404` error, which is converted into JSON format.
+
+        :param request: Django request
+        :type request: ~django.http.HttpRequest
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied kwargs
+        :type kwargs: dict
+
+        :return: The response of the given function or an 404 :class:`~django.http.JsonResponse`
+        :rtype: ~django.http.JsonResponse
+        """
         try:
             return function(request, *args, **kwargs)
         except Http404 as e:

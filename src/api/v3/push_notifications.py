@@ -45,7 +45,7 @@ def transform_notification(pnt):
     :param pnt: A push notification translation
     :type pnt: ~cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
 
-    :return: return data necessary for API
+    :return: data necessary for API
     :rtype: dict
     """
     return {

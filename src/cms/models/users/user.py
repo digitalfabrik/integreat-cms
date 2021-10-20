@@ -92,7 +92,7 @@ class User(AbstractUser):
         """
         Update the :attr:`~cms.models.users.user.User.chat_last_visited` to the current time
 
-        :return: Return the previous :attr:`~cms.models.users.user.User.chat_last_visited` value
+        :return: the previous :attr:`~cms.models.users.user.User.chat_last_visited` value
         :rtype: ~datetime.datetime
         """
         previous_chat_last_visited = self.chat_last_visited

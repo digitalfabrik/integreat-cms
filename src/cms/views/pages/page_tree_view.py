@@ -123,6 +123,15 @@ class PageTreeView(TemplateView, PageContextMixin):
                     enable_drag_and_drop = False
 
                     def page_filter(page):
+                        """
+                        Filters page
+
+                        :param page: The according page
+                        :type page: ~cms.models.pages.page.Page
+
+                        :return: Whether or not the page should be filtered based on its translation status
+                        :rtype: bool
+                        """
                         translation = page.get_translation(language_slug)
                         if not translation:
                             return translation_status.MISSING in selected_status

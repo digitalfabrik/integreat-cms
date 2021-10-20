@@ -1,5 +1,5 @@
 from mptt.fields import TreeForeignKey
-from mptt.models import MPTTModel, raise_if_unsaved
+from mptt.models import MPTTModel
 
 from django.db import models
 from django.utils import timezone
@@ -114,48 +114,6 @@ class LanguageTreeNode(MPTTModel):
         :rtype: str
         """
         return len(self.get_ancestors())
-
-    # Explicitly define functions to show documentation of base model
-    @raise_if_unsaved
-    def get_ancestors(self, ascending=False, include_self=False):
-        return super().get_ancestors(ascending, include_self)
-
-    # pylint: disable=useless-super-delegation
-    @raise_if_unsaved
-    def get_family(self):
-        return super().get_family()
-
-    @raise_if_unsaved
-    def get_children(self):
-        return super().get_children()
-
-    @raise_if_unsaved
-    def get_descendants(self, include_self=False):
-        return super().get_descendants(include_self)
-
-    def get_descendant_count(self):
-        return super().get_descendant_count()
-
-    @raise_if_unsaved
-    def get_root(self):
-        return super().get_root()
-
-    # pylint: disable=useless-super-delegation
-    def insert_at(
-        self,
-        target,
-        position="first-child",
-        save=False,
-        allow_existing_pk=False,
-        refresh_target=True,
-    ):
-        return super().insert_at(
-            target, position, save, allow_existing_pk, refresh_target
-        )
-
-    # pylint: disable=useless-super-delegation
-    def move_to(self, target, position="first-child"):
-        return super().move_to(target, position)
 
     def __str__(self):
         """

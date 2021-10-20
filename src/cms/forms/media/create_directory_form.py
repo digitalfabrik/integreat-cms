@@ -30,6 +30,12 @@ class CreateDirectoryForm(CustomModelForm):
         )
 
     def clean(self):
+        """
+        This function provides additional validation rules for the directory form.
+
+        :return: The cleaned data
+        :rtype: dict
+        """
         cleaned_data = super().clean()
 
         if cleaned_data.get("parent"):

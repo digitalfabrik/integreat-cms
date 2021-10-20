@@ -15,6 +15,15 @@ class SetupClass(TestCase):
     @staticmethod
     # pylint: disable=missing-function-docstring
     def create_region(region_data):
+        """
+        In this function a region gets created, validated and saved.
+
+        :param region_data: the current region_data
+        :type region_data: dict
+
+        :return: the created region
+        :rtype: ~cms.models.regions.region.Region
+        """
         region_form = RegionForm(data=region_data)
         region_form.is_valid()
         region_form.save()
@@ -23,6 +32,15 @@ class SetupClass(TestCase):
     @staticmethod
     # pylint: disable=missing-function-docstring
     def create_language(language_data):
+        """
+        This function creates, validates and saves a language
+
+        :param language_data: the current language_data
+        :type language_data: dict
+
+        :return: the created language
+        :rtype: ~cms.models.languages.language.Language
+        """
         language_form = LanguageForm(data=language_data)
         language_form.is_valid()
         language_form.save()
@@ -31,6 +49,19 @@ class SetupClass(TestCase):
     @staticmethod
     # pylint: disable=missing-function-docstring
     def create_language_tree_node(language_tree_node_data, region_slug=None):
+        """
+        This function creates, validates and saves the language tree node.
+
+        :param language_tree_node_data: the current language_tree_node_data
+        :type language_tree_node_data: dict
+
+        :param region_slug: the current region_slug
+        :type region_slug: str
+
+        :return: the created language tree node
+        :rtype: ~cms.models.languages.language_tree_node.LanguageTreeNode
+        """
+
         region = Region.objects.get(slug=region_slug)
         language_tree_node_form = LanguageTreeNodeForm(
             data=language_tree_node_data, region=region
@@ -50,6 +81,33 @@ class SetupClass(TestCase):
         explicitly_archived=False,
     ):
         # TODO: fix form usage to page_form and page_translation_form
+        """
+        This function creates, validates and saves a page
+
+        :param page_data: the current page_data
+        :type page_data: dict
+
+        :param user: the current user
+        :type user: str
+
+        :param region_slug: the current region_slug
+        :type region_slug: str
+
+        :param language_slug: the current language_slug
+        :type language_slug: str
+
+        :param page_id: the current page_id
+        :type page_id: str
+
+        :param publish: the current publish
+        :type publish: bool
+
+        :param explicitly_archived: the current explicitly_archived
+        :type explicitly_archived: bool
+
+        :return: the created page
+        :rtype: ~cms.models.pages.page.Page
+        """
         page_form = PageForm(
             data=page_data,
             page_id=page_id,

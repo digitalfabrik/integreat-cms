@@ -60,6 +60,8 @@ class RegionFeedbackFilterForm(forms.Form):
 
     def filters_visible(self):
         """
+        This function determines whether the filter form is visible by default.
+
         :return: whether any filters (other than search were changed)
         :rtype: bool
         """

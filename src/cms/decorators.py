@@ -25,6 +25,18 @@ def staff_required(function):
     """
 
     def is_staff(user):
+        """
+        This function checks, whether or not a user is a superuser or staff member.
+
+        :param user: The user, that is checked
+        :type user: ~cms.models.users.user.User
+
+        :raises ~django.core.exceptions.PermissionDenied: If user doesn't have the permission to access the staff area
+
+        :return: whether or not the user is staff member
+        :rtype: bool
+        """
+
         if user.is_superuser or user.is_staff:
             return True
         raise PermissionDenied(
@@ -47,6 +59,18 @@ def permission_required(permission):
     """
 
     def check_permission(user):
+        """
+        This function checks the permission of a user
+
+        :param user: The user, that is checked
+        :type user: ~cms.models.users.user.User
+
+        :raises ~django.core.exceptions.PermissionDenied: If user doesn't have the given permission
+
+        :return: Whether the user has the permission or not
+        :rtype: bool
+        """
+
         if user.has_perm(permission):
             return True
         raise PermissionDenied(f"{user!r} does not have the permission {permission!r}")
@@ -67,6 +91,23 @@ def region_permission_required(function):
 
     @wraps(function)
     def wrap(request, *args, **kwargs):
+        """
+        The inner function for this decorator
+
+        ::param request: Django request
+        :type request: ~django.http.HttpRequest
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied kwargs
+        :type kwargs: dict
+
+        :raises ~django.core.exceptions.PermissionDenied: If user doesn't have the permission to access the region
+
+        :return: the decorated function
+        :rtype: ~collections.abc.Callable
+        """
         user = request.user
         # superusers and staff have permissions for all regions
         if user.is_superuser or user.is_staff:
@@ -94,6 +135,21 @@ def modify_mfa_authenticated(function):
 
     @wraps(function)
     def wrap(request, *args, **kwargs):
+        """
+        The inner function for this decorator
+
+        :param request: Django request
+        :type request: ~django.http.HttpRequest
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied kwargs
+        :type kwargs: dict
+
+        :return: the decorated function
+        :rtype: ~collections.abc.Callable
+        """
         if not "modify_mfa_authentication_time" in request.session or request.session[
             "modify_mfa_authentication_time"
         ] < (time.time() - 5 * 60):

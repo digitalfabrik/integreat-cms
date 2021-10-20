@@ -16,7 +16,7 @@ def transform_region(region):
     :param region: The region object which should be converted
     :type region: ~cms.models.regions.region.Region
 
-    :return: return data necessary for API
+    :return: data necessary for API
     :rtype: dict
     """
     return {
@@ -43,7 +43,7 @@ def transform_region_by_status(region):
     :param region: The region object which should be converted
     :type region: ~cms.models.regions.region.Region
 
-    :return: return data necessary for API
+    :return: data necessary for API
     :rtype: dict
     """
     result = transform_region(region)

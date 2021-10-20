@@ -208,11 +208,13 @@ class Deserializer(xml_serializer.Deserializer):
         :param node: The current xml node of the object
         :type node: xml.dom.minidom.Element
 
+        :raises ~django.core.serializers.base.DeserializationError: If the deserialization fails
+
+        :raises ~django.core.exceptions.FieldDoesNotExist: If the XLIFF file contains a field which doesn't exist on the
+
         :return: The deserialized page translation
         :rtype: django.core.serializers.base.DeserializedObject
 
-        :raises ~django.core.serializers.base.DeserializationError: If the deserialization fails
-        :raises ~django.core.exceptions.FieldDoesNotExist: If the XLIFF file contains a field which doesn't exist on the
                                                            PageTranslation model
         """
         # Get page translation (process varies for the different xliff versions)
@@ -320,10 +322,10 @@ class Deserializer(xml_serializer.Deserializer):
         :param attribute: The name of the requested attribute
         :type attribute: str
 
+        :raises ~django.core.serializers.base.DeserializationError: If the deserialization fails
+
         :return: The value name of the requested attribute
         :rtype: str
-
-        :raises ~django.core.serializers.base.DeserializationError: If the deserialization fails
         """
         value = node.getAttribute(attribute)
         if not value:

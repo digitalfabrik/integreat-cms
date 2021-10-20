@@ -17,7 +17,7 @@ def transform_poi(poi, poi_translation):
     :param poi_translation: The translation of the POI which should be used for the title
     :type poi_translation: ~cms.models.pois.poi_translation.POITranslation
 
-    :return: return data necessary for API
+    :return: data necessary for API
     :rtype: dict
     """
     return {
@@ -41,7 +41,7 @@ def transform_poi_translation(poi_translation):
     :param poi_translation: The poi translation object which should be converted
     :type poi_translation: ~cms.models.pois.poi_translation.POITranslation
 
-    :return: return data necessary for API
+    :return: data necessary for API
     :rtype: dict
     """
 

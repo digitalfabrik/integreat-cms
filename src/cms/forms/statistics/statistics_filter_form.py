@@ -44,6 +44,9 @@ class StatisticsFilterForm(forms.Form):
     def clean(self):
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
+
+        :return: The cleaned data
+        :rtype: dict
         """
         cleaned_data = super().clean()
 

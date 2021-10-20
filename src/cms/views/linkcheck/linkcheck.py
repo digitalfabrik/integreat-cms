@@ -117,6 +117,12 @@ class LinkListRedirectView(RedirectView):
         """
         Retrieve url for redirection
 
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
         :return: url to redirect to
         :rtype: str
         """
