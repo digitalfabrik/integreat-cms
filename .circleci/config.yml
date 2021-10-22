@@ -234,12 +234,97 @@ jobs:
             if git diff --name-only HEAD~1 HEAD | grep -q .circleci/images/bionic-setuptools; then
               docker push integreat/bionic-setuptools
             fi
+  bump-dev-version:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Bump version
+          command: |
+            # Install recent version of pip
+            pip install --upgrade pip
+            # Check which versions of integreat-cms are available on the TestPyPI repository
+            AVAILABLE_VERSIONS=$(pip index versions integreat-cms --pre -i https://test.pypi.org/simple/)
+            echo $AVAILABLE_VERSIONS
+            # Generate new version names until one is available
+            while true; do
+              # Bump version to next alpha version
+              pipenv run bumpver update -n -t alpha --no-commit
+              # Read current version into environment variables
+              eval $(pipenv run bumpver show --env -n)
+              # If the current PEP440 version is not available on TestPyPI, break from the loop and continue
+              if ! echo $AVAILABLE_VERSIONS | grep -q $PEP440_VERSION; then
+                break
+              fi
+              echo "Version $PEP440_VERSION already exists on TestPyPI!"
+            done
+      - persist_to_workspace:
+          root: .
+          paths:
+            - setup.py
+            - src/integreat_cms/__init__.py
+  bump-version:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Request installation access token to authorize as Deliverino app
+          command: echo "export DELIVERINO_ACCESS_TOKEN=$(pipenv run ./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
+      - run:
+          name: Config git repository to commit & push as Deliverino app
+          command: |
+            git config user.name "deliverino[bot]"
+            git config user.email "62934656+deliverino[bot]@users.noreply.github.com"
+            git remote set-url origin "https://x-access-token:$DELIVERINO_ACCESS_TOKEN@github.com/Integreat/integreat-cms.git"
+      - run:
+          name: Bump version
+          command: pipenv run bumpver update
+      - run:
+          name: Get tag of newly created version
+          command: |
+            eval $(pipenv run bumpver show --env -n)
+            echo "export CURRENT_VERSION=$CURRENT_VERSION" >> $BASH_ENV
+      - run:
+          name: Update changelog
+          command: |
+            # Insert version number in "unreleased" section of changelog
+            UNRELEASED="UNRELEASED\n----------"
+            # Build a string of dashes of same length as the version
+            UNDERLINE=$(echo "$CURRENT_VERSION" | tr "[:print:]" "-")
+            sed --null-data --in-place \
+              "s/${UNRELEASED}/${UNRELEASED}\n\n\n${CURRENT_VERSION}\n${UNDERLINE}/g" \
+              CHANGELOG.md
+            # Amend to bump version commit
+            git add CHANGELOG.md
+            git commit --amend --no-edit
+      - run:
+          name: Tag and push commit
+          command: |
+            # Get most recent changelog (split by 3 sequential new lines and print the second record except the first three lines)
+            CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
+            git tag --annotate "${CURRENT_VERSION}" --message "${CHANGELOG}"
+            git push origin --follow-tags "${CURRENT_VERSION}" HEAD
+      - run:
+          name: Merge version bump into develop
+          command: git checkout develop && git merge main --commit --no-edit && git push
 
 workflows:
   develop:
     jobs:
-      - pipenv-install
-      - webpack
+      - pipenv-install:
+          filters:
+            branches:
+              ignore: main
+      - webpack:
+          filters:
+            branches:
+              ignore: main
       - test:
           requires:
             - pipenv-install
@@ -250,10 +335,18 @@ workflows:
       - compile-translations:
           requires:
             - pipenv-install
+      - bump-dev-version:
+          filters:
+            branches:
+              only: develop
+          requires:
+            - pipenv-install
       - build-package:
+          name: build-dev-package
           requires:
             - webpack
             - compile-translations
+            - bump-dev-version
       - black:
           requires:
             - pipenv-install
@@ -274,3 +367,44 @@ workflows:
               only: develop
       - docker-images:
           context: docker-hub
+  main:
+    jobs:
+      - pipenv-install:
+          name: pipenv-install-main
+          filters:
+            branches:
+              only: main
+      - bump-version:
+          context: deliverino
+          requires:
+            - pipenv-install-main
+  deploy:
+    jobs:
+      - pipenv-install:
+          name: pipenv-install-deploy
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
+      - webpack:
+          name: webpack-deploy
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
+      - compile-translations:
+          name: compile-translations-deploy
+          requires:
+            - pipenv-install-deploy
+          filters:
+            tags:
+              only: /.*/
+      - build-package:
+          requires:
+            - webpack-deploy
+            - compile-translations-deploy
+          filters:
+            tags:
+              only: /.*/

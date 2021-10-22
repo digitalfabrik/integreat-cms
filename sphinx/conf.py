@@ -14,8 +14,6 @@ import importlib
 
 from django import VERSION as django_version
 
-from integreat_cms.core.settings import VERSION
-
 # Append project source directory to path environment variable
 sys.path.append(os.path.abspath(".."))
 # Append sphinx source directory to path environment variable to allow documentation for this file
@@ -46,7 +44,7 @@ github_pages_url = f"https://{github_username}.github.io/{github_repository}"
 django_github_url = f"https://github.com/django/django/blob/stable/{django_version}.x"
 
 #: The full version, including alpha/beta/rc tags
-release = VERSION
+release = "2021.9.0-beta"
 
 # -- General configuration ---------------------------------------------------
 

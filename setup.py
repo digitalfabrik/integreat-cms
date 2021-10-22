@@ -3,15 +3,14 @@
 
 from setuptools import find_packages, setup
 
-from integreat_cms.core.settings import VERSION
-
 
 package_name = "integreat-cms"
 package_dir = "integreat_cms"
+version = "2021.9.0-beta"
 
 setup(
     name=package_name,
-    version=VERSION,
+    version=version,
     packages=find_packages(),
     include_package_data=True,
     scripts=[f"{package_dir}/integreat-cms-cli"],

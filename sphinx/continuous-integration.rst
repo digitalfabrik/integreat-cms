@@ -22,14 +22,20 @@ See `Configuring CircleCI <https://circleci.com/docs/2.0/configuration-reference
 Workflow ``develop``
 ====================
 
+This workflow gets triggered everytime a commit is pushed to the ``develop`` branch or a PR is opened.
+
 .. image:: images/circleci-main-workflow.png
     :alt: CircleCI main workflow
+
+.. _circleci-pipenv-install:
 
 pipenv-install
 --------------
 
 This job executes ``pipenv install --dev`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
 It passes the virtual environment ``.venv`` to the subsequent jobs.
+
+.. _circleci-webpack:
 
 webpack
 -------
@@ -61,10 +67,19 @@ check-translations
 This job uses the dev-tool ``./dev-tools/check_translations.sh`` to check whether the translation file is up to date and
 does not contain any empty or fuzzy entries.
 
+.. _circleci-compile-translations:
+
 compile-translations
 --------------------
 
 This job compiles the translation file and passes the resulting ``django.mo`` to the packaging job.
+
+bump-dev-version
+----------------
+
+This job modifies the ``bumpver`` config to make sure the changes are only temporary and not committed, then it bumps
+the version to the next alpha version which is not yet published on
+`TestPyPI <https://test.pypi.org/project/integreat-cms/#history>`_.
 
 .. _circleci-build-package:
 
@@ -115,6 +130,49 @@ shellcheck/check
 This job makes use of the `ShellCheck CircleCI Orb <https://circleci.com/developer/orbs/orb/circleci/shellcheck>`_ and
 executes the pre-defined job ``shellcheck/check``. It is configured to check the directory :github-source:`dev-tools`
 and to allow external sources because all dev tools source one common function script. Also see :ref:`shellcheck`.
+
+
+Workflow ``main``
+=================
+
+This workflow gets executed when a commit is pushed to the ``main`` branch. Typically, this is a release PR from ``develop``.
+
+pipenv-install
+--------------
+
+See :ref:`circleci-pipenv-install`.
+
+bump-version
+------------
+
+This job authenticates as the deliverino app and runs ``pipenv run bumpver update`` to bump the version and commit the
+changes to the main branch. Additionally, it merges the version bump commit into the ``develop`` branch.
+
+
+Workflow ``deploy``
+===================
+
+This workflow gets executed when a commit is tagged.
+
+pipenv-install
+--------------
+
+See :ref:`circleci-pipenv-install`.
+
+webpack
+-------
+
+See :ref:`circleci-webpack`.
+
+compile-translations
+--------------------
+
+See :ref:`circleci-compile-translations`.
+
+build-package
+-------------
+
+See :ref:`circleci-build-package`.
 
 
 Debugging with SSH

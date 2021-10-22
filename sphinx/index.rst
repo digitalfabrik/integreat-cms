@@ -56,9 +56,11 @@ Deployment
 
     packaging
     prod-server
+    changelog
 
 * :doc:`packaging`: Create an easy installable package
 * :doc:`prod-server`: Run the production server
+* :doc:`changelog`: The release history including all relevant changes
 
 
 Contributing

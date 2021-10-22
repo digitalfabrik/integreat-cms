@@ -53,9 +53,6 @@ from .logging_formatter import ColorFormatter
 #: Build paths inside the project like this: ``os.path.join(BASE_DIR, ...)``
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-#: Version number
-VERSION = "0.0.14"
-
 if "DJANGO_WEBAPP_URL" in os.environ:
     WEBAPP_URL = os.environ["DJANGO_WEBAPP_URL"]
 else:
