@@ -76,10 +76,16 @@
         <i data-feather="calendar"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
     </td>
     <td class="pl-2 pr-4 py-3 flex flex-nowrap justify-end gap-2">
-        <!-- TODO: add link to view event in web app -->
-        <a href="" class="btn-icon">
-            <i data-feather="eye"></i>
-        </a>
+        {% if event_translation.status == PUBLIC %}
+            <a href="{{ WEBAPP_URL }}{{ event_translation.get_absolute_url }}" 
+            rel="noopener noreferrer" target="_blank" title="{% trans 'Open event in web app' %}" class="btn-icon">
+                <i data-feather="external-link"></i>
+            </a>
+        {% else %}
+            <button title="{% trans 'This event cannot be opened in the web app, because it is not public.' %}" class="btn-icon" disabled>
+                <i data-feather="external-link"></i>
+            </button>
+        {% endif %}
         {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if can_edit_event %}
             <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_slug=language.slug %}" class="btn-icon" title="{% trans 'Edit event' %}">

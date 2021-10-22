@@ -108,11 +108,20 @@
         </a>
     </td>
     <td class="pl-2 pr-4 py-3 text-right flex flex-nowrap gap-2">
-        <!-- TODO: add link to view page in web app -->
         <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
-           target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="btn-icon">
+           target="_blank" rel="noopener noreferrer" title="{% trans 'View page as preview' %}" class="btn-icon">
             <i data-feather="eye"></i>
         </a>
+        {% if page_translation.status == PUBLIC %}
+            <a href="{{ WEBAPP_URL }}{{ page_translation.get_absolute_url }}"
+                rel="noopener noreferrer" target="_blank" title="{% trans 'Open page in web app' %}" class="btn-icon">
+                <i data-feather="external-link"></i>
+            </a>
+        {% else %}
+            <button title="{% trans 'This page cannot be opened in the web app, because it is not public.' %}" class="btn-icon" disabled>
+                <i data-feather="external-link"></i>
+            </button>
+        {% endif %}
         <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" title="{% trans 'Edit page' %}" class="btn-icon">
             <i data-feather="edit"></i>
         </a>
