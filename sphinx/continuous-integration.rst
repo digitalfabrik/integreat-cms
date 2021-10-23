@@ -169,6 +169,11 @@ publish-package
 
 See :ref:`circleci-build-package`. The only difference is that PyPI is used as repository instead of TestPyPI.
 
+create-release
+--------------
+
+This job authenticates as Deliverino app and creates a GitHub release with :github-source:`.circleci/scripts/create_release.py`.
+
 
 Debugging with SSH
 ==================

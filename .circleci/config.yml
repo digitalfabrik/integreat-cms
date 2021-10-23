@@ -307,6 +307,25 @@ jobs:
       - run:
           name: Merge version bump into develop
           command: git checkout develop && git merge main --commit --no-edit && git push
+  create-release:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Request installation access token to authorize as Deliverino app
+          command: echo "export DELIVERINO_ACCESS_TOKEN=$(pipenv run ./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
+      - run:
+          name: Assemble release body
+          command: |
+            PREV_TAG=$(git describe --abbrev=0 --tags "${CIRCLE_TAG}^") || true
+            CHANGELOG+=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
+            echo "export PREV_TAG=${PREV_TAG}\nexport CHANGELOG=\"${CHANGELOG}\"" >> $BASH_ENV
+      - run:
+          name: Create release as Deliverino app
+          command: pipenv run ./.circleci/scripts/create_release.py -p "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" ./dist/integreat-cms-*.tar.gz
 
 workflows:
   develop:
@@ -410,6 +429,13 @@ workflows:
               only: /.*/
       - publish-package:
           context: pypi
+          requires:
+            - build-package
+          filters:
+            tags:
+              only: /.*/
+      - create-release:
+          context: deliverino
           requires:
             - build-package
           filters:
