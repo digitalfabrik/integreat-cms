@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "CMS developed by the Integreat-Team",
   "scripts": {
-    "dev": "NODE_ENV=development webpack watch --mode development --color --stats=errors-warnings",
-    "prod": "NODE_ENV=production webpack --mode production"
+    "dev": "NODE_ENV=development NODE_OPTIONS=$(test $(node --version | cut -c2- | cut -d. -f1) -ge 17 && echo '--openssl-legacy-provider') webpack watch --mode development --color --stats=errors-warnings",
+    "prod": "NODE_ENV=production NODE_OPTIONS=$(test $(node --version | cut -c2- | cut -d. -f1) -ge 17 && echo '--openssl-legacy-provider') webpack --mode production"
   },
   "repository": {
     "type": "git",
