@@ -68,7 +68,7 @@ intersphinx_mapping = {
         f"https://docs.python.org/{sys.version_info.major}.{sys.version_info.minor}/",
         None,
     ),
-    "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
+    # "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
     "requests": ("https://requests.readthedocs.io/en/master/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
     "sphinx-rtd-theme": (
