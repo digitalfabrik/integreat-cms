@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-24T20:07:17+00:00" />
+    <meta property="article:modified_time" content="2021-10-15T11:11:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Media &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -464,6 +464,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-token-generator">Account Activation Token Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#media-utils">Media Utils</a></li>
@@ -557,6 +558,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.organizations.html#organization-actions">Organization Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.organizations.html#organization-context-mixin">Organization Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.organizations.html#organization-list-view">Organization List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.organizations.html#organization-view">Organization View</a></li>
 </ul>
@@ -568,6 +571,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-sbs-view">Page Sbs View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-tree-view">Page Tree View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-view">Page View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-xliff-import-view">Page XLIFF Import View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.pois.html">POIs</a><ul>
@@ -625,7 +629,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#linklists">Linklists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#page-xliff-converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#urls">Urls</a></li>
 </ul>
@@ -675,6 +678,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/sitemap.html#urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/sitemap.html#utils">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/sitemap.html#views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref/xliff.html">XLIFF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#base-serializer">Base Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#generic-serializer">Generic Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#xliff-1-2-serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#xliff-2-0-serializer">XLIFF 2.0 Serializer</a></li>
 </ul>
 </li>
 </ul>
@@ -914,6 +926,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_token_generator">Account Activation Token Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
@@ -1007,6 +1020,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_actions">Organization Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_context_mixin">Organization Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_list_view">Organization List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_view">Organization View</a></li>
 </ul>
@@ -1018,6 +1033,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_sbs_view">Page Sbs View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_tree_view">Page Tree View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_view">Page View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_xliff_import_view">Page XLIFF Import View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html">POIs</a><ul>
@@ -1075,7 +1091,6 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.linklists">Linklists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.urls">Urls</a></li>
 </ul>
@@ -1125,6 +1140,15 @@
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.utils">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="xliff.html">XLIFF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.base_serializer">Base Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.generic_serializer">Generic Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.xliff1_serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.xliff2_serializer">XLIFF 2.0 Serializer</a></li>
 </ul>
 </li>
 </ul>
@@ -1256,17 +1280,17 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.__init__" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.check">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.check" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.check" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1000"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.clean" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1000"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.clean" title="Permalink to this definition"></a></dt>
 <dd><p>Hook for doing any extra model-wide validation after clean() has been
 called on every field by self.clean_fields. Any ValidationError raised
 by this method will not be associated with a particular field; it will
@@ -1275,7 +1299,7 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.clean_fields">
-<span class="sig-name descname"><span class="pre">clean_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.clean_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.clean_fields" title="Permalink to this definition"></a></dt>
 <dd><p>Clean all fields and raise a ValidationError containing a dict
 of all validation errors if any occur.</p>
 </dd></dl>
@@ -1289,12 +1313,12 @@ of all validation errors if any occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.date_error_message">
-<span class="sig-name descname"><span class="pre">date_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.date_error_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">date_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.date_error_message" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L945"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.delete" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L945"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.delete" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1306,19 +1330,19 @@ of all validation errors if any occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.from_db">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L507"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.from_db" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L507"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.from_db" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.full_clean">
-<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.full_clean" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.full_clean" title="Permalink to this definition"></a></dt>
 <dd><p>Call clean_fields(), clean(), and validate_unique() on the model.
 Raise a ValidationError for any errors that occur.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.get_deferred_fields">
-<span class="sig-name descname"><span class="pre">get_deferred_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L585"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.get_deferred_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_deferred_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L585"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.get_deferred_fields" title="Permalink to this definition"></a></dt>
 <dd><p>Return a set containing names of deferred fields for this instance.</p>
 </dd></dl>
 
@@ -1373,12 +1397,12 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.prepare_database_save">
-<span class="sig-name descname"><span class="pre">prepare_database_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L995"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.prepare_database_save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prepare_database_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L995"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.prepare_database_save" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.refresh_from_db">
-<span class="sig-name descname"><span class="pre">refresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L594"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.refresh_from_db" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">refresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L594"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.refresh_from_db" title="Permalink to this definition"></a></dt>
 <dd><p>Reload field values from the database.</p>
 <p>By default, the reloading happens from the database this instance was
 loaded from, or by the read router if this instance wasn’t loaded from
@@ -1405,7 +1429,7 @@ of the field will call this method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L672"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L672"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.save" title="Permalink to this definition"></a></dt>
 <dd><p>Save the current instance. Override this in a subclass if you want to
 control the saving process.</p>
 <p>The ‘force_insert’ and ‘force_update’ parameters can be used to insist
@@ -1415,7 +1439,7 @@ non-SQL backends), respectively. Normally, they should not be set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.save_base">
-<span class="sig-name descname"><span class="pre">save_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L730"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.save_base" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L730"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.save_base" title="Permalink to this definition"></a></dt>
 <dd><p>Handle the parts of saving which should be done only once per save,
 yet need to be done in raw saves, too. This includes some sanity
 checks and signal sending.</p>
@@ -1426,7 +1450,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.serializable_value">
-<span class="sig-name descname"><span class="pre">serializable_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.serializable_value" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">serializable_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.serializable_value" title="Permalink to this definition"></a></dt>
 <dd><p>Return the value of the field name for this instance. If the field is
 a foreign key, return the id value instead of the object. If there’s
 no Field object with this name on the model, return the model
@@ -1459,12 +1483,12 @@ and not use this method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.unique_error_message">
-<span class="sig-name descname"><span class="pre">unique_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.unique_error_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">unique_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.unique_error_message" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.directory.Directory.validate_unique">
-<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1009"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.validate_unique" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1009"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.directory.Directory.validate_unique" title="Permalink to this definition"></a></dt>
 <dd><p>Check unique constraints on the model and raise ValidationError if any
 failed.</p>
 </dd></dl>
@@ -1571,7 +1595,7 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L406"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.__init__" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1583,12 +1607,12 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.check">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.check" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.check" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1000"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.clean" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1000"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.clean" title="Permalink to this definition"></a></dt>
 <dd><p>Hook for doing any extra model-wide validation after clean() has been
 called on every field by self.clean_fields. Any ValidationError raised
 by this method will not be associated with a particular field; it will
@@ -1597,19 +1621,19 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.clean_fields">
-<span class="sig-name descname"><span class="pre">clean_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.clean_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.clean_fields" title="Permalink to this definition"></a></dt>
 <dd><p>Clean all fields and raise a ValidationError containing a dict
 of all validation errors if any occur.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.date_error_message">
-<span class="sig-name descname"><span class="pre">date_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.date_error_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">date_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.date_error_message" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L945"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.delete" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L945"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.delete" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1621,19 +1645,19 @@ of all validation errors if any occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.from_db">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L507"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.from_db" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L507"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.from_db" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.full_clean">
-<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.full_clean" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.full_clean" title="Permalink to this definition"></a></dt>
 <dd><p>Call clean_fields(), clean(), and validate_unique() on the model.
 Raise a ValidationError for any errors that occur.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.get_deferred_fields">
-<span class="sig-name descname"><span class="pre">get_deferred_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L585"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.get_deferred_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_deferred_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L585"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.get_deferred_fields" title="Permalink to this definition"></a></dt>
 <dd><p>Return a set containing names of deferred fields for this instance.</p>
 </dd></dl>
 
@@ -1729,12 +1753,12 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.prepare_database_save">
-<span class="sig-name descname"><span class="pre">prepare_database_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L995"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.prepare_database_save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prepare_database_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L995"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.prepare_database_save" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.refresh_from_db">
-<span class="sig-name descname"><span class="pre">refresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L594"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.refresh_from_db" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">refresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L594"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.refresh_from_db" title="Permalink to this definition"></a></dt>
 <dd><p>Reload field values from the database.</p>
 <p>By default, the reloading happens from the database this instance was
 loaded from, or by the read router if this instance wasn’t loaded from
@@ -1761,7 +1785,7 @@ of the field will call this method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L672"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L672"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.save" title="Permalink to this definition"></a></dt>
 <dd><p>Save the current instance. Override this in a subclass if you want to
 control the saving process.</p>
 <p>The ‘force_insert’ and ‘force_update’ parameters can be used to insist
@@ -1771,7 +1795,7 @@ non-SQL backends), respectively. Normally, they should not be set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.save_base">
-<span class="sig-name descname"><span class="pre">save_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L730"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.save_base" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L730"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.save_base" title="Permalink to this definition"></a></dt>
 <dd><p>Handle the parts of saving which should be done only once per save,
 yet need to be done in raw saves, too. This includes some sanity
 checks and signal sending.</p>
@@ -1782,7 +1806,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.serializable_value">
-<span class="sig-name descname"><span class="pre">serializable_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.serializable_value" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">serializable_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.serializable_value" title="Permalink to this definition"></a></dt>
 <dd><p>Return the value of the field name for this instance. If the field is
 a foreign key, return the id value instead of the object. If there’s
 no Field object with this name on the model, return the model
@@ -1850,7 +1874,7 @@ and not use this method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.unique_error_message">
-<span class="sig-name descname"><span class="pre">unique_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.unique_error_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">unique_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.unique_error_message" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1876,7 +1900,7 @@ and not use this method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.media.media_file.MediaFile.validate_unique">
-<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/db/models/base.py#L1009"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.validate_unique" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1009"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.media.media_file.MediaFile.validate_unique" title="Permalink to this definition"></a></dt>
 <dd><p>Check unique constraints on the model and raise ValidationError if any
 failed.</p>
 </dd></dl>
@@ -1949,7 +1973,7 @@ will be stored as <code class="docutils literal notranslate"><span class="pre">A
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 24, 2021.
+      <span class="lastupdated">Last updated on Oct 15, 2021.
       </span></p>
   </div>
 

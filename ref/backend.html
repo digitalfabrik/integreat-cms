@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-28T11:42:43+00:00" />
+    <meta property="article:modified_time" content="2021-10-15T11:11:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Backend &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -464,6 +464,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#account-activation-token-generator">Account Activation Token Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#media-utils">Media Utils</a></li>
@@ -557,6 +558,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#organization-actions">Organization Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#organization-context-mixin">Organization Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#organization-list-view">Organization List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#organization-view">Organization View</a></li>
 </ul>
@@ -568,6 +571,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-sbs-view">Page Sbs View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-tree-view">Page Tree View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-view">Page View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-xliff-import-view">Page XLIFF Import View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html">POIs</a><ul>
@@ -625,7 +629,6 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.html#auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#linklists">Linklists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#page-xliff-converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#urls">Urls</a></li>
 </ul>
@@ -675,6 +678,15 @@
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#utils">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="xliff.html">XLIFF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#base-serializer">Base Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#generic-serializer">Generic Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#xliff-1-2-serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#xliff-2-0-serializer">XLIFF 2.0 Serializer</a></li>
 </ul>
 </li>
 </ul>
@@ -914,6 +926,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.account_activation_token_generator">Account Activation Token Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
@@ -1007,6 +1020,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.organizations.html#module-cms.views.organizations.organization_actions">Organization Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.organizations.html#module-cms.views.organizations.organization_context_mixin">Organization Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.organizations.html#module-cms.views.organizations.organization_list_view">Organization List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.organizations.html#module-cms.views.organizations.organization_view">Organization View</a></li>
 </ul>
@@ -1018,6 +1033,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_sbs_view">Page Sbs View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_tree_view">Page Tree View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_view">Page View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_xliff_import_view">Page XLIFF Import View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.pois.html">POIs</a><ul>
@@ -1075,7 +1091,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.linklists">Linklists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.urls">Urls</a></li>
 </ul>
@@ -1125,6 +1140,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap.urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap.utils">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap.views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref-ext/xliff.html">XLIFF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.base_serializer">Base Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.generic_serializer">Generic Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.xliff1_serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.xliff2_serializer">XLIFF 2.0 Serializer</a></li>
 </ul>
 </li>
 </ul>
@@ -1180,7 +1204,7 @@ For the full list of settings and their values, see <a class="reference external
 <span class="sig-prename descclassname"><span class="pre">backend.context_processors.</span></span><span class="sig-name descname"><span class="pre">region_slug_processor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/context_processors.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This context processor retrieves the current <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter and passes it to the templates.
 Additionally, the <code class="docutils literal notranslate"><span class="pre">other_regions</span></code>-variable contains all other regions which are available via quick access.
-Usually, these are the regions configured in each user’s profile, but if there are none set, we just list all
+Usually, these are the regions configured in each user’s object, but if there are none set, we just list all
 available regions, ordered by the <code class="docutils literal notranslate"><span class="pre">last_updated</span></code> attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1272,6 +1296,7 @@ For the full list of settings and their values, see <a class="reference external
 <li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_BASE_URL</span></code>: <a class="reference internal" href="../ref-ext/backend.html#backend.settings.BASE_URL" title="backend.settings.BASE_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">BASE_URL</span></code></a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_STATIC_ROOT</span></code>: <a class="reference internal" href="../ref-ext/backend.html#backend.settings.STATIC_ROOT" title="backend.settings.STATIC_ROOT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_MEDIA_ROOT</span></code>: <a class="reference internal" href="../ref-ext/backend.html#backend.settings.MEDIA_ROOT" title="backend.settings.MEDIA_ROOT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_XLIFF_ROOT</span></code>: <a class="reference internal" href="../ref-ext/backend.html#backend.settings.XLIFF_ROOT" title="backend.settings.XLIFF_ROOT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">XLIFF_ROOT</span></code></a></p></li>
 </ul>
 </div></blockquote>
 <p>Database settings: <a class="reference internal" href="../ref-ext/backend.html#backend.settings.DATABASES" title="backend.settings.DATABASES"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DATABASES</span></code></a></p>
@@ -1655,7 +1680,7 @@ Used in the following views:</p>
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">INSTALLED_APPS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['cms.apps.CmsConfig',</span> <span class="pre">'gvz_api.apps.GvzApiConfig',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'linkcheck',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig',</span> <span class="pre">'webpack_loader',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'django.contrib.admin',</span> <span class="pre">'debug_toolbar']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">INSTALLED_APPS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['cms.apps.CmsConfig',</span> <span class="pre">'gvz_api.apps.GvzApiConfig',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'linkcheck',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig',</span> <span class="pre">'webpack_loader',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'xliff',</span> <span class="pre">'django.contrib.admin',</span> <span class="pre">'debug_toolbar']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Enabled applications (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-INSTALLED_APPS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;cms.apps.CmsConfig&#39;</span><span class="p">,</span>
@@ -1672,6 +1697,7 @@ Used in the following views:</p>
     <span class="s1">&#39;rules.apps.AutodiscoverRulesConfig&#39;</span><span class="p">,</span>
     <span class="s1">&#39;webpack_loader&#39;</span><span class="p">,</span>
     <span class="s1">&#39;widget_tweaks&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;xliff&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
     <span class="s1">&#39;debug_toolbar&#39;</span><span class="p">,</span>
 <span class="p">]</span>
@@ -1730,7 +1756,7 @@ Defaults to <a class="reference internal" href="../ref-ext/backend.html#backend.
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">LOGGING</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'disable_existing_loggers':</span> <span class="pre">False,</span> <span class="pre">'filters':</span> <span class="pre">{'require_debug_false':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugFalse'},</span> <span class="pre">'require_debug_true':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugTrue'}},</span> <span class="pre">'formatters':</span> <span class="pre">{'console':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">\x1b[1m{levelname}\x1b[0m</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'console-colored':</span> <span class="pre">{'()':</span> <span class="pre">&lt;class</span> <span class="pre">'backend.logging_formatter.ColorFormatter'&gt;,</span> <span class="pre">'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">{levelname}</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'email':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%Y-%m-%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'Date</span> <span class="pre">and</span> <span class="pre">time:</span> <span class="pre">{asctime}\nSeverity:</span> <span class="pre">{levelname}\nLogger:</span> <span class="pre">{name}\nMessage:</span> <span class="pre">{message}\nFile:</span> <span class="pre">{funcName}()</span> <span class="pre">in</span> <span class="pre">{pathname}:{lineno}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'logfile':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">{levelname:7}</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'syslog':</span> <span class="pre">{'format':</span> <span class="pre">'INTEGREAT</span> <span class="pre">CMS</span> <span class="pre">-</span> <span class="pre">{levelname}:</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'}},</span> <span class="pre">'handlers':</span> <span class="pre">{'authlog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'auth',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'syslog'},</span> <span class="pre">'console':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_true'],</span> <span class="pre">'formatter':</span> <span class="pre">'console'},</span> <span class="pre">'console-colored':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_true'],</span> <span class="pre">'formatter':</span> <span class="pre">'console-colored'},</span> <span class="pre">'logfile':</span> <span class="pre">{'class':</span> <span class="pre">'logging.FileHandler',</span> <span class="pre">'filename':</span> <span class="pre">'/home/circleci/project/src/integreat-cms.log',</span> <span class="pre">'formatter':</span> <span class="pre">'logfile'},</span> <span class="pre">'mail_admins':</span> <span class="pre">{'class':</span> <span class="pre">'django.utils.log.AdminEmailHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'email',</span> <span class="pre">'level':</span> <span class="pre">'ERROR'},</span> <span class="pre">'syslog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'syslog',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false']}},</span> <span class="pre">'loggers':</span> <span class="pre">{'PIL':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'aiohttp.client':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'auth':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'backend':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'cms':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'django':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'gvz_api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'requests':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'rules':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'sitemap':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'urllib3':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'xhtml2pdf':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'}},</span> <span class="pre">'version':</span> <span class="pre">1}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">LOGGING</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'disable_existing_loggers':</span> <span class="pre">False,</span> <span class="pre">'filters':</span> <span class="pre">{'require_debug_false':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugFalse'},</span> <span class="pre">'require_debug_true':</span> <span class="pre">{'()':</span> <span class="pre">'django.utils.log.RequireDebugTrue'}},</span> <span class="pre">'formatters':</span> <span class="pre">{'console':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">\x1b[1m{levelname}\x1b[0m</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'console-colored':</span> <span class="pre">{'()':</span> <span class="pre">&lt;class</span> <span class="pre">'backend.logging_formatter.ColorFormatter'&gt;,</span> <span class="pre">'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">{levelname}</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'email':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%Y-%m-%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'Date</span> <span class="pre">and</span> <span class="pre">time:</span> <span class="pre">{asctime}\nSeverity:</span> <span class="pre">{levelname}\nLogger:</span> <span class="pre">{name}\nMessage:</span> <span class="pre">{message}\nFile:</span> <span class="pre">{funcName}()</span> <span class="pre">in</span> <span class="pre">{pathname}:{lineno}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'logfile':</span> <span class="pre">{'datefmt':</span> <span class="pre">'%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S',</span> <span class="pre">'format':</span> <span class="pre">'{asctime}</span> <span class="pre">{levelname:7}</span> <span class="pre">{name}</span> <span class="pre">-</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'},</span> <span class="pre">'syslog':</span> <span class="pre">{'format':</span> <span class="pre">'INTEGREAT</span> <span class="pre">CMS</span> <span class="pre">-</span> <span class="pre">{levelname}:</span> <span class="pre">{message}',</span> <span class="pre">'style':</span> <span class="pre">'{'}},</span> <span class="pre">'handlers':</span> <span class="pre">{'authlog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'auth',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'syslog'},</span> <span class="pre">'console':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_true'],</span> <span class="pre">'formatter':</span> <span class="pre">'console'},</span> <span class="pre">'console-colored':</span> <span class="pre">{'class':</span> <span class="pre">'logging.StreamHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_true'],</span> <span class="pre">'formatter':</span> <span class="pre">'console-colored'},</span> <span class="pre">'logfile':</span> <span class="pre">{'class':</span> <span class="pre">'logging.FileHandler',</span> <span class="pre">'filename':</span> <span class="pre">'/home/circleci/project/src/integreat-cms.log',</span> <span class="pre">'formatter':</span> <span class="pre">'logfile'},</span> <span class="pre">'mail_admins':</span> <span class="pre">{'class':</span> <span class="pre">'django.utils.log.AdminEmailHandler',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false'],</span> <span class="pre">'formatter':</span> <span class="pre">'email',</span> <span class="pre">'level':</span> <span class="pre">'ERROR'},</span> <span class="pre">'syslog':</span> <span class="pre">{'address':</span> <span class="pre">'/dev/log',</span> <span class="pre">'class':</span> <span class="pre">'logging.handlers.SysLogHandler',</span> <span class="pre">'facility':</span> <span class="pre">'syslog',</span> <span class="pre">'filters':</span> <span class="pre">['require_debug_false']}},</span> <span class="pre">'loggers':</span> <span class="pre">{'PIL':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'aiohttp.client':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'auth':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'backend':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'cms':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'django':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'gvz_api':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'requests':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'rules':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'sitemap':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'},</span> <span class="pre">'urllib3':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'xhtml2pdf':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'INFO'},</span> <span class="pre">'xliff':</span> <span class="pre">{'handlers':</span> <span class="pre">['console'],</span> <span class="pre">'level':</span> <span class="pre">'DEBUG'}},</span> <span class="pre">'version':</span> <span class="pre">1}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Logging configuration dictionary (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOGGING" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOGGING</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;disable_existing_loggers&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span>
@@ -1815,6 +1841,7 @@ Defaults to <a class="reference internal" href="../ref-ext/backend.html#backend.
         <span class="s1">&#39;sitemap&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">},</span>
         <span class="s1">&#39;urllib3&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">},</span>
         <span class="s1">&#39;xhtml2pdf&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;xliff&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;handlers&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="o">:</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">},</span>
     <span class="p">},</span>
     <span class="s1">&#39;version&#39;</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
 <span class="p">}</span>
@@ -1929,6 +1956,20 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/re
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Change the key in production and keep it secret!</p>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">SERIALIZATION_MODULES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'xliff':</span> <span class="pre">'xliff.generic_serializer',</span> <span class="pre">'xliff-1.2':</span> <span class="pre">'xliff.xliff1_serializer',</span> <span class="pre">'xliff-2.0':</span> <span class="pre">'xliff.xliff2_serializer'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>A dictionary of modules containing serializer definitions (provided as strings),
+keyed by a string identifier for that serialization type (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-SERIALIZATION_MODULES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">SERIALIZATION_MODULES</span></code></a>).</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;xliff&#39;</span><span class="o">:</span> <span class="s1">&#39;xliff.generic_serializer&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;xliff-1.2&#39;</span><span class="o">:</span> <span class="s1">&#39;xliff.xliff1_serializer&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;xliff-2.0&#39;</span><span class="o">:</span> <span class="s1">&#39;xliff.xliff2_serializer&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </dd></dl>
 
@@ -2077,6 +2118,55 @@ deployment (see <a class="reference external" href="https://docs.djangoproject.c
 <dd><p>WSGI (Web Server Gateway Interface) config (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-WSGI_APPLICATION" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">WSGI_APPLICATION</span></code></a>)</p>
 </dd></dl>
 
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">XLIFF_DEFAULT_FIELDS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">('title',</span> <span class="pre">'text')</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The default fields to be used for the XLIFF serialization</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">XLIFF_DOWNLOAD_DIR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/xliff/download'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The directory from which xliff files can be downloaded (this should be publicly available under the url specified in
+<a class="reference internal" href="../ref-ext/backend.html#backend.settings.XLIFF_URL" title="backend.settings.XLIFF_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">XLIFF_URL</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">XLIFF_EXPORT_VERSION</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'xliff-1.2'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The xliff version to be used for exports</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">XLIFF_LEGACY_FIELDS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'body':</span> <span class="pre">'text'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>A mapping for changed field names to preserve backward compatibility after a database field was renamed</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;body&#39;</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">XLIFF_ROOT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/xliff'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The directory where xliff files are stored</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">XLIFF_UPLOAD_DIR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/home/circleci/project/src/xliff/upload'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The directory to which xliff files should be uploaded (this should not be reachable by the webserver)</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">backend.settings.</span></span><span class="sig-name descname"><span class="pre">XLIFF_URL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'/xliff/'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/backend/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The URL path where XLIFF files are served for download</p>
+</dd></dl>
+
 </section>
 <section id="sphinx-settings">
 <h2>Sphinx Settings<a class="headerlink" href="#sphinx-settings" title="Permalink to this headline"></a></h2>
@@ -2152,7 +2242,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 28, 2021.
+      <span class="lastupdated">Last updated on Oct 15, 2021.
       </span></p>
   </div>
 

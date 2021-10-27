@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-10-05T10:09:22+00:00" />
+    <meta property="article:modified_time" content="2021-10-15T11:11:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Media &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -464,6 +464,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#account-activation-token-generator">Account Activation Token Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.utils.html#media-utils">Media Utils</a></li>
@@ -557,6 +558,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.organizations.html#organization-actions">Organization Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.organizations.html#organization-context-mixin">Organization Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.organizations.html#organization-list-view">Organization List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.organizations.html#organization-view">Organization View</a></li>
 </ul>
@@ -568,6 +571,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-sbs-view">Page Sbs View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-tree-view">Page Tree View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-view">Page View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/cms.views.pages.html#page-xliff-import-view">Page XLIFF Import View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.views.pois.html">POIs</a><ul>
@@ -625,7 +629,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#linklists">Linklists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#page-xliff-converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/cms.html#urls">Urls</a></li>
 </ul>
@@ -675,6 +678,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/sitemap.html#urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/sitemap.html#utils">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/sitemap.html#views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref/xliff.html">XLIFF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#base-serializer">Base Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#generic-serializer">Generic Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#xliff-1-2-serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/xliff.html#xliff-2-0-serializer">XLIFF 2.0 Serializer</a></li>
 </ul>
 </li>
 </ul>
@@ -914,6 +926,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.account_activation_token_generator">Account Activation Token Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
@@ -1007,6 +1020,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_actions">Organization Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_context_mixin">Organization Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_list_view">Organization List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#module-cms.views.organizations.organization_view">Organization View</a></li>
 </ul>
@@ -1018,6 +1033,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_sbs_view">Page Sbs View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_tree_view">Page Tree View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_view">Page View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#module-cms.views.pages.page_xliff_import_view">Page XLIFF Import View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html">POIs</a><ul>
@@ -1075,7 +1091,6 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.linklists">Linklists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#module-cms.urls">Urls</a></li>
 </ul>
@@ -1125,6 +1140,15 @@
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.utils">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#module-sitemap.views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="xliff.html">XLIFF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.base_serializer">Base Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.generic_serializer">Generic Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.xliff1_serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#module-xliff.xliff2_serializer">XLIFF 2.0 Serializer</a></li>
 </ul>
 </li>
 </ul>
@@ -1399,14 +1423,14 @@ Especially, the root file, the use of the file defined in the Document and the d
 <p>Class representing the media management and renders the dynamic data into the HTML template.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.AdminMediaListView.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.AdminMediaListView.as_view">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.as_view" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.as_view" title="Permalink to this definition"></a></dt>
 <dd><p>Main entry point for a request-response process.</p>
 </dd></dl>
 
@@ -1417,7 +1441,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.AdminMediaListView.dispatch">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.dispatch" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.dispatch" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1428,7 +1452,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.AdminMediaListView.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.get" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.get" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1450,7 +1474,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.AdminMediaListView.get_template_names">
-<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.get_template_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.get_template_names" title="Permalink to this definition"></a></dt>
 <dd><p>Return a list of template names to be used for the request. Must return
 a list. May not be called if render_to_response() is overridden.</p>
 </dd></dl>
@@ -1462,18 +1486,18 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.AdminMediaListView.http_method_not_allowed">
-<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.http_method_not_allowed" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.http_method_not_allowed" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.AdminMediaListView.options">
-<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.options" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.options" title="Permalink to this definition"></a></dt>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.AdminMediaListView.render_to_response">
-<span class="sig-name descname"><span class="pre">render_to_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.render_to_response" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">render_to_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.render_to_response" title="Permalink to this definition"></a></dt>
 <dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
 template rendered with the given context.</p>
 <p>Pass response_kwargs to the constructor of the response class.</p>
@@ -1481,13 +1505,13 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.AdminMediaListView.response_class">
-<span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.response_class" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.response_class" title="Permalink to this definition"></a></dt>
 <dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.AdminMediaListView.setup">
-<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.setup" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.AdminMediaListView.setup" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize attributes shared by all view methods.</p>
 </dd></dl>
 
@@ -1510,14 +1534,14 @@ template rendered with the given context.</p>
 <p>Class representing the media management and renders the dynamic data into the HTML template.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.MediaListView.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Constructor. Called in the URLconf; can contain helpful extra
 keyword arguments, and other things.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.MediaListView.as_view">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.as_view" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.as_view" title="Permalink to this definition"></a></dt>
 <dd><p>Main entry point for a request-response process.</p>
 </dd></dl>
 
@@ -1528,7 +1552,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.MediaListView.dispatch">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.dispatch" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.dispatch" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1539,7 +1563,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.MediaListView.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.get" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.get" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1561,7 +1585,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.MediaListView.get_template_names">
-<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.get_template_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.get_template_names" title="Permalink to this definition"></a></dt>
 <dd><p>Return a list of template names to be used for the request. Must return
 a list. May not be called if render_to_response() is overridden.</p>
 </dd></dl>
@@ -1573,18 +1597,18 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.MediaListView.http_method_not_allowed">
-<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.http_method_not_allowed" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.http_method_not_allowed" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.MediaListView.options">
-<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.options" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.options" title="Permalink to this definition"></a></dt>
 <dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.MediaListView.render_to_response">
-<span class="sig-name descname"><span class="pre">render_to_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.render_to_response" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">render_to_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.render_to_response" title="Permalink to this definition"></a></dt>
 <dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
 template rendered with the given context.</p>
 <p>Pass response_kwargs to the constructor of the response class.</p>
@@ -1592,13 +1616,13 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.MediaListView.response_class">
-<span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.response_class" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.response_class" title="Permalink to this definition"></a></dt>
 <dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.media.media_list_view.MediaListView.setup">
-<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/2.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.setup" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.media.media_list_view.MediaListView.setup" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize attributes shared by all view methods.</p>
 </dd></dl>
 
@@ -1632,7 +1656,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 05, 2021.
+      <span class="lastupdated">Last updated on Oct 15, 2021.
       </span></p>
   </div>
 

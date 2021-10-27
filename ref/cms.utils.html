@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-12-20T18:46:21+00:00" />
+    <meta property="article:modified_time" content="2021-10-15T11:11:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -464,6 +464,7 @@
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#account-activation-token-generator">Account Activation Token Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file-utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#filter-links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#media-utils">Media Utils</a></li>
@@ -557,6 +558,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#organization-actions">Organization Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#organization-context-mixin">Organization Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#organization-list-view">Organization List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.organizations.html#organization-view">Organization View</a></li>
 </ul>
@@ -568,6 +571,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-sbs-view">Page Sbs View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-tree-view">Page Tree View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-view">Page View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cms.views.pages.html#page-xliff-import-view">Page XLIFF Import View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cms.views.pois.html">POIs</a><ul>
@@ -625,7 +629,6 @@
 <li class="toctree-l2"><a class="reference internal" href="cms.html#auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#linklists">Linklists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cms.html#page-xliff-converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cms.html#urls">Urls</a></li>
 </ul>
@@ -675,6 +678,15 @@
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#utils">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sitemap.html#views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="xliff.html">XLIFF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#base-serializer">Base Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#generic-serializer">Generic Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#xliff-1-2-serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xliff.html#xliff-2-0-serializer">XLIFF 2.0 Serializer</a></li>
 </ul>
 </li>
 </ul>
@@ -914,6 +926,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.account_activation_token_generator">Account Activation Token Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.utils.html#module-cms.utils.media_utils">Media Utils</a></li>
@@ -1007,6 +1020,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.organizations.html#module-cms.views.organizations.organization_actions">Organization Actions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.organizations.html#module-cms.views.organizations.organization_context_mixin">Organization Context Mixin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.organizations.html#module-cms.views.organizations.organization_list_view">Organization List View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.organizations.html#module-cms.views.organizations.organization_view">Organization View</a></li>
 </ul>
@@ -1018,6 +1033,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_sbs_view">Page Sbs View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_tree_view">Page Tree View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_view">Page View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/cms.views.pages.html#module-cms.views.pages.page_xliff_import_view">Page XLIFF Import View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/cms.views.pois.html">POIs</a><ul>
@@ -1075,7 +1091,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.auth">Auth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.decorators">Decorators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.linklists">Linklists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.page_xliff_converter">Page Xliff Converter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.rules">Rules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/cms.html#module-cms.urls">Urls</a></li>
 </ul>
@@ -1125,6 +1140,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap.urls">Urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap.utils">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/sitemap.html#module-sitemap.views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ref-ext/xliff.html">XLIFF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.apps">Apps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.base_serializer">Base Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.generic_serializer">Generic Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.xliff1_serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/xliff.html#module-xliff.xliff2_serializer">XLIFF 2.0 Serializer</a></li>
 </ul>
 </li>
 </ul>
@@ -1190,6 +1214,52 @@ This means password reset tokens are no longer accepted for the account activati
 <span class="sig-prename descclassname"><span class="pre">cms.utils.account_activation_token_generator.</span></span><span class="sig-name descname"><span class="pre">account_activation_token_generator</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;cms.utils.account_activation_token_generator.AccountActivationTokenGenerator</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/account_activation_token_generator.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The token generator for the account activation process
 (an instance of <a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.account_activation_token_generator.AccountActivationTokenGenerator" title="cms.utils.account_activation_token_generator.AccountActivationTokenGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountActivationTokenGenerator</span></code></a>)</p>
+</dd></dl>
+
+</section>
+<section id="file-utils">
+<h2>File Utils<a class="headerlink" href="#file-utils" title="Permalink to this headline"></a></h2>
+<p>This module contains helpers for file handling.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.utils.file_utils.</span></span><span class="sig-name descname"><span class="pre">create_zip_archive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_file_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_file_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/file_utils.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Create zip file from list of source files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_file_paths</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – list of files to be zipped</p></li>
+<li><p><strong>zip_file_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – path to zipped file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">cms.utils.file_utils.</span></span><span class="sig-name descname"><span class="pre">extract_zip_archive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zip_file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_file_extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/file_utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Extract zip file and return file paths of content. Returns a tuple of extracted and invalid files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extracted_files</span><span class="p">,</span> <span class="n">invalid_files</span> <span class="o">=</span> <span class="n">extract_zip_archive</span><span class="p">(</span><span class="n">zip_file_path</span><span class="p">,</span> <span class="n">target_directory</span><span class="p">,</span> <span class="n">allowed_file_extensions</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If want to extract all files regardless of their extension, discard the second return value:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extracted_files</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">extract_zip_archive</span><span class="p">(</span><span class="n">zip_file_path</span><span class="p">,</span> <span class="n">target_directory</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>zip_file_path</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – path to zip file</p></li>
+<li><p><strong>target_directory</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – directory to where the files should be extracted</p></li>
+<li><p><strong>allowed_file_extensions</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – list of allowed file extensions. If <code class="docutils literal notranslate"><span class="pre">None</span></code> or empty list, all extensions are allowed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a tuple of two lists of the valid and invalid filenames</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a> ( <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> )</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -1652,7 +1722,7 @@ should be concatenated with a space in between. This is useful for splitting laz
 which improves the translation memory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>strings</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – A list of lazy translated strings which should be concatinated</p>
+<dd class="field-odd"><p><strong>strings</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – A list of lazy translated strings which should be concatenated</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A lazy formatted string</p>
@@ -1718,7 +1788,7 @@ version and also attach the integreat logo.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 20, 2021.
+      <span class="lastupdated">Last updated on Oct 15, 2021.
       </span></p>
   </div>
 
