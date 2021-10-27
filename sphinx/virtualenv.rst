@@ -4,7 +4,7 @@ Virtual Environment (Pipenv)
 
 All python dependencies are installed in a virtual Python environment (see :doc:`tutorial/venv`).
 
-As package manager for the virtual environment we use Pipenv (see :doc:`pipenv:index`)
+As package manager for the virtual environment we use Pipenv
 
 For portability and reproducibility, we use specific version of our dependencies locked in :github-source:`Pipfile.lock`.
 
