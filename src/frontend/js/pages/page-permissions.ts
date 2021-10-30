@@ -24,7 +24,7 @@ function setPagePermissionEventListeners() {
 
 // function for granting page permissions
 async function grantPagePermission({ target }: Event) {
-  const button = (target as HTMLElement).closest("button");
+  const button = (target as HTMLElement);
   const userId = button.parentNode.querySelector("select").value;
   // only submit ajax request when user is selected
   if (userId) {
