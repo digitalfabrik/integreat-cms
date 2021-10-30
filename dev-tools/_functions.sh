@@ -40,35 +40,35 @@ fi
 # This function prints the given input lines in red color
 function print_error {
     while IFS= read -r line; do
-        echo -e "\e[1;31m$line\e[0;39m" >&2
+        echo -e "\x1b[1;31m$line\x1b[0;39m" >&2
     done
 }
 
 # This function prints the given input lines in green color
 function print_success {
     while IFS= read -r line; do
-        echo -e "\e[1;32m$line\e[0;39m"
+        echo -e "\x1b[1;32m$line\x1b[0;39m"
     done
 }
 
 # This function prints the given input lines in orange color
 function print_warning {
     while IFS= read -r line; do
-        echo -e "\e[1;33m$line\e[0;39m"
+        echo -e "\x1b[1;33m$line\x1b[0;39m"
     done
 }
 
 # This function prints the given input lines in blue color
 function print_info {
     while IFS= read -r line; do
-        echo -e "\e[1;34m$line\e[0;39m"
+        echo -e "\x1b[1;34m$line\x1b[0;39m"
     done
 }
 
 # This function prints the given input lines in bold white
 function print_bold {
     while IFS= read -r line; do
-        echo -e "\e[1m$line\e[0m"
+        echo -e "\x1b[1m$line\x1b[0m"
     done
 }
 
@@ -76,7 +76,7 @@ function print_bold {
 # This is useful for commands which run in the background to separate its output from other commands.
 function print_prefix {
     while IFS= read -r line; do
-        echo -e "\e[1;${2:-37};40m[$1]\e[0m $line"
+        echo -e "\x1b[1;${2:-37};40m[$1]\x1b[0m $line"
     done
 }
 
@@ -348,7 +348,6 @@ function minor {
 }
 
 # This function applies different sed replacements to make sure the matched lines from grep are aligned and colored
-# sed doesn't understand \e, therefore \x1b has to be used as escape sequence.
 function format_grep_output {
     while read -r line; do
         echo "$line" | sed --regexp-extended \
