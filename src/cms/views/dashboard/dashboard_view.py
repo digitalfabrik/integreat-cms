@@ -39,7 +39,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                key: value.count()
+                key: len(value)
                 for key, value in filter_links(kwargs.get("region_slug")).items()
             }
         )

@@ -20,10 +20,22 @@ def filter_links(region_slug):
         | Q(poi_translations__poi__region__slug=region_slug)
     )
     qset = qset.order_by("-url__last_checked")
-    valid_links = qset.filter(ignore=False, url__status__exact=True)
-    unchecked_links = qset.filter(ignore=False, url__last_checked__exact=None)
-    ignored_links = qset.filter(ignore=True)
-    invalid_links = qset.filter(ignore=False, url__status__exact=False)
+
+    qset = list(
+        filter(
+            lambda link: (link.content_object.latest_revision == link.content_object),
+            qset,
+        )
+    )
+
+    valid_links = list(filter(lambda link: (not link.ignore and link.url.status), qset))
+    unchecked_links = list(
+        filter(lambda link: (not link.ignore and link.url.last_checked is None), qset)
+    )
+    ignored_links = list(filter(lambda link: (link.ignore), qset))
+    invalid_links = list(
+        filter(lambda link: (not link.ignore and not link.url.status), qset)
+    )
     return {
         "all_links": qset,
         "valid_links": valid_links,
