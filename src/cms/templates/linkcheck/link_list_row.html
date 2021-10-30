@@ -1,5 +1,8 @@
 {% load i18n %}
 {% load text_filters %}
+{% load content_filters %}
+
+{% object_translation_has_view_perm request.user link.content_object as show_source_link %}
 
 <tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
   <td class="py-3 pl-4"><input type="checkbox" name="selected_ids[]" value="{{ link.id }}" class="bulk-select-item"></td>
@@ -13,8 +16,10 @@
   </td>
   <td class="pr-2">{{ link.content_type.name|title }}</td>
   <td class="pl-2 pr-4 py-2 flex flex-nowrap justify-center gap-2 text-right">
-    <a href="{{ link.content_object.backend_edit_link }}" class="btn-icon" title="{% trans 'Go to source' %}">
-      <i data-feather="eye"></i>
-    </a>
+    {% if show_source_link %}
+      <a href="{{ link.content_object.backend_edit_link }}" class="btn-icon" title="{% trans 'Go to source' %}">
+        <i data-feather="eye"></i>
+      </a>
+    {% endif %}
   </td>
 </tr>
