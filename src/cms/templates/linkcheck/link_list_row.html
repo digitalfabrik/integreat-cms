@@ -11,5 +11,10 @@
   <td class="pr-2">
     {{ link.content_object.title }}
   </td>
-  <td class="pr-4 min text-right">{{ link.content_type.name|title }}</td>
+  <td class="pr-2">{{ link.content_type.name|title }}</td>
+  <td class="pl-2 pr-4 py-2 flex flex-nowrap justify-center gap-2 text-right">
+    <a href="{{ link.content_object.backend_edit_link }}" class="btn-icon" title="{% trans 'Go to source' %}">
+      <i data-feather="eye"></i>
+    </a>
+  </td>
 </tr>

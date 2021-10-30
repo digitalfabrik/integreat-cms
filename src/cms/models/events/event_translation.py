@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from linkcheck.models import Link
@@ -110,6 +111,23 @@ class EventTranslation(models.Model):
         return "/" + self.permalink
 
     @property
+    def backend_edit_link(self):
+        """
+        This function returns the absolute url to the editor for this translation
+
+        :return: The url
+        :rtype: str
+        """
+        return reverse(
+            "edit_event",
+            kwargs={
+                "event_id": self.event.id,
+                "language_slug": self.language.slug,
+                "region_slug": self.event.region.slug,
+            },
+        )
+
+    @property
     def available_languages(self):
         """
         This property checks in which :class:`~cms.models.languages.language.Language` the event is translated apart
@@ -180,6 +198,18 @@ class EventTranslation(models.Model):
         if source_language_tree_node:
             return self.event.get_translation(source_language_tree_node.slug)
         return None
+
+    @property
+    def latest_revision(self):
+        """
+        This property is a link to the most recent version of this translation.
+
+        :return: The latest revision of the translation
+        :rtype: ~cms.models.events.event_translation.EventTranslation
+        """
+        return self.event.translations.filter(
+            language=self.language,
+        ).first()
 
     @property
     def latest_public_revision(self):

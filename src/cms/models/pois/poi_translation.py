@@ -3,6 +3,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 from linkcheck.models import Link
 from backend.settings import WEBAPP_URL
@@ -111,6 +112,23 @@ class POITranslation(models.Model):
         return "/" + self.permalink
 
     @property
+    def backend_edit_link(self):
+        """
+        This function returns the absolute url to the editor for this translation
+
+        :return: The url
+        :rtype: str
+        """
+        return reverse(
+            "edit_poi",
+            kwargs={
+                "poi_id": self.poi.id,
+                "language_slug": self.language.slug,
+                "region_slug": self.poi.region.slug,
+            },
+        )
+
+    @property
     def available_languages(self):
         """
         This property checks in which :class:`~cms.models.languages.language.Language` the POI is translated apart
@@ -181,6 +199,18 @@ class POITranslation(models.Model):
         if source_language_tree_node:
             return self.poi.get_translation(source_language_tree_node.slug)
         return None
+
+    @property
+    def latest_revision(self):
+        """
+        This property is a link to the most recent version of this translation.
+
+        :return: The latest revision of the translation
+        :rtype: ~cms.models.pois.poi_translation.POITranslation
+        """
+        return self.poi.translations.filter(
+            language=self.language,
+        ).first()
 
     @property
     def latest_public_revision(self):
