@@ -7,9 +7,10 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
+from backend.settings import WEBAPP_URL
 from cms.models.pages.page_translation import PageTranslation
 
-from ...constants import translation_status
+from ...constants import translation_status, status
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageFilterForm
 from ...models import Region, Language, Page
@@ -150,6 +151,8 @@ class PageTreeView(TemplateView, PageContextMixin):
                 "filter_form": filter_form,
                 "enable_drag_and_drop": enable_drag_and_drop,
                 "search_query": query,
+                "PUBLIC": status.PUBLIC,
+                "WEBAPP_URL": WEBAPP_URL,
             },
         )
 

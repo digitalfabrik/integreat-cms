@@ -9,9 +9,9 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from backend.settings import PER_PAGE
+from backend.settings import PER_PAGE, WEBAPP_URL
 
-from ...constants import all_day, recurrence
+from ...constants import all_day, recurrence, status
 from ...decorators import region_permission_required, permission_required
 from ...models import Region, EventTranslation
 from ...forms import EventFilterForm
@@ -189,6 +189,8 @@ class EventListView(TemplateView, EventContextMixin):
                 "filter_form": event_filter_form,
                 "filter_poi": poi,
                 "search_query": query,
+                "WEBAPP_URL": WEBAPP_URL,
+                "PUBLIC": status.PUBLIC,
             },
         )
 
