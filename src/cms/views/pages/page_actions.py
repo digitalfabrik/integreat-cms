@@ -671,7 +671,12 @@ def grant_page_permission_ajax(request):
         "pages/_page_permission_table.html",
         {
             "page": page,
-            "page_form": PageForm(instance=page, region=page.region),
+            "page_form": PageForm(
+                instance=page,
+                additional_instance_attributes={
+                    "region": page.region,
+                },
+            ),
             "permission_message": {"message": message, "level_tag": level_tag},
         },
     )
@@ -777,7 +782,12 @@ def revoke_page_permission_ajax(request):
         "pages/_page_permission_table.html",
         {
             "page": page,
-            "page_form": PageForm(instance=page, region=page.region),
+            "page_form": PageForm(
+                instance=page,
+                additional_instance_attributes={
+                    "region": page.region,
+                },
+            ),
             "permission_message": {"message": message, "level_tag": level_tag},
         },
     )
