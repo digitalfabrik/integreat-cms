@@ -1312,16 +1312,16 @@ There are three functions which can be used publicly:</p>
 <dl class="py method">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/matomo_api_manager.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Uses <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession.get" title="(in aiohttp v3.7)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aiohttp.ClientSession.get()</span></code></a> to perform an asynchronous GET request to the Matomo API.</p>
+<dd><p>Uses <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession.get" title="(in aiohttp v3.8)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aiohttp.ClientSession.get()</span></code></a> to perform an asynchronous GET request to the Matomo API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>session</strong> (<a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.7)"><em>aiohttp.ClientSession</em></a>) – The session object which is used for the request</p></li>
+<li><p><strong>session</strong> (<a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.8)"><em>aiohttp.ClientSession</em></a>) – The session object which is used for the request</p></li>
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The parameters which are passed to the Matomo API</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
 <dt class="field-odd">Returns</dt>
@@ -1342,7 +1342,7 @@ Matomo API request</p>
 <dd class="field-odd"><p><strong>token_auth</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The Matomo authentication token which should be used</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request or the access token is not correct</p>
 </dd>
 <dt class="field-odd">Returns</dt>
@@ -1357,15 +1357,15 @@ Matomo API request or the access token is not correct</p>
 <dl class="py method">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">get_matomo_id_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">query_params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/matomo_api_manager.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Async wrapper to fetch the Matomo ID with <a class="reference external" href="https://docs.aiohttp.org/en/stable/structures.html#module-aiohttp" title="(in aiohttp v3.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aiohttp</span></code></a>.
-Opens a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientSession</span></code></a> and calls <a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoApiManager.fetch" title="cms.utils.matomo_api_manager.MatomoApiManager.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch()</span></code></a>.
+<dd><p>Async wrapper to fetch the Matomo ID with <a class="reference external" href="https://docs.aiohttp.org/en/stable/structures.html#module-aiohttp" title="(in aiohttp v3.8)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aiohttp</span></code></a>.
+Opens a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientSession</span></code></a> and calls <a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoApiManager.fetch" title="cms.utils.matomo_api_manager.MatomoApiManager.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch()</span></code></a>.
 Called from <a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id" title="cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_matomo_id()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>query_params</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The parameters which are passed to the Matomo API</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
 <dt class="field-odd">Returns</dt>
@@ -1391,7 +1391,7 @@ defaults to <a class="reference internal" href="../ref-ext/cms.constants.html#cm
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
 <dt class="field-odd">Returns</dt>
@@ -1406,15 +1406,15 @@ Matomo API request</p>
 <dl class="py method">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">get_total_visits_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/matomo_api_manager.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Async wrapper to fetch the total visits with <a class="reference external" href="https://docs.aiohttp.org/en/stable/structures.html#module-aiohttp" title="(in aiohttp v3.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aiohttp</span></code></a>.
-Opens a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientSession</span></code></a> and calls <a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoApiManager.fetch" title="cms.utils.matomo_api_manager.MatomoApiManager.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch()</span></code></a>.
+<dd><p>Async wrapper to fetch the total visits with <a class="reference external" href="https://docs.aiohttp.org/en/stable/structures.html#module-aiohttp" title="(in aiohttp v3.8)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aiohttp</span></code></a>.
+Opens a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientSession</span></code></a> and calls <a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoApiManager.fetch" title="cms.utils.matomo_api_manager.MatomoApiManager.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch()</span></code></a>.
 Called from <a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoApiManager.get_total_visits" title="cms.utils.matomo_api_manager.MatomoApiManager.get_total_visits"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_total_visits()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>query_params</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The parameters which are passed to the Matomo API</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
 <dt class="field-odd">Returns</dt>
@@ -1439,7 +1439,7 @@ Matomo API request</p>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
 <dt class="field-odd">Returns</dt>
@@ -1454,8 +1454,8 @@ Matomo API request</p>
 <dl class="py method">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">get_visits_per_language_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">languages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/utils/matomo_api_manager.py#L216"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Async wrapper to fetch the total visits with <a class="reference external" href="https://docs.aiohttp.org/en/stable/structures.html#module-aiohttp" title="(in aiohttp v3.7)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aiohttp</span></code></a>.
-Opens a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientSession</span></code></a>, creates a <a class="reference external" href="https://docs.python.org/3.7/library/asyncio-task.html#asyncio.Task" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Task</span></code></a> for each language to call
+<dd><p>Async wrapper to fetch the total visits with <a class="reference external" href="https://docs.aiohttp.org/en/stable/structures.html#module-aiohttp" title="(in aiohttp v3.8)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">aiohttp</span></code></a>.
+Opens a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientSession</span></code></a>, creates a <a class="reference external" href="https://docs.python.org/3.7/library/asyncio-task.html#asyncio.Task" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Task</span></code></a> for each language to call
 <a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoApiManager.fetch" title="cms.utils.matomo_api_manager.MatomoApiManager.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch()</span></code></a> and waits for all tasks to finish with
 <a class="reference external" href="https://docs.python.org/3.7/library/asyncio-task.html#asyncio.gather" title="(in Python v3.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">gather()</span></code></a>.
 The returned list of gathered results has the correct order in which the tasks were created (at first the
@@ -1470,7 +1470,7 @@ Called from <a class="reference internal" href="../ref-ext/cms.utils.html#cms.ut
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/cms.utils.html#cms.utils.matomo_api_manager.MatomoException" title="cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
 <dt class="field-odd">Returns</dt>
