@@ -351,7 +351,7 @@ def download_xliff(request, region_slug, language_slug):
                 _(
                     "If the download does not start automatically, please click {}here{}."
                 ).format(
-                    f"<a data-auto-download href='{xliff_file_url}' class='font-bold underline hover:no-underline'>",
+                    f"<a data-auto-download href='{xliff_file_url}' class='font-bold underline hover:no-underline' download>",
                     "</a>",
                 ),
             ),
