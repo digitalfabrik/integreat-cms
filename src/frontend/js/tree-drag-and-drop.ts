@@ -128,9 +128,9 @@ function drop(event: DragEvent) {
   // get target node if from dropped region
   const target = (event.target as HTMLElement).closest("tr");
   const target_id = target.getAttribute("data-drop-id");
-  const position = target.getAttribute("data-drop-position");
+  const target_position = target.getAttribute("data-drop-position");
   // abuse confirmation dialog form to perform action
   let form = document.getElementById("confirmation-dialog").querySelector("form");
-  form.action = window.location.href + node_id + "/move/" + target_id + "/" + position;
+  form.action = window.location.href + node_id + "/move/" + target_id + "/" + target_position;
   form.submit();
 }
