@@ -18,8 +18,8 @@
 	            {% endwith %}
             </h1>
         </div>
-        <div class="w-2/5 flex justify-end mb-6">
-            <a href="{% url 'edit_imprint' region_slug=region.slug language_slug=target_language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2">
+        <div class="w-2/5 flex justify-end mb-6 gap-2">
+            <a href="{% url 'edit_imprint' region_slug=region.slug language_slug=target_language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
                 {% trans 'Go back to imprint editor' %}
             </a>
             {% if perms.cms.change_imprintpage and not source_page_translation.page.archived %}
@@ -64,7 +64,7 @@
                     <i data-feather="copy"></i>
                 </a><br>
                 <label>{{ imprint_translation_form.title.label }}</label>
-                <input type="text" value="{{source_imprint_translation.title}}" disabled>
+                <input id="source_translation_title" type="text" value="{{source_imprint_translation.title}}" disabled>
 	            <div class="mt-4">
                     <label class="block mt-4 font-bold">{{ imprint_translation_form.text.label }}</label>
                     <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea bg-gray-200 w-full p-2" disabled>{{ source_imprint_translation.text }}</textarea>
@@ -127,7 +127,7 @@
                     <label class="inline-block">{% trans 'Short URL' %}:</label> {% trans 'Not saved yet' %}<br>
                 {% endif %}
                 <label for="{{ imprint_translation_form.title.id_for_label }}">{{ imprint_translation_form.title.label }}</label>
-                {% render_field imprint_translation_form.title|add_error_class:"border-red-500" %}
+                {% render_field imprint_translation_form.title|add_error_class:"border-red-500" id="target_translation_title" %}
                 <label for="{{ imprint_translation_form.text.id_for_label }}">{{ imprint_translation_form.text.label }}</label>
                 {% render_field imprint_translation_form.text|add_error_class:"border-red-500" id="target_translation_tinymce" class="tinymce_textarea" %}
                 <label>{% trans 'Implications on other translations' %}</label>
