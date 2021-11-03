@@ -43,8 +43,9 @@ class RoleListView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
         roles = Role.objects.all()
+        chunk_size = int(request.GET.get("size", PER_PAGE))
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(roles.order_by("group__name"), PER_PAGE)
+        paginator = Paginator(roles.order_by("group__name"), chunk_size)
         chunk = request.GET.get("page")
         role_chunk = paginator.get_page(chunk)
         return render(

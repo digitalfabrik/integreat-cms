@@ -43,8 +43,9 @@ class OfferTemplateListView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
         offer_templates = OfferTemplate.objects.all()
+        chunk_size = int(request.GET.get("size", PER_PAGE))
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(offer_templates.order_by("slug"), PER_PAGE)
+        paginator = Paginator(offer_templates.order_by("slug"), chunk_size)
         chunk = request.GET.get("page")
         offer_templates_chunk = paginator.get_page(chunk)
         return render(

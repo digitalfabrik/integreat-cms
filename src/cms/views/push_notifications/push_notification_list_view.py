@@ -30,6 +30,7 @@ class PushNotificationListView(TemplateView):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "push_notifications"}
 
+    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         """
         Create a list that shows existing push notifications and translations
@@ -90,8 +91,9 @@ class PushNotificationListView(TemplateView):
                 pk__in=push_notification_keys
             )
 
+        chunk_size = int(request.GET.get("size", PER_PAGE))
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(push_notifications.order_by("created_date"), PER_PAGE)
+        paginator = Paginator(push_notifications.order_by("created_date"), chunk_size)
         chunk = request.GET.get("page")
         push_notifications_chunk = paginator.get_page(chunk)
         return render(

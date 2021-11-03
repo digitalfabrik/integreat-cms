@@ -112,7 +112,8 @@ class RegionFeedbackListView(TemplateView):
             filter_form = RegionFeedbackFilterForm()
             filter_form.changed_data.clear()
 
-        paginator = Paginator(region_feedback, PER_PAGE)
+        chunk_size = int(request.GET.get("size", PER_PAGE))
+        paginator = Paginator(region_feedback, chunk_size)
         chunk = request.GET.get("page")
         region_feedback_chunk = paginator.get_page(chunk)
 

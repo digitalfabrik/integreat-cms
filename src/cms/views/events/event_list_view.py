@@ -171,8 +171,9 @@ class EventListView(TemplateView, EventContextMixin):
             event_filter_form = EventFilterForm()
             event_filter_form.changed_data.clear()
             poi = None
+        chunk_size = int(request.GET.get("size", PER_PAGE))
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(events.order_by("start_date", "start_time"), PER_PAGE)
+        paginator = Paginator(events.order_by("start_date", "start_time"), chunk_size)
         chunk = request.GET.get("page")
         event_chunk = paginator.get_page(chunk)
         context = self.get_context_data(**kwargs)
