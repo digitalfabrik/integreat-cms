@@ -1,7 +1,7 @@
 import tinymce from "tinymce";
 
 /**
- * This file contains the functionality to copy content from the source to the target translation
+ * This file contains the functionality to copy title and content from the source to the target translation
  * in the page side-by-side view.
  */
 window.addEventListener("load", () => {
@@ -23,6 +23,10 @@ window.addEventListener("load", () => {
       target_translation_tinymce.setContent(
         source_translation_tinymce.getContent()
       );
+
+      const source_translation_title = document.getElementById("source_translation_title") as HTMLInputElement;
+      const target_translation_title = document.getElementById("target_translation_title") as HTMLInputElement;
+      target_translation_title.value = source_translation_title.value;
     });
   }
 });
