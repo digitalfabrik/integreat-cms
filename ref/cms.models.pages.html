@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-10-15T11:11:00+00:00" />
+    <meta property="article:modified_time" content="2021-10-20T08:55:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pages &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1909,7 +1909,7 @@ ancestors is explicitly archived.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_descendants_max_depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_descendants_max_depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L219"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Return all descendants with depth less or euqual to max depth relative to this nodes depth</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1929,7 +1929,7 @@ ancestors is explicitly archived.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_mirrored_page_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L205"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_mirrored_page_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Mirrored content always includes the live content from another page. This content needs to be added when
 delivering content to end users.</p>
 <dl class="field-list simple">
@@ -1947,16 +1947,42 @@ delivering content to end users.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_next_sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filter_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filter_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Returns this model instance’s next sibling in the tree, or
-<code class="docutils literal notranslate"><span class="pre">None</span></code> if it doesn’t have a next sibling.</p>
+<span class="sig-name descname"><span class="pre">get_next_sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filter_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filter_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L187"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function gets the next sibling of a page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filter_args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>filter_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied kwargs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The next sibling</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page">Page</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">get_previous_sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filter_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filter_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Returns this model instance’s previous sibling in the tree, or
-<code class="docutils literal notranslate"><span class="pre">None</span></code> if it doesn’t have a previous sibling.</p>
+<dd><p>This function gets all previous siblings of a page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filter_args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>filter_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied kwargs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The previous sibling</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page">Page</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1978,12 +2004,19 @@ delivering content to end users.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_siblings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> containing siblings of this model
-instance. Root nodes are considered to be siblings of other root
-nodes.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">include_self</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> will also
-include this model instance.</p>
+<span class="sig-name descname"><span class="pre">get_siblings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/pages/page.py#L204"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function gets all siblings of a page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>include_self</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – gives state of include_self</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>All siblings of this page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/cms.models.pages.html#cms.models.pages.page.Page" title="cms.models.pages.page.Page">Page</a> ]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -2306,7 +2339,7 @@ Supported tags:
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 15, 2021.
+      <span class="lastupdated">Last updated on Oct 20, 2021.
       </span></p>
   </div>
 

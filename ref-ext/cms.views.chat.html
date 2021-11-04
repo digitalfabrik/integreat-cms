@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-10-15T11:11:00+00:00" />
+    <meta property="article:modified_time" content="2021-10-20T08:55:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chat &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1195,17 +1195,23 @@
 <p>This module contains action methods for the author chat</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="cms.views.chat.chat_actions.delete_chat_message">
-<span class="sig-prename descclassname"><span class="pre">cms.views.chat.chat_actions.</span></span><span class="sig-name descname"><span class="pre">delete_chat_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/chat/chat_actions.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.chat.chat_actions.delete_chat_message" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">cms.views.chat.chat_actions.</span></span><span class="sig-name descname"><span class="pre">delete_chat_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/chat/chat_actions.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.chat.chat_actions.delete_chat_message" title="Permalink to this definition"></a></dt>
 <dd><p>Delete chat message</p>
 <dl class="field-list simple">
-<dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to delete the specific message</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>message_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the message</p></li>
+</ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A redirection to the <a class="reference internal" href="cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView" title="cms.views.pages.page_tree_view.PageTreeView"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTreeView</span></code></a></p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to delete the specific message</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A redirection to the <a class="reference internal" href="cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView" title="cms.views.pages.page_tree_view.PageTreeView"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTreeView</span></code></a></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1215,11 +1221,14 @@
 <span class="sig-prename descclassname"><span class="pre">cms.views.chat.chat_actions.</span></span><span class="sig-name descname"><span class="pre">send_chat_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/chat/chat_actions.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.chat.chat_actions.send_chat_message" title="Permalink to this definition"></a></dt>
 <dd><p>Send chat message</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A redirection to the <a class="reference internal" href="cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView" title="cms.views.pages.page_tree_view.PageTreeView"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTreeView</span></code></a></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to the <a class="reference internal" href="cms.views.pages.html#cms.views.pages.page_tree_view.PageTreeView" title="cms.views.pages.page_tree_view.PageTreeView"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTreeView</span></code></a></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1297,7 +1306,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 15, 2021.
+      <span class="lastupdated">Last updated on Oct 20, 2021.
       </span></p>
   </div>
 

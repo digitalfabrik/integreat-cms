@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-22T12:25:11+00:00" />
+    <meta property="article:modified_time" content="2021-10-20T08:55:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Authentication &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1232,6 +1232,17 @@
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/account_activation_view.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>If the form is valid, show a success message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>form</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" title="(in Django v3.2)"><em>SetPasswordForm</em></a>) – The supplied form</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A redirection to the <code class="docutils literal notranslate"><span class="pre">success_url</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1309,6 +1320,27 @@ had just successfully logged in.</p>
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.authentication.logout_view.</span></span><span class="sig-name descname"><span class="pre">LogoutView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/logout_view.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LogoutView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.LogoutView</span></code></a></p>
 <p>View to log off a user</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/logout_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function sends message, if loggout was successful</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>passes form to dispatch function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)">HttpResponse</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -1343,6 +1375,17 @@ had just successfully logged in.</p>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_confirm_view.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>If the form is valid, show a success message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>form</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" title="(in Django v3.2)"><em>SetPasswordForm</em></a>) – The supplied form</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>form validation</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)">HttpResponse</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1397,7 +1440,19 @@ multi-factor-authentication.</p>
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/authentication/password_reset_view.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>If the form is valid, show a success message.</p>
+<dd><p>This function validates the form and sends a message depending if the function was executed successfully</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>form</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" title="(in Django v3.2)"><em>SetPasswordForm</em></a>) – The supplied form</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>passes form to form validation</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)">HttpResponse</a></p>
+</dd>
+</dl>
+<p>If the form is valid, show a success message.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1438,7 +1493,7 @@ multi-factor-authentication.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 22, 2021.
+      <span class="lastupdated">Last updated on Oct 20, 2021.
       </span></p>
   </div>
 

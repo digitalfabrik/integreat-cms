@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-10-17T14:35:47+00:00" />
+    <meta property="article:modified_time" content="2021-10-20T08:55:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1213,9 +1213,10 @@
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">filters_visible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/events/event_filter_form.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>This function determines whether the filter form is visible by default.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>whether any filters (other than search were changed)</p>
+<dd class="field-odd"><p>whether any filters (other than search) were changed</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
@@ -1413,7 +1414,15 @@ which are not directly determined by input fields.</p>
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">has_changed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/forms/events/recurrence_rule_form.py#L140"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Return True if data differs from initial.</p>
+<dd><p>This function provides a workaround for the <code class="docutils literal notranslate"><span class="pre">weekdays_for_weekly</span></code> field to be correctly recognized as changed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether or not the recurrence rule form has changed</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -1442,7 +1451,7 @@ which are not directly determined by input fields.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 17, 2021.
+      <span class="lastupdated">Last updated on Oct 20, 2021.
       </span></p>
   </div>
 

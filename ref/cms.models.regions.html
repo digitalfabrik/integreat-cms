@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-10-15T11:11:00+00:00" />
+    <meta property="article:modified_time" content="2021-10-20T08:55:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Regions &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1346,8 +1346,13 @@ root <a class="reference internal" href="../ref-ext/cms.models.languages.html#cm
 <dl class="py method">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">get_current_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L272"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This class method returns the current region based on the current request and is used in
-<a class="reference internal" href="../ref-ext/backend.html#backend.context_processors.region_slug_processor" title="backend.context_processors.region_slug_processor"><code class="xref py py-func docutils literal notranslate"><span class="pre">backend.context_processors.region_slug_processor()</span></code></a></p>
+<dd><p>This class method returns the current region based on the current request and is used in</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Django request</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="../ref-ext/backend.html#backend.context_processors.region_slug_processor" title="backend.context_processors.region_slug_processor"><code class="xref py py-func docutils literal notranslate"><span class="pre">backend.context_processors.region_slug_processor()</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – When the current request has a <code class="docutils literal notranslate"><span class="pre">region_slug</span></code> parameter, but there is no region
@@ -1364,7 +1369,7 @@ with that slug.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archived</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_unrestricted_queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L348"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archived</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_unrestricted_queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L352"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This method returns either all archived or all non-archived pages of this region.
 To retrieve all pages independently from their archived-state, use the reverse foreign key
 <a class="reference internal" href="../ref-ext/cms.models.regions.html#cms.models.regions.region.Region.pages" title="cms.models.regions.region.Region.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>.</p>
@@ -1442,7 +1447,7 @@ If this region has no default language, this property returns an empty string</p
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L379"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/regions/region.py#L383"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Searches for all regions which match the given <cite>query</cite> in their name.
 :param query: The query string used for filtering the regions
 :type query: str
@@ -1498,7 +1503,7 @@ If this region has no default language, this property returns an empty string</p
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 15, 2021.
+      <span class="lastupdated">Last updated on Oct 20, 2021.
       </span></p>
   </div>
 

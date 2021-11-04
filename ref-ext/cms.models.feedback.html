@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-10-15T11:11:00+00:00" />
+    <meta property="article:modified_time" content="2021-10-20T08:55:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feedback &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1292,6 +1292,14 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.event_feedback.EventFeedback.category">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/event_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.event_feedback.EventFeedback.category" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capitalized category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1574,6 +1582,14 @@ Raise a ValidationError for any errors that occur.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/event_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.event_feedback.EventFeedback.read" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the feedback is marked as read</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1660,7 +1676,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.feedback.event_feedback.EventFeedback.search">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.event_feedback.EventFeedback.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.event_feedback.EventFeedback.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~cms.models.regions.region.Region
@@ -1693,6 +1709,20 @@ and not use this method.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.event_feedback.EventFeedback.submodel_instance">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">submodel_instance</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/event_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.event_feedback.EventFeedback.submodel_instance" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the attribute <code class="docutils literal notranslate"><span class="pre">submodel_instance</span></code>  is used on the base Feedback class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If model is instantiated directly without an inheriting subclass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1799,6 +1829,14 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.event_list_feedback.EventListFeedback.category">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/event_list_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.event_list_feedback.EventListFeedback.category" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capitalized category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -2068,6 +2106,14 @@ Raise a ValidationError for any errors that occur.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/event_list_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.event_list_feedback.EventListFeedback.read" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the feedback is marked as read</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2154,7 +2200,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.feedback.event_list_feedback.EventListFeedback.search">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.event_list_feedback.EventListFeedback.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.event_list_feedback.EventListFeedback.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~cms.models.regions.region.Region
@@ -2187,6 +2233,20 @@ and not use this method.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.event_list_feedback.EventListFeedback.submodel_instance">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">submodel_instance</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/event_list_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.event_list_feedback.EventListFeedback.submodel_instance" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the attribute <code class="docutils literal notranslate"><span class="pre">submodel_instance</span></code>  is used on the base Feedback class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If model is instantiated directly without an inheriting subclass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -2310,6 +2370,14 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.feedback.Feedback.category">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.category" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capitalized category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -2453,6 +2521,14 @@ Raise a ValidationError for any errors that occur.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">object_name</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.object_name" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the name of the object this feedback comments on.
 To be implemented in the inheriting model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The name of the submodel instance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -2460,6 +2536,14 @@ To be implemented in the inheriting model.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">object_url</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.object_url" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the url to the object this feedback comments on.
 To be implemented in the inheriting model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The URL to the submodel instance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2552,6 +2636,14 @@ To be implemented in the inheriting model.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.read" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the feedback is marked as read</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2638,7 +2730,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.feedback.feedback.Feedback.search">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~cms.models.regions.region.Region
@@ -2671,6 +2763,20 @@ and not use this method.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.feedback.Feedback.submodel_instance">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">submodel_instance</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.feedback.Feedback.submodel_instance" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the attribute <code class="docutils literal notranslate"><span class="pre">submodel_instance</span></code>  is used on the base Feedback class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If model is instantiated directly without an inheriting subclass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -2777,6 +2883,14 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.category">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/imprint_page_feedback.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.category" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capitalized category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -3046,6 +3160,14 @@ Raise a ValidationError for any errors that occur.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/imprint_page_feedback.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.read" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the feedback is marked as read</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -3132,7 +3254,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.search">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~cms.models.regions.region.Region
@@ -3165,6 +3287,20 @@ and not use this method.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.submodel_instance">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">submodel_instance</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/imprint_page_feedback.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.imprint_page_feedback.ImprintPageFeedback.submodel_instance" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the attribute <code class="docutils literal notranslate"><span class="pre">submodel_instance</span></code>  is used on the base Feedback class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If model is instantiated directly without an inheriting subclass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -3271,6 +3407,14 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.map_feedback.MapFeedback.category">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/map_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.map_feedback.MapFeedback.category" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capitalized category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -3540,6 +3684,14 @@ Raise a ValidationError for any errors that occur.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/map_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.map_feedback.MapFeedback.read" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the feedback is marked as read</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -3626,7 +3778,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.feedback.map_feedback.MapFeedback.search">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.map_feedback.MapFeedback.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.map_feedback.MapFeedback.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~cms.models.regions.region.Region
@@ -3659,6 +3811,20 @@ and not use this method.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.map_feedback.MapFeedback.submodel_instance">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">submodel_instance</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/map_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.map_feedback.MapFeedback.submodel_instance" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the attribute <code class="docutils literal notranslate"><span class="pre">submodel_instance</span></code>  is used on the base Feedback class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If model is instantiated directly without an inheriting subclass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -3766,6 +3932,14 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.offer_feedback.OfferFeedback.category">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.category" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capitalized category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -4048,6 +4222,14 @@ Raise a ValidationError for any errors that occur.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.read" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the feedback is marked as read</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -4134,7 +4316,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.feedback.offer_feedback.OfferFeedback.search">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~cms.models.regions.region.Region
@@ -4167,6 +4349,20 @@ and not use this method.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.offer_feedback.OfferFeedback.submodel_instance">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">submodel_instance</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.offer_feedback.OfferFeedback.submodel_instance" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the attribute <code class="docutils literal notranslate"><span class="pre">submodel_instance</span></code>  is used on the base Feedback class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If model is instantiated directly without an inheriting subclass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -4273,6 +4469,14 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.offer_list_feedback.OfferListFeedback.category">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_list_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.offer_list_feedback.OfferListFeedback.category" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capitalized category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -4542,6 +4746,14 @@ Raise a ValidationError for any errors that occur.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_list_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.offer_list_feedback.OfferListFeedback.read" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the feedback is marked as read</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -4628,7 +4840,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.feedback.offer_list_feedback.OfferListFeedback.search">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.offer_list_feedback.OfferListFeedback.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.offer_list_feedback.OfferListFeedback.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~cms.models.regions.region.Region
@@ -4661,6 +4873,20 @@ and not use this method.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.offer_list_feedback.OfferListFeedback.submodel_instance">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">submodel_instance</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/offer_list_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.offer_list_feedback.OfferListFeedback.submodel_instance" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the attribute <code class="docutils literal notranslate"><span class="pre">submodel_instance</span></code>  is used on the base Feedback class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If model is instantiated directly without an inheriting subclass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -4768,6 +4994,14 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.page_feedback.PageFeedback.category">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/page_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.page_feedback.PageFeedback.category" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capitalized category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -5050,6 +5284,14 @@ Raise a ValidationError for any errors that occur.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/page_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.page_feedback.PageFeedback.read" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the feedback is marked as read</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -5136,7 +5378,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.feedback.page_feedback.PageFeedback.search">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.page_feedback.PageFeedback.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.page_feedback.PageFeedback.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~cms.models.regions.region.Region
@@ -5169,6 +5411,20 @@ and not use this method.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.page_feedback.PageFeedback.submodel_instance">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">submodel_instance</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/page_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.page_feedback.PageFeedback.submodel_instance" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the attribute <code class="docutils literal notranslate"><span class="pre">submodel_instance</span></code>  is used on the base Feedback class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If model is instantiated directly without an inheriting subclass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -5276,6 +5532,14 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.poi_feedback.POIFeedback.category">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/poi_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.poi_feedback.POIFeedback.category" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capitalized category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -5558,6 +5822,14 @@ Raise a ValidationError for any errors that occur.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/poi_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.poi_feedback.POIFeedback.read" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the feedback is marked as read</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -5644,7 +5916,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.feedback.poi_feedback.POIFeedback.search">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.poi_feedback.POIFeedback.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.poi_feedback.POIFeedback.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~cms.models.regions.region.Region
@@ -5677,6 +5949,20 @@ and not use this method.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.poi_feedback.POIFeedback.submodel_instance">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">submodel_instance</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/poi_feedback.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.poi_feedback.POIFeedback.submodel_instance" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the attribute <code class="docutils literal notranslate"><span class="pre">submodel_instance</span></code>  is used on the base Feedback class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If model is instantiated directly without an inheriting subclass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -5783,6 +6069,14 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.region_feedback.RegionFeedback.category">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/region_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.region_feedback.RegionFeedback.category" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capitalized category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -6052,6 +6346,14 @@ Raise a ValidationError for any errors that occur.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/region_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.region_feedback.RegionFeedback.read" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the feedback is marked as read</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -6138,7 +6440,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.feedback.region_feedback.RegionFeedback.search">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.region_feedback.RegionFeedback.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.region_feedback.RegionFeedback.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~cms.models.regions.region.Region
@@ -6171,6 +6473,20 @@ and not use this method.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.region_feedback.RegionFeedback.submodel_instance">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">submodel_instance</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/region_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.region_feedback.RegionFeedback.submodel_instance" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the attribute <code class="docutils literal notranslate"><span class="pre">submodel_instance</span></code>  is used on the base Feedback class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If model is instantiated directly without an inheriting subclass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -6278,6 +6594,14 @@ set self.__traceback__ to tb and return self.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.search_result_feedback.SearchResultFeedback.category">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/search_result_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.category" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capitalized category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -6547,6 +6871,14 @@ Raise a ValidationError for any errors that occur.</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/search_result_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.read" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="#cms.models.feedback.feedback.Feedback.read_by" title="cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the feedback is marked as read</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -6633,7 +6965,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.models.feedback.search_result_feedback.SearchResultFeedback.search">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/feedback.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~cms.models.regions.region.Region
@@ -6673,6 +7005,20 @@ and not use this method.</p>
 <dt class="sig sig-object py" id="cms.models.feedback.search_result_feedback.SearchResultFeedback.submodel_instance">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">submodel_instance</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/models/feedback/search_result_feedback.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.models.feedback.search_result_feedback.SearchResultFeedback.submodel_instance" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the attribute <code class="docutils literal notranslate"><span class="pre">submodel_instance</span></code>  is used on the base Feedback class.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#TypeError" title="(in Python v3.7)"><strong>TypeError</strong></a> – If model is instantiated directly without an inheriting subclass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -6707,7 +7053,7 @@ failed.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 15, 2021.
+      <span class="lastupdated">Last updated on Oct 20, 2021.
       </span></p>
   </div>
 
