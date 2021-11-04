@@ -946,7 +946,7 @@ urlpatterns = [
                                         ),
                                         # warning: the move url is also hardcoded in src/cms/static/js/tree_drag_and_drop.js
                                         url(
-                                            r"^move/(?P<target_id>[0-9]+)/(?P<position>[-\w]+)$",
+                                            r"^move/(?P<target_id>[0-9]+)/(?P<target_position>[-\w]+)$",
                                             language_tree.move_language_tree_node,
                                             name="move_language_tree_node",
                                         ),
