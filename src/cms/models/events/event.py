@@ -123,7 +123,7 @@ class Event(models.Model):
         :param end: the end of the requested interval.
         :type end: ~datetime.datetime
 
-        :return: Returns start datetimes of occurrences of the event that are in the given timeframe
+        :return: start datetimes of occurrences of the event that are in the given timeframe
         :rtype: list [ ~datetime.datetime ]
         """
         event_start = datetime.combine(

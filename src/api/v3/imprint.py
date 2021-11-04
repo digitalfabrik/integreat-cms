@@ -16,7 +16,7 @@ def transform_imprint(imprint_translation):
     :param imprint_translation: single page translation object
     :type imprint_translation: ~cms.models.pages.page_translation.PageTranslation
 
-    :return: return data necessary for API
+    :return: data necessary for API
     :rtype: dict
     """
     if imprint_translation.page.icon:

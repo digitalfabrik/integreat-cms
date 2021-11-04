@@ -71,6 +71,13 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
     def form_valid(self, form):
         """
         If the form is valid, show a success message.
+
+        :param form: The supplied form
+        :type form: ~django.contrib.auth.forms.SetPasswordForm
+
+        :return: A redirection to the ``success_url``
+        :rtype: ~django.http.HttpResponseRedirect
+
         """
         messages.success(
             self.request,

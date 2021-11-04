@@ -36,10 +36,11 @@ class Serializer(base_serializer.Serializer):
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
 
+        :raises ~django.core.serializers.base.SerializationError: If the serialization fails
+
         :return: The serialized XLIFF string
         :rtype: str
 
-        :raises ~django.core.serializers.base.SerializationError: If the serialization fails
         """
         # Get all language objects of the given page translations
         language_set = set(map(lambda p: p.language, queryset))

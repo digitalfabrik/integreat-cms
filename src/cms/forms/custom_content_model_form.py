@@ -27,6 +27,9 @@ class CustomContentModelForm(CustomModelForm):
         Validate the content (text/description) field (see :ref:`overriding-modelform-clean-method`) and applies changes
         to ``<img>``- and ``<a>``-Tags to match the guidelines.
 
+        :param field_name: the name of the field which is cleaned
+        :type field_name: str
+
         :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content
 
         :return: The valid content

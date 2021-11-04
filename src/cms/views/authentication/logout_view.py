@@ -13,5 +13,20 @@ class LogoutView(auth_views.LogoutView):
     """
 
     def dispatch(self, request, *args, **kwargs):
+        """
+        This function sends message, if loggout was successful
+
+        :param request: The current request
+        :type request: ~django.http.HttpRequest
+
+        :param args: The supplied arguments
+        :type args: list
+
+        :param kwargs: The supplied keyword arguments
+        :type kwargs: dict
+
+        :return: passes form to dispatch function
+        :rtype: ~django.http.HttpResponse
+        """
         messages.info(request, _("You have been successfully logged off."))
         return super().dispatch(request, *args, **kwargs)

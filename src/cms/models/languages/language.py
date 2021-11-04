@@ -110,6 +110,9 @@ class Language(models.Model):
         """
         This returns the source language of this language in the given region
 
+        :param region: The requested region
+        :type region: ~cms.models.regions.region.Region
+
         :return: The source language of the language
         :rtype: ~cms.models.languages.language.Language
         """

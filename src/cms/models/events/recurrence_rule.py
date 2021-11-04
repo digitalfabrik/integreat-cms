@@ -80,17 +80,48 @@ class RecurrenceRule(models.Model):
         next_recurrence = start_date
 
         def get_nth_weekday(month_date, weekday, n):
+            """
+            Get the nth occurrence of a given weekday in a specific month
+
+            :param month_date: the current date of month
+            :type month_date: datetime.datetime
+
+            :param weekday: the requested weekday
+            :type weekday: str
+
+            :param n: the requested number
+            :type n: integer
+
+            :return: The nth weekday
+            :rtype: datetime.datetime
+            """
             month_date = month_date.replace(day=1)
             month_date += timedelta((weekday - month_date.weekday()) % 7)
             return month_date + timedelta(weeks=n - 1)
 
         def next_month(month_date):
+            """
+            Advance the given date by one month
+
+            :param month_date: the given date
+            :type month_date: datetime.datetime
+
+            :return: The same date one month later
+            :rtype: datetime.datetime
+            """
             if month_date.month < 12:
                 return month_date.replace(month=month_date.month + 1)
 
             return month_date.replace(month=1, year=month_date.year + 1)
 
         def advance():
+            """
+            Get the next occurrence by this rule
+
+            :return: date objects
+            :rtype: Iterator[:class: `~datetime.date`]
+            """
+
             nonlocal next_recurrence
             if self.frequency == frequency.DAILY:
                 yield

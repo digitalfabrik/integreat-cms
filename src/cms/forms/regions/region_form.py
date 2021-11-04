@@ -300,5 +300,12 @@ def duplicate_pages(
 def duplicate_media(source_region, target_region):
     """
     Function to duplicate all media of one region to another.
+
+    :param source_region: the source region from which the pages should be duplicated
+    :type source_region: ~cms.models.regions.region.Region
+
+    :param target_region: the target region
+    :type target_region: ~cms.models.regions.region.Region
+
     """
     # TODO: implement duplication of all media files

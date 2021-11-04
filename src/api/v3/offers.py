@@ -65,7 +65,7 @@ def transform_offer(offer, region):
     :param region: current region object
     :type region: ~cms.models.regions.region.Region
 
-    :return: return data necessary for API
+    :return: data necessary for API
     :rtype: dict
     """
     return {

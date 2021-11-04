@@ -138,6 +138,12 @@ class RecurrenceRuleForm(CustomModelForm):
         return cleaned_data
 
     def has_changed(self):
+        """
+        This function provides a workaround for the ``weekdays_for_weekly`` field to be correctly recognized as changed.
+
+        :return: Whether or not the recurrence rule form has changed
+        :rtype: bool
+        """
         # Handle weekdays_for_weekly data separately from the other data because has_changed doesn't work
         # with CheckboxSelectMultiple widgets and ArrayFields out of the box
         try:

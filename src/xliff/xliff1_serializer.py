@@ -113,10 +113,11 @@ class Deserializer(base_serializer.Deserializer):
         :param node: The current xml node of the object
         :type node: xml.dom.minidom.Element
 
+        :raises ~django.core.serializers.base.DeserializationError: If the deserialization fails
+
         :return: The original page translation
         :rtype: ~cms.models.pages.page_translation.PageTranslation
 
-        :raises ~django.core.serializers.base.DeserializationError: If the deserialization fails
         """
         # Get original page
         page_id = self.require_attribute(node, "original")

@@ -168,16 +168,49 @@ class Page(MPTTModel, AbstractBasePage):
         return Page.objects.filter(region__slug=region_slug, parent=None)
 
     def get_previous_sibling(self, *filter_args, **filter_kwargs):
+        """
+        This function gets all previous siblings of a page
+
+        :param filter_args: The supplied arguments
+        :type filter_args: list
+
+        :param filter_kwargs: The supplied kwargs
+        :type filter_kwargs: list
+
+        :return: The previous sibling
+        :rtype: ~cms.models.pages.page.Page
+        """
         # Only consider siblings from this region
         filter_kwargs["region"] = self.region
         return super().get_previous_sibling(*filter_args, **filter_kwargs)
 
     def get_next_sibling(self, *filter_args, **filter_kwargs):
+        """
+        This function gets the next sibling of a page
+
+        :param filter_args: The supplied arguments
+        :type filter_args: list
+
+        :param filter_kwargs: The supplied kwargs
+        :type filter_kwargs: list
+
+        :return: The next sibling
+        :rtype: ~cms.models.pages.page.Page
+        """
         # Only consider siblings from this region
         filter_kwargs["region"] = self.region
         return super().get_next_sibling(*filter_args, **filter_kwargs)
 
     def get_siblings(self, include_self=False):
+        """
+        This function gets all siblings of a page
+
+        :param include_self: gives state of include_self
+        :type include_self: bool
+
+        :return: All siblings of this page
+        :rtype: ~django.db.models.query.QuerySet [ ~cms.models.pages.page.Page ]
+        """
         # Return only siblings from the same region
         return (
             super().get_siblings(include_self=include_self).filter(region=self.region)

@@ -17,7 +17,7 @@ def transform_page(page_translation):
     :param page_translation: single page translation object
     :type page_translation: ~cms.models.pages.page_translation.PageTranslation
 
-    :return: return data necessary for API
+    :return: data necessary for API
     :rtype: dict
     """
     if page_translation.page.icon:
@@ -100,7 +100,7 @@ def get_single_page(request, language_slug):
 
     :raises RuntimeError: If neither the id nor the url parameter is given
 
-    :return: Return the requested page
+    :return: the requested page
     :rtype: ~cms.models.pages.page.Page
     """
     region = Region.get_current_region(request)
@@ -144,7 +144,7 @@ def single_page(request, region_slug, language_slug):
 
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
-    :return: Return a JSON with the requested page and a HTTP status 200.
+    :return: JSON with the requested page and a HTTP status 200.
     :rtype: ~django.http.JsonResponse
     """
     try:
@@ -176,7 +176,7 @@ def children(request, region_slug, language_slug):
 
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
-    :return: Return a JSON with the requested page descendants
+    :return: JSON with the requested page descendants
     :rtype: ~django.http.JsonResponse
     """
     depth = int(request.GET.get("depth", 1))

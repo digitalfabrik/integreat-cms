@@ -21,7 +21,7 @@ def transform_event(event):
     :param event: The event which should be converted
     :type event: ~cms.models.events.event.Event
 
-    :return: return data necessary for API
+    :return: data necessary for API
     :rtype: dict
     """
     return {
@@ -43,7 +43,7 @@ def transform_event_translation(event_translation):
     :param event_translation: The event translation object which should be converted
     :type event_translation: ~cms.models.events.event_translation.EventTranslation
 
-    :return: return data necessary for API
+    :return: data necessary for API
     :rtype: dict
     """
 

@@ -62,6 +62,13 @@ class Feedback(models.Model):
     def submodel_instance(self):
         """
         This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.
+
+        :raises NotImplementedError: If the attribute ``submodel_instance``  is used on the base Feedback class.
+
+        :raises TypeError: If model is instantiated directly without an inheriting subclass
+
+        :return: function
+        :rtype: bool
         """
         # In this case we need type() instead of isinstance(), because we want to differ between inherited models
         # pylint: disable=unidiomatic-typecheck
@@ -82,6 +89,9 @@ class Feedback(models.Model):
     def category(self):
         """
         This property returns the category (verbose name of the submodel) of this feedback object.
+
+        :return: capitalized category
+        :rtype: str
         """
         return capfirst(type(self.submodel_instance)._meta.verbose_name)
 
@@ -90,6 +100,9 @@ class Feedback(models.Model):
         """
         This property returns the name of the object this feedback comments on.
         To be implemented in the inheriting model.
+
+        :return: The name of the submodel instance
+        :rtype: str
         """
         return self.submodel_instance.object_name
 
@@ -98,6 +111,9 @@ class Feedback(models.Model):
         """
         This property returns the url to the object this feedback comments on.
         To be implemented in the inheriting model.
+
+        :return: The URL to the submodel instance
+        :rtype: str
         """
         return self.submodel_instance.object_url
 
@@ -154,6 +170,9 @@ class Feedback(models.Model):
         """
         This property returns whether or not the feedback is marked as read or not.
         It is ``True`` if :attr:`~cms.models.feedback.feedback.Feedback.read_by` is set and ``False`` otherwise.
+
+        :return: Whether the feedback is marked as read
+        :rtype: bool
         """
         return bool(self.read_by)
 

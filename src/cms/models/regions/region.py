@@ -273,6 +273,10 @@ class Region(models.Model):
     def get_current_region(cls, request):
         """
         This class method returns the current region based on the current request and is used in
+
+        :param request: Django request
+        :type request: ~django.http.HttpRequest
+
         :func:`backend.context_processors.region_slug_processor`
 
         :raises ~django.http.Http404: When the current request has a ``region_slug`` parameter, but there is no region
