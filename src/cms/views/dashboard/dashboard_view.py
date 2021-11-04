@@ -37,12 +37,8 @@ class DashboardView(TemplateView, ChatContextMixin):
         :rtype: dict
         """
         context = super().get_context_data(**kwargs)
-        context.update(
-            {
-                key: len(value)
-                for key, value in filter_links(kwargs.get("region_slug")).items()
-            }
-        )
+        _, count_dict = filter_links(kwargs.get("region_slug"))
+        context.update(count_dict)
         return context
 
     def get(self, request, *args, **kwargs):

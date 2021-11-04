@@ -36,26 +36,9 @@ class LinkListView(ListView):
         """
         region_slug = self.kwargs.get("region_slug")
         link_filter = self.kwargs.get("link_filter")
-        filtered_dict = filter_links(region_slug)
-        self.extra_context.update(
-            {
-                "link_filter": link_filter,
-                "number_valid": len(filtered_dict.get("valid_links")),
-                "number_invalid": len(filtered_dict.get("invalid_links")),
-                "number_unchecked": len(filtered_dict.get("unchecked_links")),
-                "number_ignored": len(filtered_dict.get("ignored_links")),
-            }
-        )
-        if link_filter == "valid":
-            result = filtered_dict.get("valid_links")
-        elif link_filter == "unchecked":
-            result = filtered_dict.get("unchecked_links")
-        elif link_filter == "ignored":
-            result = filtered_dict.get("ignored_links")
-        else:
-            result = filtered_dict.get("invalid_links")
-
-        return result
+        links, count_dict = filter_links(region_slug, link_filter)
+        self.extra_context.update(count_dict)
+        return links
 
     def post(self, request, *args, **kwargs):
         """
