@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-11-04T18:10:00+00:00" />
+    <meta property="article:modified_time" content="2021-11-08T12:53:50+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Linkcheck &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -436,6 +436,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#base-filters">Base Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#content-filters">Content Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#form-icon-filters">Form Icon Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#model-tags">Model Tags</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#page-filters">Page Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#poi-filters">POI Filters</a></li>
@@ -898,6 +899,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.base_filters">Base Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.content_filters">Content Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.form_icon_filters">Form Icon Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.model_tags">Model Tags</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.page_filters">Page Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cms.templatetags.html#module-cms.templatetags.poi_filters">POI Filters</a></li>
@@ -1193,7 +1195,7 @@
 <h2>Linkcheck<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <span class="target" id="module-cms.views.linkcheck.linkcheck"></span><dl class="py class">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListRedirectView">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.linkcheck.linkcheck.</span></span><span class="sig-name descname"><span class="pre">LinkListRedirectView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.linkcheck.linkcheck.</span></span><span class="sig-name descname"><span class="pre">LinkListRedirectView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
 <p>View for redirecting to main page of the broken link checker</p>
 <dl class="py method">
@@ -1226,7 +1228,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListRedirectView.get_redirect_url">
-<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.get_redirect_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.get_redirect_url" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieve url for redirection</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1251,7 +1253,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListRedirectView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.http_method_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.http_method_names" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1272,12 +1274,12 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListRedirectView.pattern_name">
-<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.pattern_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.pattern_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListRedirectView.permanent">
-<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.permanent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.permanent" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1292,7 +1294,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListRedirectView.query_string">
-<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.query_string" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.query_string" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1303,14 +1305,14 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListRedirectView.url">
-<span class="sig-name descname"><span class="pre">url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListRedirectView.url" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.linkcheck.linkcheck.</span></span><span class="sig-name descname"><span class="pre">LinkListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cms.views.linkcheck.linkcheck.</span></span><span class="sig-name descname"><span class="pre">LinkListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-display/#django.views.generic.list.ListView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.list.ListView</span></code></a></p>
 <p>View for retrieving a list of links grouped by their state</p>
 <dl class="py method">
@@ -1322,7 +1324,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.allow_empty">
-<span class="sig-name descname"><span class="pre">allow_empty</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.allow_empty" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">allow_empty</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.allow_empty" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1333,12 +1335,12 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.content_type">
-<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.content_type" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.content_type" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.context_object_name">
-<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'filtered_links'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.context_object_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'filtered_links'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.context_object_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1348,7 +1350,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'linkcheck'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.extra_context" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'current_menu_item':</span> <span class="pre">'linkcheck'}</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.extra_context" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1402,7 +1404,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.get_queryset">
-<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get_queryset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.get_queryset" title="Permalink to this definition"></a></dt>
 <dd><p>Selects all links for the current region
 Finally annotates queryset by the content_type title</p>
 <dl class="field-list simple">
@@ -1424,7 +1426,7 @@ a list. May not be called if render_to_response is overridden.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.http_method_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.http_method_names" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1434,7 +1436,7 @@ a list. May not be called if render_to_response is overridden.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.model">
-<span class="sig-name descname"><span class="pre">model</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.model" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1445,22 +1447,22 @@ a list. May not be called if render_to_response is overridden.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.ordering">
-<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.ordering" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.ordering" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.page_kwarg">
-<span class="sig-name descname"><span class="pre">page_kwarg</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'page'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.page_kwarg" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_kwarg</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'page'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.page_kwarg" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.paginate_by">
-<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"> <span class="pre">=</span> <span class="pre">16</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.paginate_by" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"> <span class="pre">=</span> <span class="pre">16</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.paginate_by" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.paginate_orphans">
-<span class="sig-name descname"><span class="pre">paginate_orphans</span></span><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.paginate_orphans" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">paginate_orphans</span></span><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.paginate_orphans" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1477,7 +1479,7 @@ a list. May not be called if render_to_response is overridden.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.post">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.post" title="Permalink to this definition"></a></dt>
 <dd><p>Applies selected action for selected links</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1498,7 +1500,7 @@ a list. May not be called if render_to_response is overridden.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.queryset">
-<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.queryset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.queryset" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1523,17 +1525,17 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.template_engine">
-<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.template_engine" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.template_engine" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.template_name">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'linkcheck/links_by_filter.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.template_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'linkcheck/links_by_filter.html'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.template_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cms.views.linkcheck.linkcheck.LinkListView.template_name_suffix">
-<span class="sig-name descname"><span class="pre">template_name_suffix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'_list'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.template_name_suffix" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">template_name_suffix</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'_list'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/views/linkcheck/linkcheck.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.views.linkcheck.linkcheck.LinkListView.template_name_suffix" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1556,7 +1558,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 04, 2021.
+      <span class="lastupdated">Last updated on Nov 08, 2021.
       </span></p>
   </div>
 

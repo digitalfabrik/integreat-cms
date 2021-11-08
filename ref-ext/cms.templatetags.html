@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-10-20T08:55:00+00:00" />
+    <meta property="article:modified_time" content="2021-11-04T12:12:43+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Templatetags &mdash; integreat-cms 0.0.14 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -436,6 +436,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#base-filters">Base Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#content-filters">Content Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#form-icon-filters">Form Icon Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#model-tags">Model Tags</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#page-filters">Page Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/cms.templatetags.html#poi-filters">POI Filters</a></li>
@@ -898,6 +899,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.base_filters">Base Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.content_filters">Content Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.form_icon_filters">Form Icon Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.model_tags">Model Tags</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.page_filters">Page Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cms.templatetags.poi_filters">POI Filters</a></li>
@@ -1339,6 +1341,31 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="cms.templatetags.content_filters.object_translation_has_view_perm">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">object_translation_has_view_perm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.object_translation_has_view_perm" title="Permalink to this definition"></a></dt>
+<dd><p>This filter accepts any translation of Event, Page or Poi and returns
+whether the user has the permission to view this object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference internal" href="cms.models.users.html#cms.models.users.user.User" title="cms.models.users.user.User"><em>User</em></a>) – The requested user</p></li>
+<li><p><strong>obj</strong> (<a class="reference internal" href="cms.models.pages.html#cms.models.pages.page_translation.PageTranslation" title="cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a><em>,
+</em><a class="reference internal" href="cms.models.events.html#cms.models.events.event_translation.EventTranslation" title="cms.models.events.event_translation.EventTranslation"><em>EventTranslation</em></a><em>, or </em><a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_translation.POITranslation" title="cms.models.pois.poi_translation.POITranslation"><em>POITranslation</em></a>) – The requested object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#ValueError" title="(in Python v3.7)"><strong>ValueError</strong></a> – if the object is not a translation of Event, Page or Poi</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether the user is allowed to view this object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="cms.templatetags.content_filters.remove">
 <span class="sig-prename descclassname"><span class="pre">cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/content_filters.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.content_filters.remove" title="Permalink to this definition"></a></dt>
 <dd><p>This tag removes an object instance from a QuerySet.</p>
@@ -1388,6 +1415,27 @@ or <a class="reference internal" href="cms.models.pois.html#cms.models.pois.poi_
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>name of icon file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-cms.templatetags.model_tags">
+<span id="model-tags"></span><h2>Model Tags<a class="headerlink" href="#module-cms.templatetags.model_tags" title="Permalink to this headline"></a></h2>
+<p>This is a collection of tags and filters which are useful for all models.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="cms.templatetags.model_tags.get_model_verbose_name">
+<span class="sig-prename descclassname"><span class="pre">cms.templatetags.model_tags.</span></span><span class="sig-name descname"><span class="pre">get_model_verbose_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/src/cms/templatetags/model_tags.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cms.templatetags.model_tags.get_model_verbose_name" title="Permalink to this definition"></a></dt>
+<dd><p>This tag returns the readable name of an instance’s model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><em>Model</em></a>) – The model object instance</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The verbose name of the model</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
@@ -1675,7 +1723,7 @@ this filter reduced the output when display in list view</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 20, 2021.
+      <span class="lastupdated">Last updated on Nov 04, 2021.
       </span></p>
   </div>
 
