@@ -6,7 +6,7 @@ import logging
 
 from django import template
 
-from ..models import Language
+from ..models import Language, PageTranslation, EventTranslation, POITranslation
 
 logger = logging.getLogger(__name__)
 register = template.Library()
@@ -125,3 +125,30 @@ def is_empty(iterable):
     :rtype: bool
     """
     return not bool(iterable)
+
+
+@register.simple_tag
+def object_translation_has_view_perm(user, obj):
+    """
+    This filter accepts any translation of Event, Page or Poi and returns
+    whether the user has the permission to view this object
+
+    :param user: The requested user
+    :type user: ~cms.models.users.user.User
+
+    :param obj: The requested object
+    :type obj: ~cms.models.pages.page_translation.PageTranslation,
+               ~cms.models.events.event_translation.EventTranslation, or ~cms.models.pois.poi_translation.POITranslation
+
+    :raises ValueError: if the object is not a translation of Event, Page or Poi
+
+    :return: Whether the user is allowed to view this object
+    :rtype: bool
+    """
+    if isinstance(obj, EventTranslation):
+        return user.has_perm("cms.view_event")
+    if isinstance(obj, PageTranslation):
+        return user.has_perm("cms.view_page")
+    if isinstance(obj, POITranslation):
+        return user.has_perm("cms.view_poi")
+    raise ValueError(f"Invalid model: {type(obj)}")

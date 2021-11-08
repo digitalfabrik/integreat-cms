@@ -151,6 +151,23 @@ class PageTranslation(AbstractBasePageTranslation):
         )
 
     @property
+    def backend_edit_link(self):
+        """
+        This function returns the absolute url to the editor for this translation
+
+        :return: The url
+        :rtype: str
+        """
+        return reverse(
+            "edit_page",
+            kwargs={
+                "page_id": self.page.id,
+                "language_slug": self.language.slug,
+                "region_slug": self.page.region.slug,
+            },
+        )
+
+    @property
     def short_url(self):
         """
         This function returns the absolute short url to the page translation
