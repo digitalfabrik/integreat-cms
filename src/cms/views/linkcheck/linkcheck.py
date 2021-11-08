@@ -68,8 +68,8 @@ class LinkListView(ListView):
             selected_links.update(ignore=False)
             messages.success(request, _("Links were successfully unignored"))
         elif action == "recheck":
-            urls = {link.url for link in selected_links}
-            map(lambda url: url.check_url(external_recheck_interval=0), urls)
+            for link in selected_links:
+                link.url.check_url(external_recheck_interval=0)
             messages.success(request, _("Links were successfully checked"))
         return redirect("linkcheck", region_slug=region_slug, link_filter=link_filter)
 
