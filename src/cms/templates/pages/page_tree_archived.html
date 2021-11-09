@@ -16,7 +16,7 @@
             {% include "_search_input.html" with object_type="page" object_archived=True related_form='page-filter-form' %}
         </div>
         {% if request.user.expert_mode %}
-            <button id="filter-toggle" class="btn btn-gray">
+            <button id="filter-toggle" class="btn btn-light-blue">
                 <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans 'Show filters' %}</span>
                 <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans 'Hide filters' %}</span>
             </button>
