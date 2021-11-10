@@ -86,7 +86,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
                 let url_changed_by_search = false;
                 // Check if the selected completion changed
                 if (prev_selected_completion != data.completions) {
-                    // find the correct thext currently shown in the completion items box
+                    // find the correct text currently shown in the completion items box
                     if (completion_items.length > 0) {
                         const current_completion = completion_items.find((completion) => completion.value == data.completions);
                         // Don't set the completion text to `- no results -`
@@ -116,7 +116,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
                 // Automatically update the text input to the url by default
                 data = api.getData();
-                if (!text_disabled && !url_changed_by_search && data.url != data.text && prev_link_url != data.url && (data.text != user_data.text || !data.text)) {
+                if (!text_disabled && !url_changed_by_search && data.text == prev_link_url) {
                     api.setData({ text: data.url });
                 }
                 prev_link_url = data.url;
@@ -129,7 +129,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     user_data.text = data.text;
                 }
 
-                // Disable the submit button if either of url and text are empty
+                // Disable the submit button if either one of the url or text are empty
                 data = api.getData();
                 if (data.url.trim() && (text_disabled || data.text.trim())) {
                     api.enable("submit");
