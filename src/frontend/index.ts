@@ -61,6 +61,7 @@ import "./js/media-management/index.tsx";
 import "./js/media-management/select-media.tsx";
 import "./js/forms/icon-field.tsx";
 
+import "./js/pagination/pagination.ts";
 
 window.addEventListener('load',() => {
     feather.replace({ class: 'inline-block' });

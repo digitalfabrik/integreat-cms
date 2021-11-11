@@ -44,8 +44,9 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
         organizations = Organization.objects.all()
+        chunk_size = int(request.GET.get("size", PER_PAGE))
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(organizations.order_by("slug"), PER_PAGE)
+        paginator = Paginator(organizations.order_by("slug"), chunk_size)
         chunk = request.GET.get("page")
         organization_chunk = paginator.get_page(chunk)
 

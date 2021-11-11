@@ -114,8 +114,9 @@
         {% endfor %}
 
     </table>
-    <div class="flex justify-between mt-5">
-        <div class="flex gap-2">
+    <div class="flex flex-col">
+        {% include "pagination.html" with url=url chunk=region_feedback %}
+        <div class="flex self-start gap-2 mt-2">
             <select id="bulk-action">
                 <option>{% trans 'Select bulk action' %}</option>
                 <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=region.slug %}">{% trans 'Mark as read' %}</option>
@@ -125,9 +126,6 @@
                 {% endif %}
             </select>
             <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
-        </div>
-        <div>
-            {% include "pagination.html" with url=url chunk=region_feedback %}
         </div>
     </div>
 </form>

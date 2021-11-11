@@ -115,8 +115,9 @@ class POIListView(TemplateView, POIContextMixin):
             )
             pois = pois.filter(pk__in=poi_keys)
 
+        chunk_size = int(request.GET.get("size", PER_PAGE))
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(pois.order_by("region__slug"), PER_PAGE)
+        paginator = Paginator(pois.order_by("region__slug"), chunk_size)
         chunk = request.GET.get("page")
         poi_chunk = paginator.get_page(chunk)
         context = self.get_context_data(**kwargs)
