@@ -8,7 +8,7 @@ interface CustomEventMap extends HTMLElementEventMap {
     "action-confirmed": Event;
 }
 
-const eventMap = new Map<Element, Map<keyof CustomEventMap, EventHandlerNonNull[]>>();
+const eventMap = new Map<Element, Map<keyof CustomEventMap, ((event: Event) => void)[]>>();
 
  /**
   * Wrapper around Element.addEventListener that keeps track of the handlers so you can use the off function
@@ -17,7 +17,7 @@ const eventMap = new Map<Element, Map<keyof CustomEventMap, EventHandlerNonNull[
   * @param event the event name
   * @param handler the listener to attach
   */
-export function on(el: Element, event: keyof CustomEventMap, handler: EventHandlerNonNull) {
+export function on(el: Element, event: keyof CustomEventMap, handler: (event: Event) => void) {
     if(!eventMap.has(el)) {
         eventMap.set(el, new Map());
     }

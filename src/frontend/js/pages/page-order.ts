@@ -73,7 +73,7 @@ async function getPageOrderTable({ target }: Event) {
     feather.replace({ class: 'inline-block' });
     // Register event handlers
     registerEventHandlers();
-  } catch (error) {
+  } catch (error: any) {
     // Show error message instead of table
     document.getElementById("page_order_table").innerHTML =
       '<div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-4" role="alert"><p>' +
@@ -102,13 +102,13 @@ function registerEventHandlers() {
   });
   // Event handlers for drag events (delay because of behaviour in Chrome browser)
   document.querySelectorAll(".drag").forEach((node) =>
-    on(node, "dragstart", (event) => {
+    on(node, "dragstart", (event: Event) => {
       window.setTimeout(() => dragstart(event));
     })
   );
 
   document.querySelectorAll(".drag").forEach((el) => {
-    on(el, "dragend", (event) => {
+    on(el, "dragend", (event: Event) => {
       event.preventDefault();
       dragend(event);
     });
@@ -116,15 +116,15 @@ function registerEventHandlers() {
 
   // Event handlers for drop events
   document.querySelectorAll(".drop").forEach((node) => {
-    on(node, "dragover", (event) => {
+    on(node, "dragover", (event: Event) => {
       event.preventDefault();
       dragover(event);
     });
-    on(node, "dragleave", (event) => {
+    on(node, "dragleave", (event: Event) => {
       event.preventDefault();
       dragleave(event);
     });
-    on(node, "drop", (event) => {
+    on(node, "drop", (event: Event) => {
       event.preventDefault();
       drop(event);
     });

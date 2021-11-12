@@ -52,7 +52,7 @@ setup(
         "requests",
         "rules",
         "six",
-        "webauthn",
+        "webauthn==0.4.7",
         "xhtml2pdf",
     ],
     author="Integreat App Project",
