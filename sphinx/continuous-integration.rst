@@ -174,6 +174,12 @@ create-release
 
 This job authenticates as Deliverino app and creates a GitHub release with :github-source:`.circleci/scripts/create_release.py`.
 
+notify-mattermost
+-----------------
+
+This job sends a release notification to Mattermost into the ``integreat-releases`` channel. It needs the Mattermost
+webhook which is injected via the ``mattermost`` context.
+
 
 Debugging with SSH
 ==================
