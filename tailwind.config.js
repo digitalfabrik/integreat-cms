@@ -2,8 +2,8 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   purge: [
-    './src/**/*.html',
-    './src/**/*.js',
+    './integreat_cms/**/*.html',
+    './integreat_cms/**/*.js',
   ],
   theme: {
     colors: {
@@ -35,10 +35,10 @@ module.exports = {
         },
       },
       backgroundImage: {
-        'icon': "url('/src/frontend/images/integreat-icon.png')",
-        'logo': "url('/src/frontend/images/integreat-logo.png')",
-        'logo-white': "url('/src/frontend/images/integreat-logo-white.png')",
-        'logo-yellow': "url('/src/frontend/images/integreat-logo-yellow.png')",
+        'icon': "url('../images/integreat-icon.png')",
+        'logo': "url('../images/integreat-logo.png')",
+        'logo-white': "url('../images/integreat-logo-white.png')",
+        'logo-yellow': "url('../images/integreat-logo-yellow.png')",
         'border-left': 'linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-from) 4px, var(--tw-gradient-to, rgba(0, 0, 0, 0)) 4px)',
       },
       fontFamily: {

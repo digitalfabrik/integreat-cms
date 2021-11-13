@@ -79,7 +79,7 @@ Not a git repository
         sudo apt-get update
 
 
-.. _circleci-unauthorized:
+.. _troubleshooting-unauthorized:
 
 ⚠ Unauthorized (CircleCI)
 =========================
@@ -98,7 +98,7 @@ Not a git repository
     * Is your GitHub user a member of the `Integreat/cms <https://github.com/orgs/Integreat/teams/cms>`__ team?
     * Is your GitHub account connected with `CircleCI <https://circleci.com/vcs-authorize/>`__?
 
-    See :ref:`circleci-docker-images` for background information on this error.
+    See :ref:`circleci-unauthorized` for background information on this error.
 
 
 MacOS on M1
@@ -143,7 +143,7 @@ Webpack Compilation Errors
 
     .. code-block:: text
 
-        ERROR in /path/to/integreat-cms/src/cms/static/@nodelib/...
+        ERROR in /path/to/integreat-cms/integreat_cms/static/dist/@nodelib/...
         ...
         [tsl] ERROR in ...
         TSXXXX: ...
@@ -151,4 +151,4 @@ Webpack Compilation Errors
 .. admonition:: Solution
     :class: hint
 
-    There may be remnants of old JavaScript libraries in your installation. Run ``./dev-tools/install --clean`` to remove ``node_modules/`` and ``src/cms/static/`` or clean these directories manually.
+    There may be remnants of old JavaScript libraries in your installation. Run ``./dev-tools/install --clean`` to remove ``node_modules/`` and ``integreat_cms/static/dist/`` or clean these directories manually.

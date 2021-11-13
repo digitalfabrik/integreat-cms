@@ -25,6 +25,9 @@ DEV_TOOL_DIR=$(pwd)
 cd ..
 # The absolute path to the base directory of the repository
 BASE_DIR=$(pwd)
+# The path to the package
+PACKAGE_DIR_REL="integreat_cms"
+PACKAGE_DIR="${BASE_DIR}/${PACKAGE_DIR_REL}"
 # The filename of the currently running script
 SCRIPT_NAME=$(basename "$0")
 # The absolute path to the currently running script (required to allow restarting with different permissions
@@ -202,14 +205,14 @@ function migrate_database {
     if [[ -z "$DATABASE_MIGRATED" ]]; then
         echo "Migrating database..." | print_info
         # Make sure the migrations directory exists
-        deescalate_privileges mkdir -pv "${BASE_DIR}/src/cms/migrations"
-        deescalate_privileges touch "${BASE_DIR}/src/cms/migrations/__init__.py"
+        deescalate_privileges mkdir -pv "${PACKAGE_DIR}/cms/migrations"
+        deescalate_privileges touch "${PACKAGE_DIR}/cms/migrations/__init__.py"
         # Generate migration files
         deescalate_privileges pipenv run integreat-cms-cli makemigrations
         # Execute migrations
         deescalate_privileges pipenv run integreat-cms-cli migrate
         # Load the role fixtures
-        deescalate_privileges pipenv run integreat-cms-cli loaddata src/cms/fixtures/roles.json
+        deescalate_privileges pipenv run integreat-cms-cli loaddata "${PACKAGE_DIR}/cms/fixtures/roles.json"
         echo "✔ Finished database migrations" | print_success
         DATABASE_MIGRATED=1
     fi
@@ -302,7 +305,7 @@ function require_database {
         fi
 
         # Set docker settings
-        export DJANGO_SETTINGS_MODULE="backend.docker_settings"
+        export DJANGO_SETTINGS_MODULE="integreat_cms.core.docker_settings"
         # Make sure a docker container is up and running
         ensure_docker_container_running
     fi

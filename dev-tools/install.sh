@@ -56,16 +56,18 @@ if [[ $(major "$npm_version") -lt "$required_npm_version" ]]; then
     echo "npm version ${required_npm_version} or higher is required, but version ${npm_version} is installed. Please install a recent version manually (e.g. with 'npm install -g npm') and run this script again."  | print_error
     exit 1
 fi
+# Define the required npm version
+required_node_version="12"
 # Check if nodejs is installed
 if [[ ! -x "$(command -v node)" ]]; then
-    echo "The package nodejs is not installed. Please install nodejs version 12, 14 or 15 manually and run this script again."  | print_error
+    echo "The package nodejs is not installed. Please install nodejs version ${required_node_version} or higher manually and run this script again."  | print_error
     exit 1
 fi
 # Get the node version (the format is vXX.YY.ZZ)
 node_version=$(node -v | cut -c2-)
-# Check node version requirements (12, 14 or 15)
-if ! [[ $(major "$node_version") =~ ^(12|14|15)$ ]] ; then
-    echo "nodejs version 12, 14 or 15 is required, but version ${node_version} is installed. Please install a supported version manually and run this script again."  | print_error
+# Check if required node version is installed
+if [[ $(major "$node_version") -lt "$required_node_version" ]] ; then
+    echo "nodejs version ${required_node_version} or higher is required, but version ${node_version} is installed. Please install a supported version manually and run this script again."  | print_error
     exit 1
 fi
 # Check if nc (netcat) is installed
@@ -89,7 +91,7 @@ echo "✔ All system requirements are satisfied" | print_success
 if [[ "$*" == *"--clean"* ]]; then
     echo "Removing installed dependencies and compiled static files..." | print_info
     # Report deleted files but only the explicitly deleted directories
-    rm -rfv .venv node_modules src/cms/static | grep -E -- \'.venv\''|'\'node_modules\''|'\'src/cms/static\'
+    rm -rfv .venv node_modules "${PACKAGE_DIR:?}/static/dist" | grep -E -- "'.venv'|'node_modules'|'${PACKAGE_DIR}/static/dist'"
 fi
 
 # Install npm dependencies

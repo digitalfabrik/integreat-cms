@@ -56,9 +56,11 @@ Deployment
 
     packaging
     prod-server
+    changelog
 
 * :doc:`packaging`: Create an easy installable package
 * :doc:`prod-server`: Run the production server
+* :doc:`changelog`: The release history including all relevant changes
 
 
 Contributing
@@ -86,31 +88,23 @@ Reference
     :caption: Reference
     :hidden:
 
-    ref/backend
-    ref/cms
-    ref/api
-    ref/gvz_api
-    ref/sitemap
-    ref/xliff
+    ref/integreat_cms
 
-* :doc:`ref/backend`: This is the project's main app which contains all configuration files.
-* :doc:`ref/cms`: This is the content management system for backend users which contains all database models, views, forms and templates.
-* :doc:`ref/api`: This is the app which contains all API routes and Classes which maps the cms models to API JSON responses. This is not the API documentation itself, but the Django developer documentation. A link to the API documentation will follow soon.
-* :doc:`ref/gvz_api`: This is the app to communicate with our Gemeindeverzeichnis API to automatically import coordinates and region aliases
-* :doc:`ref/sitemap`: This is the app to dynamically generate a sitemap.xml for the webapp
-* :doc:`ref/xliff`: The XLIFF serializer module
+* :doc:`ref/integreat_cms`: The main package of the integreat-cms with the following sub-packages:
+
+  - :doc:`ref/integreat_cms.api`: This is the app which contains all API routes and Classes which maps the cms models to API JSON responses. This is not the API documentation itself, but the Django developer documentation. A link to the API documentation will follow soon.
+  - :doc:`ref/integreat_cms.cms`: This is the content management system for backend users which contains all database models, views, forms and templates.
+  - :doc:`ref/integreat_cms.core`: This is the project's main app which contains all configuration files.
+  - :doc:`ref/integreat_cms.gvz_api`: This is the app to communicate with our Gemeindeverzeichnis API to automatically import coordinates and region aliases
+  - :doc:`ref/integreat_cms.sitemap`: This is the app to dynamically generate a sitemap.xml for the webapp
+  - :doc:`ref/integreat_cms.xliff`: The XLIFF serializer module
 
 
 .. toctree::
     :caption: Extended Reference
     :hidden:
 
-    ref-ext/backend
-    ref-ext/cms
-    ref-ext/api
-    ref-ext/gvz_api
-    ref-ext/sitemap
-    ref-ext/xliff
+    ref-ext/integreat_cms
 
 
 Indices

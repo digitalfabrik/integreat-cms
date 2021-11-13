@@ -43,7 +43,7 @@ else
         fi
 
         # Remove database directory
-        rm -rfv "${BASE_DIR}/.postgres"
+        rm -rfv "${BASE_DIR:?}/.postgres"
         echo "Removed database contents" | print_info
 
     fi
@@ -51,9 +51,9 @@ else
 fi
 
 # Remove migrations
-rm -rfv "${BASE_DIR}/src/cms/migrations"
+rm -rfv "${PACKAGE_DIR:?}/cms/migrations"
 echo "Removed database migrations" | print_info
 
 # Remove media files (because they are no longer usable without the corresponding database entries)
-rm -rfv "${BASE_DIR}/src/media"
+rm -rfv "${PACKAGE_DIR:?}/media"
 echo "Removed media files" | print_info

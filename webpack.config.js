@@ -7,14 +7,14 @@ const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
   entry: {
-    main: "./src/frontend/index.ts",
-    editor: "./src/frontend/editor.ts", // This contains resources required for the editor UI
-    editor_content: "./src/frontend/editor_content.ts", // This contains resources for the editor content iframe
-    pdf: "./src/frontend/pdf.ts",
+    main: "./integreat_cms/static/src/index.ts",
+    editor: "./integreat_cms/static/src/editor.ts", // This contains resources required for the editor UI
+    editor_content: "./integreat_cms/static/src/editor_content.ts", // This contains resources for the editor content iframe
+    pdf: "./integreat_cms/static/src/pdf.ts",
   },
   output: {
     filename: "[name].[contenthash].js",
-    path: path.resolve(__dirname, "src/cms/static"),
+    path: path.resolve(__dirname, "integreat_cms/static/dist"),
     clean: true,
   },
   module: {
@@ -82,7 +82,7 @@ module.exports = {
         loader: "file-loader",
         options: {
           name: "fonts/[name].[hash].[ext]",
-          publicPath: "/static/",
+          publicPath: "/static",
         },
       },
       {
@@ -112,11 +112,11 @@ module.exports = {
           from: "node_modules/tinymce/skins/ui/oxide/content.min.css",
           to: "skins/ui/oxide/content.min.css",
         },
-        { from: "src/frontend/svg", to: "svg" },
-        { from: "src/frontend/images", to: "images" },
+        { from: "integreat_cms/static/src/svg", to: "svg" },
+        { from: "integreat_cms/static/src/images", to: "images" },
       ],
     }),
-    new BundleTracker({filename: 'webpack-stats.json'}),
+    new BundleTracker({filename: 'integreat_cms/webpack-stats.json'}),
   ],
   optimization: {
     minimize: process.env.NODE_ENV === "production",

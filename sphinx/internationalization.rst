@@ -43,10 +43,10 @@ Translation File
 
 After you finished your changes to the code base, run the following command::
 
-    cd src/cms
+    cd integreat_cms
     pipenv run integreat-cms-cli makemessages -l de
 
-Then, open the file :github-source:`src/locale/de/LC_MESSAGES/django.po` and fill in the german translations::
+Then, open the file :github-source:`integreat_cms/locale/de/LC_MESSAGES/django.po` and fill in the german translations::
 
     msgid "Your string"
     msgstr "Deine Zeichenkette"
@@ -57,7 +57,7 @@ Compilation
 
 To actually see the translated strings in the backend UI, compile the django.po file as follows::
 
-    cd src/cms
+    cd integreat_cms
     pipenv run integreat-cms-cli compilemessages
 
 

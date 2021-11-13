@@ -16,7 +16,7 @@ Install all project dependencies and the local python package with :github-sourc
 **Options:**
 
 * ``--clean``: Remove all installed dependencies in the ``.venv/`` and ``node_modules/`` directories as well as compiled
-  static files in ``src/cms/static/``. Existing outdated JavaScript files in these directories can cause compilation
+  static files in ``integreat_cms/static/dist/``. Existing outdated JavaScript files in these directories can cause compilation
   failures for the :doc:`frontend-bundling`.
 * ``--pre-commit``: Install all :ref:`pre-commit-hooks` (can also be manually performed via ``pipenv run pre-commit install``)
 

@@ -9,5 +9,5 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 require_installed
 require_database
 
-deescalate_privileges pipenv run integreat-cms-cli test cms
+deescalate_privileges pipenv run integreat-cms-cli test integreat_cms
 echo "✔ Tests successfully completed " | print_success

@@ -30,7 +30,7 @@ if [[ "$*" != *"--fast"* ]]; then
 fi
 
 # Check if compiled webpack output exists
-if [[ ! -f "${BASE_DIR}/src/cms/static/main.js" ]]; then
+if [[ -z $(compgen -G "${PACKAGE_DIR}/static/dist/main.*.js") ]]; then
     echo -e "The compiled static files do not exist yet, therefore the start of the Django dev server will be delayed until the initial WebPack build is completed." | print_warning
 fi
 
@@ -39,7 +39,7 @@ echo -e "Starting WebPack dev server in background..." | print_info | print_pref
 deescalate_privileges npm run dev 2>&1 | print_prefix "webpack" 36 &
 
 # Waiting for initial WebPack dev build
-while [[ -z $(compgen -G "${BASE_DIR}/src/cms/static/main.*.js") ]]; do
+while [[ -z $(compgen -G "${PACKAGE_DIR}/static/dist/main.*.js") ]]; do
     sleep 1
 done
 

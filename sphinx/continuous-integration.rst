@@ -19,11 +19,15 @@ It contains all the jobs listed below.
 See `Configuring CircleCI <https://circleci.com/docs/2.0/configuration-reference/>`__ for a full reference.
 
 
-Workflow ``main``
-=================
+Workflow ``develop``
+====================
+
+This workflow gets triggered everytime a commit is pushed to the ``develop`` branch or a PR is opened.
 
 .. image:: images/circleci-main-workflow.png
     :alt: CircleCI main workflow
+
+.. _circleci-pipenv-install:
 
 pipenv-install
 --------------
@@ -31,11 +35,14 @@ pipenv-install
 This job executes ``pipenv install --dev`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
 It passes the virtual environment ``.venv`` to the subsequent jobs.
 
-npm-install
------------
+.. _circleci-webpack:
+
+webpack
+-------
 
 This job executes ``npm install`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
-It passes the installed ``node_modules`` to the subsequent jobs.
+After that, it compiles all static files with webpack (``npm run prod``) and passes the output in
+``integreat_cms/static/dist`` to the subsequent jobs.
 
 pylint
 ------
@@ -60,21 +67,34 @@ check-translations
 This job uses the dev-tool ``./dev-tools/check_translations.sh`` to check whether the translation file is up to date and
 does not contain any empty or fuzzy entries.
 
-.. _circleci-bundle-static-files:
+.. _circleci-compile-translations:
 
-bundle-static-files
--------------------
+compile-translations
+--------------------
 
-This job compiles and compresses all static files, e.g. CSS, JS as well as the compiled translation file.
-It passes the resulting objects to the testing and packaging jobs.
+This job compiles the translation file and passes the resulting ``django.mo`` to the packaging job.
 
-.. _circleci-packaging:
+bump-dev-version
+----------------
 
-packaging
----------
+This job modifies the ``bumpver`` config to make sure the changes are only temporary and not committed, then it bumps
+the version to the next alpha version which is not yet published on
+`TestPyPI <https://test.pypi.org/project/integreat-cms/#history>`__.
 
-This job creates a debian package with ``python3 setup.py --command-packages=stdeb.command bdist_deb`` and passes the
-resulting files in ``dist`` to the build artifacts.
+.. _circleci-build-package:
+
+build-package
+-------------
+
+This job creates a python package and passes the resulting files in ``dist`` to the :ref:`circleci-publish-package` job.
+See :doc:`packaging` for more information.
+
+.. _circleci-publish-package:
+
+publish-package
+---------------
+
+This job publishes the built package to `TestPyPI <https://test.pypi.org/project/integreat-cms/>`__ via :doc:`twine:index`.
 
 build-documentation
 -------------------
@@ -92,23 +112,6 @@ This job authenticates as the user `DigitalfabrikMember <https://github.com/Digi
 documentation to the branch `gh-pages <https://github.com/Integreat/cms-django/tree/gh-pages>`_
 which is then deployed to ``https://integreat.github.io/cms-django/`` by GitHub.
 
-.. _circleci-docker-images:
-
-docker-images
--------------
-This job builds the docker images used for this CircleCI workflow (see :ref:`circleci-custom-docker-images` for more information).
-After a successful docker build, the images are pushed to `Docker Hub <https://hub.docker.com/u/integreat>`__
-
-To login to our organization's docker hub account, the job needs to access the secret ``DOCKER_PASSWORD``, which is
-available to all users of the GitHub team `Integreat/cms <https://github.com/orgs/Integreat/teams/cms>`__.
-This is also the reason why the job is not executed on branches of the dependabot, because the bot does not have the
-permissions to access the Docker Hub credentials.
-
-.. admonition:: Got error "Unauthorized"?
-    :class: error
-
-    If you get an ``Unauthorized`` error on this job, see :ref:`circleci-unauthorized`.
-
 .. _circleci-shellcheck:
 
 shellcheck/check
@@ -119,6 +122,65 @@ executes the pre-defined job ``shellcheck/check``. It is configured to check the
 and to allow external sources because all dev tools source one common function script. Also see :ref:`shellcheck`.
 
 
+Workflow ``main``
+=================
+
+This workflow gets executed when a commit is pushed to the ``main`` branch. Typically, this is a release PR from ``develop``.
+
+pipenv-install
+--------------
+
+See :ref:`circleci-pipenv-install`.
+
+bump-version
+------------
+
+This job authenticates as the deliverino app and runs ``pipenv run bumpver update`` to bump the version and commit the
+changes to the main branch. Additionally, it merges the version bump commit into the ``develop`` branch.
+
+
+Workflow ``deploy``
+===================
+
+This workflow gets executed when a commit is tagged.
+
+pipenv-install
+--------------
+
+See :ref:`circleci-pipenv-install`.
+
+webpack
+-------
+
+See :ref:`circleci-webpack`.
+
+compile-translations
+--------------------
+
+See :ref:`circleci-compile-translations`.
+
+build-package
+-------------
+
+See :ref:`circleci-build-package`.
+
+publish-package
+---------------
+
+See :ref:`circleci-build-package`. The only difference is that PyPI is used as repository instead of TestPyPI.
+
+create-release
+--------------
+
+This job authenticates as Deliverino app and creates a GitHub release with :github-source:`.circleci/scripts/create_release.py`.
+
+notify-mattermost
+-----------------
+
+This job sends a release notification to Mattermost into the ``integreat-releases`` channel. It needs the Mattermost
+webhook which is injected via the ``mattermost`` context.
+
+
 Debugging with SSH
 ==================
 
@@ -127,30 +189,14 @@ server and examine the problem. See `Debugging with SSH <https://circleci.com/do
 more information.
 
 
-.. _circleci-custom-docker-images:
+.. _circleci-unauthorized:
 
-Custom Docker Images
-====================
+⚠ Unauthorized (CircleCI)
+=========================
 
-To speed up the jobs :ref:`circleci-bundle-static-files` and :ref:`circleci-packaging`, we use the custom docker images
-`integreat/python-node-gettext <https://hub.docker.com/r/integreat/python-node-gettext>`__ and
-`integreat/bionic-setuptools <https://hub.docker.com/r/integreat/bionic-setuptools>`__.
+.. admonition:: Got error "Unauthorized"?
+    :class: error
 
-.. Note::
-
-    See `Using Custom-Built Docker Images <https://circleci.com/docs/2.0/custom-images/>`__ for more information on custom
-    docker images for CircleCI builds.
-
-The Dockerfiles are managed via GitHub in :github-source:`.circleci/images/bionic-setuptools/Dockerfile` and
-:github-source:`.circleci/images/python-node-gettext/Dockerfile`.
-Every time a change is pushed to GitHub (no matter on which branch), they are tagged with the commit's SHA1 hash and
-pushed to `Docker Hub <https://hub.docker.com/u/integreat>`__ (see :ref:`circleci-docker-images` for more information).
-Don't forget to change the image tag in :github-source:`.circleci/config.yml` after you made changes to the Dockerfile::
-
-  bundle-static-files:
-    docker:
-      - image: integreat/python-node-gettext:<INSERT-NEW-COMMIT-SHA1-HERE>
-
-  packaging:
-    docker:
-      - image: integreat/bionic-setuptools:<INSERT-NEW-COMMIT-SHA1-HERE>
+    Some jobs need secrets that are passed into the execution via `contexts <https://circleci.com/docs/2.0/contexts/>`_.
+    If you get the error "unauthorized", you have to make sure you have the correct permissions to access these secrets.
+    See :ref:`troubleshooting-unauthorized` for typical solutions to this problem.

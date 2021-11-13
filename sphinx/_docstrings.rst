@@ -21,7 +21,7 @@ Please add docstrings in the sphinx format (see :doc:`sphinx-rtd-tutorial:docstr
 .. Note::
 
     Please use the correct Python :doc:`python:library/datatypes` (e.g. ``str`` instead of ``string``, ``int`` instead
-    of ``integer``) and provide absolute paths to any referenced classes (e.g. ``~cms.models.regions.region.Region``).
+    of ``integer``) and provide absolute paths to any referenced classes (e.g. ``~integreat_cms.cms.models.regions.region.Region``).
     If the module path is very long or doesn't add much information, consider using a tilde ``~`` as prefix to show only
     the class name.
 
@@ -36,4 +36,4 @@ Whenever you want to document module/class attributes which are not parameters (
     #: Description of attribute
     attribute = "value of this attribute"
 
-See the configuration files :mod:`~backend.settings` and :mod:`conf` or :mod:`~cms.constants` for examples.
+See the configuration files :mod:`~integreat_cms.core.settings` and :mod:`conf` or :mod:`~integreat_cms.cms.constants` for examples.

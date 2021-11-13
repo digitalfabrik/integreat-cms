@@ -1,32 +1,32 @@
 #!/usr/bin/env python3
 """ Setup.py """
 
-import os
-import sys
-
 from setuptools import find_packages, setup
 
-# Add source directory to PATH variable to enable import of version number
-sys.path.append(os.path.abspath("src"))
-# pylint: disable=wrong-import-position
-from backend.settings import VERSION
+
+package_name = "integreat-cms"
+package_dir = "integreat_cms"
+version = "2021.9.0-beta"
+
+
+def readme():
+    """
+    Read the readme file which is intended for the description on PyPI
+
+    :return: The contents of the readme file
+    :rtype: str
+    """
+    with open(f"{package_dir}/README.md", mode="r", encoding="utf8") as f:
+        return f.read()
+
 
 setup(
-    name="integreat-cms",
-    version=VERSION,
-    packages=find_packages("src"),
-    package_dir={"": "src"},
+    name=package_name,
+    version=version,
+    packages=find_packages(),
     include_package_data=True,
-    scripts=["src/integreat-cms-cli"],
+    scripts=[f"{package_dir}/integreat-cms-cli"],
     data_files=[
-        (f"lib/integreat-{root}", [os.path.join(root, f) for f in files])
-        for root, _, files in os.walk("src/cms/templates/")
-    ]
-    + [
-        (f"lib/integreat-{root}", [os.path.join(root, f) for f in files])
-        for root, _, files in os.walk("src/cms/static/")
-    ]
-    + [
         ("etc/apache2/site-available", ["example-configs/apache2-integreat-vhost.conf"])
     ],
     install_requires=[
@@ -52,12 +52,14 @@ setup(
         "requests",
         "rules",
         "six",
-        "webauthn",
+        "webauthn==0.4.7",
         "xhtml2pdf",
     ],
     author="Integreat App Project",
     author_email="info@integreat-app.de",
     description="Content Management System for the Integreat App",
+    long_description=readme(),
+    long_description_content_type="text/markdown",
     license="GPL-2.0-or-later",
     keywords="Django Integreat CMS",
     url="http://github.com/Integreat/",

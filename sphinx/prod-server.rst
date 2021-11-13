@@ -4,18 +4,23 @@ Production Server
 
 .. highlight:: bash
 
-.. Attention::
 
-    This guide is not the final deployment workflow and will probably change in the near future.
+Integreat CMS Package
+=====================
 
+    1. Choose a location for your installation, e.g. ``/opt/integreat-cms/``::
 
-Database
-========
+        mkdir /opt/integreat-cms
+        cd /opt/integreat-cms
 
-Install a `PostgreSQL <https://www.postgresql.org/>`_ database on your system
+    2. Create a virtual environment::
 
-    - Installation process varies across different distros (e.g. on `Ubuntu <https://wiki.ubuntuusers.de/PostgreSQL/>`_)
-    - Generate secure credentials and keep them secret
+        python3 -m venv .venv
+        source .venv/bin/activate
+
+    3. Install the Integreat cms inside the virtual environment::
+
+        pip3 install integreat-cms
 
 
 Webserver
@@ -23,19 +28,20 @@ Webserver
 
     1. Set up an `Apache2 server with mod_wsgi <https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/modwsgi/>`_.
        You can use the :github-source:`example-configs/apache2-integreat-vhost.conf`.
+
     2. Set the following environment variables in the Apache2 config to ensure a safe and secure service:
 
-        * ``DJANGO_SECRET_KEY``: :attr:`~backend.settings.SECRET_KEY`
-        * ``DJANGO_DEBUG``: :attr:`~backend.settings.DEBUG`
-        * ``DJANGO_LOGFILE``: :attr:`~backend.settings.LOGFILE`
-        * ``DJANGO_WEBAPP_URL``: :attr:`~backend.settings.WEBAPP_URL`
-        * ``DJANGO_MATOMO_URL``: :attr:`~backend.settings.MATOMO_URL`
-        * ``DJANGO_BASE_URL``: :attr:`~backend.settings.BASE_URL`
-        * ``DJANGO_STATIC_ROOT``: :attr:`~backend.settings.STATIC_ROOT`
-        * ``DJANGO_MEDIA_ROOT``: :attr:`~backend.settings.MEDIA_ROOT`
-        * ``DJANGO_XLIFF_ROOT``: :attr:`~backend.settings.XLIFF_ROOT`
+        * ``DJANGO_SECRET_KEY``: :attr:`~integreat_cms.core.settings.SECRET_KEY`
+        * ``DJANGO_DEBUG``: :attr:`~integreat_cms.core.settings.DEBUG`
+        * ``DJANGO_LOGFILE``: :attr:`~integreat_cms.core.settings.LOGFILE`
+        * ``DJANGO_WEBAPP_URL``: :attr:`~integreat_cms.core.settings.WEBAPP_URL`
+        * ``DJANGO_MATOMO_URL``: :attr:`~integreat_cms.core.settings.MATOMO_URL`
+        * ``DJANGO_BASE_URL``: :attr:`~integreat_cms.core.settings.BASE_URL`
+        * ``DJANGO_STATIC_ROOT``: :attr:`~integreat_cms.core.settings.STATIC_ROOT`
+        * ``DJANGO_MEDIA_ROOT``: :attr:`~integreat_cms.core.settings.MEDIA_ROOT`
+        * ``DJANGO_XLIFF_ROOT``: :attr:`~integreat_cms.core.settings.XLIFF_ROOT`
 
-       Database settings: :attr:`~backend.settings.DATABASES`
+       Database settings: :attr:`~integreat_cms.core.settings.DATABASES`
 
         * ``DJANGO_DB_HOST``
         * ``DJANGO_DB_NAME``
@@ -45,39 +51,52 @@ Webserver
 
        Email settings:
 
-        * ``DJANGO_EMAIL_HOST``: :attr:`~backend.settings.EMAIL_HOST`
-        * ``DJANGO_EMAIL_HOST_PASSWORD``: :attr:`~backend.settings.EMAIL_HOST_PASSWORD`
-        * ``DJANGO_EMAIL_HOST_USER``: :attr:`~backend.settings.EMAIL_HOST_USER`
-        * ``DJANGO_EMAIL_PORT``: :attr:`~backend.settings.EMAIL_PORT`
+        * ``DJANGO_EMAIL_HOST``: :attr:`~integreat_cms.core.settings.EMAIL_HOST`
+        * ``DJANGO_EMAIL_HOST_PASSWORD``: :attr:`~integreat_cms.core.settings.EMAIL_HOST_PASSWORD`
+        * ``DJANGO_EMAIL_HOST_USER``: :attr:`~integreat_cms.core.settings.EMAIL_HOST_USER`
+        * ``DJANGO_EMAIL_PORT``: :attr:`~integreat_cms.core.settings.EMAIL_PORT`
 
-       Cache settings: :attr:`~backend.settings.CACHES`
+       Cache settings: :attr:`~integreat_cms.core.settings.CACHES`
 
         * ``DJANGO_REDIS_CACHE``: Whether or not the Redis cache should be enabled
         * ``DJANGO_REDIS_UNIX_SOCKET``: If Redis is enabled and available via a unix socket, set this environment
           variable to the location of the socket, e.g. ``/var/run/redis/redis.sock``.
           Otherwise, the connection falls back to a regular TCP connection on port ``6379``.
 
-    3. Clone this repo into ``/opt/``.
-    4. Edit the :github-source:`src/backend/settings.py` if a setting you want to change is not configurable via
-       environment variables.
-    5. Create a virtual environment::
 
-        cd /opt/integreat-cms
-        python3 -m venv .venv
-        source .venv/bin/activate
+Static Files
+============
 
-    6. Use setuptools to install: ``python3 setup.py develop``. It is also possible to use the ``install`` parameter,
-       but this requires changes to the ``wsgi.py`` path in the Apache2 config.
-    7. Run the database migrations: ``integreat-cms-cli migrate``
-    8. Collect static files: ``integreat-cms-cli collectstatic``
+    1. Create root directories for all static files. It's usually good practise to separate code and data, so e.g.
+       create the directory ``/var/www/cms/`` with the sub-directories ``static``, ``media``, ``xliff/upload`` and
+       ``xliff/download``.
+
+    2. Make sure these directories are directly served by the Apache webserver and not by Django.
+
+    3. Collect static files::
+
+        integreat-cms-cli collectstatic
+
+
+Database
+========
+
+    1. Install a `PostgreSQL <https://www.postgresql.org/>`_ database on your system.
+       Installation process varies across different distros (e.g. on `Ubuntu <https://wiki.ubuntuusers.de/PostgreSQL/>`_)
+
+    2. Generate secure credentials and keep them secret
+
+    3. Execute initial migrations::
+
+        integreat-cms-cli migrate
 
 
 Redis Cache
 ===========
 
-Install a Redis database on your system which can be used as cache.
+    1. Install a Redis database on your system which can be used as cache.
+       Installation process varies across different distros (e.g. on `Ubuntu <https://wiki.ubuntuusers.de/Redis//>`__).
 
-    * Installation process varies across different distros (e.g. on `Ubuntu <https://wiki.ubuntuusers.de/Redis//>`__).
-    * Set the environment variable ``DJANGO_REDIS_CACHE`` to activate the cache
-    * Ideally, the connection is established via a unix socket instead of TCP (Set the environment variable
-      ``DJANGO_REDIS_UNIX_SOCKET`` to the location of the unix socket).
+    2. Set the environment variable ``DJANGO_REDIS_CACHE`` to activate the cache.
+       Ideally, the connection is established via a unix socket instead of TCP (Set the environment variable
+       ``DJANGO_REDIS_UNIX_SOCKET`` to the location of the unix socket).

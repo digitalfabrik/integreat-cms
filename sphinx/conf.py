@@ -14,14 +14,12 @@ import importlib
 
 from django import VERSION as django_version
 
-from backend.settings import VERSION
-
 # Append project source directory to path environment variable
-sys.path.append(os.path.abspath("../src/"))
+sys.path.append(os.path.abspath(".."))
 # Append sphinx source directory to path environment variable to allow documentation for this file
-sys.path.append(os.path.abspath("./"))
+sys.path.append(os.path.abspath("."))
 #: The path to the django settings module (see :doc:`sphinxcontrib-django2:readme`)
-django_settings = "backend.sphinx_settings"
+django_settings = "integreat_cms.core.sphinx_settings"
 #: The "major.minor" version of Django
 django_version = f"{django_version[0]}.{django_version[1]}"
 
@@ -46,7 +44,7 @@ github_pages_url = f"https://{github_username}.github.io/{github_repository}"
 django_github_url = f"https://github.com/django/django/blob/stable/{django_version}.x"
 
 #: The full version, including alpha/beta/rc tags
-release = VERSION
+release = "2021.9.0-beta"
 
 # -- General configuration ---------------------------------------------------
 
@@ -69,7 +67,7 @@ intersphinx_mapping = {
         None,
     ),
     # "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
-    "requests": ("https://requests.readthedocs.io/en/master/", None),
+    "requests": ("https://docs.python-requests.org/en/master/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
     "sphinx-rtd-theme": (
         "https://sphinx-rtd-theme.readthedocs.io/en/latest/",
@@ -92,6 +90,8 @@ intersphinx_mapping = {
         None,
     ),
     "django-mptt": ("https://django-mptt.readthedocs.io/en/latest/", None),
+    "setuptools": ("https://setuptools.pypa.io/en/latest/", None),
+    "twine": ("https://twine.readthedocs.io/en/latest/", None),
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
     "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest/", None),
 }
@@ -118,7 +118,6 @@ nitpick_ignore = [
     ("py:class", "builtins.int"),
     ("py:class", "builtins.AssertionError"),
     ("py:class", "builtins.int"),
-    ("js:func", "cms.static.js.pages.page_bulk_action.bulk_action_execute"),
     ("py:attr", "django.contrib.auth.models.Permission.user_set"),
     ("py:attr", "django.contrib.auth.models.Group.role"),
     ("py:attr", "django.contrib.auth.models.Group.user_set"),
@@ -151,7 +150,7 @@ nitpick_ignore = [
     ("py:class", "xml.dom.minidom.Element"),
 ]
 #: A list of prefixes that are ignored for sorting the Python module index
-modindex_common_prefix = ["cms"]
+modindex_common_prefix = ["integreat_cms"]
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -163,9 +162,9 @@ html_theme_options = {
     "collapse_navigation": False,
 }
 #: The logo shown in the menu bar
-html_logo = "../src/frontend/images/integreat-logo-white.png"
+html_logo = "../integreat_cms/static/src/images/integreat-logo-white.png"
 #: The favicon of the html doc files
-html_favicon = "../src/frontend/images/integreat-icon.png"
+html_favicon = "../integreat_cms/static/src/images/integreat-icon.png"
 #: The url where the docs should be published (via gh-pages)
 html_baseurl = github_pages_url
 #: Do not include links to the documentation source (.rst files) in build
@@ -211,5 +210,5 @@ def linkcode_resolve(domain, info):
     if module_str.startswith("django."):
         url = django_github_url
     else:
-        url = f"{github_url}/blob/develop/src"
+        url = f"{github_url}/blob/develop"
     return f"{url}/{module_path}{filename}{line_number_reference}"
