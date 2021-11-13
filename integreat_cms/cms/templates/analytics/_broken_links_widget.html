@@ -1,0 +1,48 @@
+{% extends "_collapsible_box.html" %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block collapsible_box_icon %}
+    link
+{% endblock %}
+
+{% block collapsible_box_title %}
+    {% trans 'Broken Link Checker' %}
+{% endblock %}
+
+{% block collapsible_box_content %}
+    <div class="flex flex-wrap justify-between gap-2">
+        <p class="py-3">{% trans 'The list below shows all detected errors related to links.' %}</p>
+        <a href="{% url 'linkcheck_landing' region_slug=region.slug %}" class="btn">
+            {% trans "Details" %}
+        </a>
+    </div>
+    <div class="mt-4">
+    <table class="w-full max-w-xl mb-4">
+        <tbody>
+            <tr>
+                <td>{% trans 'Invalid links' %}</td>
+                <td class="text-right">{{ number_invalid_links }}</td>
+            </tr>
+            <tr>
+                <td>{% trans 'Valid links' %}</td>
+                <td class="text-right">{{ number_valid_links }}</td>
+            </tr>
+            <tr>
+                <td>{% trans 'Ignored links' %}</td>
+                <td class="text-right">{{ number_ignored_links }}</td>
+            </tr>
+            <tr>
+                <td class="pb-2 border-b border-gray-400">{% trans 'Unchecked links' %}</td>
+                <td class="text-right border-b border-gray-400">{{ number_unchecked_links }}</td>
+            </tr>
+            <tr>
+                <td class="pt-2">{% trans 'Total links' %}</td>
+                <td class="text-right">{{ number_all_links }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

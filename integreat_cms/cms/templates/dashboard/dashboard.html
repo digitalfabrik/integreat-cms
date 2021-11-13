@@ -1,0 +1,34 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="dashboard">
+        <h1 class="heading">{% trans 'My Dashboard' %}</h1>
+        <div class="xl:flex gap-3 pt-2">
+            <div class="xl:w-1/2">
+                <!-- Statistic Widget -->
+                {% if region.statistics_enabled %}
+                    {% include "statistics/_statistics_widget.html" %}
+                {% endif %}
+                <!-- Broken Link Widget -->
+                {% include "analytics/_broken_links_widget.html" %}
+                <!-- Translation Status Widget -->
+                {% include "analytics/_translation_overview_widget.html" %}
+                <!-- App Size Widget -->
+                {% include "analytics/_website_size_widget.html" %}
+            </div>
+            <div class="xl:w-1/2">
+                <!-- Chat Widget -->
+                {% if chat_form %}
+                    {% include "chat/_chat_widget.html" %}
+                {% endif %}
+                <!-- News Widget -->
+                {% include "dashboard/_news_widget.html" %}
+            </div>
+        </div>
+    </div>
+{% include "../generic_confirmation_dialog.html" with confirmation_ajax_enabled=True %}
+{% endblock %}

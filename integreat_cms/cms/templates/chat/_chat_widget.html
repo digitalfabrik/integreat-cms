@@ -1,0 +1,31 @@
+{% extends "_collapsible_box.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block collapsible_box_icon %}
+    message-circle
+{% endblock %}
+
+{% block collapsible_box_title %}
+    {% trans 'Chat' %}
+{% endblock %}
+
+{% block collapsible_box_content %}
+    <div id="chat-history" class="flex flex-col-reverse break-words border-gray-300 border max-h-116 overflow-y-auto">
+        {% include "chat/_chat_messages.html" %}
+    </div>
+    <form id="chat-form" action="{% url 'send_chat_message' %}" method="post" class="pt-4">
+        {% csrf_token %}
+        {% render_field chat_form.text rows="2" class="mb-2" %}
+
+        <button id="send-chat-message" class="btn">
+            <i data-feather="send"></i> {% trans "Send message" %}
+        </button>
+        <span id="chat-loading" class="px-4 hidden"><i data-feather="loader" class="animate-spin"></i></span>
+        <span id="chat-network-error" class="text-red-500 px-4 hidden"><i data-feather="alert-triangle"></i> {% trans 'A network error has occurred.' %} {% trans 'Please try again later.' %}</span>
+        <span id="chat-server-error" class="text-red-500 px-4 hidden"><i data-feather="alert-triangle"></i> {% trans 'A server error has occurred.' %} {% trans 'Please contact the administrator.' %}</span>
+    </form>
+{% endblock %}

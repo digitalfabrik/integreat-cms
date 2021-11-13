@@ -1,0 +1,86 @@
+{% load i18n %}
+
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+    <td class="pl-4">
+        <a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
+            {{ user.username }}
+        </a>
+    </td>
+	<td>
+        <a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
+            {{ user.first_name }}
+        </a>
+	</td>
+	<td>
+        <a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
+            {{ user.last_name }}
+        </a>
+	</td>
+	<td>
+		<span class="hover:underline text-blue-500 hover:text-blue-600 pr-2">
+            {{ user.email|urlize }}
+		</span>
+	</td>
+	<td>
+		<a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
+			{% if user.organization %}
+				{{ user.organization }}
+			{% endif %}
+		</a>
+	</td>
+	<td>
+		<a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
+			{{ user.role }}
+		</a>
+	</td>
+	<td>
+		<a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 pr-2 text-gray-800 whitespace-nowrap">
+			{% if user.last_login %}
+				{{ user.last_login }}
+			{% else %}
+				<span title="{% trans 'No login yet' %}">
+					<i data-feather="x" class="text-red-500"></i>
+				</span>
+			{% endif %}
+		</a>
+	</td>
+	<td class="pr-2 whitespace-nowrap">
+		{% if user.is_active %}
+			<span title="{% trans 'Active' %}">
+				<i data-feather="check" class="text-green-500"></i>
+			</span>
+		{% else %}
+			<span title="{% trans 'Inactive' %}">
+				<i data-feather="x" class="text-red-500 align-text-top"></i>
+			</span>
+			<form method="post" action="{% url 'resend_activation_link' user_id=user.id %}" class="inline">
+				{% csrf_token %}
+				<button class="bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer">
+					{% trans 'Resend activation link' %}
+				</button>
+			</form>
+		{% endif %}
+	</td>
+	<td class="pr-2">
+		{% if user.is_staff %}
+			<span title="{% trans 'Staff member' %}">
+				<i data-feather="check" class="text-green-500"></i>
+			</span>
+		{% else %}
+			<span title="{% trans 'No staff member' %}">
+				<i data-feather="x" class="text-red-500"></i>
+			</span>
+		{% endif %}
+	</td>
+	<td class="pr-4">
+		{% if user.is_superuser %}
+			<span title="{% trans 'Administrator' %}">
+				<i data-feather="check" class="text-green-500"></i>
+			</span>
+		{% else %}
+			<span title="{% trans 'No administrator' %}">
+				<i data-feather="x" class="text-red-500"></i>
+			</span>
+		{% endif %}
+	</td>
+</tr>

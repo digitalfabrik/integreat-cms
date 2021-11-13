@@ -1,0 +1,17 @@
+{% extends "authentication/_base.html" %}
+
+{% load i18n %}
+
+{% block heading %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h2 class="text-2xl mb-4 text-center">{% trans 'Error' %} {{ code }}</h2>
+    <p class="mb-4 text-lg">
+        {{ message }}
+    </p>
+    <a href="/" class="block w-full text-center bg-integreat-500 hover:bg-gray-600 text-gray-800 hover:text-integreat-500 font-bold py-2 px-4 rounded focus:shadow-outline">
+        <i data-feather="arrow-left-circle" class="align-top"></i> {% trans 'Return back home' %}
+    </a>
+{% endblock %}

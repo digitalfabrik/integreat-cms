@@ -1,0 +1,74 @@
+{% extends "_collapsible_box.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load text_filters %}
+
+{% block collapsible_box_icon %}
+    trello
+{% endblock %}
+
+{% block collapsible_box_title %}
+    {% trans 'Unread technical feedback' %}
+{% endblock %}
+
+{% block collapsible_box_content %}
+    <div class="mb-1 text-s text-gray-600">{% trans 'The five most recent entries are listed.' %}</div>
+    <table class="w-full rounded border border-solid border-gray-200 shadow bg-white mb-4">
+        <tr class="border-b border-solid border-gray-200">
+            <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Feedback on' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Comment' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Rating' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Region' %}</th>
+            <th class="text-sm text-right uppercase py-3 pr-2">{% trans 'Date' %}</th>
+        </tr>
+        {% for feedback in admin_feedback %}
+            <tr class="border-t border-solid border-yellow-200 bg-yellow-100">
+                <td class="px-2 py-3 border-l-4 border-yellow-400">
+                    {% if feedback.object_url %}
+                        <a href="{{ feedback.object_url }}">
+                            {{ feedback.object_name }}
+                        </a>
+                    {% else %}
+                        {{ feedback.object_name }}
+                    {% endif %}
+                </td>
+                <td class="pr-2 feedback-comment">
+                    {% if feedback.comment.splitlines|length > 1 %}
+                        <span>
+                            {{ feedback.comment.splitlines.0|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
+                        </span>
+                        <span class="hidden whitespace-pre-line">{{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i></span>
+                    {% elif feedback.comment|words|length > 20 %}
+                        <span>
+                            {{ feedback.comment|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
+                        </span>
+                        <span class="hidden">
+                            {{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
+                        </span>
+                    {% else %}
+                        {{ feedback.comment }}
+                    {% endif %}
+                </td>
+                <td class="pr-2">
+                    {% if feedback.rating == True %}
+                        <i data-feather="thumbs-up"></i>
+                    {% elif feedback.rating == False %}
+                        <i data-feather="thumbs-down"></i>
+                    {% endif %}
+                </td>
+                <td class="pr-2">
+                    <a href="{% url 'dashboard' region_slug=feedback.region.slug %}">
+                        {{ feedback.region.name }}
+                    </a>
+                </td>
+                <td class="pr-2 text-right">{{ feedback.created_date }}</td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="6" class="px-2 py-3">{% trans 'No Feedback available yet.' %} </td></tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'admin_feedback'%}" class="btn">
+        {% trans 'Open feedback list' %}
+    </a>
+{% endblock %}

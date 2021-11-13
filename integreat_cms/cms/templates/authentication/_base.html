@@ -1,0 +1,22 @@
+{% extends "_raw.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block raw_content %}
+<div class="min-h-screen min-w-screen flex flex-col justify-center bg-gray-100 px-3 py-10">
+    <div class="mx-auto w-96">
+        <a href="/">
+            <div class="h-24 mb-3 bg-logo hover:bg-logo-yellow bg-contain bg-center bg-no-repeat"></div>
+        </a>
+        <div class="bg-white shadow-md rounded p-6 mb-4">
+            <h1 class="heading text-center mb-4">{% block heading %}{% endblock %}</h1>
+            {% include "messages.html" %}
+            {% block content %}{% endblock content %}
+        </div>
+        <p class="text-center text-gray-400">
+	        &copy;2018 - {% now "Y" %} Tür an Tür - Digital Factory gGmbH
+        </p>
+    </div>
+</div>
+{% endblock %}

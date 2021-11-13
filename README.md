@@ -1,26 +1,48 @@
-# Integreat CMS v2
-## Local development setup
-* `docker-compose up`
-* enter [http://localhost:8000](http://localhost:8000)
-* as long as there is no standard SQL dump, you have to create your own user: `docker exec -it cmsdjango_django_1 bash -c "python3 manage.py createsuperuser"`
+[![CircleCI](https://circleci.com/gh/Integreat/integreat-cms.svg?style=shield)](https://circleci.com/gh/Integreat/integreat-cms)
+[![Pylint](https://img.shields.io/badge/pylint-10.00-brightgreen)](https://www.pylint.org/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-## Production setup
+# Integreat Django CMS
 
-## Miscellaneous
-* keep in mind that we are using Python 3.x, so use `python3` and `pip3` on your bash commands
-* get a bash shell in the django container: `docker exec -it cmsdjango_django_1 bash`
+[![Logo](.github/logo.png) Integreat - The mobile guide for newcomers.](https://integreat-app.de/en/) Multilingual. Offline. Open Source.
 
-### Migrations
-* change models
-* `docker exec -it cmsdjango_django_1 bash -c "python3 manage.py makemigrations"`
-* `docker exec -it cmsdjango_django_1 bash -c "python3 manage.py migrate"`
+This content management system helps local integration experts to provide multilingual information for newcomers.
 
-### pip dependencies
-* freeze new installed dependencies via `docker exec -it cmsdjango_django_1 bash -c "pip3 freeze > requirements.txt"`
-* install requirements via `docker exec -it cmsdjango_django_1 bash -c "pip3 install -r requirements.txt"`
+## TL;DR
 
-### Docker clean up
-* `docker stop $(docker ps -a -q)`
-* `docker rm $(docker ps -a -q)`
-* remove all images: `docker rmi $(docker images -a -q)`
-* remove all volumes: `docker volume prune`
+### Prerequisites
+
+Following packages are required before installing the project (install them with your package manager):
+
+* npm version 7 or higher
+* nodejs version 12 or higher
+* python3.7 (Debian-based distributions) / python37 (Arch-based distributions)
+* python3.7-dev (only on Ubuntu)
+* python3-pip (Debian-based distributions) / python-pip (Arch-based distributions)
+* pipenv for python3 (if no recent version is packaged for your distro, use `pip3 install pipenv --user`)
+* gettext to use the translation features
+* Either postgresql **or** docker to run a local database server
+
+### Installation
+
+````
+git clone git@github.com:Integreat/integreat-cms.git
+cd integreat-cms
+./dev-tools/install.sh
+````
+
+### Run development server
+
+````
+./dev-tools/run.sh
+````
+
+* Go to your browser and open the URL `http://localhost:8000`
+* Default user is "root" with password "root1234".
+
+## Documentation
+
+For detailed instructions, tutorials and the source code reference have a look at our great documentation:
+
+<p align="center">:notebook: https://integreat.github.io/integreat-cms/</p>

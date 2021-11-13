@@ -1,0 +1,49 @@
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% load content_filters %}
+
+<form method="post" id='admin-feedback-filter-form'>
+    {% csrf_token %}
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_language LANGUAGE_CODE as current_language %}
+    <div class="flex flex-wrap p-4 pb-0 items-start">
+        <div class="w-2/5 pr-6">
+            <div class="flex flex-wrap items-end">
+                <label for="{{ filter_form.region.id_for_label }}">{{ filter_form.region.label }}</label>
+                {% render_field filter_form.region|add_error_class:"border-red-500" class+="default-value" data-default-value="" %}
+                <label for="{{ filter_form.language.id_for_label }}">{{ filter_form.language.label }}</label>
+                {% render_field filter_form.language|add_error_class:"border-red-500" class+="default-value" data-default-value="" %}
+            </div>
+        </div>
+        <div class="w-2/5 pr-6">
+            <label for="{{ filter_form.category.id_for_label }}">{{ filter_form.category.label }}</label>
+            {% render_field filter_form.category|add_error_class:"border-red-500" class+="default-value" data-default-value="" %}
+            <label>{% trans 'Time range' %}</label>
+            <div class="flex flex-wrap my-2 items-end">
+                <div class="w-1/2 pr-1">
+                    {% render_field filter_form.date_from|add_error_class:"border-red-500" %}
+                    <label for="{{ filter_form.date_from.id_for_label }}" class="secondary">{{ filter_form.date_from.label }}</label>
+                </div>
+                <div class="w-1/2 pr-1">
+                    {% render_field filter_form.date_to|add_error_class:"border-red-500" %}
+                    <label for="{{ filter_form.date_to.id_for_label }}" class="secondary">{{ filter_form.date_to.label }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="w-1/5">
+            <label for="{{ filter_form.read_status.id_for_label }}">{{ filter_form.read_status.label }}</label>
+            {% render_field filter_form.read_status class="default-checked leading-normal rounded mr-1" %}
+            <label for="{{ filter_form.rating.id_for_label }}">{{ filter_form.rating.label }}</label>
+            {% render_field filter_form.rating class+="default-checked leading-normal rounded mr-1" %}
+        </div>
+    </div>
+    <div class="w-full flex p-4 justify-end gap-4">
+        <a id="filter-reset" class="btn btn-gray">
+            {% trans 'Reset filter' %}
+        </a>
+        <button name="filter" class="btn">
+            {% trans 'Apply filter' %}
+        </button>
+    </div>
+</form>

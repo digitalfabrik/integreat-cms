@@ -1,0 +1,80 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load rules %}
+{% load static %}
+{% load content_filters %}
+
+{% block content %}
+<div class="table-header">
+    <div class="flex flex-wrap justify-between">
+        <h1 class="heading">{% trans 'Locations on map' %}</h1>
+        <a href="{% url 'archived_pois' region_slug=region.slug language_slug=language.slug %}" class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
+            <span>{% trans 'Archived locations' %}</span>
+            <span class="inline-block rounded-full bg-integreat-500 text-gray-800 px-2 py-1 text-xs font-bold">
+                {{ archived_count }}
+            </span>
+        </a>
+    </div>
+    <div class="flex flex-wrap justify-between gap-4">
+        <div class="flex flex-wrap gap-4">
+            {% include "generic_language_switcher.html" with target='pois' %}
+            {% include "search_input_form.html" with object_type="poi" %}
+        </div>
+        {% if region.default_language == language and perms.cms.change_imprintpage %}
+            <a href="{% url 'new_poi' region_slug=region.slug language_slug=language.slug %}" class="btn">
+                {% trans 'Create location' %}
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="table-listing">
+    <table class="w-full mt-4 rounded border border-gray-200 shadow bg-white table-fixed">
+        <thead>
+            <tr class="border-b border-gray-200">
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Status' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_language LANGUAGE_CODE as backend_language %}
+                {% if backend_language and backend_language != language %}
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
+                {% endif %}
+                <th class="text-sm text-left uppercase py-3 pr-2">
+                    <div class="lang-grid flags whitespace-nowrap">
+                        {% for lang in languages %}
+                            <a href="{% url 'pois' region_slug=region.slug language_slug=lang.slug %}">
+                                <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Street' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Postal Code' %}</th>
+	            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'City' %}</th>
+	            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Country' %}</th>
+                <th class="text-sm text-right uppercase py-3 pr-4 min">{% trans 'Options' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for poi in pois %}
+            {% get_translation poi language.slug as poi_translation %}
+            {% include "pois/poi_list_row.html" %}
+        {% empty %}
+            <tr>
+                <td colspan="7" class="px-4 py-3">
+                    {% if search_query %}
+                        {% trans 'No locations found with these filters.' %}
+                    {% else %}
+	                    {% trans 'No locations available yet.' %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include "../generic_confirmation_dialog.html" %}
+{% url "pois" as url %}
+{% include "pagination.html" with url=url chunk=pois %}
+{% endblock %}

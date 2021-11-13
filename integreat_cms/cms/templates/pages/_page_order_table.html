@@ -1,0 +1,65 @@
+{% load i18n %}
+{% load mptt_tags %}
+{% load content_filters %}
+{% load page_filters %}
+<div class="table-listing">
+    <table data-activate-page-order class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white table-auto">
+        <tbody>
+            {% get_current_language as LANGUAGE_CODE %}
+            {% recursetree siblings %}
+                {% if node == page %}
+                    <tr class="border-2 border-blue-500 hover:bg-gray-100">
+                        <td class="single_icon min">
+                            <span data-contained-in-siblings="true" class="drag text-gray-800 block py-3 px-2 cursor-move"
+                                  {% if not page.archived %}
+                                  draggable="true"
+                                  title="{% trans 'Change the position of the page with drag & drop.' %}"
+                                  {% endif %}>
+                                <i data-feather="move"></i>
+                            </span>
+                        </td>
+                        <td id="page_title" data-default-title="{{ node.best_translation.title }}">{{ node.best_translation.title }}</td>
+                    </tr>
+                {% else %}
+                    {% if page and node.get_previous_sibling == page %}
+                        <tr data-drop-id="{{ node.id }}" data-drop-position="left" class="drop-deactivated drop-between-deactivated h-3 -m-3 hidden"><td colspan="2"><div><span></span></div></td></tr>
+                    {% else %}
+                        <tr data-drop-id="{{ node.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden"><td colspan="2"><div><span></span></div></td></tr>
+                    {% endif %}
+                    <tr class="border border-gray-200 hover:bg-gray-100">
+                        <td></td>
+                        <td>{{ node.best_translation.title }}</td>
+                    </tr>
+                    {% if not node.get_next_sibling %}
+                        {% if not page in node.get_siblings %}
+                            <tr data-drop-id="{{ node.id }}" data-drop-position="right" class="drop-deactivated drop-between-deactivated h-3 -m-3 hidden"><td colspan="2"><div><span></span></div></td></tr>
+                        {% else %}
+                            <tr data-drop-id="{{ node.id }}" data-drop-position="right" class="drop drop-between h-3 -m-3 hidden"><td colspan="2"><div><span></span></div></td></tr>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endrecursetree %}
+            {% if not page in siblings %}
+                {% if not page %}
+                    <tr class="border-2 border-blue-500 hover:bg-gray-100">
+                        <td class="single_icon min">
+                            <span class="drag text-gray-800 block py-3 px-2 cursor-move" draggable="true">
+                                <i data-feather="move"></i>
+                            </span>
+                        </td>
+                        <td id="page_title" data-default-title="{% trans 'New Page' %}">{% trans 'New Page' %}</td>
+                    </tr>
+                {% else %}
+                    <tr class="border-2 border-blue-500 hover:bg-gray-100">
+                        <td class="single_icon min">
+                            <span class="drag text-gray-800 block py-3 px-2 cursor-move" draggable="true">
+                                <i data-feather="move"></i>
+                            </span>
+                        </td>
+                        <td id="page_title" data-default-title="{{ page.best_translation.title }}">{{ page.best_translation.title }}</td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>

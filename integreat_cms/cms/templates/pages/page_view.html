@@ -1,0 +1,21 @@
+{% extends "_raw.html" %}
+{% load i18n %}
+
+{% block raw_content %}
+<div class="px-4 {% if language.slug == 'zh-CN' %} font-content-sc {% elif right_to_left %} font-content-rtl text-right {% else %} font-content {% endif %}">
+    <h1 class="pt-4 font-bold text-lg font-default">{{ page_translation.title }}</h1>
+    {% if mirrored_translation and mirrored_page_first %}
+        <div class="pt-2">
+            {{ mirrored_translation.text|safe }}
+        </div>
+    {% endif %}
+    <div class="pt-2">
+        {{ page_translation.text|safe }}
+    </div>
+    {% if mirrored_translation and not mirrored_page_first %}
+        <div class="pt-2">
+            {{ mirrored_translation.text|safe }}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

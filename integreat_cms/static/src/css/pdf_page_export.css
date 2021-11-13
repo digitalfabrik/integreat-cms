@@ -1,0 +1,117 @@
+@import "../fonts/raleway/raleway-pdf.css";
+@import "../fonts/open-sans/open-sans-pdf.css";
+@import "../fonts/noto-sans-sc/noto-sans-sc-pdf.css";
+@import "../fonts/dejavu-sans/dejavu-sans-pdf.css";
+
+@page {
+    size: a4;
+    margin: 2cm;
+    @frame header_frame {
+        /* static frames: stay the same across different pages
+        is marked with -pdf-frame-content */
+        -pdf-frame-content: header;
+        left: 1cm;
+        top: 0.5cm;
+        right: 1cm;
+        height: 1cm;
+    }
+    @frame footer_frame {
+        -pdf-frame-content: footer;
+        left: 1cm;
+        bottom: 0.1cm;
+        right: 1cm;
+        height: 1.5cm;
+    }
+    @frame footer_bar_frame {
+        /* due to a malefunction of border-top property,
+        which selects all other borders (left, right, bottom) also,
+        this work-around uses a seperate static frame with minimal height
+        to draw a single horizontale line at the bottom of the page */
+        -pdf-frame-content: footer_bar;
+        height: 0.001cm;
+        bottom: 2.0001cm;
+        left: 1cm;
+        right: 1cm;
+        border-top-color: black;
+        border-top-style: solid;
+        border-top-width: 1px;
+    }
+    @frame header_bar_frame {
+        /* due to a malefunction of border-top property,
+        which selects all other borders (left, right, bottom) also,
+        this work-around uses a seperate static frame with minimal height
+        to draw a single horizontale line at the bottom of the page */
+        -pdf-frame-content: header_bar;
+        height: 0.001cm;
+        top: 1.6001cm;
+        left: 1cm;
+        right: 1cm;
+        border-top-color: black;
+        border-top-style: solid;
+        border-top-width: 1px;
+    }
+}
+.content, #footer {
+    font-size: large;
+}
+/* the following styles are applied only to the table of content
+at the first page of the pdf document */
+pdftoc {
+    /* applied to the whole toc */
+    font-size: large;
+} 
+pdftoc.pdftoclevel0 {
+    /* applied only to the root of the page tree */
+}
+pdftoc.pdftoclevel1 {
+    /* applied for all children of the root page */
+    margin-left: 2em;
+}
+pdftoc.pdftoclevel2 {
+    /* applied to all sub headers of the pages */
+    margin-left: 4em;
+}
+h1 {
+    font-size: xx-large;
+    margin: 0.67em 0;
+    /* set the level on which the tag is mapped to toc */
+    -pdf-outline-level: 1;
+}
+h2,h3,h4,h5,h6 {
+    font-size: x-large;
+    margin: 0.83em 0;
+    padding: 3px 0px;
+    -pdf-outline-level: 2;
+}
+.root_title {
+    -pdf-outline-level: 0;
+    /* keep the following html tag in the same frame */
+    -pdf-keep-with-next: false;
+}
+/* title of document on first page should not show up
+    in the table of content */
+#title_page {
+    -pdf-outline: false;
+}
+p, ol, ul {
+    padding: 0;
+}
+li {
+    padding: 1px 0px;
+}
+.right-to-left {
+    text-align: right;
+}
+#header {
+    text-align: right;
+}
+#first-footer {
+    text-align: left;
+}
+#second-footer {
+    text-align: center;
+}
+#third-footer {
+    text-align: right;
+    background-color: white;
+}

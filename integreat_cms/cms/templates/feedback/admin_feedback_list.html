@@ -1,0 +1,139 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% load text_filters %}
+
+{% block content %}
+{% with filter_form.filters_visible as filters_visible %}
+<div class="table-header">
+    <h1 class="heading">{% trans 'Technical Feedback' %}</h1>
+    <div class="flex justify-between">
+        {% include "search_input_form.html" with object_type="feedback" related_form='admin-feedback-filter-form' %}
+        <button id="filter-toggle" class="btn btn-light-blue">
+            <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans 'Show filters' %}</span>
+            <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans 'Hide filters' %}</span>
+        </button>
+    </div>
+</div>
+<div id="filter-form-container" class="{% if not filters_visible %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+    {% include 'feedback/_admin_feedback_filter_form.html' %}
+</div>
+{% endwith %}
+
+<form id="bulk-action-form" method="POST">
+    {% csrf_token %}
+    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white" data-enable-row-checkbox-toggle>
+        <tr class="border-b border-solid border-gray-200">
+            <th class="text-sm text-left uppercase py-3 pr-2" style="padding-left: 10px;" title="{% trans 'Select all' %}"><input type="checkbox" id="bulk-select-all"></th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Category' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Feedback on' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Language' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Comment' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Rating' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Rating' %} ({% trans 'overall' %})</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Region' %}</th>
+            <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Marked as read by' %}</th>
+            <th class="text-sm text-right uppercase py-3 pr-2">{% trans 'Date' %}</th>
+        </tr>
+
+        {% for feedback in admin_feedback %}
+        <tr class="border-t border-solid border-gray-200 hover:bg-gray-200 {% if not feedback.read %}bg-yellow-100 border-yellow-200 hover:border-gray-200{% endif %}">
+            <td class="py-3 {% if not feedback.read %}border-l-4 border-yellow-400{% endif %}" style="padding-left: {% if feedback.read %}10{% else %}8{% endif %}px;">
+                <input type="checkbox" name="selected_ids[]" value="{{ feedback.id }}" class="bulk-select-item">
+            </td>
+            <td class="pr-2 whitespace-nowrap">
+                {{ feedback.category }}
+            </td>
+            <td class="pr-2">
+                {% if feedback.object_url %}
+                <a href="{{ feedback.object_url }}" class="hover:underline">
+                    {{ feedback.object_name }}
+                </a>
+                {% else %}
+                    {{ feedback.object_name }}
+                {% endif %}
+            </td>
+            <td class="pr-2">{{ feedback.language.translated_name }}</td>
+            <td class="pr-2 feedback-comment">
+                {% if not feedback.comment %}
+                    <i data-feather="minus" class="pr-1"></i>
+                {% elif feedback.comment.splitlines|length > 1 %}
+                    <span>
+                        {{ feedback.comment.splitlines.0|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
+                    </span>
+                    <span class="hidden whitespace-pre-line">{{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i></span>
+                {% elif feedback.comment|words|length > 20 %}
+                    <span>
+                        {{ feedback.comment|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
+                    </span>
+                    <span class="hidden">
+                        {{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
+                    </span>
+                {% else %}
+                    {{ feedback.comment }}
+                {% endif %}
+            </td>
+            <td class="pr-2">
+                {% if feedback.rating == True %}
+                    <i data-feather="thumbs-up" class="pr-1"></i>
+                {% elif feedback.rating == False %}
+                    <i data-feather="thumbs-down" class="pr-1"></i>
+                {% elif feedback.rating == None %}
+                    <i data-feather="minus" class="pr-1"></i>
+                {% endif %}
+            </td>
+            <td class="pr-2">
+                <span class="{% if not feedback.rating_sum_positive %}invisible{% endif %}">
+                    <i data-feather="thumbs-up" class="pr-1"></i> {{ feedback.rating_sum_positive }}
+                </span>
+                <span class="{% if not feedback.rating_sum_negative %}invisible{% endif %}">
+                    <i data-feather="thumbs-down" class="pl-1"></i> {{ feedback.rating_sum_negative }}
+                </span>
+            </td>
+            <td class="pr-2">
+                <a href="{% url 'dashboard' region_slug=feedback.region.slug %}" class="hover:underline">
+                    {{ feedback.region.get_administrative_division_display }} {{ feedback.region.name }}
+                </a>
+            </td>
+            <td class="pr-2">
+                {% if feedback.read_by.email %}
+                    <a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">
+                {% endif %}
+                {{ feedback.read_by.full_user_name }}
+                {% if feedback.read_by.email %}
+                    </a>
+                {% endif %}
+            </td>
+            <td class="pr-2 text-right whitespace-nowrap">{{ feedback.created_date }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9" class="px-2 py-3 text-center">
+                {% if filter_form.has_changed %}
+                    {% trans 'No technical feedback found with these filters.' %}
+                {% else %}
+                    {% trans 'No technical feedback available yet.' %}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    <div class="flex flex-col">
+        {% include "pagination.html" with url=url chunk=admin_feedback %}
+        <div class="flex self-start gap-2 mt-2">
+            <select id="bulk-action">
+                <option>{% trans 'Select bulk action' %}</option>
+                <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">{% trans 'Mark as read' %}</option>
+                <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">{% trans 'Mark as unread' %}</option>
+                {% if perms.cms.delete_feedback %}
+                    <option data-bulk-action="{% url 'delete_admin_feedback' %}">{% trans 'Delete' %}</option>
+                {% endif %}
+            </select>
+            <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

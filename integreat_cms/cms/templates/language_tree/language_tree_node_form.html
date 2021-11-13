@@ -1,0 +1,51 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap mb-4">
+        <div class="w-2/5 flex flex-wrap flex-col justify-center">
+            <h1 class="heading">
+	            {% if language_tree_node_form.instance.id %}
+		            {% blocktrans %}Edit language tree node{% endblocktrans %}
+	            {% else %}
+		            {% trans 'Add language' %}
+	            {% endif %}
+            </h1>
+        </div>
+        {% if perms.cms.change_languagetreenode %}
+            <div class="w-3/5 flex justify-end">
+                <button name="submit_publish" class="btn">{% trans 'Save' %}</button>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <div class="p-4 rounded bg-blue-500">
+            <h3 class="heading font-bold text-white"><i data-feather="flag" class="mr-2"></i> {% trans 'Language tree node' %}</h3>
+        </div>
+        <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+            <div>
+                <label for="{{ language_tree_node_form.language.id_for_label }}">{{ language_tree_node_form.language.label }}</label>
+                {% render_field language_tree_node_form.language|add_error_class:"border-red-500" %}
+            </div>
+            <div>
+                <label for="{{ language_tree_node_form.parent.id_for_label }}">{{ language_tree_node_form.parent.label }}</label>
+                {% render_field language_tree_node_form.parent|add_error_class:"border-red-500" %}
+            </div>
+            <div>
+                {% render_field language_tree_node_form.visible|add_error_class:"border-red-500" id="visible" %}
+                <label for="{{ language_tree_node_form.visible.id_for_label }}">{{ language_tree_node_form.visible.label }}</label>
+                <div class="help-text">{{ language_tree_node_form.visible.help_text }}</div>
+            </div>
+            <div>
+                {% render_field language_tree_node_form.active|add_error_class:"border-red-500" id="active" %}
+                <label for="{{ language_tree_node_form.active.id_for_label }}">{{ language_tree_node_form.active.label }}</label>
+                <div class="help-text">{{ language_tree_node_form.active.help_text }}</div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

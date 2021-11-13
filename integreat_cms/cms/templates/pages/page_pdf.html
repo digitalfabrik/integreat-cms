@@ -1,0 +1,100 @@
+{% load static %}
+{% load mptt_tags %}
+{% load i18n %}
+{% load content_filters %}
+{% load render_bundle from webpack_loader %}
+
+{% comment %}
+    These file does not inherit from _raw.html,
+    because xhtml2pdf does not work in combination with tailwind css,
+    so that no resources like tailwind from _raw.html can be incorporated.
+    Tailwind css uses the @media without a mediatype, but xhtml2pdf expects the media identifier.
+    See https://github.com/xhtml2pdf/xhtml2pdf/issues/498 for more information.
+    Once this issue is fixed, we can use tailwind in the pdf context.
+{% endcomment %}
+<html>
+    <head>
+        <!-- these style settings are only set to pdf exported pages
+        for detailed information about the applied library concepts see
+        the documentation of xhtml2pdf -->
+        {% render_bundle 'pdf' 'css' %}
+        <style>
+            {% if language.slug == "zh-CN" %}
+                html, body {
+                    font-family: "Noto Sans SC", sans-serif;
+                }
+            {% elif right_to_left %}
+                html, body {
+                    font-family: "DejaVu", sans-serif;
+                }
+            {% else %}
+                html, body {
+                    font-family: "Open Sans", sans-serif;
+                }
+                pdftoc, h1 {
+                    font-family: "Raleway", sans-serif;
+                }
+            {% endif %}
+        </style>
+    </head>
+    <body>
+        <div id="header">
+            <!-- make sure that image size fits in static frame to avoid problems -->
+            <!-- only applicable if icon is present -->
+            {% if region.icon %}
+                <img src="{{ region.icon.path }}" height="32">
+            {% endif %}
+        </div>
+        <div id="footer">
+            <table>
+                <tr>
+                    <td id="first-footer">
+                        <pdf:pagenumber>
+                    </td>
+                    <td id="second-footer">
+                        {{ region.full_name }}
+                    </td>
+                    <td id="third-footer">
+                        <img src="{% static 'images/integreat-logo.jpg' %}" height="40">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {% if right_to_left %}
+            <div><pdf:language name="arabic" /></div>
+            <div class="right-to-left">
+        {% endif %}
+        {% if amount_pages > 1 %}
+            <!-- if the user selected several pages, additionally insert table of content -->
+            <h1 id="title_page">{{ language.table_of_contents }}</h1>
+            <!-- according to xhtml2pdf documentation all custom tags like <pdf:toc/>, <pdf:nextpage>, etc.
+                should be wrapped inside block tags like <div> to avoid problems -->
+            <div class="toc">
+                <pdf:toc />
+            </div>
+            <div><pdf:nextpage></div>
+        {% endif %}
+
+        {% recursetree pages %}
+            <li>
+                {% get_public_translation node language.slug as page_translation %}
+                {% if node.level < 2 %}
+                    <h1 class="{% if node.level == 0 %}root_title{% endif %}">{{ page_translation.title }}</h1>
+                {% else %}
+                    <h2>{{ page_translation.title }}</h2>
+                {% endif %}
+                <div class="content" style="padding-bottom: 30px;">
+                    {{ page_translation.text|safe }}
+                </div>
+                {% if not node.is_leaf_node %}
+                    <ul class="children">
+                        {{ children }}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endrecursetree %}
+        {% if right_to_left %}
+            </div>
+        {% endif %}
+    </body>
+</html>

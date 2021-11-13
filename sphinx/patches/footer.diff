@@ -1,0 +1,18 @@
+diff --git a/sphinx/templates/footer.html b/sphinx/templates/footer.html
+index 10221ff..4edef6b 100644
+--- a/sphinx/templates/footer.html
++++ b/sphinx/templates/footer.html
+@@ -19,10 +19,13 @@
+     {%- if show_copyright %}
+       {%- if hasdoc('copyright') %}
+         {%- trans path=pathto('copyright'), copyright=copyright|e %}&#169; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}
+       {%- else %}
+         {%- trans copyright=copyright|e %}&#169; Copyright {{ copyright }}.{% endtrans %}
++        | <a href="https://integreat-app.de/" target="_blank">Website</a>
++        | <a href="https://integreat.app/" target="_blank">Web-App</a>
++        | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
+       {%- endif %}
+     {%- endif %}
+
+     {%- if build_id and build_url %}
+       <span class="build">

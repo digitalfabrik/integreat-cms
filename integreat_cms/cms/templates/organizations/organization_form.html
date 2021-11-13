@@ -1,0 +1,63 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="flex justify-between mb-4">
+		<h1 class="heading">
+			{% if form.initial %}
+				{% with form.name.value as organization_name %}
+					{% blocktrans %}Edit organization "{{ organization_name }}"{% endblocktrans %}
+				{% endwith %}
+			{% else %}
+				{% trans 'Create new organization' %}
+			{% endif %}
+		</h1>
+		{% if perms.cms.change_organization %}
+			<button class="btn">{% trans 'Save' %}</button>
+		{% endif %}
+    </div>
+    <div class="grid xl:grid-cols-2 gap-4">
+		<div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+			<div class="p-4 rounded bg-blue-500">
+				<h3 class="heading font-bold text-white"><i data-feather="umbrella" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+			</div>
+			<div class="px-4 pb-4">
+				<!-- General Options for organization management -->
+				<label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+				{% render_field form.name|add_error_class:"border-red-500" %}
+				<label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
+				<div class="help-text">{{ form.slug.help_text }}</div>
+				{% render_field form.slug|add_error_class:"border-red-500" %}
+			</div>
+		</div>
+		<div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+			<div class="p-4 rounded bg-blue-500">
+				<h3 class="heading font-bold text-white"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
+			</div>
+			<div class="px-4 pb-4">
+				<label for="{{ form.icon.id_for_label }}">{{ form.icon.label }}</label>
+				{% render_field form.icon label=form.icon.label %}
+			</div>
+		</div>
+	</div>
+	{% if form.instance.id and perms.cms.delete_organization %}
+	<div class="pt-2 pb-4">
+		<button title="{% trans 'Delete organization' %}" class="btn confirmation-button btn-red"
+				data-confirmation-title="{{ delete_dialog_title }}"
+				data-confirmation-text="{{ delete_dialog_text }}"
+				data-confirmation-subject="{{ form.name.value }}"
+				data-action="{% url 'delete_organization' organization_id=form.instance.id %}">
+			<i data-feather="trash-2" class="mr-2"></i>
+			{% trans 'Delete this organization' %}
+		</button>
+	</div>
+	{% endif %}
+</form>
+
+{% include "generic_confirmation_dialog.html" %}
+{{ media_config_data|json_script:"media_config_data" }}
+
+{% endblock %}

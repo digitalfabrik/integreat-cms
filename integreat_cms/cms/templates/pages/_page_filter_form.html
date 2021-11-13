@@ -1,0 +1,18 @@
+{% load i18n %}
+{% load widget_tweaks %}
+
+<form method="post" class="p-4" id="page-filter-form">
+    {% csrf_token %}
+    <label for="{{ filter_form.translation_status.id_for_label }}">
+        {{ filter_form.translation_status.label }} ({{ language.translated_name }})
+    </label>
+    {% render_field filter_form.translation_status|add_error_class:"border-red-500" %}
+    <div class="flex justify-end gap-4">
+        <a id="filter-reset" class="btn btn-light-blue">
+            {% trans 'Reset filter' %}
+        </a>
+        <button name="filter" class="btn">
+            {% trans 'Apply filter' %}
+        </button>
+    </div>
+</form>

@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load text_filters %}
+{% load content_filters %}
+{% load model_tags %}
+
+{% object_translation_has_view_perm request.user item.translation as show_source_link %}
+
+<tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
+    <td class="py-3 pl-4">
+      <input type="checkbox" name="selected_ids[]" value="{{ item.link.id }}" class="bulk-select-item">
+    </td>
+    <td class="pr-2 whitespace-nowrap">{{ item.link.display_url }}</td>
+    <td class="pr-2 {% if view.kwargs.link_filter == 'invalid' %} text-red-500 {% elif view.kwargs.link_filter == 'valid' %} text-green-500 {% endif %}">
+        {{ item.link.url.message|linkcheck_status_filter }}
+    </td>
+    <td class="pr-2">{{ item.link.text }}</td>
+    <td class="pr-2">
+        {% if show_source_link %}
+            <a href="{{ item.translation.backend_edit_link }}" title="{% trans 'Go to source' %}">
+               {{ item.translation.title }}
+            </a>
+        {% else %}
+            {{ item.translation.title }}
+        {% endif %}
+    </td>
+    <td class="pr-2">{% get_model_verbose_name item.translation %}</td>
+</tr>

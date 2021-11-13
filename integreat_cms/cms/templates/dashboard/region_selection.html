@@ -1,0 +1,24 @@
+{% extends "authentication/_base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block heading %}
+    {% trans "Select region" %}
+{% endblock %}
+
+{% block content %}
+    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <tbody>
+        {% for region in request.user.regions.all %}
+        <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+            <td class="pl-2">
+                <a href="{% url 'dashboard' region_slug=region.slug %}" class="block py-3 px-2 text-gray-800">
+                    {{ region.full_name }}
+                </a>
+            </td>
+        </tr>
+        {% endfor%}
+        </tbody>
+    </table>
+{% endblock %}

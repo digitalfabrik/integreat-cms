@@ -1,0 +1,36 @@
+{% extends "authentication/_base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block heading %}
+    {% trans 'Add 2FA key' %}
+{% endblock %}
+
+{% block content %}
+    <form id="add-mfa-key" data-mfa-challenge-url="{% url 'get_mfa_challenge' %}">
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5 hidden add-mfa-error" role="alert">
+            <p>{% trans 'Something went wrong during 2FA registration' %}:</p>
+            <p class="add-mfa-error-msg"></p>
+        </div>
+        <div class="mb-6">
+            <p>{% trans 'Please enter a name for your new key. This name can be used to find the correct key in case you need to revoke authentication.' %}</p>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-600 text-sm font-bold mb-2" for="{{ form.name.id_for_label }}">
+                {{ form.name.label }}
+            </label>
+            {% trans 'Enter key name here' as name_placeholder %}
+            {% render_field form.name|add_error_class:"border-red-500" placeholder=name_placeholder class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline" %}
+        </div>
+        <div class="flex items-center justify-between">
+            <button class="btn w-full">
+                {% trans 'Add 2FA key' %}
+            </button>
+        </div>
+    </form>
+    <div class="mfa-not-supported mb-6 hidden">
+        <p>{% trans 'It seems like your browser does not support webauthn' %}</p>
+    </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% load i18n %}
+{% load arithmetic %}
+
+<!-- this document defines the navigation through paginated lists -->
+<!-- in general there are links for the 2 previous and next pages -->
+<!-- plus additional links to start, end, immediate next and immediate previous -->
+
+{% with num_pages=chunk.paginator.num_pages chunk_size=request.GET.size %}
+<div class="pagination">
+    <div>
+        <label for="chunk-size"></label>
+        <select id="chunk-size">
+            <option value="">{% trans 'Number of entries per page' %}</option>
+            <option value="{{ url }}?size=10" {% if chunk_size == "10" %}selected{% endif %}>10</option>
+            <option value="{{ url }}?size=20" {% if chunk_size == "20" %}selected{% endif %}>20</option>
+            <option value="{{ url }}?size=50" {% if chunk_size == "50" %}selected{% endif %}>50</option>
+            <option value="{{ url }}?size=100" {% if chunk_size == "100" %}selected{% endif %}>100</option>
+        </select>
+    </div>
+    {% if num_pages > 1 %}
+    <div class="step-links">
+        <!-- pagination always contains left and right buttons -->
+        <!-- in case the left/right outer bounds are reached these links are disabled -->
+        <a href="{% if chunk.has_previous %}{{ url }}?page={{ chunk.previous_page_number }}{% if chunk_size %}&size={{ chunk_size }}{% endif %}{% else %}#{% endif %}" class="arrow-link">
+            <i data-feather="chevron-left"></i>
+        </a>
+        <!-- pagination always allows to jump to start page -->
+        <a href="{{ url }}?page=1{% if chunk_size %}&size={{ chunk_size }}{% endif %}" class="{% if chunk.number == 1 %}active{% endif %}">1</a>
+        {% if chunk.number|diff:1 > 3 %}
+            <!-- if current page is more than 2 pages after start, hide those pages -->
+            <a href="#">...</a>
+        {% endif %}
+        {% for i in chunk.paginator.page_range|slice:'1:-1' %}
+            {% if i == chunk.number %}
+                <a href="#" class="active">{{ i }}</a>
+            {% elif i > chunk.number|diff:3 and i < chunk.number|add:3 %}
+                <!-- show only links to at most 2 previous/next pages -->
+                <a href="{{ url }}?page={{ i }}{% if chunk_size %}&size={{ chunk_size }}{% endif %}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if num_pages|diff:chunk.number > 3 %}
+            <!-- if current page is more than 2 pages before end, hide those pages -->
+            <a href="#">...</a>
+        {% endif %}
+        <!-- pagination always allows to jump to last page -->
+        <a href="{{ url }}?page={{ num_pages }}{% if chunk_size %}&size={{ chunk_size }}{% endif %}" class="{% if chunk.number == num_pages %}active{% endif %}">{{ num_pages }}</a>
+        <a href="{% if chunk.has_next %}{{ url }}?page={{ chunk.next_page_number }}{% if chunk_size %}&size={{ chunk_size }}{% endif %}{% else %}#{% endif %}" class="arrow-link">
+            <i data-feather="chevron-right"></i>
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endwith %}

@@ -1,0 +1,31 @@
+{% extends "authentication/_base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block heading %}
+    {% trans 'Delete 2FA key' %}
+{% endblock %}
+
+{% block content %}
+    <div class="add-mfa">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="my-4">
+                <p class="font-bold">{% trans 'Nickname' %}:</p>
+                <p>{{ key.name }}</p>
+            </div>
+            <div class="flex items-center justify-between">
+                <button class="btn w-full">
+                    {% trans 'Delete 2FA key' %}
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="mfa-not-supported hidden">
+        <div class="mb-6">
+            <p>{% trans 'It seems like your browser does not support webauthn' %}</p>
+        </div>
+    </div>
+{% endblock %}

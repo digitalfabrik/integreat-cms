@@ -1,0 +1,107 @@
+{% load i18n %}
+{% load rules %}
+{% load content_filters %}
+
+<tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
+    <td class="py-3 pl-4 pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+            {{ poi_translation.get_status_display }}
+        </a>
+    </td>
+	<td class="pr-2">
+		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+			{%  if poi_translation %}
+                {{ poi_translation.title }}
+            {% else %}
+                <i>{% trans 'Translation not available' %}</i>
+            {% endif %}
+		</a>
+	</td>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_language LANGUAGE_CODE as backend_language %}
+    {% if backend_language and backend_language != language %}
+        <td class="pr-2">
+            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block">
+                {% if poi.backend_translation %}
+                    {{ poi.backend_translation.title }}
+                {% else %}
+                    <i>{% trans 'Translation not available' %}</i>
+                {% endif %}
+            </a>
+        </td>
+    {% endif %}
+	<td class="pr-2 lang-grid">
+        {% for other_language in languages %}
+            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=other_language.slug %}">
+                {% get_translation poi other_language.slug as other_translation %}
+                {% if other_translation %}
+                    {% if other_translation.currently_in_translation %}
+                        <span title="{% trans 'Currently in translation' %}">
+                            <i data-feather="clock"></i>
+                        </span>
+                    {% elif other_translation.is_outdated %}
+                        <span title="{% trans 'Translation outdated' %}">
+                            <i data-feather="alert-triangle"></i>
+                        </span>
+                    {% else %}
+                        <span title="{% trans 'Translation up-to-date' %}">
+                            <i data-feather="check"></i>
+                        </span>
+                    {% endif %}
+                {% else %}
+                    <span title="{% trans 'Translation missing' %}">
+                        <i data-feather="x"></i>
+                    </span>
+                {% endif %}
+            </a>
+        {% endfor %}
+	</td>
+	<td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+            {{ poi.address }}
+        </a>
+	</td>
+	<td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+            {{ poi.postcode }}
+        </a>
+	</td>
+	<td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+            {{ poi.city }}
+        </a>
+	</td>
+	<td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+            {{ poi.country }}
+        </a>
+	</td>
+    <td class="pl-2 pr-4 py-3 min text-right flex flex-nowrap gap-2">
+        {% if poi_translation.status == PUBLIC %}
+            <a href="{{ WEBAPP_URL }}{{ poi_translation.get_absolute_url }}" 
+            rel="noopener noreferrer" target="_blank" title="{% trans 'Open location in web app' %}" class="btn-icon">
+                <i data-feather="external-link"></i>
+            </a>
+        {% else %}
+            <button title="{% trans 'This location cannot be opened in the web app, because it is not public.' %}" class="btn-icon" disabled>
+                <i data-feather="external-link"></i>
+            </button>
+        {% endif %}
+        <button title="{% trans 'Archive location' %}" class="confirmation-button btn-icon"
+            data-confirmation-title="{{ archive_dialog_title }}"
+            data-confirmation-text="{{ archive_dialog_text }}"
+            data-confirmation-subject="{{ poi_translation.title }}"
+            data-action="{% url 'archive_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}">
+            <i data-feather="archive"></i>
+        </button>
+        {% if perms.cms.delete_poi %}
+            <button title="{% trans 'Delete location' %}" class="confirmation-button btn-icon"
+                data-confirmation-title="{{ delete_dialog_title }}"
+                data-confirmation-text="{{ delete_dialog_text }}"
+                data-confirmation-subject="{{ poi_translation.title }}"
+                data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}">
+                <i data-feather="trash-2"></i>
+            </button>
+        {% endif %}
+    </td>
+</tr>

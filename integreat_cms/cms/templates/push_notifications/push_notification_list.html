@@ -1,0 +1,65 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<div class="table-header">
+    <h1 class="heading">{% trans 'News' %}</h1>
+    <div class="flex flex-wrap justify-between gap-4">
+        <div class="flex flex-wrap gap-4">
+            {% include "generic_language_switcher.html" with target='push_notifications' %}
+            {% include "search_input_form.html" with object_type="push_notification" language_slug=language.slug %}
+        </div>
+        {% if perms.cms.change_pushnotification %}
+            <a href="{% url 'new_push_notification' region_slug=region.slug language_slug=language.slug %}" class="btn">
+                {% trans 'Create news message' %}
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="table-listing">
+    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <thead>
+            <tr class="border-b border-solid border-gray-200">
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                    {% trans 'Title' %}
+                </th>
+                <th class="text-sm text-left uppercase py-3 px-2">
+                    {% trans 'Channel' %}
+                </th>
+                <th class="text-sm text-left uppercase py-3 px-2">
+                    <div class="lang-grid flags whitespace-nowrap">
+                        {% for lang in languages %}
+                            <a href="{% url 'push_notifications' region_slug=region.slug language_slug=lang.slug %}">
+                                <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </th>
+                <th class="text-sm text-left uppercase py-3 px-2 min">
+                    {% trans 'Sent' %}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for push_notification in push_notifications %}
+            {% include "push_notifications/push_notification_list_row.html" %}
+        {% empty %}
+            <tr>
+	            <td colspan="4" class="px-4 py-3">
+                    {% if search_query %}
+                        {% trans 'No push notifications found with these filters.' %}
+                    {% else %}
+		                {% trans 'No push notifications available yet.' %}
+                    {% endif %}
+	            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% url "push_notifications" as url %}
+{% include "pagination.html" with url=url chunk=push_notifications %}
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <h1 class="heading">{% trans 'Translation Report' %}</h1>
+        <p class="py-3 text-lg">
+            {% trans 'Here you can get an overview of the current translation status of your page content.' %}
+        </p>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 2xl:grid-cols-4">
+        <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="rounded p-4 bg-blue-500">
+                <h3 class="heading font-bold text-white"><i data-feather="check-circle" class="pb-1"></i>
+                    {% trans 'Overview of the current translation status' %}
+                </h3>
+            </div>
+            <canvas id="translation_coverage_chart"></canvas>
+        </div>
+        <div class="rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="rounded p-4 bg-blue-500">
+                <h3 class="heading font-bold text-white">
+                    <i data-feather="shopping-bag" class="pb-1"></i>
+                    {% trans "Outdated Translations" %}
+                </h3>
+            </div>
+            <p class="p-2">
+                {% trans "This overview show the approximate number of words of all outdated translations." %}
+            </p>
+            <div class="table-listing w-full p-2">
+                <table class="w-full rounded bg-white">
+                    <thead>
+                        <tr class="border-b border-solid border-gray-200">
+                            <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Language' %}</th>
+                            <th class="text-sm text-left uppercase py-3 p2-4 pr-4">{% trans 'Words' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for language, word_count in outdated_word_count.items %}
+                            <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+                                <td class="pl-2">
+                                    <p class="block py-3 px-2 text-gray-800"> {{ language.translated_name }} </p>
+                                </td>
+                                <td class="pl-2">
+                                    <p class="block py-3 px-2 text-gray-800"> {{ word_count }} </p>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="6" class="px-4 py-3">
+                                    {% trans 'No Language available.' %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr class="border-t-4 border-solid border-gray-900 hover:bg-gray-100">
+                            <td class="pl-2">
+                                <p class="block font-extrabold py-3 px-2 text-gray-900"> {% trans "Total" %} </p>
+                            </td>
+                            <td class="pl-2">
+                                <p class="block py-3 px-2 text-gray-800"> {{ total_outdated_words }} </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ coverage_data|json_script:"translation_coverage_data" }}
+{% endblock %}

@@ -1,0 +1,179 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap justify-between mb-4">
+        <h1 class="heading">
+            {% if form.initial %}
+                {% with form.name.value as region_name %}
+                    {% blocktrans %}Edit region "{{ region_name }}"{% endblocktrans %}
+                {% endwith %}
+            {% else %}
+                {% trans 'Create new region' %}
+            {% endif %}
+        </h1>
+        {% if perms.cms.change_region %}
+            <button class="btn">{% trans 'Save' %}</button>
+        {% endif %}
+    </div>
+
+    <div class="flex flex-wrap">
+        <div class="w-1/2 pr-2">
+            <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+                <div class="p-4 rounded bg-blue-500">
+                    <h3 class="heading font-bold text-white"><i data-feather="map" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+                </div>
+                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+                    <div>
+                        <!-- Options related to the region's administrative division -->
+                        <label for="{{ form.administrative_division.id_for_label }}">{{ form.administrative_division.label }}</label>
+                        {% render_field form.administrative_division|add_error_class:"border-red-500" %}
+                        <!-- Option for including/excluding administrative division from region name -->
+                        {% render_field form.administrative_division_included %}
+                        <label for="{{ form.administrative_division_included.id_for_label }}" class="secondary">{{ form.administrative_division_included.label }}</label>
+                        <div class="help-text">{{ form.administrative_division_included.help_text }}</div>
+                    </div>
+                    <div>
+                        <!-- General Options for region management -->
+                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        {% render_field form.name|add_error_class:"border-red-500" %}
+                    </div>
+                    <div>
+                        <label for="{{ form.common_id.id_for_label }}">{{ form.common_id.label }}</label>
+                        <div class="help-text">{{ form.common_id.help_text }}</div>
+                        {% render_field form.common_id|add_error_class:"border-red-500" %}
+                    </div>
+                    <div>
+                        <label for="{{ form.aliases.id_for_label }}">{{ form.aliases.label }}</label>
+                        <div class="help-text">{{ form.aliases.help_text }}</div>
+                        {% render_field form.aliases|add_error_class:"border-red-500" %}
+                    </div>
+                    <div>
+                        <label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
+                        <div class="help-text">{{ form.slug.help_text }}</div>
+                        <div class="slug-field">
+                            <label for="{{ form.slug.id_for_label }}">https://integreat.app/</label>
+                            {% render_field form.slug %}
+                        </div>
+                    </div>
+                    <div>
+                        <label for="{{ form.admin_mail.id_for_label }}">{{ form.admin_mail.label }}</label>
+                        {% render_field form.admin_mail|add_error_class:"border-red-500" %}
+                    </div>
+                    <div>
+                        <!-- Options related to coordinates for localization -->
+                        <label for="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }}</label>
+                        {% render_field form.postal_code|add_error_class:"border-red-500" %}
+                    </div>
+                    <div>
+                        <label>{% trans 'Center of the region' %}</label>
+                        <label for="{{ form.latitude.id_for_label }}" class="secondary">{{ form.latitude.label }}</label>
+                        {% render_field form.latitude|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ form.latitude.help_text }}</div>
+                        <label for="{{ form.longitude.id_for_label }}" class="secondary">{{ form.longitude.label }}</label>
+                        {% render_field form.longitude|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ form.longitude.help_text }}</div>
+                    </div>
+                    <div>
+                        <!-- Options related to region status -->
+                        <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                        {% render_field form.status|add_error_class:"border-red-500" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="w-1/2 pl-2">
+        <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="p-4 rounded bg-blue-500">
+                <h3 class="heading font-bold text-white"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
+            </div>
+            <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
+                <div>
+                    <!-- Options related to Events -->
+                    {% render_field form.events_enabled %}
+                    <label for="{{ form.events_enabled.id_for_label }}">{{ form.events_enabled.label }}</label>
+                    <div class="help-text">{{ form.events_enabled.help_text }}</div>
+                </div>
+                <div>
+                    <!-- Options related to Author chat -->
+                    {% render_field form.chat_enabled %}
+                    <label for="{{ form.chat_enabled.id_for_label }}">{{ form.chat_enabled.label }}</label>
+                    <div class="help-text">{{ form.chat_enabled.help_text }}</div>
+                </div>
+                <div>
+                    <!-- Options related to Push Notifications -->
+                    {% render_field form.push_notifications_enabled %}
+                    <label for="{{ form.push_notifications_enabled.id_for_label }}">{{ form.push_notifications_enabled.label }}</label>
+                    <div class="help-text">{{ form.push_notifications_enabled.help_text }}</div>
+                </div>
+                <div>
+                    <!-- Options related to Tracking -->
+                    <label>{% trans 'Statistics' %}</label>
+                    {% render_field form.statistics_enabled %}
+                    <label for="{{ form.statistics_enabled.id_for_label }}" class="secondary">{{ form.statistics_enabled.label }}</label>
+                    <div id="statistics-toggle-div" {% if not form.instance.statistics_enabled %} class="hidden" {% endif %}>
+                        <label for="{{ form.matomo_token.id_for_label }}" class="secondary">{{ form.matomo_token.label }}</label>
+                        <div class="help-text">{{ form.matomo_token.help_text }}</div>
+                        {% render_field form.matomo_token %}
+                        <label for="{{ form.matomo_id.id_for_label }}" class="secondary">{{ form.matomo_id.label }}</label>
+                        <div class="help-text">{{ form.matomo_id.help_text }}</div>
+                        {% render_field form.matomo_id disabled="disabled" %}
+                    </div>
+                </div>
+                <div>
+                    <!-- Options related to page-instance-specific permissions -->
+                    {% render_field form.page_permissions_enabled %}
+                    <label for="{{ form.page_permissions_enabled.id_for_label }}">{{ form.page_permissions_enabled.label }}</label>
+                    <div class="help-text">{{ form.page_permissions_enabled.help_text }}</div>
+                </div>
+                <div>
+                    {% render_field form.short_urls_enabled %}
+                    <label for="{{ form.short_urls_enabled.id_for_label }}">{{ form.short_urls_enabled.label }}</label>
+                    <div class="help-text">{{ form.short_urls_enabled.help_text }}</div>
+                </div>
+                <div>
+                    <label for="{{ form.offers.id_for_offers }}">{{ form.offers.label }}</label>
+                    {% render_field form.offers %}
+                    <div class="help-text">{{ form.offers.help_text }}</div>
+                </div>
+                <div>
+                    <label for="{{ form.icon.id_for_label }}">{{ form.icon.label }}</label>
+                    {% render_field form.icon label=form.icon.label %}
+                </div>
+            </div>
+        </div>
+        {% if not form.instance.id %}
+        <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="w-full p-4 rounded bg-blue-500">
+                <h3 class="heading font-bold text-white">{% trans 'Duplicate content of another region' %}</h3>
+            </div>
+            <div class="w-full p-4">
+                <label for="{{ form.duplicated_region.id_for_label }}">{% trans 'Copy languages, pages and media from another region' %}</label>
+                {% render_field form.duplicated_region %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    </div>
+    {% if form.instance.id and perms.cms.delete_region %}
+        <div class="pt-2 pb-4">
+            <button title="{% trans 'Delete region' %}" class="btn confirmation-button btn-red"
+                    data-confirmation-title="{% trans 'Please confirm that you really want to delete this region.' %}"
+                    data-confirmation-text="{% trans 'This can not be reversed.' %} {% trans 'All pages, events and locations of this region will also be deleted.' %} {% trans 'Users, who only have access to this region, will be removed as well.' %}"
+                    data-confirmation-subject="{{ form.name.value }}"
+                    data-action="{% url 'delete_region' region_slug=form.instance.slug %}">
+                <i data-feather="trash-2"></i>
+                {% trans 'Delete this region' %}
+            </button>
+        </div>
+    {% endif %}
+</form>
+{{ media_config_data|json_script:"media_config_data" }}
+
+{% include "../generic_confirmation_dialog.html" %}
+{% endblock %}

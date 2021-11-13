@@ -1,0 +1,93 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% load push_notification_filters %}
+{% load page_filters %}
+{% load rules %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex flex-wrap">
+        <div class="w-full flex flex-wrap justify-between gap-4 mb-6">
+            <h1 class="heading">
+                {% if push_notification_form.instance.id %}
+                    {% with push_notification_form.instance as push_notification_title %}
+                        {% blocktrans %}Edit push notification "{{ push_notification_title }}"{% endblocktrans %}
+                    {% endwith %}
+                {% else %}
+                    {% trans 'Create news message' %}
+                {% endif %}
+            </h1>
+            <div class="flex flex-wrap gap-4">
+                {% if perms.cms.change_pushnotification %}
+                    <button name="submit_save" class="btn btn-gray">{% trans 'Save' %}</button>
+                {% endif %}
+                {% if perms.cms.send_push_notification %}
+                    <button name="submit_send" class="btn">{% trans 'Save & Send' %}</button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="w-2/3 flex flex-wrap flex-col pr-2 tabbed">
+            <ul class="flex flex-wrap pl-4">
+                {% for other_language in languages %}
+                <li id="li-{{ other_language.id }}" class="language-tab-header cursor-pointer mr-1 {% if other_language.id == language.id %}z-10{% endif %}" style="margin-bottom: -2px" data-switch-language="{{ other_language.id }}">
+                        <div class="bg-white text-blue-500 hover:bg-blue-500 hover:text-white border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
+                            <div class="border-b-2 border-white">
+                                <div class="p-4">{{ other_language.translated_name }}</div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <figure>
+            {{ pnt_formset.management_form }}
+            {% for form in pnt_formset %}
+                <div id="tab-{{ form.language.value }}" class="language-tab-content w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto {% if form.language.value|add:0 != language.id|add:0 %}hidden{% endif %}">
+                    <div class="w-full p-4">
+                        {{push_notification_translation_form.errors}}
+                        <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+                            <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                            {% render_field form.title %}
+                        </div>
+                        <div class="w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+                            <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
+                            {% render_field form.text %}
+                            <p><span class="input-length-counter"></span>/{{ form.fields.text.max_length }}</p>
+                        </div>
+                        <div class="hidden">
+                            {% render_field form.id %}
+                            {% render_field form.language %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </figure>
+        </div>
+        <div class="w-1/3 pl-4 flex flex-wrap flex-col">
+            <ul class="flex pl-4">
+                <li class="z-10" style="margin-bottom: -2px">
+                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg p-4">
+                        <div class="border-b-4 border-white">
+                            <i data-feather="settings"></i>
+                            {% trans "Settings" %}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
+                <div class="w-full p-4">
+                    <label for="{{ push_notification_form.channel.id_for_label }}">{{ push_notification_form.channel.label }}</label>
+                    {% render_field push_notification_form.channel %}
+                </div>
+                <div class="w-full p-4">
+                    <label for="{{ push_notification_form.mode.id_for_label }}">{{ push_notification_form.mode.label }}</label>
+                    {% render_field push_notification_form.mode %}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

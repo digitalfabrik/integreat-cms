@@ -1,0 +1,65 @@
+{% load page_filters %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+    {% if permission_message %}
+        {% if permission_message.level_tag == 'info' %}
+            <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-500 px-4 py-3 my-2" role="alert">
+                <p>{{permission_message.message}}</p>
+            </div>
+        {% endif %}
+        {% if permission_message.level_tag == 'success' %}
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-500 px-4 py-3 my-2" role="alert">
+                <p>{{ permission_message.message }}</p>
+            </div>
+        {% endif %}
+        {% if permission_message.level_tag == 'warning' %}
+            <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 my-2" role="alert">
+                <p>{{ permission_message.message }}</p>
+            </div>
+        {% endif %}
+        {% if permission_message.level_tag == 'error' %}
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2" role="alert">
+                <p>{{ permission_message.message }}</p>
+            </div>
+        {% endif %}
+    {% endif %}
+    <label for="{{ page_form.editors.id_for_label }}" class="secondary">{{ page_form.editors.label }}</label>
+    <div class="help-text">{{ page_form.editors.help_text }}</div>
+    <div>
+        {% for user in page.editors.all %}
+            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-500 text-white text-xl">
+                {{ user.username }}
+                <a class="revoke-page-permission inline-block align-middle hover:text-red-500" href="{% url 'revoke_page_permission_ajax' %}" data-user-id="{{ user.id }}" data-page-id="{{ page.id }}" data-permission="edit">
+                    <i data-feather="x-circle"></i>
+                </a>
+            </span>
+        {% empty %}
+        {% endfor %}
+    </div>
+    <div class="w-full flex flex-wrap mt-2">
+            {% render_field page_form.editors %}
+            <a class="grant-page-permission bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-2 rounded w-full" data-url="{% url 'grant_page_permission_ajax' %}" data-page-id="{{ page.id }}" data-permission="edit">
+                <i data-feather="plus-circle" class="mr-2"></i> {% trans 'Add to editors' %}
+            </a>
+    </div>
+    <label for="{{ page_form.publishers.id_for_label }}" class="secondary">{{ page_form.publishers.label }}</label>
+    <div class="help-text">{{ page_form.publishers.help_text }}</div>
+    <div>
+        {% for user in page.publishers.all %}
+            <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-500 text-white text-xl">
+                {{ user.username }}
+                <a class="revoke-page-permission inline-block align-middle hover:text-red-500" href="{% url 'revoke_page_permission_ajax' %}" data-user-id="{{ user.id }}" data-page-id="{{ page.id }}" data-permission="publish">
+                    <i data-feather="x-circle"></i>
+                </a>
+            </span>
+        {% empty %}
+        {% endfor %}
+    </div>
+    <div class="w-full flex flex-wrap mt-2">
+        {% render_field page_form.publishers %}
+        <button class="btn grant-page-permission bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-2 rounded w-full" data-url="{% url 'grant_page_permission_ajax' %}" data-page-id="{{ page.id }}" data-permission="publish">
+            <i data-feather="plus-circle" class="mr-2"></i> {% trans 'Add to publishers' %}
+        </button>
+    </div>

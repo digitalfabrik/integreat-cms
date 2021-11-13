@@ -1,0 +1,475 @@
+version: 2.1
+
+orbs:
+  shellcheck: circleci/shellcheck@2.2.4
+jobs:
+  pipenv-install:
+    docker:
+      - image: cimg/python:3.7
+    environment:
+      PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - checkout
+      - restore_cache:
+          key: pipenv-{{ checksum "Pipfile.lock" }}-v1
+      - run:
+          name: Install pip dependencies
+          command: |
+            if [[ -d ".venv" ]]; then
+              echo "Virtual environment restored from cache, skipping pipenv install"
+            else
+              pipenv install --dev
+              if [[ -n $(git diff --shortstat Pipfile.lock) ]]; then
+                echo "Pipfile.lock is out of date:"
+                git --no-pager diff Pipfile.lock
+                exit 1
+              fi
+            fi
+      - save_cache:
+          key: pipenv-{{ checksum "Pipfile.lock" }}-v1
+          paths:
+            - .venv
+            - integreat_cms.egg-info
+            - /home/circleci/.cache/pip
+            - /home/circleci/.cache/pipenv
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .venv
+            - integreat_cms.egg-info
+  black:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Check black code style
+          command: pipenv run black --check .
+  pylint:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run pylint
+          command: pipenv run pylint_runner
+  check-translations:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install translation requirements
+          command: sudo apt-get update && sudo apt-get install gettext pcregrep
+      - run:
+          name: Check translation file for missing or empty entries
+          command: ./dev-tools/check_translations.sh
+  compile-translations:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install gettext
+          command: sudo apt-get update && sudo apt-get install gettext
+      - run:
+          name: Compile translation file
+          command: |
+            cd integreat_cms
+            pipenv run integreat-cms-cli compilemessages --settings=integreat_cms.core.circleci_settings
+      - persist_to_workspace:
+          root: .
+          paths:
+            - integreat_cms/locale/de/LC_MESSAGES/django.mo
+  webpack:
+    docker:
+      - image: 'cimg/node:current'
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-{{ checksum "package-lock.json" }}-v1
+      - run:
+          name: Install npm dependencies
+          command: |
+            if [[ -d "node_modules" ]]; then
+              echo "Node modules restored from cache, skipping npm install"
+            else
+              npm ci
+              if [[ -n $(git diff --shortstat package-lock.json) ]]; then
+                echo "package-lock.json is out of date:"
+                git --no-pager diff package-lock.json
+                exit 1
+              fi
+            fi
+      - save_cache:
+          key: npm-{{ checksum "package-lock.json" }}-v1
+          paths:
+            - node_modules
+      - run:
+          name: Compile and bundle CSS and JS
+          command: npm run prod
+      - persist_to_workspace:
+          root: .
+          paths:
+            - integreat_cms/static/dist
+            - integreat_cms/webpack-stats.json
+  test:
+    docker:
+      - image: cimg/python:3.7
+      - image: circleci/postgres:alpine
+        environment:
+          POSTGRES_USER: integreat
+          POSTGRES_DB: integreat
+          POSTGRES_PASSWORD: password
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Migrate database
+          command: |
+            pipenv run integreat-cms-cli makemigrations cms --settings=integreat_cms.core.circleci_settings
+            pipenv run integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
+      - run:
+          name: Run tests
+          command: pipenv run integreat-cms-cli test integreat_cms --set=COVERAGE --settings=integreat_cms.core.circleci_settings
+      - store_artifacts:
+          path: htmlcov
+  build-package:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Create MANIFEST.in file
+          command: echo -e "graft integreat_cms\nprune integreat_cms/static/src" > MANIFEST.in
+      - run:
+          name: Build integreat-cms package
+          command: python setup.py sdist bdist_wheel
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+  publish-package:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Publish integreat-cms package to (Test-)PyPI
+          command: pipenv run twine upload --non-interactive ./dist/integreat-cms-*.tar.gz
+  build-documentation:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Generate documentation
+          command: pipenv run ./dev-tools/generate_documentation.sh
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docs
+  deploy-documentation:
+    docker:
+      - image: cimg/python:3.7
+    environment:
+      BRANCH: gh-pages
+      DOC_DIR: docs
+      TMP_DIR: .gh-pages
+    steps:
+      - attach_workspace:
+          at: .
+      - add_ssh_keys:
+          fingerprints: 8f:d7:a2:cb:47:e2:cf:9b:78:44:86:6d:4e:44:11:54
+      - run:
+          name: Add GitHub's Public SSH Key to known hosts
+          command: echo 'github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==' >> ~/.ssh/known_hosts
+      - run:
+          name: Prepare git config
+          command: |
+            git config --global user.name DigitalfabrikMember
+            git config --global user.email 41921676+DigitalfabrikMember@users.noreply.github.com
+      - run:
+          name: Clone existing gh-pages branch into temporary directory
+          command: git clone --depth=1 $CIRCLE_REPOSITORY_URL -b $BRANCH $TMP_DIR
+      - run:
+          when: on_fail
+          name: Initialize gh-pages branch in new temporary git directory
+          command: |
+            git init $TMP_DIR
+            cd $TMP_DIR
+            git remote add origin $CIRCLE_REPOSITORY_URL
+            git checkout -b $BRANCH
+      - run:
+          name: Copy documentation into temporary directory
+          command: |
+            rm -rfv ${TMP_DIR}/*
+            cp -Rv ${TMP_DIR}/../${DOC_DIR}/. $TMP_DIR
+      - run:
+          name: Push documentation to GitHub Pages
+          command: |
+            cd $TMP_DIR
+            git add --all
+            git commit -m "Update documentation of commit ${CIRCLE_SHA1} [skip ci]" || true
+            git push origin $BRANCH
+  bump-dev-version:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Bump version
+          command: |
+            # Install recent version of pip
+            pip install --upgrade pip
+            # Check which versions of integreat-cms are available on the TestPyPI repository
+            AVAILABLE_VERSIONS=$(pip index versions integreat-cms --pre -i https://test.pypi.org/simple/)
+            echo $AVAILABLE_VERSIONS
+            # Generate new version names until one is available
+            while true; do
+              # Bump version to next alpha version
+              pipenv run bumpver update -n -t alpha --no-commit
+              # Read current version into environment variables
+              eval $(pipenv run bumpver show --env -n)
+              # If the current PEP440 version is not available on TestPyPI, break from the loop and continue
+              if ! echo $AVAILABLE_VERSIONS | grep -q $PEP440_VERSION; then
+                break
+              fi
+              echo "Version $PEP440_VERSION already exists on TestPyPI!"
+            done
+      - persist_to_workspace:
+          root: .
+          paths:
+            - setup.py
+            - src/integreat_cms/__init__.py
+  bump-version:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Request installation access token to authorize as Deliverino app
+          command: echo "export DELIVERINO_ACCESS_TOKEN=$(pipenv run ./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
+      - run:
+          name: Config git repository to commit & push as Deliverino app
+          command: |
+            git config user.name "deliverino[bot]"
+            git config user.email "62934656+deliverino[bot]@users.noreply.github.com"
+            git remote set-url origin "https://x-access-token:$DELIVERINO_ACCESS_TOKEN@github.com/Integreat/integreat-cms.git"
+      - run:
+          name: Bump version
+          command: pipenv run bumpver update
+      - run:
+          name: Get tag of newly created version
+          command: |
+            eval $(pipenv run bumpver show --env -n)
+            echo "export CURRENT_VERSION=$CURRENT_VERSION" >> $BASH_ENV
+      - run:
+          name: Update changelog
+          command: |
+            # Insert version number in "unreleased" section of changelog
+            UNRELEASED="UNRELEASED\n----------"
+            # Build a string of dashes of same length as the version
+            UNDERLINE=$(echo "$CURRENT_VERSION" | tr "[:print:]" "-")
+            sed --null-data --in-place \
+              "s/${UNRELEASED}/${UNRELEASED}\n\n\n${CURRENT_VERSION}\n${UNDERLINE}/g" \
+              CHANGELOG.md
+            # Amend to bump version commit
+            git add CHANGELOG.md
+            git commit --amend --no-edit
+      - run:
+          name: Tag and push commit
+          command: |
+            # Get most recent changelog (split by 3 sequential new lines and print the second record except the first three lines)
+            CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
+            git tag --annotate "${CURRENT_VERSION}" --message "${CHANGELOG}"
+            git push origin --follow-tags "${CURRENT_VERSION}" HEAD
+      - run:
+          name: Merge version bump into develop
+          command: git checkout develop && git merge main --commit --no-edit && git push
+  create-release:
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Request installation access token to authorize as Deliverino app
+          command: echo "export DELIVERINO_ACCESS_TOKEN=$(pipenv run ./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
+      - run:
+          name: Assemble release body
+          command: |
+            PREV_TAG=$(git describe --abbrev=0 --tags "${CIRCLE_TAG}^") || true
+            CHANGELOG+=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
+            echo "export PREV_TAG=${PREV_TAG}\nexport CHANGELOG=\"${CHANGELOG}\"" >> $BASH_ENV
+      - run:
+          name: Create release as Deliverino app
+          command: pipenv run ./.circleci/scripts/create_release.py -p "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" ./dist/integreat-cms-*.tar.gz
+  notify-mattermost:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Notify mattermost about release
+          command: |
+            # Get most recent changelog (split by 3 sequential new lines and print the second record except the first three lines)
+            CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
+            # Build notification message
+            MM_MESSAGE="##### :integreat: Integreat CMS version [${CIRCLE_TAG}](https://github.com/Integreat/integreat-cms/releases/tag/${CIRCLE_TAG}) has been released successfully :tada:\n\n###### **Release Notes:**\n\n${CHANGELOG}"
+            # Send message to mattermost
+            STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" -X POST -H 'Content-type: application/json' \
+              --data \
+              "{
+                \"channel\": \"integreat-releases\",
+                \"username\": \"circleci\",
+                \"text\": \"${MM_MESSAGE}\"
+              }" "${MM_WEBHOOK}")
+            if [ "$STATUS" -ne "200" ]; then
+              echo "Notification not sent due to an error (HTTP status: ${STATUS})."
+              exit 1
+            fi
+            echo "Notification sent!"
+
+workflows:
+  develop:
+    jobs:
+      - pipenv-install:
+          filters:
+            branches:
+              ignore: main
+      - webpack:
+          filters:
+            branches:
+              ignore: main
+      - test:
+          requires:
+            - pipenv-install
+            - webpack
+      - check-translations:
+          requires:
+            - pipenv-install
+      - compile-translations:
+          requires:
+            - pipenv-install
+      - bump-dev-version:
+          filters:
+            branches:
+              only: develop
+          requires:
+            - pipenv-install
+      - build-package:
+          name: build-dev-package
+          requires:
+            - webpack
+            - compile-translations
+            - bump-dev-version
+      - publish-package:
+          name: publish-dev-package
+          context: pypi-test
+          filters:
+            branches:
+              only: develop
+          requires:
+            - build-dev-package
+      - black:
+          requires:
+            - pipenv-install
+      - pylint:
+          requires:
+            - pipenv-install
+      - shellcheck/check:
+          dir: ./dev-tools
+          external_sources: true
+      - build-documentation:
+          requires:
+            - pipenv-install
+      - deploy-documentation:
+          requires:
+            - build-documentation
+          filters:
+            branches:
+              only: develop
+  main:
+    jobs:
+      - pipenv-install:
+          name: pipenv-install-main
+          filters:
+            branches:
+              only: main
+      - bump-version:
+          context: deliverino
+          requires:
+            - pipenv-install-main
+  deploy:
+    jobs:
+      - pipenv-install:
+          name: pipenv-install-deploy
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
+      - webpack:
+          name: webpack-deploy
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
+      - compile-translations:
+          name: compile-translations-deploy
+          requires:
+            - pipenv-install-deploy
+          filters:
+            tags:
+              only: /.*/
+      - build-package:
+          requires:
+            - webpack-deploy
+            - compile-translations-deploy
+          filters:
+            tags:
+              only: /.*/
+      - publish-package:
+          context: pypi
+          requires:
+            - build-package
+          filters:
+            tags:
+              only: /.*/
+      - create-release:
+          context: deliverino
+          requires:
+            - build-package
+          filters:
+            tags:
+              only: /.*/
+      - notify-mattermost:
+          context: mattermost
+          requires:
+            - create-release
+          filters:
+            tags:
+              only: /.*/

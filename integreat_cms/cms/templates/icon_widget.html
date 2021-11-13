@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load form_icon_filters %}
+
+<div class="w-full">
+    {% with icon=widget.document.name label=widget.attrs.label %}
+    <div id="icon_preview" class="{% if not widget.document %}hidden{% endif %} w-full">
+        <img class="h-40 m-auto" src="{{ widget.document.thumbnail_url }}" />
+        <div id="icon_filename" class="block w-full break-all bg-gray-200 text-gray-800 border border-gray-200 rounded py-3 px-4 my-2">
+            {{ widget.document.name }}
+        </div>
+    </div>
+    <div class="w-full" id="set-icon-button">
+        <label for="{{ widget.attrs.id }}" class="block w-full text-center font-bold bg-blue-500 hover:bg-blue-600 focus:bg-blue-500 text-white py-2 px-4 rounded cursor-pointer relative">
+            <i data-feather="image" class="mr-2"></i>
+            <span id="set-icon-label" class="{% if icon %}hidden{% endif %}">{% blocktrans %}Set {{ label }}{% endblocktrans %}</span>
+            <span id="change-icon-label" class="{% if not icon %}hidden{% endif %}">{% blocktrans %}Change {{ label }}{% endblocktrans %}</span>
+        </label>
+        <input name="{{ widget.name }}" id="{{ widget.attrs.id }}" type="hidden" value="{{ widget.value|default_if_none:'' }}">
+        <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}" class="hidden">
+    </div>
+    <div id="remove-icon" class="w-full mt-2 {% if not icon %}hidden{% endif %}">
+        <div class="block w-full text-center font-bold bg-gray-500 hover:bg-gray-600 focus:bg-gray-600 text-white py-2 px-4 rounded cursor-pointer relative">
+            <i data-feather="trash-2" class="mr-2"></i>
+            {% blocktrans %}Remove {{ label }}{% endblocktrans %}
+        </div>
+    </div>
+    <div id="restore-icon" class="w-full mt-2 hidden">
+        <div class="block w-full text-center font-bold bg-gray-500 hover:bg-gray-600 focus:bg-gray-500 text-white py-2 px-4 rounded cursor-pointer relative">
+            <i data-feather="refresh-ccw" class="mr-2"></i>
+            {% blocktrans %}Restore {{ label }}{% endblocktrans %}
+        </div>
+    </div>
+    {% endwith %}
+</div>

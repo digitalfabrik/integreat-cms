@@ -1,0 +1,26 @@
+{% if messages %}
+<div class="mb-8">
+    {% for msg in messages %}
+        {% if msg.level_tag == 'info' %}
+            <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-500 px-4 py-3 mb-5" role="alert">
+                <p>{{msg.message|safe}}</p>
+            </div>
+        {% endif %}
+        {% if msg.level_tag == 'success' %}
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-500 px-4 py-3 mb-5" role="alert">
+                <p>{{msg.message|safe}}</p>
+            </div>
+        {% endif %}
+        {% if msg.level_tag == 'warning' %}
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-3 mb-5" role="alert">
+                <p>{{msg.message|safe}}</p>
+            </div>
+        {% endif %}
+        {% if msg.level_tag == 'error' %}
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5" role="alert">
+                <p>{{msg.message|safe}}</p>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endif %}

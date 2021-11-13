@@ -1,0 +1,29 @@
+{% load i18n %}
+
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+    <td class="pl-2">
+        <a href="{% url 'edit_region' region_slug=region.slug %}" class="block py-3 px-2 text-gray-800">
+            {{ region.full_name }}
+        </a>
+    </td>
+	<td>
+        <a href="{% url 'edit_region' region_slug=region.slug %}" class="block py-3 px-2 text-gray-800">
+			{{ region.created_date }}
+        </a>
+	</td>
+	<td>
+        <a href="{% url 'edit_region' region_slug=region.slug %}" class="block py-3 px-2 text-gray-800">
+			{{ region.last_updated }}
+        </a>
+	</td>
+	<td>
+        <a href="{% url 'edit_region' region_slug=region.slug %}" class="block py-3 px-2 text-gray-800">
+			{{ region.get_status_display }}
+        </a>
+	</td>
+	<td class="pr-2 text-right">
+		<a href="{% url 'dashboard' region_slug=region.slug %}" class="btn btn-small">
+			{% trans 'Open Dashboard' %}
+		</a>
+	</td>
+</tr>

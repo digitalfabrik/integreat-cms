@@ -1,0 +1,22 @@
+{% load static %}
+{% load i18n %}
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, user-scalable=no" />
+    <title>{% trans 'Integreat Editorial System' %}</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/integreat-icon.png' %}">
+
+    {% render_bundle 'main' 'js' %}
+    {% render_bundle 'main' 'css' %}
+
+    {% block javascript_head %}{% endblock %}
+</head>
+<body class="font-default">
+    {% block raw_content %}{% endblock raw_content %}
+    {% block javascript %}{% endblock %}
+</body>
+</html>
