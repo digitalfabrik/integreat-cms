@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2021.11.0-beta
+--------------
+
 Initial pre-release of the new content management system for the Integreat app with, among others, the following features:
 
 * Provide multilingual information for newcomers

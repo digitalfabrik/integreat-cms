@@ -6,7 +6,7 @@ from setuptools import find_packages, setup
 
 package_name = "integreat-cms"
 package_dir = "integreat_cms"
-version = "2021.9.0-beta"
+version = "2021.11.0-beta"
 
 
 def readme():
