@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <meta property="article:modified_time" content="2021-09-24T23:57:54+00:00" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pages &mdash; integreat-cms 2021.9.0-beta documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/integreat-icon.png"/>
+    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/ref/integreat_cms.cms.models.pages.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="POIs" href="integreat_cms.cms.models.pois.html" />
+    <link rel="prev" title="Offers" href="integreat_cms.cms.models.offers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    
+        <a href="../index.html"><img src="../_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
+    
+    
+        <a href="../index.html" class="icon icon-home"> integreat-cms</a>
+    
+    
+        
+        
+    
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">First Steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#prerequisites-on-common-distributions">Prerequisites on common distributions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#download-sources">Download sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-dependencies-and-local-package">Install dependencies and local package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-server.html">Development Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-server.html#webserver">Webserver</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#github-local-development-environment-german">GitHub, local development environment [German]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#first-issue-project-structure-django-german">First issue, project structure, Django [German]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-tools.html">Developer Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#development-server">Development Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#translations">Translations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#pipenv-not-found">Pipenv not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#integreat-cms-cli-not-found">Integreat-cms-cli not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#not-a-git-repository">Not a git repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#macos-on-m1">MacOS on M1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#webpack-compilation-errors">Webpack Compilation Errors</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basic Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../virtualenv.html">Virtual Environment (Pipenv)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#install-dependencies">Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#add-dependencies">Add dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#update-dependencies">Update dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#remove-virtual-environment">Remove virtual environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../internationalization.html">Internationalization (i18n)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#hardcoded-strings">Hardcoded Strings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#models">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#views">Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#templates">Templates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#translation-file">Translation File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#compilation">Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#developer-tools">Developer Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-bundling.html">Frontend Bundling (Webpack)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#compatible-browsers">Compatible Browsers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#fonts">Fonts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation (Sphinx)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#substitutions">Substitutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#external-links">External Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pipenv-install">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#webpack">webpack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pylint">pylint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#black">black</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#tests">tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#check-translations">check-translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#compile-translations">compile-translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#bump-dev-version">bump-dev-version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-package">build-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#publish-package">publish-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id1">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#bump-version">bump-version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id2">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id3">webpack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id4">compile-translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id5">build-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id6">publish-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#create-release">create-release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#notify-mattermost">notify-mattermost</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../packaging.html">Packaging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../packaging.html#create-python-package">Create python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packaging.html#publish-package">Publish package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../prod-server.html">Production Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#integreat-cms-package">Integreat CMS Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#webserver">Webserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#static-files">Static Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#redis-cache">Redis Cache</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#unreleased">UNRELEASED</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../issue-reporting.html">Issue Reporting Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#issue-templates">Issue Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#bug-report">Bug Report</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#describe-the-bug">Describe the Bug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#steps-to-reproduce">Steps to Reproduce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#expected-behavior">Expected Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#actual-behavior">Actual Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#additional-information">Additional Information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#feature-request">Feature Request</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#motivation">Motivation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#proposed-solution">Proposed Solution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#alternatives">Alternatives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#additional-context">Additional Context</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#git">Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#github-flow">GitHub Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#our-pledge">Our Pledge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#our-standards">Our Standards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement-responsibilities">Enforcement Responsibilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement">Enforcement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement-guidelines">Enforcement Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#correction">1. Correction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#warning">2. Warning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#temporary-ban">3. Temporary Ban</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#permanent-ban">4. Permanent Ban</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#attribution">Attribution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.html">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#events">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#imprint">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#languages">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#locations">Locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#offers">Offers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#pages">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#pdf-export">PDF Export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#regions">Regions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#tests">Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.constants.html">Constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#allowed-media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#colors">Colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#countries">Countries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#frequency">Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#matomo-periods">Matomo Periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#months">Months</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#position">Position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#postal-code">Postal Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#recurrence">Recurrence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#role-names">Role Names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#status">Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#text-directions">Text Directions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#translation-status">Translation Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#weekdays">Weekdays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.html">Forms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-model-form">Custom Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#icon-widget">Icon Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#object-search-form">Object Search Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.middleware.html#timezone-middleware">Timezone Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="integreat_cms.cms.models.html">Models</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.offers.html">Offers</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html">Users</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#arithmetic">Arithmetic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#base-filters">Base Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#content-filters">Content Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#form-icon-filters">Form Icon Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#model-tags">Model Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#page-filters">Page Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#poi-filters">POI Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#user-filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.html">Tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.views.html">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#account-activation-token-generator">Account Activation Token Generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#filter-links">Filter Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#text-utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.analytics.html">Analytics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html">Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.linkcheck.html">Linkcheck</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.html">Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#admin">Admin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#auth">Auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#linklists">Linklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#rules">Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#context-processors">Context Processors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#docker-settings">Docker Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#settings">Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#sphinx-settings">Sphinx Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#wsgi">Wsgi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.gvz_api.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.gvz_api.html#utils">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.sitemap.html">Sitemap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#sitemaps">Sitemaps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.xliff.html">XLIFF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#base-serializer">Base Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#generic-serializer">Generic Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#xliff-1-2-serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#xliff-2-0-serializer">XLIFF 2.0 Serializer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ref-ext/integreat_cms.html">Integreat CMS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.api.html">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html">V3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.events">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.imprint">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.languages">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.locations">Locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.offers">Offers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pages">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pdf_export">PDF Export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.push_notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.regions">Regions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.tests">Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html">CMS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html">Constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.all_day">All Day</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.colors">Colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.countries">Countries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_ratings">Feedback Ratings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_read_status">Feedback Read Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.frequency">Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.matomo_periods">Matomo Periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.mirrored_page_first">Mirrored Page First</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.months">Months</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.position">Position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.postal_code">Postal Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.push_notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.recurrence">Recurrence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.role_names">Role Names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.status">Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.text_directions">Text Directions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.translation_status">Translation Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.weekdays">Weekdays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html">Forms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_model_form">Custom Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.icon_widget">Icon Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.object_search_form">Object Search Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.middleware.html#module-integreat_cms.cms.middleware.timezone_middleware">Timezone Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html">Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.offers.html">Offers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html">Users</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.arithmetic">Arithmetic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.base_filters">Base Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.content_filters">Content Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.form_icon_filters">Form Icon Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.model_tags">Model Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.page_filters">Page Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.poi_filters">POI Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.html">Tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.views.html">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.account_activation_token_generator">Account Activation Token Generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.filter_links">Filter Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.text_utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.translation_utils">Translation Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.analytics.html">Analytics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.authentication.html">Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.linkcheck.html">Linkcheck</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.settings.html">Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.admin">Admin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.auth">Auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.linklists">Linklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.rules">Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.context_processors">Context Processors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_formatter">Logging Formatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings">Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.sphinx_settings">Sphinx Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.wsgi">Wsgi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.utils">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html">Sitemap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.sitemaps">Sitemaps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html">XLIFF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.base_serializer">Base Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.generic_serializer">Generic Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.xliff1_serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.xliff2_serializer">XLIFF 2.0 Serializer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.tuerantuer.org/glossary">Glossary</a></li>
+</ul>
+
+    <a href="../genindex.html">Full Index</a>
+    <a href="../py-modindex.html">Module Index</a>
+    <a href="../search.html">Search Page</a>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">integreat-cms</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="integreat_cms.html">Integreat CMS</a> &raquo;</li>
+          <li><a href="integreat_cms.cms.html">CMS</a> &raquo;</li>
+          <li><a href="integreat_cms.cms.models.html">Models</a> &raquo;</li>
+      <li>Pages</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../ref-ext/integreat_cms.cms.models.pages.html" class="fa fa-search-plus"> Open extended view</a>
+          
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pages">
+<h1>Pages<a class="headerlink" href="#pages" title="Permalink to this headline"></a></h1>
+<p>This package contains page-related data models:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage" title="integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBasePage</span></code></a> and
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation" title="integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBasePageTranslation</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> and
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page.ImprintPage" title="integreat_cms.cms.models.pages.imprint_page.ImprintPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPage</span></code></a> and
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation" title="integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPageTranslation</span></code></a></p></li>
+</ul>
+<section id="abstract-base-page">
+<h2>Abstract Base Page<a class="headerlink" href="#abstract-base-page" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.pages.abstract_base_page.</span></span><span class="sig-name descname"><span class="pre">AbstractBasePage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
+<p>Abstract base class for page and imprint page models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>explicitly_archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Explicitly archived. Whether or not the page is explicitly archived</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">archived</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This is an alias of <code class="docutils literal notranslate"><span class="pre">explicitly_archived</span></code>. Used for hierarchical pages to implement a more complex notion of
+explicitly and implicitly archived pages (see <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.archived" title="integreat_cms.cms.models.pages.page.Page.archived"><code class="xref py py-func docutils literal notranslate"><span class="pre">archived()</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether or not this page is archived</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backend_translation</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function returns the translation of this page in the current backend language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The backend translation of a page</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">best_translation</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function returns the translation of this page in the current backend language and if it doesn’t exist, it
+provides a fallback to the translation in the region’s default language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The “best” translation of a page for displaying in the backend</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_translation</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function returns the translation of this page in the region’s default language.
+Since a page can only be created by creating a translation in the default language, this is guaranteed to return
+a page translation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The default translation of a page</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_public_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function retrieves the newest public translation of a page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The public translation of a page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function uses the reverse foreign key <code class="docutils literal notranslate"><span class="pre">self.translations</span></code> to get all translations of <code class="docutils literal notranslate"><span class="pre">self</span></code>
+and filters them to the requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> slug.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the desired <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The page translation in the requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> or <a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>
+if no translation exists</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">languages</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property returns a list of all <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> objects, to which a page
+translation exists.
+To be implemented in the inheriting model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the property is not implemented in the subclass</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">region</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The region to which the page belongs (related name: <code class="docutils literal notranslate"><span class="pre">pages</span></code>)
+To be implemented in the inheriting model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the property is not implemented in the subclass</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="abstract-base-page-translation">
+<h2>Abstract Base Page Translation<a class="headerlink" href="#abstract-base-page-translation" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.pages.abstract_base_page_translation.</span></span><span class="sig-name descname"><span class="pre">AbstractBasePageTranslation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
+<p>Data model representing a page or imprint page translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Status</p></li>
+<li><p><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Currently in translation. Flag to indicate a translation is being updated by an external translator</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Version</p></li>
+<li><p><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Minor edit. Tick if this change does not require an update of translations in other languages</p></li>
+<li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">available_languages</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property checks in which <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> the page is translated apart
+from <code class="docutils literal notranslate"><span class="pre">self.language</span></code>.
+It only returns languages which have a public translation, so drafts are not included here.
+The returned dict has the following format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">available_translation</span><span class="o">.</span><span class="n">language</span><span class="o">.</span><span class="n">slug</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">available_translation</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">available_translation</span><span class="o">.</span><span class="n">permalink</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary containing the available languages of a page translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base_link</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property calculates the page link without the slug dynamically</p>
+<p>To be implemented in the inheriting model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">creator</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The user who created the page translation</p>
+<p>To be implemented in the inheriting model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">foreign_object</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property is an alias of the page foreign key and is needed to generalize the <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.slug_utils" title="integreat_cms.cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
+for all content types</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The page to which the translation belongs</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This helper function returns the absolute url to the webapp view of the page translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The absolute url of a page translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_outdated</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property checks whether a translation is outdated and thus needs a new revision of the content.
+This happens, when the source translation is updated and the update is no <cite>minor_edit</cite>.</p>
+<ul class="simple">
+<li><p>If the translation is currently being translated, it is considered not outdated.</p></li>
+<li><p>If the translation’s language is the region’s default language, it is defined to be never outdated.</p></li>
+<li><p>If the translation’s source translation is already outdated, then the translation itself also is.</p></li>
+<li><p>If neither the translation nor its source translation have a latest major public translation, it is defined as
+not outdated.</p></li>
+<li><p>If neither the translation nor its source translation have a latest major public translation, it is defined as
+not outdated.</p></li>
+</ul>
+<p>Otherwise, the outdated flag is calculated by comparing the <cite>last_updated</cite>-field of the translation and its
+source translation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Flag to indicate whether the translation is outdated</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_outdated_helper</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>See <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.is_outdated" title="integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.is_outdated"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_outdated()</span></code></a> with the
+difference that it does not return <code class="docutils literal notranslate"><span class="pre">False</span></code> when <code class="docutils literal notranslate"><span class="pre">currently_in_translation</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Flag to indicate whether the translation is outdated</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_up_to_date</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property checks whether a translation is up to date.
+A translation is considered up to date when it is not outdated and not being translated at the moment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Flag which indicates whether a translation is up to date</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">language</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The language of the page translation</p>
+<p>To be implemented in the inheriting model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latest_major_public_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property is a link to the most recent major public version of this translation.
+This is used when translations, which are derived from this translation, check whether they are up to date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The latest major public revision of the translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latest_major_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property is a link to the most recent major version of this translation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The latest major revision of the translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latest_public_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property is a link to the most recent public version of this translation.
+If the translation itself is not public, this property can return a revision which is older than <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The latest public revision of the translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">latest_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property is a link to the most recent version of this translation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The latest revision of the translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">page</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The page the translation belongs to</p>
+<p>To be implemented in the inheriting model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">permalink</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property calculates the permalink dynamically</p>
+<p>To be implemented in the inheriting model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">previous_revision</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property is a shortcut to the previous revision of this translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The previous translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">readable_title</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get the title of a page translation including the title in the best translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The readable title of the page translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">short_url</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property calculates the short url dynamically</p>
+<p>To be implemented in the inheriting model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sitemap_alternates</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property returns the language alternatives of a page translation for the use in sitemaps.
+Similar to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.available_languages" title="integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.available_languages"><code class="xref py py-func docutils literal notranslate"><span class="pre">available_languages()</span></code></a>,
+but in a slightly different format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of dictionaries containing the alternative translations of a page translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">source_translation</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property returns the translation which was used to create the <code class="docutils literal notranslate"><span class="pre">self</span></code> translation.
+It derives this information from the <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s root
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode" title="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The page translation in the source <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> (<a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if
+the translation is in the <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>’s default
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page_translation.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Status</p>
+<p>Choices:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DRAFT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REVIEW</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PUBLIC</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AUTO_SAVE</span></code></p></li>
+</ul>
+<p>Manage choices in <a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.status" title="integreat_cms.cms.constants.status"><code class="xref py py-mod docutils literal notranslate"><span class="pre">status</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="imprint-page">
+<h2>Imprint Page<a class="headerlink" href="#imprint-page" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.pages.imprint_page.</span></span><span class="sig-name descname"><span class="pre">ImprintPage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage" title="integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage</span></code></a></p>
+<p>Data model representing an imprint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>explicitly_archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Explicitly archived. Whether or not the page is explicitly archived</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.imprint" title="integreat_cms.cms.models.regions.region.Region.imprint"><code class="xref py py-attr docutils literal notranslate"><span class="pre">imprint</span></code></a>)</p>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation" title="integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPageTranslation</span></code></a>) – All translations of this imprint (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation.page" title="integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation.page"><code class="xref py py-attr docutils literal notranslate"><span class="pre">page</span></code></a>)</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">languages</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property returns a list of all <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> objects, to which an
+imprint translation exists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of all <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> an imprint is translated into</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language">Language</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="imprint-page-translation">
+<h2>Imprint Page Translation<a class="headerlink" href="#imprint-page-translation" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.pages.imprint_page_translation.</span></span><span class="sig-name descname"><span class="pre">ImprintPageTranslation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation" title="integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation</span></code></a></p>
+<p>Data model representing a imprint translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Status</p></li>
+<li><p><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Currently in translation. Flag to indicate a translation is being updated by an external translator</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Version</p></li>
+<li><p><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Minor edit. Tick if this change does not require an update of translations in other languages</p></li>
+<li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Title of the imprint</p></li>
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><em>TextField</em></a>) – Content of the imprint</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page.ImprintPage" title="integreat_cms.cms.models.pages.imprint_page.ImprintPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPage</span></code></a>) – Imprint (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page.ImprintPage.translations" title="integreat_cms.cms.models.pages.imprint_page.ImprintPage.translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">translations</span></code></a>)</p></li>
+<li><p><strong>language</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.imprint_translations" title="integreat_cms.cms.models.languages.language.Language.imprint_translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">imprint_translations</span></code></a>)</p></li>
+<li><p><strong>creator</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Creator (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.imprint_translations" title="integreat_cms.cms.models.users.user.User.imprint_translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">imprint_translations</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base_link</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property calculates the absolute imprint link without the slug dynamically</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The base link of the page</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">permalink</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property calculates the permalink dynamically</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The permalink of the imprint</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">short_url</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function returns the absolute short url to the imprint translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The short url of an imprint translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">slug</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>For compatibility with the other page translations, a slug property is useful.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pseudo slug for the imprint translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="page">
+<h2>Page<a class="headerlink" href="#page" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.pages.page.</span></span><span class="sig-name descname"><span class="pre">Page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.models.html#mptt.models.MPTTModel" title="(in django-mptt v0.13.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">mptt.models.MPTTModel</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage" title="integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage</span></code></a></p>
+<p>Data model representing a page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>explicitly_archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Explicitly archived. Whether or not the page is explicitly archived</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
+<li><p><strong>mirrored_page_first</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Position of mirrored page. If a mirrored page is set, this field determines whether the live content is embedded before the content of this page or after.</p></li>
+<li><p><strong>lft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Lft</p></li>
+<li><p><strong>rght</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Rght</p></li>
+<li><p><strong>tree_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Tree id</p></li>
+<li><p><strong>level</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Level</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.fields.html#mptt.fields.TreeForeignKey" title="(in django-mptt v0.13.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – Parent page (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.children" title="integreat_cms.cms.models.pages.page.Page.children"><code class="xref py py-attr docutils literal notranslate"><span class="pre">children</span></code></a>)</p></li>
+<li><p><strong>icon</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile" title="integreat_cms.cms.models.media.media_file.MediaFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaFile</span></code></a>) – Icon (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.icon_pages" title="integreat_cms.cms.models.media.media_file.MediaFile.icon_pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">icon_pages</span></code></a>)</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.pages" title="integreat_cms.cms.models.regions.region.Region.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>)</p></li>
+<li><p><strong>mirrored_page</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – Mirrored page. If the page embeds live content from another page, it is referenced here. (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.mirroring_pages" title="integreat_cms.cms.models.pages.page.Page.mirroring_pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mirroring_pages</span></code></a>)</p></li>
+<li><p><strong>organization</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization" title="integreat_cms.cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a>) – Responsible organization. This allows all members of the organization to edit and publish this page. (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.pages" title="integreat_cms.cms.models.users.organization.Organization.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>)</p></li>
+<li><p><strong>editors</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Editors. A list of users who have the permission to edit this specific page. Only has effect if these users do not have the permission to edit pages anyway. (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.editable_pages" title="integreat_cms.cms.models.users.user.User.editable_pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">editable_pages</span></code></a>)</p></li>
+<li><p><strong>publishers</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Publishers. A list of users who have the permission to publish this specific page. Only has effect if these users do not have the permission to publish pages anyway. (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.publishable_pages" title="integreat_cms.cms.models.users.user.User.publishable_pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">publishable_pages</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>children</strong> (Reverse <a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.fields.html#mptt.fields.TreeForeignKey" title="(in django-mptt v0.13.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All children of this page (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.parent" title="integreat_cms.cms.models.pages.page.Page.parent"><code class="xref py py-attr docutils literal notranslate"><span class="pre">parent</span></code></a>)</p></li>
+<li><p><strong>mirroring_pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All mirroring pages of this page (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.mirrored_page" title="integreat_cms.cms.models.pages.page.Page.mirrored_page"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mirrored_page</span></code></a>)</p></li>
+<li><p><strong>translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>) – All translations of this page (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.page" title="integreat_cms.cms.models.pages.page_translation.PageTranslation.page"><code class="xref py py-attr docutils literal notranslate"><span class="pre">page</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">archived</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>A hierarchical page is archived either explicitly if <code class="docutils literal notranslate"><span class="pre">explicitly_archived=True</span></code> or implicitly if one of its
+ancestors is explicitly archived.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether or not this page is archived</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">depth</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Counts how many ancestors the page has. If the page is the root page, its depth is <cite>0</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The depth of this page in its page tree</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">explicitly_archived_ancestors</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This returns all of the page’s ancestors which are archived.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The QuerySet of archived ancestors</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.querysets.html#mptt.querysets.TreeQuerySet" title="(in django-mptt v0.13.4)">TreeQuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_descendants_max_depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L219"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return all descendants with depth less or equal to max depth relative to this nodes depth</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>include_self</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to include this node in the result</p></li>
+<li><p><strong>max_depth</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The nodes maximum depth in the tree</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>All descendants of this node with relative max depth</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.querysets.html#mptt.querysets.TreeQuerySet" title="(in django-mptt v0.13.4)">TreeQuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_mirrored_page_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Mirrored content always includes the live content from another page. This content needs to be added when
+delivering content to end users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The content of a mirrored page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_next_sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filter_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filter_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L187"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function gets the next sibling of a page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filter_args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>filter_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied kwargs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The next sibling</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_previous_sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">filter_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">filter_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function gets all previous siblings of a page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filter_args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>filter_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied kwargs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The previous sibling</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_root_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Gets all root pages</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Slug defining the region</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>All root pages i.e. pages without parents</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/mptt.querysets.html#mptt.querysets.TreeQuerySet" title="(in django-mptt v0.13.4)">TreeQuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_siblings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L204"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function gets all siblings of a page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>include_self</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – gives state of include_self</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>All siblings of this page</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">implicitly_archived</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This checks whether one of the page’s ancestors is archived which means that this page is implicitly archived as well.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether or not this page is implicitly archived</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">languages</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property returns a list of all <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> objects, to which a page
+translation exists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of all <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> a page is translated into</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language">Language</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="page-translation">
+<h2>Page Translation<a class="headerlink" href="#page-translation" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.pages.page_translation.</span></span><span class="sig-name descname"><span class="pre">PageTranslation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation" title="integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation</span></code></a></p>
+<p>Data model representing a page translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Status</p></li>
+<li><p><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Currently in translation. Flag to indicate a translation is being updated by an external translator</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Version</p></li>
+<li><p><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Minor edit. Tick if this change does not require an update of translations in other languages</p></li>
+<li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Title of the page</p></li>
+<li><p><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.2)"><em>SlugField</em></a>) – Page link. String identifier without spaces and special characters. Unique per region and language. Leave blank to generate unique parameter from title.</p></li>
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><em>TextField</em></a>) – Content of the page</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – Page (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.translations" title="integreat_cms.cms.models.pages.page.Page.translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">translations</span></code></a>)</p></li>
+<li><p><strong>language</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.page_translations" title="integreat_cms.cms.models.languages.language.Language.page_translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">page_translations</span></code></a>)</p></li>
+<li><p><strong>creator</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Creator (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.page_translations" title="integreat_cms.cms.models.users.user.User.page_translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">page_translations</span></code></a>)</p></li>
+<li><p><strong>links</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/contenttypes/#django.contrib.contenttypes.fields.GenericRelation" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericRelation</span></code></a> to <code class="xref py py-class docutils literal notranslate"><span class="pre">Link</span></code>) – Links (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">page_translations</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>feedback</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.page_feedback.PageFeedback" title="integreat_cms.cms.models.feedback.page_feedback.PageFeedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageFeedback</span></code></a>) – All feedback of this page translation (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.page_feedback.PageFeedback.page_translation" title="integreat_cms.cms.models.feedback.page_feedback.PageFeedback.page_translation"><code class="xref py py-attr docutils literal notranslate"><span class="pre">page_translation</span></code></a>)</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ancestor_path</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property calculates the path of all parents of the page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The relative path to the page</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backend_base_link</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property calculates the absolute page link on the CMS domain</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The base link of the page</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backend_edit_link</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function returns the absolute url to the editor for this translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The url</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base_link</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property calculates the absolute page link without the slug dynamically</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The base link of the page</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">combined_last_updated</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function combines the last_updated date from this PageTranslation and from a mirrored page.
+If this translation has no content, then the date from the mirrored translation will be used. In
+other cases, the date from this translation will be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The last_updated date of this or the mirrored page translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/datetime.html#datetime.datetime" title="(in Python v3.7)">datetime</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">combined_text</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function combines the text from this PageTranslation with the text from the mirrored page.
+Mirrored content always includes the live content from another page. This content needs to be added when
+delivering content to end users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The combined content of this page and the mirrored page</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_current_translations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L285"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function is similar to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations" title="integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
+returns only page translations which are currently being translated by an external translator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>All currently translated translations of a region in a specific language</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_outdated_translations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function is similar to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations" title="integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
+returns only page translations which are outdated</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>All outdated translations of a region in a specific language</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_translations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L243"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function retrieves the most recent versions of a all <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>
+objects of a <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> in a specific <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of all page translations of a region in a specific language</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_up_to_date_translations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L262"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function is similar to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations" title="integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_translations()</span></code></a> but
+returns only page translations which are up to date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a></p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The requested <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>All up to date translations of a region in a specific language</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">permalink</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property calculates the permalink dynamically by joining the parent path together with the slug</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The permalink of the page</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L331"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Searches for all page translations which match the given <cite>query</cite> in their title or slug.
+:param region: The current region
+:type region: ~integreat_cms.cms.models.regions.region.Region
+:param language_slug: The language slug
+:type language_slug: str
+:param query: The query string used for filtering the pages
+:type query: str
+:return: A query for all matching objects
+:rtype: ~django.db.models.QuerySet</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">short_url</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function returns the absolute short url to the page translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The short url of a page translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tags</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This functions returns a list of translated tags which apply to this function.
+Supported tags:
+* Live content: if the page of this translation has live content
+* Empty: if the page contains no text</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of tags which apply to this translation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="integreat_cms.cms.models.offers.html" class="btn btn-neutral float-left" title="Offers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integreat_cms.cms.models.pois.html" class="btn btn-neutral float-right" title="POIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Integreat.
+        | <a href="https://integreat-app.de/" target="_blank">Website</a>
+        | <a href="https://integreat.app/" target="_blank">Web-App</a>
+        | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
+      <span class="lastupdated">Last updated on Sep 24, 2021.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+    <style>
+        div.wy-nav-content {
+            max-width: 1200px;
+        }
+        span.lastupdated {
+            float: right;
+        }
+        div.two-columns div.admonition {
+            clear: none;
+        }
+        div.left-side {
+            width: 48%;
+            float: left;
+        }
+        div.right-side {
+            margin-left: 52%;
+        }
+        div.iframe-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56%;
+            margin-bottom: 20px;
+        }
+        div.iframe-container iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0; top: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+        <!-- Hide the extended reference unless it's currently open -->
+        $(document).ready(function () {
+            if (window.location.pathname.includes("/ref-ext/")) {
+                let ref = $('p.caption:contains("Reference"):not(:contains("Extended Reference"))');
+                ref.hide();
+                ref.next().hide();
+            } else {
+                let simple_ref = $('p.caption:contains("Extended Reference")');
+                simple_ref.hide();
+                simple_ref.next().hide();
+            }
+        });
+    </script>
+
+
+</body>
+</html>

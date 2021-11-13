@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <meta property="article:modified_time" content="2021-09-24T23:57:54+00:00" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Views &mdash; integreat-cms 2021.9.0-beta documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/integreat-icon.png"/>
+    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/ref/integreat_cms.cms.tests.views.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Utils" href="integreat_cms.cms.utils.html" />
+    <link rel="prev" title="Pages" href="integreat_cms.cms.tests.pages.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    
+        <a href="../index.html"><img src="../_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
+    
+    
+        <a href="../index.html" class="icon icon-home"> integreat-cms</a>
+    
+    
+        
+        
+    
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">First Steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#prerequisites-on-common-distributions">Prerequisites on common distributions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#download-sources">Download sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-dependencies-and-local-package">Install dependencies and local package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-server.html">Development Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-server.html#webserver">Webserver</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#github-local-development-environment-german">GitHub, local development environment [German]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#first-issue-project-structure-django-german">First issue, project structure, Django [German]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-tools.html">Developer Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#development-server">Development Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#translations">Translations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#pipenv-not-found">Pipenv not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#integreat-cms-cli-not-found">Integreat-cms-cli not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#not-a-git-repository">Not a git repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#macos-on-m1">MacOS on M1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#webpack-compilation-errors">Webpack Compilation Errors</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basic Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../virtualenv.html">Virtual Environment (Pipenv)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#install-dependencies">Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#add-dependencies">Add dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#update-dependencies">Update dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#remove-virtual-environment">Remove virtual environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../internationalization.html">Internationalization (i18n)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#hardcoded-strings">Hardcoded Strings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#models">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#views">Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#templates">Templates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#translation-file">Translation File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#compilation">Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#developer-tools">Developer Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-bundling.html">Frontend Bundling (Webpack)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#compatible-browsers">Compatible Browsers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#fonts">Fonts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation (Sphinx)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#substitutions">Substitutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#external-links">External Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pipenv-install">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#webpack">webpack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pylint">pylint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#black">black</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#tests">tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#check-translations">check-translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#compile-translations">compile-translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#bump-dev-version">bump-dev-version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-package">build-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#publish-package">publish-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id1">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#bump-version">bump-version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id2">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id3">webpack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id4">compile-translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id5">build-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id6">publish-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#create-release">create-release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#notify-mattermost">notify-mattermost</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../packaging.html">Packaging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../packaging.html#create-python-package">Create python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packaging.html#publish-package">Publish package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../prod-server.html">Production Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#integreat-cms-package">Integreat CMS Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#webserver">Webserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#static-files">Static Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#redis-cache">Redis Cache</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#unreleased">UNRELEASED</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../issue-reporting.html">Issue Reporting Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#issue-templates">Issue Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#bug-report">Bug Report</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#describe-the-bug">Describe the Bug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#steps-to-reproduce">Steps to Reproduce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#expected-behavior">Expected Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#actual-behavior">Actual Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#additional-information">Additional Information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#feature-request">Feature Request</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#motivation">Motivation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#proposed-solution">Proposed Solution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#alternatives">Alternatives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#additional-context">Additional Context</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#git">Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#github-flow">GitHub Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#our-pledge">Our Pledge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#our-standards">Our Standards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement-responsibilities">Enforcement Responsibilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement">Enforcement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement-guidelines">Enforcement Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#correction">1. Correction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#warning">2. Warning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#temporary-ban">3. Temporary Ban</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#permanent-ban">4. Permanent Ban</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#attribution">Attribution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.html">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#events">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#imprint">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#languages">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#locations">Locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#offers">Offers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#pages">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#pdf-export">PDF Export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#regions">Regions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#tests">Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.constants.html">Constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#allowed-media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#colors">Colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#countries">Countries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#frequency">Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#matomo-periods">Matomo Periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#months">Months</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#position">Position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#postal-code">Postal Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#recurrence">Recurrence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#role-names">Role Names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#status">Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#text-directions">Text Directions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#translation-status">Translation Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#weekdays">Weekdays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.html">Forms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-model-form">Custom Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#icon-widget">Icon Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#object-search-form">Object Search Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.middleware.html#timezone-middleware">Timezone Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.html">Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.offers.html">Offers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html">Users</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#arithmetic">Arithmetic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#base-filters">Base Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#content-filters">Content Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#form-icon-filters">Form Icon Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#model-tags">Model Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#page-filters">Page Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#poi-filters">POI Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#user-filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="integreat_cms.cms.tests.html">Tests</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.pages.html">Pages</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#account-activation-token-generator">Account Activation Token Generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#filter-links">Filter Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#text-utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.analytics.html">Analytics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html">Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.linkcheck.html">Linkcheck</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.html">Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#admin">Admin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#auth">Auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#linklists">Linklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#rules">Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#context-processors">Context Processors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#docker-settings">Docker Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#settings">Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#sphinx-settings">Sphinx Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#wsgi">Wsgi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.gvz_api.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.gvz_api.html#utils">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.sitemap.html">Sitemap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#sitemaps">Sitemaps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.xliff.html">XLIFF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#base-serializer">Base Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#generic-serializer">Generic Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#xliff-1-2-serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#xliff-2-0-serializer">XLIFF 2.0 Serializer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ref-ext/integreat_cms.html">Integreat CMS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.api.html">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html">V3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.events">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.imprint">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.languages">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.locations">Locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.offers">Offers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pages">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pdf_export">PDF Export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.push_notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.regions">Regions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.tests">Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html">CMS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html">Constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.all_day">All Day</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.colors">Colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.countries">Countries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_ratings">Feedback Ratings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_read_status">Feedback Read Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.frequency">Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.matomo_periods">Matomo Periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.mirrored_page_first">Mirrored Page First</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.months">Months</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.position">Position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.postal_code">Postal Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.push_notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.recurrence">Recurrence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.role_names">Role Names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.status">Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.text_directions">Text Directions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.translation_status">Translation Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.weekdays">Weekdays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html">Forms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_model_form">Custom Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.icon_widget">Icon Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.object_search_form">Object Search Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.middleware.html#module-integreat_cms.cms.middleware.timezone_middleware">Timezone Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html">Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.offers.html">Offers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html">Users</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.arithmetic">Arithmetic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.base_filters">Base Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.content_filters">Content Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.form_icon_filters">Form Icon Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.model_tags">Model Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.page_filters">Page Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.poi_filters">POI Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.html">Tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.views.html">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.account_activation_token_generator">Account Activation Token Generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.filter_links">Filter Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.text_utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.translation_utils">Translation Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.analytics.html">Analytics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.authentication.html">Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.linkcheck.html">Linkcheck</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.settings.html">Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.admin">Admin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.auth">Auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.linklists">Linklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.rules">Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.context_processors">Context Processors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_formatter">Logging Formatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings">Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.sphinx_settings">Sphinx Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.wsgi">Wsgi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.utils">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html">Sitemap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.sitemaps">Sitemaps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html">XLIFF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.base_serializer">Base Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.generic_serializer">Generic Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.xliff1_serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.xliff2_serializer">XLIFF 2.0 Serializer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.tuerantuer.org/glossary">Glossary</a></li>
+</ul>
+
+    <a href="../genindex.html">Full Index</a>
+    <a href="../py-modindex.html">Module Index</a>
+    <a href="../search.html">Search Page</a>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">integreat-cms</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="integreat_cms.html">Integreat CMS</a> &raquo;</li>
+          <li><a href="integreat_cms.cms.html">CMS</a> &raquo;</li>
+          <li><a href="integreat_cms.cms.tests.html">Tests</a> &raquo;</li>
+      <li>Views</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../ref-ext/integreat_cms.cms.tests.views.html" class="fa fa-search-plus"> Open extended view</a>
+          
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="views">
+<h1>Views<a class="headerlink" href="#views" title="Permalink to this headline"></a></h1>
+<p>This package contains simple unit tests for views.
+It just ensures that all views return status code 200 and
+does not check whether the response content is valid in any way.</p>
+<section id="admin-view-test">
+<h2>Admin View Test<a class="headerlink" href="#admin-view-test" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.tests.views.admin_view_test.</span></span><span class="sig-name descname"><span class="pre">AdminViewTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/admin_view_test.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.views.html#integreat_cms.cms.tests.views.view_test.ViewTest" title="integreat_cms.cms.tests.views.view_test.ViewTest"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.tests.views.view_test.ViewTest</span></code></a></p>
+<p>This test checks whether all admin views return status code 200.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/admin_view_test.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_admin_dashboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/admin_dashboard/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">admin_dashboard</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_authenticate_modify_mfa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/user_settings/mfa/authenticate/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">authenticate_modify_mfa</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/languages/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">languages</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_new_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/languages/new'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">new_language</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_new_offer_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/offer_templates/new'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">new_offer_template</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_new_organization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/organizations/new'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">new_organization</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_new_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/regions/new'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">new_region</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_new_role</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/roles/new'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">new_role</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_new_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/users/new'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">new_user</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_offer_templates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/offer_templates/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">offer_templates</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_organizations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/organizations/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">organizations</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/regions/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">regions</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_roles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/roles/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">roles</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_user_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/user_settings/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">user_settings</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/users/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">users</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="api-view-test">
+<h2>API View Test<a class="headerlink" href="#api-view-test" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.tests.views.api_view_test.</span></span><span class="sig-name descname"><span class="pre">APIViewTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/api_view_test.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.views.html#integreat_cms.cms.tests.views.view_test.ViewTest" title="integreat_cms.cms.tests.views.view_test.ViewTest"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.tests.views.view_test.ViewTest</span></code></a></p>
+<p>This test checks whether all api views return status code 200.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setUpClass</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/api_view_test.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Hook method for setting up class fixture before running tests in the class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/augsburg/de/wp-json/extensions/v3/languages'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_languages</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/augsburg/de/wp-json/extensions/v3/pages'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_pages</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_pdf_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/augsburg/de/wp-json/extensions/v3/pdf'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_pdf_export</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/wp-json/extensions/v3/sites/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_regions</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_regions_hidden</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/wp-json/extensions/v3/sites/hidden'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_regions_hidden</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_regions_live</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/wp-json/extensions/v3/sites/live'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_regions_live</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_sent_push_notifications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/augsburg/de/wp-json/extensions/v3/sent_push_notifications'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_sent_push_notifications</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="no-session-view-test">
+<h2>No Session View Test<a class="headerlink" href="#no-session-view-test" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.tests.views.no_session_view_test.</span></span><span class="sig-name descname"><span class="pre">NoSessionViewTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/no_session_view_test.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.views.html#integreat_cms.cms.tests.views.view_test.ViewTest" title="integreat_cms.cms.tests.views.view_test.ViewTest"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.tests.views.view_test.ViewTest</span></code></a></p>
+<p>This test checks whether all no-session views return status code 200.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/login/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">login</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_login_mfa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/login/mfa/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">login_mfa</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_login_mfa_assert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/login/mfa/assert'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">login_mfa_assert</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_password_reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/reset-password/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">password_reset</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="region-view-test">
+<h2>Region View Test<a class="headerlink" href="#region-view-test" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.tests.views.region_view_test.</span></span><span class="sig-name descname"><span class="pre">RegionViewTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/region_view_test.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.views.html#integreat_cms.cms.tests.views.view_test.ViewTest" title="integreat_cms.cms.tests.views.view_test.ViewTest"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.tests.views.view_test.ViewTest</span></code></a></p>
+<p>This test checks whether all region views return status code 200.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/region_view_test.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_archived_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/pages/te-st/archived'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">archived_pages</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_archived_pois</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/pois/te-st/archived'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">archived_pois</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_dashboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">dashboard</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/events/te-st/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">events</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_events_archived</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/events/te-st/archived'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">events_archived</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_media</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/media-library/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">media</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_new_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/events/te-st/new'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">new_event</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_new_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/pages/te-st/new'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">new_page</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_new_poi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/pois/te-st/new'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">new_poi</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_new_push_notification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/push_notifications/te-st/new'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">new_push_notification</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_new_region_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/users/new'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">new_region_user</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/pages/te-st/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">pages</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_pois</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/pois/te-st/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">pois</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_push_notifications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/push_notifications/te-st/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">push_notifications</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_region_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/users/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">region_users</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_translation_coverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/test_region/translation_coverage/'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">translation_coverage</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="view-test">
+<h2>View Test<a class="headerlink" href="#view-test" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.tests.views.view_test.</span></span><span class="sig-name descname"><span class="pre">ViewTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.TestCase" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.TestCase</span></code></a></p>
+<p>This test class is a helper class for other view tests.
+It does not contain tests on its own, but only helper functions for subclasses.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">assertHttp200</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function checks whether the given response returns the http status code 200 and lets a test fail if not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>response</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The given http response</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="view-test-utils">
+<h2>View Test Utils<a class="headerlink" href="#view-test-utils" title="Permalink to this headline"></a></h2>
+<p>This modules contains helper functions for automatically generating view tests.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.tests.views.view_test_utils.</span></span><span class="sig-name descname"><span class="pre">generate_test_functions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">views</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/tests/views/view_test_utils.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function generates test functions for a list of views.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>class_variables</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The class variable dict in which the functions should be inserted</p></li>
+<li><p><strong>views</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The list of views for which the test functions should be generated</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The kwargs dict which is passed to all views</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="integreat_cms.cms.tests.pages.html" class="btn btn-neutral float-left" title="Pages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integreat_cms.cms.utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Integreat.
+        | <a href="https://integreat-app.de/" target="_blank">Website</a>
+        | <a href="https://integreat.app/" target="_blank">Web-App</a>
+        | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
+      <span class="lastupdated">Last updated on Sep 24, 2021.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+    <style>
+        div.wy-nav-content {
+            max-width: 1200px;
+        }
+        span.lastupdated {
+            float: right;
+        }
+        div.two-columns div.admonition {
+            clear: none;
+        }
+        div.left-side {
+            width: 48%;
+            float: left;
+        }
+        div.right-side {
+            margin-left: 52%;
+        }
+        div.iframe-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56%;
+            margin-bottom: 20px;
+        }
+        div.iframe-container iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0; top: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+        <!-- Hide the extended reference unless it's currently open -->
+        $(document).ready(function () {
+            if (window.location.pathname.includes("/ref-ext/")) {
+                let ref = $('p.caption:contains("Reference"):not(:contains("Extended Reference"))');
+                ref.hide();
+                ref.next().hide();
+            } else {
+                let simple_ref = $('p.caption:contains("Extended Reference")');
+                simple_ref.hide();
+                simple_ref.next().hide();
+            }
+        });
+    </script>
+
+
+</body>
+</html>

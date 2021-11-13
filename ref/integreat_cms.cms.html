@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <meta property="article:modified_time" content="2021-09-24T23:57:54+00:00" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMS &mdash; integreat-cms 2021.9.0-beta documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/integreat-icon.png"/>
+    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/ref/integreat_cms.cms.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Constants" href="integreat_cms.cms.constants.html" />
+    <link rel="prev" title="Feedback" href="integreat_cms.api.v3.feedback.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    
+        <a href="../index.html"><img src="../_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
+    
+    
+        <a href="../index.html" class="icon icon-home"> integreat-cms</a>
+    
+    
+        
+        
+    
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">First Steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#prerequisites-on-common-distributions">Prerequisites on common distributions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#download-sources">Download sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#install-dependencies-and-local-package">Install dependencies and local package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-server.html">Development Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-server.html#webserver">Webserver</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#github-local-development-environment-german">GitHub, local development environment [German]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#first-issue-project-structure-django-german">First issue, project structure, Django [German]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev-tools.html">Developer Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#development-server">Development Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#translations">Translations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#code-quality">Code Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#included-functions">Included Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev-tools.html#debugging">Debugging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#pipenv-not-found">Pipenv not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#integreat-cms-cli-not-found">Integreat-cms-cli not found</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#not-a-git-repository">Not a git repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#macos-on-m1">MacOS on M1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../troubleshooting.html#webpack-compilation-errors">Webpack Compilation Errors</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basic Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../virtualenv.html">Virtual Environment (Pipenv)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#install-dependencies">Install dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#add-dependencies">Add dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#update-dependencies">Update dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../virtualenv.html#remove-virtual-environment">Remove virtual environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../internationalization.html">Internationalization (i18n)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#hardcoded-strings">Hardcoded Strings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#models">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#views">Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#templates">Templates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#translation-file">Translation File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#compilation">Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../internationalization.html#developer-tools">Developer Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-bundling.html">Frontend Bundling (Webpack)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#compatible-browsers">Compatible Browsers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../frontend-bundling.html#fonts">Fonts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation (Sphinx)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#developer-tools">Developer Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#docstrings">Docstrings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#cross-referencing">Cross-referencing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#substitutions">Substitutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#github-pages">GitHub Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#external-links">External Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pipenv-install">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#webpack">webpack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#pylint">pylint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#black">black</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#tests">tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#check-translations">check-translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#compile-translations">compile-translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#bump-dev-version">bump-dev-version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-package">build-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#publish-package">publish-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#build-documentation">build-documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#deploy-documentation">deploy-documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#shellcheck-check">shellcheck/check</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id1">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#bump-version">bump-version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id2">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id3">webpack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id4">compile-translations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id5">build-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#id6">publish-package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#create-release">create-release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../continuous-integration.html#notify-mattermost">notify-mattermost</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#debugging-with-ssh">Debugging with SSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../continuous-integration.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../packaging.html">Packaging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../packaging.html#create-python-package">Create python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packaging.html#publish-package">Publish package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../prod-server.html">Production Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#integreat-cms-package">Integreat CMS Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#webserver">Webserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#static-files">Static Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#redis-cache">Redis Cache</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#unreleased">UNRELEASED</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../issue-reporting.html">Issue Reporting Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#issue-templates">Issue Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#bug-report">Bug Report</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#describe-the-bug">Describe the Bug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#steps-to-reproduce">Steps to Reproduce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#expected-behavior">Expected Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#actual-behavior">Actual Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#additional-information">Additional Information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../issue-reporting.html#feature-request">Feature Request</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#motivation">Motivation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#proposed-solution">Proposed Solution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#alternatives">Alternatives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../issue-reporting.html#additional-context">Additional Context</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code-style.html">Code Style Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#black">Black</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-style.html#shellcheck">Shellcheck</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../git-flow.html">GitHub Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#git">Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#github-flow">GitHub Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#rebasing">Rebasing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#update-feature-branch">1. Update feature branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#clean-up-git-history">2. Clean up git history</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../git-flow.html#pre-commit-hooks">Pre-commit Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#activation">Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../git-flow.html#deactivation">Deactivation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#our-pledge">Our Pledge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#our-standards">Our Standards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement-responsibilities">Enforcement Responsibilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement">Enforcement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code-of-conduct.html#enforcement-guidelines">Enforcement Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#correction">1. Correction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#warning">2. Warning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#temporary-ban">3. Temporary Ban</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#permanent-ban">4. Permanent Ban</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code-of-conduct.html#attribution">Attribution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.html">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#events">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#imprint">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#languages">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#locations">Locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#offers">Offers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#pages">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#pdf-export">PDF Export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#regions">Regions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#tests">Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CMS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.constants.html">Constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#allowed-media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#colors">Colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#countries">Countries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#frequency">Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#matomo-periods">Matomo Periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#months">Months</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#position">Position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#postal-code">Postal Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#recurrence">Recurrence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#role-names">Role Names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#status">Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#text-directions">Text Directions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#translation-status">Translation Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#weekdays">Weekdays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.html">Forms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-model-form">Custom Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#icon-widget">Icon Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#object-search-form">Object Search Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.middleware.html#timezone-middleware">Timezone Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.html">Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.offers.html">Offers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html">Users</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#arithmetic">Arithmetic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#base-filters">Base Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#content-filters">Content Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#form-icon-filters">Form Icon Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#model-tags">Model Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#page-filters">Page Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#poi-filters">POI Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#user-filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.html">Tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.views.html">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#account-activation-token-generator">Account Activation Token Generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#filter-links">Filter Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#text-utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.analytics.html">Analytics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html">Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.linkcheck.html">Linkcheck</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.html">Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#admin">Admin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth">Auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linklists">Linklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rules">Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#context-processors">Context Processors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#docker-settings">Docker Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#settings">Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#sphinx-settings">Sphinx Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#wsgi">Wsgi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.gvz_api.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.gvz_api.html#utils">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.sitemap.html">Sitemap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#sitemaps">Sitemaps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.xliff.html">XLIFF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#base-serializer">Base Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#generic-serializer">Generic Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#xliff-1-2-serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.xliff.html#xliff-2-0-serializer">XLIFF 2.0 Serializer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ref-ext/integreat_cms.html">Integreat CMS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.api.html">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html">V3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.events">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.imprint">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.languages">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.locations">Locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.offers">Offers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pages">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pdf_export">PDF Export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.push_notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.regions">Regions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.tests">Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.html#module-integreat_cms.api.urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html">CMS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html">Constants</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.administrative_division">Administrative Division</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.all_day">All Day</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media">Allowed Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.colors">Colors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.countries">Countries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_ratings">Feedback Ratings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_read_status">Feedback Read Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.frequency">Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.matomo_periods">Matomo Periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.mirrored_page_first">Mirrored Page First</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.months">Months</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.position">Position</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.postal_code">Postal Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.push_notifications">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.recurrence">Recurrence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.region_status">Region Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.role_names">Role Names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.status">Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.text_directions">Text Directions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.translation_status">Translation Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.weekdays">Weekdays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html">Forms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_model_form">Custom Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.icon_widget">Icon Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.object_search_form">Object Search Form</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.middleware.html#module-integreat_cms.cms.middleware.timezone_middleware">Timezone Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html">Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.offers.html">Offers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html">Users</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.arithmetic">Arithmetic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.base_filters">Base Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.content_filters">Content Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.form_icon_filters">Form Icon Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.model_tags">Model Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.page_filters">Page Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.poi_filters">POI Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.html">Tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.views.html">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.account_activation_token_generator">Account Activation Token Generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.filter_links">Filter Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.matomo_api_manager">Matomo API Manager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.slug_utils">Slug Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.text_utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.translation_utils">Translation Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.analytics.html">Analytics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.authentication.html">Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.imprint.html">Imprint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.languages.html">Languages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.linkcheck.html">Linkcheck</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.media.html">Media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.offer_templates.html">Offer Templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.organizations.html">Organizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.pages.html">Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.pois.html">POIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.push_notifications.html">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.roles.html">Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.settings.html">Settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.statistics.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.admin">Admin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.auth">Auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.decorators">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.linklists">Linklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.rules">Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.urls">Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.context_processors">Context Processors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_formatter">Logging Formatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings">Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.sphinx_settings">Sphinx Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.wsgi">Wsgi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.gvz_api.html">Gvz API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.utils">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html">Sitemap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.sitemaps">Sitemaps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.urls">Urls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.views">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html">XLIFF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.base_serializer">Base Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.generic_serializer">Generic Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.xliff1_serializer">XLIFF 1.2 Serializer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.xliff2_serializer">XLIFF 2.0 Serializer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://wiki.tuerantuer.org/glossary">Glossary</a></li>
+</ul>
+
+    <a href="../genindex.html">Full Index</a>
+    <a href="../py-modindex.html">Module Index</a>
+    <a href="../search.html">Search Page</a>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">integreat-cms</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="integreat_cms.html">Integreat CMS</a> &raquo;</li>
+      <li>CMS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../ref-ext/integreat_cms.cms.html" class="fa fa-search-plus"> Open extended view</a>
+          
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cms">
+<h1>CMS<a class="headerlink" href="#cms" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.constants.html">Constants</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#all-day">All Day</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#allowed-media">Allowed Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#colors">Colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#countries">Countries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#frequency">Frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#matomo-periods">Matomo Periods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#months">Months</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#position">Position</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#postal-code">Postal Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#push-notifications">Push Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#recurrence">Recurrence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#region-status">Region Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#role-names">Role Names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#status">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#text-directions">Text Directions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#translation-status">Translation Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#weekdays">Weekdays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.constants.html#weeks">Weeks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.forms.html">Forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.chat.html">Chat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.chat.html#chat-message-form">Chat Message Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.events.html">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.events.html#event-filter-form">Event Filter Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.events.html#event-form">Event Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.events.html#event-translation-form">Event Translation Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.events.html#recurrence-rule-form">Recurrence Rule Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.feedback.html">Feedback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.feedback.html#admin-feedback-filter-form">Admin Feedback Filter Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.feedback.html#region-feedback-filter-form">Region Feedback Filter Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.imprint.html">Imprint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.imprint.html#imprint-translation-form">Imprint Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.language_tree.html#language-tree-node-form">Language Tree Node Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.languages.html">Languages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.languages.html#language-form">Language Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.media.html">Media</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.media.html#create-directory-form">Create Directory Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.media.html#directory-form">Directory Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.media.html#media-file-form">Media File Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.media.html#replace-media-file-form">Replace Media File Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.media.html#upload-media-file-form">Upload Media File Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.offer_templates.html#offer-template-form">Offer Template Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.organizations.html">Organizations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.organizations.html#organization-form">Organization Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.pages.html">Pages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.pages.html#page-filter-form">Page Filter Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.pages.html#page-form">Page Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.pages.html#page-translation-form">Page Translation Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.pages.html#parent-field-widget">Parent Field Widget</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.pois.html">POIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.pois.html#poi-form">POI Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.pois.html#poi-translation-form">POI Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.push_notifications.html#push-notification-form">Push Notification Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.push_notifications.html#push-notification-translation-form">Push Notification Translation Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.regions.html">Regions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.regions.html#region-form">Region Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.roles.html">Roles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.roles.html#group-form">Group Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.roles.html#role-form">Role Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.statistics.html">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.statistics.html#statistics-filter-form">Statistics Filter Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.users.html">Users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.users.html#authentication-form">Authentication Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.users.html#region-user-form">Region User Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.users.html#user-email-form">User Email Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.users.html#user-form">User Form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.users.html#user-password-form">User Password Form</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-model-form">Custom Model Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.html#icon-widget">Icon Widget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.forms.html#object-search-form">Object Search Form</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.middleware.html">Middleware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.middleware.html#timezone-middleware">Timezone Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.models.html">Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.chat.html">Chat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.chat.html#chat-message">Chat Message</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.events.html">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.events.html#event">Event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.events.html#event-translation">Event Translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.events.html#recurrence-rule">Recurrence Rule</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.feedback.html">Feedback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#event-feedback">Event Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#event-list-feedback">Event List Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#id1">Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#imprint-page-feedback">Imprint Page Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#map-feedback">Map Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#offer-feedback">Offer Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#offer-list-feedback">Offer List Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#page-feedback">Page Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#poi-feedback">POI Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#region-feedback">Region Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#search-result-feedback">Search Result Feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.languages.html">Languages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.languages.html#language">Language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.languages.html#language-tree-node">Language Tree Node</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.media.html">Media</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.media.html#directory">Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.media.html#media-file">Media File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.offers.html">Offers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.offers.html#offer-template">Offer Template</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.pages.html">Pages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.pages.html#abstract-base-page">Abstract Base Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.pages.html#abstract-base-page-translation">Abstract Base Page Translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.pages.html#imprint-page">Imprint Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.pages.html#imprint-page-translation">Imprint Page Translation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.pages.html#page">Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.pages.html#page-translation">Page Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.pois.html">POIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.pois.html#poi">POI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.pois.html#poi-translation">POI Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.push_notifications.html#push-notification">Push Notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.push_notifications.html#push-notification-translation">Push Notification Translation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.regions.html">Regions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.regions.html#region">Region</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.users.html">Users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.users.html#organization">Organization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.users.html#role">Role</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.users.html#user">User</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.users.html#user-mfa-key">User MFA Key</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.templatetags.html">Templatetags</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#arithmetic">Arithmetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#base-filters">Base Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#content-filters">Content Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#form-icon-filters">Form Icon Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#model-tags">Model Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#page-filters">Page Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#poi-filters">POI Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.templatetags.html#user-filters">User Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.tests.html">Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.tests.pages.html">Pages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.pages.html#models">Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.tests.views.html">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.views.html#admin-view-test">Admin View Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.views.html#api-view-test">API View Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.views.html#no-session-view-test">No Session View Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.views.html#region-view-test">Region View Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.views.html#view-test">View Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.views.html#view-test-utils">View Test Utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.utils.html">Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#account-activation-token-generator">Account Activation Token Generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#filter-links">Filter Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#slug-utils">Slug Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#text-utils">Text Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.analytics.html">Analytics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.analytics.html#analytics-overview">Analytics Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.analytics.html#app-size-view">App Size View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.analytics.html#translation-coverage-view">Translation Coverage View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.authentication.html">Authentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html">MFA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#mfa-assert-view">MFA Assert View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#mfa-login-view">MFA Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#mfa-verify-view">MFA Verify View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#account-activation-view">Account Activation View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#login-view">Login View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#logout-view">Logout View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#password-reset-confirm-view">Password Reset Confirm View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#password-reset-view">Password Reset View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.chat.html">Chat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.chat.html#chat-actions">Chat Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.chat.html#chat-context-mixin">Chat Context Mixin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html">Dashboard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html#admin-dashboard-view">Admin Dashboard View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html#dashboard-view">Dashboard View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html#redirect-view">Redirect View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html#region-selection">Region Selection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.error_handler.html">Error Handler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.error_handler.html#id1">Error Handler</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.events.html">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.events.html#event-actions">Event Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.events.html#event-context-mixin">Event Context Mixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.events.html#event-list-view">Event List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.events.html#event-view">Event View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.feedback.html">Feedback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.feedback.html#admin-feedback-actions">Admin Feedback Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.feedback.html#admin-feedback-list-view">Admin Feedback List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.feedback.html#region-feedback-actions">Region Feedback Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.feedback.html#region-feedback-list-view">Region Feedback List View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.imprint.html">Imprint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.imprint.html#imprint-actions">Imprint Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.imprint.html#imprint-revision-view">Imprint Revision View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.imprint.html#imprint-sbs-view">Imprint Sbs View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.imprint.html#imprint-view">Imprint View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html">Language Tree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#language-tree-actions">Language Tree Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#language-tree-context-mixin">Language Tree Context Mixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#language-tree-node-view">Language Tree Node View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#language-tree-view">Language Tree View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.languages.html">Languages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.languages.html#language-list-view">Language List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.languages.html#language-view">Language View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.linkcheck.html">Linkcheck</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.linkcheck.html#id1">Linkcheck</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.media.html">Media</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.media.html#media-actions">Media Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.media.html#media-context-mixin">Media Context Mixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.media.html#media-list-view">Media List View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.offer_templates.html">Offer Templates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.offer_templates.html#offer-template-list-view">Offer Template List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.offer_templates.html#offer-template-view">Offer Template View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.organizations.html">Organizations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.organizations.html#organization-actions">Organization Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.organizations.html#organization-context-mixin">Organization Context Mixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.organizations.html#organization-list-view">Organization List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.organizations.html#organization-view">Organization View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.pages.html">Pages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-actions">Page Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-context-mixin">Page Context Mixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-revision-view">Page Revision View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-sbs-view">Page Sbs View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-tree-view">Page Tree View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-view">Page View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-xliff-import-view">Page XLIFF Import View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.pois.html">POIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.pois.html#poi-actions">POI Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.pois.html#poi-context-mixin">POI Context Mixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.pois.html#poi-list-view">POI List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.pois.html#poi-view">POI View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html">Push Notifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#push-notification-list-view">Push Notification List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#push-notification-sender">Push Notification Sender</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#push-notification-view">Push Notification View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.regions.html">Regions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.regions.html#region-actions">Region Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.regions.html#region-list-view">Region List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.regions.html#region-view">Region View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.roles.html">Roles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.roles.html#role-list-view">Role List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.roles.html#role-view">Role View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.settings.html">Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.settings.mfa.html">MFA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.mfa.html#authenticate-modify-mfa-view">Authenticate Modify MFA View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.mfa.html#delete-user-mfa-key-view">Delete User MFA Key View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.mfa.html#get-mfa-challenge-view">Get MFA Challenge View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.mfa.html#register-user-mfa-key-view">Register User MFA Key View</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.settings.html#user-settings-view">User Settings View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.statistics.html">Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.statistics.html#statistics-actions">Statistics Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.statistics.html#statistics-view">Statistics View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.users.html">Users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.users.html#region-user-actions">Region User Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.users.html#region-user-list-view">Region User List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.users.html#region-user-view">Region User View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.users.html#user-actions">User Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.users.html#user-list-view">User List View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.users.html#user-view">User View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.utils.html#search-content-ajax">Search Content Ajax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.utils.html#slugify-ajax">Slugify Ajax</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="admin">
+<h2>Admin<a class="headerlink" href="#admin" title="Permalink to this headline"></a></h2>
+<p>File routing to the admin region</p>
+</section>
+<section id="apps">
+<h2>Apps<a class="headerlink" href="#apps" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.apps.</span></span><span class="sig-name descname"><span class="pre">CmsConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/apps.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
+<p>This class represents the Django-configuration of the backend.</p>
+<p>See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a> for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the app</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">ready</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/apps.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function gets executed exactly once each time the cms starts. We use it to check wether the secret key was
+not changed in production mode and show an error message if this is the case.</p>
+<p>See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig.ready" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.apps.AppConfig.ready()</span></code></a> for more information.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.apps.</span></span><span class="sig-name descname"><span class="pre">user_logged_in_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/apps.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Log a successful login event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#type" title="(in Python v3.7)"><em>type</em></a>) – The class of the user that just logged in.</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user instance that just logged in.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.apps.</span></span><span class="sig-name descname"><span class="pre">user_logged_out_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/apps.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Log a logout event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#type" title="(in Python v3.7)"><em>type</em></a>) – The class of the user that just logged out or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the user was not authenticated.</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user instance that just logged out or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the user was not authenticated.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.apps.</span></span><span class="sig-name descname"><span class="pre">user_login_failed_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">credentials</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/apps.py#L93"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Log a failed login event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the module used for authentication.</p></li>
+<li><p><strong>credentials</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – A dictionary of keyword arguments containing the user credentials that were passed to
+<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.authenticate" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">authenticate()</span></code></a>. Credentials matching a set of ‘sensitive’ patterns,
+(including password) will not be sent in the clear as part of the signal.</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="auth">
+<h2>Auth<a class="headerlink" href="#auth" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.auth.</span></span><span class="sig-name descname"><span class="pre">WPBCryptPasswordHasher</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/auth.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.hashers.BCryptSHA256PasswordHasher</span></code></p>
+<p>A PHP (and WordPress) compatible BCrypt password hasher that supports hashes with <code class="docutils literal notranslate"><span class="pre">$2y$10$</span></code>.
+See <a class="reference external" href="https://www.php.net/manual/en/function.password-hash.php">https://www.php.net/manual/en/function.password-hash.php</a>.
+For PHP style hashes only verification is supported.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">verify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoded</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/auth.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Validate that entered password matches stored hash</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – the plain text password</p></li>
+<li><p><strong>encoded</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – the hashed and salted password, i.e. from database</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>entered password matches the hash</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="decorators">
+<h2>Decorators<a class="headerlink" href="#decorators" title="Permalink to this headline"></a></h2>
+<p>Django view decorators can be used to restrict the execution of a view function on certain conditions.</p>
+<p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/decorators/" title="(in Django v3.2)"><span>View decorators</span></a>.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.decorators.</span></span><span class="sig-name descname"><span class="pre">modify_mfa_authenticated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/decorators.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This decorator can be used to make sure a user can only modify his 2FA settings when he has a valid 2FA session.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decorated function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.decorators.</span></span><span class="sig-name descname"><span class="pre">permission_required</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">permission</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/decorators.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Decorator for views that checks whether a user has a particular permission enabled.
+If not, the PermissionDenied exception is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>permission</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The required permission</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decorated function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.decorators.</span></span><span class="sig-name descname"><span class="pre">region_permission_required</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/decorators.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This decorator can be used to make sure a view can only be retrieved by users of the requested region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decorated function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.decorators.</span></span><span class="sig-name descname"><span class="pre">staff_required</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/decorators.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This decorator can be used to make sure a view can only be retrieved by users who are either staff or superusers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)"><em>Callable</em></a>) – The view function which should be protected</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decorated function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.7)">Callable</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="linklists">
+<h2>Linklists<a class="headerlink" href="#linklists" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">EventTranslationLinklist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">linkcheck.Linklist</span></code></p>
+<p>Class for selecting the EventTranslation model for link checks</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.events.event_translation.EventTranslation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">POITranslationLinklist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">linkcheck.Linklist</span></code></p>
+<p>Class for selecting the POITranslation model for link checks</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pois/poi_translation.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.pois.poi_translation.POITranslation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">PageTranslationLinklist</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">linkcheck.Linklist</span></code></p>
+<p>Class for selecting the PageTranslation model for link checks</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.pages.page_translation.PageTranslation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="rules">
+<h2>Rules<a class="headerlink" href="#rules" title="Permalink to this headline"></a></h2>
+<p>We use <a class="reference external" href="https://pypi.org/project/rules/">django-rules</a> to add custom permissions for specific pages.</p>
+<p>For a given user and page, the following permissions are added:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">~integreat_cms.cms.edit_page</span></code> if one of the following predicates return true:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.can_edit_all_pages" title="integreat_cms.cms.rules.can_edit_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_edit_all_pages()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_editor" title="integreat_cms.cms.rules.is_page_editor"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_editor()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.can_publish_all_pages" title="integreat_cms.cms.rules.can_publish_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_publisher" title="integreat_cms.cms.rules.is_page_publisher"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~integreat_cms.cms.publish_page_object</span></code> if one of the following predicates return true:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.can_publish_all_pages" title="integreat_cms.cms.rules.can_publish_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></p></li>
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_publisher" title="integreat_cms.cms.rules.is_page_publisher"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>See the project’s <a class="reference external" href="https://github.com/dfunckt/django-rules/blob/master/README.rst">README</a> to learn more.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.rules.</span></span><span class="sig-name descname"><span class="pre">is_page_editor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/rules.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This predicate checks whether the given user is one of the editors of the given page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is an editor of <code class="docutils literal notranslate"><span class="pre">page</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.rules.</span></span><span class="sig-name descname"><span class="pre">is_page_publisher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/rules.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This predicate checks whether the given user is one of the publishers of the given page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is a publisher of <code class="docutils literal notranslate"><span class="pre">page</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.rules.</span></span><span class="sig-name descname"><span class="pre">can_edit_all_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/rules.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This predicate checks whether the given user can edit all pages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a>) – The page parameter is used for the region check</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> can edit all pages</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.rules.</span></span><span class="sig-name descname"><span class="pre">can_publish_all_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/rules.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This predicate checks whether the given user can publish all pages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a>) – The page parameter is used for the region check</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> can publish all pages</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.rules.</span></span><span class="sig-name descname"><span class="pre">is_in_responsible_organization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/rules.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This predicate checks whether the given user is a member of the page’s responsible organization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is a member of <code class="docutils literal notranslate"><span class="pre">page.organization</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.rules.</span></span><span class="sig-name descname"><span class="pre">can_delete_chat_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chat_message</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/rules.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This predicate checks whether the given user can delete a given chat message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>chat_message</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage" title="integreat_cms.cms.models.chat.chat_message.ChatMessage"><em>ChatMessage</em></a>) – The requested chat message</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is allowed to delete <code class="docutils literal notranslate"><span class="pre">chat_message</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="urls">
+<h2>Urls<a class="headerlink" href="#urls" title="Permalink to this headline"></a></h2>
+<p>Django URL dispatcher for the cms package.
+See <a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.urls" title="integreat_cms.core.urls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">urls</span></code></a> for the other namespaces of this application.</p>
+<p>For more information on this file, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/urls/" title="(in Django v3.2)"><span>URL dispatcher</span></a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="integreat_cms.api.v3.feedback.html" class="btn btn-neutral float-left" title="Feedback" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integreat_cms.cms.constants.html" class="btn btn-neutral float-right" title="Constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, Integreat.
+        | <a href="https://integreat-app.de/" target="_blank">Website</a>
+        | <a href="https://integreat.app/" target="_blank">Web-App</a>
+        | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
+      <span class="lastupdated">Last updated on Sep 24, 2021.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+    <style>
+        div.wy-nav-content {
+            max-width: 1200px;
+        }
+        span.lastupdated {
+            float: right;
+        }
+        div.two-columns div.admonition {
+            clear: none;
+        }
+        div.left-side {
+            width: 48%;
+            float: left;
+        }
+        div.right-side {
+            margin-left: 52%;
+        }
+        div.iframe-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56%;
+            margin-bottom: 20px;
+        }
+        div.iframe-container iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0; top: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+        <!-- Hide the extended reference unless it's currently open -->
+        $(document).ready(function () {
+            if (window.location.pathname.includes("/ref-ext/")) {
+                let ref = $('p.caption:contains("Reference"):not(:contains("Extended Reference"))');
+                ref.hide();
+                ref.next().hide();
+            } else {
+                let simple_ref = $('p.caption:contains("Extended Reference")');
+                simple_ref.hide();
+                simple_ref.next().hide();
+            }
+        });
+    </script>
+
+
+</body>
+</html>
