@@ -124,7 +124,7 @@ function setPoiQueryEventListeners() {
         clearTimeout(scheduledFunction);
       }
       // Schedule function execution
-      scheduledFunction = setTimeout(
+      scheduledFunction = window.setTimeout(
         queryPois,
         300,
         input_field.getAttribute("data-url"),

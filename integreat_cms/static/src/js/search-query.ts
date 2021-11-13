@@ -77,7 +77,7 @@ function setSearchQueryEventListeners() {
                 clearTimeout(scheduledFunction);
             }
             // Schedule function execution
-            scheduledFunction = setTimeout(
+            scheduledFunction = window.setTimeout(
                 queryObjects,
                 300,
                 table_search_input.getAttribute("data-url"),
