@@ -11,6 +11,7 @@ UNRELEASED
 * Fully functional media library in selection window
 * Align language flags and translation status icons
 * Fix error when replacing media files without thumbnail
+* Add search function for media library
 
 
 2021.11.0-beta

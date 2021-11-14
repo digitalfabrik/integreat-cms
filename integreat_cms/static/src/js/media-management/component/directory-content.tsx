@@ -10,14 +10,14 @@ import FileEntry from "./file-entry";
 
 interface Props {
   fileIndexState: [number | null, StateUpdater<number | null>];
-  directoryContent: MediaLibraryEntry[];
+  mediaLibraryContent: MediaLibraryEntry[];
   mediaTranslations: any;
   globalEdit?: boolean;
 }
 
 export default function DirectoryContent({
   fileIndexState,
-  directoryContent,
+  mediaLibraryContent,
   mediaTranslations,
   globalEdit,
 }: Props) {
@@ -26,7 +26,7 @@ export default function DirectoryContent({
 
   return (
     <div className="grid grid-cols-gallery max-h-full gap-1">
-      {directoryContent.map((entry: MediaLibraryEntry, index: number) =>
+      {mediaLibraryContent.map((entry: MediaLibraryEntry, index: number) =>
         entry.type === "directory" ? (
           <Link href={`/${entry.id}/`} media-library-link>
             <DirectoryEntry

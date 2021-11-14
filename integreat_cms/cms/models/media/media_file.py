@@ -9,6 +9,7 @@ from time import strftime
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.translation import ugettext_lazy as _
@@ -196,6 +197,27 @@ class MediaFile(models.Model):
             "uploadedDate": localize(timezone.localtime(self.uploaded_date)),
             "isGlobal": not self.region,
         }
+
+    @classmethod
+    def search(cls, region, query):
+        """
+        Searches for all media files which match the given `query` in their name.
+
+        :param region: The searched region
+        :type region: ~integreat_cms.cms.models.regions.region.Region
+
+        :param query: The query string used for filtering the media file
+        :type query: str
+
+        :return: A queryset for all matching objects
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.media.media_file.MediaFile ]
+        """
+        return cls.objects.filter(
+            Q(region=region) | Q(region__isnull=True),
+            Q(name__icontains=query)
+            | Q(alt_text__icontains=query)
+            | Q(file__icontains=query),
+        )
 
     def __str__(self):
         """

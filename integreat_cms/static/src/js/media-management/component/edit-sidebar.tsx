@@ -35,7 +35,7 @@ import { MediaApiPaths, File, MediaLibraryEntry, Directory } from "../index";
 interface Props {
   directory: Directory;
   fileIndexState: [number | null, StateUpdater<number | null>];
-  directoryContent: MediaLibraryEntry[];
+  mediaLibraryContent: MediaLibraryEntry[];
   apiEndpoints: MediaApiPaths;
   mediaTranslations: any;
   selectionMode?: boolean;
@@ -49,7 +49,7 @@ interface Props {
 
 export default function EditSidebar({
   fileIndexState,
-  directoryContent,
+  mediaLibraryContent,
   apiEndpoints,
   mediaTranslations,
   selectionMode,
@@ -63,7 +63,7 @@ export default function EditSidebar({
   // The file index contains the index of the file which is currently opened in the sidebar
   const [fileIndex, setFileIndex] = fileIndexState;
   // The current directory is the last element of the directory path
-  const file = directoryContent[fileIndex] as File;
+  const file = mediaLibraryContent[fileIndex] as File;
   // This state is a buffer for the currently changed file
   const [changedFile, setChangedFile] = useState<File>(file);
   // This state determines whether the file name is currently being edited

@@ -8,16 +8,19 @@
  */
 import { render, h } from "preact";
 import { useState } from "preact/hooks";
-import Router from "preact-router";
+import { Router, route } from 'preact-router';
 import { createHashHistory } from "history";
 import cn from "classnames";
 
 import MessageComponent, { Message } from "./component/message";
-import Library from "./library";
+import DirectoryContentLibrary from "./directory-content-library";
+import SearchResultLibrary from "./search-result-library";
 
 export interface MediaApiPaths {
   getDirectoryPath: string;
   getDirectoryContent: string;
+  getSearchResult:string;
+  getSearchSuggestions:string;
   createDirectory: string;
   editDirectory: string;
   deleteDirectory: string;
@@ -68,16 +71,75 @@ export default function MediaManagement(props: Props) {
   const [newMessage, showMessage] = useState<Message | null>(null);
   // This state is a semaphore to block actions while an ajax call is running
   const [isLoading, setLoading] = useState<boolean>(false);
+  // The directory path contains the current directory and all its parents
+  const [directoryPath, setDirectoryPath] = useState<Directory[]>([]);
+  // The directory content contains all subdirectories and files of the current directory
+  const [mediaLibraryContent, setMediaLibraryContent] = useState<MediaLibraryEntry[]>([]);
+  // The file index contains the index of the file which is currently opened in the sidebar
+  const [fileIndex, setFileIndex] = useState<number | null>(null);
+  // This state is used to refresh the media library after changes were made
+  const [refresh, setRefresh] = useState<boolean>(false);
+  // This state contains a file which should be opened in the sidebar after the content has been refreshed
+  const [sidebarFile, setSidebarFile] = useState<File>(null);
+
+  // This function is used to get information about a directory (either the path or the content)
+  const ajaxRequest = async (
+      url: string,
+      urlParams: URLSearchParams,
+      successCallback: (data: any) => void
+  ) => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+          `${url}?${urlParams}`
+      );
+      if (response.status === 200) {
+        successCallback((await response.json()).data);
+      } else {
+        console.error("Server error:", response);
+        showMessage({
+          type: "error",
+          text: props.mediaTranslations.text_error,
+        });
+        route("/");
+      }
+    } catch (error) {
+      console.error(error);
+      showMessage({
+        type: "error",
+        text: props.mediaTranslations.text_network_error,
+      });
+    }
+    setLoading(false);
+  };
 
   return (
     <div className={cn("flex flex-col flex-grow min-w-0", { "cursor-wait": isLoading })}>
       <MessageComponent newMessage={newMessage} />
       <Router history={createHashHistory() as any}>
-        <Library
-          path="/:directoryId?"
-          showMessage={showMessage}
-          loadingState={[isLoading, setLoading]}
-          {...props}
+        <SearchResultLibrary
+            path="/search/:searchQuery+"
+            showMessage={showMessage}
+            loadingState={[isLoading, setLoading]}
+            refreshState={[refresh, setRefresh]}
+            directoryPathState={[directoryPath, setDirectoryPath]}
+            mediaLibraryContentState={[mediaLibraryContent, setMediaLibraryContent]}
+            fileIndexState={[fileIndex, setFileIndex]}
+            sidebarFileState={[sidebarFile, setSidebarFile]}
+            ajaxRequest={ajaxRequest}
+            {...props}
+        />
+        <DirectoryContentLibrary
+            path="/:directoryId?"
+            showMessage={showMessage}
+            loadingState={[isLoading, setLoading]}
+            refreshState={[refresh, setRefresh]}
+            directoryPathState={[directoryPath, setDirectoryPath]}
+            mediaLibraryContentState={[mediaLibraryContent, setMediaLibraryContent]}
+            fileIndexState={[fileIndex, setFileIndex]}
+            sidebarFileState={[sidebarFile, setSidebarFile]}
+            ajaxRequest={ajaxRequest}
+            {...props}
         />
       </Router>
     </div>

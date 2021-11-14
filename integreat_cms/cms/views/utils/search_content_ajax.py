@@ -16,6 +16,8 @@ from ...models import (
     POITranslation,
     Feedback,
     PushNotificationTranslation,
+    MediaFile,
+    Directory,
 )
 
 logger = logging.getLogger(__name__)
@@ -152,6 +154,25 @@ def search_content_ajax(request, region_slug=None, language_slug=None):
                 "type": "user",
             }
             for user in search_users(region, query)
+        )
+
+    if "media" in object_types:
+        object_types.remove("media")
+        results.extend(
+            {
+                "title": file.name,
+                "url": None,
+                "type": "file",
+            }
+            for file in MediaFile.search(region, query)
+        )
+        results.extend(
+            {
+                "title": directory.name,
+                "url": None,
+                "type": "directory",
+            }
+            for directory in Directory.search(region, query)
         )
 
     if object_types:
