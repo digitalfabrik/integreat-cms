@@ -55,7 +55,6 @@ class RegionListView(TemplateView):
             regions = regions.filter(pk__in=region_keys)
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
-        # for consistent pagination querysets should be ordered
         paginator = Paginator(regions, chunk_size)
         chunk = request.GET.get("page")
         region_chunk = paginator.get_page(chunk)

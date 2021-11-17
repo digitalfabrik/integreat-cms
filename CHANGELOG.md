@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* Improve performance of region list
+
 
 2021.11.0-beta
 --------------

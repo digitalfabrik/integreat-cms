@@ -1,6 +1,6 @@
 from html import escape
 
-
+from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
@@ -17,6 +17,42 @@ from ...utils.translation_utils import ugettext_many_lazy as __
 from ...utils.matomo_api_manager import MatomoApiManager
 from ..languages.language import Language
 from ..offers.offer_template import OfferTemplate
+
+
+# pylint: disable=too-few-public-methods
+class RegionManager(models.Manager):
+    """
+    This manager annotates each region object with its language tree root node.
+    This is done because it is required to calculate the region's
+    :attr:`~integreat_cms.cms.models.regions.region.Region.default_language` which is called in
+    :attr:`~integreat_cms.cms.models.regions.region.Region.full_name`.
+    """
+
+    def get_queryset(self):
+        """
+        Get the queryset of regions including the custom attribute ``language_tree_root`` which contains the root node
+        of the region's language tree.
+
+        :return: The queryset of regions
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.regions.region.Region ]
+        """
+        # Get model instead of importing it to avoid circular imports
+        LanguageTreeNode = apps.get_model(
+            app_label="cms", model_name="LanguageTreeNode"
+        )
+        return (
+            super()
+            .get_queryset()
+            .prefetch_related(
+                models.Prefetch(
+                    "language_tree_nodes",
+                    queryset=LanguageTreeNode.objects.select_related("language").filter(
+                        level=0
+                    ),
+                    to_attr="language_tree_root",
+                )
+            )
+        )
 
 
 class Region(models.Model):
@@ -190,7 +226,10 @@ class Region(models.Model):
         help_text=_("Please check the box if you want to use short urls."),
     )
 
-    @property
+    #: Custom model manager :class:`~integreat_cms.cms.models.regions.region.RegionManager` for region objects
+    objects = RegionManager()
+
+    @cached_property
     def languages(self):
         """
         This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects which have a
@@ -212,7 +251,17 @@ class Region(models.Model):
         :return: The root :class:`~integreat_cms.cms.models.languages.language.Language` of a region
         :rtype: ~integreat_cms.cms.models.languages.language.Language
         """
-        tree_root = self.language_tree_nodes.filter(level=0).first()
+        try:
+            # Try to get the root node of the prefetched language tree
+            tree_root = next(iter(self.language_tree_root), None)
+        except AttributeError:
+            # If the tree root was not prefetched, query it from the database
+            # (this should only happen in rare edge cases)
+            tree_root = (
+                self.language_tree_nodes.select_related("language")
+                .filter(level=0)
+                .first()
+            )
         return tree_root.language if tree_root else None
 
     @cached_property
@@ -234,7 +283,7 @@ class Region(models.Model):
             return prefix
         return ""
 
-    @property
+    @cached_property
     def full_name(self):
         """
         This property returns the full name of a region including its administrative division
@@ -244,7 +293,7 @@ class Region(models.Model):
         """
         return f"{self.prefix} {self.name}".strip()
 
-    @property
+    @cached_property
     def users(self):
         """
         This property returns a QuerySet of all :class:`~django.contrib.auth.models.User` objects which belong to this
@@ -259,7 +308,7 @@ class Region(models.Model):
             is_staff=False,
         )
 
-    @property
+    @cached_property
     def statistics(self):
         """
         This property returns the MatomoApiManager of the current region.
@@ -295,7 +344,7 @@ class Region(models.Model):
             return None
         return get_object_or_404(cls, slug=region_slug)
 
-    @property
+    @cached_property
     def archived_pages(self):
         """
         This property returns a QuerySet of all archived pages and their descendants of this region.
@@ -323,7 +372,7 @@ class Region(models.Model):
         # the custom template tag "recursetree" of django-mptt (see :doc:`django-mptt:templates`)
         return archived_pages.order_by("tree_id", "lft")
 
-    @property
+    @cached_property
     def non_archived_pages(self):
         """
         This property returns a QuerySet of all non-archived pages of this region.
@@ -398,7 +447,7 @@ class Region(models.Model):
         :return: A readable string representation of the region
         :rtype: str
         """
-        label = escape(self.name)
+        label = escape(self.full_name)
         if self.status == region_status.HIDDEN:
             # Add warning if region is hidden
             label += " (&#9888; " + ugettext("Hidden") + ")"

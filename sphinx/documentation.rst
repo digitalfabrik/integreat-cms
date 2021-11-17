@@ -131,8 +131,7 @@ We use the following sphinx extensions:
 * :mod:`sphinx:sphinx.ext.linkcode` adds external links to the source code of documented modules, see
   :func:`~conf.linkcode_resolve`.
 
-* `sphinxcontrib_django2 <https://pypi.org/project/sphinxcontrib-django2/>`__ adds improvements to the docstrings of
-  Django models and forms.
+* :mod:`sphinxcontrib_django2` adds improvements to the docstrings of Django models and forms.
 
 * `sphinx_rtd_theme <https://pypi.org/project/sphinx-rtd-theme/>`__ is the theme we use for our documentation:
   :doc:`sphinx-rtd-theme:index`
