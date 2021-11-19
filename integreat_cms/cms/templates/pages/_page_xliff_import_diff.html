@@ -31,10 +31,11 @@
                 {{ diff.existing.language }}
             </div>
             {% if diff.existing.id %}
+            {% trans 'deleted user' as deleted_user_text %}
             <div>
                 <label class="block font-bold text-lg">{% trans 'Last updated' %}:</label>
                 <i data-feather="calendar"></i> {{ diff.existing.last_updated }} {% trans 'by' %}
-                <i data-feather="user"></i> {{ diff.existing.creator.full_user_name }}
+                <i data-feather="user"></i> {% firstof diff.existing.creator deleted_user_text %}
             </div>
             <div>
                 <label class="block font-bold text-lg">{% trans 'Versions' %}:</label>

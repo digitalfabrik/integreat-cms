@@ -67,6 +67,7 @@ class EventTranslation(models.Model):
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
         related_name="event_translations",
         verbose_name=_("creator"),

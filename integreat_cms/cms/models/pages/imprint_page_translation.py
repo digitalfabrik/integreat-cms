@@ -41,6 +41,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
         related_name="imprint_translations",
         verbose_name=_("creator"),
