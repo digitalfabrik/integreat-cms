@@ -706,8 +706,8 @@ CACHES = {
 if os.getenv("DJANGO_REDIS_CACHE"):
     unix_socket = os.getenv("DJANGO_REDIS_UNIX_SOCKET")
     if unix_socket:
-        # Use unix socket if available
-        redis_location = f"unix://{unix_socket}?db=1"
+        # Use unix socket if available (and also tell cacheops about it)
+        redis_location = CACHEOPS_REDIS = f"unix://{unix_socket}?db=1"
     else:
         # If not, fall back to normal TCP connection
         redis_location = "redis://127.0.0.1:6379/1"
@@ -726,7 +726,8 @@ CACHEOPS_DEFAULTS = {"timeout": 60 * 60}
 #: Which database tables should be cached
 CACHEOPS = {
     "auth.*": {"ops": "all"},
-    "integreat_cms.*": {"ops": "all"},
+    "cms.*": {"ops": "all"},
+    "linkcheck.*": {"ops": "all"},
     "*.*": {},
 }
 
