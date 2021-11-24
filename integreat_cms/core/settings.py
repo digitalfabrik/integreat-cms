@@ -174,7 +174,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "linkcheck",
     "mptt",
-    "rules",
+    "rules.apps.AutodiscoverRulesConfig",
     "webpack_loader",
     "widget_tweaks",
 ]
