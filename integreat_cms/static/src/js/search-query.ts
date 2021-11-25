@@ -62,7 +62,7 @@ async function queryObjects(
     }
 }
 
-let scheduledFunction: number | false = false;
+let scheduledFunction: number | null = null;
 
 function setSearchQueryEventListeners() {
     let table_search_input = document.getElementById("table-search-input") as HTMLInputElement;
@@ -73,8 +73,8 @@ function setSearchQueryEventListeners() {
             event.preventDefault();
 
             // Reschedule function execution on new input
-            if (scheduledFunction) {
-                clearTimeout(scheduledFunction);
+            if (scheduledFunction != null) {
+                window.clearTimeout(scheduledFunction);
             }
             // Schedule function execution
             scheduledFunction = window.setTimeout(
