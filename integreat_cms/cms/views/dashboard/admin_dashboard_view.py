@@ -1,7 +1,6 @@
 import logging
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
@@ -24,30 +23,19 @@ class AdminDashboardView(TemplateView, ChatContextMixin):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "admin_dashboard"}
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         r"""
-        Render admin dashboard
+        Returns a dictionary representing the template context
+        (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
-        :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
-        :param \*args: The supplied arguments
-        :type \*args: list
-
-        :param \**kwargs: The supplied keyword arguments
+        :param \**kwargs: The given keyword arguments
         :type \**kwargs: dict
 
-        :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
+        :return: The template context
+        :rtype: dict
         """
-
-        admin_feedback = Feedback.objects.filter(is_technical=True, read_by=None)[:5]
-
-        return render(
-            request,
-            self.template_name,
-            {
-                **self.get_context_data(**kwargs),
-                "admin_feedback": admin_feedback,
-            },
-        )
+        context = super().get_context_data(**kwargs)
+        context["admin_feedback"] = Feedback.objects.filter(
+            is_technical=True, read_by=None
+        )[:5]
+        return context

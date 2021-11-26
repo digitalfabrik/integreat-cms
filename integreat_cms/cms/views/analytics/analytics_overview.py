@@ -15,8 +15,6 @@ class AnalyticsView(TemplateView):
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "analytics/analytics_overview.html"
-    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    extra_context = {"current_menu_item": "analytics"}
 
     def get_context_data(self, **kwargs):
         r"""
@@ -31,4 +29,5 @@ class AnalyticsView(TemplateView):
         context = super().get_context_data(**kwargs)
         _, count_dict = filter_links(kwargs.get("region_slug"))
         context.update(count_dict)
+        context["current_menu_item"] = "analytics"
         return context
