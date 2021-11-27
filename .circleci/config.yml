@@ -152,6 +152,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Fix dependency versions
+          command: ./dev-tools/fix_dependencies.sh
+      - run:
           name: Build integreat-cms package
           command: python setup.py sdist bdist_wheel
       - persist_to_workspace:
@@ -177,7 +180,7 @@ jobs:
           at: .
       - run:
           name: Generate documentation
-          command: pipenv run ./dev-tools/generate_documentation.sh
+          command: ./dev-tools/generate_documentation.sh
       - persist_to_workspace:
           root: .
           paths:

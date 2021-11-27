@@ -18,7 +18,11 @@ Packaging for a Python repository like e.g. `PyPI <https://pypi.org/>`__ is auto
     # Bundle static files
     npm run prod
 
-2. After that, you can build the python package with :doc:`setuptools:index`::
+2. Fix the dependency versions in setup.cfg to make sure the production setup uses well-tested depdendency versions::
+
+    ./dev-tools/fix_dependencies.sh
+
+3. After that, you can build the python package with :doc:`setuptools:index`::
 
     pip3 install --upgrade pip setuptools wheel
     python3 setup.py sdist bdist_wheel
