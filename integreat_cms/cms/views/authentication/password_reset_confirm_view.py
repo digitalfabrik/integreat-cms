@@ -21,14 +21,14 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
     success_url = reverse_lazy("login")
 
     def dispatch(self, *args, **kwargs):
-        """
+        r"""
         The view part of the view. Handles all HTTP methods equally.
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response or a redirection to the password reset page
         :rtype: ~django.template.response.TemplateResponse or ~django.http.HttpResponseRedirect

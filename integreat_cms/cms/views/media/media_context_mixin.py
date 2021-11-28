@@ -13,11 +13,11 @@ class MediaContextMixin(ContextMixin):
     """
 
     def get_context_data(self, **kwargs):
-        """
+        r"""
         Overwrites the default :meth:`~django.views.generic.base.ContextMixin.get_context_data` Method of Django to provide an additional context for template rendering.
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The overwritten context.
         :rtype: dict

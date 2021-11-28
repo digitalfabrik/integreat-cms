@@ -32,11 +32,11 @@ class POITranslationForm(CustomContentModelForm):
         ]
 
     def __init__(self, **kwargs):
-        """
+        r"""
         Initialize POI translation form
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         """
 
         self.region = kwargs.pop("region", None)

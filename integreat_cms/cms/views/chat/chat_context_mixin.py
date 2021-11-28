@@ -14,12 +14,12 @@ class ChatContextMixin(ContextMixin):
     """
 
     def get_context_data(self, **kwargs):
-        """
+        r"""
         Returns a dictionary representing the template context
         (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
-        :param kwargs: The given keyword arguments
-        :Type kwargs: dict
+        :param \**kwargs: The given keyword arguments
+        :type \**kwargs: dict
 
         :return: The template context
         :rtype: dict

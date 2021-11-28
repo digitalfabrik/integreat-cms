@@ -29,17 +29,17 @@ class PageRevisionView(TemplateView):
     base_context = {"current_menu_item": "pages"}
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render page revision slider
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
@@ -108,17 +108,17 @@ class PageRevisionView(TemplateView):
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Restore a previous revision of a page translation
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 

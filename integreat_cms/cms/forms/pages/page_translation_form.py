@@ -26,11 +26,11 @@ class PageTranslationForm(CustomContentModelForm):
         fields = ["title", "slug", "status", "text", "minor_edit"]
 
     def __init__(self, **kwargs):
-        """
+        r"""
         Initialize Page translation form
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         """
 
         # pop kwarg to make sure the super class does not get this param

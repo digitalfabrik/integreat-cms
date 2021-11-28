@@ -91,17 +91,17 @@ def region_permission_required(function):
 
     @wraps(function)
     def wrap(request, *args, **kwargs):
-        """
+        r"""
         The inner function for this decorator
 
-        ::param request: Django request
+        :param request: Django request
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied kwargs
-        :type kwargs: dict
+        :param \**kwargs: The supplied kwargs
+        :type \**kwargs: dict
 
         :raises ~django.core.exceptions.PermissionDenied: If user doesn't have the permission to access the region
 
@@ -135,17 +135,17 @@ def modify_mfa_authenticated(function):
 
     @wraps(function)
     def wrap(request, *args, **kwargs):
-        """
+        r"""
         The inner function for this decorator
 
         :param request: Django request
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied kwargs
-        :type kwargs: dict
+        :param \**kwargs: The supplied kwargs
+        :type \**kwargs: dict
 
         :return: the decorated function
         :rtype: ~collections.abc.Callable

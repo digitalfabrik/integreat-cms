@@ -28,14 +28,14 @@ class LanguageForm(CustomModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        """
+        r"""
         Initialize language form
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         """
 
         # Instantiate ModelForm

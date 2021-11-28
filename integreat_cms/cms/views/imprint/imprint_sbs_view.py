@@ -35,17 +35,17 @@ class ImprintSideBySideView(TemplateView):
     }
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` on the side by side view
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.http.Http404: If no imprint exists for the region
 
@@ -125,18 +125,18 @@ class ImprintSideBySideView(TemplateView):
 
     # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Submit :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` and save
         :class:`~integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation` object
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.http.Http404: If no imprint exists for the region
 

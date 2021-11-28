@@ -64,14 +64,14 @@ class RegionForm(CustomModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        """
+        r"""
         Initialize region form
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         """
         super().__init__(*args, **kwargs)
 

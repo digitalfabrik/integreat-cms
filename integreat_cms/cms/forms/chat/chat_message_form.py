@@ -21,14 +21,14 @@ class ChatMessageForm(CustomModelForm):
         fields = ["text"]
 
     def __init__(self, **kwargs):
-        """
+        r"""
         Initialize chat message form
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         """
         # pop kwarg to make sure the super class does not get this param
         sender = kwargs.pop("sender", None)

@@ -20,14 +20,14 @@ class OfferTemplateForm(CustomModelForm):
         fields = ["name", "slug", "thumbnail", "url", "post_data", "use_postal_code"]
 
     def __init__(self, *args, **kwargs):
-        """
+        r"""
         Initialize offer template form
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         """
         super().__init__(*args, **kwargs)
 

@@ -22,18 +22,18 @@ class Serializer(base_serializer.Serializer):
     target_language = None
 
     def serialize(self, queryset, *args, **kwargs):
-        """
+        r"""
         Initialize serialization and find out in which source and target language the given elements are.
 
         :param queryset: QuerySet of all :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` objects which
                          should be serialized
         :type queryset: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.pages.page_translation.PageTranslation ]
 
-        :param args: The remaining arguments
-        :type args: list
+        :param \*args: The remaining arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.core.serializers.base.SerializationError: If the serialization fails
 
@@ -179,14 +179,14 @@ class Deserializer(base_serializer.Deserializer):
     unit_node = "unit"
 
     def __init__(self, *args, **kwargs):
-        """
+        r"""
         Initialize XLIFF 2.0 deserializer
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.core.serializers.base.DeserializationError: If the deserialization fails
         """

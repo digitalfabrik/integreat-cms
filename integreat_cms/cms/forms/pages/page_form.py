@@ -70,11 +70,11 @@ class PageForm(CustomModelForm):
         }
 
     def __init__(self, **kwargs):
-        """
+        r"""
         Initialize page form
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         """
 
         # Instantiate CustomModelForm
