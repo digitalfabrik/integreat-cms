@@ -22,7 +22,11 @@ Packaging for a Python repository like e.g. `PyPI <https://pypi.org/>`__ is auto
 
     ./dev-tools/fix_dependencies.sh
 
-3. After that, you can build the python package with :doc:`setuptools:index`::
+3. Move the README to make sure to include the PyPI-README instead of the GitHub-README::
+
+    mv integreat_cms/README.md .
+
+4. After that, you can build the python package with :doc:`setuptools:index`::
 
     pip3 install --upgrade pip setuptools wheel
     python3 setup.py sdist bdist_wheel

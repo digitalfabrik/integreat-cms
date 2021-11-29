@@ -155,6 +155,9 @@ jobs:
           name: Fix dependency versions
           command: ./dev-tools/fix_dependencies.sh
       - run:
+          name: Use alternative README.md file
+          command: mv integreat_cms/README.md .
+      - run:
           name: Build integreat-cms package
           command: python setup.py sdist bdist_wheel
       - persist_to_workspace:
