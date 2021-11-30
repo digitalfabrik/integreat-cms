@@ -34,7 +34,7 @@ class PushNotificationFormView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "push_notifications/push_notification_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "push_notifications_form"}
+    extra_context = {"current_menu_item": "push_notifications_form"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -90,7 +90,7 @@ class PushNotificationFormView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "push_notification_form": push_notification_form,
                 "pnt_formset": pnt_formset,
                 "language": language,
@@ -235,7 +235,7 @@ class PushNotificationFormView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "push_notification_form": pn_form,
                 "pnt_formset": pnt_formset,
                 "language": language,

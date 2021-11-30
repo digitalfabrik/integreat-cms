@@ -26,7 +26,7 @@ class PageRevisionView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_revisions.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "pages"}
+    extra_context = {"current_menu_item": "pages"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -97,7 +97,7 @@ class PageRevisionView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "page": page,
                 "page_translations": page_translations,
                 "api_revision": page_translations.filter(status=status.PUBLIC).first(),
@@ -197,7 +197,7 @@ class PageRevisionView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "page": page,
                 "page_translations": page_translations,
                 "api_revision": page_translations.filter(status=status.PUBLIC).first(),

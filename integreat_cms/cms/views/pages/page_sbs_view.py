@@ -26,8 +26,6 @@ class PageSideBySideView(TemplateView):
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_sbs.html"
-    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "pages"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -99,7 +97,7 @@ class PageSideBySideView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "page_translation_form": page_translation_form,
                 "source_page_translation": source_page_translation,
                 "target_language": target_language,
@@ -212,7 +210,7 @@ class PageSideBySideView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "page_translation_form": page_translation_form,
                 "source_page_translation": source_page_translation,
                 "target_language": target_language,

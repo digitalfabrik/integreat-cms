@@ -11,4 +11,5 @@ class MfaLoginView(auth_views.LoginView):
     multi-factor-authentication.
     """
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "authentication/login_mfa.html"

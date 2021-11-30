@@ -25,7 +25,7 @@ class AnalyticsView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "statistics/statistics_overview.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "statistics"}
+    extra_context = {"current_menu_item": "statistics"}
 
     # pylint: disable=unused-variable
     def get(self, request, *args, **kwargs):
@@ -61,7 +61,7 @@ class AnalyticsView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "form": form,
             },
         )

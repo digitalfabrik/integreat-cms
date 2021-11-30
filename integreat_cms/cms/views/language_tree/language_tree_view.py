@@ -23,7 +23,7 @@ class LanguageTreeView(TemplateView, LanguageTreeContextMixin):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "language_tree/language_tree.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "language_tree"}
+    extra_context = {"current_menu_item": "language_tree"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -42,13 +42,11 @@ class LanguageTreeView(TemplateView, LanguageTreeContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
         region = request.region
-        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
-                **self.base_context,
-                **context,
+                **self.get_context_data(**kwargs),
                 "language_tree": region.language_tree,
             },
         )

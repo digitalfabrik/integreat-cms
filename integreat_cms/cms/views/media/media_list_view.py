@@ -25,6 +25,7 @@ class MediaListView(TemplateView, MediaContextMixin):
     Class representing the media management and renders the dynamic data into the HTML template.
     """
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "media/media_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "media"}

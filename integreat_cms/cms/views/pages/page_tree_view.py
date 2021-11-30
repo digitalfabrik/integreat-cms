@@ -1,6 +1,5 @@
 import logging
 
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -8,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import translation_status, status
+from ...constants import translation_status
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageFilterForm
 from ...models import Language
@@ -93,7 +92,6 @@ class PageTreeView(TemplateView, PageContextMixin):
             messages.warning(
                 request, _("You don't have the permission to edit or create pages.")
             )
-        context = self.get_context_data(**kwargs)
 
         # Filter pages according to given filters, if any
         filter_data = kwargs.get("filter_data")
@@ -116,15 +114,11 @@ class PageTreeView(TemplateView, PageContextMixin):
             request,
             self.template_name,
             {
-                **context,
-                "current_menu_item": "pages",
+                **self.get_context_data(**kwargs),
                 "pages": pages,
                 "language": language,
                 "languages": region.active_languages,
                 "filter_form": filter_form,
-                "translation_status": translation_status,
-                "PUBLIC": status.PUBLIC,
-                "WEBAPP_URL": settings.WEBAPP_URL,
             },
         )
 

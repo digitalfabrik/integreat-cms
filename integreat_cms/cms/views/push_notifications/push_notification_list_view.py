@@ -27,7 +27,7 @@ class PushNotificationListView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "push_notifications/push_notification_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "push_notifications"}
+    extra_context = {"current_menu_item": "push_notifications"}
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
@@ -99,7 +99,7 @@ class PushNotificationListView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "push_notifications": push_notifications_chunk,
                 "language": language,
                 "languages": region.active_languages,

@@ -28,11 +28,14 @@ class ImprintFormView(TemplateView, MediaContextMixin):
     View for the imprint page form and imprint page translation form
     """
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "imprint/imprint_form.html"
-    base_context = {
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
+    extra_context = {
         "current_menu_item": "imprint",
         "WEBAPP_URL": settings.WEBAPP_URL,
         "IMPRINT_SLUG": settings.IMPRINT_SLUG,
+        "translation_status": translation_status,
     }
 
     def get(self, request, *args, **kwargs):
@@ -129,20 +132,17 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             region, language, imprint
         )
 
-        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
-                **self.base_context,
-                **context,
+                **self.get_context_data(**kwargs),
                 "imprint_translation_form": imprint_translation_form,
                 "imprint": imprint,
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if imprint else [language],
                 "side_by_side_language_options": side_by_side_language_options,
-                "translation_status": translation_status,
                 "translation_states": imprint.translation_states if imprint else [],
             },
         )
@@ -224,7 +224,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "imprint_translation_form": imprint_translation_form,
                 "imprint": imprint_instance,
                 "language": language,
@@ -235,7 +235,6 @@ class ImprintFormView(TemplateView, MediaContextMixin):
                 "side_by_side_language_options": self.get_side_by_side_language_options(
                     region, language, imprint_instance
                 ),
-                "translation_status": translation_status,
                 "translation_states": imprint_instance.translation_states
                 if imprint_instance
                 else [],

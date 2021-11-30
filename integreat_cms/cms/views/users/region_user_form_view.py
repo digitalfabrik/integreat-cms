@@ -26,7 +26,7 @@ class RegionUserFormView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "users/region_user_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "region_user_form"}
+    extra_context = {"current_menu_item": "region_user_form"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -59,7 +59,7 @@ class RegionUserFormView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "user_form": region_user_form,
             },
         )
@@ -134,7 +134,7 @@ class RegionUserFormView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "user_form": region_user_form,
             },
         )

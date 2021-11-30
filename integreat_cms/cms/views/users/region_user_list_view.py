@@ -25,7 +25,7 @@ class RegionUserListView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "users/region_user_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "region_users"}
+    extra_context = {"current_menu_item": "region_users"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -69,7 +69,7 @@ class RegionUserListView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "users": user_chunk,
                 "region_slug": region.slug,
                 "search_query": query,

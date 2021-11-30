@@ -26,7 +26,7 @@ class LanguageTreeNodeFormView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "language_tree/language_tree_node_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "language_tree_form"}
+    extra_context = {"current_menu_item": "language_tree_form"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -62,8 +62,8 @@ class LanguageTreeNodeFormView(TemplateView):
             request,
             self.template_name,
             {
+                **self.get_context_data(**kwargs),
                 "language_tree_node_form": language_tree_node_form,
-                **self.base_context,
             },
         )
 
@@ -133,5 +133,8 @@ class LanguageTreeNodeFormView(TemplateView):
         return render(
             request,
             self.template_name,
-            {"language_tree_node_form": language_tree_node_form, **self.base_context},
+            {
+                **self.get_context_data(**kwargs),
+                "language_tree_node_form": language_tree_node_form,
+            },
         )

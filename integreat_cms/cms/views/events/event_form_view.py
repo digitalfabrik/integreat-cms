@@ -32,6 +32,11 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "events/event_form.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
+    extra_context = {
+        "current_menu_item": "events_form",
+        "translation_status": translation_status,
+    }
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
@@ -94,14 +99,12 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
         recurrence_rule_form = RecurrenceRuleForm(
             instance=recurrence_rule_instance, disabled=disabled
         )
-        context = self.get_context_data(**kwargs)
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/events/"
         return render(
             request,
             self.template_name,
             {
-                **context,
-                "current_menu_item": "events_form",
+                **self.get_context_data(**kwargs),
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
@@ -109,7 +112,6 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
                 "url_link": url_link,
-                "translation_status": translation_status,
                 "translation_states": event_instance.translation_states
                 if event_instance
                 else [],
@@ -236,14 +238,12 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
-                "current_menu_item": "events",
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
                 "poi": poi,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
-                "translation_status": translation_status,
                 "translation_states": event_instance.translation_states
                 if event_instance
                 else [],

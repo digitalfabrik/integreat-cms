@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import status, translation_status
+from ...constants import status
 from ...decorators import region_permission_required, permission_required
 from ...models import Language, POITranslation
 from ...forms import ObjectSearchForm
@@ -30,6 +30,13 @@ class POIListView(TemplateView, POIContextMixin):
     template = "pois/poi_list.html"
     #: Template for list of archived POIs
     template_archived = "pois/poi_list_archived.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
+    extra_context = {
+        "current_menu_item": "pois",
+        "WEBAPP_URL": settings.WEBAPP_URL,
+        "PUBLIC": status.PUBLIC,
+        "DEEPL_ENABLED": settings.DEEPL_ENABLED,
+    }
     #: Whether or not to show archived POIs
     archived = False
 
@@ -120,22 +127,16 @@ class POIListView(TemplateView, POIContextMixin):
         )
         chunk = request.GET.get("page")
         poi_chunk = paginator.get_page(chunk)
-        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
-                "current_menu_item": "pois",
+                **self.get_context_data(**kwargs),
                 "pois": poi_chunk,
                 "archived_count": region.pois.filter(archived=True).count(),
                 "language": language,
                 "languages": region.active_languages,
                 "search_query": query,
-                "translation_status": translation_status,
-                "WEBAPP_URL": settings.WEBAPP_URL,
-                "PUBLIC": status.PUBLIC,
-                "DEEPL_ENABLED": settings.DEEPL_ENABLED,
-                **context,
             },
         )
 

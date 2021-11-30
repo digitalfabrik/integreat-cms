@@ -25,7 +25,8 @@ class ImprintRevisionView(TemplateView):
     """
 
     template_name = "imprint/imprint_revisions.html"
-    base_context = {"current_menu_item": "imprint"}
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
+    extra_context = {"current_menu_item": "imprint"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -84,7 +85,7 @@ class ImprintRevisionView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "imprint": imprint,
                 "imprint_translations": imprint_translations,
                 "api_revision": imprint_translations.filter(
@@ -177,7 +178,7 @@ class ImprintRevisionView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "imprint": imprint,
                 "imprint_translations": imprint_translations,
                 "api_revision": imprint_translations.filter(

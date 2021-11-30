@@ -21,9 +21,15 @@ class LinkListView(ListView):
     View for retrieving a list of links grouped by their state
     """
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "linkcheck/links_by_filter.html"
+    #: Designates the name of the variable to use in the context
+    #: (see :class:`~django.views.generic.list.MultipleObjectMixin`)
     context_object_name = "filtered_links"
+    #: An integer specifying how many objects should be displayed per page
+    #: (see :class:`~django.views.generic.list.MultipleObjectMixin`)
     paginate_by = settings.PER_PAGE
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "linkcheck"}
 
     def get_queryset(self):

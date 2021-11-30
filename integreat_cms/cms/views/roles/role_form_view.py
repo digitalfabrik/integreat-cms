@@ -26,7 +26,7 @@ class RoleFormView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "roles/role_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "roles"}
+    extra_context = {"current_menu_item": "roles"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -54,7 +54,11 @@ class RoleFormView(TemplateView):
         return render(
             request,
             self.template_name,
-            {"role_form": role_form, "group_form": group_form, **self.base_context},
+            {
+                **self.get_context_data(**kwargs),
+                "role_form": role_form,
+                "group_form": group_form,
+            },
         )
 
     # pylint: disable=unused-argument
@@ -114,5 +118,9 @@ class RoleFormView(TemplateView):
         return render(
             request,
             self.template_name,
-            {"role_form": role_form, "group_form": group_form, **self.base_context},
+            {
+                **self.get_context_data(**kwargs),
+                "role_form": role_form,
+                "group_form": group_form,
+            },
         )

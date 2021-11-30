@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import status, text_directions, translation_status
+from ...constants import status, text_directions
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation
@@ -30,9 +30,8 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {
+    extra_context = {
         "current_menu_item": "new_page",
-        "PUBLIC": status.PUBLIC,
     }
 
     # pylint: disable=too-many-locals
@@ -151,13 +150,11 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
                 .prefetch_public_translations()
             )
 
-        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
-                **self.base_context,
-                **context,
+                **self.get_context_data(**kwargs),
                 "page_form": page_form,
                 "page_translation_form": page_translation_form,
                 "page": page,
@@ -169,7 +166,6 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
-                "translation_status": translation_status,
                 "translation_states": page.translation_states if page else [],
             },
         )
@@ -202,7 +198,6 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
         language = region.get_language_or_404(
             kwargs.get("language_slug"), only_active=True
         )
-        context = self.get_context_data(**kwargs)
 
         page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
 
@@ -298,8 +293,7 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
             request,
             self.template_name,
             {
-                **self.base_context,
-                **context,
+                **self.get_context_data(**kwargs),
                 "page_form": page_form,
                 "page_translation_form": page_translation_form,
                 "page": page_instance,
@@ -313,7 +307,6 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
-                "translation_status": translation_status,
                 "translation_states": page_instance.translation_states
                 if page_instance
                 else [],
