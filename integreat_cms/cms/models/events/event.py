@@ -2,6 +2,7 @@ from datetime import datetime, time, date
 from dateutil.rrule import weekday, rrule
 
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import get_language, ugettext_lazy as _
 
 from ...constants import frequency, status
@@ -10,6 +11,61 @@ from ..media.media_file import MediaFile
 from ..pois.poi import POI
 from ..regions.region import Region, Language
 from .recurrence_rule import RecurrenceRule
+
+
+class EventQuerySet(models.QuerySet):
+    """
+    Custom QuerySet to facilitate the filtering by date while taking recurring events into account.
+    """
+
+    def filter_upcoming(self, from_date=date.today()):
+        """
+        Filter all events that take place after the given date. This is, per definition, if at least one of the
+        following conditions is true:
+
+            * The end date of the event is the given date or later
+            * The event is indefinitely recurring
+            * The event is recurring and the recurrence end date is the given date or later
+
+        :param from_date: The date which should be used for filtering, defaults to the current date
+        :type from_date: datetime.date
+
+        :return: The Queryset of events after the given date
+        :rtype: ~integreat_cms.cms.models.events.event.EventQuerySet
+        """
+        return self.filter(
+            Q(end_date__gte=from_date)
+            | Q(
+                recurrence_rule__isnull=False,
+                recurrence_rule__recurrence_end_date__isnull=True,
+            )
+            | Q(
+                recurrence_rule__isnull=False,
+                recurrence_rule__recurrence_end_date__gte=from_date,
+            )
+        )
+
+    def filter_completed(self, to_date=date.today()):
+        """
+        Filter all events that are not ongoing and don't have any occurrences in the future. This is, per definition, if
+        at least one of the following conditions is true:
+
+            * The event is non-recurring and the end date of the event is before the given date
+            * The event is recurring and the recurrence end date is before the given date
+
+        :param to_date: The date which should be used for filtering, defaults to the current date
+        :type to_date: datetime.date
+
+        :return: The Queryset of events before the given date
+        :rtype: ~integreat_cms.cms.models.events.event.EventQuerySet
+        """
+        return self.filter(
+            Q(recurrence_rule__isnull=True, end_date__lt=to_date)
+            | Q(
+                recurrence_rule__isnull=False,
+                recurrence_rule__recurrence_end_date__lt=to_date,
+            )
+        )
 
 
 class Event(models.Model):
@@ -53,6 +109,9 @@ class Event(models.Model):
         null=True,
     )
     archived = models.BooleanField(default=False, verbose_name=_("archived"))
+
+    #: The default manager
+    objects = EventQuerySet.as_manager()
 
     @property
     def languages(self):

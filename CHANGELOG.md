@@ -2,6 +2,10 @@ UNRELEASED
 ----------
 
 * Improve performance of region list
+* Fix duplicating pages of deleted authors
+* Fix page permissions
+* Show recurrence in event list
+* Only show upcoming events per default
 
 
 2021.11.0-beta

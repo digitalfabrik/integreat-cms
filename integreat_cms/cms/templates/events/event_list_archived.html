@@ -26,14 +26,11 @@
         <table id="event-list" class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
             <tr class="border-b border-solid border-gray-200">
-                <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'ID' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'Version' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Status' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
                 {% get_language LANGUAGE_CODE as backend_language %}
                 {% if backend_language and backend_language != language %}
-                    <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
                 {% endif %}
                 <th class="text-sm text-left uppercase py-3 px-2">
                     <div class="lang-grid flags whitespace-nowrap">
@@ -44,9 +41,11 @@
                         {% endfor %}
                     </div>
                 </th>
-                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Event location' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Start' %}</th>
-                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'End' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Event location' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Start' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'End' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Recurrence' %}</th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% trans 'Options' %}</th>
             </tr>
             </thead>
@@ -58,12 +57,11 @@
                 {% endfor %}
             {% else %}
                 <tr>
-                    <td></td>
-                    <td colspan="5" class="px-2 py-3">
+                    <td colspan="8" class="pl-4 pr-2 py-3">
                         {% if filter_form.has_changed %}
-                            {% trans 'No events found with these filters.' %}
+                            {% trans 'No archived events found with these filters.' %}
                         {% else %}
-                            {% trans 'No events archived yet.' %}
+                            {% trans 'No upcoming events archived.' %}
                         {% endif %}
                     </td>
                 </tr>
