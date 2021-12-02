@@ -71,9 +71,9 @@
     </td>
     <td>
         {% if event.recurrence_rule %}
-            <i data-feather="check" class="text-gray-800"></i>{% trans 'Yes' %}
+            <i data-feather="repeat" class="text-gray-800"></i> {{ event.recurrence_rule.get_frequency_display }}
         {% else %}
-            <i data-feather="x" class="text-gray-800"></i>{% trans 'No' %}
+            <i data-feather="calendar" class="text-gray-800"></i> {% trans 'One-time' %}
         {% endif %}
     </td>
     <td>
