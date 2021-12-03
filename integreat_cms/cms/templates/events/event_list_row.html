@@ -70,6 +70,13 @@
         {% endif %}
     </td>
     <td>
+        {% if event.recurrence_rule %}
+            <i data-feather="repeat" class="text-gray-800"></i> {{ event.recurrence_rule.get_frequency_display }}
+        {% else %}
+            <i data-feather="calendar" class="text-gray-800"></i> {% trans 'One-time' %}
+        {% endif %}
+    </td>
+    <td>
         <i data-feather="calendar"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
     </td>
     <td>
