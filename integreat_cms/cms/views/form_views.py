@@ -81,7 +81,8 @@ class CustomModelFormMixin(
         :rtype: str
         """
         return reverse(
-            f"edit_{self.object._meta.model_name}", kwargs={"slug": self.object.slug}
+            f"edit_{self.object._meta.model_name}",
+            kwargs={"slug": self.object.slug},
         )
 
     def form_valid(self, form):

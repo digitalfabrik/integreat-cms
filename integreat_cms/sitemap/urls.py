@@ -14,11 +14,16 @@ from django.urls import path
 
 from .views import SitemapIndexView, SitemapView
 
+
+#: The namespace for this URL config (see :attr:`django.urls.ResolverMatch.app_name`)
+app_name = "sitemap"
+
+#: The url patterns of this module (see :doc:`topics/http/urls`)
 urlpatterns = [
-    path("sitemap.xml", SitemapIndexView.as_view(), name="sitemap_index"),
+    path("sitemap.xml", SitemapIndexView.as_view(), name="index"),
     path(
         "<slug:region_slug>/<slug:language_slug>/sitemap.xml",
         SitemapView.as_view(),
-        name="sitemap",
+        name="region_language",
     ),
 ]

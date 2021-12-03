@@ -64,7 +64,7 @@ class SitemapIndexView(TemplateResponseMixin, View):
                 # Only add sitemaps with actual content (empty list evaluates to False)
                 if get_sitemaps(region, language):
                     sitemap_url = reverse(
-                        "sitemap",
+                        "sitemap:region_language",
                         kwargs={
                             "region_slug": region.slug,
                             "language_slug": language.slug,

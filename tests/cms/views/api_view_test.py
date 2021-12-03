@@ -5,19 +5,19 @@ from .view_test_utils import generate_test_functions
 
 
 views = [
-    "api_regions",
-    "api_regions_live",
-    "api_regions_hidden",
+    "api:regions",
+    "api:regions_live",
+    "api:regions_hidden",
 ]
 
 region_views = [
-    "api_languages",
+    "api:languages",
 ]
 
 region_language_views = [
-    "api_pages",
-    "api_pdf_export",
-    "api_sent_push_notifications",
+    "api:pages",
+    "api:pdf_export",
+    "api:sent_push_notifications",
 ]
 
 

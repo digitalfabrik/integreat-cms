@@ -10,7 +10,7 @@
 <header class="fixed h-14 pl-56 top-0 inset-x-0 flex flex-wrap z-50 bg-gray-300">
     <div class="flex-1 relative w-full"></div>
     {% if debug and request.user.is_staff %}
-        <a href="/admin" target="_blank" rel="noopener noreferrer"
+        <a href="{% url 'admin:index' %}" target="_blank" rel="noopener noreferrer"
            class="relative px-2 pt-4 text-gray-800 hover:bg-gray-200 border-r border-gray-400">
             <i data-feather="sliders"></i>
             {% trans 'Django Admin' %}

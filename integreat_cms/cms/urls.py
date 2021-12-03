@@ -99,6 +99,7 @@ media_ajax_urlpatterns = [
 ]
 
 
+#: The url patterns of this module (see :doc:`topics/http/urls`)
 urlpatterns = [
     url(
         r"^s/",

@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 
+#: The url patterns of this module (see :doc:`topics/http/urls`)
 urlpatterns = [
     url(r"^", include("integreat_cms.api.urls")),
     url(r"^i18n/", include("django.conf.urls.i18n")),
