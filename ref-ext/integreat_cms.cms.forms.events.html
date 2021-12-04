@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-11-19T01:21:32+00:00" />
+    <meta property="article:modified_time" content="2021-12-01T11:05:47+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events &mdash; integreat-cms 2021.11.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -282,6 +282,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#allowed-media">Allowed Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#colors">Colors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#countries">Countries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#events-time-range">Events Time Range</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#frequency">Frequency</a></li>
@@ -479,6 +480,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.colors">Colors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.countries">Countries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.events_time_range">Events Time Range</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_ratings">Feedback Ratings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_read_status">Feedback Read Status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.frequency">Frequency</a></li>
@@ -697,10 +699,9 @@
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">all_day</span></code>: All Day (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedMultipleChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedMultipleChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">recurring</span></code>: Recurring (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedMultipleChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedMultipleChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">after_date</span></code>: After Date (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.DateField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">before_date</span></code>: Before Date (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.DateField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">after_time</span></code>: After Time (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimeField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">before_time</span></code>: Before Time (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimeField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">date_from</span></code>: Date From (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.DateField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">date_to</span></code>: Date To (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.DateField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">events_time_range</span></code>: Events Time Range (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.MultipleChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">poi_id</span></code>: Poi Id (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.IntegerField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">query</span></code>: Query (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 </ul>
@@ -790,7 +791,7 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.events.event_filter_form.EventFilterForm.filters_visible">
-<span class="sig-name descname"><span class="pre">filters_visible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/forms/events/event_filter_form.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.events.event_filter_form.EventFilterForm.filters_visible" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filters_visible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/forms/events/event_filter_form.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.events.event_filter_form.EventFilterForm.filters_visible" title="Permalink to this definition"></a></dt>
 <dd><p>This function determines whether the filter form is visible by default.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1740,7 +1741,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 19, 2021.
+      <span class="lastupdated">Last updated on Dec 01, 2021.
       </span></p>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-18T21:56:24+00:00" />
+    <meta property="article:modified_time" content="2021-12-01T11:05:47+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Constants &mdash; integreat-cms 2021.11.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -282,6 +282,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#allowed-media">Allowed Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#colors">Colors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#countries">Countries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#events-time-range">Events Time Range</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#feedback-ratings">Feedback Ratings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#feedback-read-status">Feedback Read Status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#frequency">Frequency</a></li>
@@ -479,6 +480,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.allowed_media">Allowed Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.colors">Colors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.countries">Countries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.events_time_range">Events Time Range</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_ratings">Feedback Ratings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_read_status">Feedback Read Status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.frequency">Frequency</a></li>
@@ -1313,6 +1315,52 @@ Data based on: <a class="reference external" href="https://github.com/SmileyChri
 </dd></dl>
 
 </section>
+<section id="events-time-range">
+<h2>Events Time Range<a class="headerlink" href="#events-time-range" title="Permalink to this headline"></a></h2>
+<p>This module contains all string representations of event time range filter options, used by
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.event_filter_form.EventFilterForm" title="integreat_cms.cms.forms.events.event_filter_form.EventFilterForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventFilterForm</span></code></a> and
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_list_view.EventListView" title="integreat_cms.cms.views.events.event_list_view.EventListView"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventListView</span></code></a>.</p>
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.events_time_range.</span></span><span class="sig-name descname"><span class="pre">ALL_EVENTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['UPCOMING',</span> <span class="pre">'PAST']</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/constants/events_time_range.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Choices which indicate that no filtering is required</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;UPCOMING&#39;</span><span class="p">,</span> <span class="s1">&#39;PAST&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.events_time_range.</span></span><span class="sig-name descname"><span class="pre">CHOICES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(('CUSTOM',</span> <span class="pre">'Custom</span> <span class="pre">time</span> <span class="pre">range'),</span> <span class="pre">('UPCOMING',</span> <span class="pre">'Upcoming</span> <span class="pre">events'),</span> <span class="pre">('PAST',</span> <span class="pre">'Past</span> <span class="pre">events'))</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/constants/events_time_range.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Choices to use these constants in a form field</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="p">(</span><span class="s1">&#39;CUSTOM&#39;</span><span class="p">,</span> <span class="s1">&#39;Custom time range&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;UPCOMING&#39;</span><span class="p">,</span> <span class="s1">&#39;Upcoming events&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;PAST&#39;</span><span class="p">,</span> <span class="s1">&#39;Past events&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.events_time_range.</span></span><span class="sig-name descname"><span class="pre">CUSTOM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CUSTOM'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/constants/events_time_range.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Events in a custom time range</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.events_time_range.</span></span><span class="sig-name descname"><span class="pre">PAST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PAST'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/constants/events_time_range.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Events in the past</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.events_time_range.</span></span><span class="sig-name descname"><span class="pre">UPCOMING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UPCOMING'</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/constants/events_time_range.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Events in the future</p>
+</dd></dl>
+
+</section>
 <section id="feedback-ratings">
 <h2>Feedback Ratings<a class="headerlink" href="#feedback-ratings" title="Permalink to this headline"></a></h2>
 <p>This module contains all constants representing the rating of the <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.Feedback" title="integreat_cms.cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a> model.</p>
@@ -2034,7 +2082,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 18, 2021.
+      <span class="lastupdated">Last updated on Dec 01, 2021.
       </span></p>
   </div>
 
