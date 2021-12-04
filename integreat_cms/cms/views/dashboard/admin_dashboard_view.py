@@ -1,18 +1,13 @@
 import logging
 
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from ...decorators import staff_required
 from ...models import Feedback
 from ..chat.chat_context_mixin import ChatContextMixin
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(staff_required, name="dispatch")
 class AdminDashboardView(TemplateView, ChatContextMixin):
     """
     View for the admin dashboard

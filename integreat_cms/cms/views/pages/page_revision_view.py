@@ -1,7 +1,6 @@
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
@@ -9,14 +8,12 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...constants import status
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...models import Language
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
 class PageRevisionView(TemplateView):
     """

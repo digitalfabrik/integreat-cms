@@ -1,18 +1,14 @@
 """
-Django URL dispatcher for the cms package.
-See :mod:`~integreat_cms.core.urls` for the other namespaces of this application.
-
-For more information on this file, see :doc:`topics/http/urls`.
+URLconf for login-protected views of the cms package. These urls are processed by
+:mod:`~integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware`.
+Views which should not have login protection go into :mod:`~integreat_cms.cms.urls.public`.
 """
 from django.conf.urls import include, url
-from django.conf import settings as django_settings
-from django.views.generic import RedirectView
 
-from .forms import LanguageForm, OfferTemplateForm, OrganizationForm, RegionForm
-from .models import Language, OfferTemplate, Organization
+from ..forms import LanguageForm, OfferTemplateForm, OrganizationForm, RegionForm
+from ..models import Language, OfferTemplate, Organization
 
-from .views import (
-    authentication,
+from ..views import (
     analytics,
     chat,
     dashboard,
@@ -38,6 +34,7 @@ from .views import (
     feedback,
 )
 
+#: The media library ajax url patterns are reused twice (for the admin media library and the region media library)
 media_ajax_urlpatterns = [
     url(
         r"^media/",
@@ -98,32 +95,47 @@ media_ajax_urlpatterns = [
     ),
 ]
 
-
-#: The url patterns of this module (see :doc:`topics/http/urls`)
-urlpatterns = [
+#: The user setting url patterns are reused twice (for the staff area and the region area)
+user_settings_urlpatterns = [
     url(
-        r"^s/",
+        r"^user_settings/",
         include(
             [
+                url(r"^$", settings.UserSettingsView.as_view(), name="user_settings"),
                 url(
-                    r"^p/(?P<short_url_id>[0-9]+)$",
-                    pages.expand_page_translation_id,
-                    name="expand_page_translation_id",
-                ),
-                url(
-                    r"^i/(?P<imprint_translation_id>[0-9]+)$",
-                    imprint.expand_imprint_translation_id,
-                    name="expand_imprint_translation_id",
+                    r"^mfa/",
+                    include(
+                        [
+                            url(
+                                r"^authenticate/$",
+                                settings.AuthenticateModifyMfaView.as_view(),
+                                name="authenticate_modify_mfa",
+                            ),
+                            url(
+                                r"^get_challenge/$",
+                                settings.GetMfaChallengeView.as_view(),
+                                name="get_mfa_challenge",
+                            ),
+                            url(
+                                r"^register/$",
+                                settings.RegisterUserMfaKeyView.as_view(),
+                                name="register_new_mfa_key",
+                            ),
+                            url(
+                                r"^delete/(?P<key_id>\d+)$",
+                                settings.DeleteUserMfaKeyView.as_view(),
+                                name="delete_mfa_key",
+                            ),
+                        ]
+                    ),
                 ),
             ]
         ),
     ),
-    url(
-        r"^wiki",
-        RedirectView.as_view(url=django_settings.WIKI_URL),
-        name="wiki_redirect",
-    ),
-    url(r"^$", dashboard.RegionSelection.as_view(), name="region_selection"),
+]
+
+#: The url patterns of this module (see :doc:`topics/http/urls`)
+urlpatterns = [
     url(
         r"^admin_dashboard/$",
         dashboard.AdminDashboardView.as_view(),
@@ -350,115 +362,12 @@ urlpatterns = [
             ]
         ),
     ),
-    url(
-        r"^user_settings/",
-        include(
-            [
-                url(r"^$", settings.UserSettingsView.as_view(), name="user_settings"),
-                url(
-                    r"^mfa/",
-                    include(
-                        [
-                            url(
-                                r"^authenticate/$",
-                                settings.AuthenticateModifyMfaView.as_view(),
-                                name="authenticate_modify_mfa",
-                            ),
-                            url(
-                                r"^get_challenge/$",
-                                settings.GetMfaChallengeView.as_view(),
-                                name="get_mfa_challenge",
-                            ),
-                            url(
-                                r"^register/$",
-                                settings.RegisterUserMfaKeyView.as_view(),
-                                name="register_new_mfa_key",
-                            ),
-                            url(
-                                r"^delete/(?P<key_id>\d+)$",
-                                settings.DeleteUserMfaKeyView.as_view(),
-                                name="delete_mfa_key",
-                            ),
-                        ]
-                    ),
-                ),
-                url(
-                    r"^dismiss_tutorial/$",
-                    settings.DismissTutorial.as_view(),
-                    name="dismiss_tutorial",
-                ),
-            ]
-        ),
-    ),
-    url(
-        r"^login/",
-        include(
-            [
-                url(r"^$", authentication.LoginView.as_view(), name="login"),
-                url(
-                    r"^mfa/",
-                    include(
-                        [
-                            url(
-                                r"^$",
-                                authentication.MfaLoginView.as_view(),
-                                name="login_mfa",
-                            ),
-                            url(
-                                r"^assert$",
-                                authentication.MfaAssertView.as_view(),
-                                name="login_mfa_assert",
-                            ),
-                            url(
-                                r"^verify$",
-                                authentication.MfaVerifyView.as_view(),
-                                name="login_mfa_verify",
-                            ),
-                        ]
-                    ),
-                ),
-            ]
-        ),
-    ),
-    url(r"^logout/$", authentication.LogoutView.as_view(), name="logout"),
-    url(
-        r"^reset-password/",
-        include(
-            [
-                url(
-                    r"^$",
-                    authentication.PasswordResetView.as_view(),
-                    name="password_reset",
-                ),
-                url(
-                    r"^(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$",
-                    authentication.PasswordResetConfirmView.as_view(),
-                    name="password_reset_confirm",
-                ),
-            ]
-        ),
-    ),
-    url(
-        r"^activate-account/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$",
-        authentication.AccountActivationView.as_view(),
-        name="activate_account",
-    ),
+    url(r"^", include(user_settings_urlpatterns)),
     url(
         r"^ajax/",
         include(
             [
-                url(
-                    r"^render/",
-                    include(
-                        [
-                            url(
-                                r"^(?P<region_slug>[-\w]+)/mirrored_page_field/",
-                                pages.render_mirrored_page_field,
-                                name="render_mirrored_page_field",
-                            ),
-                        ]
-                    ),
-                ),
+                url(r"^", include(media_ajax_urlpatterns)),
                 url(
                     r"^chat/",
                     include(
@@ -477,83 +386,11 @@ urlpatterns = [
                     ),
                 ),
                 url(
-                    r"^(?P<region_slug>[-\w]+)/statistics/",
-                    include(
-                        [
-                            url(
-                                r"total_views/?$",
-                                statistics.get_total_visits_ajax,
-                                name="statistics_total_visits",
-                            ),
-                            url(
-                                r"update_chart/?$",
-                                statistics.get_visits_per_language_ajax,
-                                name="statistics_visits_per_language",
-                            ),
-                        ]
-                    ),
-                ),
-                url(
-                    r"^grant_page_permission$",
-                    pages.grant_page_permission_ajax,
-                    name="grant_page_permission_ajax",
-                ),
-                url(
-                    r"^revoke_page_permission$",
-                    pages.revoke_page_permission_ajax,
-                    name="revoke_page_permission_ajax",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/post_translation_state$",
-                    pages.post_translation_state_ajax,
-                    name="post_translation_state_ajax",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/(?P<parent_id>[0-9]+)/new_order_table$",
-                    pages.get_new_page_order_table_ajax,
-                    name="get_new_page_order_table_ajax",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/(?P<page_id>[0-9]+)/(?P<parent_id>[0-9]+)/order_table$",
-                    pages.get_page_order_table_ajax,
-                    name="get_page_order_table_ajax",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/(?P<language_slug>[-\w]+)/(?P<tree_id>[0-9]+)/(?P<lft>[0-9]+)/(?P<rgt>[0-9]+)/(?P<depth>[0-9]+)/get_children$",
-                    pages.PartialPageTreeView.as_view(),
-                    name="get_page_children_ajax",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/search_poi$",
-                    events.search_poi_ajax,
-                    name="search_poi_ajax",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/(?P<language_slug>[-\w]+)/search_content$",
-                    utils.search_content_ajax,
-                    name="search_content_ajax",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/search_content$",
-                    utils.search_content_ajax,
-                    name="search_content_ajax",
-                ),
-                url(
                     r"^search_content$",
                     utils.search_content_ajax,
                     name="search_content_ajax",
                 ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/(?P<language_slug>[-\w]+)/(?P<model_type>event|page|poi)/slugify$",
-                    utils.slugify_ajax,
-                    name="slugify_ajax",
-                ),
-                url(
-                    r"^(?P<region_slug>[-\w]+)/",
-                    include(media_ajax_urlpatterns),
-                ),
             ]
-            + media_ajax_urlpatterns
         ),
     ),
     url(
@@ -561,6 +398,115 @@ urlpatterns = [
         include(
             [
                 url(r"^$", dashboard.DashboardView.as_view(), name="dashboard"),
+                url(
+                    r"^ajax/",
+                    include(
+                        [
+                            url(r"^", include(media_ajax_urlpatterns)),
+                            url(
+                                r"^render/",
+                                include(
+                                    [
+                                        url(
+                                            r"^mirrored_page_field/",
+                                            pages.render_mirrored_page_field,
+                                            name="render_mirrored_page_field",
+                                        ),
+                                        url(
+                                            r"^(?P<parent_id>[0-9]+)/new_order_table$",
+                                            pages.get_new_page_order_table_ajax,
+                                            name="get_new_page_order_table_ajax",
+                                        ),
+                                        url(
+                                            r"^(?P<page_id>[0-9]+)/(?P<parent_id>[0-9]+)/order_table$",
+                                            pages.get_page_order_table_ajax,
+                                            name="get_page_order_table_ajax",
+                                        ),
+                                        url(
+                                            r"^(?P<language_slug>[-\w]+)/(?P<tree_id>[0-9]+)/(?P<lft>[0-9]+)/(?P<rgt>[0-9]+)/(?P<depth>[0-9]+)/get_children$",
+                                            pages.PartialPageTreeView.as_view(),
+                                            name="get_page_children_ajax",
+                                        ),
+                                    ]
+                                ),
+                            ),
+                            url(
+                                r"^chat/",
+                                include(
+                                    [
+                                        url(
+                                            r"send-message/?$",
+                                            chat.send_chat_message,
+                                            name="send_chat_message",
+                                        ),
+                                        url(
+                                            r"delete-message/(?P<message_id>[0-9]+)?$",
+                                            chat.delete_chat_message,
+                                            name="delete_chat_message",
+                                        ),
+                                    ]
+                                ),
+                            ),
+                            url(
+                                r"^statistics/",
+                                include(
+                                    [
+                                        url(
+                                            r"total_views/?$",
+                                            statistics.get_total_visits_ajax,
+                                            name="statistics_total_visits",
+                                        ),
+                                        url(
+                                            r"update_chart/?$",
+                                            statistics.get_visits_per_language_ajax,
+                                            name="statistics_visits_per_language",
+                                        ),
+                                    ]
+                                ),
+                            ),
+                            url(
+                                r"^grant_page_permission$",
+                                pages.grant_page_permission_ajax,
+                                name="grant_page_permission_ajax",
+                            ),
+                            url(
+                                r"^revoke_page_permission$",
+                                pages.revoke_page_permission_ajax,
+                                name="revoke_page_permission_ajax",
+                            ),
+                            url(
+                                r"^post_translation_state$",
+                                pages.post_translation_state_ajax,
+                                name="post_translation_state_ajax",
+                            ),
+                            url(
+                                r"^search_poi$",
+                                events.search_poi_ajax,
+                                name="search_poi_ajax",
+                            ),
+                            url(
+                                r"^(?P<language_slug>[-\w]+)/search_content$",
+                                utils.search_content_ajax,
+                                name="search_content_ajax",
+                            ),
+                            url(
+                                r"^search_content$",
+                                utils.search_content_ajax,
+                                name="search_content_ajax",
+                            ),
+                            url(
+                                r"^(?P<language_slug>[-\w]+)/(?P<model_type>event|page|poi)/slugify$",
+                                utils.slugify_ajax,
+                                name="slugify_ajax",
+                            ),
+                            url(
+                                r"^dismiss-tutorial/(?P<slug>[-\w]+)/$",
+                                settings.DismissTutorial.as_view(),
+                                name="dismiss_tutorial",
+                            ),
+                        ]
+                    ),
+                ),
                 url(
                     r"^analytics/",
                     analytics.AnalyticsView.as_view(),
@@ -1042,15 +988,8 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                url(
-                    r"^user_settings/$",
-                    settings.UserSettingsView.as_view(),
-                    name="user_settings",
-                ),
+                url(r"^", include(user_settings_urlpatterns)),
             ]
         ),
-    ),
-    url(
-        r"^favicon\.ico$", RedirectView.as_view(url="/static/images/integreat-icon.png")
     ),
 ]

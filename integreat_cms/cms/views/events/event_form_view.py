@@ -2,7 +2,6 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -11,7 +10,7 @@ from django.views.generic import TemplateView
 
 
 from ...constants import status, translation_status
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Language, Event, EventTranslation, RecurrenceRule, POI
 from .event_context_mixin import EventContextMixin
@@ -21,8 +20,6 @@ from ..media.media_context_mixin import MediaContextMixin
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
 @method_decorator(permission_required("cms.change_event"), name="post")
 class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):

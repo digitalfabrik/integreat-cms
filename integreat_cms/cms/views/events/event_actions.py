@@ -6,22 +6,19 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.db.models import Subquery, OuterRef
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
 from ...constants import status
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...models import Region, POITranslation
 
 logger = logging.getLogger(__name__)
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_event")
 def archive(request, event_id, region_slug, language_slug):
     """
@@ -61,8 +58,6 @@ def archive(request, event_id, region_slug, language_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_event")
 def duplicate(request, event_id, region_slug, language_slug):
     """
@@ -97,8 +92,6 @@ def duplicate(request, event_id, region_slug, language_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_event")
 def restore(request, event_id, region_slug, language_slug):
     """
@@ -138,8 +131,6 @@ def restore(request, event_id, region_slug, language_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.delete_event")
 def delete(request, event_id, region_slug, language_slug):
     """
@@ -180,8 +171,6 @@ def delete(request, event_id, region_slug, language_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.view_event")
 # pylint: disable=unused-argument
 def search_poi_ajax(request, region_slug):
@@ -237,8 +226,6 @@ def search_poi_ajax(request, region_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_event")
 def automatic_translation(request, region_slug, language_slug):
     """

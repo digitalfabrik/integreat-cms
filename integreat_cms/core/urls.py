@@ -25,7 +25,15 @@ from django.contrib import admin
 #: The url patterns of this module (see :doc:`topics/http/urls`)
 urlpatterns = [
     url(r"^", include("integreat_cms.api.urls")),
-    url(r"^i18n/", include("django.conf.urls.i18n")),
+    url(
+        r"^i18n/",
+        include(
+            (
+                "django.conf.urls.i18n",
+                "i18n",
+            )
+        ),
+    ),
 ]
 
 # The admin/endpoint is only activated if the system is in debug mode.
@@ -39,9 +47,25 @@ if settings.DEBUG:
 urlpatterns += [
     url(r"^", include("integreat_cms.sitemap.urls")),
     url(r"^", include("integreat_cms.cms.urls")),
+    url(
+        r"^",
+        include(
+            (
+                static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
+                "media_files",
+            )
+        ),
+    ),
+    url(
+        r"^",
+        include(
+            (
+                static(settings.XLIFF_URL, document_root=settings.XLIFF_DOWNLOAD_DIR),
+                "xliff_files",
+            )
+        ),
+    ),
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += static(settings.XLIFF_URL, document_root=settings.XLIFF_DOWNLOAD_DIR)
 
 handler400 = "integreat_cms.cms.views.error_handler.handler400"
 handler403 = "integreat_cms.cms.views.error_handler.handler403"

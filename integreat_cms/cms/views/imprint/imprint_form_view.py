@@ -2,7 +2,6 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -11,7 +10,7 @@ from django.views.generic import TemplateView
 
 from ...constants import translation_status
 from ..media.media_context_mixin import MediaContextMixin
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...forms import ImprintTranslationForm
 from ...models import ImprintPageTranslation, ImprintPage
 from ...constants import status
@@ -19,8 +18,6 @@ from ...constants import status
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_imprintpage"), name="dispatch")
 @method_decorator(permission_required("cms.change_imprintpage"), name="post")
 class ImprintFormView(TemplateView, MediaContextMixin):

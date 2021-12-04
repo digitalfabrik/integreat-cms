@@ -1,20 +1,15 @@
 import logging
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.utils import translation
-from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from ...decorators import region_permission_required
 from ...utils.filter_links import filter_links
 from ..chat.chat_context_mixin import ChatContextMixin
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 class DashboardView(TemplateView, ChatContextMixin):
     """
     View for the region dashboard

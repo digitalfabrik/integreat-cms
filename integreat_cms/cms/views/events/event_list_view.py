@@ -3,7 +3,6 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -17,7 +16,7 @@ from ...constants import (
     events_time_range,
     translation_status,
 )
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...models import EventTranslation
 from ...forms import EventFilterForm
 from .event_context_mixin import EventContextMixin
@@ -25,8 +24,6 @@ from .event_context_mixin import EventContextMixin
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
 class EventListView(TemplateView, EventContextMixin):
     """

@@ -1,16 +1,10 @@
 import logging
 
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-
-from ...decorators import region_permission_required
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 class AppSizeView(TemplateView):
     """
     View to calculate the current size of the content, that's been send via the API.

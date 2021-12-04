@@ -1,21 +1,18 @@
 import logging
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from ...forms import ObjectSearchForm
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...utils.user_utils import search_users
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_user"), name="dispatch")
 class RegionUserListView(TemplateView):
     """

@@ -1,7 +1,6 @@
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -10,7 +9,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...constants import status, text_directions
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation
 from .page_context_mixin import PageContextMixin
@@ -19,8 +18,6 @@ from ..media.media_context_mixin import MediaContextMixin
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
 class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
     """

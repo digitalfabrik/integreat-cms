@@ -2,21 +2,16 @@
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import region_permission_required
 
 from ...forms import StatisticsFilterForm
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 class AnalyticsView(TemplateView):
     """
     View for the statistics overview.

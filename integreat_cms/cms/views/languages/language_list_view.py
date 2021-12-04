@@ -1,20 +1,17 @@
 import logging
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from ...decorators import staff_required, permission_required
+from ...decorators import permission_required
 from ...models import Language
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(staff_required, name="dispatch")
 @method_decorator(permission_required("cms.view_language"), name="dispatch")
 class LanguageListView(TemplateView):
     """

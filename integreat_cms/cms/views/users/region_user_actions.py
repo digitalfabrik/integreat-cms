@@ -4,20 +4,17 @@ This module contains view actions for region user objects.
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...utils.welcome_mail_utils import send_welcome_mail
 
 logger = logging.getLogger(__name__)
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.delete_user")
 # pylint: disable=unused-argument
 def delete_region_user(request, region_slug, user_id):
@@ -61,8 +58,6 @@ def delete_region_user(request, region_slug, user_id):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_user")
 # pylint: disable=unused-argument
 def resend_activation_link_region(request, region_slug, user_id):

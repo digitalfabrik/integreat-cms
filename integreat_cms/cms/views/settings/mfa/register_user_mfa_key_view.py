@@ -5,7 +5,6 @@ from webauthn.helpers.structs import RegistrationCredential
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -18,7 +17,6 @@ from ....decorators import modify_mfa_authenticated
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
 @method_decorator(modify_mfa_authenticated, name="dispatch")
 class RegisterUserMfaKeyView(CreateView):
     """
@@ -90,14 +88,7 @@ class RegisterUserMfaKeyView(CreateView):
                 'The 2-factor authentication key "{}" was successfully registered.'
             ).format(new_key.name),
         )
-        # Determine success url
-        if request.user.is_superuser or request.user.is_staff:
-            # If user is superuser, return to user settings in network area
-            success_url = reverse("user_settings")
-        else:
-            # If user is region-user, return to user settings in first region
-            success_url = reverse(
-                "user_settings",
-                kwargs={"region_slug": request.user.regions.first().slug},
-            )
+        # Determine success url based on current region
+        kwargs = {"region_slug": request.region.slug} if request.region else {}
+        success_url = reverse("user_settings", kwargs=kwargs)
         return JsonResponse({"success": True, "successUrl": success_url})

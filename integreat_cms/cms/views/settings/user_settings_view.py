@@ -2,8 +2,6 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
@@ -14,7 +12,6 @@ from ...forms import UserEmailForm, UserPasswordForm
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
 class UserSettingsView(TemplateView):
     """
     View for the individual user settings

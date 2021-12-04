@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -6,11 +5,9 @@ from django.views.generic import TemplateView
 
 from integreat_cms.cms.views.pages.page_context_mixin import PageContextMixin
 
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
 class PartialPageTreeView(TemplateView, PageContextMixin):
     """

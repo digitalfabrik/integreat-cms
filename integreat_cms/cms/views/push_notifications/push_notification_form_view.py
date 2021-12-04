@@ -3,7 +3,6 @@ import logging
 from datetime import datetime
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -12,7 +11,7 @@ from django.views.generic import TemplateView
 from django.forms import modelformset_factory
 
 from .push_notification_sender import PushNotificationSender
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...forms import (
     PushNotificationForm,
     PushNotificationTranslationForm,
@@ -22,8 +21,6 @@ from ...models import Language, PushNotification, PushNotificationTranslation
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_pushnotification"), name="dispatch")
 @method_decorator(permission_required("cms.change_pushnotification"), name="post")
 class PushNotificationFormView(TemplateView):

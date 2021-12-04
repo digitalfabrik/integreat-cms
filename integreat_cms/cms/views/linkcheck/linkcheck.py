@@ -1,8 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
 from django.utils.translation import gettext as _
 from django.views.generic import ListView
@@ -10,12 +8,9 @@ from django.views.generic.base import RedirectView
 
 from linkcheck.models import Link
 
-from ...decorators import region_permission_required
 from ...utils.filter_links import filter_links
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 class LinkListView(ListView):
     """
     View for retrieving a list of links grouped by their state
@@ -80,8 +75,6 @@ class LinkListView(ListView):
         return redirect("linkcheck", region_slug=region_slug, link_filter=link_filter)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 class LinkListRedirectView(RedirectView):
     """
     View for redirecting to main page of the broken link checker

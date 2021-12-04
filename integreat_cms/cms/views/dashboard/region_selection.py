@@ -46,7 +46,7 @@ class RegionSelection(TemplateView):
             return redirect("dashboard", region_slug=regions.first().slug)
 
         if not regions.exists():
-            raise PermissionDenied(f"{user!r} is neither staff not a region user")
+            raise PermissionDenied(f"{user!r} is neither staff nor a region user")
 
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)

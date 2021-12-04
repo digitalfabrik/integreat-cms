@@ -3,10 +3,10 @@ from .view_test_utils import generate_test_functions
 
 
 admin_views = [
-    "login",
-    "login_mfa",
-    "login_mfa_assert",
-    "password_reset",
+    "public:login",
+    "public:login_mfa",
+    "public:login_mfa_assert",
+    "public:password_reset",
 ]
 
 

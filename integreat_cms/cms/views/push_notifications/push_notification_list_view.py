@@ -2,7 +2,6 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -10,14 +9,12 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...forms import ObjectSearchForm
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...models import Language, PushNotificationTranslation
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_pushnotification"), name="dispatch")
 class PushNotificationListView(TemplateView):
     """

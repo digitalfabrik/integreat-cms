@@ -63,7 +63,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         """
 
         return settings.BASE_URL + reverse(
-            "expand_imprint_translation_id",
+            "public:expand_imprint_translation_id",
             kwargs={"imprint_translation_id": self.id},
         )
 

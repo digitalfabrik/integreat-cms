@@ -3,7 +3,6 @@ This module contains form views for our models that don't need custom handling.
 """
 from django.contrib import messages
 from django.contrib.auth.mixins import (
-    LoginRequiredMixin,
     PermissionRequiredMixin,
 )
 from django.urls import reverse
@@ -12,13 +11,10 @@ from django.views.generic import CreateView, UpdateView
 from django.views.generic.edit import ModelFormMixin
 
 from .media import MediaContextMixin
-from .mixins import StaffRequiredMixing
 
 
 # pylint: disable=too-many-ancestors
 class CustomModelFormMixin(
-    LoginRequiredMixin,
-    StaffRequiredMixing,
     PermissionRequiredMixin,
     ModelFormMixin,
     MediaContextMixin,
