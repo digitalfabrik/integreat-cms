@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-02 12:32+0000\n"
+"POT-Creation-Date: 2021-12-04 00:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1135,6 +1135,18 @@ msgstr "Samoa"
 msgid "Mayotte"
 msgstr "Mayotte"
 
+#: cms/constants/events_time_range.py:21
+msgid "Custom time range"
+msgstr "Benutzerdefinierter Zeitraum"
+
+#: cms/constants/events_time_range.py:22
+msgid "Upcoming events"
+msgstr "Zukünftige Veranstaltungen"
+
+#: cms/constants/events_time_range.py:23
+msgid "Past events"
+msgstr "Vergangene Veranstaltungen"
+
 #: cms/constants/feedback_ratings.py:18 cms/constants/feedback_ratings.py:25
 msgid "Positive"
 msgstr "Positiv"
@@ -1264,7 +1276,7 @@ msgid "Use main language if no translation is available"
 msgstr "Benutze Haupt-Sprache, wenn keine Übersetzung verfügbar"
 
 #: cms/constants/recurrence.py:21
-#: cms/templates/events/_event_filter_form.html:55
+#: cms/templates/events/_event_filter_form.html:52
 msgid "Recurring events"
 msgstr "Sich wiederholende Veranstaltungen"
 
@@ -1347,8 +1359,8 @@ msgstr "Rechts nach Links"
 #: cms/constants/translation_status.py:10
 #: cms/templates/events/event_form.html:68
 #: cms/templates/events/event_form.html:97
-#: cms/templates/events/event_list_archived_row.html:58
-#: cms/templates/events/event_list_row.html:50
+#: cms/templates/events/event_list_archived_row.html:43
+#: cms/templates/events/event_list_row.html:43
 #: cms/templates/imprint/imprint_form.html:55
 #: cms/templates/imprint/imprint_form.html:84
 #: cms/templates/imprint/imprint_sbs.html:47
@@ -1366,8 +1378,8 @@ msgstr "Übersetzung ist aktuell"
 #: cms/constants/translation_status.py:11
 #: cms/templates/events/event_form.html:64
 #: cms/templates/events/event_form.html:93
-#: cms/templates/events/event_list_archived_row.html:50
-#: cms/templates/events/event_list_row.html:42
+#: cms/templates/events/event_list_archived_row.html:35
+#: cms/templates/events/event_list_row.html:35
 #: cms/templates/imprint/imprint_form.html:51
 #: cms/templates/imprint/imprint_form.html:80
 #: cms/templates/imprint/imprint_sbs.html:43
@@ -1385,8 +1397,8 @@ msgstr "Wird derzeit übersetzt"
 #: cms/constants/translation_status.py:12
 #: cms/templates/events/event_form.html:60
 #: cms/templates/events/event_form.html:89
-#: cms/templates/events/event_list_archived_row.html:54
-#: cms/templates/events/event_list_row.html:46
+#: cms/templates/events/event_list_archived_row.html:39
+#: cms/templates/events/event_list_row.html:39
 #: cms/templates/imprint/imprint_form.html:47
 #: cms/templates/imprint/imprint_form.html:76
 #: cms/templates/imprint/imprint_sbs.html:39
@@ -1404,8 +1416,8 @@ msgstr "Übersetzung ist veraltet"
 #: cms/constants/translation_status.py:13
 #: cms/templates/events/event_form.html:73
 #: cms/templates/events/event_form.html:102
-#: cms/templates/events/event_list_archived_row.html:63
-#: cms/templates/events/event_list_row.html:55
+#: cms/templates/events/event_list_archived_row.html:48
+#: cms/templates/events/event_list_row.html:48
 #: cms/templates/imprint/imprint_form.html:60
 #: cms/templates/imprint/imprint_form.html:89
 #: cms/templates/pages/page_form.html:81 cms/templates/pages/page_form.html:122
@@ -1580,8 +1592,8 @@ msgstr "Kategorie"
 
 #: cms/forms/feedback/region_feedback_filter_form.py:30
 #: cms/templates/events/event_form.html:129
-#: cms/templates/events/event_list.html:46
-#: cms/templates/events/event_list_archived.html:31
+#: cms/templates/events/event_list.html:61
+#: cms/templates/events/event_list_archived.html:44
 #: cms/templates/imprint/imprint_form.html:107
 #: cms/templates/imprint/imprint_revisions.html:46
 #: cms/templates/imprint/imprint_sbs.html:59
@@ -1610,11 +1622,13 @@ msgstr "Bewertung"
 
 #: cms/forms/feedback/region_feedback_filter_form.py:44
 #: cms/forms/statistics/statistics_filter_form.py:26
+#: cms/templates/events/_event_filter_form.html:20
 msgid "From"
 msgstr "Von"
 
 #: cms/forms/feedback/region_feedback_filter_form.py:52
 #: cms/forms/statistics/statistics_filter_form.py:35
+#: cms/templates/events/_event_filter_form.html:24
 msgid "To"
 msgstr "Bis"
 
@@ -1822,7 +1836,7 @@ msgstr "Chat-Nachricht"
 msgid "chat messages"
 msgstr "Chat-Nachrichten"
 
-#: cms/models/events/event.py:25 cms/models/feedback/feedback.py:22
+#: cms/models/events/event.py:81 cms/models/feedback/feedback.py:22
 #: cms/models/languages/language_tree_node.py:37
 #: cms/models/media/directory.py:22 cms/models/media/media_file.py:134
 #: cms/models/pages/imprint_page.py:22 cms/models/pages/page.py:47
@@ -1832,49 +1846,49 @@ msgstr "Chat-Nachrichten"
 msgid "region"
 msgstr "Region"
 
-#: cms/models/events/event.py:33 cms/models/pois/poi.py:147
+#: cms/models/events/event.py:89 cms/models/pois/poi.py:147
 #: cms/models/pois/poi_translation.py:36
 msgid "location"
 msgstr "Ort"
 
-#: cms/models/events/event.py:35
+#: cms/models/events/event.py:91
 msgid "start date"
 msgstr "Start-Datum"
 
-#: cms/models/events/event.py:36
+#: cms/models/events/event.py:92
 msgid "start time"
 msgstr "Start-Uhrzeit"
 
-#: cms/models/events/event.py:37
+#: cms/models/events/event.py:93
 msgid "end date"
 msgstr "End-Datum"
 
-#: cms/models/events/event.py:38
+#: cms/models/events/event.py:94
 msgid "end time"
 msgstr "End-Uhrzeit"
 
-#: cms/models/events/event.py:45 cms/models/events/recurrence_rule.py:201
+#: cms/models/events/event.py:101 cms/models/events/recurrence_rule.py:201
 msgid "recurrence rule"
 msgstr "Wiederholungs-Regel"
 
-#: cms/models/events/event.py:49 cms/models/pages/page.py:37
+#: cms/models/events/event.py:105 cms/models/pages/page.py:37
 #: cms/models/pois/poi.py:40
 msgid "icon"
 msgstr "Icon"
 
-#: cms/models/events/event.py:55 cms/models/pois/poi.py:48
+#: cms/models/events/event.py:111 cms/models/pois/poi.py:48
 msgid "archived"
 msgstr "archiviert"
 
-#: cms/models/events/event.py:261
+#: cms/models/events/event.py:320
 msgid "copy"
 msgstr "Kopie"
 
-#: cms/models/events/event.py:307 cms/models/events/event_translation.py:25
+#: cms/models/events/event.py:366 cms/models/events/event_translation.py:25
 msgid "event"
 msgstr "Veranstaltung"
 
-#: cms/models/events/event.py:309
+#: cms/models/events/event.py:368
 msgid "events"
 msgstr "Veranstaltungen"
 
@@ -2447,10 +2461,10 @@ msgstr "Version"
 
 #: cms/models/pages/abstract_base_page_translation.py:332
 #: cms/templates/events/event_form.html:25
-#: cms/templates/events/event_list.html:47
-#: cms/templates/events/event_list.html:51
-#: cms/templates/events/event_list_archived.html:32
-#: cms/templates/events/event_list_archived.html:36
+#: cms/templates/events/event_list.html:46
+#: cms/templates/events/event_list.html:50
+#: cms/templates/events/event_list_archived.html:29
+#: cms/templates/events/event_list_archived.html:33
 #: cms/templates/pages/page_form.html:27 cms/templates/pages/page_tree.html:61
 #: cms/templates/pages/page_tree.html:65
 #: cms/templates/pages/page_tree_archived.html:37
@@ -3147,7 +3161,7 @@ msgid "Integreat Editorial System"
 msgstr "Integreat Redaktionssystem"
 
 #: cms/templates/_search_input.html:13 cms/templates/_search_input.html:22
-#: cms/templates/events/_event_filter_form.html:37
+#: cms/templates/events/_event_filter_form.html:34
 msgid "Search"
 msgstr "Suchen"
 
@@ -3160,7 +3174,7 @@ msgid "Do not translate"
 msgstr "Nicht übersetzen"
 
 #: cms/templates/_tinymce_config.html:25
-#: cms/templates/events/_event_filter_form.html:34
+#: cms/templates/events/_event_filter_form.html:31
 msgid "Location"
 msgstr "Ort"
 
@@ -3530,39 +3544,33 @@ msgid "Return back home"
 msgstr "Zurück zur Startseite"
 
 #: cms/templates/events/_event_filter_form.html:13
-msgid "Date and time"
-msgstr "Datum und Uhrzeit"
+#: cms/templates/feedback/_admin_feedback_filter_form.html:22
+#: cms/templates/feedback/_region_feedback_filter_form.html:19
+msgid "Time range"
+msgstr "Zeitraum"
 
-#: cms/templates/events/_event_filter_form.html:16
-msgid "Not before"
-msgstr "Nicht vor"
-
-#: cms/templates/events/_event_filter_form.html:25
-msgid "Not after"
-msgstr "Nicht nach"
-
-#: cms/templates/events/_event_filter_form.html:35
+#: cms/templates/events/_event_filter_form.html:32
 #: cms/templates/events/event_list.html:62
-#: cms/templates/events/event_list_archived.html:47
+#: cms/templates/events/event_list_archived.html:45
 msgid "Event location"
 msgstr "Veranstaltungsort"
 
-#: cms/templates/events/_event_filter_form.html:40
+#: cms/templates/events/_event_filter_form.html:37
 msgid "Empty query input"
 msgstr "Sucheingabe löschen"
 
-#: cms/templates/events/_event_filter_form.html:51
+#: cms/templates/events/_event_filter_form.html:48
 msgid "All day events"
 msgstr "Ganztägige Veranstaltungen"
 
-#: cms/templates/events/_event_filter_form.html:63
+#: cms/templates/events/_event_filter_form.html:60
 #: cms/templates/feedback/_admin_feedback_filter_form.html:43
 #: cms/templates/feedback/_region_feedback_filter_form.html:40
 #: cms/templates/pages/_page_filter_form.html:12
 msgid "Reset filter"
 msgstr "Filter zurücksetzen"
 
-#: cms/templates/events/_event_filter_form.html:66
+#: cms/templates/events/_event_filter_form.html:63
 #: cms/templates/feedback/_admin_feedback_filter_form.html:46
 #: cms/templates/feedback/_region_feedback_filter_form.html:42
 #: cms/templates/pages/_page_filter_form.html:15
@@ -3617,7 +3625,6 @@ msgid "Create Translation"
 msgstr "Übersetzung erstellen"
 
 #: cms/templates/events/event_form.html:115
-#: cms/templates/events/event_list_archived.html:30
 #: cms/templates/imprint/imprint_form.html:104
 #: cms/templates/imprint/imprint_revisions.html:20
 #: cms/templates/imprint/imprint_sbs.html:57
@@ -3670,7 +3677,7 @@ msgid "Map"
 msgstr "Karte"
 
 #: cms/templates/events/event_form.html:277
-#: cms/templates/events/event_list_archived_row.html:93
+#: cms/templates/events/event_list_archived_row.html:82
 msgid "Restore event"
 msgstr "Veranstaltung wiederherstellen"
 
@@ -3679,7 +3686,7 @@ msgid "Restore this event"
 msgstr "Diese Veranstaltung wiederherstellen"
 
 #: cms/templates/events/event_form.html:287
-#: cms/templates/events/event_list_row.html:107
+#: cms/templates/events/event_list_row.html:98
 msgid "Archive event"
 msgstr "Veranstaltung archivieren"
 
@@ -3688,8 +3695,8 @@ msgid "Archive this event"
 msgstr "Diese Veranstaltung archivieren"
 
 #: cms/templates/events/event_form.html:300
-#: cms/templates/events/event_list_archived_row.html:102
-#: cms/templates/events/event_list_row.html:116
+#: cms/templates/events/event_list_archived_row.html:91
+#: cms/templates/events/event_list_row.html:107
 msgid "Delete event"
 msgstr "Veranstaltung löschen"
 
@@ -3721,21 +3728,22 @@ msgid "Hide filters"
 msgstr "Filter ausblenden"
 
 #: cms/templates/events/event_list.html:63
-msgid "Recurrence"
-msgstr "Wiederholung"
-
-#: cms/templates/events/event_list.html:64
-#: cms/templates/events/event_list_archived.html:48
+#: cms/templates/events/event_list_archived.html:46
 msgid "Start"
 msgstr "Beginn"
 
-#: cms/templates/events/event_list.html:65
-#: cms/templates/events/event_list_archived.html:49
+#: cms/templates/events/event_list.html:64
+#: cms/templates/events/event_list_archived.html:47
 msgid "End"
 msgstr "Ende"
 
+#: cms/templates/events/event_list.html:65
+#: cms/templates/events/event_list_archived.html:48
+msgid "Recurrence"
+msgstr "Wiederholung"
+
 #: cms/templates/events/event_list.html:66
-#: cms/templates/events/event_list_archived.html:50
+#: cms/templates/events/event_list_archived.html:49
 #: cms/templates/languages/language_list.html:29
 #: cms/templates/offer_templates/offer_template_list.html:25
 #: cms/templates/organizations/organization_list.html:23
@@ -3747,27 +3755,26 @@ msgstr "Ende"
 msgid "Options"
 msgstr "Optionen"
 
-#: cms/templates/events/event_list.html:80
-#: cms/templates/events/event_list_archived.html:64
+#: cms/templates/events/event_list.html:79
 msgid "No events found with these filters."
-msgstr "Keine Veranstaltungen mit diesem Filter gefunden."
+msgstr "Keine Veranstaltungen mit diesen Filtern gefunden."
 
-#: cms/templates/events/event_list.html:82
-msgid "No events available yet."
-msgstr "Noch keine Veranstaltungen vorhanden."
+#: cms/templates/events/event_list.html:81
+msgid "No upcoming events available."
+msgstr "Keine zukünftigen Veranstaltungen vorhanden."
 
-#: cms/templates/events/event_list_archived.html:29
-msgid "ID"
-msgstr "ID"
+#: cms/templates/events/event_list_archived.html:62
+msgid "No archived events found with these filters."
+msgstr "Keine archivierten Veranstaltungen mit diesen Filtern gefunden."
 
-#: cms/templates/events/event_list_archived.html:66
-msgid "No events archived yet."
-msgstr "Noch keine Veranstaltungen archiviert."
+#: cms/templates/events/event_list_archived.html:64
+msgid "No upcoming events archived."
+msgstr "Keine zukünftigen Veranstaltungen archiviert."
 
-#: cms/templates/events/event_list_archived_row.html:25
-#: cms/templates/events/event_list_archived_row.html:37
-#: cms/templates/events/event_list_row.html:17
-#: cms/templates/events/event_list_row.html:29
+#: cms/templates/events/event_list_archived_row.html:12
+#: cms/templates/events/event_list_archived_row.html:24
+#: cms/templates/events/event_list_row.html:12
+#: cms/templates/events/event_list_row.html:24
 #: cms/templates/pages/page_tree_archived_node.html:26
 #: cms/templates/pages/page_tree_archived_node.html:38
 #: cms/templates/pages/page_tree_node.html:36
@@ -3779,37 +3786,29 @@ msgstr "Noch keine Veranstaltungen archiviert."
 msgid "Translation not available"
 msgstr "Übersetzung nicht verfügbar"
 
-#: cms/templates/events/event_list_archived_row.html:77
-#: cms/templates/events/event_list_row.html:69
+#: cms/templates/events/event_list_archived_row.html:63
+#: cms/templates/events/event_list_row.html:63
 msgid "Not specified"
 msgstr "Nicht festgelegt"
 
+#: cms/templates/events/event_list_archived_row.html:76
 #: cms/templates/events/event_list_row.html:76
 msgid "One-time"
 msgstr "Einmalig"
 
-#: cms/templates/events/event_list_row.html:88
+#: cms/templates/events/event_list_row.html:82
 msgid "Open event in web app"
 msgstr "Veranstaltung in der Web-App öffnen"
 
-#: cms/templates/events/event_list_row.html:92
+#: cms/templates/events/event_list_row.html:86
 msgid "This event cannot be opened in the web app, because it is not public."
 msgstr ""
 "Diese Veranstaltung kann nicht in der Web-App geöffnet werden, weil sie "
 "nicht veröffentlicht ist."
 
-#: cms/templates/events/event_list_row.html:98
-msgid "Edit event"
-msgstr "Veranstaltung bearbeiten"
-
-#: cms/templates/events/event_list_row.html:103
+#: cms/templates/events/event_list_row.html:94
 msgid "Duplicate event"
 msgstr "Veranstaltung duplizieren"
-
-#: cms/templates/feedback/_admin_feedback_filter_form.html:22
-#: cms/templates/feedback/_region_feedback_filter_form.html:19
-msgid "Time range"
-msgstr "Zeitraum"
 
 #: cms/templates/feedback/_feedback_widget.html:12
 msgid "Unread technical feedback"
@@ -5538,13 +5537,13 @@ msgstr "Bitte bestätigen Sie, dass dieses Event gelöscht werden soll"
 msgid "All translations of this event will also be deleted."
 msgstr "Alle Übersetzungen dieses Events werden gelöscht."
 
-#: cms/views/events/event_list_view.py:85
+#: cms/views/events/event_list_view.py:86
 msgid "Please create at least one language node before creating events."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie "
 "Veranstaltungen verwalten."
 
-#: cms/views/events/event_list_view.py:91
+#: cms/views/events/event_list_view.py:92
 msgid "You don't have the permission to edit or create events."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten "
@@ -6402,11 +6401,38 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Missing"
+#~ msgstr "Fehlt"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Edit event"
+#~ msgstr "Veranstaltung bearbeiten"
+
+#~ msgid "Date and time"
+#~ msgstr "Datum und Uhrzeit"
+
+#~ msgid "Not before"
+#~ msgstr "Nicht vor"
+
+#~ msgid "Not after"
+#~ msgstr "Nicht nach"
+
+#~ msgid "Time Range"
+#~ msgstr "Zeitraum"
+
 #~ msgid "Yes"
 #~ msgstr "Ja"
 
 #~ msgid "No"
 #~ msgstr "Nein"
+
+#~ msgid "upcoming events"
+#~ msgstr "Zukünftige Termine"
+
+#~ msgid "past events"
+#~ msgstr "Vergangene Termine"
 
 #~ msgid "Event is not public."
 #~ msgstr "Veranstaltung ist nicht veröffentlicht."

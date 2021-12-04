@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import all_day, recurrence, status
+from ...constants import all_day, recurrence, status, events_time_range
 from ...decorators import region_permission_required, permission_required
 from ...models import Region, EventTranslation
 from ...forms import EventFilterForm
@@ -48,6 +48,7 @@ class EventListView(TemplateView, EventContextMixin):
 
     # pylint: disable=too-many-branches
     # pylint: disable=too-many-locals
+    # pylint: disable=too-many-statements
     def get(self, request, *args, **kwargs):
         """
         Render events list for HTTP GET requests
@@ -103,21 +104,32 @@ class EventListView(TemplateView, EventContextMixin):
             event_filter_form = EventFilterForm(data=filter_data)
             poi = None
             if event_filter_form.is_valid():
+                # Filter events by time range
+                cleaned_time_range = event_filter_form.cleaned_data["events_time_range"]
+                if (
+                    set(cleaned_time_range) == set(events_time_range.ALL_EVENTS)
+                    or len(cleaned_time_range) == 0
+                ):
+                    # Either post & upcoming or no checkboxes are checked => skip filtering
+                    pass
+                elif events_time_range.CUSTOM in cleaned_time_range:
+                    # Filter events for their start and end
+                    events = events.filter_upcoming(
+                        event_filter_form.cleaned_data["date_from"] or date.min
+                    ).filter(
+                        end_date__lte=event_filter_form.cleaned_data["date_to"]
+                        or date.max
+                    )
+                elif events_time_range.UPCOMING in cleaned_time_range:
+                    # Only upcoming events
+                    events = events.filter_upcoming()
+                elif events_time_range.PAST in cleaned_time_range:
+                    # Only past events
+                    events = events.filter_completed()
+                # Filter events for their location
                 poi = region.pois.filter(
                     id=event_filter_form.cleaned_data["poi_id"]
                 ).first()
-                # Filter events for their start and end
-                events = events.filter(
-                    start_date__gte=event_filter_form.cleaned_data["after_date"]
-                    or date.min,
-                    start_time__gte=event_filter_form.cleaned_data["after_time"]
-                    or time.min,
-                    end_date__lte=event_filter_form.cleaned_data["before_date"]
-                    or date.max,
-                    end_time__lte=event_filter_form.cleaned_data["before_time"]
-                    or time.max,
-                )
-                # Filter events for their location
                 if poi is not None:
                     events = events.filter(location=poi)
                 # Filter events for their all-day property
@@ -167,6 +179,8 @@ class EventListView(TemplateView, EventContextMixin):
                     ).values("event__pk")
                     events = events.filter(pk__in=event_ids)
         else:
+            # Show only upcoming events by default
+            events = events.filter_upcoming()
             event_filter_form = EventFilterForm()
             event_filter_form.changed_data.clear()
             poi = None
