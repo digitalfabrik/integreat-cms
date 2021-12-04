@@ -55,11 +55,11 @@
             {% endif %}
         </div>
         <div class="flex flex-wrap flex-col flex-grow pr-2 w-2/3">
-            <ul class="flex flex-wrap items-end pl-4">
+            <ul class="flex flex-wrap flex-wrap-reverse items-end pl-4">
                 {% for other_language in languages %}
-                    <li class="mr-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
-                        <div class="bg-white text-blue-500 {% if other_language != language %}hover:bg-blue-500 hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
-                            <div class="border-b-2 border-white">
+                    <li class="mr-1 mt-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
+                        <div class=" {% if other_language != language %} bg-blue-500 border-blue-500 text-white {% else %} bg-white text-blue-500 hover:bg-blue-500 hover:text-white {% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
+                            <div class="{% if other_language == language %} border-b-2 border-white {% endif %}" >
                                 {% if other_language == language %}
                                     <div class="{{ language.slug }} px-4">
                                         {% if page %}
@@ -130,17 +130,23 @@
                         </div>
                     </li>
                 {% endfor %}
-                {% if page_translation_form.instance.id %}
-                    <li class="self-start ml-auto px-2">
-                        {% trans 'Version' %}:
-                        {{ page_translation_form.instance.version }}
-                        (<a href="{% url 'page_revisions' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
-                            class="text-blue-500 hover:underline">{% trans 'Show versions' %}</a>)
-                    </li>
-                {% endif %}
+
             </ul>
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
                 <div class="w-full p-4">
+                    <!-- Version -->
+                    <div class="flex justify-end">
+                        <ul class="mr-8">
+                            {% if page_translation_form.instance.id %}
+                                <li class="self-start ml-auto">
+                                    {% trans 'Version' %}:
+                                    {{ page_translation_form.instance.version }}
+                                    (<a href="{% url 'page_revisions' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
+                                        class="text-blue-500 hover:underline">{% trans 'Show versions' %}</a>)
+                                </li>
+                                {% endif %}
+                            </ul>
+                    </div>
                     <div class="flex justify-between">
                         <label for="{{ page_translation_form.title.id_for_label }}"
                             data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
