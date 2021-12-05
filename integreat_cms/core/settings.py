@@ -596,7 +596,10 @@ CACHES = {
     },
     "pdf": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": os.path.join(BASE_DIR, "cache/pdf"),
+        "LOCATION": os.path.join(
+            os.environ.get("INTEGREAT_CMS_FILE_CACHE", os.path.join(BASE_DIR, "cache")),
+            "pdf",
+        ),
     },
 }
 
