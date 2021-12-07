@@ -91,9 +91,9 @@ window.addEventListener("load", () => {
   // The list of time range options
   const eventsCustomTimeRangeCheckboxList = document.getElementById("id_events_time_range");
   // The value which indicates the "custom" rime range option
-  const eventsCustomTimeRangeValue = eventsCustomTimeRangeCheckboxList.querySelector("input").getAttribute("data-custom-time-range-value");
+  const eventsCustomTimeRangeValue = eventsCustomTimeRangeCheckboxList?.querySelector("input")?.getAttribute("data-custom-time-range-value");
   // The checkbox with the custom value - changing this should trigger the conditional field changes.
-  const eventsCustomTimeRangeCheckbox = eventsCustomTimeRangeCheckboxList.querySelector("input[value=" + eventsCustomTimeRangeValue + "]") as HTMLInputElement;
+  const eventsCustomTimeRangeCheckbox = eventsCustomTimeRangeCheckboxList?.querySelector("input[value=" + eventsCustomTimeRangeValue + "]") as HTMLInputElement;
   // The div containing the custom date/time range inputs
   const eventsCustomTimeRangeDateInput = document.getElementById("events-custom-time-range-filter");
   // event handler to show custom time range selection in filter form
@@ -115,6 +115,6 @@ window.addEventListener("load", () => {
       }
     });
   }
-  eventsCustomTimeRangeCheckbox.addEventListener("change", updateTimeRangeInputs);
-  updateTimeRangeInputs()
+  eventsCustomTimeRangeCheckbox?.addEventListener("change", updateTimeRangeInputs);
+  if (eventsCustomTimeRangeCheckbox !== undefined) { updateTimeRangeInputs() }
 });
