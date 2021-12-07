@@ -5,16 +5,16 @@
  * Since file deletion is a bit more complex than other functions, the chain of events is explained in detail here:
  *
  *   1. User clicks on delete button
- *   2. Because of the class .confirmation-button, a confirmation popup is opened via showConfirmationPopup()
+ *   2. Because of the onClick event handler, a confirmation popup is opened via showConfirmationPopup()
  *   3. If the user clicks on confirm, the custom event "action-confirmed" is dispatched for the delete button
- *   4. The handler given to refreshAjaxConfirmationHandlers() is executed
- *   5. The file deletion form is submitted by triggering a click on its submit button
- *   6. The onSubmit action of the form is executed
- *   7. submitForm() submits the deletion form via AJAX
- *   8. On success, the media library is refreshed
+ *   4. The file deletion form is submitted by triggering a click on its submit button
+ *   5. The onSubmit action of the form is executed
+ *   6. submitForm() submits the deletion form via AJAX
+ *   7. On success, the media library is refreshed
  */
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 import {
+  CheckCircle,
   FileText,
   Lock,
   Image,
@@ -29,7 +29,7 @@ import {
 } from "preact-feather";
 import cn from "classnames";
 
-import { refreshAjaxConfirmationHandlers } from "../../confirmation-popups";
+import { showConfirmationPopupAjax } from "../../confirmation-popups";
 import { MediaApiPaths, File, MediaLibraryEntry, Directory } from "../index";
 
 interface Props {
@@ -70,8 +70,8 @@ export default function EditSidebar({
   const [isFileNameEditable, setFileNameEditable] = useState<boolean>(false);
   // This state determines whether the alternative text of the file is currently being edited
   const [isAltTextEditable, setAltTextEditable] = useState<boolean>(false);
-  // Editing is allowed if selection mode is disabled and either global edit is enabled or the file is not global
-  const isEditingAllowed = !selectionMode && (globalEdit || !file.isGlobal);
+  // Editing is allowed if either global edit is enabled or the file is not global
+  const isEditingAllowed = globalEdit || !file.isGlobal;
 
   useEffect(() => {
     console.debug("Opening sidebar for file:", file);
@@ -80,10 +80,6 @@ export default function EditSidebar({
     // Hide input fields
     setFileNameEditable(false);
     setAltTextEditable(false);
-    // Set the function which should be executed when the deletion is confirmed
-    refreshAjaxConfirmationHandlers(() => {
-      document.getElementById("delete-file").click();
-    });
     return () => {
       console.debug("Closing file sidebar...");
     };
@@ -236,78 +232,74 @@ export default function EditSidebar({
             </a>
           </div>
         )}
-        <div class="p-4">
-          {selectionMode ? (
-            !(onlyImage && !file.type.startsWith("image/")) ? (
+        <div className="flex flex-col p-4 gap-4">
+        {isEditingAllowed ? (
+          <>
+            {(isFileNameEditable || isAltTextEditable) && (
               <button
-                title={mediaTranslations.btn_select}
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (selectMedia) {
-                    selectMedia(file);
-                  }
-                }}
-                class="w-full"
+                title={mediaTranslations.btn_save_file}
+                class="btn"
+                disabled={isLoading}
               >
-                {mediaTranslations.btn_select}
+                <Save class="inline-block"/>
+                {mediaTranslations.btn_save_file}
               </button>
-            ) : (
-              <p class="italic">
-                <Info class="mr-1 inline-block h-5" />
-                {mediaTranslations.text_only_image}
-              </p>
-            )
-          ) : (
-            <div>
-              {isEditingAllowed ? (
-                <div class="flex flex-col gap-4">
-                  {(isFileNameEditable || isAltTextEditable) && (
-                    <button
-                      title={mediaTranslations.btn_save_file}
-                      class="btn"
-                      disabled={isLoading}
-                    >
-                      <Save class="inline-block" />
-                      {mediaTranslations.btn_save_file}
-                    </button>
-                  )}
-
-                  <label
-                    for="replace-file-input"
-                    title={mediaTranslations.btn_replace_file} 
-                    className={cn(
-                      "w-full text-white text-center font-bold py-3 px-4 m-0 rounded",
-                      { "cursor-not-allowed bg-gray-500": isLoading },
-                      { "bg-blue-500 hover:bg-blue-600": !isLoading }
-                    )}
-                    disabled={isLoading} 
-                  >
-                    <RefreshCw class="mr-1 inline-block h-5" />
-                    {mediaTranslations.btn_replace_file}
-                  </label>
-
-                  <button
-                    title={mediaTranslations.btn_delete_file}
-                    class="confirmation-button btn btn-red"
-                    data-confirmation-title={
-                      mediaTranslations.text_file_delete_confirm
-                    }
-                    data-confirmation-subject={file.name}
-                    data-ajax
-                    disabled={isLoading}
-                  >
-                    <Trash2 class="inline-block" />
-                    {mediaTranslations.btn_delete_file}
-                  </button>
-                </div>
-              ) : (
-                <p class="italic">
-                  <Lock class="mr-1 inline-block h-5" />
-                  {mediaTranslations.text_file_readonly}
-                </p>
+            )}
+            <label
+              for="replace-file-input"
+              title={mediaTranslations.btn_replace_file}
+              className={cn(
+                "w-full text-white text-center font-bold py-3 px-4 m-0 rounded",
+                {"cursor-not-allowed bg-gray-500": isLoading},
+                {"bg-blue-500 hover:bg-blue-600": !isLoading}
               )}
-            </div>
-          )}
+              disabled={isLoading}
+            >
+              <RefreshCw class="mr-1 inline-block h-5"/>
+              {mediaTranslations.btn_replace_file}
+            </label>
+            <button
+              title={mediaTranslations.btn_delete_file}
+              className={cn("btn", { "btn-red": !isLoading})}
+              data-confirmation-title={mediaTranslations.text_file_delete_confirm}
+              data-confirmation-subject={file.name}
+              disabled={isLoading}
+              onClick={(event) => showConfirmationPopupAjax(event)}
+              onaction-confirmed={() => document.getElementById("delete-file").click()}
+            >
+              <Trash2 class="inline-block"/>
+              {mediaTranslations.btn_delete_file}
+            </button>
+          </>
+        ) : (
+          <p class="italic">
+            <Lock class="mr-1 inline-block h-5" />
+            {mediaTranslations.text_file_readonly}
+          </p>
+        )}
+        {selectionMode && (
+          !(onlyImage && !file.type.startsWith("image/")) ? (
+            <button
+              title={mediaTranslations.btn_select}
+              onClick={(e) => {
+                e.preventDefault();
+                if (selectMedia) {
+                  selectMedia(file);
+                }
+              }}
+              class="btn"
+              disabled={isLoading}
+            >
+              <CheckCircle class="inline-block" />
+              {mediaTranslations.btn_select}
+            </button>
+          ) : (
+            <p class="italic">
+              <Info class="mr-1 inline-block h-5" />
+              {mediaTranslations.text_only_image}
+            </p>
+          )
+        )}
         </div>
       </form>
 

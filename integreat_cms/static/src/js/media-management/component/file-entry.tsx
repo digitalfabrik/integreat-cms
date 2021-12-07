@@ -11,7 +11,6 @@ interface Props {
   active: boolean;
   onClick: (event: MouseEvent) => void;
   mediaTranslations: any;
-  selectionMode?: boolean;
   globalEdit?: boolean;
 }
 
@@ -21,7 +20,6 @@ export default function FileEntry({
   onClick,
   mediaTranslations,
   globalEdit,
-  selectionMode,
 }: Props) {
   return (
     <div
@@ -43,7 +41,7 @@ export default function FileEntry({
       <span className="flex-none leading-5 max-h-15 m-auto break-all overflow-hidden">
         {file.name}
       </span>
-      {!selectionMode && !globalEdit && file.isGlobal && (
+      {!globalEdit && file.isGlobal && (
         <span
           class="absolute bg-blue-500 text-white rounded-full m-2 p-2"
           title={mediaTranslations.text_file_readonly}
