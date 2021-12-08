@@ -9,6 +9,7 @@ UNRELEASED
 * Allow configuration via /etc/integreat-cms.ini
 * Fix dependency versions for production setup
 * Fully functional media library in selection window
+* Align language flags and translation status icons
 
 
 2021.11.0-beta

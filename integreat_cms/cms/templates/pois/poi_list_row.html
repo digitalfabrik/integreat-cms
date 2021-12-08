@@ -31,30 +31,32 @@
         </td>
     {% endif %}
 	<td class="pr-2 lang-grid">
-        {% for other_language in languages %}
-            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=other_language.slug %}">
-                {% get_translation poi other_language.slug as other_translation %}
-                {% if other_translation %}
-                    {% if other_translation.currently_in_translation %}
-                        <span title="{% trans 'Currently in translation' %}">
-                            <i data-feather="clock"></i>
-                        </span>
-                    {% elif other_translation.is_outdated %}
-                        <span title="{% trans 'Translation outdated' %}">
-                            <i data-feather="alert-triangle"></i>
-                        </span>
+        {% spaceless %}
+            {% for other_language in languages %}
+                <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=other_language.slug %}">
+                    {% get_translation poi other_language.slug as other_translation %}
+                    {% if other_translation %}
+                        {% if other_translation.currently_in_translation %}
+                            <span title="{% trans 'Currently in translation' %}">
+                                <i data-feather="clock"></i>
+                            </span>
+                        {% elif other_translation.is_outdated %}
+                            <span title="{% trans 'Translation outdated' %}">
+                                <i data-feather="alert-triangle"></i>
+                            </span>
+                        {% else %}
+                            <span title="{% trans 'Translation up-to-date' %}">
+                                <i data-feather="check"></i>
+                            </span>
+                        {% endif %}
                     {% else %}
-                        <span title="{% trans 'Translation up-to-date' %}">
-                            <i data-feather="check"></i>
+                        <span title="{% trans 'Translation missing' %}">
+                            <i data-feather="x"></i>
                         </span>
                     {% endif %}
-                {% else %}
-                    <span title="{% trans 'Translation missing' %}">
-                        <i data-feather="x"></i>
-                    </span>
-                {% endif %}
-            </a>
-        {% endfor %}
+                </a>
+            {% endfor %}
+        {% endspaceless %}
 	</td>
 	<td class="pr-2">
         <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
