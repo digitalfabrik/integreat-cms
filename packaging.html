@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-10-09T01:42:21+00:00" />
+    <meta property="article:modified_time" content="2021-11-29T03:52:43+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Packaging &mdash; integreat-cms 2021.11.0-beta documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -179,11 +179,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prod-server.html">Production Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prod-server.html#system-requirements">System requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prod-server.html#integreat-cms-package">Integreat CMS Package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prod-server.html#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prod-server.html#static-files">Static Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prod-server.html#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prod-server.html#database">Database</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prod-server.html#redis-cache">Redis Cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prod-server.html#email-configuration">Email configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
@@ -695,13 +697,15 @@ npm run prod
 </pre></div>
 </div>
 </li>
-<li><p>Create a <code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code> file with the following contents:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>graft integreat_cms
-prune integreat_cms/static/src
+<li><p>Fix the dependency versions in setup.cfg to make sure the production setup uses well-tested depdendency versions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/fix_dependencies.sh
 </pre></div>
 </div>
-<p>This tells the setup script to include all non-python files in the <code class="docutils literal notranslate"><span class="pre">integreat_cms</span></code> directory except those in
-<code class="docutils literal notranslate"><span class="pre">integreat_cms/static/src</span></code>.</p>
+</li>
+<li><p>Move the README to make sure to include the PyPI-README instead of the GitHub-README:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mv integreat_cms/README.md .
+</pre></div>
+</div>
 </li>
 <li><p>After that, you can build the python package with <a class="reference external" href="https://setuptools.pypa.io/en/latest/index.html" title="(in setuptools v59.5.0)"><span>Documentation</span></a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install --upgrade pip setuptools wheel
@@ -737,7 +741,7 @@ python3 setup.py sdist bdist_wheel
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 09, 2021.
+      <span class="lastupdated">Last updated on Nov 29, 2021.
       </span></p>
   </div>
 

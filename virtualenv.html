@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-10-26T12:22:36+00:00" />
+    <meta property="article:modified_time" content="2021-11-11T01:32:23+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Virtual Environment (Pipenv) &mdash; integreat-cms 2021.11.0-beta documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -179,11 +179,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prod-server.html">Production Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prod-server.html#system-requirements">System requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prod-server.html#integreat-cms-package">Integreat CMS Package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="prod-server.html#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prod-server.html#static-files">Static Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prod-server.html#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prod-server.html#database">Database</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prod-server.html#redis-cache">Redis Cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prod-server.html#email-configuration">Email configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
@@ -698,8 +700,8 @@
 </section>
 <section id="add-dependencies">
 <h2>Add dependencies<a class="headerlink" href="#add-dependencies" title="Permalink to this headline"></a></h2>
-<p>When adding new functional dependencies, please add them to <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/setup.py">setup.py</a> and execute:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+<p>When adding new functional dependencies, please add them to <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/setup.cfg">setup.cfg</a> and execute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">install</span> <span class="o">--</span><span class="n">dev</span>
 </pre></div>
 </div>
 <p>When adding a new dev dependency <code class="docutils literal notranslate"><span class="pre">package</span></code>, just use:</p>
@@ -742,7 +744,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 26, 2021.
+      <span class="lastupdated">Last updated on Nov 11, 2021.
       </span></p>
   </div>
 

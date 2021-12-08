@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-11-17T16:55:38+00:00" />
+    <meta property="article:modified_time" content="2021-11-28T12:41:53+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Regions &mdash; integreat-cms 2021.11.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -179,11 +179,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../prod-server.html">Production Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#system-requirements">System requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#integreat-cms-package">Integreat CMS Package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#static-files">Static Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#database">Database</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#redis-cache">Redis Cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#email-configuration">Email configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
@@ -875,12 +877,12 @@ queryset, use <a class="reference internal" href="#integreat_cms.cms.models.regi
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.check">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1265"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.check" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1278"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.check" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1000"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.clean" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1013"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.clean" title="Permalink to this definition"></a></dt>
 <dd><p>Hook for doing any extra model-wide validation after clean() has been
 called on every field by self.clean_fields. Any ValidationError raised
 by this method will not be associated with a particular field; it will
@@ -889,7 +891,7 @@ have a special-case association with the field defined by NON_FIELD_ERRORS.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.clean_fields">
-<span class="sig-name descname"><span class="pre">clean_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1240"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.clean_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1253"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.clean_fields" title="Permalink to this definition"></a></dt>
 <dd><p>Clean all fields and raise a ValidationError containing a dict
 of all validation errors if any occur.</p>
 </dd></dl>
@@ -912,7 +914,7 @@ and <a class="reference external" href="https://de.wikipedia.org/wiki/Amtlicher_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.date_error_message">
-<span class="sig-name descname"><span class="pre">date_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.date_error_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">date_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_for</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.date_error_message" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -932,7 +934,7 @@ root <a class="reference internal" href="integreat_cms.cms.models.languages.html
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L945"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.delete" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_parents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L958"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.delete" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -970,7 +972,7 @@ root <a class="reference internal" href="integreat_cms.cms.models.languages.html
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.full_clean">
-<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.full_clean" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">full_clean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.full_clean" title="Permalink to this definition"></a></dt>
 <dd><p>Call clean_fields(), clean(), and validate_unique() on the model.
 Raise a ValidationError for any errors that occur.</p>
 </dd></dl>
@@ -1019,7 +1021,7 @@ with that slug.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.get_deferred_fields">
-<span class="sig-name descname"><span class="pre">get_deferred_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L585"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_deferred_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_deferred_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L598"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_deferred_fields" title="Permalink to this definition"></a></dt>
 <dd><p>Return a set containing names of deferred fields for this instance.</p>
 </dd></dl>
 
@@ -1264,7 +1266,7 @@ If this region has no default language, this property returns an empty string</p
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.prepare_database_save">
-<span class="sig-name descname"><span class="pre">prepare_database_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L995"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.prepare_database_save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prepare_database_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1008"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.prepare_database_save" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1283,7 +1285,7 @@ If this region has no default language, this property returns an empty string</p
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.refresh_from_db">
-<span class="sig-name descname"><span class="pre">refresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L594"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.refresh_from_db" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">refresh_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L607"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.refresh_from_db" title="Permalink to this definition"></a></dt>
 <dd><p>Reload field values from the database.</p>
 <p>By default, the reloading happens from the database this instance was
 loaded from, or by the read router if this instance wasn’t loaded from
@@ -1297,7 +1299,7 @@ of the field will call this method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L672"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L685"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.save" title="Permalink to this definition"></a></dt>
 <dd><p>Save the current instance. Override this in a subclass if you want to
 control the saving process.</p>
 <p>The ‘force_insert’ and ‘force_update’ parameters can be used to insist
@@ -1307,7 +1309,7 @@ non-SQL backends), respectively. Normally, they should not be set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.save_base">
-<span class="sig-name descname"><span class="pre">save_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L730"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.save_base" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L743"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.save_base" title="Permalink to this definition"></a></dt>
 <dd><p>Handle the parts of saving which should be done only once per save,
 yet need to be done in raw saves, too. This includes some sanity
 checks and signal sending.</p>
@@ -1328,7 +1330,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.serializable_value">
-<span class="sig-name descname"><span class="pre">serializable_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L655"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.serializable_value" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">serializable_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L668"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.serializable_value" title="Permalink to this definition"></a></dt>
 <dd><p>Return the value of the field name for this instance. If the field is
 a foreign key, return the id value instead of the object. If there’s
 no Field object with this name on the model, return the model
@@ -1389,7 +1391,7 @@ and not use this method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.unique_error_message">
-<span class="sig-name descname"><span class="pre">unique_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.unique_error_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">unique_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_check</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1187"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.unique_error_message" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1401,7 +1403,7 @@ and not use this method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.validate_unique">
-<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1009"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.validate_unique" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">validate_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L1022"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.validate_unique" title="Permalink to this definition"></a></dt>
 <dd><p>Check unique constraints on the model and raise ValidationError if any
 failed.</p>
 </dd></dl>
@@ -1507,7 +1509,7 @@ and returning the created object.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.RegionManager.creation_counter">
-<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.RegionManager.creation_counter" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">39</span></em><a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.RegionManager.creation_counter" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1789,7 +1791,7 @@ thus be available in e.g. RunPython operations.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 17, 2021.
+      <span class="lastupdated">Last updated on Nov 28, 2021.
       </span></p>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-11-19T01:21:32+00:00" />
+    <meta property="article:modified_time" content="2021-11-28T12:41:53+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2021.11.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -179,11 +179,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../prod-server.html">Production Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#system-requirements">System requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#integreat-cms-package">Integreat CMS Package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#static-files">Static Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#database">Database</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#redis-cache">Redis Cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#email-configuration">Email configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
@@ -816,7 +818,7 @@ There are three functions which can be used publicly:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>session</strong> (<a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.8)"><em>aiohttp.ClientSession</em></a>) – The session object which is used for the request</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The parameters which are passed to the Matomo API</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The parameters which are passed to the Matomo API</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -861,7 +863,7 @@ Opens a <a class="reference external" href="https://docs.aiohttp.org/en/stable/c
 Called from <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id" title="integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_matomo_id()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>query_params</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The parameters which are passed to the Matomo API</p>
+<dd class="field-odd"><p><strong>**query_params</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The parameters which are passed to the Matomo API</p>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.matomo_api_manager.MatomoException" title="integreat_cms.cms.utils.matomo_api_manager.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
@@ -1145,7 +1147,7 @@ In case the slug exists already, it appends a counter which is increased until t
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.2)"><strong>ValidationError</strong></a> – When no slug is given and there is also no field which can be used
@@ -1220,7 +1222,7 @@ should be concatenated with a space in between. This is useful for splitting laz
 which improves the translation memory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>strings</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – A list of lazy translated strings which should be concatenated</p>
+<dd class="field-odd"><p><strong>*strings</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – A list of lazy translated strings which should be concatenated</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A lazy formatted string</p>
@@ -1286,7 +1288,7 @@ version and also attach the integreat logo.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 19, 2021.
+      <span class="lastupdated">Last updated on Nov 28, 2021.
       </span></p>
   </div>
 

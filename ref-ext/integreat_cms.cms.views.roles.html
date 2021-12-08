@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-18T21:56:24+00:00" />
+    <meta property="article:modified_time" content="2021-11-28T12:41:53+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Roles &mdash; integreat-cms 2021.11.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -179,11 +179,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../prod-server.html">Production Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#system-requirements">System requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#integreat-cms-package">Integreat CMS Package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#static-files">Static Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#database">Database</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prod-server.html#redis-cache">Redis Cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prod-server.html#email-configuration">Email configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
@@ -736,8 +738,8 @@ keyword arguments, and other things.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -860,8 +862,8 @@ keyword arguments, and other things.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -909,8 +911,8 @@ a list. May not be called if render_to_response() is overridden.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -973,7 +975,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 18, 2021.
+      <span class="lastupdated">Last updated on Nov 28, 2021.
       </span></p>
   </div>
 

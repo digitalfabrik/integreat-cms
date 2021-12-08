@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-10-09T01:42:21+00:00" />
+    <meta property="article:modified_time" content="2021-09-03T23:11:58+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Production Server &mdash; integreat-cms 2021.11.0-beta documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -179,11 +179,13 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Production Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#system-requirements">System requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#integreat-cms-package">Integreat CMS Package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#static-files">Static Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#webserver">Webserver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#redis-cache">Redis Cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#email-configuration">Email configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
@@ -682,24 +684,116 @@
              
   <section id="production-server">
 <h1>Production Server<a class="headerlink" href="#production-server" title="Permalink to this headline"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This guide explains how to set up a production server on
+<a class="reference external" href="https://releases.ubuntu.com/20.04/">Ubuntu 20.04.3 LTS (Focal Fossa)</a>. Other linux distributions should work just
+fine, but we don’t provide detailed instructions for them.</p>
+</div>
+<section id="system-requirements">
+<h2>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline"></a></h2>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Upgrade all packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt update <span class="o">&amp;&amp;</span> sudo apt -y upgrade
+</pre></div>
+</div>
+</li>
+<li><p>Install system requirements:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt -y install python3-venv python3-pip
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</section>
 <section id="integreat-cms-package">
 <h2>Integreat CMS Package<a class="headerlink" href="#integreat-cms-package" title="Permalink to this headline"></a></h2>
 <blockquote>
 <div><ol class="arabic">
 <li><p>Choose a location for your installation, e.g. <code class="docutils literal notranslate"><span class="pre">/opt/integreat-cms/</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir /opt/integreat-cms
-<span class="nb">cd</span> /opt/integreat-cms
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo mkdir /opt/integreat-cms
+sudo chown www-data:www-data /opt/integreat-cms
+</pre></div>
+</div>
+</li>
+<li><p>Create config and log files and set more restrictive permissions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo touch /var/log/integreat-cms.log /etc/integreat-cms.ini
+sudo chown www-data:www-data /var/log/integreat-cms.log /etc/integreat-cms.ini
+sudo chmod <span class="m">660</span> /var/log/integreat-cms.log /etc/integreat-cms.ini
+</pre></div>
+</div>
+</li>
+<li><p>Change to a shell with the permissions of the webserver’s user <code class="docutils literal notranslate"><span class="pre">www-data</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo -u www-data bash
 </pre></div>
 </div>
 </li>
 <li><p>Create a virtual environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m venv .venv
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /opt/integreat-cms
+python3 -m venv .venv
 <span class="nb">source</span> .venv/bin/activate
 </pre></div>
 </div>
 </li>
 <li><p>Install the Integreat cms inside the virtual environment:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install integreat-cms
+</pre></div>
+</div>
+</li>
+<li><p>Create a symlink to the <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/core/wsgi.py">integreat_cms/core/wsgi.py</a> file to facilitate the Apache configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ln -s <span class="k">$(</span>python -c <span class="s2">&quot;from integreat_cms.core import wsgi; print(wsgi.__file__)&quot;</span><span class="k">)</span> .
+</pre></div>
+</div>
+</li>
+<li><p>Set the initial configuration by adding the following to <code class="docutils literal notranslate"><span class="pre">/etc/integreat-cms.ini</span></code> (for a full list of all
+possible configuration values, have a look at <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/example-configs/integreat-cms.ini">example-configs/integreat-cms.ini</a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>integreat-cms<span class="o">]</span>
+
+<span class="nv">SECRET_KEY</span> <span class="o">=</span> &lt;your-secret-key&gt;
+<span class="nv">FCM_KEY</span> <span class="o">=</span> &lt;your-firebase-key&gt;
+<span class="nv">BASE_URL</span> <span class="o">=</span> https://cms.integreat-app.de
+<span class="nv">LOGFILE</span> <span class="o">=</span> /var/integreat-cms.log
+</pre></div>
+</div>
+</li>
+<li><p>Leave the www-data shell:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exit</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</section>
+<section id="static-files">
+<h2>Static Files<a class="headerlink" href="#static-files" title="Permalink to this headline"></a></h2>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Create root directories for all static files. It’s usually good practise to separate code and data, so e.g.
+create the directory <code class="docutils literal notranslate"><span class="pre">/var/www/integreat-cms/</span></code> with the sub-directories <code class="docutils literal notranslate"><span class="pre">static</span></code>, <code class="docutils literal notranslate"><span class="pre">media</span></code>, <code class="docutils literal notranslate"><span class="pre">xliff/upload</span></code> and
+<code class="docutils literal notranslate"><span class="pre">xliff/download</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo mkdir -p /var/www/integreat-cms/<span class="o">{</span>static,media,xliff/<span class="o">{</span>upload,download<span class="o">}}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Make the Apache user <code class="docutils literal notranslate"><span class="pre">www-data</span></code> owner of these directories:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo chown -R www-data:www-data /var/www/integreat-cms
+</pre></div>
+</div>
+</li>
+<li><p>Add the static directories to the config in <code class="docutils literal notranslate"><span class="pre">/etc/integreat-cms.ini</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">STATIC_ROOT</span> <span class="o">=</span> /var/www/integreat-cms/static
+<span class="nv">MEDIA_ROOT</span> <span class="o">=</span> /var/www/integreat-cms/media
+<span class="nv">XLIFF_ROOT</span> <span class="o">=</span> /var/www/integreat-cms/xliff
+</pre></div>
+</div>
+</li>
+<li><p>Collect static files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /opt/integreat-cms
+sudo -u www-data bash
+<span class="nb">source</span> .venv/bin/activate
+integreat-cms-cli collectstatic
+<span class="nb">exit</span>
 </pre></div>
 </div>
 </li>
@@ -710,67 +804,18 @@
 <h2>Webserver<a class="headerlink" href="#webserver" title="Permalink to this headline"></a></h2>
 <blockquote>
 <div><ol class="arabic">
-<li><p>Set up an <a class="reference external" href="https://docs.djangoproject.com/en/2.2/howto/deployment/wsgi/modwsgi/">Apache2 server with mod_wsgi</a>.
-You can use the <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/example-configs/apache2-integreat-vhost.conf">example-configs/apache2-integreat-vhost.conf</a>.</p></li>
-<li><p>Set the following environment variables in the Apache2 config to ensure a safe and secure service:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_SECRET_KEY</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SECRET_KEY" title="integreat_cms.core.settings.SECRET_KEY"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_DEBUG</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEBUG" title="integreat_cms.core.settings.DEBUG"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DEBUG</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_LOGFILE</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOGFILE" title="integreat_cms.core.settings.LOGFILE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">LOGFILE</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_WEBAPP_URL</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.WEBAPP_URL" title="integreat_cms.core.settings.WEBAPP_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_MATOMO_URL</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MATOMO_URL" title="integreat_cms.core.settings.MATOMO_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MATOMO_URL</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_BASE_URL</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.BASE_URL" title="integreat_cms.core.settings.BASE_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">BASE_URL</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_STATIC_ROOT</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.STATIC_ROOT" title="integreat_cms.core.settings.STATIC_ROOT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_MEDIA_ROOT</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MEDIA_ROOT" title="integreat_cms.core.settings.MEDIA_ROOT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">MEDIA_ROOT</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_XLIFF_ROOT</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.XLIFF_ROOT" title="integreat_cms.core.settings.XLIFF_ROOT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">XLIFF_ROOT</span></code></a></p></li>
-</ul>
-</div></blockquote>
-<p>Database settings: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DATABASES" title="integreat_cms.core.settings.DATABASES"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DATABASES</span></code></a></p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_DB_HOST</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_DB_NAME</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_DB_PASSWORD</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_DB_USER</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_DB_PORT</span></code></p></li>
-</ul>
-</div></blockquote>
-<p>Email settings:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_EMAIL_HOST</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_HOST" title="integreat_cms.core.settings.EMAIL_HOST"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EMAIL_HOST</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_EMAIL_HOST_PASSWORD</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_HOST_PASSWORD" title="integreat_cms.core.settings.EMAIL_HOST_PASSWORD"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EMAIL_HOST_PASSWORD</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_EMAIL_HOST_USER</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_HOST_USER" title="integreat_cms.core.settings.EMAIL_HOST_USER"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EMAIL_HOST_USER</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_EMAIL_PORT</span></code>: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_PORT" title="integreat_cms.core.settings.EMAIL_PORT"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EMAIL_PORT</span></code></a></p></li>
-</ul>
-</div></blockquote>
-<p>Cache settings: <a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHES" title="integreat_cms.core.settings.CACHES"><code class="xref py py-attr docutils literal notranslate"><span class="pre">CACHES</span></code></a></p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_REDIS_CACHE</span></code>: Whether or not the Redis cache should be enabled</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DJANGO_REDIS_UNIX_SOCKET</span></code>: If Redis is enabled and available via a unix socket, set this environment
-variable to the location of the socket, e.g. <code class="docutils literal notranslate"><span class="pre">/var/run/redis/redis.sock</span></code>.
-Otherwise, the connection falls back to a regular TCP connection on port <code class="docutils literal notranslate"><span class="pre">6379</span></code>.</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ol>
-</div></blockquote>
-</section>
-<section id="static-files">
-<h2>Static Files<a class="headerlink" href="#static-files" title="Permalink to this headline"></a></h2>
-<blockquote>
-<div><ol class="arabic">
-<li><p>Create root directories for all static files. It’s usually good practise to separate code and data, so e.g.
-create the directory <code class="docutils literal notranslate"><span class="pre">/var/www/cms/</span></code> with the sub-directories <code class="docutils literal notranslate"><span class="pre">static</span></code>, <code class="docutils literal notranslate"><span class="pre">media</span></code>, <code class="docutils literal notranslate"><span class="pre">xliff/upload</span></code> and
-<code class="docutils literal notranslate"><span class="pre">xliff/download</span></code>.</p></li>
-<li><p>Make sure these directories are directly served by the Apache webserver and not by Django.</p></li>
-<li><p>Collect static files:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>integreat-cms-cli collectstatic
+<li><p>Install an <a class="reference external" href="https://httpd.apache.org/">Apache2</a> server with <a class="reference external" href="https://modwsgi.readthedocs.io/en/develop/">mod_wsgi</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt -y install apache2 libapache2-mod-wsgi-py3
 </pre></div>
 </div>
 </li>
+<li><p>Enable the <code class="docutils literal notranslate"><span class="pre">rewrite</span></code> and <code class="docutils literal notranslate"><span class="pre">wsgi</span></code> modules:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo a2enmod rewrite wsgi
+</pre></div>
+</div>
+</li>
+<li><p>Setup a vhost for the integreat-cms by using our example config: <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/example-configs/apache2-integreat-vhost.conf">example-configs/apache2-integreat-vhost.conf</a>
+and edit the your domain and the paths for static files.</p></li>
 </ol>
 </div></blockquote>
 </section>
@@ -778,11 +823,31 @@ create the directory <code class="docutils literal notranslate"><span class="pre
 <h2>Database<a class="headerlink" href="#database" title="Permalink to this headline"></a></h2>
 <blockquote>
 <div><ol class="arabic">
-<li><p>Install a <a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a> database on your system.
-Installation process varies across different distros (e.g. on <a class="reference external" href="https://wiki.ubuntuusers.de/PostgreSQL/">Ubuntu</a>)</p></li>
-<li><p>Generate secure credentials and keep them secret</p></li>
+<li><p>Install a <a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a> database on your system:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt -y install postgresql
+</pre></div>
+</div>
+</li>
+<li><p>Create a database user <code class="docutils literal notranslate"><span class="pre">integreat</span></code> and set a password:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo -u postgres createuser -P -d integreat
+</pre></div>
+</div>
+</li>
+<li><p>Create a database <code class="docutils literal notranslate"><span class="pre">integreat</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo -u postgres createdb -O integreat integreat
+</pre></div>
+</div>
+</li>
+<li><p>Add the database credentials to the config in <code class="docutils literal notranslate"><span class="pre">/etc/integreat-cms.ini</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">DB_PASSWORD</span> <span class="o">=</span> &lt;your-password&gt;
+</pre></div>
+</div>
+</li>
 <li><p>Execute initial migrations:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>integreat-cms-cli migrate
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /opt/integreat-cms
+sudo -u www-data bash
+<span class="nb">source</span> .venv/bin/activate
+integreat-cms-cli migrate
 </pre></div>
 </div>
 </li>
@@ -792,12 +857,43 @@ Installation process varies across different distros (e.g. on <a class="referenc
 <section id="redis-cache">
 <h2>Redis Cache<a class="headerlink" href="#redis-cache" title="Permalink to this headline"></a></h2>
 <blockquote>
-<div><ol class="arabic simple">
-<li><p>Install a Redis database on your system which can be used as cache.
-Installation process varies across different distros (e.g. on <a class="reference external" href="https://wiki.ubuntuusers.de/Redis//">Ubuntu</a>).</p></li>
-<li><p>Set the environment variable <code class="docutils literal notranslate"><span class="pre">DJANGO_REDIS_CACHE</span></code> to activate the cache.
-Ideally, the connection is established via a unix socket instead of TCP (Set the environment variable
-<code class="docutils literal notranslate"><span class="pre">DJANGO_REDIS_UNIX_SOCKET</span></code> to the location of the unix socket).</p></li>
+<div><ol class="arabic">
+<li><p>Install a <a class="reference external" href="https://redis.io/">Redis</a> database on your system which can be used as cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt -y install redis-server
+</pre></div>
+</div>
+</li>
+<li><p>Uncomment the following lines in the redis configuration <code class="docutils literal notranslate"><span class="pre">/etc/redis/redis.conf</span></code> to make use of unix sockets:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unixsocket /var/run/redis/redis-server.sock
+unixsocketperm <span class="m">770</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add the <code class="docutils literal notranslate"><span class="pre">www-data</span></code> user to the <code class="docutils literal notranslate"><span class="pre">redis</span></code> group to give it access to the socket:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usermod -aG redis www-data
+</pre></div>
+</div>
+</li>
+<li><p>Configure the integreat-cms to use the redis cache by adding the following values to <code class="docutils literal notranslate"><span class="pre">/etc/integreat.ini</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">REDIS_CACHE</span> <span class="o">=</span> True
+<span class="nv">REDIS_UNIX_SOCKET</span> <span class="o">=</span> /var/run/redis/redis-server.sock
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</section>
+<section id="email-configuration">
+<h2>Email configuration<a class="headerlink" href="#email-configuration" title="Permalink to this headline"></a></h2>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Add your SMTP credentials to <code class="docutils literal notranslate"><span class="pre">/etc/integreat.ini</span></code> (for the default values, see <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/example-configs/integreat-cms.ini">example-configs/integreat-cms.ini</a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">EMAIL_HOST</span> <span class="o">=</span> &lt;your-smtp-server&gt;
+<span class="nv">EMAIL_HOST_USER</span> <span class="o">=</span> &lt;your-username&gt;
+<span class="nv">EMAIL_HOST_PASSWORD</span> <span class="o">=</span> &lt;your-password&gt;
+</pre></div>
+</div>
+</li>
 </ol>
 </div></blockquote>
 </section>
@@ -818,7 +914,7 @@ Ideally, the connection is established via a unix socket instead of TCP (Set the
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 09, 2021.
+      <span class="lastupdated">Last updated on Sep 03, 2021.
       </span></p>
   </div>
 
