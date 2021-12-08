@@ -35,17 +35,17 @@ class ImprintView(TemplateView, MediaContextMixin):
     }
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -152,7 +152,7 @@ class ImprintView(TemplateView, MediaContextMixin):
 
     # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Binds the user input data to the imprint form and validates the input.
         Forms containing images/files need to be additionally instantiated with the FILES attribute of request objects,
         see :doc:`django:topics/http/file-uploads`
@@ -160,11 +160,11 @@ class ImprintView(TemplateView, MediaContextMixin):
         :param request: Request submitted for saving imprint form
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: Redirection to the populated imprint form
         :rtype: ~django.http.HttpResponseRedirect

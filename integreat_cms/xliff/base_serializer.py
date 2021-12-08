@@ -50,18 +50,18 @@ class Serializer(xml_serializer.Serializer):
     xml = None
 
     def serialize(self, queryset, *args, **kwargs):
-        """
+        r"""
         Initialize serialization and set the :attr:`~integreat_cms.core.settings.XLIFF_DEFAULT_FIELDS`.
 
         :param queryset: QuerySet of all :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation`
                          objects which should be serialized
         :type queryset: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.pages.page_translation.PageTranslation ]
 
-        :param args: The remaining arguments
-        :type args: list
+        :param \*args: The remaining arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The serialized XLIFF string
         :rtype: str

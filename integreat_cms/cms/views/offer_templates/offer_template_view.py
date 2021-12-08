@@ -29,17 +29,17 @@ class OfferTemplateView(TemplateView):
     base_context = {"current_menu_item": "offer_templates"}
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render :class:`~integreat_cms.cms.forms.offer_templates.offer_template_form.OfferTemplateForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

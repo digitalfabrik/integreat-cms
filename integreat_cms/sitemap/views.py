@@ -38,17 +38,17 @@ class SitemapIndexView(TemplateResponseMixin, View):
     content_type = "application/xml"
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         This function handles a get request
 
         :param request: The current request
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied args
-        :type args: list
+        :param \*args: The supplied args
+        :type \*args: list
 
-        :param kwargs: The supplied keyword args
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword args
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -95,17 +95,17 @@ class SitemapView(TemplateResponseMixin, View):
     content_type = "application/xml"
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         This function handles a get request
 
         :param request: The current request
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied args
-        :type args: list
+        :param \*args: The supplied args
+        :type \*args: list
 
-        :param kwargs: The supplied keyword args (should contain ``region_slug`` and ``language_slug``)
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword args (should contain ``region_slug`` and ``language_slug``)
+        :type \**kwargs: dict
 
         :raises ~django.http.Http404: Raises a HTTP 404 if the either the region or language does not exist or is invalid
                                       or if the sitemap is empty.

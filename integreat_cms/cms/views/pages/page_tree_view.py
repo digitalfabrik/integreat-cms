@@ -46,17 +46,17 @@ class PageTreeView(TemplateView, PageContextMixin):
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render page tree
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -164,17 +164,17 @@ class PageTreeView(TemplateView, PageContextMixin):
         )
 
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Apply page filters and render page tree
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

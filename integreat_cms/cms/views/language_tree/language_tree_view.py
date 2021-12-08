@@ -27,17 +27,17 @@ class LanguageTreeView(TemplateView, LanguageTreeContextMixin):
     base_context = {"current_menu_item": "language_tree"}
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render language tree
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

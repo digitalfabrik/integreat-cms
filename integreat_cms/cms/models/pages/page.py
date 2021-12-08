@@ -168,14 +168,14 @@ class Page(MPTTModel, AbstractBasePage):
         return Page.objects.filter(region__slug=region_slug, parent=None)
 
     def get_previous_sibling(self, *filter_args, **filter_kwargs):
-        """
+        r"""
         This function gets all previous siblings of a page
 
-        :param filter_args: The supplied arguments
-        :type filter_args: list
+        :param \*filter_args: The supplied arguments
+        :type \*filter_args: list
 
-        :param filter_kwargs: The supplied kwargs
-        :type filter_kwargs: list
+        :param \**filter_kwargs: The supplied kwargs
+        :type \**filter_kwargs: list
 
         :return: The previous sibling
         :rtype: ~integreat_cms.cms.models.pages.page.Page
@@ -185,14 +185,14 @@ class Page(MPTTModel, AbstractBasePage):
         return super().get_previous_sibling(*filter_args, **filter_kwargs)
 
     def get_next_sibling(self, *filter_args, **filter_kwargs):
-        """
+        r"""
         This function gets the next sibling of a page
 
-        :param filter_args: The supplied arguments
-        :type filter_args: list
+        :param \*filter_args: The supplied arguments
+        :type \*filter_args: list
 
-        :param filter_kwargs: The supplied kwargs
-        :type filter_kwargs: list
+        :param \**filter_kwargs: The supplied kwargs
+        :type \**filter_kwargs: list
 
         :return: The next sibling
         :rtype: ~integreat_cms.cms.models.pages.page.Page

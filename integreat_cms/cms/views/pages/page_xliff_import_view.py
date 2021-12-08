@@ -37,12 +37,12 @@ class PageXliffImportView(TemplateView, PageContextMixin):
     xliff_dir = None
 
     def get_context_data(self, **kwargs):
-        """
+        r"""
         Returns a dictionary representing the template context
         (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
-        :param kwargs: The given keyword arguments
-        :Type kwargs: dict
+        :param \**kwargs: The given keyword arguments
+        :type \**kwargs: dict
 
         :return: The template context
         :rtype: dict
@@ -61,17 +61,17 @@ class PageXliffImportView(TemplateView, PageContextMixin):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        """
+        r"""
         Redirect to page tree if XLIFF directory does not exist
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -101,17 +101,17 @@ class PageXliffImportView(TemplateView, PageContextMixin):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Confirm the xliff import
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

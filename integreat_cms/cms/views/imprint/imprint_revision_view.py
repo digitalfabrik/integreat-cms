@@ -28,17 +28,17 @@ class ImprintRevisionView(TemplateView):
     base_context = {"current_menu_item": "imprint"}
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render imprint page revision slider
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.http.Http404: If no imprint exists for the region
 
@@ -106,17 +106,17 @@ class ImprintRevisionView(TemplateView):
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Restore a previous revision of an imprint page translation
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.http.Http404: If no imprint exists for the region
 

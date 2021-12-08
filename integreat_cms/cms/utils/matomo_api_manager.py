@@ -52,14 +52,14 @@ class MatomoApiManager:
         self.languages = region.languages
 
     async def fetch(self, session, **kwargs):
-        """
+        r"""
         Uses :meth:`aiohttp.ClientSession.get` to perform an asynchronous GET request to the Matomo API.
 
         :param session: The session object which is used for the request
         :type session: aiohttp.ClientSession
 
-        :param kwargs: The parameters which are passed to the Matomo API
-        :type kwargs: dict
+        :param \**kwargs: The parameters which are passed to the Matomo API
+        :type \**kwargs: dict
 
         :raises ~integreat_cms.cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request
@@ -96,13 +96,13 @@ class MatomoApiManager:
             raise MatomoException(str(e)) from e
 
     async def get_matomo_id_async(self, **query_params):
-        """
+        r"""
         Async wrapper to fetch the Matomo ID with :mod:`aiohttp`.
         Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.fetch`.
         Called from :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id`.
 
-        :param query_params: The parameters which are passed to the Matomo API
-        :type query_params: dict
+        :param \**query_params: The parameters which are passed to the Matomo API
+        :type \**query_params: dict
 
         :raises ~integreat_cms.cms.utils.matomo_api_manager.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request

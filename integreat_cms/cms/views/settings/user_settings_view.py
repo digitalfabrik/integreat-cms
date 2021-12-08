@@ -26,18 +26,18 @@ class UserSettingsView(TemplateView):
 
     @never_cache
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render :class:`~integreat_cms.cms.forms.users.user_email_form.UserEmailForm` and
         :class:`~integreat_cms.cms.forms.users.user_password_form.UserPasswordForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -59,7 +59,7 @@ class UserSettingsView(TemplateView):
 
     # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Submit :class:`~integreat_cms.cms.forms.users.user_email_form.UserEmailForm` and
         :class:`~integreat_cms.cms.forms.users.user_password_form.UserPasswordForm` and save :class:`~django.contrib.auth.models.User`
         object
@@ -67,11 +67,11 @@ class UserSettingsView(TemplateView):
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

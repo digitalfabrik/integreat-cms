@@ -6,6 +6,8 @@ UNRELEASED
 * Fix page permissions
 * Show recurrence in event list
 * Only show upcoming events per default
+* Allow configuration via /etc/integreat-cms.ini
+* Fix dependency versions for production setup
 
 
 2021.11.0-beta

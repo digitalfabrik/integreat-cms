@@ -30,17 +30,17 @@ class AnalyticsView(TemplateView):
 
     # pylint: disable=unused-variable
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render statistics of access numbers tracked by Matomo
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

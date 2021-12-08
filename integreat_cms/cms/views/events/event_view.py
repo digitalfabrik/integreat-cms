@@ -35,17 +35,17 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render event form for HTTP GET requests
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -112,14 +112,14 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
 
     # pylint: disable=too-many-locals,too-many-branches
     def post(self, request, **kwargs):
-        """
+        r"""
         Save event and ender event form for HTTP POST requests
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to publish events
 

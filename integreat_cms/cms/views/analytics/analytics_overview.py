@@ -19,11 +19,11 @@ class AnalyticsView(TemplateView):
     extra_context = {"current_menu_item": "analytics"}
 
     def get_context_data(self, **kwargs):
-        """
+        r"""
         Extend context by amount of links per link filter
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The context dictionary
         :rtype: dict

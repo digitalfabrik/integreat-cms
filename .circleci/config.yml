@@ -152,8 +152,11 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Create MANIFEST.in file
-          command: echo -e "graft integreat_cms\nprune integreat_cms/static/src" > MANIFEST.in
+          name: Fix dependency versions
+          command: ./dev-tools/fix_dependencies.sh
+      - run:
+          name: Use alternative README.md file
+          command: mv integreat_cms/README.md .
       - run:
           name: Build integreat-cms package
           command: python setup.py sdist bdist_wheel
@@ -180,7 +183,7 @@ jobs:
           at: .
       - run:
           name: Generate documentation
-          command: pipenv run ./dev-tools/generate_documentation.sh
+          command: ./dev-tools/generate_documentation.sh
       - persist_to_workspace:
           root: .
           paths:

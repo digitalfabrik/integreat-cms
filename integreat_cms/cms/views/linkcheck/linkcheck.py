@@ -41,17 +41,17 @@ class LinkListView(ListView):
         return links
 
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Applies selected action for selected links
 
         :param request: The current request
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: Redirct to current linkcheck tab
         :rtype: ~django.http.HttpResponseRedirect
@@ -82,14 +82,14 @@ class LinkListRedirectView(RedirectView):
     """
 
     def get_redirect_url(self, *args, **kwargs):
-        """
+        r"""
         Retrieve url for redirection
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: url to redirect to
         :rtype: str

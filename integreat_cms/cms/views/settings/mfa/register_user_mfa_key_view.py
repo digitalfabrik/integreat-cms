@@ -35,18 +35,18 @@ class RegisterUserMfaKeyView(CreateView):
     ]
 
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Verify a registration challenge and register a 2-FA key.
         Called asynchroniously by JavaScript.
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The JSON response
         :rtype: ~django.http.JsonResponse

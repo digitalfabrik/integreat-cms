@@ -17,17 +17,17 @@ class RedirectView(TemplateView):
     """
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Redirect to correct dashboard
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.core.exceptions.PermissionDenied: If user is neither superuser/staff nor a region user
 

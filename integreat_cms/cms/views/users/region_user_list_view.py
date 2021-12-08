@@ -29,17 +29,17 @@ class RegionUserListView(TemplateView):
     base_context = {"current_menu_item": "region_users"}
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render region user list
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -78,15 +78,15 @@ class RegionUserListView(TemplateView):
         )
 
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Apply the query and filter the rendered users
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
-        :param args: The supplied arguments
-        :type args: list
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \*args: The supplied arguments
+        :type \*args: list
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """

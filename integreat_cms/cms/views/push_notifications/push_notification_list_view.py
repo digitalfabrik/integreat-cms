@@ -31,17 +31,17 @@ class PushNotificationListView(TemplateView):
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Create a list that shows existing push notifications and translations
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -109,15 +109,15 @@ class PushNotificationListView(TemplateView):
         )
 
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Apply the query and filter the rendered push notifications
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
-        :param args: The supplied arguments
-        :type args: list
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \*args: The supplied arguments
+        :type \*args: list
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """

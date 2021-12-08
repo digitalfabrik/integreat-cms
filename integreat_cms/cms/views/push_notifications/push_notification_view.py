@@ -37,17 +37,17 @@ class PushNotificationView(TemplateView):
     base_context = {"current_menu_item": "push_notifications_form"}
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Open form for creating or editing a push notification
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -98,18 +98,18 @@ class PushNotificationView(TemplateView):
 
     # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Save and show form for creating or editing a push notification. Send push notification
         if asked for by user.
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to send push notifications
 

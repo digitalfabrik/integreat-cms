@@ -18,11 +18,11 @@ class ImprintTranslationForm(CustomContentModelForm):
         fields = ["title", "status", "text", "minor_edit"]
 
     def __init__(self, **kwargs):
-        """
+        r"""
         Initialize Imprint page translation form
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         """
 
         # To set the status value through the submit button, we have to overwrite the field value for status.

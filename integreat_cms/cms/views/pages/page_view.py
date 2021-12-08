@@ -37,17 +37,17 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
@@ -163,7 +163,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
 
     # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Submit :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and
         :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` and save :class:`~integreat_cms.cms.models.pages.page.Page`
         and :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` objects.
@@ -173,11 +173,11 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
