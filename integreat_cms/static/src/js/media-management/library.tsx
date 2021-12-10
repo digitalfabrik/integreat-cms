@@ -192,7 +192,7 @@ export default function Library({
           <Search class="absolute m-2" />
           <input type="search" class="h-full py-2 pl-10 pr-4 rounded shadow" />
         </form>
-        {!selectionMode && (globalEdit || !directory?.isGlobal) && (
+        {(globalEdit || !directory?.isGlobal) && (
           <div className="flex flex-wrap justify-start gap-2">
             <button
               title={mediaTranslations.btn_create_directory}
@@ -257,7 +257,6 @@ export default function Library({
                 fileIndexState={[fileIndex, setFileIndex]}
                 directoryContent={directoryContent}
                 mediaTranslations={mediaTranslations}
-                selectionMode={selectionMode}
                 globalEdit={globalEdit}
               />
             </div>
@@ -285,7 +284,6 @@ export default function Library({
               apiEndpoints={apiEndpoints}
               mediaTranslations={mediaTranslations}
               submitForm={submitForm}
-              selectionMode={selectionMode}
               globalEdit={globalEdit}
               isLoading={isLoading}
             />

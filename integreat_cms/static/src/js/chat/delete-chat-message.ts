@@ -5,7 +5,7 @@ import { getCsrfToken } from "../utils/csrf-token";
 import { refreshAjaxConfirmationHandlers } from "../confirmation-popups";
 
 // Listen on the custom event "action-confirmed" which is triggered by the confirmation popup
-window.addEventListener("load", () => refreshAjaxConfirmationHandlers(deleteChatMessage));
+window.addEventListener("load", () => refreshAjaxConfirmationHandlers(".button-delete-chat-message", deleteChatMessage));
 
 // Function to delete a chat message
 export async function deleteChatMessage(event: Event) {
@@ -19,7 +19,7 @@ export async function deleteChatMessage(event: Event) {
 
   // Delete chat message
   const deletionButton = (event.target as HTMLElement).closest(
-    ".confirmation-button"
+    ".button-delete-chat-message"
   );
   try {
     const response = await fetch(deletionButton.getAttribute("data-action"), {

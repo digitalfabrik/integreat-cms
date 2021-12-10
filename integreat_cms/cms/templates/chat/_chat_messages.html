@@ -14,7 +14,7 @@
     ({{ message.sender.email|urlize }})
     {% endif %}
     {% has_perm 'cms.delete_chat_message_object' request.user message as can_delete_message %}
-    <button title="{% trans 'Delete chat message' %}" class="{% if not can_delete_message %} invisible {% endif %} confirmation-button btn-icon float-right ml-2"
+    <button title="{% trans 'Delete chat message' %}" class="{% if not can_delete_message %} invisible {% endif %} button-delete-chat-message btn-icon float-right ml-2"
             data-confirmation-title="{% trans 'Please confirm that you really want to delete this chat message:' %}"
             data-confirmation-text="{% trans 'Sender:' %} {{ message.sender.full_user_name }}<br>{% trans 'Sent on:' %} {{ message.sent_datetime }}"
             data-confirmation-subject="{{ message.text }}"
