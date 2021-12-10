@@ -7,22 +7,30 @@ from django.contrib.auth.mixins import (
 )
 from django.urls import reverse
 from django.utils.translation import ugettext as _
-from django.views.generic import CreateView, UpdateView
-from django.views.generic.edit import ModelFormMixin
+from django.views.generic.edit import ModelFormMixin, BaseCreateView, BaseUpdateView
 
 from .media import MediaContextMixin
+from .mixins import (
+    ModelTemplateResponseMixin,
+    ModelConfirmationContextMixin,
+)
 
 
 # pylint: disable=too-many-ancestors
 class CustomModelFormMixin(
     PermissionRequiredMixin,
+    ModelTemplateResponseMixin,
     ModelFormMixin,
+    ModelConfirmationContextMixin,
     MediaContextMixin,
 ):
     """
     This mixin handles error messages in form views of subclasses of
     :class:`~integreat_cms.cms.forms.custom_model_form.CustomModelForm`
     """
+
+    #: The suffix to append to the auto-generated candidate template name.
+    template_name_suffix = "_form"
 
     def get_permission_required(self):
         """
@@ -42,17 +50,6 @@ class CustomModelFormMixin(
         :rtype: ~django.db.models.Model
         """
         return self.form_class._meta.model
-
-    @property
-    def template_name(self):
-        """
-        Select correct HTML template, depending on the model of this form mixin
-
-        :return: Path to HTML template
-        :rtype: str
-        """
-
-        return f"{self.model._meta.model_name}s/{self.model._meta.model_name}_form.html"
 
     def get_context_data(self, **kwargs):
         r"""
@@ -124,14 +121,14 @@ class CustomModelFormMixin(
         return super().form_invalid(form)
 
 
-class CustomCreateView(CustomModelFormMixin, CreateView):
+class CustomCreateView(CustomModelFormMixin, BaseCreateView):
     """
     A view that displays a form for creating a region object, redisplaying the form with validation errors (if
     there are any) and saving the object.
     """
 
 
-class CustomUpdateView(CustomModelFormMixin, UpdateView):
+class CustomUpdateView(CustomModelFormMixin, BaseUpdateView):
     """
     A view that displays a form for editing an existing region object, redisplaying the form with validation errors
     (if there are any) and saving changes to the object. This uses a form automatically generated from the object's

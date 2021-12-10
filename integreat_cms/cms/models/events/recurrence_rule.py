@@ -203,3 +203,5 @@ class RecurrenceRule(models.Model):
         verbose_name_plural = _("recurrence rules")
         #: The default permissions for this model
         default_permissions = ()
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["pk"]

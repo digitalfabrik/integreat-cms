@@ -4216,20 +4216,6 @@ msgstr "Diese Sprache löschen"
 msgid "Delete language"
 msgstr "Sprache löschen"
 
-#: cms/templates/languages/language_form.html:91
-#: cms/templates/languages/language_list_row.html:42
-msgid "Please confirm that you really want to delete this language"
-msgstr "Bitte bestätigen Sie, dass diese Sprache gelöscht werden soll"
-
-#: cms/templates/languages/language_form.html:92
-#: cms/templates/languages/language_list_row.html:43
-#: cms/templates/offertemplates/offertemplate_form.html:86
-#: cms/templates/offertemplates/offertemplate_list_row.html:33
-#: cms/templates/users/region_user_form.html:107
-#: cms/templates/users/user_form.html:131
-msgid "This cannot be reversed."
-msgstr "Dies kann nicht rückgängig gemacht werden."
-
 #: cms/templates/languages/language_list.html:7
 msgid "Manage Languages"
 msgstr "Sprachen"
@@ -4357,11 +4343,6 @@ msgstr ""
 #: cms/templates/offertemplates/offertemplate_form.html:90
 msgid "Delete this offer templates"
 msgstr "Diese Angebots-Vorlage löschen"
-
-#: cms/templates/offertemplates/offertemplate_form.html:85
-#: cms/templates/offertemplates/offertemplate_list_row.html:32
-msgid "Please confirm that you really want to delete this offer template"
-msgstr "Bitte bestätigen Sie, dass diese Angebots-Vorlage gelöscht werden soll"
 
 #: cms/templates/offertemplates/offertemplate_list.html:10
 msgid "Create offer template"
@@ -5262,6 +5243,11 @@ msgstr "Diesen Benutzer löschen"
 msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
 
+#: cms/templates/users/region_user_form.html:107
+#: cms/templates/users/user_form.html:131 cms/views/mixins.py:69
+msgid "This cannot be reversed."
+msgstr "Dies kann nicht rückgängig gemacht werden."
+
 #: cms/templates/users/region_user_form.html:111
 #: cms/templates/users/user_form.html:129
 msgid "Delete user"
@@ -5689,7 +5675,7 @@ msgstr "Feedback wurde als ungelesen markiert"
 msgid "Feedback was successfully deleted"
 msgstr "Feedback wurde erfolgreich gelöscht"
 
-#: cms/views/form_views.py:96 cms/views/imprint/imprint_sbs_view.py:207
+#: cms/views/form_views.py:93 cms/views/imprint/imprint_sbs_view.py:207
 #: cms/views/language_tree/language_tree_node_form_view.py:103
 #: cms/views/pages/page_sbs_view.py:191 cms/views/roles/role_form_view.py:93
 #: cms/views/settings/user_settings_view.py:91
@@ -5699,11 +5685,11 @@ msgstr "Feedback wurde erfolgreich gelöscht"
 msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
-#: cms/views/form_views.py:100
+#: cms/views/form_views.py:97
 msgid "{} \"{}\" was successfully saved"
 msgstr "{} \"{}\" wurde erfolgreich gespeichert"
 
-#: cms/views/form_views.py:107
+#: cms/views/form_views.py:104
 msgid "{} \"{}\" was successfully created"
 msgstr "{} \"{}\" wurde erfolgreich erstellt"
 
@@ -6002,15 +5988,9 @@ msgstr "Bitte bestätigen Sie, dass dieses Verzeichnis gelöscht werden soll"
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
-#: cms/views/organizations/organization_context_mixin.py:13
-msgid "Please confirm that you really want to delete this organization"
-msgstr "Bitte bestätigen Sie, dass diese Organisation gelöscht werden soll"
-
-#: cms/views/organizations/organization_context_mixin.py:16
-msgid ""
-"This will update all pages and users that are part of this organization."
-msgstr ""
-"Dadurch werden alle Seiten und Benutzer dieser Organisation aktualisiert."
+#: cms/views/mixins.py:67
+msgid "Please confirm that you really want to delete this {}"
+msgstr "Bitte bestätigen Sie, dass diese {} gelöscht werden soll"
 
 #: cms/views/pages/page_actions.py:67
 msgid "Page was successfully archived"
@@ -6457,6 +6437,21 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Please confirm that you really want to delete this language"
+#~ msgstr "Bitte bestätigen Sie, dass diese Sprache gelöscht werden soll"
+
+#~ msgid "Please confirm that you really want to delete this offer template"
+#~ msgstr ""
+#~ "Bitte bestätigen Sie, dass diese Angebots-Vorlage gelöscht werden soll"
+
+#~ msgid "Please confirm that you really want to delete this organization"
+#~ msgstr "Bitte bestätigen Sie, dass diese Organisation gelöscht werden soll"
+
+#~ msgid ""
+#~ "This will update all pages and users that are part of this organization."
+#~ msgstr ""
+#~ "Dadurch werden alle Seiten und Benutzer dieser Organisation aktualisiert."
 
 #~ msgid "Deleting languages is not implemented yet."
 #~ msgstr "Das Löschen von Sprachen ist noch nicht implementiert."
@@ -7738,9 +7733,6 @@ msgstr ""
 
 #~ msgid "All translations of this POI will also be archived."
 #~ msgstr "Es werden auch alle Übersetzungen dieses POIs archiviert."
-
-#~ msgid "Please confirm that you really want to delete this POI"
-#~ msgstr "Bitte bestätigen Sie, dass dieser POI gelöscht werden soll"
 
 #~ msgid "All translations of this POI will also be deleted."
 #~ msgstr "Alle Übersetzungen dieses POIs werden gelöscht."

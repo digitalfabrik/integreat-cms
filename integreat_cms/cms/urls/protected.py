@@ -6,7 +6,7 @@ Views which should not have login protection go into :mod:`~integreat_cms.cms.ur
 from django.conf.urls import include, url
 
 from ..forms import LanguageForm, OfferTemplateForm, OrganizationForm, RegionForm
-from ..models import Language, OfferTemplate, Organization
+from ..models import Language, OfferTemplate, Organization, Role
 
 from ..views import (
     analytics,
@@ -15,12 +15,10 @@ from ..views import (
     delete_views,
     events,
     form_views,
-    offer_templates,
     language_tree,
-    languages,
+    list_views,
     linkcheck,
     media,
-    organizations,
     imprint,
     pages,
     pois,
@@ -176,7 +174,15 @@ urlpatterns = [
         r"^languages/",
         include(
             [
-                url(r"^$", languages.LanguageListView.as_view(), name="languages"),
+                url(
+                    r"^$",
+                    list_views.ModelListView.as_view(
+                        queryset=Language.objects.all().prefetch_related(
+                            "language_tree_nodes"
+                        )
+                    ),
+                    name="languages",
+                ),
                 url(
                     r"^new$",
                     form_views.CustomCreateView.as_view(form_class=LanguageForm),
@@ -237,7 +243,7 @@ urlpatterns = [
         r"^roles/",
         include(
             [
-                url(r"^$", roles.RoleListView.as_view(), name="roles"),
+                url(r"^$", list_views.ModelListView.as_view(model=Role), name="roles"),
                 url(r"^new$", roles.RoleFormView.as_view(), name="new_role"),
                 url(
                     r"^(?P<role_id>[0-9]+)/",
@@ -265,7 +271,7 @@ urlpatterns = [
             [
                 url(
                     r"^$",
-                    organizations.OrganizationListView.as_view(),
+                    list_views.ModelListView.as_view(model=Organization),
                     name="organizations",
                 ),
                 url(
@@ -330,7 +336,9 @@ urlpatterns = [
             [
                 url(
                     r"^$",
-                    offer_templates.OfferTemplateListView.as_view(),
+                    list_views.ModelListView.as_view(
+                        queryset=OfferTemplate.objects.all().prefetch_related("regions")
+                    ),
                     name="offertemplates",
                 ),
                 url(

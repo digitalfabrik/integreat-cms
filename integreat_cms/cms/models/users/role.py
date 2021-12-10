@@ -69,3 +69,5 @@ class Role(models.Model):
         verbose_name_plural = _("roles")
         #: The default permissions for this model
         default_permissions = ()
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["name"]

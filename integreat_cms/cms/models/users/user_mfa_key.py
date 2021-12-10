@@ -71,3 +71,5 @@ class UserMfaKey(models.Model):
                 "name",
             ),
         )
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["name"]

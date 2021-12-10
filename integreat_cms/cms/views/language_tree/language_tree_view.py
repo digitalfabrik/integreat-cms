@@ -1,17 +1,14 @@
 import logging
 
-from django.shortcuts import render
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
-
-from ...decorators import permission_required
+from ...models import LanguageTreeNode
+from ..list_views import ModelListView
 from .language_tree_context_mixin import LanguageTreeContextMixin
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(permission_required("cms.view_languagetreenode"), name="dispatch")
-class LanguageTreeView(TemplateView, LanguageTreeContextMixin):
+# pylint: disable=too-many-ancestors
+class LanguageTreeView(LanguageTreeContextMixin, ModelListView):
     """
     View for rendering the language tree view.
     This view is available in regions.
@@ -19,31 +16,14 @@ class LanguageTreeView(TemplateView, LanguageTreeContextMixin):
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "language_tree/language_tree.html"
-    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    extra_context = {"current_menu_item": "language_tree"}
+    #: The model of this list view
+    model = LanguageTreeNode
 
-    def get(self, request, *args, **kwargs):
-        r"""
-        Render language tree
-
-        :param request: The current request
-        :type request: ~django.http.HttpResponse
-
-        :param \*args: The supplied arguments
-        :type \*args: list
-
-        :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
-        :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
+    def get_queryset(self):
         """
-        region = request.region
-        return render(
-            request,
-            self.template_name,
-            {
-                **self.get_context_data(**kwargs),
-                "language_tree": region.language_tree,
-            },
-        )
+        Get language tree queryset
+
+        :return: The language tree of the current region
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode ]
+        """
+        return self.request.region.language_tree

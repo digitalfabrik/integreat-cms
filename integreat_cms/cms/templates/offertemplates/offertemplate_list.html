@@ -27,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for offer_template in offer_templates %}
+        {% for offer_template in offertemplates %}
             {% include "offertemplates/offertemplate_list_row.html" %}
         {% empty %}
             <tr>
@@ -40,7 +40,7 @@
     </table>
 </div>
 {% url "offertemplates" as url %}
-{% include "pagination.html" with url=url chunk=offer_templates %}
+{% include "pagination.html" with url=url chunk=page_obj %}
 
 {% include "../generic_confirmation_dialog.html" %}
 {% endblock %}

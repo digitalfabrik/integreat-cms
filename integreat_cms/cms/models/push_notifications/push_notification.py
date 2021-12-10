@@ -128,3 +128,5 @@ class PushNotification(models.Model):
         default_permissions = ("change", "delete", "view")
         #: The custom permissions for this model
         permissions = (("send_push_notification", "Can send push notification"),)
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["-created_date"]

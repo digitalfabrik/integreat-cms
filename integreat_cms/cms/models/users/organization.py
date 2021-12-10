@@ -64,3 +64,5 @@ class Organization(models.Model):
         verbose_name_plural = _("organizations")
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view")
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["slug"]
