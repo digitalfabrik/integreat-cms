@@ -14,7 +14,7 @@ echo "${DEPENDENCY_VERSIONS}"
 # Use python to write the dependencies into the setup.cfg config file
 python3 << EOF
 import configparser
-setup_cfg = configparser.ConfigParser()
+setup_cfg = configparser.ConfigParser(interpolation=None)
 setup_cfg.read("${BASE_DIR}/setup.cfg")
 setup_cfg["options"]["install_requires"] = """${DEPENDENCY_VERSIONS}"""
 with open("${BASE_DIR}/setup.cfg", "w") as setup_cfg_file:
