@@ -33,7 +33,7 @@ copyright = "2020, Integreat"
 #: The project author
 author = "Integreat"
 #: GitHub username
-github_username = "Integreat"
+github_username = "digitalfabrik"
 #: GitHub repository name
 github_repository = "integreat-cms"
 #: GitHub URL

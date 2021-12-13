@@ -278,7 +278,7 @@ jobs:
           command: |
             git config user.name "deliverino[bot]"
             git config user.email "62934656+deliverino[bot]@users.noreply.github.com"
-            git remote set-url origin "https://x-access-token:$DELIVERINO_ACCESS_TOKEN@github.com/Integreat/integreat-cms.git"
+            git remote set-url origin "https://x-access-token:$DELIVERINO_ACCESS_TOKEN@github.com/digitalfabrik/integreat-cms.git"
       - run:
           name: Bump version
           command: pipenv run bumpver update
@@ -340,7 +340,7 @@ jobs:
             # Get most recent changelog (split by 3 sequential new lines and print the second record except the first three lines)
             CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
             # Build notification message
-            MM_MESSAGE="##### :integreat: Integreat CMS version [${CIRCLE_TAG}](https://github.com/Integreat/integreat-cms/releases/tag/${CIRCLE_TAG}) has been released successfully :tada:\n\n###### **Release Notes:**\n\n${CHANGELOG}"
+            MM_MESSAGE="##### :integreat: Integreat CMS version [${CIRCLE_TAG}](https://github.com/digitalfabrik/integreat-cms/releases/tag/${CIRCLE_TAG}) has been released successfully :tada:\n\n###### **Release Notes:**\n\n${CHANGELOG}"
             # Send message to mattermost
             STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" -X POST -H 'Content-type: application/json' \
               --data \
