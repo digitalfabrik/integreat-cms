@@ -226,10 +226,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # SECURITY #
 ############
 
-if not DEBUG:
-    #: This is a security measure to prevent HTTP Host header attacks, which are possible even under many seemingly-safe
-    #: web server configurations (see :setting:`django:ALLOWED_HOSTS` and :ref:`django:host-headers-virtual-hosting`)
-    ALLOWED_HOSTS = [urlparse(BASE_URL).netloc]
+#: This is a security measure to prevent HTTP Host header attacks, which are possible even under many seemingly-safe
+#: web server configurations (see :setting:`django:ALLOWED_HOSTS` and :ref:`django:host-headers-virtual-hosting`)
+ALLOWED_HOSTS = [HOSTNAME, ".localhost", "127.0.0.1", "[::1]"] + list(
+    filter(
+        None,
+        (
+            x.strip()
+            for x in os.environ.get("INTEGREAT_CMS_ALLOWED_HOSTS", "").splitlines()
+        ),
+    )
+)
 
 #: A list of IP addresses, as strings, that allow the :func:`~django.template.context_processors.debug` context
 #: processor to add some variables to the template context.
