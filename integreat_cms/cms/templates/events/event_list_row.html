@@ -27,30 +27,32 @@
         </td>
     {% endif %}
     <td class="py-3 pr-2 text-gray-800 lang-grid">
-        {% for other_language in languages %}
-            <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_slug=other_language.slug %}">
-                {% get_translation event other_language.slug as other_translation %}
-                {% if other_translation %}
-                    {% if other_translation.currently_in_translation %}
-                        <span title="{% trans 'Currently in translation' %}">
-                            <i data-feather="clock" class="{% if other_language == language %}text-blue-500{% endif %}"></i>
-                        </span>
-                    {% elif other_translation.is_outdated %}
-                        <span title="{% trans 'Translation outdated' %}">
-                            <i data-feather="alert-triangle" class="{% if other_language == language %}text-yellow-500{% endif %}"></i>
-                        </span>
+        {% spaceless %}
+            {% for other_language in languages %}
+                <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_slug=other_language.slug %}">
+                    {% get_translation event other_language.slug as other_translation %}
+                    {% if other_translation %}
+                        {% if other_translation.currently_in_translation %}
+                            <span title="{% trans 'Currently in translation' %}">
+                                <i data-feather="clock" class="{% if other_language == language %}text-blue-500{% endif %}"></i>
+                            </span>
+                        {% elif other_translation.is_outdated %}
+                            <span title="{% trans 'Translation outdated' %}">
+                                <i data-feather="alert-triangle" class="{% if other_language == language %}text-yellow-500{% endif %}"></i>
+                            </span>
+                        {% else %}
+                            <span title="{% trans 'Translation up-to-date' %}">
+                                <i data-feather="check" class="{% if other_language == language %}text-green-500{% endif %}"></i>
+                            </span>
+                        {% endif %}
                     {% else %}
-                        <span title="{% trans 'Translation up-to-date' %}">
-                            <i data-feather="check" class="{% if other_language == language %}text-green-500{% endif %}"></i>
+                        <span title="{% trans 'Translation missing' %}">
+                            <i data-feather="x" class="{% if other_language == language %}text-red-500{% endif %}"></i>
                         </span>
                     {% endif %}
-                {% else %}
-                    <span title="{% trans 'Translation missing' %}">
-                        <i data-feather="x" class="{% if other_language == language %}text-red-500{% endif %}"></i>
-                    </span>
-                {% endif %}
-            </a>
-        {% endfor %}
+                </a>
+            {% endfor %}
+        {% endspaceless %}
     </td>
     <td class="py-3 pr-2">
         {{ event_translation.get_status_display }}

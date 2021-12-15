@@ -51,11 +51,13 @@
                 {% endif %}
                 <th class="text-sm text-left uppercase py-3">
                     <div class="lang-grid flags whitespace-nowrap">
-                        {% for lang in languages %}
-                            <a href="{% url 'events' region_slug=region.slug language_slug=lang.slug %}">
-                                <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
-                            </a>
-                        {% endfor %}
+                        {% spaceless %}
+                            {% for lang in languages %}
+                                <a href="{% url 'events' region_slug=region.slug language_slug=lang.slug %}">
+                                    <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
+                                </a>
+                            {% endfor %}
+                        {% endspaceless %}
                     </div>
                 </th>
                 <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
