@@ -39,9 +39,6 @@ class ReplaceMediaFileForm(CustomModelForm):
         """
         Initialize UploadMediaFileForm form
 
-        :param data: submitted POST data
-        :type data: dict
-
         :param data: A dictionary-like object containing all given HTTP POST parameters
         :type data: django.http.QueryDict
 
@@ -60,7 +57,9 @@ class ReplaceMediaFileForm(CustomModelForm):
         self.fields["thumbnail"].required = False
 
         self.original_file_path = instance.file.path
-        self.original_thumbnail_path = getattr(instance.thumbnail, "path", None)
+        self.original_thumbnail_path = (
+            instance.thumbnail.path if instance.thumbnail else None
+        )
 
     def clean(self):
         """

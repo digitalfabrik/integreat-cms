@@ -10,6 +10,7 @@ UNRELEASED
 * Fix dependency versions for production setup
 * Fully functional media library in selection window
 * Align language flags and translation status icons
+* Fix error when replacing media files without thumbnail
 
 
 2021.11.0-beta
