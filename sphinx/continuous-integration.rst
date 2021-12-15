@@ -109,8 +109,8 @@ deploy-documentation
 --------------------
 
 This job authenticates as the user `DigitalfabrikMember <https://github.com/DigitalfabrikMember>`_ and commits all changes to the
-documentation to the branch `gh-pages <https://github.com/Integreat/cms-django/tree/gh-pages>`_
-which is then deployed to ``https://integreat.github.io/cms-django/`` by GitHub.
+documentation to the branch `gh-pages <https://github.com/digitalfabrik/integreat-cms/tree/gh-pages>`_
+which is then deployed to ``https://digitalfabrik.github.io/integreat-cms/`` by GitHub.
 
 .. _circleci-shellcheck:
 

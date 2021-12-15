@@ -96,7 +96,7 @@ function print_with_borders {
 # Check if the --help option is given
 if [[ "$*" == *"--help"* ]] || [[ "$*" == *"-h"* ]]; then
     echo -e "For usage details, see documentation:\n" | print_info
-    echo -e "\thttps://integreat.github.io/integreat-cms/dev-tools.html\n" | print_bold
+    echo -e "\thttps://digitalfabrik.github.io/integreat-cms/dev-tools.html\n" | print_bold
     exit
 fi
 
