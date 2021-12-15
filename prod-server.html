@@ -9,7 +9,7 @@
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/integreat-icon.png"/>
-    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/prod-server.html" />
+    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/prod-server.html" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -741,13 +741,13 @@ python3 -m venv .venv
 </pre></div>
 </div>
 </li>
-<li><p>Create a symlink to the <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/integreat_cms/core/wsgi.py">integreat_cms/core/wsgi.py</a> file to facilitate the Apache configuration:</p>
+<li><p>Create a symlink to the <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/wsgi.py">integreat_cms/core/wsgi.py</a> file to facilitate the Apache configuration:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ln -s <span class="k">$(</span>python -c <span class="s2">&quot;from integreat_cms.core import wsgi; print(wsgi.__file__)&quot;</span><span class="k">)</span> .
 </pre></div>
 </div>
 </li>
 <li><p>Set the initial configuration by adding the following to <code class="docutils literal notranslate"><span class="pre">/etc/integreat-cms.ini</span></code> (for a full list of all
-possible configuration values, have a look at <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/example-configs/integreat-cms.ini">example-configs/integreat-cms.ini</a>):</p>
+possible configuration values, have a look at <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/integreat-cms.ini">example-configs/integreat-cms.ini</a>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>integreat-cms<span class="o">]</span>
 
 <span class="nv">SECRET_KEY</span> <span class="o">=</span> &lt;your-secret-key&gt;
@@ -814,7 +814,7 @@ integreat-cms-cli collectstatic
 </pre></div>
 </div>
 </li>
-<li><p>Setup a vhost for the integreat-cms by using our example config: <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/example-configs/apache2-integreat-vhost.conf">example-configs/apache2-integreat-vhost.conf</a>
+<li><p>Setup a vhost for the integreat-cms by using our example config: <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/apache2-integreat-vhost.conf">example-configs/apache2-integreat-vhost.conf</a>
 and edit the your domain and the paths for static files.</p></li>
 </ol>
 </div></blockquote>
@@ -887,7 +887,7 @@ unixsocketperm <span class="m">770</span>
 <h2>Email configuration<a class="headerlink" href="#email-configuration" title="Permalink to this headline"></a></h2>
 <blockquote>
 <div><ol class="arabic">
-<li><p>Add your SMTP credentials to <code class="docutils literal notranslate"><span class="pre">/etc/integreat.ini</span></code> (for the default values, see <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/example-configs/integreat-cms.ini">example-configs/integreat-cms.ini</a>):</p>
+<li><p>Add your SMTP credentials to <code class="docutils literal notranslate"><span class="pre">/etc/integreat.ini</span></code> (for the default values, see <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/integreat-cms.ini">example-configs/integreat-cms.ini</a>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">EMAIL_HOST</span> <span class="o">=</span> &lt;your-smtp-server&gt;
 <span class="nv">EMAIL_HOST_USER</span> <span class="o">=</span> &lt;your-username&gt;
 <span class="nv">EMAIL_HOST_PASSWORD</span> <span class="o">=</span> &lt;your-password&gt;
@@ -913,7 +913,7 @@ unixsocketperm <span class="m">770</span>
     <p>&#169; Copyright 2020, Integreat.
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
-        | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
+        | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
       <span class="lastupdated">Last updated on Sep 03, 2021.
       </span></p>
   </div>

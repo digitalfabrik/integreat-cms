@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-11-12T22:30:48+00:00" />
+    <meta property="article:modified_time" content="2021-12-13T11:56:19+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Continuous Integration (CircleCI) &mdash; integreat-cms 2021.11.0-beta documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/integreat-icon.png"/>
-    <link rel="canonical" href="https://Integreat.github.io/integreat-cms/continuous-integration.html" />
+    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/continuous-integration.html" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -693,7 +693,7 @@ even several times a day), which is then automatically built and tested before i
 </div>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h2>
-<p>Our CircleCI configuration resides in <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/.circleci/config.yml">.circleci/config.yml</a>.
+<p>Our CircleCI configuration resides in <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/.circleci/config.yml">.circleci/config.yml</a>.
 It contains all the jobs listed below.
 See <a class="reference external" href="https://circleci.com/docs/2.0/configuration-reference/">Configuring CircleCI</a> for a full reference.</p>
 </section>
@@ -759,13 +759,13 @@ It passes the html documentation in <code class="docutils literal notranslate"><
 <section id="deploy-documentation">
 <span id="circleci-deploy-documentation"></span><h3>deploy-documentation<a class="headerlink" href="#deploy-documentation" title="Permalink to this headline"></a></h3>
 <p>This job authenticates as the user <a class="reference external" href="https://github.com/DigitalfabrikMember">DigitalfabrikMember</a> and commits all changes to the
-documentation to the branch <a class="reference external" href="https://github.com/Integreat/cms-django/tree/gh-pages">gh-pages</a>
-which is then deployed to <code class="docutils literal notranslate"><span class="pre">https://integreat.github.io/cms-django/</span></code> by GitHub.</p>
+documentation to the branch <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/tree/gh-pages">gh-pages</a>
+which is then deployed to <code class="docutils literal notranslate"><span class="pre">https://digitalfabrik.github.io/integreat-cms/</span></code> by GitHub.</p>
 </section>
 <section id="shellcheck-check">
 <span id="circleci-shellcheck"></span><h3>shellcheck/check<a class="headerlink" href="#shellcheck-check" title="Permalink to this headline"></a></h3>
 <p>This job makes use of the <a class="reference external" href="https://circleci.com/developer/orbs/orb/circleci/shellcheck">ShellCheck CircleCI Orb</a> and
-executes the pre-defined job <code class="docutils literal notranslate"><span class="pre">shellcheck/check</span></code>. It is configured to check the directory <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/dev-tools">dev-tools</a>
+executes the pre-defined job <code class="docutils literal notranslate"><span class="pre">shellcheck/check</span></code>. It is configured to check the directory <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools">dev-tools</a>
 and to allow external sources because all dev tools source one common function script. Also see <a class="reference internal" href="code-style.html#shellcheck"><span class="std std-ref">Shellcheck</span></a>.</p>
 </section>
 </section>
@@ -807,7 +807,7 @@ changes to the main branch. Additionally, it merges the version bump commit into
 </section>
 <section id="create-release">
 <h3>create-release<a class="headerlink" href="#create-release" title="Permalink to this headline"></a></h3>
-<p>This job authenticates as Deliverino app and creates a GitHub release with <a class="reference external" href="https://github.com/Integreat/integreat-cms/blob/develop/.circleci/scripts/create_release.py">.circleci/scripts/create_release.py</a>.</p>
+<p>This job authenticates as Deliverino app and creates a GitHub release with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/.circleci/scripts/create_release.py">.circleci/scripts/create_release.py</a>.</p>
 </section>
 <section id="notify-mattermost">
 <h3>notify-mattermost<a class="headerlink" href="#notify-mattermost" title="Permalink to this headline"></a></h3>
@@ -846,8 +846,8 @@ See <a class="reference internal" href="troubleshooting.html#troubleshooting-una
     <p>&#169; Copyright 2020, Integreat.
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
-        | <a href="https://github.com/Integreat/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 12, 2021.
+        | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
+      <span class="lastupdated">Last updated on Dec 13, 2021.
       </span></p>
   </div>
 
