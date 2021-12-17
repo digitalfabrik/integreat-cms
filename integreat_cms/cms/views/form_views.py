@@ -39,7 +39,11 @@ class CustomModelFormMixin(
         :return: The permissions that are required for views inheriting from this Mixin
         :rtype: ~collections.abc.Iterable
         """
-        return (f"cms.change_{self.model._meta.model_name}",)
+        # If the form is submitted via POST, require the change permission
+        if self.request.method == "POST":
+            return (f"cms.change_{self.model._meta.model_name}",)
+        # If the form is just retrieved, require the view permission
+        return (f"cms.view_{self.model._meta.model_name}",)
 
     @property
     def model(self):
