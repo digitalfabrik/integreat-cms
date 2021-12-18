@@ -2,8 +2,8 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   purge: [
-    './integreat_cms/**/*.html',
-    './integreat_cms/**/*.js',
+    './integreat_cms/**/templates/**/*.html',
+    './integreat_cms/static/src/js/**/*.{js,ts,tsx}',
   ],
   theme: {
     colors: {
