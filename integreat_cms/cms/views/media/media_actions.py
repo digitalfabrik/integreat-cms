@@ -101,6 +101,36 @@ def get_directory_content_ajax(request, region_slug=None):
     return JsonResponse({"data": result})
 
 
+@json_response
+@region_permission_required
+@permission_required("cms.view_directory")
+@permission_required("cms.view_mediafile")
+# pylint: disable=unused-argument
+def get_query_search_results_ajax(request, region_slug=None):
+    """
+    View to search the media library
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :return: JSON response with the search result
+    :rtype: ~django.http.JsonResponse
+    """
+    query = request.GET.get("query")
+    logger.debug("Media library searched with query %r", query)
+    region = Region.get_current_region(request)
+
+    media_files = MediaFile.search(region, query)
+    directories = Directory.search(region, query)
+    result = list(map(lambda d: d.serialize(), list(directories) + list(media_files)))
+
+    logger.debug("Media library search results: %r", result)
+    return JsonResponse({"data": result})
+
+
 @require_POST
 @login_required
 @region_permission_required

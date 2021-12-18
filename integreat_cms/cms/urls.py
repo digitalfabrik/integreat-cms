@@ -49,6 +49,11 @@ media_ajax_urlpatterns = [
                     name="mediacenter_get_directory_content",
                 ),
                 url(
+                    r"^search",
+                    media.get_query_search_results_ajax,
+                    name="mediacenter_get_search_result",
+                ),
+                url(
                     r"^upload-file$",
                     media.upload_file_ajax,
                     name="mediacenter_upload_file",

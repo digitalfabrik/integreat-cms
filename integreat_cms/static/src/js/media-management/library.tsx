@@ -4,6 +4,7 @@
  */
 import { FilePlus, FolderPlus, Search, Loader } from "preact-feather";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
+import { route } from 'preact-router';
 
 import { Directory, MediaApiPaths, MediaLibraryEntry, File } from ".";
 import Breadcrumbs from "./component/breadcrumbs";
@@ -13,12 +14,19 @@ import EditSidebar from "./component/edit-sidebar";
 import { Message } from "./component/message";
 import CreateDirectory from "./component/create-directory";
 import UploadFile from "./component/upload-file";
+import { setSearchQueryEventListeners } from "../search-query";
 import { getCsrfToken } from "../utils/csrf-token";
 
-interface Props {
-  path: string;
+export interface LibraryProps {
+  path?: string;
   directoryId?: string;
+  searchQuery?: string;
   loadingState: [boolean, StateUpdater<boolean>];
+  refreshState: [boolean, StateUpdater<boolean>];
+  mediaLibraryContentState: [MediaLibraryEntry[], StateUpdater<MediaLibraryEntry[]>];
+  directoryPathState: [Directory[], StateUpdater<Directory[]>];
+  fileIndexState: [number, StateUpdater<number>];
+  sidebarFileState: [File, StateUpdater<File>];
   showMessage: StateUpdater<Message>;
   apiEndpoints: MediaApiPaths;
   mediaTranslations: any;
@@ -28,13 +36,23 @@ interface Props {
   selectionMode?: boolean;
   onlyImage?: boolean;
   selectMedia?: (file: File) => any;
+  ajaxRequest: (
+      url: string,
+      urlParams: URLSearchParams,
+      successCallback: (data: any) => void,
+      errorCallback?: (data: any) => void
+  ) => void;
 }
 
 export default function Library({
-  path,
   directoryId,
+  searchQuery,
   loadingState,
-  showMessage,
+  refreshState,
+  mediaLibraryContentState,
+  directoryPathState,
+  fileIndexState,
+  sidebarFileState,
   apiEndpoints,
   mediaTranslations,
   globalEdit,
@@ -42,22 +60,23 @@ export default function Library({
   allowedMediaTypes,
   selectionMode,
   onlyImage,
+  showMessage,
   selectMedia,
-}: Props) {
+}: LibraryProps) {
   // The directory path contains the current directory and all its parents
-  const [directoryPath, setDirectoryPath] = useState<Directory[]>([]);
+  const [directoryPath, setDirectoryPath] = directoryPathState;
   // The current directory is the last element of the directory path
   const directory = directoryPath[directoryPath.length - 1];
   // The directory content contains all subdirectories and files of the current directory
-  const [directoryContent, setDirectoryContent] = useState<MediaLibraryEntry[]>([]);
+  const [mediaLibraryContent, setMediaLibraryContent] = mediaLibraryContentState;
   // The file index contains the index of the file which is currently opened in the sidebar
-  const [fileIndex, setFileIndex] = useState<number | null>(null);
+  const [fileIndex, setFileIndex] = fileIndexState;
   // This state is a semaphore to block actions while an ajax call is running
   const [isLoading, setLoading] = loadingState;
-  // This state is used to refresh the media library after changes were made
-  const [refresh, setRefresh] = useState<boolean>(false);
   // This state contains a file which should be opened in the sidebar after the content has been refreshed
-  const [sidebarFile, setSidebarFile] = useState<File>(null);
+  const [sidebarFile, setSidebarFile] = sidebarFileState;
+  // This state is used to refresh the media library after changes were made
+  const [refresh, setRefresh] = refreshState;
   // Whether or not the create directory form should be shown
   const [isCreateDirectory, setCreateDirectory] = useState<boolean>(false);
   // Whether or not the file upload form should be shown
@@ -69,6 +88,7 @@ export default function Library({
     setLoading(true);
     console.debug("Submitting form:", event.target);
     let form = event.target as HTMLFormElement;
+
     try {
       const response = await fetch(form.action, {
         method: "POST",
@@ -77,7 +97,9 @@ export default function Library({
         },
         body: new FormData(form),
       });
+      console.log(response);
       const data = await response.json();
+      console.log(data);
       if (response.status === 200) {
         console.debug("Form submission successful!");
         if (typeof successCallback === "function") {
@@ -108,91 +130,75 @@ export default function Library({
     setLoading(false);
   };
 
-  // This function is used to get information about a directory (either the path or the content)
-  const getDirectoryInfo = async (
-    url: string,
-    directoryId: string,
-    successCallback: (data: any) => void
-  ) => {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `${url}${directoryId && "?directory="}${directoryId}`
-      );
-      if (response.status === 200) {
-        successCallback((await response.json()).data);
-      } else {
-        console.error("Server error:", response);
-        showMessage({
-          type: "error",
-          text: mediaTranslations.text_error,
-        });
-      }
-    } catch (error) {
-      console.error(error);
-      showMessage({
-        type: "error",
-        text: mediaTranslations.text_network_error,
-      });
-    }
-    setLoading(false);
-  };
-
-  // Load the directory path each time the directory id changes
-  useEffect(() => {
-    if (directoryId) {
-      console.debug(`Loading directory with id ${directoryId}...`);
-    } else {
-      console.debug(`Loading root directory...`);
-    }
-    // Load the new directory path
-    if (directoryId) {
-      getDirectoryInfo(apiEndpoints.getDirectoryPath, directoryId, setDirectoryPath);
-    } else {
-      // The root directory is no real directory object, so the path is empty
-      setDirectoryPath([]);
-    }
-    // Load the new directory content
-    getDirectoryInfo(
-      apiEndpoints.getDirectoryContent,
-      directoryId,
-      setDirectoryContent
-    );
-    // Close the file sidebar
-    setFileIndex(null);
-  }, [directoryId, refresh]);
-
   // Open the file in the sidebar after a refresh
   useEffect(() => {
-    // Search for the sidebar file in the directory content
-    let index = directoryContent.findIndex((x) => x.id === sidebarFile?.id);
-    if (index !== -1) {
-      console.debug("Open changed file in the sidebar again after reload...");
-      // Open file in the sidebar
-      setFileIndex(index);
-      // Reset sidebar buffer
-      setSidebarFile(null);
+    // Search for the sidebar file in the media library content
+    if (sidebarFile) {
+      console.debug("Changed file:", sidebarFile);
+      let index = mediaLibraryContent.findIndex((x) => x.id === sidebarFile.id && x.type !== "directory");
+      if (index !== -1) {
+        console.debug(`Open changed file at index ${index} in the sidebar again after reload...`);
+        // Open file in the sidebar
+        setFileIndex(index);
+        // Reset sidebar buffer
+        setSidebarFile(null);
+      } else {
+        console.debug(`Changed file not found, close sidebar...`);
+        // Reset buffer
+        setFileIndex(null);
+        setSidebarFile(null);
+      }
     }
-  }, [directoryContent, sidebarFile]);
+  }, [mediaLibraryContent]);
 
-  // Debug output on directory change
-  useEffect(() => {
-    if (directory) {
-      console.debug(`Changed to directory with id ${directoryId}:`, directory);
-    } else if (!directoryId) {
-      console.debug("Changed to root directory");
-    }
-  }, [directory]);
+  // Set the search query event listeners after a refresh
+  useEffect(setSearchQueryEventListeners, [mediaLibraryContent]);
 
   return (
     <div className={`flex flex-col flex-grow`}>
       <h1 className="w-full heading p-2">{mediaTranslations.heading_media_library}</h1>
       <div className="flex flex-wrap justify-between gap-x-2 gap-y-4">
-        <form class="table-search relative">
-          <Search class="absolute m-2" />
-          <input type="search" class="h-full py-2 pl-10 pr-4 rounded shadow" />
-        </form>
-        {(globalEdit || !directory?.isGlobal) && (
+        <div id="table-search" class="flex">
+          <form
+            id="media-search-form"
+            class="relative"
+            onSubmit={event => {
+              event.preventDefault();
+              const searchInput = document.getElementById("table-search-input") as HTMLInputElement;
+              console.debug(`Search form submitted with query "${searchInput.value}"...`);
+              if (!searchInput.value)  {
+                console.debug(`Search query empty, returning to the home directory...`);
+                route("/");
+              } else {
+                route(`/search/${encodeURIComponent(searchInput.value)}`);
+              }
+            }}
+          >
+            <input
+              id="table-search-input"
+              form="media-search-form"
+              type="search"
+              autocomplete="off"
+              placeholder={mediaTranslations.btn_search}
+              class="rounded-r-none"
+              data-url={apiEndpoints.getSearchSuggestions}
+              data-object-type="media"
+              data-archived="false"
+              value={searchQuery}
+            ></input>
+            <div id="table-search-suggestions" class="absolute hidden shadow rounded-b top-full bg-graz-200 w-full z-10 max-h-60 overflow-y-auto cursor-pointer">
+            </div>
+          </form>
+          <button
+            id="search-submit-btn"
+            title={mediaTranslations.btn_search}
+            class="bg-blue-500 hover:bg-blue-600 text-white rounded-r py-2 px-3"
+            form="media-search-form"
+          >
+            <Search className="w-5" />
+          </button>
+        </div>
+        {(globalEdit || !directory?.isGlobal) && !searchQuery && (
           <div className="flex flex-wrap justify-start gap-2">
             <button
               title={mediaTranslations.btn_create_directory}
@@ -246,6 +252,7 @@ export default function Library({
           <div class="rounded w-full bg-blue-500 text-white font-bold">
             <Breadcrumbs
               breadCrumbs={directoryPath}
+              searchQuery={searchQuery}
               mediaTranslations={mediaTranslations}
             />
           </div>
@@ -255,7 +262,7 @@ export default function Library({
             <div class="p-4">
               <DirectoryContent
                 fileIndexState={[fileIndex, setFileIndex]}
-                directoryContent={directoryContent}
+                mediaLibraryContent={mediaLibraryContent}
                 mediaTranslations={mediaTranslations}
                 globalEdit={globalEdit}
               />
@@ -266,7 +273,7 @@ export default function Library({
           <EditSidebar
             directory={directory}
             fileIndexState={[fileIndex, setFileIndex]}
-            directoryContent={directoryContent}
+            mediaLibraryContent={mediaLibraryContent}
             apiEndpoints={apiEndpoints}
             mediaTranslations={mediaTranslations}
             submitForm={submitForm}
