@@ -28,7 +28,7 @@ def application(environ, start_response):
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
 
     # Read config from config file
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(interpolation=None)
     config.read("/etc/integreat-cms.ini")
     for section in config.sections():
         for KEY, VALUE in config.items(section):

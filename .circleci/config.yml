@@ -91,7 +91,7 @@ jobs:
             - integreat_cms/locale/de/LC_MESSAGES/django.mo
   webpack:
     docker:
-      - image: 'cimg/node:current'
+      - image: 'cimg/node:lts'
     steps:
       - checkout
       - restore_cache:
@@ -262,7 +262,7 @@ jobs:
           root: .
           paths:
             - setup.cfg
-            - src/integreat_cms/__init__.py
+            - integreat_cms/__init__.py
   bump-version:
     docker:
       - image: cimg/python:3.7
