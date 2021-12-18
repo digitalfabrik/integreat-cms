@@ -30,7 +30,7 @@ def main():
         # issued at time, 60 seconds in the past to allow for clock drift
         "iat": int(datetime.timestamp(datetime.now() - timedelta(minutes=1))),
         # JWT expiration time (10 minute maximum)
-        "exp": int(datetime.timestamp(datetime.now() + timedelta(minutes=10))),
+        "exp": int(datetime.timestamp(datetime.now() + timedelta(minutes=9))),
         # GitHub App's identifier
         "iss": 59249,
     }
@@ -42,7 +42,7 @@ def main():
 
     # Request access token
     response = requests.post(
-        "https://api.github.com/app/installations/7668676/access_tokens",
+        "https://api.github.com/app/installations/16579631/access_tokens",
         headers={"Authorization": f"Bearer {encoded_jwt}"},
     )
 
