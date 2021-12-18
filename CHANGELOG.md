@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2021.12.0-beta
+--------------
+
 * Improve performance of region list
 * Fix duplicating pages of deleted authors
 * Fix page permissions
