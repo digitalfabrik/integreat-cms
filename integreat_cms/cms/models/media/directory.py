@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.translation import ugettext_lazy as _
@@ -52,6 +53,24 @@ class Directory(models.Model):
             "isGlobal": not self.region,
             "numberOfEntries": self.subdirectories.count() + self.files.count(),
         }
+
+    @classmethod
+    def search(cls, region, query):
+        """
+        Searches for all directories which match the given `query` in their name.
+
+        :param region: The searched region
+        :type region: ~integreat_cms.cms.models.regions.region.Region
+
+        :param query: The query string used for filtering the regions
+        :type query: str
+
+        :return: A query for all matching objects
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.media.directory.Directory ]
+        """
+        return cls.objects.filter(
+            Q(region=region) | Q(region__isnull=True), Q(name__icontains=query)
+        )
 
     def __str__(self):
         """

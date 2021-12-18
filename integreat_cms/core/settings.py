@@ -4,44 +4,13 @@ Django settings for ``integreat-cms``.
 This file only contains the options which deviate from the default values.
 For the full list of settings and their values, see :doc:`django:ref/settings`.
 
-For production use, the following settings can be set with environment variables (use the prefix ``DJANGO_``):
-
-    * ``DJANGO_SECRET_KEY``: :attr:`~integreat_cms.core.settings.SECRET_KEY`
-    * ``DJANGO_DEBUG``: :attr:`~integreat_cms.core.settings.DEBUG`
-    * ``DJANGO_LOGFILE``: :attr:`~integreat_cms.core.settings.LOGFILE`
-    * ``DJANGO_WEBAPP_URL``: :attr:`~integreat_cms.core.settings.WEBAPP_URL`
-    * ``DJANGO_MATOMO_URL``: :attr:`~integreat_cms.core.settings.MATOMO_URL`
-    * ``DJANGO_BASE_URL``: :attr:`~integreat_cms.core.settings.BASE_URL`
-    * ``DJANGO_STATIC_ROOT``: :attr:`~integreat_cms.core.settings.STATIC_ROOT`
-    * ``DJANGO_MEDIA_ROOT``: :attr:`~integreat_cms.core.settings.MEDIA_ROOT`
-    * ``DJANGO_XLIFF_ROOT``: :attr:`~integreat_cms.core.settings.XLIFF_ROOT`
-
-Database settings: :attr:`~integreat_cms.core.settings.DATABASES`
-
-    * ``DJANGO_DB_HOST``
-    * ``DJANGO_DB_NAME``
-    * ``DJANGO_DB_PASSWORD``
-    * ``DJANGO_DB_USER``
-    * ``DJANGO_DB_PORT``
-
-Email settings:
-
-    * ``DJANGO_EMAIL_HOST``: :attr:`~integreat_cms.core.settings.EMAIL_HOST`
-    * ``DJANGO_EMAIL_HOST_PASSWORD``: :attr:`~integreat_cms.core.settings.EMAIL_HOST_PASSWORD`
-    * ``DJANGO_EMAIL_HOST_USER``: :attr:`~integreat_cms.core.settings.EMAIL_HOST_USER`
-    * ``DJANGO_EMAIL_PORT``: :attr:`~integreat_cms.core.settings.EMAIL_PORT`
-
-Cache settings: :attr:`~integreat_cms.core.settings.CACHES`
-
-    * ``DJANGO_REDIS_CACHE``: Whether or not the Redis cache should be enabled
-    * ``DJANGO_REDIS_UNIX_SOCKET``:  If Redis is enabled and available via a unix socket, set this environment variable
-      to the location of the socket, e.g. ``/var/run/redis/redis.sock``.
-      Otherwise, the connection falls back to a regular TCP connection on port ``6379``.
-      For development, this can also be set via the file ``.redis_socket_location``.
-
+For production use, some of the settings can be set with environment variables
+(use the prefix ``INTEGREAT_CMS_``) or via the config file `/etc/integreat-cms.ini`.
+See :doc:`/prod-server` for details.
 """
 import os
-import urllib
+from distutils.util import strtobool
+from urllib.parse import urlparse
 
 from .logging_formatter import ColorFormatter
 
@@ -53,17 +22,14 @@ from .logging_formatter import ColorFormatter
 #: Build paths inside the project like this: ``os.path.join(BASE_DIR, ...)``
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-if "DJANGO_WEBAPP_URL" in os.environ:
-    WEBAPP_URL = os.environ["DJANGO_WEBAPP_URL"]
-else:
-    #: The URL to our webapp. This is used for urls in the ``sitemap.xml`` (see :mod:`~integreat_cms.sitemap` for more information).
-    WEBAPP_URL = "https://integreat.app"
+#: The URL to our webapp. This is used for urls in the ``sitemap.xml``
+#: (see :mod:`~integreat_cms.sitemap` for more information).
+WEBAPP_URL = os.environ.get("INTEGREAT_CMS_WEBAPP_URL", "https://integreat.app")
 
-if "DJANGO_MATOMO_URL" in os.environ:
-    MATOMO_URL = os.environ["DJANGO_MATOMO_URL"]
-else:
-    #: The URL to the Matomo statistics server.
-    MATOMO_URL = "https://statistics.integreat-app.de"
+#: The URL to the Matomo statistics server.
+MATOMO_URL = os.environ.get(
+    "INTEGREAT_CMS_MATOMO_URL", "https://statistics.integreat-app.de"
+)
 
 #: The slug for the legal notice (see e.g. :class:`~integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation`)
 IMPRINT_SLUG = "imprint"
@@ -73,9 +39,11 @@ IMPRINT_SLUG = "imprint"
 TEST_BLOG_ID = 154
 
 #: URL to the Integreat Website
-WEBSITE_URL = "https://integreat-app.de"
+WEBSITE_URL = os.environ.get("INTEGREAT_CMS_WEBSITE_URL", "https://integreat-app.de")
 
-#: An alias of :attr:`~integreat_cms.core.settings.WEBAPP_URL`. Used by django-linkcheck to determine whether a link is internal.
+#: An alias of :attr:`~integreat_cms.core.settings.WEBAPP_URL`.
+#: Used by `django-linkcheck <https://github.com/DjangoAdminHackers/django-linkcheck#site_domain-and-linkcheck_site_domains>`_
+#: to determine whether a link is internal.
 SITE_DOMAIN = WEBAPP_URL
 
 #: URLs to the Integreat blog
@@ -85,7 +53,7 @@ BLOG_URLS = {
 }
 
 #: URL to the Integreat wiki
-WIKI_URL = "https://wiki.integreat-app.de"
+WIKI_URL = os.environ.get("INTEGREAT_CMS_WIKI_URL", "https://wiki.integreat-app.de")
 
 #: RSS feed URLs to the Integreat blog
 RSS_FEED_URLS = {
@@ -99,12 +67,14 @@ AUTHOR_CHAT_HISTORY_DAYS = 30
 #: The time span up to which recurrent events should be returned by the api
 API_EVENTS_MAX_TIME_SPAN_DAYS = 31
 
+
 ###############################
 # Firebase Push Notifications #
 ###############################
 
-#: Authentification Token for the Firebase API. This needs to be set for a correct usage of the Messages Feature.
-FCM_KEY = None
+#: Authentication token for the Firebase API. This needs to be set for a correct usage of the messages feature.
+FCM_KEY = os.environ.get("INTEGREAT_CMS_FCM_KEY")
+
 
 ###########
 # GVZ API #
@@ -123,40 +93,34 @@ GVZ_API_URL = "https://gvz.integreat-app.de"
 # WEBAUTHN #
 ############
 
-if "DJANGO_BASE_URL" in os.environ:
-    HOSTNAME = urllib.parse.urlparse(os.environ["DJANGO_BASE_URL"]).netloc
-    BASE_URL = os.environ["DJANGO_BASE_URL"]
-else:
-    #: Needed for `webauthn <https://pypi.org/project/webauthn/>`__
-    #: (this is a setting in case the application runs behind a proxy).
-    #: Used in the following views:
-    #:
-    #: - :class:`~integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView`
-    #: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView`
-    BASE_URL = "http://localhost:8000"
-    #: Needed for `webauthn <https://pypi.org/project/webauthn/>`__
-    #: (this is a setting in case the application runs behind a proxy).
-    #: Used in the following views:
-    #:
-    #: - :class:`~integreat_cms.cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView`
-    #: - :class:`~integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView`
-    #: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_assert_view.MfaAssertView`
-    #: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView`
-    HOSTNAME = "localhost"
+#: Needed for `webauthn <https://pypi.org/project/webauthn/>`__
+#: (this is a setting in case the application runs behind a proxy).
+#: Used in the following views:
+#:
+#: - :class:`~integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView`
+#: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView`
+BASE_URL = os.environ.get("INTEGREAT_CMS_BASE_URL", "http://localhost:8000")
+
+#: Needed for `webauthn <https://pypi.org/project/webauthn/>`__
+#: (this is a setting in case the application runs behind a proxy).
+#: Used in the following views:
+#:
+#: - :class:`~integreat_cms.cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView`
+#: - :class:`~integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView`
+#: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_assert_view.MfaAssertView`
+#: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView`
+HOSTNAME = urlparse(BASE_URL).netloc
 
 
 ########################
 # DJANGO CORE SETTINGS #
 ########################
 
-if "DJANGO_DEBUG" in os.environ:
-    DEBUG = bool(os.environ["DJANGO_DEBUG"])
-else:
-    #: A boolean that turns on/off debug mode (see :setting:`django:DEBUG`)
-    #:
-    #: .. warning::
-    #:     Never deploy a site into production with :setting:`DEBUG` turned on!
-    DEBUG = True
+#: A boolean that turns on/off debug mode (see :setting:`django:DEBUG`)
+#:
+#: .. warning::
+#:     Never deploy a site into production with :setting:`DEBUG` turned on!
+DEBUG = bool(strtobool(os.environ.get("INTEGREAT_CMS_DEBUG", "False")))
 
 #: Enabled applications (see :setting:`django:INSTALLED_APPS`)
 INSTALLED_APPS = [
@@ -174,13 +138,13 @@ INSTALLED_APPS = [
     "corsheaders",
     "linkcheck",
     "mptt",
-    "rules",
+    "rules.apps.AutodiscoverRulesConfig",
     "webpack_loader",
     "widget_tweaks",
 ]
 
 # Install cacheops only if redis cache is available
-if "DJANGO_REDIS_CACHE" in os.environ:
+if "INTEGREAT_CMS_REDIS_CACHE" in os.environ:
     INSTALLED_APPS.append("cacheops")
 
 # The default Django Admin application and debug toolbar will only be activated if the system is in debug mode.
@@ -238,39 +202,20 @@ WSGI_APPLICATION = "integreat_cms.core.wsgi.application"
 # DATABASE #
 ############
 
-if (
-    "DJANGO_DB_HOST" in os.environ
-    and "DJANGO_DB_NAME" in os.environ
-    and "DJANGO_DB_PASSWORD" in os.environ
-    and "DJANGO_DB_USER" in os.environ
-    and "DJANGO_DB_PORT" in os.environ
-):
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": os.environ["DJANGO_DB_NAME"],
-            "USER": os.environ["DJANGO_DB_USER"],
-            "PASSWORD": os.environ["DJANGO_DB_PASSWORD"],
-            "HOST": os.environ["DJANGO_DB_HOST"],
-            "PORT": os.environ["DJANGO_DB_PORT"],
-        }
+#: A dictionary containing the settings for all databases to be used with this Django installation
+#: (see :setting:`django:DATABASES`)
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ.get("INTEGREAT_CMS_DB_NAME", "integreat"),
+        "USER": os.environ.get("INTEGREAT_CMS_DB_USER", "integreat"),
+        "PASSWORD": os.environ.get(
+            "INTEGREAT_CMS_DB_PASSWORD", "password" if DEBUG else ""
+        ),
+        "HOST": os.environ.get("INTEGREAT_CMS_DB_HOST", "localhost"),
+        "PORT": os.environ.get("INTEGREAT_CMS_DB_PORT", "5432"),
     }
-else:
-    #: A dictionary containing the settings for all databases to be used with this Django installation
-    #: (see :setting:`django:DATABASES`)
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": "integreat",
-            "USER": "integreat",
-            "PASSWORD": "password",
-            "HOST": "localhost",
-            "PORT": "5432",
-        }
-    }
-
-#: Directory for initial database contents (see :setting:`django:FIXTURE_DIRS`)
-FIXTURE_DIRS = (os.path.join(BASE_DIR, "integreat_cms.cms/fixtures/"),)
+}
 
 #: Default primary key field type to use for models that don’t have a field with
 #: :attr:`primary_key=True <django.db.models.Field.primary_key>`. (see :setting:`django:DEFAULT_AUTO_FIELD`)
@@ -281,25 +226,27 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # SECURITY #
 ############
 
-if "DJANGO_BASE_URL" in os.environ:
-    ALLOWED_HOSTS = [urllib.parse.urlparse(os.environ["DJANGO_BASE_URL"]).netloc]
-else:
-    #: This is a security measure to prevent HTTP Host header attacks, which are possible even under many seemingly-safe
-    #: web server configurations (see :setting:`django:ALLOWED_HOSTS` and :ref:`django:host-headers-virtual-hosting`)
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
+#: This is a security measure to prevent HTTP Host header attacks, which are possible even under many seemingly-safe
+#: web server configurations (see :setting:`django:ALLOWED_HOSTS` and :ref:`django:host-headers-virtual-hosting`)
+ALLOWED_HOSTS = [HOSTNAME, ".localhost", "127.0.0.1", "[::1]"] + list(
+    filter(
+        None,
+        (
+            x.strip()
+            for x in os.environ.get("INTEGREAT_CMS_ALLOWED_HOSTS", "").splitlines()
+        ),
+    )
+)
 
 #: A list of IP addresses, as strings, that allow the :func:`~django.template.context_processors.debug` context
 #: processor to add some variables to the template context.
 INTERNAL_IPS = ["localhost", "127.0.0.1"]
 
-if "DJANGO_SECRET_KEY" in os.environ:
-    SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
-else:
-    #: The secret key for this particular Django installation (see :setting:`django:SECRET_KEY`)
-    #:
-    #: .. warning::
-    #:     Change the key in production and keep it secret!
-    SECRET_KEY = "-!v282$zj815_q@htaxcubylo)(l%a+k*-xi78hw*#s2@i86@_"
+#: The secret key for this particular Django installation (see :setting:`django:SECRET_KEY`)
+#:
+#: .. warning::
+#:     Provide a key via the environment variable ``INTEGREAT_CMS_SECRET_KEY`` in production and keep it secret!
+SECRET_KEY = os.environ.get("INTEGREAT_CMS_SECRET_KEY", "dummy" if DEBUG else "")
 
 #: A dotted path to the view function to be used when an incoming request is rejected by the CSRF protection
 #: (see :setting:`django:CSRF_FAILURE_VIEW`)
@@ -355,17 +302,11 @@ PASSWORD_HASHERS = [
 #: (see :setting:`django:AUTH_PASSWORD_VALIDATORS` and :ref:`django:password-validation`)
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 #: The URL where requests are redirected for login (see :setting:`django:LOGIN_URL`)
@@ -383,25 +324,20 @@ LOGOUT_REDIRECT_URL = "/login"
 ###########
 
 #: The log level for integreat-cms django apps
-LOG_LEVEL = "DEBUG" if DEBUG else "INFO"
+LOG_LEVEL = os.environ.get("INTEGREAT_CMS_LOG_LEVEL", "DEBUG" if DEBUG else "INFO")
 
 #: The log level for the syslog
 SYS_LOG_LEVEL = "INFO"
 
 #: The log level for dependencies
-DEPS_LOG_LEVEL = "INFO" if DEBUG else "WARN"
+DEPS_LOG_LEVEL = os.environ.get(
+    "INTEGREAT_CMS_DEPS_LOG_LEVEL", "INFO" if DEBUG else "WARN"
+)
 
-#: The default location of the logfile
-DEFAULT_LOGFILE = "/var/log/integreat-cms.log"
-
-if "DJANGO_LOGFILE" in os.environ and os.access(os.environ["DJANGO_LOGFILE"], os.W_OK):
-    LOGFILE = os.environ["DJANGO_LOGFILE"]
-elif DEBUG or not os.access(DEFAULT_LOGFILE, os.W_OK):
-    #: The file path of the logfile. Needs to be writable by the application.
-    #: Defaults to :attr:`~integreat_cms.core.settings.DEFAULT_LOGFILE`.
-    LOGFILE = os.path.join(BASE_DIR, "integreat-cms.log")
-else:
-    LOGFILE = DEFAULT_LOGFILE
+#: The file path of the logfile. Needs to be writable by the application.
+LOGFILE = os.environ.get(
+    "INTEGREAT_CMS_LOGFILE", os.path.join(BASE_DIR, "integreat-cms.log")
+)
 
 #: Logging configuration dictionary (see :setting:`django:LOGGING`)
 LOGGING = {
@@ -480,27 +416,7 @@ LOGGING = {
     },
     "loggers": {
         # Loggers of integreat-cms django apps
-        "integreat_cms.api": {
-            "handlers": ["console-colored", "logfile", "mail_admins"],
-            "level": LOG_LEVEL,
-        },
-        "integreat_cms.backend": {
-            "handlers": ["console-colored", "logfile", "mail_admins"],
-            "level": LOG_LEVEL,
-        },
-        "integreat_cms.cms": {
-            "handlers": ["console-colored", "logfile", "mail_admins"],
-            "level": LOG_LEVEL,
-        },
-        "integreat_cms.gvz_api": {
-            "handlers": ["console-colored", "logfile", "mail_admins"],
-            "level": LOG_LEVEL,
-        },
-        "integreat_cms.sitemap": {
-            "handlers": ["console-colored", "logfile", "mail_admins"],
-            "level": LOG_LEVEL,
-        },
-        "integreat_cms.xliff": {
+        "integreat_cms": {
             "handlers": ["console-colored", "logfile", "mail_admins"],
             "level": LOG_LEVEL,
         },
@@ -558,41 +474,34 @@ else:
 
 #: Default email address to use for various automated correspondence from the site manager(s)
 #: (see :setting:`django:DEFAULT_FROM_EMAIL`)
-DEFAULT_FROM_EMAIL = "keineantwort@integreat-app.de"
+DEFAULT_FROM_EMAIL = os.environ.get(
+    "INTEGREAT_CMS_SERVER_EMAIL", "keineantwort@integreat-app.de"
+)
 
 #: The email address that error messages come from, such as those sent to :attr:`~integreat_cms.core.settings.ADMINS`.
 #: (see :setting:`django:SERVER_EMAIL`)
-SERVER_EMAIL = "keineantwort@integreat-app.de"
+SERVER_EMAIL = os.environ.get(
+    "INTEGREAT_CMS_SERVER_EMAIL", "keineantwort@integreat-app.de"
+)
 
 #: A list of all the people who get code error notifications. When :attr:`~integreat_cms.core.settings.DEBUG` is ``False``,
 #: Django emails these people the details of exceptions raised in the request/response cycle.
 ADMINS = [("Integreat Helpdesk", "tech@integreat-app.de")]
 
-if "DJANGO_EMAIL_HOST" in os.environ:
-    EMAIL_HOST = os.environ["DJANGO_EMAIL_HOST"]
-else:
-    #: The host to use for sending email.
-    EMAIL_HOST = "localhost"
+#: The host to use for sending email (see :setting:`django:EMAIL_HOST`)
+EMAIL_HOST = os.environ.get("INTEGREAT_CMS_EMAIL_HOST", "localhost")
 
-if "DJANGO_EMAIL_HOST_PASSWORD" in os.environ:
-    EMAIL_HOST_PASSWORD = os.environ["DJANGO_EMAIL_HOST_PASSWORD"]
-else:
-    #: Password to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`.
-    #: If empty, Django won’t attempt authentication.
-    EMAIL_HOST_PASSWORD = ""
+#: Password to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`
+#: (see :setting:`django:EMAIL_HOST_PASSWORD`). If empty, Django won’t attempt authentication.
+EMAIL_HOST_PASSWORD = os.environ.get("INTEGREAT_CMS_EMAIL_HOST_PASSWORD")
 
-if "DJANGO_EMAIL_HOST_USER" in os.environ:
-    EMAIL_HOST_USER = os.environ["DJANGO_EMAIL_HOST_USER"]
-else:
-    #: Username to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`.
-    #: If empty, Django won’t attempt authentication.
-    EMAIL_HOST_USER = ""
+#: Username to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`
+#: (see :setting:`django:EMAIL_HOST_USER`). If empty, Django won’t attempt authentication.
+EMAIL_HOST_USER = os.environ.get("INTEGREAT_CMS_EMAIL_HOST_USER", SERVER_EMAIL)
 
-if "DJANGO_EMAIL_PORT" in os.environ:
-    EMAIL_PORT = os.environ["DJANGO_EMAIL_PORT"]
-else:
-    #: Port to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`.
-    EMAIL_PORT = 25
+#: Port to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`
+#: (see :setting:`django:EMAIL_PORT`)
+EMAIL_PORT = int(os.environ.get("INTEGREAT_CMS_EMAIL_PORT", 587))
 
 
 ########################
@@ -618,7 +527,7 @@ LANGUAGE_CODE = "de"
 TIME_ZONE = "UTC"
 
 #: A string representing the time zone that is used for rendering
-CURRENT_TIME_ZONE = "Europe/Berlin"
+CURRENT_TIME_ZONE = os.environ.get("INTEGREAT_CMS_CURRENT_TIME_ZONE", "Europe/Berlin")
 
 #: A boolean that specifies whether Django’s translation system should be enabled
 #: (see :setting:`django:USE_I18N` and :doc:`topics/i18n/index`)
@@ -642,13 +551,10 @@ USE_TZ = True
 #: :doc:`Managing static files <django:howto/static-files/index>`).
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static/dist")]
 
-if "DJANGO_STATIC_ROOT" in os.environ:
-    STATIC_ROOT = os.environ["DJANGO_STATIC_ROOT"]
-else:
-    #: The absolute path to the output directory where :mod:`django.contrib.staticfiles` will put static files for
-    #: deployment (see :setting:`django:STATIC_ROOT` and :doc:`Managing static files <django:howto/static-files/index>`)
-    #: In debug mode, this is not required since :mod:`django.contrib.staticfiles` can directly serve these files.
-    STATIC_ROOT = None
+#: The absolute path to the output directory where :mod:`django.contrib.staticfiles` will put static files for
+#: deployment (see :setting:`django:STATIC_ROOT` and :doc:`Managing static files <django:howto/static-files/index>`)
+#: In debug mode, this is not required since :mod:`django.contrib.staticfiles` can directly serve these files.
+STATIC_ROOT = os.environ.get("INTEGREAT_CMS_STATIC_ROOT")
 
 #: URL to use in development when referring to static files located in :setting:`STATICFILES_DIRS`
 #: (see :setting:`django:STATIC_URL` and :doc:`Managing static files <django:howto/static-files/index>`)
@@ -669,11 +575,8 @@ STATICFILES_FINDERS = (
 #: URL that handles the media served from :setting:`MEDIA_ROOT` (see :setting:`django:MEDIA_URL`)
 MEDIA_URL = "/media/"
 
-if "DJANGO_MEDIA_ROOT" in os.environ:
-    MEDIA_ROOT = os.environ["DJANGO_MEDIA_ROOT"]
-else:
-    #: Absolute filesystem path to the directory that will hold user-uploaded files (see :setting:`django:MEDIA_ROOT`)
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+#: Absolute filesystem path to the directory that will hold user-uploaded files (see :setting:`django:MEDIA_ROOT`)
+MEDIA_ROOT = os.environ.get("INTEGREAT_CMS_MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
 
 #: The maximum size of media thumbnails in pixels
 MEDIA_THUMBNAIL_SIZE = 300
@@ -682,7 +585,9 @@ MEDIA_THUMBNAIL_SIZE = 300
 MEDIA_THUMBNAIL_CROP = False
 
 #: Enables the possibility to upload further file formats (e.g. DOC, GIF).
-LEGACY_FILE_UPLOAD = False
+LEGACY_FILE_UPLOAD = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_LEGACY_FILE_UPLOAD", "False"))
+)
 
 
 #########
@@ -698,19 +603,23 @@ CACHES = {
     },
     "pdf": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": os.path.join(BASE_DIR, "cache/pdf"),
+        "LOCATION": os.path.join(
+            os.environ.get("INTEGREAT_CMS_FILE_CACHE", os.path.join(BASE_DIR, "cache")),
+            "pdf",
+        ),
     },
 }
 
 # Use RedisCache when activated
-if os.getenv("DJANGO_REDIS_CACHE"):
-    unix_socket = os.getenv("DJANGO_REDIS_UNIX_SOCKET")
+if bool(strtobool(os.environ.get("INTEGREAT_CMS_REDIS_CACHE", "False"))):
+    unix_socket = os.environ.get("INTEGREAT_CMS_REDIS_UNIX_SOCKET")
     if unix_socket:
-        # Use unix socket if available
-        redis_location = f"unix://{unix_socket}?db=1"
+        # Use unix socket if available (and also tell cacheops about it)
+        redis_location = f"unix://{unix_socket}?db=0"
+        CACHEOPS_REDIS = f"unix://{unix_socket}?db=1"
     else:
         # If not, fall back to normal TCP connection
-        redis_location = "redis://127.0.0.1:6379/1"
+        redis_location = "redis://127.0.0.1:6379/0"
     CACHES["default"] = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": redis_location,
@@ -726,7 +635,8 @@ CACHEOPS_DEFAULTS = {"timeout": 60 * 60}
 #: Which database tables should be cached
 CACHEOPS = {
     "auth.*": {"ops": "all"},
-    "integreat_cms.*": {"ops": "all"},
+    "cms.*": {"ops": "all"},
+    "linkcheck.*": {"ops": "all"},
     "*.*": {},
 }
 
@@ -748,8 +658,9 @@ PER_PAGE = 16
 ####################
 
 #: Disable linkcheck listeners e.g. when the fixtures are loaded
-if "LINKCHECK_DISABLE_LISTENERS" in os.environ:
-    LINKCHECK_DISABLE_LISTENERS = True
+LINKCHECK_DISABLE_LISTENERS = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS", "False"))
+)
 
 
 #############################
@@ -809,7 +720,7 @@ SERIALIZATION_MODULES = {
 }
 
 #: The xliff version to be used for exports
-XLIFF_EXPORT_VERSION = "xliff-1.2"
+XLIFF_EXPORT_VERSION = os.environ.get("INTEGREAT_CMS_XLIFF_EXPORT_VERSION", "xliff-1.2")
 
 #: The default fields to be used for the XLIFF serialization
 XLIFF_DEFAULT_FIELDS = ("title", "text")
@@ -817,11 +728,8 @@ XLIFF_DEFAULT_FIELDS = ("title", "text")
 #: A mapping for changed field names to preserve backward compatibility after a database field was renamed
 XLIFF_LEGACY_FIELDS = {"body": "text"}
 
-if "DJANGO_XLIFF_ROOT" in os.environ:
-    XLIFF_ROOT = os.environ["DJANGO_XLIFF_ROOT"]
-else:
-    #: The directory where xliff files are stored
-    XLIFF_ROOT = os.path.join(BASE_DIR, "xliff")
+#: The directory where xliff files are stored
+XLIFF_ROOT = os.environ.get("INTEGREAT_CMS_XLIFF_ROOT", os.path.join(BASE_DIR, "xliff"))
 
 #: The directory to which xliff files should be uploaded (this should not be reachable by the webserver)
 XLIFF_UPLOAD_DIR = os.path.join(XLIFF_ROOT, "upload")

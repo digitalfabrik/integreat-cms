@@ -27,11 +27,11 @@ class DashboardView(TemplateView, ChatContextMixin):
     extra_context = {"current_menu_item": "region_dashboard"}
 
     def get_context_data(self, **kwargs):
-        """
+        r"""
         Extend context by amount of links per link filter
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The context dictionary
         :rtype: dict
@@ -42,17 +42,17 @@ class DashboardView(TemplateView, ChatContextMixin):
         return context
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render the region dashboard
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

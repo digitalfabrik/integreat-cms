@@ -30,8 +30,8 @@ def main():
     args = parser.parse_args()
 
     # Assemble release body
-    logo_url = "https://raw.githubusercontent.com/Integreat/integreat-cms/dea989c557959f688cc2050b4d4f987c47d982ac/.github/logo.png"
-    compare_url = "https://github.com/Integreat/integreat-cms/compare"
+    logo_url = "https://raw.githubusercontent.com/digitalfabrik/integreat-cms/dea989c557959f688cc2050b4d4f987c47d982ac/.github/logo.png"
+    compare_url = "https://github.com/digitalfabrik/integreat-cms/compare"
     body = (
         f"### ![]({logo_url}) integreat-cms `{args.tag}`"
         f"\n\n### Changelog\n\n{args.changelog}\n\n"
@@ -40,7 +40,7 @@ def main():
 
     # Create release
     response = requests.post(
-        "https://api.github.com/repos/Integreat/integreat-cms/releases",
+        "https://api.github.com/repos/digitalfabrik/integreat-cms/releases",
         json={
             "tag_name": args.tag,
             "name": args.tag,

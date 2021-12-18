@@ -45,11 +45,11 @@ class RecurrenceRuleForm(CustomModelForm):
         }
 
     def __init__(self, **kwargs):
-        """
+        r"""
         Initialize recurrence rule form
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         """
 
         # Set event start date to be used in clean()-method

@@ -91,7 +91,7 @@ def json_response(function):
 
     @wraps(function)
     def wrap(request, *args, **kwargs):
-        """
+        r"""
         The inner function for this decorator.
         It tries to execute the decorated view function and returns the unaltered result with the exception of a
         :class:`~django.http.Http404` error, which is converted into JSON format.
@@ -99,11 +99,11 @@ def json_response(function):
         :param request: Django request
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied kwargs
-        :type kwargs: dict
+        :param \**kwargs: The supplied kwargs
+        :type \**kwargs: dict
 
         :return: The response of the given function or an 404 :class:`~django.http.JsonResponse`
         :rtype: ~django.http.JsonResponse

@@ -87,4 +87,34 @@ window.addEventListener("load", () => {
       const locationInput = document.getElementById("id_location") as HTMLInputElement;
       locationInput.disabled = !locationInput.disabled;
     });
+
+  // The list of time range options
+  const eventsCustomTimeRangeCheckboxList = document.getElementById("id_events_time_range");
+  // The value which indicates the "custom" rime range option
+  const eventsCustomTimeRangeValue = eventsCustomTimeRangeCheckboxList?.querySelector("input")?.getAttribute("data-custom-time-range-value");
+  // The checkbox with the custom value - changing this should trigger the conditional field changes.
+  const eventsCustomTimeRangeCheckbox = eventsCustomTimeRangeCheckboxList?.querySelector("input[value=" + eventsCustomTimeRangeValue + "]") as HTMLInputElement;
+  // The div containing the custom date/time range inputs
+  const eventsCustomTimeRangeDateInput = document.getElementById("events-custom-time-range-filter");
+  // event handler to show custom time range selection in filter form
+  function updateTimeRangeInputs() {
+    // Hide or show the date input for the custom time range
+    if (eventsCustomTimeRangeCheckbox.checked) {
+      eventsCustomTimeRangeDateInput.classList.remove("hidden");
+    } else {
+      eventsCustomTimeRangeDateInput.classList.add("hidden");
+    }
+    // Hide or show all other "non-custom" time range options
+    eventsCustomTimeRangeCheckboxList.querySelectorAll("input").forEach(node => {
+      if (node !== eventsCustomTimeRangeCheckbox) {
+        if (eventsCustomTimeRangeCheckbox.checked) {
+          node.closest("li").classList.add("hidden");
+        } else {
+          node.closest("li").classList.remove("hidden");
+        }
+      }
+    });
+  }
+  eventsCustomTimeRangeCheckbox?.addEventListener("change", updateTimeRangeInputs);
+  if (eventsCustomTimeRangeCheckbox !== undefined) { updateTimeRangeInputs() }
 });

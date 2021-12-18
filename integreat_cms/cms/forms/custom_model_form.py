@@ -17,11 +17,11 @@ class CustomModelForm(forms.ModelForm):
     """
 
     def __init__(self, **kwargs):
-        """
+        r"""
         Initialize placeholder model form
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises TypeError: If form is instantiated directly without an inheriting subclass
         """

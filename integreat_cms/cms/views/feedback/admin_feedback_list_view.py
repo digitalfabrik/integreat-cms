@@ -29,17 +29,17 @@ class AdminFeedbackListView(TemplateView):
     template_name = "feedback/admin_feedback_list.html"
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render admin feedback list
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -128,17 +128,17 @@ class AdminFeedbackListView(TemplateView):
         )
 
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Render feedback list with applied filters
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

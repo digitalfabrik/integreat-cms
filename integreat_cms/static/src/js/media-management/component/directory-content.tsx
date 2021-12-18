@@ -10,17 +10,15 @@ import FileEntry from "./file-entry";
 
 interface Props {
   fileIndexState: [number | null, StateUpdater<number | null>];
-  directoryContent: MediaLibraryEntry[];
+  mediaLibraryContent: MediaLibraryEntry[];
   mediaTranslations: any;
-  selectionMode?: boolean;
   globalEdit?: boolean;
 }
 
 export default function DirectoryContent({
   fileIndexState,
-  directoryContent,
+  mediaLibraryContent,
   mediaTranslations,
-  selectionMode,
   globalEdit,
 }: Props) {
   // The file index contains the index of the file which is currently opened in the sidebar
@@ -28,13 +26,12 @@ export default function DirectoryContent({
 
   return (
     <div className="grid grid-cols-gallery max-h-full gap-1">
-      {directoryContent.map((entry: MediaLibraryEntry, index: number) =>
+      {mediaLibraryContent.map((entry: MediaLibraryEntry, index: number) =>
         entry.type === "directory" ? (
           <Link href={`/${entry.id}/`} media-library-link>
             <DirectoryEntry
               directory={entry as Directory}
               mediaTranslations={mediaTranslations}
-              selectionMode={selectionMode}
               globalEdit={globalEdit}
             />
           </Link>
@@ -47,7 +44,6 @@ export default function DirectoryContent({
               setFileIndex(index);
             }}
             mediaTranslations={mediaTranslations}
-            selectionMode={selectionMode}
             globalEdit={globalEdit}
           />
         )

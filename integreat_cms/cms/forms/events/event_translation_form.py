@@ -30,11 +30,11 @@ class EventTranslationForm(CustomContentModelForm):
         ]
 
     def __init__(self, **kwargs):
-        """
+        r"""
         Initialize event translation form
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
         """
         # To set the status value through the submit button, we have to overwrite the field value for status.
         # We could also do this in the save() function, but this would mean that it is not recognized in changed_data.

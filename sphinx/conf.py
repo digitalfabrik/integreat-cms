@@ -33,7 +33,7 @@ copyright = "2020, Integreat"
 #: The project author
 author = "Integreat"
 #: GitHub username
-github_username = "Integreat"
+github_username = "digitalfabrik"
 #: GitHub repository name
 github_repository = "integreat-cms"
 #: GitHub URL
@@ -174,7 +174,6 @@ html_show_sphinx = False
 #: Include last updated timestamp
 html_last_updated_fmt = "%b %d, %Y"
 
-
 # -- Source Code links to GitHub ---------------------------------------------
 
 
@@ -212,3 +211,35 @@ def linkcode_resolve(domain, info):
     else:
         url = f"{github_url}/blob/develop"
     return f"{url}/{module_path}{filename}{line_number_reference}"
+
+
+# -- Custom patches for autodoc ----------------------------------------------
+
+
+# pylint: disable=unused-argument
+def patch_django_for_autodoc(app):
+    """
+    Monkeypatch the :class:`~integreat_cms.cms.models.regions.region.RegionManager` because the default queryset is
+    accessed durinng sphinx build before ``django.setup()`` has been called, which causes problems with the mptt model.
+
+    :param app: The Sphinx application object
+    :type app: ~sphinx.application.Sphinx
+    """
+    # pylint: disable=import-outside-toplevel
+    from integreat_cms.cms.models.regions.region import RegionManager
+    from django.db.models import Manager
+
+    docstring = RegionManager.get_queryset.__doc__
+    RegionManager.get_queryset = Manager.get_queryset
+    RegionManager.get_queryset.__doc__ = docstring
+
+
+def setup(app):
+    """
+    Connect to the ``django-configured`` event of :mod:`sphinxcontrib_django2` to monkeypatch application.
+
+    :param app: The Sphinx application object
+    :type app: ~sphinx.application.Sphinx
+    """
+    # Setup Django after config is initialized
+    app.connect("django-configured", patch_django_for_autodoc)

@@ -5,7 +5,7 @@ import logging
 
 from django import forms
 
-from ...constants import all_day, recurrence
+from ...constants import all_day, recurrence, events_time_range
 
 logger = logging.getLogger(__name__)
 
@@ -31,14 +31,14 @@ class EventFilterForm(forms.Form):
         required=False,
     )
 
-    after_date = forms.DateField(
+    date_from = forms.DateField(
         widget=forms.DateInput(
             format="%Y-%m-%d",
             attrs={"type": "date", "class": "default-value", "data-default-value": ""},
         ),
         required=False,
     )
-    before_date = forms.DateField(
+    date_to = forms.DateField(
         widget=forms.DateInput(
             format="%Y-%m-%d",
             attrs={"type": "date", "class": "default-value", "data-default-value": ""},
@@ -46,21 +46,17 @@ class EventFilterForm(forms.Form):
         required=False,
     )
 
-    after_time = forms.TimeField(
-        widget=forms.TimeInput(
-            format="%H:%M",
-            attrs={"type": "time", "class": "default-value", "data-default-value": ""},
+    events_time_range = forms.MultipleChoiceField(
+        widget=forms.widgets.CheckboxSelectMultiple(
+            attrs={
+                "data-default-checked-value": events_time_range.UPCOMING,
+                "data-custom-time-range-value": events_time_range.CUSTOM,
+            }
         ),
+        choices=events_time_range.CHOICES,
+        initial=[events_time_range.UPCOMING],
         required=False,
     )
-    before_time = forms.TimeField(
-        widget=forms.TimeInput(
-            format="%H:%M",
-            attrs={"type": "time", "class": "default-value", "data-default-value": ""},
-        ),
-        required=False,
-    )
-
     poi_id = forms.IntegerField(widget=forms.HiddenInput, initial=-1, required=False)
 
     query = forms.CharField(required=False)

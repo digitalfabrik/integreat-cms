@@ -30,17 +30,17 @@ class PageSideBySideView(TemplateView):
     base_context = {"current_menu_item": "pages"}
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` on the side by side view
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -108,18 +108,18 @@ class PageSideBySideView(TemplateView):
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Submit :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` and save
         :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` object
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit pages
 

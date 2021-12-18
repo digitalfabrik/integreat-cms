@@ -110,7 +110,7 @@ function renderPoiData(
   (document.getElementById("poi-query-input") as HTMLInputElement).value = "";
 }
 
-let scheduledFunction: number | false = false;
+let scheduledFunction: number | null = null;
 function setPoiQueryEventListeners() {
   // AJAX search
   document
@@ -124,7 +124,7 @@ function setPoiQueryEventListeners() {
         clearTimeout(scheduledFunction);
       }
       // Schedule function execution
-      scheduledFunction = setTimeout(
+      scheduledFunction = window.setTimeout(
         queryPois,
         300,
         input_field.getAttribute("data-url"),

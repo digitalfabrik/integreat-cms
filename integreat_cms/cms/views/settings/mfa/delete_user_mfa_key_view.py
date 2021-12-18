@@ -26,17 +26,17 @@ class DeleteUserMfaKeyView(TemplateView):
     template_name = "settings/mfa/delete.html"
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render mfa-deletion view
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -73,14 +73,14 @@ class DeleteUserMfaKeyView(TemplateView):
         )
 
     def post(self, request, **kwargs):
-        """
+        r"""
         Delete a multi-factor-authentication key
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: A redirection to the user settings
         :rtype: ~django.http.HttpResponseRedirect

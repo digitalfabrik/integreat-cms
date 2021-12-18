@@ -91,7 +91,7 @@ jobs:
             - integreat_cms/locale/de/LC_MESSAGES/django.mo
   webpack:
     docker:
-      - image: 'cimg/node:current'
+      - image: 'cimg/node:lts'
     steps:
       - checkout
       - restore_cache:
@@ -152,8 +152,11 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Create MANIFEST.in file
-          command: echo -e "graft integreat_cms\nprune integreat_cms/static/src" > MANIFEST.in
+          name: Fix dependency versions
+          command: ./dev-tools/fix_dependencies.sh
+      - run:
+          name: Use alternative README.md file
+          command: mv integreat_cms/README.md .
       - run:
           name: Build integreat-cms package
           command: python setup.py sdist bdist_wheel
@@ -180,7 +183,7 @@ jobs:
           at: .
       - run:
           name: Generate documentation
-          command: pipenv run ./dev-tools/generate_documentation.sh
+          command: ./dev-tools/generate_documentation.sh
       - persist_to_workspace:
           root: .
           paths:
@@ -258,8 +261,8 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - setup.py
-            - src/integreat_cms/__init__.py
+            - setup.cfg
+            - integreat_cms/__init__.py
   bump-version:
     docker:
       - image: cimg/python:3.7
@@ -275,7 +278,7 @@ jobs:
           command: |
             git config user.name "deliverino[bot]"
             git config user.email "62934656+deliverino[bot]@users.noreply.github.com"
-            git remote set-url origin "https://x-access-token:$DELIVERINO_ACCESS_TOKEN@github.com/Integreat/integreat-cms.git"
+            git remote set-url origin "https://x-access-token:$DELIVERINO_ACCESS_TOKEN@github.com/digitalfabrik/integreat-cms.git"
       - run:
           name: Bump version
           command: pipenv run bumpver update
@@ -337,7 +340,7 @@ jobs:
             # Get most recent changelog (split by 3 sequential new lines and print the second record except the first three lines)
             CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
             # Build notification message
-            MM_MESSAGE="##### :integreat: Integreat CMS version [${CIRCLE_TAG}](https://github.com/Integreat/integreat-cms/releases/tag/${CIRCLE_TAG}) has been released successfully :tada:\n\n###### **Release Notes:**\n\n${CHANGELOG}"
+            MM_MESSAGE="##### :integreat: Integreat CMS version [${CIRCLE_TAG}](https://github.com/digitalfabrik/integreat-cms/releases/tag/${CIRCLE_TAG}) has been released successfully :tada:\n\n###### **Release Notes:**\n\n${CHANGELOG}"
             # Send message to mattermost
             STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" -X POST -H 'Content-type: application/json' \
               --data \

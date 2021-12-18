@@ -29,17 +29,17 @@ class RoleView(TemplateView):
     base_context = {"current_menu_item": "roles"}
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render :class:`~integreat_cms.cms.forms.roles.role_form.RoleForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -59,17 +59,17 @@ class RoleView(TemplateView):
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Submit :class:`~integreat_cms.cms.forms.roles.role_form.RoleForm` and save :class:`~django.contrib.auth.models.Group` object
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

@@ -15,13 +15,15 @@
 	<td>
 		<div class="block py-3 px-2 text-gray-800">
 			<div class="lang-grid">
-				{% for other_language in languages %}
-				<a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_slug=other_language.slug %}">
-					{% with pnt=push_notification|translation:other_language %}
-					<i data-feather="{% if pnt %}edit-2{% else %}plus{% endif %}" class="text-gray-800"></i>
-					{% endwith %}
-				</a>
-				{% endfor %}
+				{% spaceless %}
+					{% for other_language in languages %}
+					<a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_slug=other_language.slug %}">
+						{% with pnt=push_notification|translation:other_language %}
+						<i data-feather="{% if pnt %}edit-2{% else %}plus{% endif %}" class="text-gray-800"></i>
+						{% endwith %}
+					</a>
+					{% endfor %}
+				{% endspaceless %}
 			</div>
 		</div>
 	</td>

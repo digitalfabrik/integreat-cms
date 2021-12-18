@@ -28,17 +28,17 @@ class RegionListView(TemplateView):
     base_context = {"current_menu_item": "regions"}
 
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render region list
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -55,7 +55,6 @@ class RegionListView(TemplateView):
             regions = regions.filter(pk__in=region_keys)
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
-        # for consistent pagination querysets should be ordered
         paginator = Paginator(regions, chunk_size)
         chunk = request.GET.get("page")
         region_chunk = paginator.get_page(chunk)
@@ -66,17 +65,17 @@ class RegionListView(TemplateView):
         )
 
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Apply the query and filter the rendered regions
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

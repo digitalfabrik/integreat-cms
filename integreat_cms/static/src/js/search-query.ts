@@ -62,9 +62,10 @@ async function queryObjects(
     }
 }
 
-let scheduledFunction: number | false = false;
+let scheduledFunction: number | null = null;
 
-function setSearchQueryEventListeners() {
+export function setSearchQueryEventListeners() {
+    console.debug("Setting search query event listeners");
     let table_search_input = document.getElementById("table-search-input") as HTMLInputElement;
 
     // AJAX search
@@ -73,11 +74,11 @@ function setSearchQueryEventListeners() {
             event.preventDefault();
 
             // Reschedule function execution on new input
-            if (scheduledFunction) {
-                clearTimeout(scheduledFunction);
+            if (scheduledFunction != null) {
+                window.clearTimeout(scheduledFunction);
             }
             // Schedule function execution
-            scheduledFunction = setTimeout(
+            scheduledFunction = window.setTimeout(
                 queryObjects,
                 300,
                 table_search_input.getAttribute("data-url"),
@@ -106,6 +107,6 @@ function setSearchQueryEventListeners() {
         // Fill in search field with selected suggestion
         table_search_input.value = (target as HTMLElement).textContent;
         // Submit the search
-        table_search_input.form.submit();
+        document.getElementById("search-submit-btn").click();
     })
 }

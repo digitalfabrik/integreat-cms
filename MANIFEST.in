@@ -1,0 +1,34 @@
+# Include all non-python files in the integreat_cms directory
+graft integreat_cms
+
+# Exclude the static source files since we only need the compiled files in integreat_cms/static/dist
+prune integreat_cms/static/src
+
+# Exclude media files
+prune integreat_cms/media
+
+# Exclude file-based cache
+prune integreat_cms/cache
+
+# Exclude xliff files
+prune integreat_cms/xliff/upload
+prune integreat_cms/xliff/download
+
+# Exclude development settings
+exclude integreat_cms/core/*_settings.py
+
+# Exclude test data
+exclude integreat_cms/cms/fixtures/test_*.json
+
+# Exclude byte code cache files
+global-exclude *.py[co]
+global-exclude __pycache__
+
+# Exclude existing log file
+exclude integreat_cms/integreat-cms.log
+
+# Exclude pyproject.toml
+exclude pyproject.toml
+
+# Exclude source of translation file
+exclude integreat_cms/locale/de/LC_MESSAGES/django.po

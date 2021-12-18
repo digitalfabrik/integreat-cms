@@ -13,11 +13,11 @@ class MediaContextMixin(ContextMixin):
     """
 
     def get_context_data(self, **kwargs):
-        """
+        r"""
         Overwrites the default :meth:`~django.views.generic.base.ContextMixin.get_context_data` Method of Django to provide an additional context for template rendering.
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The overwritten context.
         :rtype: dict
@@ -34,6 +34,7 @@ class MediaContextMixin(ContextMixin):
                 "heading_media_root": _("Home"),
                 "heading_directory_properties": _("Directory Properties"),
                 "heading_file_properties": _("File Properties"),
+                "heading_search_results": _("Search results for"),
                 "btn_upload": _("Upload"),
                 "btn_upload_file": _("Upload file"),
                 "btn_save_file": _("Save file"),
@@ -53,6 +54,7 @@ class MediaContextMixin(ContextMixin):
                 "btn_select": _("Select"),
                 "btn_select_file": _("Select file"),
                 "btn_replace_file": _("Replace file"),
+                "btn_search": _("Search"),
                 "label_file_name": _("File name:"),
                 "label_url": _("URL") + ":",
                 "label_directory_name": _("Directory name:"),
@@ -89,6 +91,14 @@ class MediaContextMixin(ContextMixin):
             "getDirectoryPath": reverse("mediacenter_directory_path", kwargs=kwargs),
             "getDirectoryContent": reverse(
                 "mediacenter_get_directory_content",
+                kwargs=kwargs,
+            ),
+            "getSearchResult": reverse(
+                "mediacenter_get_search_result",
+                kwargs=kwargs,
+            ),
+            "getSearchSuggestions": reverse(
+                "search_content_ajax",
                 kwargs=kwargs,
             ),
             "createDirectory": reverse("mediacenter_create_directory", kwargs=kwargs),

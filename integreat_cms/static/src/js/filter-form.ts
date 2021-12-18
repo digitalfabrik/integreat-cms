@@ -26,6 +26,16 @@ window.addEventListener("load", () => {
       }
     });
   }
+
+  // event handler to specify custom default-checked or default-not-checked attributes
+  document.querySelectorAll("input[data-default-checked-value]").forEach(node => {
+    const checkbox = node as HTMLInputElement;
+    if (checkbox.value == checkbox.getAttribute("data-default-checked-value")) {
+      checkbox.classList.add("default-checked");
+    } else {
+      checkbox.classList.add("default-not-checked");
+    }
+  });
 });
 
 function resetToDefaultValue(node: HTMLSelectElement | HTMLInputElement) {
@@ -33,12 +43,12 @@ function resetToDefaultValue(node: HTMLSelectElement | HTMLInputElement) {
     node instanceof HTMLInputElement &&
     node.getAttribute("type") === "checkbox"
   ) {
-    if (node.classList.contains("default-checked")) {
+    if (node.classList.contains("default-checked") && !node.checked) {
       // Checkbox marked to be checked by default
-      node.checked = true;
-    } else if (node.classList.contains("default-not-checked")) {
+      node.click();
+    } else if (node.classList.contains("default-not-checked") && node.checked) {
       // Checkbox marked to be unchecked by default
-      node.checked = false;
+      node.click();
     }
   } else if (node.classList.contains("default-value")) {
     // Non-checkbox input marked to have a default value

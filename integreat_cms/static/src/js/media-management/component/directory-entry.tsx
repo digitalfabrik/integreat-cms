@@ -10,7 +10,6 @@ interface Props {
   directory: Directory;
   onClick?: (event: MouseEvent) => void;
   mediaTranslations: any;
-  selectionMode?: boolean;
   globalEdit?: boolean;
 }
 
@@ -19,7 +18,6 @@ export default function DirectoryEntry({
   onClick,
   mediaTranslations,
   globalEdit,
-  selectionMode,
 }: Props) {
   return (
     <div
@@ -31,7 +29,7 @@ export default function DirectoryEntry({
       <span class="font-bold text-black text-center break-all leading-5 max-h-15 m-auto overflow-hidden">
         {directory.name}
       </span>
-      {!selectionMode && !globalEdit && directory.isGlobal && (
+      {!globalEdit && directory.isGlobal && (
         <span
           class="absolute bg-blue-500 text-white rounded-full m-2 p-2"
           title={mediaTranslations.text_dir_readonly}

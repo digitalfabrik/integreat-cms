@@ -40,8 +40,9 @@
         </datalist>
     </div>
 
+    {% trans 'deleted user' as deleted_user_text %}
     {% for imprint_translation in imprint_translations %}
-    <div class="w-full hidden revision-wrapper" id="revision-{{ imprint_translation.version }}" data-date="{{ imprint_translation.last_updated }}" data-editor="{{ imprint_translation.creator.full_user_name }}">
+    <div class="w-full hidden revision-wrapper" id="revision-{{ imprint_translation.version }}" data-date="{{ imprint_translation.last_updated }}" data-editor="{% firstof imprint_translation.creator deleted_user_text %}">
         <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
         {{ imprint_translation.get_status_display }}
         {% if imprint_translation == api_revision %}
@@ -51,13 +52,7 @@
         {% endif %}
         <span class="float-right">
             <label class="inline-block mb-2 font-bold">{% trans 'Author' %}:</label>
-            {% with imprint_translation.creator as editor %}
-                {% if editor.first_name or editor.last_name %}
-                    {{ editor.first_name }} {{ editor.last_name }}
-                {% else %}
-                    {{ editor.username }}
-                {% endif %}
-            {% endwith %}
+            {% firstof imprint_translation.creator deleted_user_text %}
         </span>
         <div class="revision-plain hidden">
             <label>{% trans 'Permalink' %}:</label>

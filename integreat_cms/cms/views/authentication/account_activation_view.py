@@ -29,14 +29,14 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
     token_generator = account_activation_token_generator
 
     def dispatch(self, *args, **kwargs):
-        """
+        r"""
         The view part of the view. Handles all HTTP methods equally.
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response or a redirection to the login page
         :rtype: ~django.template.response.TemplateResponse or ~django.http.HttpResponseRedirect

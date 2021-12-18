@@ -30,17 +30,17 @@ class RegionFeedbackListView(TemplateView):
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
-        """
+        r"""
         Render region feedback list
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -129,17 +129,17 @@ class RegionFeedbackListView(TemplateView):
         )
 
     def post(self, request, *args, **kwargs):
-        """
+        r"""
         Render feedback list with applied filters
 
         :param request: Object representing the user call
         :type request: ~django.http.HttpRequest
 
-        :param args: The supplied arguments
-        :type args: list
+        :param \*args: The supplied arguments
+        :type \*args: list
 
-        :param kwargs: The supplied keyword arguments
-        :type kwargs: dict
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

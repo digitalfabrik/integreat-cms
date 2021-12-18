@@ -44,8 +44,9 @@
         </datalist>
     </div>
 
+    {% trans 'deleted user' as deleted_user_text %}
     {% for page_translation in page_translations %}
-    <div class="w-full hidden revision-wrapper" id="revision-{{ page_translation.version }}" data-date="{{ page_translation.last_updated }}" data-editor="{{ page_translation.creator.full_user_name }}">
+    <div class="w-full hidden revision-wrapper" id="revision-{{ page_translation.version }}" data-date="{{ page_translation.last_updated }}" data-editor="{% firstof page_translation.creator deleted_user_text %}">
         <label class="inline-block">{% trans 'Status' %}:</label>
         {{ page_translation.get_status_display }}
         {% if page_translation == api_revision %}
@@ -55,13 +56,7 @@
         {% endif %}
         <span class="float-right">
             <label class="inline-block">{% trans 'Author' %}:</label>
-            {% with page_translation.creator as editor %}
-                {% if editor.first_name or editor.last_name %}
-                    {{ editor.first_name }} {{ editor.last_name }}
-                {% else %}
-                    {{ editor.username }}
-                {% endif %}
-            {% endwith %}
+            {% firstof page_translation.creator deleted_user_text %}
         </span>
         <div class="revision-plain hidden">
             <label>{% trans 'Permalink' %}:</label>

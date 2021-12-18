@@ -95,7 +95,7 @@ Not a git repository
 
     If you get this error on your CircleCI build, check the following:
 
-    * Is your GitHub user a member of the `Integreat/cms <https://github.com/orgs/Integreat/teams/cms>`__ team?
+    * Is your GitHub user a member of the `digitalfabrik <https://github.com/orgs/digitalfabrik/people>`__ organization?
     * Is your GitHub account connected with `CircleCI <https://circleci.com/vcs-authorize/>`__?
 
     See :ref:`circleci-unauthorized` for background information on this error.

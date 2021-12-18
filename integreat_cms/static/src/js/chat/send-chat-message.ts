@@ -55,7 +55,7 @@ async function sendChatMessage(event: Event) {
       // Trigger icon replacement
       feather.replace({ class: 'inline-block' });
 
-      refreshAjaxConfirmationHandlers(deleteChatMessage);
+      refreshAjaxConfirmationHandlers(".button-delete-chat-message", deleteChatMessage);
     } else {
       // Throw error which will then be caught later
       throw new Error(

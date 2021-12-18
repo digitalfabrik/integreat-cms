@@ -6,7 +6,7 @@ import { Save, Sliders, Folder, Edit3, Trash2, Lock } from "preact-feather";
 import { useEffect, useState } from "preact/hooks";
 import cn from "classnames";
 
-import { refreshAjaxConfirmationHandlers } from "../../confirmation-popups";
+import { showConfirmationPopupAjax } from "../../confirmation-popups";
 import { Directory, MediaApiPaths } from "../index";
 import { route } from "preact-router";
 
@@ -14,7 +14,6 @@ interface Props {
   directory: Directory;
   apiEndpoints: MediaApiPaths;
   mediaTranslations: any;
-  selectionMode?: boolean;
   globalEdit?: boolean;
   submitForm: (event: Event, successCallback?: (data: any) => void) => void;
   isLoading: boolean;
@@ -23,7 +22,6 @@ export default function EditDirectorySidebar({
   directory,
   apiEndpoints,
   mediaTranslations,
-  selectionMode,
   globalEdit,
   submitForm,
   isLoading,
@@ -32,8 +30,8 @@ export default function EditDirectorySidebar({
   const [changedDirectory, setChangedDirectory] = useState<Directory>(directory);
   // This state determines whether the directory name is currently being edited
   const [isDirectoryNameEditable, setDirectoryNameEditable] = useState<boolean>(false);
-  // Editing is allowed if the selection mode is disabled and either global edit is enabled or the directory is not global
-  const isEditingAllowed = !selectionMode && (globalEdit || !directory.isGlobal);
+  // Editing is allowed if either global edit is enabled or the directory is not global
+  const isEditingAllowed = globalEdit || !directory.isGlobal;
 
   useEffect(() => {
     console.debug("Opening sidebar for directory:", directory);
@@ -41,10 +39,6 @@ export default function EditDirectorySidebar({
     setChangedDirectory(directory);
     // Hide input field
     setDirectoryNameEditable(false);
-    // Set the function which should be executed when the deletion is confirmed
-    refreshAjaxConfirmationHandlers(() => {
-      document.getElementById("delete-directory").click();
-    });
   }, [directory]);
 
   {
@@ -111,45 +105,43 @@ export default function EditDirectorySidebar({
             <label class="secondary my-0">{mediaTranslations.label_directory_created}</label>
             <p>{directory.CreatedDate}</p>
           </div>
-          {!selectionMode && (
-            <div class="p-4">
-              {isEditingAllowed ? (
-                <div class="flex flex-col gap-4">
-                  {isDirectoryNameEditable && (
-                    <button
-                      title={mediaTranslations.btn_rename_directory}
-                      class="btn"
-                      type="submit"
-                      disabled={isLoading}
-                    >
-                      <Save class="mr-1 inline-block h-5" />
-                      {mediaTranslations.btn_rename_directory}
-                    </button>
-                  )}
+          <div class="p-4">
+            {isEditingAllowed ? (
+              <div class="flex flex-col gap-4">
+                {isDirectoryNameEditable && (
                   <button
-                    title={`${
-                      directory.numberOfEntries === 0
-                        ? mediaTranslations.btn_delete_directory
-                        : mediaTranslations.btn_delete_empty_directory
-                    }`}
-                    class="btn btn-red confirmation-button"
-                    data-confirmation-title={mediaTranslations.text_dir_delete_confirm}
-                    data-confirmation-subject={directory.name}
-                    data-ajax
-                    disabled={isLoading || directory.numberOfEntries !== 0}
+                    title={mediaTranslations.btn_rename_directory}
+                    class="btn"
+                    type="submit"
+                    disabled={isLoading}
                   >
-                    <Trash2 class="mr-2 inline-block h-5" />
-                    {mediaTranslations.btn_delete_directory}
+                    <Save class="mr-1 inline-block h-5" />
+                    {mediaTranslations.btn_rename_directory}
                   </button>
-                </div>
-              ) : (
-                <p class="italic">
-                  <Lock class="mr-1 inline-block h-5" />
-                  {mediaTranslations.text_dir_readonly}
-                </p>
-              )}
-            </div>
-          )}
+                )}
+                <button
+                  title={`${directory.numberOfEntries === 0
+                      ? mediaTranslations.btn_delete_directory
+                      : mediaTranslations.btn_delete_empty_directory
+                    }`}
+                  className={cn("btn", { "btn-red": !isLoading && directory.numberOfEntries === 0 })}
+                  data-confirmation-title={mediaTranslations.text_dir_delete_confirm}
+                  data-confirmation-subject={directory.name}
+                  disabled={isLoading || directory.numberOfEntries !== 0}
+                  onClick={(event) => showConfirmationPopupAjax(event)}
+                  onaction-confirmed={() => document.getElementById("delete-directory").click()}
+                >
+                  <Trash2 class="mr-2 inline-block h-5" />
+                  {mediaTranslations.btn_delete_directory}
+                </button>
+              </div>
+            ) : (
+              <p class="italic">
+                <Lock class="mr-1 inline-block h-5" />
+                {mediaTranslations.text_dir_readonly}
+              </p>
+            )}
+          </div>
         </form>
         {/* Hidden form for directory deletion (on success, redirect to parent directory) */}
         <form
