@@ -325,7 +325,8 @@ jobs:
           command: |
             PREV_TAG=$(git describe --abbrev=0 --tags "${CIRCLE_TAG}^") || true
             CHANGELOG+=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
-            echo "export PREV_TAG=${PREV_TAG}\nexport CHANGELOG=\"${CHANGELOG}\"" >> $BASH_ENV
+            echo "export PREV_TAG=\"${PREV_TAG}\"" >> $BASH_ENV
+            echo "export CHANGELOG=\"${CHANGELOG}\"" >> $BASH_ENV
       - run:
           name: Create release as Deliverino app
           command: pipenv run ./.circleci/scripts/create_release.py -p "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" ./dist/integreat-cms-*.tar.gz
