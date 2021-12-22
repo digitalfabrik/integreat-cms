@@ -503,6 +503,16 @@ EMAIL_HOST_USER = os.environ.get("INTEGREAT_CMS_EMAIL_HOST_USER", SERVER_EMAIL)
 #: (see :setting:`django:EMAIL_PORT`)
 EMAIL_PORT = int(os.environ.get("INTEGREAT_CMS_EMAIL_PORT", 587))
 
+#: Whether to use a TLS (secure) connection when talking to the SMTP server.
+#: This is used for explicit TLS connections, generally on port 587.
+#: (see :setting:`django:EMAIL_USE_TLS`)
+EMAIL_USE_TLS = bool(strtobool(os.environ.get("INTEGREAT_CMS_EMAIL_USE_TLS", "True")))
+
+#: Whether to use an implicit TLS (secure) connection when talking to the SMTP server.
+#: In most email documentation this type of TLS connection is referred to as SSL. It is generally used on port 465.
+#: (see :setting:`django:EMAIL_USE_SSL`)
+EMAIL_USE_SSL = bool(strtobool(os.environ.get("INTEGREAT_CMS_EMAIL_USE_SSL", "False")))
+
 
 ########################
 # INTERNATIONALIZATION #
