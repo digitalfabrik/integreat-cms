@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1162](https://github.com/digitalfabrik/integreat-cms/issues/1162) ] Allow management role to delete imprint
+
 
 2022.2.0-beta
 -------------
