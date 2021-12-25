@@ -4,11 +4,12 @@ from django.utils.functional import cached_property
 from django.utils.translation import get_language, ugettext_lazy as _
 
 from ...constants.push_notifications import PN_MODES
+from ..abstract_base_model import AbstractBaseModel
 from ..languages.language import Language
 from ..regions.region import Region
 
 
-class PushNotification(models.Model):
+class PushNotification(AbstractBaseModel):
     """
     Data model representing a push notification
     """
@@ -109,7 +110,7 @@ class PushNotification(models.Model):
         """
         return self.best_translation.title
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<PushNotification: PushNotification object (id)>``.
         It is used for logging.

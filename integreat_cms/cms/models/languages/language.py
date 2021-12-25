@@ -5,11 +5,12 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
+from ..abstract_base_model import AbstractBaseModel
 from ...constants import countries, text_directions
 from ...utils.translation_utils import ugettext_many_lazy as __
 
 
-class Language(models.Model):
+class Language(AbstractBaseModel):
     """
     Data model representing a content language.
     """
@@ -117,7 +118,7 @@ class Language(models.Model):
         """
         return self.translated_name
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Language: Language object (id)>``.
         It is used for logging.

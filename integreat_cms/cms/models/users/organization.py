@@ -2,10 +2,11 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from ..abstract_base_model import AbstractBaseModel
 from ..media.media_file import MediaFile
 
 
-class Organization(models.Model):
+class Organization(AbstractBaseModel):
     """
     Data model representing an organization
     """
@@ -47,7 +48,7 @@ class Organization(models.Model):
         """
         return self.name
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Organization: Organization object (id)>``.
         It is used for logging.

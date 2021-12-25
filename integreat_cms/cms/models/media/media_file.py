@@ -16,6 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 from ...constants import allowed_media
+from ..abstract_base_model import AbstractBaseModel
 from ..regions.region import Region
 from .directory import Directory
 
@@ -95,7 +96,7 @@ def upload_path_thumbnail(instance, filename):
     return path
 
 
-class MediaFile(models.Model):
+class MediaFile(AbstractBaseModel):
     """
     The MediaFile model is used to store basic information about files which are uploaded to the CMS. This is only a
     virtual document and does not necessarily exist on the actual file system. Each document is tied to a region via its
@@ -229,7 +230,7 @@ class MediaFile(models.Model):
         """
         return self.name
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<MediaFile: MediaFile object (id)>``.
         It is used for logging.

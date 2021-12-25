@@ -4,10 +4,11 @@ from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.translation import ugettext_lazy as _
 
+from ..abstract_base_model import AbstractBaseModel
 from ..regions.region import Region
 
 
-class Directory(models.Model):
+class Directory(AbstractBaseModel):
     """
     Model representing a directory containing documents. This is only a virtual directory and does not necessarily
     exist on the actual file system. Each directory is tied to a region.
@@ -81,7 +82,7 @@ class Directory(models.Model):
         """
         return self.name
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Directory: Directory object (id)>``.
         It is used for logging.

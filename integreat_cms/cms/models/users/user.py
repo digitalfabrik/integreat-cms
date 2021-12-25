@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractUser, UserManager
 
 from .organization import Organization
+from ..abstract_base_model import AbstractBaseModel
 from ..chat.chat_message import ChatMessage
 from ..regions.region import Region
 
@@ -41,7 +42,7 @@ class CustomUserManager(UserManager):
         )
 
 
-class User(AbstractUser):
+class User(AbstractUser, AbstractBaseModel):
     """
     A custom User model that replaces the default Django User model
     """
@@ -150,7 +151,7 @@ class User(AbstractUser):
         """
         return self.full_user_name
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<User: User object (id)>``.
         It is used for logging.
