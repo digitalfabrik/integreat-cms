@@ -663,6 +663,16 @@ CACHEOPS_DEGRADE_ON_FAILURE = True
 PER_PAGE = 16
 
 
+####################
+# DJANGO LINKCHECK #
+####################
+
+#: Disable linkcheck listeners e.g. when the fixtures are loaded
+LINKCHECK_DISABLE_LISTENERS = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS", "False"))
+)
+
+
 #############################
 # Push Notification Channel #
 #############################
