@@ -53,7 +53,7 @@ async function queryObjects(
                 "bg-gray-200",
                 "w-full",
                 "overflow-x-hidden",
-                "overflow-ellipsis",
+                "text-ellipsis",
                 "align-top"
             );
             child.innerText = value.title;
