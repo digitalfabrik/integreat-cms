@@ -6,13 +6,15 @@ import "tinymce/themes/silver";
 
 import "tinymce/plugins/fullscreen";
 import "tinymce/plugins/autosave";
-import "tinymce/plugins/link";
-import "tinymce/plugins/preview";
-import "tinymce/plugins/media";
-import "tinymce/plugins/image";
+import "tinymce/plugins/charmap";
 import "tinymce/plugins/code";
-import "tinymce/plugins/lists";
 import "tinymce/plugins/directionality";
+import "tinymce/plugins/hr"
+import "tinymce/plugins/image";
+import "tinymce/plugins/link";
+import "tinymce/plugins/lists";
+import "tinymce/plugins/media";
+import "tinymce/plugins/preview";
 import "tinymce/plugins/wordcount";
 import "tinymce-i18n/langs/de.js";
 
@@ -89,14 +91,14 @@ window.addEventListener("load", () => {
         },
         insert: {
           title: "Insert",
-          items: "openmediacenter add_link image media"
+          items: "openmediacenter add_link media | charmap hr"
         }
       },
       link_title: false,
       autosave_interval: "120s",
       forced_root_block: false,
       plugins:
-        "code fullscreen autosave preview media image lists directionality wordcount",
+        "code fullscreen autosave preview media image lists directionality wordcount hr charmap",
       external_plugins: {
         autolink_tel: tinymceConfig.getAttribute("data-custom-plugins"),
         mediacenter: tinymceConfig.getAttribute("data-custom-plugins"),
