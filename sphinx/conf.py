@@ -139,6 +139,7 @@ nitpick_ignore = [
     ("py:class", "django.utils.xmlutils.SimplerXMLGenerator"),
     ("py:class", "linkcheck.Linklist"),
     ("py:class", "linkcheck.models.Link"),
+    ("py:attr", "linkcheck.models.Link.+"),
     ("py:attr", "linkcheck.models.Link.event_translations"),
     ("py:attr", "linkcheck.models.Link.page_translations"),
     ("py:attr", "linkcheck.models.Link.poi_translations"),

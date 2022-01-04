@@ -24,16 +24,13 @@ def transform_page(page_translation):
     else:
         thumbnail = None
     if page_translation.page.parent:
+        parent_absolute_url = page_translation.page.parent.get_translation(
+            page_translation.language.slug
+        ).get_absolute_url()
         parent = {
             "id": page_translation.page.parent.id,
-            "url": page_translation.page.parent.get_translation(
-                page_translation.language.slug
-            ).backend_base_link,
-            "path": "/"
-            + page_translation.page.parent.get_translation(
-                page_translation.language.slug
-            ).permalink
-            + "/",
+            "url": settings.BASE_URL + parent_absolute_url,
+            "path": parent_absolute_url,
         }
     else:
         parent = {
@@ -41,10 +38,11 @@ def transform_page(page_translation):
             "url": None,
             "path": None,
         }
+    absolute_url = page_translation.get_absolute_url()
     return {
         "id": page_translation.id,
-        "url": page_translation.backend_base_link,
-        "path": "/" + page_translation.permalink + "/",
+        "url": settings.BASE_URL + absolute_url,
+        "path": absolute_url,
         "title": page_translation.title,
         "modified_gmt": page_translation.combined_last_updated,
         "excerpt": page_translation.text,

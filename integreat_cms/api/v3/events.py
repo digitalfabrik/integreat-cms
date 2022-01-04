@@ -55,7 +55,7 @@ def transform_event_translation(event_translation):
 
     return {
         "id": event_translation.id,
-        "url": settings.WEBAPP_URL + event_translation.get_absolute_url(),
+        "url": settings.BASE_URL + event_translation.get_absolute_url(),
         "path": event_translation.get_absolute_url(),
         "title": event_translation.title,
         "modified_gmt": event_translation.last_updated.strftime("%Y-%m-%d %H:%M:%S"),
@@ -97,8 +97,8 @@ def transform_event_recurrences(event_translation, today):
     event_data = transform_event_translation(event_translation)
     event_length = event_translation.event.end_date - event_translation.event.start_date
 
-    url_base = event_data["url"][: event_data["url"].rfind("/")] + "/"
-    path_base = event_data["path"][: event_data["path"].rfind("/")] + "/"
+    url_base = event_data["url"][: event_data["url"].rstrip("/").rfind("/")]
+    path_base = event_data["path"][: event_data["path"].rstrip("/").rfind("/")]
 
     start_date = event_translation.event.start_date
     for recurrence_date in recurrence_rule.iter_after(start_date):
@@ -123,8 +123,8 @@ def transform_event_recurrences(event_translation, today):
         event_data_copy = {**event_data}
         event_data_copy["event"] = {**event_data_copy["event"]}
         event_data_copy["id"] = None
-        event_data_copy["url"] = url_base + unique_path
-        event_data_copy["path"] = path_base + unique_path
+        event_data_copy["url"] = f"{url_base}/{unique_path}/"
+        event_data_copy["path"] = f"{path_base}/{unique_path}/"
         event_data_copy["event"]["id"] = None
         event_data_copy["event"]["start_date"] = recurrence_date
         event_data_copy["event"]["end_date"] = recurrence_date + event_length

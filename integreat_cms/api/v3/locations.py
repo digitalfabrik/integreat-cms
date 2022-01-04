@@ -48,7 +48,7 @@ def transform_poi_translation(poi_translation):
     poi = poi_translation.poi
     return {
         "id": poi_translation.id,
-        "url": settings.WEBAPP_URL + poi_translation.get_absolute_url(),
+        "url": settings.BASE_URL + poi_translation.get_absolute_url(),
         "path": poi_translation.get_absolute_url(),
         "title": poi_translation.title,
         "modified_gmt": poi_translation.last_updated.strftime("%Y-%m-%d %H:%M:%S"),

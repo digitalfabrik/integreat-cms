@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from .abstract_base_page_translation import AbstractBasePageTranslation
 from .imprint_page import ImprintPage
-from ..languages.language import Language
 
 
 logger = logging.getLogger(__name__)
@@ -24,61 +23,38 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         related_name="translations",
         verbose_name=_("imprint"),
     )
-    language = models.ForeignKey(
-        Language,
-        on_delete=models.CASCADE,
-        related_name="imprint_translations",
-        verbose_name=_("language"),
-    )
-    title = models.CharField(
-        max_length=1024,
-        verbose_name=_("title of the imprint"),
-    )
     text = models.TextField(
         blank=True,
         verbose_name=_("content of the imprint"),
     )
-    creator = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="imprint_translations",
-        verbose_name=_("creator"),
-    )
 
     @property
-    def permalink(self):
+    def url_infix(self):
         """
-        This property calculates the permalink dynamically
+        Generates the infix of the url of the imprint translation object
 
-        :return: The permalink of the imprint
+        For information about the components of such an url,
+        see :meth:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.get_absolute_url`
+
+        :return: The infix of the url
         :rtype: str
         """
-        return "/".join(
-            filter(
-                None,
-                [self.page.region.slug, self.language.slug, settings.IMPRINT_SLUG],
-            )
-        )
+        return ""
 
     @property
-    def base_link(self):
+    def backend_edit_link(self):
         """
-        This property calculates the absolute imprint link without the slug dynamically
+        This function returns the absolute url to the editor for this translation
 
-        :return: The base link of the page
+        :return: The url
         :rtype: str
         """
-        return (
-            "/".join(
-                [
-                    settings.WEBAPP_URL,
-                    self.page.region.slug,
-                    self.language.slug,
-                ]
-            )
-            + "/"
+        return reverse(
+            "edit_imprint",
+            kwargs={
+                "language_slug": self.language.slug,
+                "region_slug": self.page.region.slug,
+            },
         )
 
     @property
@@ -109,7 +85,9 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         verbose_name = _("imprint translation")
         #: The plural verbose name of the model
         verbose_name_plural = _("imprint translations")
-        #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["page", "-version"]
+        #: The name that will be used by default for the relation from a related object back to this one
+        default_related_name = "imprint_translations"
         #: The default permissions for this model
         default_permissions = ()
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["page", "-version"]

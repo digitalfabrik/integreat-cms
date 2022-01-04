@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-10 14:49+0000\n"
+"POT-Creation-Date: 2022-01-13 19:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1298,8 +1298,7 @@ msgid "Hidden"
 msgstr "Versteckt"
 
 #: cms/constants/region_status.py:18 cms/models/pages/page.py:270
-#: cms/models/pages/page_translation.py:377 cms/models/regions/region.py:450
-#: cms/templates/pages/page_form.html:170
+#: cms/models/regions/region.py:450 cms/templates/pages/page_form.html:170
 #: cms/templates/pages/page_tree_archived_node.html:67
 msgid "Archived"
 msgstr "Archiviert"
@@ -1818,11 +1817,89 @@ msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
 msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
+#: cms/models/abstract_content_translation.py:19
+#: cms/models/push_notifications/push_notification_translation.py:16
+msgid "title"
+msgstr "Titel"
+
+#: cms/models/abstract_content_translation.py:23
+#: cms/models/regions/region.py:75
+msgid "URL parameter"
+msgstr "URL-Parameter"
+
+#: cms/models/abstract_content_translation.py:25
+#: cms/models/offers/offer_template.py:22
+msgid "String identifier without spaces and special characters."
+msgstr "Bezeichner ohne Leerzeichen und Sonderzeichen."
+
+#: cms/models/abstract_content_translation.py:26
+#: cms/models/offers/offer_template.py:23
+msgid "Unique per region and language."
+msgstr "Eindeutig pro Region und Sprache."
+
+#: cms/models/abstract_content_translation.py:27
+msgid "Leave blank to generate unique parameter from title."
+msgstr ""
+"Dieses Feld freilassen, um einen eindeutigen Alias aus dem Titel zu "
+"generieren."
+
+#: cms/models/abstract_content_translation.py:35
+#: cms/models/regions/region.py:86
+msgid "status"
+msgstr "Status"
+
+#: cms/models/abstract_content_translation.py:40
+#: cms/models/feedback/feedback.py:28 cms/models/languages/language.py:149
+#: cms/models/languages/language_tree_node.py:23
+#: cms/models/push_notifications/push_notification_translation.py:27
+msgid "language"
+msgstr "Sprache"
+
+#: cms/models/abstract_content_translation.py:44
+msgid "currently in translation"
+msgstr "wird derzeit übersetzt"
+
+#: cms/models/abstract_content_translation.py:46
+msgid ""
+"Flag to indicate a translation is being updated by an external translator"
+msgstr ""
+"Feld, die anzeigt, dass eine Übersetzung von einem externen Übersetzer "
+"aktualisiert wird"
+
+#: cms/models/abstract_content_translation.py:49
+msgid "revision"
+msgstr "Revision"
+
+#: cms/models/abstract_content_translation.py:52
+msgid "minor edit"
+msgstr "geringfügige Änderung"
+
+#: cms/models/abstract_content_translation.py:54
+msgid ""
+"Tick if this change does not require an update of translations in other "
+"languages."
+msgstr ""
+"Kreuzen Sie an, wenn diese Änderung keine Aktualisierung der Übersetzungen "
+"in anderen Sprachen erfordert."
+
+#: cms/models/abstract_content_translation.py:59
+#: cms/models/languages/language.py:87
+#: cms/models/languages/language_tree_node.py:55
+#: cms/models/offers/offer_template.py:59
+#: cms/models/push_notifications/push_notification_translation.py:37
+#: cms/models/regions/region.py:140 cms/models/users/organization.py:37
+msgid "modification date"
+msgstr "Änderungsdatum"
+
+#: cms/models/abstract_content_translation.py:66
+msgid "creator"
+msgstr "Ersteller"
+
 #: cms/models/chat/chat_message.py:40
 msgid "sender"
 msgstr "Absender"
 
-#: cms/models/chat/chat_message.py:42 cms/models/pois/poi_translation.py:48
+#: cms/models/chat/chat_message.py:42 cms/models/pois/poi_translation.py:23
 #: cms/models/push_notifications/push_notification_translation.py:21
 msgid "content"
 msgstr "Inhalt"
@@ -1851,7 +1928,7 @@ msgid "region"
 msgstr "Region"
 
 #: cms/models/events/event.py:89 cms/models/pois/poi.py:147
-#: cms/models/pois/poi_translation.py:36
+#: cms/models/pois/poi_translation.py:18
 msgid "location"
 msgstr "Ort"
 
@@ -1888,7 +1965,7 @@ msgstr "archiviert"
 msgid "copy"
 msgstr "Kopie"
 
-#: cms/models/events/event.py:366 cms/models/events/event_translation.py:25
+#: cms/models/events/event.py:366 cms/models/events/event_translation.py:18
 msgid "event"
 msgstr "Veranstaltung"
 
@@ -1896,118 +1973,16 @@ msgstr "Veranstaltung"
 msgid "events"
 msgstr "Veranstaltungen"
 
-#: cms/models/events/event_translation.py:30
-#: cms/models/pois/poi_translation.py:25 cms/models/regions/region.py:75
-msgid "URL parameter"
-msgstr "URL-Parameter"
-
-#: cms/models/events/event_translation.py:32
-#: cms/models/offers/offer_template.py:22
-#: cms/models/pages/page_translation.py:38
-#: cms/models/pois/poi_translation.py:27
-msgid "String identifier without spaces and special characters."
-msgstr "Bezeichner ohne Leerzeichen und Sonderzeichen."
-
-#: cms/models/events/event_translation.py:33
-#: cms/models/offers/offer_template.py:23
-#: cms/models/pages/page_translation.py:39
-#: cms/models/pois/poi_translation.py:28
-msgid "Unique per region and language."
-msgstr "Eindeutig pro Region und Sprache."
-
-#: cms/models/events/event_translation.py:34
-#: cms/models/pages/page_translation.py:40
-#: cms/models/pois/poi_translation.py:29
-msgid "Leave blank to generate unique parameter from title."
-msgstr ""
-"Dieses Feld freilassen, um einen eindeutigen Alias aus dem Titel zu "
-"generieren."
-
-#: cms/models/events/event_translation.py:42
-#: cms/models/pages/abstract_base_page_translation.py:18
-#: cms/models/pois/poi_translation.py:43 cms/models/regions/region.py:86
-msgid "status"
-msgstr "Status"
-
-#: cms/models/events/event_translation.py:44
-#: cms/models/pois/poi_translation.py:21
-#: cms/models/push_notifications/push_notification_translation.py:16
-msgid "title"
-msgstr "Titel"
-
-#: cms/models/events/event_translation.py:45 cms/models/media/media_file.py:138
+#: cms/models/events/event_translation.py:20 cms/models/media/media_file.py:138
 msgid "description"
 msgstr "Beschreibung"
 
-#: cms/models/events/event_translation.py:50 cms/models/feedback/feedback.py:28
-#: cms/models/languages/language.py:149
-#: cms/models/languages/language_tree_node.py:23
-#: cms/models/pages/imprint_page_translation.py:31
-#: cms/models/pages/page_translation.py:53
-#: cms/models/pois/poi_translation.py:53
-#: cms/models/push_notifications/push_notification_translation.py:27
-msgid "language"
-msgstr "Sprache"
-
-#: cms/models/events/event_translation.py:54
-#: cms/models/pages/abstract_base_page_translation.py:22
-#: cms/models/pois/poi_translation.py:57
-msgid "currently in translation"
-msgstr "wird derzeit übersetzt"
-
-#: cms/models/events/event_translation.py:56
-#: cms/models/pages/abstract_base_page_translation.py:24
-#: cms/models/pois/poi_translation.py:59
-msgid ""
-"Flag to indicate a translation is being updated by an external translator"
-msgstr ""
-"Feld, die anzeigt, dass eine Übersetzung von einem externen Übersetzer "
-"aktualisiert wird"
-
-#: cms/models/events/event_translation.py:59
-#: cms/models/pois/poi_translation.py:62
-msgid "revision"
-msgstr "Revision"
-
-#: cms/models/events/event_translation.py:62
-#: cms/models/pages/abstract_base_page_translation.py:30
-#: cms/models/pois/poi_translation.py:65
-msgid "minor edit"
-msgstr "geringfügige Änderung"
-
-#: cms/models/events/event_translation.py:64
-#: cms/models/pages/abstract_base_page_translation.py:32
-msgid ""
-"Tick if this change does not require an update of translations in other "
-"languages"
-msgstr ""
-"Kreuzen Sie an, wenn diese Änderung keine Aktualisierung der Übersetzungen "
-"in anderen Sprachen erfordert"
-
-#: cms/models/events/event_translation.py:73
-#: cms/models/pages/imprint_page_translation.py:47
-#: cms/models/pages/page_translation.py:65
-#: cms/models/pois/poi_translation.py:80
-msgid "creator"
-msgstr "Ersteller"
-
-#: cms/models/events/event_translation.py:77
-#: cms/models/languages/language.py:87
-#: cms/models/languages/language_tree_node.py:55
-#: cms/models/offers/offer_template.py:59
-#: cms/models/pages/abstract_base_page_translation.py:37
-#: cms/models/pois/poi_translation.py:72
-#: cms/models/push_notifications/push_notification_translation.py:37
-#: cms/models/regions/region.py:140 cms/models/users/organization.py:37
-msgid "modification date"
-msgstr "Änderungsdatum"
-
-#: cms/models/events/event_translation.py:365
+#: cms/models/events/event_translation.py:76
 #: cms/models/feedback/event_feedback.py:18
 msgid "event translation"
 msgstr "Veranstaltungs-Übersetzung"
 
-#: cms/models/events/event_translation.py:367
+#: cms/models/events/event_translation.py:78
 msgid "event translations"
 msgstr "Veranstaltungs-Übersetzungen"
 
@@ -2180,8 +2155,8 @@ msgid "offer list feedback"
 msgstr "Angebotslisten-Feedback"
 
 #: cms/models/feedback/page_feedback.py:18
-#: cms/models/pages/abstract_base_page_translation.py:362
-#: cms/models/pages/page_translation.py:383
+#: cms/models/pages/abstract_base_page_translation.py:89
+#: cms/models/pages/page_translation.py:242
 msgid "page translation"
 msgstr "Seiten-Übersetzung"
 
@@ -2190,8 +2165,7 @@ msgstr "Seiten-Übersetzung"
 msgid "page feedback"
 msgstr "Seiten-Feedback"
 
-#: cms/models/feedback/poi_feedback.py:18
-#: cms/models/pois/poi_translation.py:363
+#: cms/models/feedback/poi_feedback.py:18 cms/models/pois/poi_translation.py:78
 msgid "location translation"
 msgstr "Orts-Übersetzung"
 
@@ -2451,7 +2425,7 @@ msgid "Whether or not the page is explicitly archived"
 msgstr "Ob die Seite explizit archiviert ist oder nicht"
 
 #: cms/models/pages/abstract_base_page.py:139 cms/models/pages/page.py:276
-#: cms/models/pages/page_translation.py:47
+#: cms/models/pages/page_translation.py:24
 msgid "page"
 msgstr "Seite"
 
@@ -2459,11 +2433,7 @@ msgstr "Seite"
 msgid "pages"
 msgstr "Seiten"
 
-#: cms/models/pages/abstract_base_page_translation.py:27
-msgid "version"
-msgstr "Version"
-
-#: cms/models/pages/abstract_base_page_translation.py:332
+#: cms/models/pages/abstract_base_page_translation.py:81
 #: cms/templates/events/event_form.html:25
 #: cms/templates/events/event_list.html:46
 #: cms/templates/events/event_list.html:50
@@ -2480,17 +2450,17 @@ msgstr "Version"
 msgid "Title in"
 msgstr "Titel auf"
 
-#: cms/models/pages/abstract_base_page_translation.py:335
+#: cms/models/pages/abstract_base_page_translation.py:84
 msgid "with the title in"
 msgstr "mit dem Titel auf"
 
-#: cms/models/pages/abstract_base_page_translation.py:364
-#: cms/models/pages/page_translation.py:385
+#: cms/models/pages/abstract_base_page_translation.py:91
+#: cms/models/pages/page_translation.py:244
 msgid "page translations"
 msgstr "Seiten-Übersetzungen"
 
 #: cms/models/pages/imprint_page.py:27
-#: cms/models/pages/imprint_page_translation.py:25
+#: cms/models/pages/imprint_page_translation.py:24
 msgid "imprint"
 msgstr "Impressum"
 
@@ -2498,19 +2468,15 @@ msgstr "Impressum"
 msgid "imprints"
 msgstr "Impressen"
 
-#: cms/models/pages/imprint_page_translation.py:35
-msgid "title of the imprint"
-msgstr "Titel des Impressums"
-
-#: cms/models/pages/imprint_page_translation.py:39
+#: cms/models/pages/imprint_page_translation.py:28
 msgid "content of the imprint"
 msgstr "Inhalt des Impressums"
 
-#: cms/models/pages/imprint_page_translation.py:109
+#: cms/models/pages/imprint_page_translation.py:85
 msgid "imprint translation"
 msgstr "Impressums-Übersetzung"
 
-#: cms/models/pages/imprint_page_translation.py:111
+#: cms/models/pages/imprint_page_translation.py:87
 msgid "imprint translations"
 msgstr "Impressums-Übersetzungen"
 
@@ -2588,23 +2554,15 @@ msgstr ""
 "Dies erlaubt allen Mitgliedern der Organisation diese Seite zu bearbeiten "
 "und veröffentlichen"
 
-#: cms/models/pages/page_translation.py:31
-msgid "title of the page"
-msgstr "Titel der Seite"
-
-#: cms/models/pages/page_translation.py:36
-msgid "Page link"
-msgstr "Seitenlink"
-
-#: cms/models/pages/page_translation.py:57
+#: cms/models/pages/page_translation.py:28
 msgid "content of the page"
 msgstr "Inhalt der Seite"
 
-#: cms/models/pages/page_translation.py:237
+#: cms/models/pages/page_translation.py:145
 msgid "Live content"
 msgstr "Live-Inhalt"
 
-#: cms/models/pages/page_translation.py:240
+#: cms/models/pages/page_translation.py:148
 msgid "Empty"
 msgstr "Leer"
 
@@ -2657,19 +2615,11 @@ msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 msgid "locations"
 msgstr "Orte"
 
-#: cms/models/pois/poi_translation.py:46
+#: cms/models/pois/poi_translation.py:21
 msgid "short description"
 msgstr "Kurzbeschreibung"
 
-#: cms/models/pois/poi_translation.py:67
-msgid ""
-"Tick if this change does not require an update of translations in other "
-"languages."
-msgstr ""
-"Kreuzen Sie an, wenn diese Änderung keine Aktualisierung der Übersetzungen "
-"in anderen Sprachen erfordert."
-
-#: cms/models/pois/poi_translation.py:365
+#: cms/models/pois/poi_translation.py:80
 msgid "location translations"
 msgstr "Orts-Übersetzungen"
 
@@ -6457,6 +6407,12 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "translation"
+#~ msgstr "Übersetzung"
+
+#~ msgid "translations"
+#~ msgstr "Übersetzungen"
+
 #~ msgid "All locations"
 #~ msgstr "Alle Orte"
 
@@ -6483,6 +6439,25 @@ msgstr ""
 
 #~ msgid "Page tree"
 #~ msgstr "Seitenbaum"
+
+#~ msgid ""
+#~ "Tick if this change does not require an update of translations in other "
+#~ "languages"
+#~ msgstr ""
+#~ "Kreuzen Sie an, wenn diese Änderung keine Aktualisierung der "
+#~ "Übersetzungen in anderen Sprachen erfordert"
+
+#~ msgid "version"
+#~ msgstr "Version"
+
+#~ msgid "title of the imprint"
+#~ msgstr "Titel des Impressums"
+
+#~ msgid "title of the page"
+#~ msgstr "Titel der Seite"
+
+#~ msgid "Page link"
+#~ msgstr "Seitenlink"
 
 #~ msgid "Missing"
 #~ msgstr "Fehlt"

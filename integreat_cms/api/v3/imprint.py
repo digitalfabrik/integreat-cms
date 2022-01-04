@@ -24,7 +24,7 @@ def transform_imprint(imprint_translation):
         thumbnail = None
     return {
         "id": imprint_translation.id,
-        "url": imprint_translation.permalink,
+        "url": imprint_translation.get_absolute_url(),
         "title": imprint_translation.title,
         "modified_gmt": imprint_translation.last_updated,
         "excerpt": imprint_translation.text,
