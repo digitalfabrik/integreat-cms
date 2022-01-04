@@ -63,7 +63,23 @@ class AbstractBasePage(models.Model):
                  if no translation exists
         :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
-        return self.translations.filter(language__slug=language_slug).first()
+        try:
+            # Try to get the prefetched translations (which are already distinct per language)
+            return next(
+                (
+                    x
+                    for x in self.prefetched_translations
+                    if x.language.slug == language_slug
+                ),
+                None,
+            )
+        except AttributeError:
+            # If the translations were not prefetched, query it from the database
+            return (
+                self.translations.filter(language__slug=language_slug)
+                .select_related("language")
+                .first()
+            )
 
     def get_public_translation(self, language_slug):
         """
@@ -75,10 +91,25 @@ class AbstractBasePage(models.Model):
         :return: The public translation of a page
         :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
-        return self.translations.filter(
-            language__slug=language_slug,
-            status=status.PUBLIC,
-        ).first()
+        try:
+            # Try to get the prefetched translations (which are already distinct per language)
+            return next(
+                (
+                    x
+                    for x in self.prefetched_translations
+                    if x.language.slug == language_slug and x.status == status.PUBLIC
+                )
+            )
+        except (AttributeError, StopIteration):
+            # If the translations were not prefetched or the latest version was not public, query it from the database
+            return (
+                self.translations.filter(
+                    language__slug=language_slug,
+                    status=status.PUBLIC,
+                )
+                .select_related("language")
+                .first()
+            )
 
     @property
     def backend_translation(self):
@@ -88,7 +119,7 @@ class AbstractBasePage(models.Model):
         :return: The backend translation of a page
         :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
-        return self.translations.filter(language__slug=get_language()).first()
+        return self.get_translation(get_language())
 
     @property
     def default_translation(self):
@@ -100,7 +131,7 @@ class AbstractBasePage(models.Model):
         :return: The default translation of a page
         :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
-        return self.translations.filter(language=self.region.default_language).first()
+        return self.get_translation(self.region.default_language.slug)
 
     @property
     def best_translation(self):

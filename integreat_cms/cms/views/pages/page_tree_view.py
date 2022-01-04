@@ -3,6 +3,7 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import models
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -96,7 +97,17 @@ class PageTreeView(TemplateView, PageContextMixin):
             )
         context = self.get_context_data(**kwargs)
 
-        pages = region.get_pages(archived=self.archived)
+        pages = region.get_pages(
+            archived=self.archived, return_unrestricted_queryset=True
+        ).prefetch_related(
+            models.Prefetch(
+                "translations",
+                queryset=PageTranslation.objects.order_by("language__id", "-version")
+                .distinct("language")
+                .select_related("language"),
+                to_attr="prefetched_translations",
+            )
+        )
         enable_drag_and_drop = True
         query = None
         # Filter pages according to given filters, if any
