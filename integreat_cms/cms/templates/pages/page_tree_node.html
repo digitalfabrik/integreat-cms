@@ -29,7 +29,7 @@
         {% endif %}
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
@@ -41,7 +41,7 @@
     {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 pl-2 text-gray-800">
+            <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page.backend_translation %} {{ page.backend_translation.title }} {% endif %}">
                 <div class="translation-title">
                     {% if page.backend_translation %}
                         {{ page.backend_translation.title }}
@@ -53,14 +53,14 @@
         </td>
     {% endif %}
     <td class="whitespace-nowrap">
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
+        <div class="block py-3 px-2 text-gray-800">
             {% for tag in page_translation.tags %}
                 <span class="bg-orange-400 text-white rounded px-2 py-1">{{ tag }}</span>
             {% endfor %}
-        </a>
+        </div>
     </td>
     <td class="whitespace-nowrap">
-        <div class="block py-3 pl-2 text-gray-800">
+        <div class="block py-3 px-2 text-gray-800">
             <div class="lang-grid">
                 {% spaceless %}
                     {% for other_language in languages %}
@@ -100,14 +100,14 @@
         </div>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
+        <div class="block py-3 px-2 text-gray-800">
             {{ page_translation.get_status_display }}
-        </a>
+        </div>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
+        <div class="block py-3 px-2 whitespace-nowrap text-gray-800">
             {{ page_translation.last_updated|date:"d.m.Y, H:i" }}
-        </a>
+        </div>
     </td>
     <td class="pl-2 pr-4 py-3 text-right flex flex-nowrap gap-2">
         <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}"

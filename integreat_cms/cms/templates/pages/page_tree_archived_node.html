@@ -8,18 +8,7 @@
         </span>
     </td>
     <td>
-        {% if page.explicitly_archived %}
-            <a  title="{% trans 'This page is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
-                {% trans 'Archived' %}
-            </a>
-        {% else %}
-            <a  title="{% trans 'This page is archived, because at least one of its parent pages is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
-                {% trans 'Archived, because a parent page is archived' %}
-            </a>
-        {% endif %}
-    </td>
-    <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
@@ -31,7 +20,7 @@
     {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 pl-2 text-gray-800">
+            <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page.backend_translation %} {{ page.backend_translation.title }} {% endif %}">
                 {% if page.backend_translation %}
                     {{ page.backend_translation.title }}
                 {% else %}
@@ -71,6 +60,17 @@
                 {% endspaceless %}
             </div>
         </div>
+    </td>
+    <td>
+        {% if page.explicitly_archived %}
+            <div  title="{% trans 'This page is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
+                {% trans 'Archived' %}
+            </div>
+        {% else %}
+            <div  title="{% trans 'This page is archived, because at least one of its parent pages is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
+                {% trans 'Archived, because a parent page is archived' %}
+            </div>
+        {% endif %}
     </td>
     <td class="pl-2 pr-4 py-3 flex flex-nowrap justify-end gap-2">
         <!-- TODO: add link to view page in web app -->

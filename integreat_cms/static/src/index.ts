@@ -63,6 +63,8 @@ import "./js/forms/icon-field.tsx";
 
 import "./js/pagination/pagination.ts";
 
+import "./js/tutorial-overlay.ts";
+
 window.addEventListener('load',() => {
     feather.replace({ class: 'inline-block' });
 })

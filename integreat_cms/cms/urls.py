@@ -351,6 +351,11 @@ urlpatterns = [
                         ]
                     ),
                 ),
+                url(
+                    r"^dismiss_tutorial/$",
+                    settings.DismissTutorial.as_view(),
+                    name="dismiss_tutorial",
+                ),
             ]
         ),
     ),

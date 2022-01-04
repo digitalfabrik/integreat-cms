@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-05 10:36+0000\n"
+"POT-Creation-Date: 2022-01-05 21:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1300,7 +1300,7 @@ msgstr "Versteckt"
 #: cms/constants/region_status.py:18 cms/models/pages/page.py:270
 #: cms/models/pages/page_translation.py:377 cms/models/regions/region.py:456
 #: cms/templates/pages/page_form.html:153
-#: cms/templates/pages/page_tree_archived_node.html:13
+#: cms/templates/pages/page_tree_archived_node.html:67
 msgid "Archived"
 msgstr "Archiviert"
 
@@ -1368,7 +1368,7 @@ msgstr "Rechts nach Links"
 #: cms/templates/pages/page_form.html:76 cms/templates/pages/page_form.html:98
 #: cms/templates/pages/page_form.html:117 cms/templates/pages/page_sbs.html:54
 #: cms/templates/pages/page_sbs.html:104
-#: cms/templates/pages/page_tree_archived_node.html:60
+#: cms/templates/pages/page_tree_archived_node.html:49
 #: cms/templates/pages/page_tree_node.html:81
 #: cms/templates/pois/poi_form.html:59 cms/templates/pois/poi_form.html:88
 #: cms/templates/pois/poi_list_row.html:41
@@ -1386,7 +1386,7 @@ msgstr "Übersetzung ist aktuell"
 #: cms/templates/imprint/imprint_sbs.html:93
 #: cms/templates/pages/page_form.html:72 cms/templates/pages/page_form.html:113
 #: cms/templates/pages/page_sbs.html:50 cms/templates/pages/page_sbs.html:100
-#: cms/templates/pages/page_tree_archived_node.html:52
+#: cms/templates/pages/page_tree_archived_node.html:41
 #: cms/templates/pages/page_tree_node.html:73
 #: cms/templates/pages/page_tree_node.html:92
 #: cms/templates/pois/poi_form.html:55 cms/templates/pois/poi_form.html:84
@@ -1406,7 +1406,7 @@ msgstr "Wird derzeit übersetzt"
 #: cms/templates/pages/page_form.html:68 cms/templates/pages/page_form.html:94
 #: cms/templates/pages/page_form.html:109 cms/templates/pages/page_sbs.html:46
 #: cms/templates/pages/page_sbs.html:96
-#: cms/templates/pages/page_tree_archived_node.html:56
+#: cms/templates/pages/page_tree_archived_node.html:45
 #: cms/templates/pages/page_tree_node.html:77
 #: cms/templates/pois/poi_form.html:51 cms/templates/pois/poi_form.html:80
 #: cms/templates/pois/poi_list_row.html:37
@@ -1421,7 +1421,7 @@ msgstr "Übersetzung ist veraltet"
 #: cms/templates/imprint/imprint_form.html:60
 #: cms/templates/imprint/imprint_form.html:89
 #: cms/templates/pages/page_form.html:81 cms/templates/pages/page_form.html:122
-#: cms/templates/pages/page_tree_archived_node.html:65
+#: cms/templates/pages/page_tree_archived_node.html:54
 #: cms/templates/pages/page_tree_node.html:86
 #: cms/templates/pois/poi_form.html:64 cms/templates/pois/poi_form.html:93
 #: cms/templates/pois/poi_list_row.html:46
@@ -1603,8 +1603,8 @@ msgstr "Kategorie"
 #: cms/templates/pages/page_form.html:151
 #: cms/templates/pages/page_revisions.html:50
 #: cms/templates/pages/page_sbs.html:66 cms/templates/pages/page_sbs.html:123
-#: cms/templates/pages/page_sbs.html:128 cms/templates/pages/page_tree.html:79
-#: cms/templates/pages/page_tree_archived.html:36
+#: cms/templates/pages/page_sbs.html:128 cms/templates/pages/page_tree.html:80
+#: cms/templates/pages/page_tree_archived.html:54
 #: cms/templates/pois/poi_form.html:110 cms/templates/pois/poi_list.html:53
 #: cms/templates/pois/poi_list_archived.html:23
 #: cms/templates/regions/region_list.html:24
@@ -2465,8 +2465,8 @@ msgstr "Version"
 #: cms/templates/events/event_list.html:50
 #: cms/templates/events/event_list_archived.html:29
 #: cms/templates/events/event_list_archived.html:33
-#: cms/templates/pages/page_form.html:27 cms/templates/pages/page_tree.html:61
-#: cms/templates/pages/page_tree.html:65
+#: cms/templates/pages/page_form.html:27 cms/templates/pages/page_tree.html:62
+#: cms/templates/pages/page_tree.html:66
 #: cms/templates/pages/page_tree_archived.html:37
 #: cms/templates/pages/page_tree_archived.html:41
 #: cms/templates/pois/poi_form.html:27 cms/templates/pois/poi_list.html:38
@@ -2946,15 +2946,25 @@ msgid ""
 "and recurring events"
 msgstr ""
 "Aktiviert den Expertenmodus und ermöglicht zusätzliche Features wie XLIFF-"
-"Dateien zu importieren/exportieren, Seitenfilterung, Live-Inhalte, "
-"seitenbasierte Berechtigungen, Nicht-Übersetzen-Tag und wiederkehrende "
+"Dateien zu importieren/exportieren, Seitenfilterung, Live-Inhalte, seiten-"
+"basierte Berechtigungen, Nicht-Übersetzen-Tag und wiederkehrende "
 "Veranstaltungen"
 
-#: cms/models/users/user.py:146 cms/models/users/user_mfa_key.py:15
+#: cms/models/users/user.py:57
+msgid "Page tree tutorial seen"
+msgstr "Seitenbaum-Tutorial angesehen"
+
+#: cms/models/users/user.py:59
+msgid "Will be set to true once the user dismissed the page tree tutorial"
+msgstr ""
+"Wird auf wahr gesetzt, wenn der Nutzer das Tutorial zum Seitenbaum angesehen "
+"hat"
+
+#: cms/models/users/user.py:153 cms/models/users/user_mfa_key.py:15
 msgid "user"
 msgstr "Benutzer"
 
-#: cms/models/users/user.py:148
+#: cms/models/users/user.py:155
 msgid "users"
 msgstr "Benutzer"
 
@@ -3707,8 +3717,8 @@ msgstr "Wiederholung"
 #: cms/templates/languages/language_list.html:29
 #: cms/templates/offer_templates/offer_template_list.html:25
 #: cms/templates/organizations/organization_list.html:23
-#: cms/templates/pages/page_tree.html:81
-#: cms/templates/pages/page_tree_archived.html:54
+#: cms/templates/pages/page_tree.html:82
+#: cms/templates/pages/page_tree_archived.html:55
 #: cms/templates/pois/poi_list.html:58
 #: cms/templates/pois/poi_list_archived.html:32
 #: cms/templates/roles/list.html:20
@@ -3735,8 +3745,8 @@ msgstr "Keine zukünftigen Veranstaltungen archiviert."
 #: cms/templates/events/event_list_archived_row.html:24
 #: cms/templates/events/event_list_row.html:12
 #: cms/templates/events/event_list_row.html:24
-#: cms/templates/pages/page_tree_archived_node.html:26
-#: cms/templates/pages/page_tree_archived_node.html:38
+#: cms/templates/pages/page_tree_archived_node.html:15
+#: cms/templates/pages/page_tree_archived_node.html:27
 #: cms/templates/pages/page_tree_node.html:36
 #: cms/templates/pages/page_tree_node.html:49
 #: cms/templates/pois/poi_list_archived_row.html:16
@@ -3836,7 +3846,7 @@ msgstr "Noch kein technisches Feedback vorhanden."
 #: cms/templates/feedback/admin_feedback_list.html:128
 #: cms/templates/feedback/region_feedback_list.html:121
 #: cms/templates/linkcheck/links_by_filter.html:72
-#: cms/templates/pages/page_tree.html:114
+#: cms/templates/pages/page_tree.html:116
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
@@ -3859,7 +3869,7 @@ msgstr "Löschen"
 #: cms/templates/feedback/admin_feedback_list.html:135
 #: cms/templates/feedback/region_feedback_list.html:128
 #: cms/templates/linkcheck/links_by_filter.html:80
-#: cms/templates/pages/page_tree.html:133
+#: cms/templates/pages/page_tree.html:135
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -3880,6 +3890,14 @@ msgstr "Warnung"
 #: cms/templates/pages/page_xliff_import_view.html:16
 msgid "Confirm"
 msgstr "Bestätigen"
+
+#: cms/templates/generic_tutorial_dialog.html:16
+msgid "Don't show again"
+msgstr "Nie wieder anzeigen"
+
+#: cms/templates/generic_tutorial_dialog.html:18
+msgid "Understood"
+msgstr "Verstanden"
 
 #: cms/templates/icon_widget.html:15
 #, python-format
@@ -4121,8 +4139,8 @@ msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
 #: cms/templates/language_tree/language_tree.html:22
-#: cms/templates/pages/page_tree.html:60
-#: cms/templates/pages/page_tree_archived.html:35
+#: cms/templates/pages/page_tree.html:61
+#: cms/templates/pages/page_tree_archived.html:36
 msgid "Hierarchy"
 msgstr "Hierarchie"
 
@@ -4242,7 +4260,7 @@ msgstr "Erstellt"
 #: cms/templates/languages/language_list.html:28
 #: cms/templates/offer_templates/offer_template_list.html:23
 #: cms/templates/pages/_page_xliff_import_diff.html:36
-#: cms/templates/pages/page_tree.html:80
+#: cms/templates/pages/page_tree.html:81
 #: cms/templates/regions/region_list.html:23
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
@@ -4429,7 +4447,7 @@ msgid "Create new page"
 msgstr "Neue Seite erstellen"
 
 #: cms/templates/pages/page_form.html:155
-#: cms/templates/pages/page_tree_archived_node.html:17
+#: cms/templates/pages/page_tree_archived_node.html:71
 msgid "Archived, because a parent page is archived"
 msgstr "Archiviert, weil eine übergeordnete Seite archiviert ist"
 
@@ -4587,51 +4605,51 @@ msgstr "Seite erstellen"
 msgid "You can only create pages in the default language"
 msgstr "Sie können Seiten nur in der Standard-Sprache anlegen"
 
-#: cms/templates/pages/page_tree.html:67
+#: cms/templates/pages/page_tree.html:68
 msgid "Tags"
 msgstr "Tags"
 
-#: cms/templates/pages/page_tree.html:103
+#: cms/templates/pages/page_tree.html:104
 msgid "No pages found with these filters."
 msgstr "Keine Seiten mit diesen Filtern gefunden."
 
-#: cms/templates/pages/page_tree.html:105
+#: cms/templates/pages/page_tree.html:106
 msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
-#: cms/templates/pages/page_tree.html:115
+#: cms/templates/pages/page_tree.html:117
 msgid "Archive pages"
 msgstr "Seiten archivieren"
 
-#: cms/templates/pages/page_tree.html:120
+#: cms/templates/pages/page_tree.html:122
 msgid "Export published pages as PDF"
 msgstr "Veröffentlichte Seiten als PDF exportieren"
 
-#: cms/templates/pages/page_tree.html:127
+#: cms/templates/pages/page_tree.html:129
 msgid "You cannot export XLIFF files for the default language"
 msgstr "Sie können keine XLIFF-Dateien für die Standard-Sprache exportieren"
 
-#: cms/templates/pages/page_tree.html:130
+#: cms/templates/pages/page_tree.html:132
 msgid "Export XLIFF for translation to"
 msgstr "Exportiere XLIFF für Übersetzung nach"
 
-#: cms/templates/pages/page_tree.html:138
+#: cms/templates/pages/page_tree.html:140
 msgid "Import XLIFF files"
 msgstr "XLIFF-Dateien importieren"
 
-#: cms/templates/pages/page_tree.html:139
+#: cms/templates/pages/page_tree.html:141
 msgid "Supported file extensions"
 msgstr "Unterstützte Dateiendungen"
 
-#: cms/templates/pages/page_tree.html:144
+#: cms/templates/pages/page_tree.html:146
 msgid "Select files"
 msgstr "Dateien auswählen"
 
-#: cms/templates/pages/page_tree.html:146
+#: cms/templates/pages/page_tree.html:148
 msgid "and {} other files"
 msgstr "und {} weitere Dateien"
 
-#: cms/templates/pages/page_tree.html:149
+#: cms/templates/pages/page_tree.html:151
 msgid "Import"
 msgstr "Importieren"
 
@@ -4639,7 +4657,7 @@ msgstr "Importieren"
 msgid "Archived Pages"
 msgstr "Archivierte Seiten"
 
-#: cms/templates/pages/page_tree_archived.html:69
+#: cms/templates/pages/page_tree_archived.html:70
 msgid "No pages archived yet."
 msgstr "Noch keine Seiten archiviert."
 
@@ -4647,11 +4665,11 @@ msgstr "Noch keine Seiten archiviert."
 msgid "Drag & drop is disabled for archived pages."
 msgstr "Drag & drop ist für archivierte Seiten nicht möglich."
 
-#: cms/templates/pages/page_tree_archived_node.html:12
+#: cms/templates/pages/page_tree_archived_node.html:66
 msgid "This page is archived."
 msgstr "Diese Seite ist archiviert."
 
-#: cms/templates/pages/page_tree_archived_node.html:16
+#: cms/templates/pages/page_tree_archived_node.html:70
 msgid ""
 "This page is archived, because at least one of its parent pages is archived."
 msgstr ""
@@ -5153,6 +5171,35 @@ msgstr "Bild/PNG"
 #: cms/templates/statistics/statistics_overview.html:52
 msgid "Table Document/CSV"
 msgstr "Tabellendokument/CSV"
+
+#: cms/templates/tutorials/page_tree.html:9
+msgid "Introduction - Page Tree"
+msgstr "Einführung in den neuen Seiten-Baum"
+
+#: cms/templates/tutorials/page_tree.html:13
+msgid ""
+"We merged \"All pages\" and \"Tree View\" into one single view. In this view "
+"you can do the following:"
+msgstr ""
+"Wir haben \"Alle Seiten\" und \"Baumansicht\" in eine einzelne Ansicht "
+"zusammengeführt. In dieser Ansicht können folgende Aktionen durchgeführt "
+"werden:"
+
+#: cms/templates/tutorials/page_tree.html:15
+msgid "View the page hierarchy."
+msgstr "Ansicht der Seiten-Hierarchie."
+
+#: cms/templates/tutorials/page_tree.html:16
+msgid "Change the hierarchy with drag & drop."
+msgstr "Ändern der Seiten-Hierarchie per Drag & Drop."
+
+#: cms/templates/tutorials/page_tree.html:17
+msgid "View the translation status."
+msgstr "Ansicht der Übersetzungs-Zustände."
+
+#: cms/templates/tutorials/page_tree.html:18
+msgid "Open the page editor by clicking on a page."
+msgstr "Öffnen Sie den Seiten-Editor indem Sie auf eine Seite klicken."
 
 #: cms/templates/users/admin/list.html:6 cms/templates/users/region/list.html:6
 msgid "User Management"
@@ -6423,6 +6470,15 @@ msgstr ""
 
 #~ msgid "To delete this location, you have to delete this events first:"
 #~ msgstr "Löschen sie diese Veranstaltungen erst, um den Ort zu löschen:"
+
+#~ msgid "See the status of the linked page translations"
+#~ msgstr "Hier können Sie den Status der Übersetzungen sehen."
+
+#~ msgid "OK"
+#~ msgstr "Ok"
+
+#~ msgid "Page tree"
+#~ msgstr "Seitenbaum"
 
 #~ msgid "Missing"
 #~ msgstr "Fehlt"
