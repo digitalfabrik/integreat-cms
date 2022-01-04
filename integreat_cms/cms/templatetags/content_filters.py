@@ -97,6 +97,28 @@ def remove(queryset, instance):
 
 
 @register.filter
+def sort_languages(other_languages, current_language):
+    """
+    This filter sorts languages in language tabs
+
+    :param current_language: The current language
+    :type current_language: string
+
+    :param other_languages: Other languages
+    :type other_languages: list
+
+    :return: the filtered list with the current language on the second position
+    :rtype: list
+    """
+    if other_languages[0] != current_language:
+        other_languages = list(other_languages)
+        other_languages.remove(current_language)
+        other_languages.insert(1, current_language)
+
+        return other_languages
+
+
+@register.filter
 def get_int_list(data, list_name):
     """
     This filter returns the list data of a one-to-many field as ints.
