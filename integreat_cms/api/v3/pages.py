@@ -113,11 +113,14 @@ def get_single_page(request, language_slug):
         # The last path component of the url is the page translation slug
         page_translation_slug = url.split("/")[-1]
         # Get page by filtering for translation slug and translation language slug
-        page = get_object_or_404(
-            region.pages,
+        filtered_pages = region.pages.filter(
             translations__slug=page_translation_slug,
             translations__language__slug=language_slug,
-        )
+        ).distinct()
+
+        if len(filtered_pages) != 1:
+            raise Http404("No matching page translation found for url.")
+        page = filtered_pages[0]
 
     else:
         raise RuntimeError("Either the id or the url parameter is required.")
