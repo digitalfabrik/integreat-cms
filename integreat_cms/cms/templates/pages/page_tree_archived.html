@@ -29,49 +29,51 @@
 {% endwith %}
 
 <div class="table-listing">
-    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
-        <thead>
-            <tr class="border-b border-solid border-gray-200">
-                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'Hierarchy' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
-                {% get_current_language as LANGUAGE_CODE %}
-                {% get_language LANGUAGE_CODE as backend_language %}
-                {% if backend_language and backend_language != language %}
-                    <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
-                {% endif %}
-                <th class="text-sm text-left uppercase py-3 px-2">
-                    <div class="lang-grid flags whitespace-nowrap">
-                        {% spaceless %}
-                            {% for lang in languages %}
-                                <a href="{% url 'pages' region_slug=region.slug language_slug=lang.slug %}">
-                                    <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
-                                </a>
-                            {% endfor %}
-                        {% endspaceless %}
-                    </div>
-                </th>
-                <th class="text-sm text-right uppercase py-3 pl-2 pr-4">{% trans 'Options' %}</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% if pages %}
-            {% recursetree pages %}
-                {% get_translation node language.slug as page_translation %}
-                {% include "pages/page_tree_archived_node.html" with page=node page_translation=page_translation %}
-                {% if not node.is_leaf_node %}
-                    {{children}}
-                {% endif %}
-            {% endrecursetree %}
-        {% else %}
-            <tr>
-                <td colspan="7" class="px-4 py-3">
-                    {% trans 'No pages archived yet.' %}
-                </td>
-            </tr>
-        {% endif %}
-        </tbody>
-    </table>
+    <div class="overflow-x-auto">
+        <table data-activate-tree-drag-drop class="w-full mt-4 rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
+            <thead>
+                <tr class="border-b border-solid border-gray-200">
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'Hierarchy' %}</th>
+                    <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_language LANGUAGE_CODE as backend_language %}
+                    {% if backend_language and backend_language != language %}
+                        <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
+                    {% endif %}
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        <div class="lang-grid flags whitespace-nowrap">
+                            {% spaceless %}
+                                {% for lang in languages %}
+                                    <a href="{% url 'pages' region_slug=region.slug language_slug=lang.slug %}">
+                                        <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
+                                    </a>
+                                {% endfor %}
+                            {% endspaceless %}
+                        </div>
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Status' %}</th>
+                    <th class="text-sm text-right uppercase py-3 pl-2 pr-4">{% trans 'Options' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if pages %}
+                {% recursetree pages %}
+                    {% get_translation node language.slug as page_translation %}
+                    {% include "pages/page_tree_archived_node.html" with page=node page_translation=page_translation %}
+                    {% if not node.is_leaf_node %}
+                        {{children}}
+                    {% endif %}
+                {% endrecursetree %}
+            {% else %}
+                <tr>
+                    <td colspan="7" class="px-4 py-3">
+                        {% trans 'No pages archived yet.' %}
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% include "../generic_confirmation_dialog.html" %}
 {% endblock %}

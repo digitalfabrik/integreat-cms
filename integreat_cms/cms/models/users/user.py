@@ -52,6 +52,13 @@ class User(AbstractUser):
             "Enable this option to show up additional features like XLIFF import/export, page filtering, mirrored pages, page-based permissions, Do-Not-Translate-Tag and recurring events"
         ),
     )
+    page_tree_tutorial_seen = models.BooleanField(
+        default=False,
+        verbose_name=_("Page tree tutorial seen"),
+        help_text=_(
+            "Will be set to true once the user dismissed the page tree tutorial"
+        ),
+    )
 
     @cached_property
     def role(self):
