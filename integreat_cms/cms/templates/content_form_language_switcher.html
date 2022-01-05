@@ -1,17 +1,17 @@
-<!--generic template for language switcher-->
+<!--generic template for language switcher in content forms -->
 <!--please set variable "target" when including this code-->
 {% load content_filters %}
 {% load i18n %}
 
 <div id="language-switcher" class="flex flex-col z-10 text-lg">
-    <a id="language-switcher-current" href="{% url target region_slug=region.slug language_slug=language.slug page_id=content_id %}" class="font-bold flex justify-between bg-white py-2 px-4 rounded shadow hover:bg-gray-200 border-2 border-white hover:border-gray-200">
+    <span id="language-switcher-current" href="{% build_url target=target region_slug=region.slug language_slug=language.slug content_field=content_field content_id=content_id %}" class="font-bold flex justify-between bg-white py-2 px-4 rounded shadow hover:bg-gray-200 border-2 border-white hover:border-gray-200">
         Weitere Sprachen
-    </a>
+    </span>
     <div id="language-switcher-list" class="h-0 hidden">
         {% for other_language in languages|sort_languages:language|slice:"4:" %}
-            <a href="{% url target region_slug=region.slug language_slug=other_language.slug page_id=content_id %}" class="block flex justify-between whitespace-nowrap {% if forloop.last %} rounded-b {% endif %} shadow px-4 py-3 text-gray-800 hover:bg-gray-200 bg-white">
+            <a href="{% build_url target=target region_slug=region.slug language_slug=other_language.slug content_field=content_field content_id=content_id %}" class="block flex justify-between whitespace-nowrap {% if forloop.last %} rounded-b {% endif %} shadow px-4 py-3 text-gray-800 hover:bg-gray-200 bg-white">
                 {% if other_language in page.languages %}
-                    {% get_translation page_form.instance other_language.slug as other_page_translation %}
+                    {% get_translation instance other_language.slug as other_page_translation %}
                     {% if other_page_translation.is_outdated %}
                         <span title="{% trans 'Translation outdated' %}">
                             <i data-feather="alert-triangle"></i>
@@ -33,12 +33,10 @@
                 <span class="px-2 max-w-max truncate">
                     {{ other_language.translated_name }}
                 </span>
-                <span>
-                    <span class="fp fp-rounded fp-{{ other_language.primary_country_code }} ml-2"></span>
-                    {% if other_language.secondary_country_code %}
-                        <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                    {% endif %}
-                </span>
+                <span class="fp fp-rounded fp-{{ other_language.primary_country_code }} ml-2"></span>
+                {% if other_language.secondary_country_code %}
+                    <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                {% endif %}
             </a>
         {% endfor %}
     </div>

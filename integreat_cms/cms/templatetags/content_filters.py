@@ -4,6 +4,8 @@ This is a collection of tags and filters which are useful for all content types 
 """
 import logging
 
+from django.urls import reverse
+
 from django import template
 
 from ..models import Language, PageTranslation, EventTranslation, POITranslation
@@ -79,6 +81,39 @@ def get_language(language_slug):
     return Language.objects.filter(slug=language_slug).first()
 
 
+@register.simple_tag
+def build_url(target, region_slug, language_slug, content_field, content_id):
+    """
+    This tag returns the requested language by slug
+
+    :param target: The slug of the requested target
+    :type target: str
+
+    :param region_slug: The slug of the requested region
+    :type region_slug: str
+
+    :param language_slug: The slug of the requested language
+    :type language_slug: str
+
+    :param content_field: The name of the content field
+    :type content_field: str
+
+    :param content_id: The id of the content
+    :type content_id: int
+
+    :return: list of args
+    :rtype: str
+    """
+    return reverse(
+        target,
+        kwargs={
+            "region_slug": region_slug,
+            "language_slug": language_slug,
+            content_field: content_id,
+        },
+    )
+
+
 @register.filter
 def remove(queryset, instance):
     """
@@ -102,20 +137,20 @@ def sort_languages(other_languages, current_language):
     This filter sorts languages in language tabs
 
     :param current_language: The current language
-    :type current_language: string
+    :type current_language: ~integreat_cms.cms.models.languages.language.Language
 
     :param other_languages: Other languages
-    :type other_languages: list
+    :type other_languages: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
 
     :return: the filtered list with the current language on the second position
     :rtype: list
     """
+    other_languages = list(other_languages)
     if other_languages[0] != current_language:
-        other_languages = list(other_languages)
         other_languages.remove(current_language)
         other_languages.insert(1, current_language)
 
-        return other_languages
+    return other_languages
 
 
 @register.filter
