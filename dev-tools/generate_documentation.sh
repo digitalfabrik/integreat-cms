@@ -72,7 +72,7 @@ find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "*.rst" -print0 | xarg
     -e 's/Cms/CMS/g;s/Api/API/g;s/Poi/POI/g;s/Mfa/MFA/g;s/Pdf/PDF/g;s/Xliff1/XLIFF 1.2/g;s/Xliff2/XLIFF 2.0/g;s/Xliff/XLIFF/g' # Make specific keywords uppercase
 
 # Remove inherited members from tests
-find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "integreat_cms.cms.tests*.rst" -print0 | xargs -0 --no-run-if-empty sed --in-place '/:inherited-members:/d'
+find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "integreat_cms.*.tests.*rst" -print0 | xargs -0 --no-run-if-empty sed --in-place '/:inherited-members:/d'
 
 # Include _urls in sitemap automodule
 # shellcheck disable=SC2251

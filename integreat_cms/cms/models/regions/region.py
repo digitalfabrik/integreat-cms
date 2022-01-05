@@ -6,10 +6,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.translation import activate
-from django.utils.translation import get_language
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import override, ugettext, ugettext_lazy as _
 from django.shortcuts import get_object_or_404
 
 from ...constants import region_status, administrative_division
@@ -276,11 +273,8 @@ class Region(models.Model):
 
         if self.administrative_division_included and self.default_language:
             # Get administrative division in region's default language
-            current_language = get_language()
-            activate(self.default_language.slug)
-            prefix = self.get_administrative_division_display()
-            activate(current_language)
-            return prefix
+            with override(self.default_language.slug):
+                return str(self.get_administrative_division_display())
         return ""
 
     @cached_property
