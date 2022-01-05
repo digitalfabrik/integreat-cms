@@ -1,8 +1,8 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  purge: [
-    './integreat_cms/**/templates/**/*.html',
+  content: [
+    './integreat_cms/cms/templates/**/*.html',
     './integreat_cms/static/src/js/**/*.{js,ts,tsx}',
   ],
   theme: {
@@ -11,7 +11,7 @@ module.exports = {
       current: 'currentColor',
       black: colors.black,
       white: colors.white,
-      gray: colors.blueGray,
+      gray: colors.slate,
       red: colors.red,
       orange: colors.orange,
       yellow: colors.yellow,
@@ -58,11 +58,6 @@ module.exports = {
       width: {
         '120': '30rem',
       },
-    },
-  },
-  variants: {
-    extend: {
-      backgroundImage: ['hover', 'focus'],
     },
   },
   plugins: [require('@tailwindcss/forms'),],
