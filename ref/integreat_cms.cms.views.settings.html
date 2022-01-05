@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-11-28T12:41:53+00:00" />
+    <meta property="article:modified_time" content="2022-01-04T18:19:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Settings &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -702,6 +702,38 @@
 </li>
 </ul>
 </div>
+<section id="dismiss-tutorial-view">
+<h2>Dismiss Tutorial View<a class="headerlink" href="#dismiss-tutorial-view" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.settings.dismiss_tutorial_view.</span></span><span class="sig-name descname"><span class="pre">DismissTutorial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/dismiss_tutorial_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
+<p>View to mark a tutorial dismissed for the current user.
+If it was marked dismissed it should not be shown again automatically.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/dismiss_tutorial_view.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Marks a tutorial as dismissed if one is provided in tutorial_id and dismiss_tutorial is set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="user-settings-view">
 <h2>User Settings View<a class="headerlink" href="#user-settings-view" title="Permalink to this headline"></a></h2>
 <dl class="py class">
@@ -780,7 +812,7 @@ object</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 28, 2021.
+      <span class="lastupdated">Last updated on Jan 04, 2022.
       </span></p>
   </div>
 

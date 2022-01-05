@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-11-28T12:41:53+00:00" />
+    <meta property="article:modified_time" content="2022-01-04T18:19:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Settings &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -701,6 +701,131 @@
 </li>
 </ul>
 </div>
+<section id="module-integreat_cms.cms.views.settings.dismiss_tutorial_view">
+<span id="dismiss-tutorial-view"></span><h2>Dismiss Tutorial View<a class="headerlink" href="#module-integreat_cms.cms.views.settings.dismiss_tutorial_view" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.settings.dismiss_tutorial_view.</span></span><span class="sig-name descname"><span class="pre">DismissTutorial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/dismiss_tutorial_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
+<p>View to mark a tutorial dismissed for the current user.
+If it was marked dismissed it should not be shown again automatically.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Constructor. Called in the URLconf; can contain helpful extra
+keyword arguments, and other things.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.as_view">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.as_view" title="Permalink to this definition"></a></dt>
+<dd><p>Main entry point for a request-response process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.delete" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.dispatch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L188"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.get" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.get_redirect_url">
+<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.get_redirect_url" title="Permalink to this definition"></a></dt>
+<dd><p>Return the URL redirect to. Keyword arguments from the URL pattern
+match generating the redirect request are provided as kwargs to this
+method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.head">
+<span class="sig-name descname"><span class="pre">head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.head" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.http_method_names">
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/dismiss_tutorial_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.http_method_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.http_method_not_allowed">
+<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.http_method_not_allowed" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.options" title="Permalink to this definition"></a></dt>
+<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.patch">
+<span class="sig-name descname"><span class="pre">patch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.patch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.pattern_name">
+<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/dismiss_tutorial_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.pattern_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.permanent">
+<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/dismiss_tutorial_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.permanent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/dismiss_tutorial_view.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.post" title="Permalink to this definition"></a></dt>
+<dd><p>Marks a tutorial as dismissed if one is provided in tutorial_id and dismiss_tutorial is set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)">HttpResponseRedirect</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.put" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.query_string">
+<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/dismiss_tutorial_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.query_string" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.setup" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize attributes shared by all view methods.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.url">
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/dismiss_tutorial_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial.url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-integreat_cms.cms.views.settings.user_settings_view">
 <span id="user-settings-view"></span><h2>User Settings View<a class="headerlink" href="#module-integreat_cms.cms.views.settings.user_settings_view" title="Permalink to this headline"></a></h2>
 <dl class="py class">
@@ -860,7 +985,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 28, 2021.
+      <span class="lastupdated">Last updated on Jan 04, 2022.
       </span></p>
   </div>
 
