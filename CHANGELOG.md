@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * Fix APIv3 single page endpoint for multiple translation versions
+* Fix error when deleting a poi that is used by an event
 
 
 2021.12.0-beta

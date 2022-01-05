@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-05 10:03+0000\n"
+"POT-Creation-Date: 2022-01-05 10:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -4769,13 +4769,24 @@ msgstr "Ort archivieren"
 msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
-#: cms/templates/pois/poi_form.html:217 cms/templates/pois/poi_form.html:218
-#: cms/templates/pois/poi_list_archived_row.html:60
-#: cms/templates/pois/poi_list_row.html:98
+#: cms/templates/pois/poi_form.html:217 cms/templates/pois/poi_form.html:235
+#: cms/templates/pois/poi_list_archived_row.html:65
+#: cms/templates/pois/poi_list_row.html:103
 msgid "Delete location"
 msgstr "Ort löschen"
 
-#: cms/templates/pois/poi_form.html:223
+#: cms/templates/pois/poi_form.html:221
+msgid "You cannot delete a location which is referenced by an event."
+msgstr ""
+"Der Ort kann nicht gelöscht werden, da er von einem Event verwendet wird."
+
+#: cms/templates/pois/poi_form.html:222
+msgid "To delete this location, you have to delete this event first:"
+msgid_plural "To delete this location, you have to delete these events first:"
+msgstr[0] "Löschen Sie zuerst diese Veranstaltung, um den Ort zu löschen:"
+msgstr[1] "Löschen Sie zuerst diese Veranstaltungen, um den Ort zu löschen:"
+
+#: cms/templates/pois/poi_form.html:240
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
 
@@ -4804,6 +4815,18 @@ msgstr "Noch keine Orte vorhanden."
 #: cms/templates/pois/poi_list_archived.html:42
 msgid "No locations archived yet."
 msgstr "Noch keine Orte archiviert."
+
+#: cms/templates/pois/poi_list_archived_row.html:61
+#: cms/templates/pois/poi_list_row.html:99
+msgid "You cannot delete a location which is used by an event."
+msgstr ""
+"Der Ort kann nicht gelöscht werden, da er von einer Veranstaltung verwendet "
+"wird."
+
+#: cms/templates/pois/poi_list_archived_row.html:61
+#: cms/templates/pois/poi_list_row.html:99
+msgid "This also involves archived events."
+msgstr "Dies betrifft auch archivierte Veranstaltungen."
 
 #: cms/templates/pois/poi_list_row.html:82
 msgid "Open location in web app"
@@ -6397,6 +6420,9 @@ msgstr ""
 
 #~ msgid "All users"
 #~ msgstr "Alle Benutzer"
+
+#~ msgid "To delete this location, you have to delete this events first:"
+#~ msgstr "Löschen sie diese Veranstaltungen erst, um den Ort zu löschen:"
 
 #~ msgid "Missing"
 #~ msgstr "Fehlt"
