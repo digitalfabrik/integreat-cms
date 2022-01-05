@@ -95,13 +95,19 @@
             <i data-feather="archive"></i>
         </button>
         {% if perms.cms.delete_poi %}
-            <button title="{% trans 'Delete location' %}" class="confirmation-button btn-icon"
-                data-confirmation-title="{{ delete_dialog_title }}"
-                data-confirmation-text="{{ delete_dialog_text }}"
-                data-confirmation-subject="{{ poi_translation.title }}"
-                data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}">
-                <i data-feather="trash-2"></i>
-            </button>
+            {% if poi.events.exists %}
+                <button title="{% trans 'You cannot delete a location which is used by an event.' %}&#013;{% trans 'This also involves archived events.' %}" class="btn-icon" disabled>
+                    <i data-feather="trash-2"></i>
+                </button>
+            {% else %}
+                <button title="{% trans 'Delete location' %}" class="confirmation-button btn-icon"
+                    data-confirmation-title="{{ delete_dialog_title }}"
+                    data-confirmation-text="{{ delete_dialog_text }}"
+                    data-confirmation-subject="{{ poi_translation.title }}"
+                    data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}">
+                    <i data-feather="trash-2"></i>
+                </button>
+            {% endif %}
         {% endif %}
     </td>
 </tr>
