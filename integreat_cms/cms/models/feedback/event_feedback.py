@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from ..events.event_translation import EventTranslation
@@ -26,9 +27,9 @@ class EventFeedback(Feedback):
         :return: The name of the object this feedback refers to
         :rtype: str
         """
-        return self.event_translation.event.best_translation.title
+        return self.best_event_translation.title
 
-    @property
+    @cached_property
     def object_url(self):
         """
         This property returns the url to the object this feedback comments on.
@@ -41,9 +42,19 @@ class EventFeedback(Feedback):
             kwargs={
                 "event_id": self.event_translation.event.id,
                 "region_slug": self.region.slug,
-                "language_slug": self.event_translation.event.best_translation.language.slug,
+                "language_slug": self.best_event_translation.language.slug,
             },
         )
+
+    @cached_property
+    def best_event_translation(self):
+        """
+        This property returns the best translation for the event this feedback comments on.
+
+        :return: The best event translation
+        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
+        """
+        return self.event_translation.event.best_translation
 
     @property
     def related_feedback(self):
