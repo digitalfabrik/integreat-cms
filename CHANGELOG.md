@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* Fix APIv3 single page endpoint for multiple translation versions
+
 
 2021.12.0-beta
 --------------
