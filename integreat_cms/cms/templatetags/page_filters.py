@@ -17,7 +17,7 @@ def get_last_root_page(pages):
     :return: The last root page of the given page list
     :rtype: ~integreat_cms.cms.models.pages.page.Page
     """
-    root_pages = list(filter(lambda p: not p.parent, pages))
+    root_pages = list(filter(lambda p: not p["parent"], pages))
     return root_pages[-1] if root_pages else None
 
 

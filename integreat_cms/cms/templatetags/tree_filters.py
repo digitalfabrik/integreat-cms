@@ -1,3 +1,5 @@
+import json
+
 """
 This is a collection of tags and filters for models which inherit from the MPTT model
 (:class:`~integreat_cms.cms.models.pages.page.Page` and :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode`).
@@ -18,7 +20,19 @@ def get_descendants(node):
     :return: The list of all the node's descendants' ids
     :rtype: list [ int ]
     """
-    return [descendant.id for descendant in node.get_descendants(include_self=True)]
+    return get_descendants_recursive(node)
+
+
+@register.filter
+def get_translation_state(node, language_id):
+    return node["translation_state"][str(language_id)] or "missing"
+
+
+def get_descendants_recursive(node):
+    descendants = [child["page_id"] for child in node["children"]]
+    for child in node["children"]:
+        descendants += get_descendants_recursive(child)
+    return descendants
 
 
 @register.filter
@@ -32,4 +46,4 @@ def get_children(node):
     :return: The list of all the node's children's ids
     :rtype: list [ int ]
     """
-    return [child.id for child in node.get_children()]
+    return [child["page_id"] for child in node["children"]]

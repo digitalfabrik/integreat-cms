@@ -3,7 +3,7 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db import models
+from django.db import connection
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -97,17 +97,22 @@ class PageTreeView(TemplateView, PageContextMixin):
             )
         context = self.get_context_data(**kwargs)
 
-        pages = region.get_pages(
-            archived=self.archived, return_unrestricted_queryset=True
-        ).prefetch_related(
-            models.Prefetch(
-                "translations",
-                queryset=PageTranslation.objects.order_by("language__id", "-version")
-                .distinct("language")
-                .select_related("language"),
-                to_attr="prefetched_translations",
+        # pages = []
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+            SELECT page_translation_state_flat.id as page_id, level, parent_id, translation_state, base_translation.title as base_title,
+            translation.title as title , translation.status as status, translation.last_updated as last_updated
+            FROM page_translation_state_flat
+            FULL JOIN cms_pagetranslation translation ON translation.page_id = page_translation_state_flat.id AND translation.language_id = %s
+            FULL JOIN cms_pagetranslation base_translation ON base_translation.page_id = page_translation_state_flat.id AND base_translation.language_id = %s
+            WHERE region_id = %s
+            """,
+                (language.id, region.default_language.id, region.id),
             )
-        )
+            pages = self.dictfetchall(cursor)
+            pages = self.to_tree(pages)
+
         enable_drag_and_drop = True
         query = None
         # Filter pages according to given filters, if any
@@ -173,6 +178,26 @@ class PageTreeView(TemplateView, PageContextMixin):
                 "WEBAPP_URL": settings.WEBAPP_URL,
             },
         )
+
+    def dictfetchall(self, cursor):
+        "Return all rows from a cursor as a dict"
+        columns = [col[0] for col in cursor.description]
+        return [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+    def to_tree(self, pages):
+        for page in pages:
+            page["children"] = []
+            page["parent"] = None
+
+        pagemap = dict(map(lambda x: [x["page_id"], x], pages))
+        rootnodes = []
+        for page in pages:
+            if page["parent_id"] is None:
+                rootnodes.append(page)
+            else:
+                page["parent"] = pagemap.get(page["parent_id"])
+                pagemap.get(page["parent_id"])["children"].append(page)
+        return rootnodes
 
     def post(self, request, *args, **kwargs):
         r"""
