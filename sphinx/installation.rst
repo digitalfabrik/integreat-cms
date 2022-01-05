@@ -15,7 +15,7 @@ Following packages are required before installing the project (install them with
 * `git <https://git-scm.com/>`_
 * `npm <https://www.npmjs.com/>`_ version 7 or higher
 * `nodejs <https://nodejs.org/>`_ version 12 or higher
-* `python3.7 <https://packages.ubuntu.com/search?keywords=python3.7>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__ [#ppa]_) / `python37 <https://aur.archlinux.org/packages/python37/>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
+* `python3.9 <https://packages.ubuntu.com/search?keywords=python3.9>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__ [#ppa]_) / `python39 <https://aur.archlinux.org/packages/python39/>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
 * `python3-pip <https://packages.ubuntu.com/search?keywords=python3-pip>`_ (`Debian-based distributions <https://en.wikipedia.org/wiki/Category:Debian-based_distributions>`_, e.g. `Ubuntu <https://ubuntu.com>`__) / `python-pip <https://www.archlinux.de/packages/extra/x86_64/python-pip>`_ (`Arch-based distributions <https://wiki.archlinux.org/index.php/Arch-based_distributions>`_)
 * `pipenv <https://pipenv.pypa.io/en/latest/>`_ for python3 [#pip]_
 * Either `postgresql <https://www.postgresql.org/>`_ **or** `docker <https://www.docker.com/>`_ to run a local database server
@@ -23,7 +23,7 @@ Following packages are required before installing the project (install them with
 
 .. Note::
 
-    .. [#ppa] If your distro does not contain python3.7, you first have to add a ppa repository, e.g. ``sudo add-apt-repository ppa:deadsnakes/ppa``.
+    .. [#ppa] If your distro does not contain python3.9, you first have to add a ppa repository, e.g. ``sudo add-apt-repository ppa:deadsnakes/ppa``.
 
     .. [#pip] If no recent version of pipenv is packaged for your distro, use ``pip3 install pipenv --user``.
 
@@ -41,10 +41,10 @@ In the following, we provide the commands to install all these prerequisites on 
 
 ::
 
-    # Add PPA repository for Python3.7
+    # Add PPA repository for Python3.9
     sudo add-apt-repository -y ppa:deadsnakes/ppa
     # Install basic requirements
-    sudo apt install -y apt-transport-https curl gettext git pcregrep python3.7 python3-pip
+    sudo apt install -y apt-transport-https curl gettext git pcregrep python3.9 python3-pip
     # Add PPA repository for NodeJS
     curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
     # Add PPA repository for Docker
@@ -102,7 +102,7 @@ In the following, we provide the commands to install all these prerequisites on 
 ::
 
     # Install requirements
-    yay -S docker gettext git netcat nodejs-lts-fermium npm pcre python-pip python-pipenv python37
+    yay -S docker gettext git netcat nodejs-lts-fermium npm pcre python-pip python-pipenv python39
 
 .. raw:: html
 

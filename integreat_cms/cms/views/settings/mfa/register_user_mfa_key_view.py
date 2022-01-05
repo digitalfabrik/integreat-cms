@@ -1,7 +1,8 @@
 import logging
 import json
-
-import webauthn
+import base64
+from webauthn import verify_registration_response
+from webauthn.helpers.structs import RegistrationCredential
 
 from django.conf import settings
 from django.contrib import messages
@@ -37,7 +38,7 @@ class RegisterUserMfaKeyView(CreateView):
     def post(self, request, *args, **kwargs):
         r"""
         Verify a registration challenge and register a 2-FA key.
-        Called asynchroniously by JavaScript.
+        Called asynchronously by JavaScript.
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -51,13 +52,14 @@ class RegisterUserMfaKeyView(CreateView):
         :return: The JSON response
         :rtype: ~django.http.JsonResponse
         """
-        json_data = json.loads(request.body)
-
-        webauthn_registration_response = webauthn.WebAuthnRegistrationResponse(
-            settings.HOSTNAME,
-            settings.BASE_URL,
-            json_data["assertion"],
-            request.session["mfa_registration_challenge"],
+        print(request.session["mfa_registration_challenge"])
+        webauthn_registration_response = verify_registration_response(
+            credential=RegistrationCredential.parse_raw(request.body),
+            expected_rp_id=settings.HOSTNAME,
+            expected_origin=settings.BASE_URL,
+            expected_challenge=base64.b64decode(
+                request.session["mfa_registration_challenge"]
+            ),
         )
 
         webauthn_credential = webauthn_registration_response.verify()

@@ -96,7 +96,7 @@ export function transformCredentialCreateOptions(
     (c) => c.charCodeAt(0)
   );
 
-  const challengeData = Uint8Array.from(atob(challenge), (c) =>
+  const challengeData = Uint8Array.from(challenge, (c) =>
     c.charCodeAt(0)
   );
 
@@ -105,6 +105,9 @@ export function transformCredentialCreateOptions(
     credentialCreateOptionsFromServer,
     { challenge: challengeData, user: { ...user, id: userIdData } }
   );
+
+  transformedCredentialCreateOptions.rp.id = transformedCredentialCreateOptions.rp.id.replace(':8000', '')
+  console.log(transformedCredentialCreateOptions)
 
   return transformedCredentialCreateOptions;
 }

@@ -75,7 +75,7 @@ Example:
 
     If you don't know which references to the external documentation are possible, you can use the tool `sphobjinv <https://pypi.org/project/sphobjinv/>`__::
 
-        sphobjinv suggest -u https://docs.python.org/3.7/objects.inv "regex"
+        sphobjinv suggest -u https://docs.python.org/3.9/objects.inv "regex"
 
         Remote inventory found.
 
