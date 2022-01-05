@@ -12,8 +12,6 @@
             {% endif %}
 		</a>
 	</td>
-    {% get_current_language as LANGUAGE_CODE %}
-    {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
         <td class="pr-2">
             <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block">
