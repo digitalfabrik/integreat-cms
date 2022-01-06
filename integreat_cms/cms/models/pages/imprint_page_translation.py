@@ -23,10 +23,6 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         related_name="translations",
         verbose_name=_("imprint"),
     )
-    text = models.TextField(
-        blank=True,
-        verbose_name=_("content of the imprint"),
-    )
 
     @property
     def url_infix(self):

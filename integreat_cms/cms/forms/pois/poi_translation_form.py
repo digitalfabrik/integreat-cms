@@ -27,7 +27,7 @@ class POITranslationForm(CustomContentModelForm):
             "title",
             "short_description",
             "status",
-            "description",
+            "content",
             "slug",
         ]
 
@@ -79,7 +79,7 @@ class POITranslationForm(CustomContentModelForm):
         """
 
         # Create new version if content changed
-        if not {"slug", "title", "short_description", "description"}.isdisjoint(
+        if not {"slug", "title", "short_description", "content"}.isdisjoint(
             self.changed_data
         ):
             self.instance.version += 1
@@ -99,14 +99,3 @@ class POITranslationForm(CustomContentModelForm):
         self.data = self.data.copy()
         self.data["slug"] = unique_slug
         return unique_slug
-
-    def clean_description(self):
-        """
-        Validate the description field (see :ref:`overriding-modelform-clean-method`) and applies changes to <img>- and <a>-Tags to match the guidelines.
-
-        :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the description
-
-        :return: The valid description
-        :rtype: str
-        """
-        return self.content_clean_method("description")

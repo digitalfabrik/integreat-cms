@@ -65,7 +65,7 @@ class TranslationCoverageView(TemplateView):
             ]
             # Count the words in the outdated translations
             outdated_word_count[language] = sum(
-                len(translation.text.split())
+                len(translation.content.split())
                 for translation in outdated_page_translations
             )
             # Count the outdated translations

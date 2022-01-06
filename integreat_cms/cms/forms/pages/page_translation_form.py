@@ -23,7 +23,7 @@ class PageTranslationForm(CustomContentModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = PageTranslation
         #: The fields of the model which should be handled by this form
-        fields = ["title", "slug", "status", "text", "minor_edit"]
+        fields = ["title", "slug", "status", "content", "minor_edit"]
 
     def __init__(self, **kwargs):
         r"""
@@ -80,7 +80,7 @@ class PageTranslationForm(CustomContentModelForm):
         """
 
         # Create new version if content changed
-        if not {"slug", "title", "text"}.isdisjoint(self.changed_data):
+        if not {"slug", "title", "content"}.isdisjoint(self.changed_data):
             self.instance.version += 1
             self.instance.pk = None
 
@@ -95,14 +95,3 @@ class PageTranslationForm(CustomContentModelForm):
         :rtype: str
         """
         return generate_unique_slug_helper(self, "page")
-
-    def clean_text(self):
-        """
-        Validate the text field (see :ref:`overriding-modelform-clean-method`)
-
-        :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content and applies changes to <img>- and <a>-Tags to match the guidelines.
-
-        :return: The valid text
-        :rtype: str
-        """
-        return self.content_clean_method("text")

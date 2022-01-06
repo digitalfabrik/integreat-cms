@@ -17,7 +17,6 @@ class EventTranslation(AbstractContentTranslation):
         related_name="translations",
         verbose_name=_("event"),
     )
-    description = models.TextField(blank=True, verbose_name=_("description"))
 
     @property
     def foreign_object(self):

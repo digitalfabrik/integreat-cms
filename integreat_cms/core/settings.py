@@ -733,10 +733,10 @@ SERIALIZATION_MODULES = {
 XLIFF_EXPORT_VERSION = os.environ.get("INTEGREAT_CMS_XLIFF_EXPORT_VERSION", "xliff-1.2")
 
 #: The default fields to be used for the XLIFF serialization
-XLIFF_DEFAULT_FIELDS = ("title", "text")
+XLIFF_DEFAULT_FIELDS = ("title", "content")
 
 #: A mapping for changed field names to preserve backward compatibility after a database field was renamed
-XLIFF_LEGACY_FIELDS = {"body": "text"}
+XLIFF_LEGACY_FIELDS = {"body": "content", "text": "content"}
 
 #: The directory where xliff files are stored
 XLIFF_ROOT = os.environ.get("INTEGREAT_CMS_XLIFF_ROOT", os.path.join(BASE_DIR, "xliff"))

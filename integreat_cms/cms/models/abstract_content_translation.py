@@ -34,6 +34,7 @@ class AbstractContentTranslation(models.Model):
         default=status.DRAFT,
         verbose_name=_("status"),
     )
+    content = models.TextField(blank=True, verbose_name=_("content"))
     language = models.ForeignKey(
         Language,
         on_delete=models.CASCADE,

@@ -23,10 +23,6 @@ class PageTranslation(AbstractBasePageTranslation):
         related_name="translations",
         verbose_name=_("page"),
     )
-    text = models.TextField(
-        blank=True,
-        verbose_name=_("content of the page"),
-    )
 
     @property
     def ancestor_path(self):
@@ -101,11 +97,11 @@ class PageTranslation(AbstractBasePageTranslation):
         mirrored_page_translation = self.page.get_mirrored_page_translation(
             self.language.slug
         )
-        if not mirrored_page_translation or not mirrored_page_translation.text:
-            return self.text
+        if not mirrored_page_translation or not mirrored_page_translation.content:
+            return self.content
         if self.page.mirrored_page_first:
-            return mirrored_page_translation.text + self.text
-        return self.text + mirrored_page_translation.text
+            return mirrored_page_translation.content + self.content
+        return self.content + mirrored_page_translation.content
 
     @property
     def combined_last_updated(self):
@@ -121,9 +117,9 @@ class PageTranslation(AbstractBasePageTranslation):
             self.language.slug
         )
         if (
-            not self.text
+            not self.content
             and mirrored_page_translation
-            and mirrored_page_translation.text
+            and mirrored_page_translation.content
         ):
             return mirrored_page_translation.last_updated
         return self.last_updated

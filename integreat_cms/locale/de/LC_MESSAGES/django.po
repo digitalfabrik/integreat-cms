@@ -1475,15 +1475,15 @@ msgstr "Dritte Woche"
 msgid "Fourth week"
 msgstr "Vierte Woche"
 
-#: cms/forms/custom_content_model_form.py:93
+#: cms/forms/custom_content_model_form.py:90
 msgid "{} \"{}\" was successfully saved as draft"
 msgstr "{} \"{}\" wurde erfolgreich als Entwurf gespeichert"
 
-#: cms/forms/custom_content_model_form.py:100
+#: cms/forms/custom_content_model_form.py:97
 msgid "{} \"{}\" was successfully updated"
 msgstr "{} \"{}\" wurde erfolgreich aktualisiert"
 
-#: cms/forms/custom_content_model_form.py:107
+#: cms/forms/custom_content_model_form.py:104
 msgid "{} \"{}\" was successfully published"
 msgstr "{} \"{}\" wurde erfolgreich veröffentlicht"
 
@@ -1848,33 +1848,39 @@ msgstr ""
 msgid "status"
 msgstr "Status"
 
-#: cms/models/abstract_content_translation.py:40
+#: cms/models/abstract_content_translation.py:37
+#: cms/models/chat/chat_message.py:42
+#: cms/models/push_notifications/push_notification_translation.py:21
+msgid "content"
+msgstr "Inhalt"
+
+#: cms/models/abstract_content_translation.py:41
 #: cms/models/feedback/feedback.py:28 cms/models/languages/language.py:149
 #: cms/models/languages/language_tree_node.py:23
 #: cms/models/push_notifications/push_notification_translation.py:27
 msgid "language"
 msgstr "Sprache"
 
-#: cms/models/abstract_content_translation.py:44
+#: cms/models/abstract_content_translation.py:45
 msgid "currently in translation"
 msgstr "wird derzeit übersetzt"
 
-#: cms/models/abstract_content_translation.py:46
+#: cms/models/abstract_content_translation.py:47
 msgid ""
 "Flag to indicate a translation is being updated by an external translator"
 msgstr ""
 "Feld, die anzeigt, dass eine Übersetzung von einem externen Übersetzer "
 "aktualisiert wird"
 
-#: cms/models/abstract_content_translation.py:49
+#: cms/models/abstract_content_translation.py:50
 msgid "revision"
 msgstr "Revision"
 
-#: cms/models/abstract_content_translation.py:52
+#: cms/models/abstract_content_translation.py:53
 msgid "minor edit"
 msgstr "geringfügige Änderung"
 
-#: cms/models/abstract_content_translation.py:54
+#: cms/models/abstract_content_translation.py:55
 msgid ""
 "Tick if this change does not require an update of translations in other "
 "languages."
@@ -1882,7 +1888,7 @@ msgstr ""
 "Kreuzen Sie an, wenn diese Änderung keine Aktualisierung der Übersetzungen "
 "in anderen Sprachen erfordert."
 
-#: cms/models/abstract_content_translation.py:59
+#: cms/models/abstract_content_translation.py:60
 #: cms/models/languages/language.py:87
 #: cms/models/languages/language_tree_node.py:55
 #: cms/models/offers/offer_template.py:59
@@ -1891,18 +1897,13 @@ msgstr ""
 msgid "modification date"
 msgstr "Änderungsdatum"
 
-#: cms/models/abstract_content_translation.py:66
+#: cms/models/abstract_content_translation.py:67
 msgid "creator"
 msgstr "Ersteller"
 
 #: cms/models/chat/chat_message.py:40
 msgid "sender"
 msgstr "Absender"
-
-#: cms/models/chat/chat_message.py:42 cms/models/pois/poi_translation.py:23
-#: cms/models/push_notifications/push_notification_translation.py:21
-msgid "content"
-msgstr "Inhalt"
 
 #: cms/models/chat/chat_message.py:45
 #: cms/models/push_notifications/push_notification.py:36
@@ -1973,16 +1974,12 @@ msgstr "Veranstaltung"
 msgid "events"
 msgstr "Veranstaltungen"
 
-#: cms/models/events/event_translation.py:20 cms/models/media/media_file.py:138
-msgid "description"
-msgstr "Beschreibung"
-
-#: cms/models/events/event_translation.py:76
+#: cms/models/events/event_translation.py:75
 #: cms/models/feedback/event_feedback.py:18
 msgid "event translation"
 msgstr "Veranstaltungs-Übersetzung"
 
-#: cms/models/events/event_translation.py:78
+#: cms/models/events/event_translation.py:77
 msgid "event translations"
 msgstr "Veranstaltungs-Übersetzungen"
 
@@ -2156,7 +2153,7 @@ msgstr "Angebotslisten-Feedback"
 
 #: cms/models/feedback/page_feedback.py:18
 #: cms/models/pages/abstract_base_page_translation.py:89
-#: cms/models/pages/page_translation.py:242
+#: cms/models/pages/page_translation.py:238
 msgid "page translation"
 msgstr "Seiten-Übersetzung"
 
@@ -2165,7 +2162,7 @@ msgstr "Seiten-Übersetzung"
 msgid "page feedback"
 msgstr "Seiten-Feedback"
 
-#: cms/models/feedback/poi_feedback.py:18 cms/models/pois/poi_translation.py:78
+#: cms/models/feedback/poi_feedback.py:18 cms/models/pois/poi_translation.py:77
 msgid "location translation"
 msgstr "Orts-Übersetzung"
 
@@ -2343,6 +2340,10 @@ msgstr "Vorschaubild-Datei"
 msgid "file type"
 msgstr "Dateityp"
 
+#: cms/models/media/media_file.py:138
+msgid "description"
+msgstr "Beschreibung"
+
 #: cms/models/media/media_file.py:142
 msgid "uploaded date"
 msgstr "Upload-Datum"
@@ -2455,7 +2456,7 @@ msgid "with the title in"
 msgstr "mit dem Titel auf"
 
 #: cms/models/pages/abstract_base_page_translation.py:91
-#: cms/models/pages/page_translation.py:244
+#: cms/models/pages/page_translation.py:240
 msgid "page translations"
 msgstr "Seiten-Übersetzungen"
 
@@ -2468,15 +2469,11 @@ msgstr "Impressum"
 msgid "imprints"
 msgstr "Impressen"
 
-#: cms/models/pages/imprint_page_translation.py:28
-msgid "content of the imprint"
-msgstr "Inhalt des Impressums"
-
-#: cms/models/pages/imprint_page_translation.py:85
+#: cms/models/pages/imprint_page_translation.py:81
 msgid "imprint translation"
 msgstr "Impressums-Übersetzung"
 
-#: cms/models/pages/imprint_page_translation.py:87
+#: cms/models/pages/imprint_page_translation.py:83
 msgid "imprint translations"
 msgstr "Impressums-Übersetzungen"
 
@@ -2554,15 +2551,11 @@ msgstr ""
 "Dies erlaubt allen Mitgliedern der Organisation diese Seite zu bearbeiten "
 "und veröffentlichen"
 
-#: cms/models/pages/page_translation.py:28
-msgid "content of the page"
-msgstr "Inhalt der Seite"
-
-#: cms/models/pages/page_translation.py:145
+#: cms/models/pages/page_translation.py:141
 msgid "Live content"
 msgstr "Live-Inhalt"
 
-#: cms/models/pages/page_translation.py:148
+#: cms/models/pages/page_translation.py:144
 msgid "Empty"
 msgstr "Leer"
 
@@ -2619,7 +2612,7 @@ msgstr "Orte"
 msgid "short description"
 msgstr "Kurzbeschreibung"
 
-#: cms/models/pois/poi_translation.py:80
+#: cms/models/pois/poi_translation.py:79
 msgid "location translations"
 msgstr "Orts-Übersetzungen"
 
@@ -6413,6 +6406,9 @@ msgstr ""
 #~ msgid "translations"
 #~ msgstr "Übersetzungen"
 
+#~ msgid "content of the imprint"
+#~ msgstr "Inhalt des Impressums"
+
 #~ msgid "All locations"
 #~ msgstr "Alle Orte"
 
@@ -6439,6 +6435,9 @@ msgstr ""
 
 #~ msgid "Page tree"
 #~ msgstr "Seitenbaum"
+
+#~ msgid "content of the page"
+#~ msgstr "Inhalt der Seite"
 
 #~ msgid ""
 #~ "Tick if this change does not require an update of translations in other "

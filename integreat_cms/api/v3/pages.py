@@ -45,7 +45,7 @@ def transform_page(page_translation):
         "path": absolute_url,
         "title": page_translation.title,
         "modified_gmt": page_translation.combined_last_updated,
-        "excerpt": page_translation.text,
+        "excerpt": page_translation.content,
         "content": page_translation.combined_text,
         "parent": parent,
         "order": page_translation.page.lft,  # use left edge indicator of mptt model for order

@@ -9,7 +9,7 @@ class PageTranslationLinklist(Linklist):
     """
 
     model = PageTranslation
-    html_fields = ["text"]
+    html_fields = ["content"]
 
 
 class EventTranslationLinklist(Linklist):
@@ -18,7 +18,7 @@ class EventTranslationLinklist(Linklist):
     """
 
     model = EventTranslation
-    html_fields = ["description"]
+    html_fields = ["content"]
 
 
 class POITranslationLinklist(Linklist):
@@ -27,7 +27,7 @@ class POITranslationLinklist(Linklist):
     """
 
     model = POITranslation
-    html_fields = ["description"]
+    html_fields = ["content"]
 
 
 linklists = {

@@ -20,7 +20,6 @@ class POITranslation(AbstractContentTranslation):
     short_description = models.CharField(
         max_length=2048, verbose_name=_("short description")
     )
-    description = models.TextField(blank=True, verbose_name=_("content"))
 
     @property
     def foreign_object(self):

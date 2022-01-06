@@ -288,11 +288,11 @@ def get_xliff_import_diff(request, xliff_dir):
                                 )
                             )[2:]
                         ),
-                        "text": "\n".join(
+                        "content": "\n".join(
                             list(
                                 difflib.unified_diff(
-                                    existing_translation.text.splitlines(),
-                                    page_translation.text.splitlines(),
+                                    existing_translation.content.splitlines(),
+                                    page_translation.content.splitlines(),
                                     lineterm="",
                                 )
                             )[2:]
