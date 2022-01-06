@@ -56,12 +56,12 @@
         </div>
         <div class="flex flex-wrap flex-col flex-grow pr-2 w-2/3">
             <ul class="flex flex-wrap items-end pl-4">
-                {% for other_language in languages %}
+                {% for other_language in languages|sort_languages:language|slice:":4" %}
                     <li class="mr-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
                         <div class="bg-white text-blue-500 {% if other_language != language %}hover:bg-blue-500 hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
                             <div class="border-b-2 border-white">
                                 {% if other_language == language %}
-                                    <div class="{{ language.slug }} px-4">
+                                    <div class="{{ language.slug }} pt-2 pb-3 px-4">
                                         {% if page %}
                                             {% if other_language in page.languages %}
                                                 {% if page_translation_form.instance.is_outdated %}
@@ -88,6 +88,10 @@
                                             </span>
                                         {% endif %}
                                         {{ other_language.translated_name }}
+                                        <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                        {% if other_language.secondary_country_code %}
+                                            <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                        {% endif %}
                                     </div>
                                     <div class="hidden ajax p-4">
                                         {% if page_translation_form.instance.is_outdated_helper %}
@@ -100,9 +104,13 @@
                                             </span>
                                         {% endif %}
                                         {{ other_language.translated_name }}
+                                        <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                        {% if other_language.secondary_country_code %}
+                                            <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                        {% endif %}
                                     </div>
                         {% else %}
-                            <a class="px-4 block" style="color: inherit;" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=other_language.slug %}">
+                            <a class="px-4 pt-2 pb-3 block" style="color: inherit;" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=other_language.slug %}">
                                 {% if other_language in page.languages %}
                                     {% get_translation page_form.instance other_language.slug as other_page_translation %}
                                     {% if other_page_translation.is_outdated %}
@@ -124,23 +132,32 @@
                                     </span>
                                 {% endif %}
                                 {{ other_language.translated_name }}
+                                <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                {% if other_language.secondary_country_code %}
+                                    <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                {% endif %}
                             </a>
                         {% endif %}
                             </div>
                         </div>
                     </li>
                 {% endfor %}
-                {% if page_translation_form.instance.id %}
-                    <li class="self-start ml-auto px-2">
-                        {% trans 'Version' %}:
-                        {{ page_translation_form.instance.version }}
-                        (<a href="{% url 'page_revisions' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
-                            class="text-blue-500 hover:underline">{% trans 'Show versions' %}</a>)
-                    </li>
+                {% if languages|length > 4 %}
+                <div class="ml-auto z-10">
+                    {% include "content_form_language_switcher.html" with target='edit_page' instance=page_form.instance content_field="page_id" content_id=page_form.instance.id %}
+                </div>
                 {% endif %}
             </ul>
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
                 <div class="w-full p-4">
+                    {% if page_translation_form.instance.id %}
+                        <div class="flex justify-end mr-8">
+                            {% trans 'Version' %}:
+                            {{ page_translation_form.instance.version }}
+                            (<a href="{% url 'page_revisions' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
+                                class="text-blue-500 hover:underline">{% trans 'Show versions' %}</a>)
+                        </div>
+                    {% endif %}
                     <div class="flex justify-between">
                         <label for="{{ page_translation_form.title.id_for_label }}"
                             data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">

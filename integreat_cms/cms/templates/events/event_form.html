@@ -48,12 +48,12 @@
     <div class="flex flex-wrap">
         <div class="w-2/3 flex flex-wrap flex-col pr-2">
             <ul class="flex flex-wrap items-end pl-4">
-                {% for other_language in languages %}
+                {% for other_language in languages|sort_languages:language|slice:":4" %}
                     <li class="mr-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
                         <div class="bg-white text-blue-500 {% if other_language != language %}hover:bg-blue-500 hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
                             <div class="border-b-2 border-white">
                             {% if other_language == language %}
-                                <div class="px-4">
+                                <div class="px-4 pb-3 pt-2">
                                     {% if event_form.instance %}
                                         {% if other_language in event_form.instance.languages %}
                                             {% if event_translation_form.instance.is_outdated %}
@@ -80,9 +80,13 @@
                                         </span>
                                     {% endif %}
                                     {{ other_language.translated_name }}
+                                    <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                {% if other_language.secondary_country_code %}
+                                    <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                {% endif %}
                                 </div>
                             {% else %}
-                                <a class="block px-4" style="color: inherit;" href="{% url 'edit_event' event_id=event_form.instance.id region_slug=region.slug language_slug=other_language.slug %}">
+                                <a class="block px-4 pb-3 pt-2" style="color: inherit;" href="{% url 'edit_event' event_id=event_form.instance.id region_slug=region.slug language_slug=other_language.slug %}">
                                     {% if other_language in event_form.instance.languages %}
                                         {% get_translation event_form.instance other_language.slug as other_event_translation %}
                                         {% if other_event_translation.is_outdated %}
@@ -102,27 +106,38 @@
                                         <span title="{% trans 'Translation missing' %}">
                                             <i data-feather="x"></i>
                                         </span>
+                                        {{ other_language.translated_name }}
+                                            <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                        {% if other_language.secondary_country_code %}
+                                            <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                        {% endif %}
                                     {% endif %}
-                                    {{ other_language.translated_name }}
                                 </a>
                             {% endif %}
                             </div>
                         </div>
                     </li>
                 {% endfor %}
-                {% if event_translation_form.instance.id %}
-                    <li class="self-start ml-auto px-2">
-                        {% trans 'Version' %}:
-                        {{ event_translation_form.instance.version }}
-                    </li>
+                {% if languages|length > 4 %}
+                <div class="ml-auto z-10">
+                    {% include "content_form_language_switcher.html" with target='edit_event' instance=event_form.instance content_field="event_id" content_id=event_form.instance.id %}
+                </div>
                 {% endif %}
             </ul>
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
                 <div class="w-full p-4">
+                    {% if event_translation_form.instance.id %}
+                        <div class="flex justify-end mr-8">
+                            <div class="self-start ml-auto">
+                                {% trans 'Version' %}:
+                                {{ event_translation_form.instance.version }}
+                            </div>
+                        </div>
+                    {% endif %}
                     <div class="flex justify-between">
                         <label for="{{ event_translation_form.title.id_for_label }}" 
-                            data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='event' %}{% if event_form.instance.id %}?model_id={{ event_form.instance.id }}{% endif %}">
-                            {{ event_translation_form.title.label }}
+                        data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='event' %}{% if event_form.instance.id %}?model_id={{ event_form.instance.id }}{% endif %}">
+                        {{ event_translation_form.title.label }}
                         </label>
                         {% if event_translation_form.instance.id %}
                             <span class="mr-8">
