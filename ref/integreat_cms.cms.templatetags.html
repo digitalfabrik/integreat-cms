@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-11-19T01:21:32+00:00" />
+    <meta property="article:modified_time" content="2022-01-05T14:59:50+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Templatetags &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -745,7 +745,30 @@ Filters transform the values of variables and are surrounded by <code class="doc
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a> and <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI" title="integreat_cms.cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>).</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_int_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">build_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This tag returns the requested language by slug</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested target</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested region</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The slug of the requested language</p></li>
+<li><p><strong>content_field</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the content field</p></li>
+<li><p><strong>content_id</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the content</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of args</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_int_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L156"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This filter returns the list data of a one-to-many field as ints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -765,7 +788,7 @@ Filters transform the values of variables and are surrounded by <code class="doc
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the requested language by slug</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -782,7 +805,7 @@ Filters transform the values of variables and are surrounded by <code class="doc
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_public_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_public_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the most recent public translation of the requested content object in the requested language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -803,7 +826,7 @@ or <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the most recent translation of the requested content object in the requested language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -824,7 +847,7 @@ or <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">is_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">is_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This filter checks whether the given iterable is empty.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -841,7 +864,7 @@ or <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">object_translation_has_view_perm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">object_translation_has_view_perm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L187"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This filter accepts any translation of Event, Page or Poi and returns
 whether the user has the permission to view this object</p>
 <dl class="field-list simple">
@@ -866,7 +889,7 @@ whether the user has the permission to view this object</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag removes an object instance from a QuerySet.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -886,7 +909,27 @@ whether the user has the permission to view this object</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">translated_language_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">sort_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_languages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L134"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This filter sorts languages in language tabs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The current language</p></li>
+<li><p><strong>other_languages</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a><em> [ </em><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a><em> ]</em>) – Other languages</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the filtered list with the current language on the second position</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">translated_language_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the name of the requested language in the current backend language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1222,7 +1265,7 @@ this filter reduced the output when display in list view</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 19, 2021.
+      <span class="lastupdated">Last updated on Jan 05, 2022.
       </span></p>
   </div>
 
