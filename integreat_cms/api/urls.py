@@ -20,7 +20,7 @@ from .v3.feedback import (
 from .v3.imprint import imprint
 from .v3.languages import languages
 from .v3.locations import locations
-from .v3.pages import pages, children, single_page
+from .v3.pages import pages, children, parents, single_page
 from .v3.pdf_export import pdf_export
 from .v3.push_notifications import sent_push_notifications
 from .v3.regions import regions, liveregions, hiddenregions, pushnew
@@ -36,6 +36,7 @@ content_api_urlpatterns = [
         name="api_single_page",
     ),
     url(r"^children/?$", children, name="api_children"),
+    url(r"^parents/?$", parents, name="api_parents"),
     url(
         r"^pdf/?$",
         pdf_export,
