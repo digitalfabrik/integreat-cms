@@ -1,7 +1,6 @@
 import logging
 import json
-import base64
-from webauthn import verify_registration_response
+from webauthn import verify_registration_response, base64url_to_bytes
 from webauthn.helpers.structs import RegistrationCredential
 
 from django.conf import settings
@@ -52,17 +51,16 @@ class RegisterUserMfaKeyView(CreateView):
         :return: The JSON response
         :rtype: ~django.http.JsonResponse
         """
-        print(request.session["mfa_registration_challenge"])
+        json_data = json.loads(request.body)
+
         webauthn_registration_response = verify_registration_response(
             credential=RegistrationCredential.parse_raw(request.body),
             expected_rp_id=settings.HOSTNAME,
             expected_origin=settings.BASE_URL,
-            expected_challenge=base64.b64decode(
+            expected_challenge=base64url_to_bytes(
                 request.session["mfa_registration_challenge"]
             ),
         )
-
-        webauthn_credential = webauthn_registration_response.verify()
 
         existing_key = request.user.mfa_keys.filter(name=json_data["name"])
         if existing_key.exists():
@@ -71,7 +69,7 @@ class RegisterUserMfaKeyView(CreateView):
             )
 
         existing_key = request.user.mfa_keys.filter(
-            key_id=webauthn_credential.credential_id
+            key_id=webauthn_registration_response.credential_id
         )
         if existing_key.exists():
             return JsonResponse(
@@ -81,9 +79,9 @@ class RegisterUserMfaKeyView(CreateView):
         new_key = UserMfaKey(
             user=request.user,
             name=json_data["name"],
-            key_id=webauthn_credential.credential_id,
-            public_key=webauthn_credential.public_key,
-            sign_count=webauthn_credential.sign_count,
+            key_id=webauthn_registration_response.credential_id,
+            public_key=webauthn_registration_response.credential_public_key,
+            sign_count=webauthn_registration_response.sign_count,
         )
         new_key.save()
         messages.success(

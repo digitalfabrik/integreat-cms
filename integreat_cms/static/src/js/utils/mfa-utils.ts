@@ -47,7 +47,10 @@ export function transformCredentialRequestOptions(
   credentialRequestOptionsFromServer: WebauthnAssert
 ): PublicKeyCredentialRequestOptions {
   let { challenge } = credentialRequestOptionsFromServer;
-  let challengeData = Uint8Array.from(atob(challenge), (c) => c.charCodeAt(0));
+  let challengeData = Uint8Array.from(atob(challenge
+    .replace(/\-/g, "+")
+    .replace(/\_/g, "/")
+  ), (c) => c.charCodeAt(0));
 
   const allowCredentials = credentialRequestOptionsFromServer.allowCredentials.map(
     (credentialDescriptor) => {
@@ -70,8 +73,10 @@ export function transformCredentialRequestOptions(
 
 export function transformAssertionForServer(newAssertion: PublicKeyCredential) {
   const response = newAssertion.response as AuthenticatorAssertionResponse;
-  const authData = new Uint8Array(response.authenticatorData);
+  const authenticatorData = new Uint8Array(response.authenticatorData);
   const clientDataJSON = new Uint8Array(response.clientDataJSON);
+  const userHandle = new Uint8Array(response.userHandle);
+
   const rawId = new Uint8Array(newAssertion.rawId);
   const sig = new Uint8Array(response.signature);
   const assertionClientExtensions = newAssertion.getClientExtensionResults();
@@ -80,9 +85,12 @@ export function transformAssertionForServer(newAssertion: PublicKeyCredential) {
     id: newAssertion.id,
     rawId: b64enc(rawId),
     type: newAssertion.type,
-    authData: b64RawEnc(authData),
-    clientData: b64RawEnc(clientDataJSON),
-    signature: hexEncode(sig),
+    response: {
+      authenticatorData: b64RawEnc(authenticatorData),
+      clientDataJSON: b64RawEnc(clientDataJSON),
+      signature: b64RawEnc(sig),
+      userHandle: b64RawEnc(userHandle)
+    },
     assertionClientExtensions: JSON.stringify(assertionClientExtensions),
   };
 }
@@ -96,7 +104,10 @@ export function transformCredentialCreateOptions(
     (c) => c.charCodeAt(0)
   );
 
-  const challengeData = Uint8Array.from(challenge, (c) =>
+  const challengeData = Uint8Array.from(atob(challenge
+    .replace(/\-/g, "+")
+    .replace(/\_/g, "/")
+  ), (c) =>
     c.charCodeAt(0)
   );
 
@@ -105,9 +116,6 @@ export function transformCredentialCreateOptions(
     credentialCreateOptionsFromServer,
     { challenge: challengeData, user: { ...user, id: userIdData } }
   );
-
-  transformedCredentialCreateOptions.rp.id = transformedCredentialCreateOptions.rp.id.replace(':8000', '')
-  console.log(transformedCredentialCreateOptions)
 
   return transformedCredentialCreateOptions;
 }

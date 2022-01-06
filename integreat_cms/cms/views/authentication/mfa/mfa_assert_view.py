@@ -1,13 +1,16 @@
 import logging
-import webauthn
 
+from webauthn import generate_authentication_options, options_to_json
+from webauthn.helpers import bytes_to_base64url
+from webauthn.helpers.structs import PublicKeyCredentialDescriptor
+
+
+from django.http.response import HttpResponse
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.utils.translation import ugettext as _
 from django.views.generic import View
-
-from ....utils.mfa_utils import generate_challenge
 
 logger = logging.getLogger(__name__)
 
@@ -40,26 +43,17 @@ class MfaAssertView(View):
             )
         user = get_user_model().objects.get(id=request.session["mfa_user_id"])
 
-        challenge = generate_challenge(32)
-
-        request.session["challenge"] = challenge
-
-        webauthn_users = [
-            webauthn.WebAuthnUser(
-                user.id,
-                user.username,
-                f"{user.first_name} {user.last_name}",
-                "",
-                str(key.key_id, "utf-8"),
-                key.public_key,
-                key.sign_count,
-                settings.HOSTNAME,
-            )
-            for key in user.mfa_keys.all()
-        ]
-
-        webauthn_assertion_options = webauthn.WebAuthnAssertionOptions(
-            webauthn_users, challenge
+        webauthn_challenge = generate_authentication_options(
+            rp_id=settings.HOSTNAME,
+            allow_credentials=[
+                PublicKeyCredentialDescriptor(id=key.key_id)
+                for key in user.mfa_keys.all()
+            ],
         )
 
-        return JsonResponse(webauthn_assertion_options.assertion_dict)
+        request.session["challenge"] = bytes_to_base64url(webauthn_challenge.challenge)
+
+        # pylint: disable=http-response-with-content-type-json
+        return HttpResponse(
+            options_to_json(webauthn_challenge), content_type="application/json"
+        )

@@ -109,7 +109,7 @@ BASE_URL = os.environ.get("INTEGREAT_CMS_BASE_URL", "http://localhost:8000")
 #: - :class:`~integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView`
 #: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_assert_view.MfaAssertView`
 #: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView`
-HOSTNAME = urlparse(BASE_URL).netloc
+HOSTNAME = urlparse(BASE_URL).hostname
 
 
 ########################

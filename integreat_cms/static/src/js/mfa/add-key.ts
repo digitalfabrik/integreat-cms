@@ -37,8 +37,6 @@ window.addEventListener("load", () => {
       );
       const rawId = new Uint8Array(newAssertion.rawId);
 
-      const registrationClientExtensions = newAssertion.getClientExtensionResults();
-
       const formData = {
         id: newAssertion.id,
         rawId: b64enc(rawId),
@@ -47,7 +45,7 @@ window.addEventListener("load", () => {
           attestationObject: b64enc(attestationObject),
           clientDataJSON: b64enc(clientDataJSON)
         },
-        clientExtensionResults: newAssertion.getClientExtensionResults()
+        clientExtensionResults: newAssertion.getClientExtensionResults(),
       };
 
       const result = await fetch(addMfaForm.action, {
