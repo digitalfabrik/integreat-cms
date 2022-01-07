@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import status
+from ...constants import status, translation_status
 from ...decorators import region_permission_required, permission_required
 from ...models import Region, Language, POITranslation
 from ...forms import ObjectSearchForm
@@ -131,6 +131,7 @@ class POIListView(TemplateView, POIContextMixin):
                 "language": language,
                 "languages": region.active_languages,
                 "search_query": query,
+                "translation_status": translation_status,
                 "WEBAPP_URL": settings.WEBAPP_URL,
                 "PUBLIC": status.PUBLIC,
                 **context,

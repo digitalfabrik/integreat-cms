@@ -162,6 +162,7 @@ class PageTreeView(TemplateView, PageContextMixin):
                 "filter_form": filter_form,
                 "enable_drag_and_drop": enable_drag_and_drop,
                 "search_query": query,
+                "translation_status": translation_status,
                 "PUBLIC": status.PUBLIC,
                 "WEBAPP_URL": settings.WEBAPP_URL,
             },

@@ -1,9 +1,7 @@
 from django.db import models
-from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from ..abstract_content_model import AbstractContentModel
-from ..languages.language import Language
 from ..media.media_file import MediaFile
 from ..pois.poi_translation import POITranslation
 
@@ -53,17 +51,6 @@ class POI(AbstractContentModel):
         :rtype: type
         """
         return POITranslation
-
-    @cached_property
-    def languages(self):
-        """
-        This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to which a POI
-        translation exists.
-
-        :return: QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` a POI is translated into
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
-        """
-        return Language.objects.filter(poi_translations__poi=self)
 
     class Meta:
         #: The verbose name of the model

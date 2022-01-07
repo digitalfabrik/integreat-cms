@@ -14,7 +14,6 @@ from ...utils.translation_utils import ugettext_many_lazy as __
 from ..abstract_content_model import ContentQuerySet
 from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields
-from ..languages.language import Language
 from .abstract_base_page import AbstractBasePage
 from .page_translation import PageTranslation
 
@@ -154,17 +153,6 @@ class Page(AbstractTreeNode, AbstractBasePage):
         :rtype: bool
         """
         return self.explicitly_archived or self.implicitly_archived
-
-    @cached_property
-    def languages(self):
-        """
-        This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to which a page
-        translation exists.
-
-        :return: list of all :class:`~integreat_cms.cms.models.languages.language.Language` a page is translated into
-        :rtype: list [ ~integreat_cms.cms.models.languages.language.Language ]
-        """
-        return Language.objects.filter(page_translations__page=self)
 
     @classmethod
     def get_root_pages(cls, region_slug):

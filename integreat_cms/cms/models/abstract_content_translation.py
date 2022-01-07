@@ -197,13 +197,10 @@ class AbstractContentTranslation(models.Model):
         :return: A dictionary containing the available languages of a content translation
         :rtype: dict
         """
-        languages = [
-            language
-            for language in self.foreign_object.languages
-            if language != self.language
-        ]
         available_languages = {}
-        for language in languages:
+        for language in self.foreign_object.public_languages:
+            if language == self.language:
+                continue
             other_translation = self.foreign_object.get_public_translation(
                 language.slug
             )
@@ -226,13 +223,10 @@ class AbstractContentTranslation(models.Model):
         :return: A list of dictionaries containing the alternative translations of a content translation
         :rtype: list [ dict ]
         """
-        languages = [
-            language
-            for language in self.foreign_object.languages
-            if language != self.language
-        ]
         available_languages = []
-        for language in languages:
+        for language in self.foreign_object.public_languages:
+            if language == self.language:
+                continue
             other_translation = self.foreign_object.get_public_translation(
                 language.slug
             )

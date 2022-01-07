@@ -9,7 +9,6 @@ from django.utils.translation import ugettext_lazy as _
 from ...constants import frequency, status
 from ...utils.slug_utils import generate_unique_slug
 from ..abstract_content_model import AbstractContentModel, ContentQuerySet
-from ..languages.language import Language
 from ..media.media_file import MediaFile
 from ..pois.poi import POI
 from .event_translation import EventTranslation
@@ -118,17 +117,6 @@ class Event(AbstractContentModel):
         :rtype: type
         """
         return EventTranslation
-
-    @cached_property
-    def languages(self):
-        """
-        This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects,
-        to which an event translation exists.
-
-        :return: QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` an event is translated into
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
-        """
-        return Language.objects.filter(event_translations__event=self)
 
     @cached_property
     def is_recurring(self):

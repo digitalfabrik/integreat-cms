@@ -10,7 +10,13 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import all_day, recurrence, status, events_time_range
+from ...constants import (
+    all_day,
+    recurrence,
+    status,
+    events_time_range,
+    translation_status,
+)
 from ...decorators import region_permission_required, permission_required
 from ...models import Region, EventTranslation
 from ...forms import EventFilterForm
@@ -205,6 +211,7 @@ class EventListView(TemplateView, EventContextMixin):
                 "languages": region.active_languages,
                 "filter_form": event_filter_form,
                 "filter_poi": poi,
+                "translation_status": translation_status,
                 "search_query": query,
                 "WEBAPP_URL": settings.WEBAPP_URL,
                 "PUBLIC": status.PUBLIC,

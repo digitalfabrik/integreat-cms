@@ -1,8 +1,13 @@
+import logging
+
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from ..abstract_content_model import AbstractContentModel
+
+
+logger = logging.getLogger(__name__)
 
 
 class AbstractBasePage(AbstractContentModel):
@@ -26,16 +31,6 @@ class AbstractBasePage(AbstractContentModel):
         :rtype: bool
         """
         return self.explicitly_archived
-
-    @cached_property
-    def languages(self):
-        """
-        This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to
-        which a translation exists.
-
-        :raises NotImplementedError: If the property is not implemented in the subclass
-        """
-        raise NotImplementedError
 
     class Meta:
         #: This model is an abstract base class
