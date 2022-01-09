@@ -14,7 +14,7 @@ cd "${PACKAGE_DIR}" || exit 1
 
 # Re-generating translation file
 echo "Scanning Python and HTML source code and extracting translatable strings from it..." | print_info
-pipenv run integreat-cms-cli makemessages -l de
+pipenv run integreat-cms-cli makemessages -l de --verbosity "${SCRIPT_VERBOSITY}"
 
 # Ignore POT-Creation-Date of otherwise unchanged translation file
 if git diff --shortstat locale/de/LC_MESSAGES/django.po | grep -q "1 file changed, 1 insertion(+), 1 deletion(-)"; then
@@ -23,6 +23,6 @@ fi
 
 # Compile translation file
 echo "Compiling translation file..." | print_info
-pipenv run integreat-cms-cli compilemessages
+pipenv run integreat-cms-cli compilemessages --verbosity "${SCRIPT_VERBOSITY}"
 
 echo "✔ Translation process finished" | print_success

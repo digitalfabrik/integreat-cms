@@ -34,6 +34,8 @@ SCRIPT_NAME=$(basename "$0")
 SCRIPT_PATH="${DEV_TOOL_DIR}/${SCRIPT_NAME}"
 # The arguments which were passed to the currently running script
 SCRIPT_ARGS=("$@")
+# The verbosity of the output (can be one of {0,1,2,3})
+SCRIPT_VERBOSITY="1"
 
 # Set the pipenv verbosity based on whether pipenv is running inside a virtual environment or not.
 if [[ -n "$VIRTUAL_ENV" ]]; then
@@ -214,11 +216,11 @@ function migrate_database {
         deescalate_privileges mkdir -pv "${PACKAGE_DIR}/cms/migrations"
         deescalate_privileges touch "${PACKAGE_DIR}/cms/migrations/__init__.py"
         # Generate migration files
-        deescalate_privileges pipenv run integreat-cms-cli makemigrations
+        deescalate_privileges pipenv run integreat-cms-cli makemigrations --verbosity "${SCRIPT_VERBOSITY}"
         # Execute migrations
-        deescalate_privileges pipenv run integreat-cms-cli migrate
+        deescalate_privileges pipenv run integreat-cms-cli migrate --verbosity "${SCRIPT_VERBOSITY}"
         # Load the role fixtures
-        deescalate_privileges pipenv run integreat-cms-cli loaddata "${PACKAGE_DIR}/cms/fixtures/roles.json"
+        deescalate_privileges pipenv run integreat-cms-cli loaddata "${PACKAGE_DIR}/cms/fixtures/roles.json" --verbosity "${SCRIPT_VERBOSITY}"
         echo "✔ Finished database migrations" | print_success
         DATABASE_MIGRATED=1
     fi
