@@ -43,7 +43,7 @@ class RegionViewTest(ViewTest):
         language = Language.objects.create(
             slug="te-st", native_name="test_language", english_name="test_language"
         )
-        LanguageTreeNode.objects.create(language=language, region=region)
+        LanguageTreeNode.add_root(language=language, region=region)
         user = get_user_model().objects.create_user("region_user")
         user.regions.add(region)
         user.save()

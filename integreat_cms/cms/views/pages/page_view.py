@@ -136,10 +136,11 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         )
 
         # Pass siblings to template to enable rendering of page order table
-        if not page or not page.parent:
-            siblings = region.pages.filter(level=0)
+        if page:
+            siblings = page.get_region_siblings()
         else:
-            siblings = page.parent.children.all()
+            siblings = region.get_root_pages()
+
         context = self.get_context_data(**kwargs)
         return render(
             request,
@@ -200,12 +201,6 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
             page=page_instance,
             language=language,
         ).first()
-
-        # Pass siblings to template to enable rendering of page order table
-        if not page_instance or not page_instance.parent:
-            siblings = region.pages.filter(level=0)
-        else:
-            siblings = page_instance.parent.children.all()
 
         page_form = PageForm(
             data=request.POST,
@@ -275,6 +270,14 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
             else:
                 # Add the success message
                 page_translation_form.add_success_message(request)
+
+        # Pass siblings to template to enable rendering of page order table
+        if page_translation_form.instance.id:
+            siblings = page_translation_form.instance.page.get_region_siblings()
+        elif page_form.instance.id:
+            siblings = page_form.instance.get_region_siblings()
+        else:
+            siblings = region.get_root_pages()
 
         return render(
             request,

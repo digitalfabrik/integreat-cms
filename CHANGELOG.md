@@ -9,6 +9,7 @@ UNRELEASED
 * Add APIv3 parents/ancestors endpoint
 * Add API tests
 * Improve performance of feedback list
+* Replace django-mptt by django-treebeard
 
 
 2021.12.0-beta

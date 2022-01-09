@@ -6,8 +6,6 @@ import logging
 import os
 import uuid
 
-from mptt.exceptions import InvalidMove
-
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -17,6 +15,8 @@ from django.http import HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
+
+from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
 from ....xliff.utils import pages_to_xliff_file
 from ...constants import text_directions
@@ -540,7 +540,11 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
     target = get_object_or_404(region.pages, id=target_id)
 
     try:
-        page.move_to(target, position)
+        page.move(target, position)
+        # Call the save method on the (reloaded) node in order to trigger possible signal handlers etc.
+        # (The move()-method executes raw sql which might cause problems if the instance isn't fetched again)
+        page = Page.objects.get(id=page_id)
+        page.save()
         logger.debug(
             "%r moved to %r of %r by %r",
             page,
@@ -554,7 +558,7 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
                 page=page.best_translation.title
             ),
         )
-    except (ValueError, InvalidMove) as e:
+    except (ValueError, InvalidPosition, InvalidMoveToDescendant) as e:
         messages.error(request, e)
         logger.exception(e)
 
@@ -822,9 +826,10 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
     page = get_object_or_404(region.pages, id=page_id)
 
     if parent_id == "0":
-        siblings = region.pages.filter(level=0)
+        siblings = region.get_root_pages()
     else:
-        siblings = region.pages.filter(parent__id=parent_id)
+        parent = get_object_or_404(region.pages, id=parent_id)
+        siblings = parent.get_children()
 
     logger.debug(
         "Page order table for %r and siblings %r",
@@ -867,9 +872,10 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
     region = Region.get_current_region(request)
 
     if parent_id == "0":
-        siblings = region.pages.filter(level=0)
+        siblings = region.get_root_pages()
     else:
-        siblings = region.pages.filter(parent__id=parent_id)
+        parent = get_object_or_404(region.pages, id=parent_id)
+        siblings = parent.get_children()
 
     logger.debug(
         "Page order table for a new page and siblings %r",

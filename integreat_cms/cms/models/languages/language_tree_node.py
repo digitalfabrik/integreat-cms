@@ -1,15 +1,14 @@
-from mptt.fields import TreeForeignKey
-from mptt.models import MPTTModel
-
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from .language import Language
-from ..regions.region import Region
+from ..abstract_tree_node import AbstractTreeNode
+from ..decorators import modify_fields
 
 
-class LanguageTreeNode(MPTTModel):
+@modify_fields(parent={"verbose_name": _("source language")})
+class LanguageTreeNode(AbstractTreeNode):
     """
     Data model representing a region's language tree. Each tree node is a single object instance and the whole tree is
     identified by the root node. The base functionality inherits from the package `django-mptt
@@ -21,20 +20,6 @@ class LanguageTreeNode(MPTTModel):
         on_delete=models.PROTECT,
         related_name="language_tree_nodes",
         verbose_name=_("language"),
-    )
-    parent = TreeForeignKey(
-        "self",
-        blank=True,
-        null=True,
-        on_delete=models.PROTECT,
-        related_name="children",
-        verbose_name=_("source language"),
-    )
-    region = models.ForeignKey(
-        Region,
-        on_delete=models.CASCADE,
-        related_name="language_tree_nodes",
-        verbose_name=_("region"),
     )
     visible = models.BooleanField(
         default=True,
@@ -105,16 +90,6 @@ class LanguageTreeNode(MPTTModel):
         """
         return self.language.text_direction
 
-    @property
-    def depth(self):
-        """
-        Counts how many ancestors the node has. If the node is the root node, its depth is `0`.
-
-        :return: The depth of this language node
-        :rtype: str
-        """
-        return len(self.get_ancestors())
-
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``LanguageTreeNode object (id)``.
@@ -140,6 +115,8 @@ class LanguageTreeNode(MPTTModel):
         verbose_name = _("language tree node")
         #: The plural verbose name of the model
         verbose_name_plural = _("language tree nodes")
+        #: The name that will be used by default for the relation from a related object back to this one
+        default_related_name = "language_tree_nodes"
         #: There cannot be two language tree nodes with the same region and language
         unique_together = (
             (
@@ -149,5 +126,3 @@ class LanguageTreeNode(MPTTModel):
         )
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view")
-        #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["region", "level", "parent__pk"]

@@ -192,7 +192,7 @@ def children(request, region_slug, language_slug):
         depth = depth - 1
     result = []
     for root in root_pages:
-        descendants = root.get_descendants_max_depth(True, depth)
+        descendants = root.get_descendants_max_depth(include_self=True, max_depth=depth)
         for descendant in descendants:
             public_translation = descendant.get_public_translation(language_slug)
             if public_translation:

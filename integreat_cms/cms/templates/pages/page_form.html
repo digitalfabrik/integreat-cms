@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
+{% load base_filters %}
 {% load content_filters %}
 {% load page_filters %}
 {% load rules %}
@@ -260,8 +261,8 @@
                 <div>
                     <label>{% trans 'Positioning' %}</label>
                     <label for="{{ page_form.parent.id_for_label }}" class="secondary">{{ page_form.parent.label }}</label>
-                    {% render_field page_form.related_page %}
-                    {% render_field page_form.position %}
+                    {% render_field page_form|get_private_member:"ref_node_id" %}
+                    {% render_field page_form|get_private_member:"position" %}
                     {% render_field page_form.parent id="parent" %}
                     <label class="btn-gray">{% trans 'Order' %}</label>
                     <div id="page_order_table" class="mb-4">

@@ -7,9 +7,9 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from mptt.models import MPTTModel, TreeForeignKey
-
 from .abstract_base_page import AbstractBasePage
+from ..abstract_tree_node import AbstractTreeNode
+from ..decorators import modify_fields
 from ..languages.language import Language
 from ..media.media_file import MediaFile
 from ..users.organization import Organization
@@ -18,19 +18,12 @@ from ...utils.translation_utils import ugettext_many_lazy as __
 logger = logging.getLogger(__name__)
 
 
-class Page(MPTTModel, AbstractBasePage):
+@modify_fields(parent={"verbose_name": _("parent page")})
+class Page(AbstractTreeNode, AbstractBasePage):
     """
     Data model representing a page.
     """
 
-    parent = TreeForeignKey(
-        "self",
-        null=True,
-        blank=True,
-        on_delete=models.PROTECT,
-        related_name="children",
-        verbose_name=_("parent page"),
-    )
     icon = models.ForeignKey(
         MediaFile,
         verbose_name=_("icon"),
@@ -99,7 +92,7 @@ class Page(MPTTModel, AbstractBasePage):
         This returns all of the page's ancestors which are archived.
 
         :return: The QuerySet of archived ancestors
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
+        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         return self.get_ancestors().filter(explicitly_archived=True)
 
@@ -135,16 +128,6 @@ class Page(MPTTModel, AbstractBasePage):
         """
         return Language.objects.filter(page_translations__page=self)
 
-    @property
-    def depth(self):
-        """
-        Counts how many ancestors the page has. If the page is the root page, its depth is `0`.
-
-        :return: The depth of this page in its page tree
-        :rtype: str
-        """
-        return len(self.get_ancestors())
-
     @classmethod
     def get_root_pages(cls, region_slug):
         """
@@ -154,77 +137,9 @@ class Page(MPTTModel, AbstractBasePage):
         :type region_slug: str
 
         :return: All root pages i.e. pages without parents
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
+        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
-        return Page.objects.filter(region__slug=region_slug, parent=None)
-
-    def get_previous_sibling(self, *filter_args, **filter_kwargs):
-        r"""
-        This function gets all previous siblings of a page
-
-        :param \*filter_args: The supplied arguments
-        :type \*filter_args: list
-
-        :param \**filter_kwargs: The supplied kwargs
-        :type \**filter_kwargs: list
-
-        :return: The previous sibling
-        :rtype: ~integreat_cms.cms.models.pages.page.Page
-        """
-        # Only consider siblings from this region
-        filter_kwargs["region"] = self.region
-        return super().get_previous_sibling(*filter_args, **filter_kwargs)
-
-    def get_next_sibling(self, *filter_args, **filter_kwargs):
-        r"""
-        This function gets the next sibling of a page
-
-        :param \*filter_args: The supplied arguments
-        :type \*filter_args: list
-
-        :param \**filter_kwargs: The supplied kwargs
-        :type \**filter_kwargs: list
-
-        :return: The next sibling
-        :rtype: ~integreat_cms.cms.models.pages.page.Page
-        """
-        # Only consider siblings from this region
-        filter_kwargs["region"] = self.region
-        return super().get_next_sibling(*filter_args, **filter_kwargs)
-
-    def get_siblings(self, include_self=False):
-        """
-        This function gets all siblings of a page
-
-        :param include_self: gives state of include_self
-        :type include_self: bool
-
-        :return: All siblings of this page
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
-        """
-        # Return only siblings from the same region
-        return (
-            super().get_siblings(include_self=include_self).filter(region=self.region)
-        )
-
-    def get_descendants_max_depth(self, include_self, max_depth):
-        """
-        Return all descendants with depth less or equal to max depth relative to this nodes depth
-
-        :param include_self: Whether to include this node in the result
-        :type include_self: bool
-
-        :param max_depth: The nodes maximum depth in the tree
-        :type max_depth: int
-
-        :return: All descendants of this node with relative max depth
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
-        """
-        return (
-            super()
-            .get_descendants(include_self=include_self)
-            .filter(level__lte=self.get_level() + max_depth)
-        )
+        return cls.get_region_root_nodes(region_slug=region_slug)
 
     def get_mirrored_page_translation(self, language_slug):
         """

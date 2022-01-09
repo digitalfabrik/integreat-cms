@@ -2,7 +2,6 @@
 
 {% load i18n %}
 {% load static %}
-{% load mptt_tags %}
 {% load content_filters %}
 {% load page_filters %}
 {% load rules %}
@@ -83,20 +82,12 @@
                 </tr>
             </thead>
             <tbody>
-            {% if pages %}
-                {% get_last_root_page pages as last_root_page %}
-                {% recursetree pages %}
-                    {% get_translation node language.slug as page_translation %}
-                    {% get_depth_in node pages as page_depth %}
-                    {% include "pages/page_tree_node.html" with page=node %}
-                    {% if not node.is_leaf_node %}
-                        {{children}}
-                    {% endif %}
-                    {% if node == last_root_page %}
-                        <tr data-drop-id="{{ node.id }}" data-drop-position="right" class="drop drop-between h-3 hidden" title="test"><td colspan="9"><div><span></span></div></td></tr>
-                    {% endif %}
-                {% endrecursetree %}
-            {% else %}
+            {% for page in pages %}
+                {% include "pages/page_tree_node.html" %}
+                {% if forloop.last %}
+                    <tr data-drop-id="{% if page.is_root %}{{ page.id }}{% else %}{{ page.get_ancestors.0.id }}{% endif %}" data-drop-position="right" class="drop drop-between h-3 hidden" title="test"><td colspan="9"><div><span></span></div></td></tr>
+                {% endif %}
+            {% empty %}
                 <tr>
                     <td></td>
                     <td colspan="8" class="px-2 py-3">
@@ -107,7 +98,7 @@
                         {% endif %}
                     </td>
                 </tr>
-            {% endif %}
+            {% endfor %}
             </tbody>
         </table>
     </div>

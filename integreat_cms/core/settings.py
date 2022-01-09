@@ -137,8 +137,8 @@ INSTALLED_APPS = [
     # Installed third-party-apps
     "corsheaders",
     "linkcheck",
-    "mptt",
     "rules.apps.AutodiscoverRulesConfig",
+    "treebeard",
     "webpack_loader",
     "widget_tweaks",
     "polymorphic",

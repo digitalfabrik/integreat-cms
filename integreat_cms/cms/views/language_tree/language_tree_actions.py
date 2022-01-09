@@ -4,17 +4,17 @@ Typically, they do not render a whole page, but only parts of it or they redirec
 """
 import logging
 
-from mptt.exceptions import InvalidMove
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
+from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
+
 from ...constants import position
 from ...decorators import region_permission_required, permission_required
-from ...models import Region
+from ...models import Region, LanguageTreeNode
 
 logger = logging.getLogger(__name__)
 
@@ -55,9 +55,13 @@ def move_language_tree_node(
     target = get_object_or_404(region.language_tree_nodes, id=target_id)
 
     try:
-        if target.level == 0 and target_position in [position.LEFT, position.RIGHT]:
-            raise InvalidMove(_("A region can only have one root language."))
-        language_tree_node.move_to(target, target_position)
+        if target.depth == 1 and target_position in [position.LEFT, position.RIGHT]:
+            raise InvalidPosition(_("A region can only have one root language."))
+        language_tree_node.move(target, target_position)
+        # Call the save method on the (reloaded) node in order to trigger possible signal handlers etc.
+        # (The move()-method executes raw sql which might cause problems if the instance isn't fetched again)
+        language_tree_node = LanguageTreeNode.objects.get(id=language_tree_node_id)
+        language_tree_node.save()
         messages.success(
             request,
             _('The language tree node "{}" was successfully moved.').format(
@@ -71,7 +75,7 @@ def move_language_tree_node(
             target,
             request.user,
         )
-    except (ValueError, InvalidMove) as e:
+    except (ValueError, InvalidPosition, InvalidMoveToDescendant) as e:
         messages.error(request, e)
         logger.exception(e)
 

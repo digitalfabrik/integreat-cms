@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load content_filters %}
 {% load page_filters %}
-<tr class="border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if page.depth > 0 %} child level-{{page.depth}}{% endif %}">
+<tr class="border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if page.depth > 1 %} child level-{{page.depth}}{% endif %}">
     <td class="hierarchy single_icon">
         <span class="text-gray-800 block py-3 pl-4 pr-2" title="{% trans 'Drag & drop is disabled for archived pages.' %}">
             <i data-feather="move"></i>

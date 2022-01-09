@@ -44,7 +44,7 @@ class RegionManager(models.Manager):
                 models.Prefetch(
                     "language_tree_nodes",
                     queryset=LanguageTreeNode.objects.select_related("language").filter(
-                        level=0
+                        depth=1
                     ),
                     to_attr="language_tree_root",
                 )
@@ -236,7 +236,7 @@ class Region(models.Model):
         :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
         """
         return Language.objects.filter(language_tree_nodes__region=self).order_by(
-            "language_tree_nodes__level", "language_tree_nodes__lft"
+            "language_tree_nodes__depth", "language_tree_nodes__lft"
         )
 
     @cached_property
@@ -256,7 +256,7 @@ class Region(models.Model):
             # (this should only happen in rare edge cases)
             tree_root = (
                 self.language_tree_nodes.select_related("language")
-                .filter(level=0)
+                .filter(depth=1)
                 .first()
             )
         return tree_root.language if tree_root else None
@@ -349,7 +349,7 @@ class Region(models.Model):
         ``return_unrestricted_queryset`` set to ``True``.
 
         :return: A QuerySet of all archived pages of this region
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
+        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         # Queryset of explicitly archived pages
         explicitly_archived_pages = self.pages.filter(explicitly_archived=True)
@@ -362,8 +362,7 @@ class Region(models.Model):
         ]
         # Merge explicitly and implicitly archived pages
         archived_pages = explicitly_archived_pages.union(*implicitly_archived_pages)
-        # Order the resulting :class:`~mptt.querysets.TreeQuerySet` to restore the tree-structure which is required for
-        # the custom template tag "recursetree" of django-mptt (see :doc:`django-mptt:templates`)
+        # Order the resulting :class:`~treebeard.ns_tree.NS_NodeQuerySet` to restore the tree-structure
         return archived_pages.order_by("tree_id", "lft")
 
     @cached_property
@@ -380,7 +379,7 @@ class Region(models.Model):
         ``True``.
 
         :return: A QuerySet of all non-archived pages of this region
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
+        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         # Multiple order_by clauses are not allowed in sql queries, so to make combined queries with difference() work,
         # we have to remove ordering from the input querysets and apply the default ordering to the resulting queryset.
@@ -410,7 +409,7 @@ class Region(models.Model):
         :type return_unrestricted_queryset: bool
 
         :return: Either the archived or the non-archived pages of this region
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
+        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         if archived:
             pages = self.archived_pages
@@ -421,6 +420,17 @@ class Region(models.Model):
             page_ids = [page.id for page in pages]
             pages = self.pages.filter(id__in=page_ids)
         return pages
+
+    def get_root_pages(self):
+        """
+        This method returns all root pages of this region.
+
+        :return: This region's root pages
+        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
+        """
+        # Get model instead of importing it to avoid circular imports
+        Page = apps.get_model(app_label="cms", model_name="Page")
+        return Page.get_root_pages(region_slug=self.slug)
 
     @classmethod
     def search(cls, query):

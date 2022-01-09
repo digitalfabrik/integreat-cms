@@ -1,7 +1,6 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load static %}
-{% load mptt_tags %}
 
 {% block content %}
 <div class="table-header">
@@ -31,21 +30,16 @@
             </tr>
         </thead>
         <tbody>
-        {% if language_tree %}
-            {% recursetree language_tree %}
-                {% include "language_tree/language_tree_node.html" with node=node %}
-                {% if not node.is_leaf_node %}
-                    {{children}}
-                {% endif %}
-            {% endrecursetree %}
-        {% else %}
-            <tr>
-                <td></td>
-                <td colspan="5" class="px-2 py-3">
-	                {% trans 'No language tree available yet.' %}
-                </td>
-            </tr>
-        {% endif %}
+            {% for node in language_tree %}
+                {% include "language_tree/language_tree_node.html" %}
+            {% empty %}
+                <tr>
+                    <td></td>
+                    <td colspan="9" class="px-2 py-3">
+                        {% trans 'No language tree available yet.' %}
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

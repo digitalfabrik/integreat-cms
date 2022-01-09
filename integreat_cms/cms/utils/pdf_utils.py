@@ -13,7 +13,7 @@ from django.views.decorators.cache import never_cache
 from xhtml2pdf import pisa
 
 from ..constants import text_directions
-from ..models import Language
+from ..models import Language, Page
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ def generate_pdf(region, language_slug, pages):
     :type language_slug: str
 
     :param pages: at least on page to render as PDF document
-    :type pages: ~mptt.querysets.TreeQuerySet
+    :type pages: ~treebeard.ns_tree.NS_NodeQuerySet
 
     :return: PDF document wrapped in a HtmlResponse
     :rtype: ~django.http.HttpResponse
@@ -70,9 +70,9 @@ def generate_pdf(region, language_slug, pages):
         title = pages.first().get_public_translation(language_slug).title
     else:
         # If pdf contains multiple pages, check the minimum level
-        min_level = pages.aggregate(Min("level")).get("level__min")
+        min_level = pages.aggregate(Min("depth")).get("depth__min")
         # Query all pages with this minimum level
-        min_level_pages = pages.filter(level=min_level)
+        min_level_pages = pages.filter(depth=min_level)
         if min_level_pages.count() == 1:
             # If there's exactly one page with the minimum level, take its title
             title = min_level_pages.first().get_public_translation(language_slug).title
@@ -81,10 +81,12 @@ def generate_pdf(region, language_slug, pages):
             title = region.name
     language = Language.objects.get(slug=language_slug)
     filename = f"Integreat - {language.translated_name} - {title}.pdf"
+    # Convert queryset to annotated list which can be rendered better
+    annotated_pages = Page.get_annotated_list_qs(pages)
     context = {
         "right_to_left": language.text_direction == text_directions.RIGHT_TO_LEFT,
         "region": region,
-        "pages": pages,
+        "annotated_pages": annotated_pages,
         "language": language,
         "amount_pages": amount_pages,
         "prevent_italics": ["ar", "fa"],

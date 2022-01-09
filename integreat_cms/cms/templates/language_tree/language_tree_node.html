@@ -1,10 +1,10 @@
 {% load i18n %}
 {% load tree_filters %}
 
-{% if node.level != 0 %}
+{% if node.depth != 1 %}
 <tr data-drop-id="{{ node.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden level-{{node.depth}}"><td colspan="9"><div><span></span></div></td></tr>
 {% endif %}
-<tr data-drop-id="{{ node.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if node.depth > 0 %} child level-{{node.depth}}{% endif %}">
+<tr data-drop-id="{{ node.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if node.depth > 1 %} child level-{{node.depth}}{% endif %}">
     <td class="hierarchy single_icon">
 		<span data-drag-id="{{ node.id }}" data-node-descendants="{{ node|get_descendants }}" class="drag text-gray-800 block py-3 pl-4 pr-2 cursor-move" draggable="true">
             <i data-feather="move" class="text-gray-800"></i>
@@ -57,14 +57,14 @@
 	<td>
 		<div class="flex justify-center">
 			{% if perms.cms.delete_languagetreenode %}
-				<button title="{% if not node.is_leaf_node %}{% trans 'You cannot delete a node which has children.' %}{% else %}{% trans 'Delete entire language node' %}{% endif %}"
+				<button title="{% if not node.is_leaf %}{% trans 'You cannot delete a node which has children.' %}{% else %}{% trans 'Delete entire language node' %}{% endif %}"
 					class="btn-icon confirmation-button"
-					{% if not node.is_leaf_node %}disabled{% endif %}
+					{% if not node.is_leaf %}disabled{% endif %}
 					data-confirmation-title="{{ delete_dialog_title }}"
 					data-confirmation-text="{{ delete_dialog_text }}"
 					data-confirmation-subject="{{ node.translated_name }}"
 					data-action="{% url 'delete_language_tree_node' region_slug=region.slug language_tree_node_id=node.id %}">
-					<i data-feather="trash-2" class="{% if not node.is_leaf_node %}text-gray-400{% else %}text-gray-800{% endif %}"></i>
+					<i data-feather="trash-2" class="{% if not node.is_leaf %}text-gray-400{% else %}text-gray-800{% endif %}"></i>
 				</button>
 			{% endif %}
 		</div>

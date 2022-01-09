@@ -2,8 +2,10 @@
 {% load content_filters %}
 {% load page_filters %}
 {% load tree_filters %}
-<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if page_depth == 0 %} drop-between {% endif %} h-3 -m-3 hidden level-{{page_depth}}"><td colspan="9"><div><span></span></div></td></tr>
-<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 child {% if page_depth > 0 %} hidden level-{{page_depth}}{% endif %}">
+
+{% get_translation page language.slug as page_translation %}
+<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if page.depth == 1 %} drop-between {% endif %} h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
+<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 child {% if page.depth > 1 %} hidden level-{{page.depth}}{% endif %}">
     <td class="pl-4">
         <input type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item">
     </td>
@@ -19,7 +21,7 @@
               {% endif %}>
             <i data-feather="move"></i>
         </span>
-        {% if not page.is_leaf_node %}
+        {% if not page.is_leaf %}
         <span class="collapse-subpages cursor-pointer inline-block align-middle"
               title="{% trans 'Collapse all subpages' %}"
               data-page-id="{{ page.id }}"
@@ -136,7 +138,7 @@
             <i data-feather="archive"></i>
         </button>
         {% if perms.cms.delete_page %}
-            {% if page.children.all %}
+            {% if not page.is_leaf %}
                 <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}" class="btn-icon" disabled>
                     <i data-feather="trash-2"></i>
                 </button>
