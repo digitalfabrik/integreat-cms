@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-10-25T01:44:32+00:00" />
+    <meta property="article:modified_time" content="2022-01-05T22:39:01+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -696,7 +696,7 @@
 <li><p><a class="reference external" href="https://git-scm.com/">git</a></p></li>
 <li><p><a class="reference external" href="https://www.npmjs.com/">npm</a> version 7 or higher</p></li>
 <li><p><a class="reference external" href="https://nodejs.org/">nodejs</a> version 12 or higher</p></li>
-<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.7">python3.7</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a> <a class="footnote-reference brackets" href="#ppa" id="id1">1</a>) / <a class="reference external" href="https://aur.archlinux.org/packages/python37/">python37</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
+<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.9">python3.9</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a> <a class="footnote-reference brackets" href="#ppa" id="id1">1</a>) / <a class="reference external" href="https://aur.archlinux.org/packages/python39/">python39</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
 <li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3-pip">python3-pip</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a>) / <a class="reference external" href="https://www.archlinux.de/packages/extra/x86_64/python-pip">python-pip</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
 <li><p><a class="reference external" href="https://pipenv.pypa.io/en/latest/">pipenv</a> for python3 <a class="footnote-reference brackets" href="#pip" id="id4">2</a></p></li>
 <li><p>Either <a class="reference external" href="https://www.postgresql.org/">postgresql</a> <strong>or</strong> <a class="reference external" href="https://www.docker.com/">docker</a> to run a local database server</p></li>
@@ -706,7 +706,7 @@
 <p class="admonition-title">Note</p>
 <dl class="footnote brackets">
 <dt class="label" id="ppa"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>If your distro does not contain python3.7, you first have to add a ppa repository, e.g. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">add-apt-repository</span> <span class="pre">ppa:deadsnakes/ppa</span></code>.</p>
+<dd><p>If your distro does not contain python3.9, you first have to add a ppa repository, e.g. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">add-apt-repository</span> <span class="pre">ppa:deadsnakes/ppa</span></code>.</p>
 </dd>
 <dt class="label" id="pip"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
 <dd><p>If no recent version of pipenv is packaged for your distro, use <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pipenv</span> <span class="pre">--user</span></code>.</p>
@@ -718,10 +718,10 @@
 <p>In the following, we provide the commands to install all these prerequisites on popular distributions.</p>
 <details>
 <summary><a>Ubuntu 20.04 LTS (Focal Fossa)</a></summary>
-<br><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add PPA repository for Python3.7</span>
+<br><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add PPA repository for Python3.9</span>
 <span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="o">-</span><span class="n">y</span> <span class="n">ppa</span><span class="p">:</span><span class="n">deadsnakes</span><span class="o">/</span><span class="n">ppa</span>
 <span class="c1"># Install basic requirements</span>
-<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="mf">.7</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="mf">.9</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
 <span class="c1"># Add PPA repository for NodeJS</span>
 <span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">nodesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_15</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">sudo</span> <span class="o">-</span><span class="n">E</span> <span class="n">bash</span> <span class="o">-</span>
 <span class="c1"># Add PPA repository for Docker</span>
@@ -767,7 +767,7 @@ exit
 <p>This assumes you have completed a basic system installation including a web browser etc. and a helper for the <a class="reference external" href="https://aur.archlinux.org/">AUR</a>, e.g. <a class="reference external" href="https://github.com/Jguer/yay">yay</a>.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install requirements</span>
-<span class="n">yay</span> <span class="o">-</span><span class="n">S</span> <span class="n">docker</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">netcat</span> <span class="n">nodejs</span><span class="o">-</span><span class="n">lts</span><span class="o">-</span><span class="n">fermium</span> <span class="n">npm</span> <span class="n">pcre</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">python</span><span class="o">-</span><span class="n">pipenv</span> <span class="n">python37</span>
+<span class="n">yay</span> <span class="o">-</span><span class="n">S</span> <span class="n">docker</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">netcat</span> <span class="n">nodejs</span><span class="o">-</span><span class="n">lts</span><span class="o">-</span><span class="n">fermium</span> <span class="n">npm</span> <span class="n">pcre</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">python</span><span class="o">-</span><span class="n">pipenv</span> <span class="n">python39</span>
 </pre></div>
 </div>
 </details><br></section>
@@ -817,7 +817,7 @@ If only one of both dependency-managers should be invoked, run <code class="docu
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 25, 2021.
+      <span class="lastupdated">Last updated on Jan 05, 2022.
       </span></p>
   </div>
 

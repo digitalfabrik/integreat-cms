@@ -775,7 +775,7 @@ It makes use of the existing Django serialization functionality (see <a class="r
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.serializers.xml_serializer.Deserializer</span></code></p>
 <p>Abstract base XLIFF deserializer class. Inherits basic XML initialization from the default xml_serializer of Django.
 The contents of the XLIFF file are available through <code class="docutils literal notranslate"><span class="pre">self.event_stream</span></code>, which gets assigned to the result of
-<a class="reference external" href="https://docs.python.org/3.7/library/xml.dom.pulldom.html#xml.dom.pulldom.parse" title="(in Python v3.7)"><code class="docutils literal notranslate"><span class="pre">xml.dom.pulldom.parse()</span></code></a>.</p>
+<a class="reference external" href="https://docs.python.org/3.9/library/xml.dom.pulldom.html#xml.dom.pulldom.parse" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">xml.dom.pulldom.parse()</span></code></a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.Deserializer.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream_or_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignorenonexistent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/xml_serializer.py#L162"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.Deserializer.__init__" title="Permalink to this definition"></a></dt>
@@ -792,7 +792,7 @@ To be implemented in the subclass of this base serializer.</p>
 <dd class="field-odd"><p><strong>node</strong> (<em>xml.dom.minidom.Element</em>) – The current xml node of the object</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the property is not implemented in the subclass</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#NotImplementedError" title="(in Python v3.9)"><strong>NotImplementedError</strong></a> – If the property is not implemented in the subclass</p>
 </dd>
 </dl>
 </dd></dl>
@@ -830,7 +830,7 @@ To be implemented in the subclass of this base serializer.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<em>xml.dom.minidom.Element</em>) – The current xml node of the object</p></li>
-<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the requested attribute</p></li>
+<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the requested attribute</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -840,7 +840,7 @@ To be implemented in the subclass of this base serializer.</p>
 <dd class="field-odd"><p>The value name of the requested attribute</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -894,7 +894,7 @@ To be implemented in the subclass of this base serializer.</p>
 <dd class="field-odd"><p>The output XLIFF string</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -911,7 +911,7 @@ To be implemented in the subclass of this base serializer.</p>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the property is not implemented in the subclass</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#NotImplementedError" title="(in Python v3.9)"><strong>NotImplementedError</strong></a> – If the property is not implemented in the subclass</p>
 </dd>
 </dl>
 </dd></dl>
@@ -971,15 +971,15 @@ They will just be ignored and are not contained in the resulting XLIFF file.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>queryset</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a><em> [ </em><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a><em> ]</em>) – QuerySet of all <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>
 objects which should be serialized</p></li>
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The remaining arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The remaining arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The serialized XLIFF string</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -993,7 +993,7 @@ objects which should be serialized</p></li>
 <dd class="field-odd"><p><strong>obj</strong> (<a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a>) – The page translation object which is started</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#NotImplementedError" title="(in Python v3.7)"><strong>NotImplementedError</strong></a> – If the property is not implemented in the subclass</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#NotImplementedError" title="(in Python v3.9)"><strong>NotImplementedError</strong></a> – If the property is not implemented in the subclass</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1025,7 +1025,7 @@ objects which should be serialized</p></li>
 <p>Subclass of SimplerXMLGenerator to provide a custom CDATA node</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'iso-8859-1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_empty_elements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'iso-8859-1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_empty_elements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.__init__" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1040,7 +1040,7 @@ objects which should be serialized</p></li>
 <dd><p>Create a <code class="docutils literal notranslate"><span class="pre">&lt;![CDATA[]&gt;</span></code>-block with the given content</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>content</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The given <code class="docutils literal notranslate"><span class="pre">CDATA</span></code> content</p>
+<dd class="field-odd"><p><strong>content</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The given <code class="docutils literal notranslate"><span class="pre">CDATA</span></code> content</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1059,7 +1059,7 @@ Locator provides useful information.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endDocument">
-<span class="sig-name descname"><span class="pre">endDocument</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endDocument" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">endDocument</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endDocument" title="Permalink to this definition"></a></dt>
 <dd><p>Receive notification of the end of a document.</p>
 <p>The SAX parser will invoke this method only once, and it will
 be the last method invoked during the parse. The parser shall
@@ -1070,7 +1070,7 @@ input.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endElement">
-<span class="sig-name descname"><span class="pre">endElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endElement" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">endElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L176"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endElement" title="Permalink to this definition"></a></dt>
 <dd><p>Signals the end of an element in non-namespace mode.</p>
 <p>The name parameter contains the name of the element type, just
 as with the startElement event.</p>
@@ -1078,7 +1078,7 @@ as with the startElement event.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endElementNS">
-<span class="sig-name descname"><span class="pre">endElementNS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qname</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endElementNS" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">endElementNS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qname</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endElementNS" title="Permalink to this definition"></a></dt>
 <dd><p>Signals the end of an element in namespace mode.</p>
 <p>The name parameter contains the name of the element type, just
 as with the startElementNS event.</p>
@@ -1086,7 +1086,7 @@ as with the startElementNS event.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endPrefixMapping">
-<span class="sig-name descname"><span class="pre">endPrefixMapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endPrefixMapping" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">endPrefixMapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L162"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endPrefixMapping" title="Permalink to this definition"></a></dt>
 <dd><p>End the scope of a prefix-URI mapping.</p>
 <p>See startPrefixMapping for details. This event will always
 occur after the corresponding endElement event, but the order
@@ -1095,7 +1095,7 @@ of endPrefixMapping events is not otherwise guaranteed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.ignorableWhitespace">
-<span class="sig-name descname"><span class="pre">ignorableWhitespace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L216"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.ignorableWhitespace" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ignorableWhitespace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L215"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.ignorableWhitespace" title="Permalink to this definition"></a></dt>
 <dd><p>Receive notification of ignorable whitespace in element content.</p>
 <p>Validating Parsers must use this method to report each chunk
 of ignorable whitespace (see the W3C XML 1.0 recommendation,
@@ -1110,7 +1110,7 @@ information.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.processingInstruction">
-<span class="sig-name descname"><span class="pre">processingInstruction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L223"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.processingInstruction" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">processingInstruction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L222"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.processingInstruction" title="Permalink to this definition"></a></dt>
 <dd><p>Receive notification of a processing instruction.</p>
 <p>The Parser will invoke this method once for each processing
 instruction found: note that processing instructions may occur
@@ -1158,7 +1158,7 @@ properties.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.startDocument">
-<span class="sig-name descname"><span class="pre">startDocument</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L151"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.startDocument" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startDocument</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.startDocument" title="Permalink to this definition"></a></dt>
 <dd><p>Receive notification of the beginning of a document.</p>
 <p>The SAX parser will invoke this method only once, before any
 other methods in this interface or in DTDHandler (except for
@@ -1177,7 +1177,7 @@ the element.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.startElementNS">
-<span class="sig-name descname"><span class="pre">startElementNS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L184"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.startElementNS" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startElementNS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L183"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.startElementNS" title="Permalink to this definition"></a></dt>
 <dd><p>Signals the start of an element in namespace mode.</p>
 <p>The name parameter contains the name of the element type as a
 (uri, localname) tuple, the qname parameter the raw XML 1.0
@@ -1190,7 +1190,7 @@ no namespace.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.startPrefixMapping">
-<span class="sig-name descname"><span class="pre">startPrefixMapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.startPrefixMapping" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startPrefixMapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/xml/sax/saxutils.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.startPrefixMapping" title="Permalink to this definition"></a></dt>
 <dd><p>Begin the scope of a prefix-URI Namespace mapping.</p>
 <p>The information from this event is not necessary for normal
 Namespace processing: the SAX XML reader will automatically
@@ -1273,7 +1273,7 @@ Handled by either <a class="reference internal" href="#integreat_cms.xliff.xliff
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<em>xml.dom.minidom.Element</em>) – The current xml node of the object</p></li>
-<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the requested attribute</p></li>
+<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the requested attribute</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1283,7 +1283,7 @@ Handled by either <a class="reference internal" href="#integreat_cms.xliff.xliff
 <dd class="field-odd"><p>The value name of the requested attribute</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1333,7 +1333,7 @@ Ends the <code class="docutils literal notranslate"><span class="pre">&lt;file&g
 <dd class="field-odd"><p>The output XLIFF string</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1410,8 +1410,8 @@ They will just be ignored and are not contained in the resulting XLIFF file.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>queryset</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a><em> [ </em><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a><em> ]</em>) – QuerySet of all <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> objects which
 should be serialized</p></li>
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The remaining arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The remaining arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1421,7 +1421,7 @@ should be serialized</p></li>
 <dd class="field-odd"><p>The serialized XLIFF string</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1482,14 +1482,14 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request (used for error messages)</p></li>
-<li><p><strong>xliff_dir</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The directory containing the xliff files</p></li>
+<li><p><strong>xliff_dir</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The directory containing the xliff files</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A dict containing data about the imported xliff files</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1509,7 +1509,7 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
 <dd class="field-even"><p>All errors of this XLIFF import</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a> [ <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a> ]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a> [ <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1523,17 +1523,17 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>page</strong> (<a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a>) – Page which should be translated</p></li>
 <li><p><strong>target_language</strong> (<a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – The target language (should not be the region’s default language)</p></li>
-<li><p><strong>dir_name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/uuid.html#uuid.UUID" title="(in Python v3.7)"><em>uuid.UUID</em></a>) – The directory in which the xliff files should be created</p></li>
+<li><p><strong>dir_name</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/uuid.html#uuid.UUID" title="(in Python v3.9)"><em>uuid.UUID</em></a>) – The directory in which the xliff files should be created</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/exceptions.html#RuntimeError" title="(in Python v3.7)"><strong>RuntimeError</strong></a> – If the selected page translation does not have a source translation</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – If the selected page translation does not have a source translation</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The path of the generated XLIFF file</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1547,7 +1547,7 @@ XLIFF file if only one page is converted)</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request (used for error messages)</p></li>
-<li><p><strong>pages</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> [ </em><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a><em> ]</em>) – list of pages which should be translated</p></li>
+<li><p><strong>pages</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> [ </em><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a><em> ]</em>) – list of pages which should be translated</p></li>
 <li><p><strong>target_language</strong> (<a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – The target language (should not be the region’s default language)</p></li>
 </ul>
 </dd>
@@ -1555,7 +1555,7 @@ XLIFF file if only one page is converted)</p>
 <dd class="field-even"><p>The path of the generated zip file</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1568,14 +1568,14 @@ XLIFF file if only one page is converted)</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request (used for error messages)</p></li>
-<li><p><strong>xliff_dir</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The directory containing the xliff files</p></li>
+<li><p><strong>xliff_dir</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The directory containing the xliff files</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A dict containing data about the imported xliff files</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1588,14 +1588,14 @@ XLIFF file if only one page is converted)</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request (used for error messages)</p></li>
-<li><p><strong>xliff_dir</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The directory containing the xliff files</p></li>
+<li><p><strong>xliff_dir</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The directory containing the xliff files</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A dict of all page translations as <code class="docutils literal notranslate"><span class="pre">DeserializedObject</span></code></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1667,7 +1667,7 @@ XLIFF file if only one page is converted)</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<em>xml.dom.minidom.Element</em>) – The current xml node of the object</p></li>
-<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the requested attribute</p></li>
+<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the requested attribute</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1677,7 +1677,7 @@ XLIFF file if only one page is converted)</p>
 <dd class="field-odd"><p>The value name of the requested attribute</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1728,7 +1728,7 @@ Ends the <code class="docutils literal notranslate"><span class="pre">&lt;file&g
 <dd class="field-odd"><p>The output XLIFF string</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1802,15 +1802,15 @@ They will just be ignored and are not contained in the resulting XLIFF file.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>queryset</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a><em> [ </em><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a><em> ]</em>) – QuerySet of all <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>
 objects which should be serialized</p></li>
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The remaining arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The remaining arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The serialized XLIFF string</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1866,8 +1866,8 @@ additional <code class="docutils literal notranslate"><span class="pre">&lt;body
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1927,7 +1927,7 @@ To be implemented in the subclass of this base serializer.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<em>xml.dom.minidom.Element</em>) – The current xml node of the object</p></li>
-<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the requested attribute</p></li>
+<li><p><strong>attribute</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the requested attribute</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1937,7 +1937,7 @@ To be implemented in the subclass of this base serializer.</p>
 <dd class="field-odd"><p>The value name of the requested attribute</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1988,7 +1988,7 @@ Ends the <code class="docutils literal notranslate"><span class="pre">&lt;file&g
 <dd class="field-odd"><p>The output XLIFF string</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2065,8 +2065,8 @@ They will just be ignored and are not contained in the resulting XLIFF file.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>queryset</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a><em> [ </em><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a><em> ]</em>) – QuerySet of all <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> objects which
 should be serialized</p></li>
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The remaining arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The remaining arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -2076,7 +2076,7 @@ should be serialized</p></li>
 <dd class="field-odd"><p>The serialized XLIFF string</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
