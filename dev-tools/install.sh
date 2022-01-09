@@ -11,7 +11,7 @@ ensure_not_root
 
 echo "Checking system requirements..." | print_info
 # Check if requirements are satisfied
-if [[ ! -x "$(command -v python3.7)" ]]; then  echo "Python3.7 is not installed. Please install it manually and run this script again."  | print_error
+if [[ ! -x "$(command -v python3.9)" ]]; then  echo "Python3.9 is not installed. Please install it manually and run this script again."  | print_error
     exit 1
 fi
 if [[ ! -x "$(command -v pip3)" ]]; then

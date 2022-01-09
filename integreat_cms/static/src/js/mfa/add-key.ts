@@ -20,15 +20,16 @@ window.addEventListener("load", () => {
     try {
       document.querySelector(".add-mfa-error").classList.add("hidden");
       document.querySelector(".add-mfa-error-msg").textContent = "";
+      const response = await fetch(addMfaForm.getAttribute("data-mfa-challenge-url"));
       const webauthnConfiguration = await (
-        await fetch(addMfaForm.getAttribute("data-mfa-challenge-url"))
+        response
       ).json();
 
       const newAssertion = (await navigator.credentials.create({
         publicKey: transformCredentialCreateOptions(webauthnConfiguration),
       })) as PublicKeyCredential;
 
-      const attObj = new Uint8Array(
+      const attestationObject = new Uint8Array(
         (newAssertion.response as AuthenticatorAttestationResponse).attestationObject
       );
       const clientDataJSON = new Uint8Array(
@@ -36,17 +37,15 @@ window.addEventListener("load", () => {
       );
       const rawId = new Uint8Array(newAssertion.rawId);
 
-      const registrationClientExtensions = newAssertion.getClientExtensionResults();
-
       const formData = {
         id: newAssertion.id,
         rawId: b64enc(rawId),
         type: newAssertion.type,
-        attObj: b64enc(attObj),
-        clientData: b64enc(clientDataJSON),
-        registrationClientExtensions: JSON.stringify(
-          registrationClientExtensions
-        ),
+        response: {
+          attestationObject: b64enc(attestationObject),
+          clientDataJSON: b64enc(clientDataJSON)
+        },
+        clientExtensionResults: newAssertion.getClientExtensionResults(),
       };
 
       const result = await fetch(addMfaForm.action, {
@@ -56,7 +55,7 @@ window.addEventListener("load", () => {
           "X-CSRFToken": getCsrfToken(),
         },
         body: JSON.stringify({
-          assertion: formData,
+          ...formData,
           name: nameField.value,
         }),
       });
