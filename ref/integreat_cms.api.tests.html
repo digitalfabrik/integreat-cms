@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-11-28T12:41:53+00:00" />
+    <meta property="article:modified_time" content="2022-01-05T16:44:05+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Push Notifications &mdash; integreat-cms 2021.12.0-beta documentation</title>
+  <title>Tests &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/integreat-icon.png"/>
-    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref/integreat_cms.cms.forms.push_notifications.html" />
+    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref/integreat_cms.api.tests.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Regions" href="integreat_cms.cms.forms.regions.html" />
-    <link rel="prev" title="POIs" href="integreat_cms.cms.forms.pois.html" /> 
+    <link rel="next" title="V3" href="integreat_cms.api.v3.html" />
+    <link rel="prev" title="API" href="integreat_cms.api.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -258,10 +258,10 @@
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.html">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#api-tests">API Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#api-tests-utils">API Tests Utils</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="integreat_cms.api.html">API</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api-tests">API Tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-tests-utils">API Tests Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
@@ -282,7 +282,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#urls">Urls</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.constants.html">Constants</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#all-day">All Day</a></li>
@@ -309,7 +309,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#weeks">Weeks</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="integreat_cms.cms.forms.html">Forms</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.html">Forms</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.events.html">Events</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.feedback.html">Feedback</a></li>
@@ -321,7 +321,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.organizations.html">Organizations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.pages.html">Pages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.pois.html">POIs</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Push Notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.push_notifications.html">Push Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.regions.html">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.roles.html">Roles</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.statistics.html">Statistics</a></li>
@@ -683,11 +683,10 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="integreat_cms.html">Integreat CMS</a> &raquo;</li>
-          <li><a href="integreat_cms.cms.html">CMS</a> &raquo;</li>
-          <li><a href="integreat_cms.cms.forms.html">Forms</a> &raquo;</li>
-      <li>Push Notifications</li>
+          <li><a href="integreat_cms.api.html">API</a> &raquo;</li>
+      <li>Tests</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../ref-ext/integreat_cms.cms.forms.push_notifications.html" class="fa fa-search-plus"> Open extended view</a>
+            <a href="../ref-ext/integreat_cms.api.tests.html" class="fa fa-search-plus"> Open extended view</a>
           
       </li>
   </ul>
@@ -696,49 +695,89 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="push-notifications">
-<h1>Push Notifications<a class="headerlink" href="#push-notifications" title="Permalink to this headline"></a></h1>
-<p>Forms for creating and modifying push notification and push notification translation objects</p>
-<section id="push-notification-form">
-<h2>Push Notification Form<a class="headerlink" href="#push-notification-form" title="Permalink to this headline"></a></h2>
+  <section id="tests">
+<h1>Tests<a class="headerlink" href="#tests" title="Permalink to this headline"></a></h1>
+<section id="api-tests">
+<h2>API Tests<a class="headerlink" href="#api-tests" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.push_notifications.push_notification_form.</span></span><span class="sig-name descname"><span class="pre">PushNotificationForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/push_notifications/push_notification_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
-<p>Form for creating and modifying push notification objects</p>
-<p><strong>Form fields:</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">channel</span></code>: Channel (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: Mode (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
-</ul>
-<dl class="py property">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.api.tests.api_tests.</span></span><span class="sig-name descname"><span class="pre">ApiTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/tests/api_tests.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.TestCase" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.TestCase</span></code></a></p>
+<p>This test class checks all endpoints defined in <cite>endpoint_data</cite>.
+It verifies that the content delivered by the endpoint is equivalent with the data
+provided in the corresponding json file.</p>
+<dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/push_notifications/push_notification_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Return all media required to render the widgets on this form.</p>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setUpClass</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/tests/api_tests.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Hook method for setting up class fixture before running tests in the class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_augsburg_de_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/api/augsburg/de/children'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/augsburg/de/wp-json/extensions/v3/children'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'integreat_cms/api/tests/expected-outputs/augsburg_de_children.json'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/tests/api_tests_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_augsburg_de_children</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code> with correct data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_augsburg_de_children_depth_2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/api/augsburg/de/children?depth=2'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/augsburg/de/wp-json/extensions/v3/children?depth=2'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'integreat_cms/api/tests/expected-outputs/augsburg_de_pages.json'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/tests/api_tests_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_augsburg_de_children_depth_2</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code> with correct data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_augsburg_de_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/api/augsburg/de/events'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/augsburg/de/wp-json/extensions/v3/events'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'integreat_cms/api/tests/expected-outputs/augsburg_de_events.json'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/tests/api_tests_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_augsburg_de_events</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code> with correct data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_augsburg_de_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/api/augsburg/de/locations'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/augsburg/de/wp-json/extensions/v3/locations'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'integreat_cms/api/tests/expected-outputs/augsburg_de_locations.json'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/tests/api_tests_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_augsburg_de_locations</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code> with correct data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_augsburg_de_page_id_1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/api/augsburg/de/page?id=1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/augsburg/de/wp-json/extensions/v3/page?id=1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'integreat_cms/api/tests/expected-outputs/augsburg_de_page_1.json'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/tests/api_tests_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_augsburg_de_page_id_1</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code> with correct data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_augsburg_de_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/api/augsburg/de/pages'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/augsburg/de/wp-json/extensions/v3/pages'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'integreat_cms/api/tests/expected-outputs/augsburg_de_pages.json'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/tests/api_tests_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_augsburg_de_pages</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code> with correct data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/api/regions/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/wp-json/extensions/v3/sites/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'integreat_cms/api/tests/expected-outputs/regions.json'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/tests/api_tests_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_regions</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code> with correct data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">test_api_regions_live</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/api/regions/live'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/wp-json/extensions/v3/sites/live'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'integreat_cms/api/tests/expected-outputs/regions_live.json'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/tests/api_tests_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test if the view <code class="docutils literal notranslate"><span class="pre">api_regions_live</span></code> returns the HTTP status code <code class="docutils literal notranslate"><span class="pre">200</span></code> with correct data</p>
 </dd></dl>
 
 </dd></dl>
 
 </section>
-<section id="push-notification-translation-form">
-<h2>Push Notification Translation Form<a class="headerlink" href="#push-notification-translation-form" title="Permalink to this headline"></a></h2>
-<dl class="py class">
+<section id="api-tests-utils">
+<h2>API Tests Utils<a class="headerlink" href="#api-tests-utils" title="Permalink to this headline"></a></h2>
+<p>This modules contains helper functions for automatically generating view tests.</p>
+<dl class="py function">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.push_notifications.push_notification_translation_form.</span></span><span class="sig-name descname"><span class="pre">PushNotificationTranslationForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/push_notifications/push_notification_translation_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
-<p>Form for creating and modifying push notification translation objects</p>
-<p><strong>Form fields:</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: Title (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">text</span></code>: Content (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">language</span></code>: Language (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.tests.api_tests_utils.</span></span><span class="sig-name descname"><span class="pre">generate_test_functions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/tests/api_tests_utils.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function generates test functions for a list of views.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>class_variables</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The class variable dict in which the functions should be inserted</p></li>
+<li><p><strong>endpoint_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The list of endpoints for which the test functions should be generated</p></li>
 </ul>
-<dl class="py property">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/push_notifications/push_notification_translation_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Return all media required to render the widgets on this form.</p>
-</dd></dl>
-
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -748,8 +787,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="integreat_cms.cms.forms.pois.html" class="btn btn-neutral float-left" title="POIs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="integreat_cms.cms.forms.regions.html" class="btn btn-neutral float-right" title="Regions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="integreat_cms.api.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integreat_cms.api.v3.html" class="btn btn-neutral float-right" title="V3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -759,7 +798,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 28, 2021.
+      <span class="lastupdated">Last updated on Jan 05, 2022.
       </span></p>
   </div>
 
