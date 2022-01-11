@@ -200,3 +200,33 @@ def children(request, region_slug, language_slug):
             if public_translation:
                 result.append(transform_page(public_translation))
     return JsonResponse(result, safe=False)
+
+
+@json_response
+# pylint: disable=unused-argument
+def parents(request, region_slug, language_slug):
+    """
+    Retrieves all ancestors (parent and all nodes up to the root node) of a page
+
+    :param request: The request that has been sent to the Django server
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: Slug defining the region
+    :type region_slug: str
+
+    :param language_slug: Code to identify the desired language
+    :type language_slug: str
+
+    :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
+
+    :return: JSON with the requested page ancestors
+    :rtype: ~django.http.JsonResponse
+    """
+    current_page = get_single_page(request, language_slug)
+    result = []
+    for ancestor in current_page.get_ancestors(include_self=False):
+        public_translation = ancestor.get_public_translation(language_slug)
+        if not public_translation:
+            raise Http404("No Page matches the given url or id.")
+        result.append(transform_page(public_translation))
+    return JsonResponse(result, safe=False)
