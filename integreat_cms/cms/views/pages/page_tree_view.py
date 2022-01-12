@@ -155,7 +155,7 @@ class PageTreeView(TemplateView, PageContextMixin):
             {
                 **context,
                 "current_menu_item": "pages",
-                "pages": pages,
+                "pages": pages.cache_tree(),
                 "archived_count": region.get_pages(archived=True).count(),
                 "language": language,
                 "languages": region.active_languages,

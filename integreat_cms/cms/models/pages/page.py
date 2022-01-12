@@ -8,11 +8,9 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from treebeard.ns_tree import NS_NodeManager, NS_NodeQuerySet
-
 from ...utils.translation_utils import ugettext_many_lazy as __
 from ..abstract_content_model import ContentQuerySet
-from ..abstract_tree_node import AbstractTreeNode
+from ..abstract_tree_node import AbstractTreeNode, TreeNodeQuerySet, TreeNodeManager
 from ..decorators import modify_fields
 from .abstract_base_page import AbstractBasePage
 from .page_translation import PageTranslation
@@ -20,14 +18,14 @@ from .page_translation import PageTranslation
 logger = logging.getLogger(__name__)
 
 
-class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
+class PageQuerySet(TreeNodeQuerySet, ContentQuerySet):
     """
     Custom queryset for pages to inherit methods from both querysets for tree nodes and content objects
     """
 
 
 # pylint: disable=too-few-public-methods
-class PageManager(NS_NodeManager):
+class PageManager(TreeNodeManager):
     """
     Custom manager for pages to inherit methods from both managers for tree nodes and content objects
     """
@@ -131,7 +129,11 @@ class Page(AbstractTreeNode, AbstractBasePage):
         :return: The QuerySet of archived ancestors
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
-        return self.get_ancestors().filter(explicitly_archived=True)
+        return [
+            ancestor
+            for ancestor in self.get_cached_ancestors()
+            if ancestor.explicitly_archived
+        ]
 
     @cached_property
     def implicitly_archived(self):
@@ -141,7 +143,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         :return: Whether or not this page is implicitly archived
         :rtype: bool
         """
-        return self.explicitly_archived_ancestors.exists()
+        return self.explicitly_archived_ancestors
 
     @cached_property
     def archived(self):
@@ -194,7 +196,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
             [
                 # escape page title because string is marked as safe afterwards
                 escape(ancestor.best_translation.title)
-                for ancestor in self.get_ancestors(include_self=True)
+                for ancestor in self.get_cached_ancestors(include_self=True)
             ]
         )
         # Add warning if page is archived

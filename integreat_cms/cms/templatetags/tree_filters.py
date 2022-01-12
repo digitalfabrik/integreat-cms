@@ -10,7 +10,7 @@ register = template.Library()
 
 
 @register.filter
-def get_descendants(node):
+def get_descendant_ids(node):
     """
     This filter returns the ids of all the node's descendants.
 
@@ -20,11 +20,13 @@ def get_descendants(node):
     :return: The list of all the node's descendants' ids
     :rtype: list [ int ]
     """
-    return [descendant.id for descendant in node.get_descendants(include_self=True)]
+    return [
+        descendant.id for descendant in node.get_cached_descendants(include_self=True)
+    ]
 
 
 @register.filter
-def get_children(node):
+def get_children_ids(node):
     """
     This filter returns the ids of all the node's direct children.
 
@@ -34,4 +36,4 @@ def get_children(node):
     :return: The list of all the node's children's ids
     :rtype: list [ int ]
     """
-    return [child.id for child in node.get_children()]
+    return [child.id for child in node.get_cached_children()]

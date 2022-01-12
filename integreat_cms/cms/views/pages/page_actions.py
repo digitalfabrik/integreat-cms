@@ -831,7 +831,7 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
         siblings = region.get_root_pages()
     else:
         parent = get_object_or_404(region.pages, id=parent_id)
-        siblings = parent.get_children()
+        siblings = parent.get_cached_children()
 
     logger.debug(
         "Page order table for %r and siblings %r",
@@ -877,7 +877,7 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
         siblings = region.get_root_pages()
     else:
         parent = get_object_or_404(region.pages, id=parent_id)
-        siblings = parent.get_children()
+        siblings = parent.get_cached_children()
 
     logger.debug(
         "Page order table for a new page and siblings %r",

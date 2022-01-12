@@ -11,7 +11,7 @@
     </td>
     <td class="hierarchy single_icon whitespace-nowrap">
         <span data-drag-id="{{ page.id }}"
-              data-node-descendants="{{ page|get_descendants }}"
+              data-node-descendants="{{ page|get_descendant_ids }}"
               class="{% if enable_drag_and_drop %}drag cursor-move{% else %}cursor-not-allowed{% endif %} text-gray-800 inline-block pl-4 align-middle"
               {% if enable_drag_and_drop %}
               draggable="true"
@@ -25,7 +25,7 @@
         <span class="collapse-subpages cursor-pointer inline-block align-middle"
               title="{% trans 'Collapse all subpages' %}"
               data-page-id="{{ page.id }}"
-              data-page-children="{{ page|get_children }}">
+              data-page-children="{{ page|get_children_ids }}">
                 <i data-feather="chevron-right"></i>
             </span>
         {% endif %}

@@ -5,11 +5,70 @@ from django.utils.translation import ugettext_lazy as _
 from cacheops import invalidate_model
 
 from treebeard.exceptions import InvalidPosition
-from treebeard.ns_tree import NS_Node, get_result_class
+from treebeard.ns_tree import NS_Node, NS_NodeQuerySet
 
 from ..constants import position
 
 logger = logging.getLogger(__name__)
+
+
+class TreeNodeQuerySet(NS_NodeQuerySet):
+    """
+    This queryset provides custom caching mechanisms for trees
+    """
+
+    def cache_tree(self):
+        """
+        Caches a tree queryset in a python data structure.
+
+        :return: A list of tree nodes with cached children, descendants and ancestors
+        :rtype: list
+        """
+        result = {}
+        for node in self.order_by("tree_id", "lft"):
+            # pylint: disable=protected-access
+            node._cached_ancestors = []
+            node._cached_descendants = []
+            node._cached_children = []
+            # Only include the element in the tree if it is either a root node or the parent is contained in the set
+            if not node.parent_id or node.parent_id in result:
+                if node.parent_id:
+                    # Cache the node as child of the parent node
+                    # pylint: disable=protected-access
+                    result[node.parent_id]._cached_children.append(node)
+                    result[node.parent_id]._cached_descendants.append(node)
+                    # Cache the parent node as ancestor of the current node
+                    node._cached_ancestors.extend(
+                        result[node.parent_id]._cached_ancestors
+                    )
+                    node._cached_ancestors.append(result[node.parent_id])
+                    # Cache the current node as descendant of the parent's node ancestors
+                    for ancestor in result[node.parent_id]._cached_ancestors:
+                        result[ancestor.id]._cached_descendants.append(node)
+                # Mark as initialized to know the difference between no children and no cache
+                # pylint: disable=protected-access
+                node._cache_initialized = True
+                result[node.id] = node
+            else:
+                logger.debug("Node %r skipped because parent node is not in tree", node)
+        logger.debug("Cached result: %r", result)
+        return list(result.values())
+
+
+# pylint: disable=too-few-public-methods
+class TreeNodeManager(models.Manager):
+    """
+    Custom manager for this queryset
+    """
+
+    def get_queryset(self):
+        """
+        Get the queryset of tree nodes
+
+        :return: The queryset of tree nodes
+        :rtype: ~integreat_cms.cms.models.abstract_tree_node.TreeNodeQuerySet [ ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode ]
+        """
+        return TreeNodeQuerySet(self.model).order_by("tree_id", "lft")
 
 
 class AbstractTreeNode(NS_Node):
@@ -33,7 +92,19 @@ class AbstractTreeNode(NS_Node):
         verbose_name=_("region"),
     )
 
+    #: Custom model manager :class:`~integreat_cms.cms.models.abstract_tree_node.TreeNodeManager` for tree objects
+    objects = TreeNodeManager()
+
     def save(self, *args, **kwargs):
+        r"""
+        Update the parent field and save the model instance
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+        """
         # Update parent to fix inconsistencies between tree fields
         if self.id:
             self.parent = self.get_parent()
@@ -164,10 +235,9 @@ class AbstractTreeNode(NS_Node):
                 return siblings[idx + 1]
         return None
 
-    # pylint: disable=arguments-differ
-    def get_ancestors(self, include_self=False):
+    def get_cached_ancestors(self, include_self=False):
         """
-        Get all ancestors of a specific node
+        Get the cached ancestors of a specific node
 
         :param include_self: Whether the current node should be included in the result (defaults to ``False``)
         :type include_self: bool
@@ -176,69 +246,73 @@ class AbstractTreeNode(NS_Node):
                  the root node and descending to the parent.
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
+        if not hasattr(self, "_cached_ancestors"):
+            # pylint: disable=attribute-defined-outside-init
+            self._cached_ancestors = list(self.get_ancestors())
         if include_self:
-            return get_result_class(self.__class__).objects.filter(
-                tree_id=self.tree_id, lft__lte=self.lft, rgt__gte=self.rgt
-            )
-        return super().get_ancestors()
+            return [*self._cached_ancestors, self]
+        return self._cached_ancestors
 
-    def get_parent(self, update=False):
+    def get_cached_parent(self):
         """
         Get the parent node of the current node object.
         Caches the result in the object itself to help in loops.
-
-        :param update: Whether the cache should be invalidated (defaults to ``False``)
-        :type update: bool
 
         :return: The parent of the node
         :rtype: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
         """
         if self.is_root():
             return None
-        try:
-            if update:
-                del self._cached_parent_obj
-            else:
-                return self._cached_parent_obj
-        except AttributeError:
-            pass
-        # parent = our most direct ancestor
-        # pylint: disable=attribute-defined-outside-init
-        self._cached_parent_obj = self.get_ancestors()[-1]
-        return self._cached_parent_obj
+        return self.get_cached_ancestors()[-1]
 
-    # pylint: disable=arguments-differ
-    def get_descendants(self, include_self=False):
+    def get_cached_descendants(self, include_self=False):
         """
-        Get all descendants of a specific node
+        Get the cached descendants of a specific node
 
         :param include_self: Whether the current node should be included in the result (defaults to ``False``)
         :type include_self: bool
 
-        :return: A :class:`~django.db.models.query.QuerySet` of all the node's descendants as DFS
+        :return: A :class:`~django.db.models.query.QuerySet` containing the current node object's ancestors, starting by
+                 the root node and descending to the parent.
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
-        if self.is_leaf():
-            return get_result_class(self.__class__).objects.none()
-        tree = self.__class__.get_tree(parent=self)
+        if not hasattr(self, "_cached_descendants"):
+            # pylint: disable=attribute-defined-outside-init
+            self._cached_descendants = list(self.get_descendants())
         if include_self:
-            return tree
-        return tree.exclude(pk=self.pk)
+            return [self, *self._cached_descendants]
+        return self._cached_descendants
 
-    def get_descendants_max_depth(self, include_self=False, max_depth=1):
+    def get_cached_children(self):
+        """
+        Get all cached children
+
+        :returns: A list of all the node's cached children
+        :rtype: list
+        """
+        if not hasattr(self, "_cached_children"):
+            # pylint: disable=attribute-defined-outside-init
+            if hasattr(self, "_cached_descendants"):
+                self._cached_children = [
+                    descendant
+                    for descendant in self._cached_descendants
+                    if descendant.depth == self.depth + 1
+                ]
+            else:
+                self._cached_children = list(self.get_children())
+        return self._cached_children
+
+    def get_tree_max_depth(self, max_depth=1):
         """
         Return all descendants with depth less or equal to max depth relative to this nodes depth
-
-        :param include_self: Whether the current node should be included in the result (defaults to ``False``)
-        :type include_self: bool
 
         :param max_depth: The nodes maximum depth in the tree
         :type max_depth: int
 
-        :return: All descendants of this node with relative max depth
+        :return: This node including its descendants with relative max depth
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode ]
         """
-        return self.get_descendants(include_self=include_self).filter(
+        return self.__class__.get_tree(parent=self).filter(
             depth__lte=self.depth + max_depth
         )
 

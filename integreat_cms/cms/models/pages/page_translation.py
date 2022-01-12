@@ -39,7 +39,7 @@ class PageTranslation(AbstractBasePageTranslation):
         :rtype: str
         """
         slugs = []
-        for ancestor in self.page.get_ancestors():
+        for ancestor in self.page.get_cached_ancestors():
             public_translation = ancestor.get_public_translation(self.language.slug)
             if public_translation:
                 slugs.append(public_translation.slug)

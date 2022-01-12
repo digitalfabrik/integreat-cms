@@ -354,14 +354,14 @@
                                 <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
                                     <p>
                                         {% trans 'You cannot delete a page which has subpages.' %}<br>
-                                        {% blocktrans count counter=page.get_descendants.count trimmed %}
+                                        {% blocktrans count counter=page.get_cached_descendants|length trimmed %}
                                             To delete this page, you have to delete or move its subpage first:
                                         {% plural %}
                                             To delete this page, you have to delete or move its subpages first:
                                         {% endblocktrans %}
                                     </p>
                                 </div>
-                                {% for descendant in page.get_descendants %}
+                                {% for descendant in page.get_cached_descendants %}
                                 <a href="{% url 'edit_page' page_id=descendant.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
                                     <i data-feather="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
                                 </a>

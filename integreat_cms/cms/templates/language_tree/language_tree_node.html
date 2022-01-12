@@ -6,7 +6,7 @@
 {% endif %}
 <tr data-drop-id="{{ node.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if node.depth > 1 %} child level-{{node.depth}}{% endif %}">
     <td class="hierarchy single_icon">
-		<span data-drag-id="{{ node.id }}" data-node-descendants="{{ node|get_descendants }}" class="drag text-gray-800 block py-3 pl-4 pr-2 cursor-move" draggable="true">
+		<span data-drag-id="{{ node.id }}" data-node-descendants="{{ node|get_descendant_ids }}" class="drag text-gray-800 block py-3 pl-4 pr-2 cursor-move" draggable="true">
             <i data-feather="move" class="text-gray-800"></i>
         </span>
     </td>

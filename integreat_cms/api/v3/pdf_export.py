@@ -48,5 +48,5 @@ def pdf_export(request, region_slug, language_slug):
             translations__slug=page_translation_slug,
             translations__language__slug=language_slug,
         )
-        pages = page.get_descendants(include_self=True)
+        pages = page.get_cached_descendants(include_self=True)
     return generate_pdf(region, language_slug, pages)

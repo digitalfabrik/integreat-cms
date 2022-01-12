@@ -85,7 +85,7 @@
             {% for page in pages %}
                 {% include "pages/page_tree_node.html" %}
                 {% if forloop.last %}
-                    <tr data-drop-id="{% if page.is_root %}{{ page.id }}{% else %}{{ page.get_ancestors.0.id }}{% endif %}" data-drop-position="right" class="drop drop-between h-3 hidden" title="test"><td colspan="9"><div><span></span></div></td></tr>
+                    <tr data-drop-id="{% if page.is_root %}{{ page.id }}{% else %}{{ page.get_cached_ancestors.0.id }}{% endif %}" data-drop-position="right" class="drop drop-between h-3 hidden" title="test"><td colspan="9"><div><span></span></div></td></tr>
                 {% endif %}
             {% empty %}
                 <tr>

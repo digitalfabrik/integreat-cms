@@ -60,16 +60,25 @@ class LanguageTreeNodeForm(CustomModelForm, MoveNodeForm):
         self.fields["_position"].widget = forms.HiddenInput()
 
         parent_queryset = self.instance.region.language_tree_nodes
-        excluded_languages = [
-            language
-            for language in self.instance.region.languages
-            if language != self.instance.language
-        ]
 
         if self.instance.id:
-            children = self.instance.get_descendants(include_self=True)
-            parent_queryset = parent_queryset.exclude(id__in=children)
+            descendant_ids = [
+                descendant.id
+                for descendant in self.instance.get_cached_descendants(
+                    include_self=True
+                )
+            ]
+            parent_queryset = parent_queryset.exclude(id__in=descendant_ids)
             self.fields["parent"].initial = self.instance.parent
+            excluded_languages = [
+                language.id
+                for language in self.instance.region.languages
+                if language != self.instance.language
+            ]
+        else:
+            excluded_languages = [
+                language.id for language in self.instance.region.languages
+            ]
 
         # limit possible parents to nodes of current region
         self.fields["parent"].queryset = parent_queryset
@@ -77,6 +86,18 @@ class LanguageTreeNodeForm(CustomModelForm, MoveNodeForm):
         self.fields["language"].queryset = Language.objects.exclude(
             id__in=excluded_languages
         )
+
+    def _clean_cleaned_data(self):
+        """
+        Delete auxiliary fields not belonging to node model and include instance attributes in cleaned_data
+
+        :return: The initial data for _ref_node_id and _position fields
+        :rtype: tuple
+        """
+        # This workaround is required because the MoveNodeForm does not take
+        # instance attribute into account which are not included in cleaned_data
+        self.cleaned_data["region"] = self.instance.region
+        return super()._clean_cleaned_data()
 
     def clean(self):
         """

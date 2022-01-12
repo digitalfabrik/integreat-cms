@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from treebeard.forms import MoveNodeForm
 
-from ...constants import mirrored_page_first
+from ...constants import mirrored_page_first, position
 from ...models import Page, Region
 from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
@@ -121,15 +121,41 @@ class PageForm(CustomModelForm, MoveNodeForm):
         # check if instance of this form already exists
         if self.instance.id:
             # remove children from possible parents
-            children = self.instance.get_descendants(include_self=True)
-            parent_queryset = parent_queryset.exclude(id__in=children)
+            descendant_ids = [
+                descendant.id
+                for descendant in self.instance.get_cached_descendants(
+                    include_self=True
+                )
+            ]
+            parent_queryset = parent_queryset.exclude(id__in=descendant_ids)
             self.fields["parent"].initial = self.instance.parent
             # Exclude the current page from the possible options for mirrored pages
             self.fields["mirrored_page"].queryset = self.fields[
                 "mirrored_page"
             ].queryset.exclude(id=self.instance.id)
+        else:
+            last_root_page = self.instance.region.get_root_pages().last()
+            if last_root_page:
+                self.fields["_ref_node_id"].initial = last_root_page.id
+                self.fields["_position"].initial = position.RIGHT
+            else:
+                self.fields["_ref_node_id"].initial = 0
+                self.fields["_position"].initial = position.FIRST_CHILD
 
         self.fields["parent"].queryset = parent_queryset
+
+    def _clean_cleaned_data(self):
+        """
+        Delete auxiliary fields not belonging to node model and include instance attributes in cleaned_data
+
+        :return: The initial data for _ref_node_id and _position fields
+        :rtype: tuple
+        """
+        del self.cleaned_data["mirrored_page_region"]
+        # This workaround is required because the MoveNodeForm does not take
+        # instance attribute into account which are not included in cleaned_data
+        self.cleaned_data["region"] = self.instance.region
+        return super()._clean_cleaned_data()
 
     def get_editor_queryset(self):
         """

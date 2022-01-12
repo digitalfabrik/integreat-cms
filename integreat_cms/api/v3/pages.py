@@ -23,7 +23,7 @@ def transform_page(page_translation):
         thumbnail = settings.BASE_URL + page_translation.page.icon.url
     else:
         thumbnail = None
-    parent_page = page_translation.page.get_parent()
+    parent_page = page_translation.page.get_cached_parent()
     if parent_page:
         parent_absolute_url = parent_page.get_public_translation(
             page_translation.language.slug
@@ -76,7 +76,7 @@ def pages(request, region_slug, language_slug):
     result = []
     for page in region.get_pages(
         prefetch_translations=True, prefetch_public_translations=True
-    ):
+    ).cache_tree():
         page_translation = page.get_public_translation(language_slug)
         if page_translation:
             result.append(transform_page(page_translation))
@@ -195,7 +195,7 @@ def children(request, region_slug, language_slug):
         depth = depth - 1
     result = []
     for root in root_pages:
-        descendants = root.get_descendants_max_depth(include_self=True, max_depth=depth)
+        descendants = root.get_tree_max_depth(max_depth=depth)
         for descendant in descendants:
             public_translation = descendant.get_public_translation(language_slug)
             if public_translation:
@@ -225,7 +225,7 @@ def parents(request, region_slug, language_slug):
     """
     current_page = get_single_page(request, language_slug)
     result = []
-    for ancestor in current_page.get_ancestors(include_self=False):
+    for ancestor in current_page.get_cached_ancestors(include_self=False):
         public_translation = ancestor.get_public_translation(language_slug)
         if not public_translation:
             raise Http404("No Page matches the given url or id.")
