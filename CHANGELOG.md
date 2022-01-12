@@ -3,6 +3,11 @@ UNRELEASED
 
 * Fix APIv3 single page endpoint for multiple translation versions
 * Fix error when deleting a poi that is used by an event
+* Add tutorial to page tree view
+* Fix layout of language tabs in forms
+* Add support for Python 3.9
+* Add APIv3 parents/ancestors endpoint
+* Add API tests
 
 
 2021.12.0-beta
