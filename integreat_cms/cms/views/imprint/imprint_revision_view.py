@@ -150,7 +150,7 @@ class ImprintRevisionView(TemplateView):
 
         if (
             revision.title == current_revision.title
-            and revision.text == current_revision.text
+            and revision.content == current_revision.content
         ):
             messages.error(
                 request,

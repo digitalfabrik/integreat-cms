@@ -3,13 +3,14 @@ from dateutil.rrule import weekday, rrule
 
 from django.db import models
 from django.db.models import Q
-from django.utils.translation import get_language, ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 from ...constants import frequency, status
 from ...utils.slug_utils import generate_unique_slug
+from ..abstract_content_model import AbstractContentModel
 from ..media.media_file import MediaFile
 from ..pois.poi import POI
-from ..regions.region import Region, Language
+from ..regions.region import Language
 from .recurrence_rule import RecurrenceRule
 
 
@@ -68,24 +69,17 @@ class EventQuerySet(models.QuerySet):
         )
 
 
-class Event(models.Model):
+class Event(AbstractContentModel):
     """
     Data model representing an event.
     Can be directly imported from :mod:`~integreat_cms.cms.models`.
     """
 
-    region = models.ForeignKey(
-        Region,
-        on_delete=models.CASCADE,
-        related_name="events",
-        verbose_name=_("region"),
-    )
     location = models.ForeignKey(
         POI,
         null=True,
         blank=True,
         on_delete=models.PROTECT,
-        related_name="events",
         verbose_name=_("location"),
     )
     start_date = models.DateField(verbose_name=_("start date"))
@@ -98,13 +92,13 @@ class Event(models.Model):
         RecurrenceRule,
         null=True,
         on_delete=models.SET_NULL,
+        related_name="event",
         verbose_name=_("recurrence rule"),
     )
     icon = models.ForeignKey(
         MediaFile,
         verbose_name=_("icon"),
         on_delete=models.SET_NULL,
-        related_name="icon_events",
         blank=True,
         null=True,
     )
@@ -116,8 +110,8 @@ class Event(models.Model):
     @property
     def languages(self):
         """
-        This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to which an event
-        translation exists.
+        This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects,
+        to which an event translation exists.
 
         :return: QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` an event is translated into
         :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
@@ -156,20 +150,6 @@ class Event(models.Model):
         :rtype: bool
         """
         return bool(self.location)
-
-    def get_translation(self, language_slug):
-        """
-        This function uses the reverse foreign key ``self.translations`` to get all translations of ``self``
-        and filters them to the requested :class:`~integreat_cms.cms.models.languages.language.Language` slug.
-
-        :param language_slug: The slug of the desired :class:`~integreat_cms.cms.models.languages.language.Language`
-        :type language_slug: str
-
-        :return: The event translation in the requested :class:`~integreat_cms.cms.models.languages.language.Language` or :obj:`None`
-                 if no translation exists
-        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
-        """
-        return self.translations.filter(language__slug=language_slug).first()
 
     def get_occurrences(self, start, end):
         """
@@ -239,54 +219,6 @@ class Event(models.Model):
             else []
         )
 
-    def get_public_translation(self, language_slug):
-        """
-        This function retrieves the newest public translation of an event.
-
-        :param language_slug: The slug of the requested :class:`~integreat_cms.cms.models.languages.language.Language`
-        :type language_slug: str
-
-        :return: The public translation of an event
-        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
-        """
-        return self.translations.filter(
-            language__slug=language_slug,
-            status=status.PUBLIC,
-        ).first()
-
-    @property
-    def backend_translation(self):
-        """
-        This function returns the translation of this event in the current backend language.
-
-        :return: The backend translation of a event
-        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
-        """
-        return self.translations.filter(language__slug=get_language()).first()
-
-    @property
-    def default_translation(self):
-        """
-        This function returns the translation of this event in the region's default language.
-        Since an event can only be created by creating a translation in the default language, this is guaranteed to return
-        an event translation.
-
-        :return: The default translation of an event
-        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
-        """
-        return self.translations.filter(language=self.region.default_language).first()
-
-    @property
-    def best_translation(self):
-        """
-        This function returns the translation of this event in the current backend language and if it doesn't exist, it
-        provides a fallback to the translation in the region's default language.
-
-        :return: The "best" translation of an event for displaying in the backend
-        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
-        """
-        return self.backend_translation or self.default_translation
-
     def duplicate(self, user):
         """
         This method creates a copy of this event and all of its translations.
@@ -341,31 +273,13 @@ class Event(models.Model):
 
         return self
 
-    def __str__(self):
-        """
-        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Event object (id)``.
-        It is used in the Django admin backend and as label for ModelChoiceFields.
-
-        :return: A readable string representation of the event
-        :rtype: str
-        """
-        return self.best_translation.title
-
-    def __repr__(self):
-        """
-        This overwrites the default Django ``__repr__()`` method which would return ``<Event: Event object (id)>``.
-        It is used for logging.
-
-        :return: The canonical string representation of the event
-        :rtype: str
-        """
-        return f"<Event (id: {self.id}, region: {self.region.slug}, slug: {self.best_translation.slug})>"
-
     class Meta:
         #: The verbose name of the model
         verbose_name = _("event")
         #: The plural verbose name of the model
         verbose_name_plural = _("events")
+        #: The name that will be used by default for the relation from a related object back to this one
+        default_related_name = "events"
         #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["start_date", "start_time"]
         #: The default permissions for this model

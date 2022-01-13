@@ -39,7 +39,7 @@ def format_object_translation(object_translation, typ):
     """
     return {
         "title": object_translation.title,
-        "url": f"{settings.WEBAPP_URL}/{object_translation.permalink}",
+        "url": f"{settings.WEBAPP_URL}{object_translation.get_absolute_url()}",
         "type": typ,
     }
 

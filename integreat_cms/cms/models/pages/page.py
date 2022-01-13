@@ -11,7 +11,6 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 from .abstract_base_page import AbstractBasePage
 from ..languages.language import Language
-from ..regions.region import Region
 from ..media.media_file import MediaFile
 from ..users.organization import Organization
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -36,15 +35,8 @@ class Page(MPTTModel, AbstractBasePage):
         MediaFile,
         verbose_name=_("icon"),
         on_delete=models.SET_NULL,
-        related_name="icon_pages",
         blank=True,
         null=True,
-    )
-    region = models.ForeignKey(
-        Region,
-        on_delete=models.CASCADE,
-        related_name="pages",
-        verbose_name=_("region"),
     )
     mirrored_page = models.ForeignKey(
         "self",
@@ -95,7 +87,6 @@ class Page(MPTTModel, AbstractBasePage):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name="pages",
         verbose_name=_("responsible organization"),
         help_text=_(
             "This allows all members of the organization to edit and publish this page."
@@ -276,6 +267,8 @@ class Page(MPTTModel, AbstractBasePage):
         verbose_name = _("page")
         #: The plural verbose name of the model
         verbose_name_plural = _("pages")
+        #: The name that will be used by default for the relation from a related object back to this one
+        default_related_name = "pages"
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view")
         #: The custom permissions for this model

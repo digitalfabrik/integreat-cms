@@ -15,7 +15,7 @@ class ImprintTranslationForm(CustomContentModelForm):
 
     class Meta:
         model = ImprintPageTranslation
-        fields = ["title", "status", "text", "minor_edit"]
+        fields = ["title", "status", "content", "minor_edit"]
 
     def __init__(self, **kwargs):
         r"""
@@ -59,20 +59,9 @@ class ImprintTranslationForm(CustomContentModelForm):
         """
 
         # Create new version if content changed
-        if not {"slug", "title", "text"}.isdisjoint(self.changed_data):
+        if not {"slug", "title", "content"}.isdisjoint(self.changed_data):
             self.instance.version += 1
             self.instance.pk = None
 
         # Save CustomModelForm
         return super().save(commit=commit)
-
-    def clean_text(self):
-        """
-        Validate the text field (see :ref:`overriding-modelform-clean-method`)
-
-        :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content and applies changes to <img>- and <a>-Tags to match the guidelines.
-
-        :return: The valid text
-        :rtype: str
-        """
-        return self.content_clean_method("text")

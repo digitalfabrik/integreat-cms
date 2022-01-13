@@ -1,21 +1,12 @@
 import logging
 
-from html import escape
-
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
-from django.db.models import Q
 from django.urls import reverse
-from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-
-from linkcheck.models import Link
 
 from .abstract_base_page_translation import AbstractBasePageTranslation
 from .page import Page
-from ..languages.language import Language
-from ...utils.translation_utils import ugettext_many_lazy as __
 
 
 logger = logging.getLogger(__name__)
@@ -26,45 +17,12 @@ class PageTranslation(AbstractBasePageTranslation):
     Data model representing a page translation
     """
 
-    title = models.CharField(
-        max_length=1024,
-        verbose_name=_("title of the page"),
-    )
-    slug = models.SlugField(
-        max_length=1024,
-        allow_unicode=True,
-        verbose_name=_("Page link"),
-        help_text=__(
-            _("String identifier without spaces and special characters."),
-            _("Unique per region and language."),
-            _("Leave blank to generate unique parameter from title."),
-        ),
-    )
     page = models.ForeignKey(
         Page,
         on_delete=models.CASCADE,
         related_name="translations",
         verbose_name=_("page"),
     )
-    language = models.ForeignKey(
-        Language,
-        on_delete=models.CASCADE,
-        related_name="page_translations",
-        verbose_name=_("language"),
-    )
-    text = models.TextField(
-        blank=True,
-        verbose_name=_("content of the page"),
-    )
-    creator = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="page_translations",
-        verbose_name=_("creator"),
-    )
-    links = GenericRelation(Link, related_query_name="page_translations")
 
     @property
     def ancestor_path(self):
@@ -84,71 +42,17 @@ class PageTranslation(AbstractBasePageTranslation):
         )
 
     @property
-    def permalink(self):
+    def url_infix(self):
         """
-        This property calculates the permalink dynamically by joining the parent path together with the slug
+        Generates the infix of the url of the page translation object which is the ancestor path of the page
 
-        :return: The permalink of the page
+        For information about the components of such an url,
+        see :meth:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.get_absolute_url`
+
+        :return: the infix of the url
         :rtype: str
         """
-        return "/".join(
-            filter(
-                None,
-                [
-                    self.page.region.slug,
-                    self.language.slug,
-                    self.ancestor_path,
-                    self.slug,
-                ],
-            )
-        )
-
-    @property
-    def base_link(self):
-        """
-        This property calculates the absolute page link without the slug dynamically
-
-        :return: The base link of the page
-        :rtype: str
-        """
-        return (
-            "/".join(
-                filter(
-                    None,
-                    [
-                        settings.WEBAPP_URL,
-                        self.page.region.slug,
-                        self.language.slug,
-                        self.ancestor_path,
-                    ],
-                )
-            )
-            + "/"
-        )
-
-    @property
-    def backend_base_link(self):
-        """
-        This property calculates the absolute page link on the CMS domain
-
-        :return: The base link of the page
-        :rtype: str
-        """
-        return (
-            "/".join(
-                filter(
-                    None,
-                    [
-                        settings.BASE_URL,
-                        self.page.region.slug,
-                        self.language.slug,
-                        self.ancestor_path,
-                        self.slug,
-                    ],
-                )
-            )
-            + "/"
-        )
+        return self.ancestor_path
 
     @property
     def backend_edit_link(self):
@@ -193,11 +97,11 @@ class PageTranslation(AbstractBasePageTranslation):
         mirrored_page_translation = self.page.get_mirrored_page_translation(
             self.language.slug
         )
-        if not mirrored_page_translation or not mirrored_page_translation.text:
-            return self.text
+        if not mirrored_page_translation or not mirrored_page_translation.content:
+            return self.content
         if self.page.mirrored_page_first:
-            return mirrored_page_translation.text + self.text
-        return self.text + mirrored_page_translation.text
+            return mirrored_page_translation.content + self.content
+        return self.content + mirrored_page_translation.content
 
     @property
     def combined_last_updated(self):
@@ -213,9 +117,9 @@ class PageTranslation(AbstractBasePageTranslation):
             self.language.slug
         )
         if (
-            not self.text
+            not self.content
             and mirrored_page_translation
-            and mirrored_page_translation.text
+            and mirrored_page_translation.content
         ):
             return mirrored_page_translation.last_updated
         return self.last_updated
@@ -329,61 +233,14 @@ class PageTranslation(AbstractBasePageTranslation):
             if t.is_outdated
         ]
 
-    @classmethod
-    def search(cls, region, language_slug, query):
-        """
-        Searches for all page translations which match the given `query` in their title or slug.
-        :param region: The current region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-        :param language_slug: The language slug
-        :type language_slug: str
-        :param query: The query string used for filtering the pages
-        :type query: str
-        :return: A query for all matching objects
-        :rtype: ~django.db.models.QuerySet
-        """
-        return (
-            cls.objects.filter(
-                **{
-                    "page__region": region,
-                    "language__slug": language_slug,
-                }
-            )
-            .filter(Q(slug__icontains=query) | Q(title__icontains=query))
-            .distinct("page")
-        )
-
-    def __str__(self):
-        """
-        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``PageTranslation object (id)``.
-        It is used in the Django admin backend and as label for ModelChoiceFields.
-
-        :return: A readable string representation of the page translation
-        :rtype: str
-        """
-        label = " &rarr; ".join(
-            [
-                # escape page title because string is marked as safe afterwards
-                escape(
-                    ancestor.get_translation(self.language.slug).title
-                    if ancestor.get_translation(self.language.slug)
-                    else ancestor.best_translation.title
-                )
-                for ancestor in self.page.get_ancestors(include_self=True)
-            ]
-        )
-        # Add warning if page is archived
-        if self.page.archived:
-            label += " (&#9888; " + _("Archived") + ")"
-        # mark as safe so that the arrow and the warning triangle are not escaped
-        return mark_safe(label)
-
     class Meta:
         #: The verbose name of the model
         verbose_name = _("page translation")
         #: The plural verbose name of the model
         verbose_name_plural = _("page translations")
-        #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["page__pk", "-version"]
+        #: The name that will be used by default for the relation from a related object back to this one
+        default_related_name = "page_translations"
         #: The default permissions for this model
         default_permissions = ()
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["page__pk", "-version"]

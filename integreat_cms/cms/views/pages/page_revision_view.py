@@ -156,7 +156,7 @@ class PageRevisionView(TemplateView):
         if (
             revision.slug == current_revision.slug
             and revision.title == current_revision.title
-            and revision.text == current_revision.text
+            and revision.content == current_revision.content
         ):
             messages.error(
                 request,
