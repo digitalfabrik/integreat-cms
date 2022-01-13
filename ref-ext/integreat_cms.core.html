@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-01-06T11:19:28+00:00" />
+    <meta property="article:modified_time" content="2022-01-06T12:49:55+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -348,6 +348,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.push_notifications.html">Push Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.regions.html">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.html#abstract-content-model">Abstract Content Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.html#abstract-content-translation">Abstract Content Translation</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -550,6 +552,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.push_notifications.html">Push Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html">Regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html">Users</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_model">Abstract Content Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_translation">Abstract Content Translation</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -1316,6 +1320,12 @@ processor to add some variables to the template context.</p>
 </dd></dl>
 
 <dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.core.settings.LINKCHECK_DISABLE_LISTENERS">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LINKCHECK_DISABLE_LISTENERS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.LINKCHECK_DISABLE_LISTENERS" title="Permalink to this definition"></a></dt>
+<dd><p>Disable linkcheck listeners e.g. when the fixtures are loaded</p>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.LOCALE_PATHS">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LOCALE_PATHS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('/home/circleci/project/integreat_cms/locale',)</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.LOCALE_PATHS" title="Permalink to this definition"></a></dt>
 <dd><p>A list of directories where Django looks for translation files
@@ -1706,9 +1716,9 @@ In debug mode, this is not required since <a class="reference external" href="ht
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.XLIFF_DEFAULT_FIELDS">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">XLIFF_DEFAULT_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('title',</span> <span class="pre">'text')</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.XLIFF_DEFAULT_FIELDS" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">XLIFF_DEFAULT_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('title',</span> <span class="pre">'content')</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.XLIFF_DEFAULT_FIELDS" title="Permalink to this definition"></a></dt>
 <dd><p>The default fields to be used for the XLIFF serialization</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">)</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1728,9 +1738,9 @@ In debug mode, this is not required since <a class="reference external" href="ht
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.XLIFF_LEGACY_FIELDS">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">XLIFF_LEGACY_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'body':</span> <span class="pre">'text'}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.XLIFF_LEGACY_FIELDS" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">XLIFF_LEGACY_FIELDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'body':</span> <span class="pre">'content',</span> <span class="pre">'text':</span> <span class="pre">'content'}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.XLIFF_LEGACY_FIELDS" title="Permalink to this definition"></a></dt>
 <dd><p>A mapping for changed field names to preserve backward compatibility after a database field was renamed</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;body&#39;</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span><span class="p">}</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;body&#39;</span><span class="o">:</span> <span class="s1">&#39;content&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="o">:</span> <span class="s1">&#39;content&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
 </dd></dl>
