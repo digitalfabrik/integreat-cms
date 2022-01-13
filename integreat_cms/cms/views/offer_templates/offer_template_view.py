@@ -83,7 +83,7 @@ class OfferTemplateView(TemplateView):
             # Save form
             form.save()
             # Add the success message and redirect to the edit page
-            if offer_template_instance:
+            if not offer_template_instance:
                 messages.success(
                     request,
                     _('Offer template "{}" was successfully created').format(
@@ -98,5 +98,6 @@ class OfferTemplateView(TemplateView):
                 request,
                 _('Offer template "{}" was successfully saved').format(form.instance),
             )
+            form = OfferTemplateForm(instance=form.instance)
 
         return render(request, self.template_name, {"form": form, **self.base_context})
