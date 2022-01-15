@@ -135,10 +135,11 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Check for missing migrations
+          command: pipenv run integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
+      - run:
           name: Migrate database
-          command: |
-            pipenv run integreat-cms-cli makemigrations cms --settings=integreat_cms.core.circleci_settings
-            pipenv run integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
+          command: pipenv run integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
       - run:
           name: Run tests
           command: pipenv run integreat-cms-cli test integreat_cms --set=COVERAGE --settings=integreat_cms.core.circleci_settings
