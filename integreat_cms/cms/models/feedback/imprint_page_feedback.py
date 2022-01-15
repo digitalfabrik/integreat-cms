@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from .feedback import Feedback
@@ -23,7 +24,7 @@ class ImprintPageFeedback(Feedback):
         except ImprintPage.DoesNotExist:
             return _("Imprint")
 
-    @property
+    @cached_property
     def object_url(self):
         """
         This property returns the url to the object this feedback comments on.

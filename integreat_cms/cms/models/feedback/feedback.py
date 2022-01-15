@@ -1,7 +1,10 @@
 from django.conf import settings
 from django.db import models
 from django.utils.text import capfirst
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
+
+from polymorphic.models import PolymorphicModel
 
 from ...constants import feedback_ratings
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -9,7 +12,7 @@ from ..languages.language import Language
 from ..regions.region import Region
 
 
-class Feedback(models.Model):
+class Feedback(PolymorphicModel):
     """
     Database model representing feedback from app-users.
     Do not directly create instances of this base model, but of the submodels (e.g. PageFeedback) instead.
@@ -59,33 +62,6 @@ class Feedback(models.Model):
     )
 
     @property
-    def submodel_instance(self):
-        """
-        This property returns the submodel instance (e.g. PageFeedback) of a Feedback instance.
-
-        :raises NotImplementedError: If the attribute ``submodel_instance``  is used on the base Feedback class.
-
-        :raises TypeError: If model is instantiated directly without an inheriting subclass
-
-        :return: function
-        :rtype: bool
-        """
-        # In this case we need type() instead of isinstance(), because we want to differ between inherited models
-        # pylint: disable=unidiomatic-typecheck
-        if type(self) != Feedback:
-            raise NotImplementedError(
-                "Use submodel_instance only on instances of the base Feedback model, not on submodels."
-            )
-        for submodel in Feedback.__subclasses__():
-            # Inherited models automatically get their name as lowercase assigned as reverse relationship from the base class
-            reverse_related_name = submodel.__name__.lower()
-            if hasattr(self, reverse_related_name):
-                return getattr(self, reverse_related_name)
-        raise TypeError(
-            "Do not directly create instances of the Feedback base model, but of the submodels (e.g. PageFeedback) instead."
-        )
-
-    @property
     def category(self):
         """
         This property returns the category (verbose name of the submodel) of this feedback object.
@@ -93,41 +69,9 @@ class Feedback(models.Model):
         :return: capitalized category
         :rtype: str
         """
-        return capfirst(type(self.submodel_instance)._meta.verbose_name)
+        return capfirst(self._meta.verbose_name)
 
-    @property
-    def object_name(self):
-        """
-        This property returns the name of the object this feedback comments on.
-        To be implemented in the inheriting model.
-
-        :return: The name of the submodel instance
-        :rtype: str
-        """
-        return self.submodel_instance.object_name
-
-    @property
-    def object_url(self):
-        """
-        This property returns the url to the object this feedback comments on.
-        To be implemented in the inheriting model.
-
-        :return: The URL to the submodel instance
-        :rtype: str
-        """
-        return self.submodel_instance.object_url
-
-    @property
-    def related_feedback(self):
-        """
-        This property returns all feedback entries which relate to the same object and have the same is_technical value.
-
-        :return: The queryset of related feedback
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.feedback.feedback.Feedback ]
-        """
-        return self.submodel_instance.related_feedback
-
-    @property
+    @cached_property
     def rating_sum_positive(self):
         """
         This property returns the sum of the up-ratings of this object.
@@ -135,18 +79,9 @@ class Feedback(models.Model):
         :return: The number of positive ratings on this feedback object
         :rtype: int
         """
-        # Enable this property on instances of the base Feedback model
-        # In this case we need type() instead of isinstance(), because we want to differ between inherited models
-        # pylint: disable=unidiomatic-typecheck
-        if type(self) == Feedback:
-            instance = self.submodel_instance
-        else:
-            instance = self
-        return instance.related_feedback.filter(
-            rating=feedback_ratings.POSITIVE
-        ).count()
+        return self.related_feedback.filter(rating=feedback_ratings.POSITIVE).count()
 
-    @property
+    @cached_property
     def rating_sum_negative(self):
         """
         This property returns the sum of the down-ratings of this object.
@@ -154,16 +89,7 @@ class Feedback(models.Model):
         :return: The number of negative ratings on this feedback object
         :rtype: int
         """
-        # Enable this property on instances of the base Feedback model
-        # In this case we need type() instead of isinstance(), because we want to differ between inherited models
-        # pylint: disable=unidiomatic-typecheck
-        if type(self) == Feedback:
-            instance = self.submodel_instance
-        else:
-            instance = self
-        return instance.related_feedback.filter(
-            rating=feedback_ratings.NEGATIVE
-        ).count()
+        return self.related_feedback.filter(rating=feedback_ratings.NEGATIVE).count()
 
     @property
     def read(self):
@@ -215,11 +141,7 @@ class Feedback(models.Model):
         :return: The canonical string representation of the feedback
         :rtype: str
         """
-        # pylint: disable=unidiomatic-typecheck
-        if type(self) == Feedback:
-            class_name = type(self.submodel_instance).__name__
-        else:
-            class_name = type(self).__name__
+        class_name = type(self).__name__
         return f"<{class_name} (id: {self.id})>"
 
     class Meta:

@@ -141,6 +141,7 @@ INSTALLED_APPS = [
     "rules.apps.AutodiscoverRulesConfig",
     "webpack_loader",
     "widget_tweaks",
+    "polymorphic",
 ]
 
 # Install cacheops only if redis cache is available

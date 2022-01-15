@@ -90,6 +90,10 @@ intersphinx_mapping = {
         None,
     ),
     "django-mptt": ("https://django-mptt.readthedocs.io/en/latest/", None),
+    "django-polymorphic": (
+        "https://django-polymorphic.readthedocs.io/en/latest/",
+        None,
+    ),
     "setuptools": ("https://setuptools.pypa.io/en/latest/", None),
     "twine": ("https://twine.readthedocs.io/en/latest/", None),
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
@@ -126,6 +130,10 @@ nitpick_ignore = [
     ("py:class", "django.utils.datastructures.MultiValueDict"),
     ("py:class", "django.contrib.auth.tokens.PasswordResetTokenGenerator"),
     ("py:func", "django.contrib.sitemaps.Sitemap._urls"),
+    (
+        "py:attr",
+        "django.contrib.contenttypes.models.ContentType.polymorphic_cms.feedback_set+",
+    ),
     ("py:class", "django.core.handlers.WSGIHandler"),
     ("py:class", "django.core.mail.EmailMultiAlternatives"),
     ("py:class", "django.core.serializers.base.ProgressBar"),
@@ -221,7 +229,7 @@ def linkcode_resolve(domain, info):
 def patch_django_for_autodoc(app):
     """
     Monkeypatch the :class:`~integreat_cms.cms.models.regions.region.RegionManager` because the default queryset is
-    accessed durinng sphinx build before ``django.setup()`` has been called, which causes problems with the mptt model.
+    accessed during sphinx build before ``django.setup()`` has been called, which causes problems with the mptt model.
 
     :param app: The Sphinx application object
     :type app: ~sphinx.application.Sphinx

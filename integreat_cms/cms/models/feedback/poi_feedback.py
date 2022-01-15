@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from ..pois.poi_translation import POITranslation
@@ -26,9 +27,9 @@ class POIFeedback(Feedback):
         :return: The name of the object this feedback refers to
         :rtype: str
         """
-        return self.poi_translation.poi.best_translation.title
+        return self.best_poi_translation.title
 
-    @property
+    @cached_property
     def object_url(self):
         """
         This property returns the url to the object this feedback comments on.
@@ -41,9 +42,19 @@ class POIFeedback(Feedback):
             kwargs={
                 "poi_id": self.poi_translation.poi.id,
                 "region_slug": self.region.slug,
-                "language_slug": self.poi_translation.poi.best_translation.language.slug,
+                "language_slug": self.best_poi_translation.language.slug,
             },
         )
+
+    @cached_property
+    def best_poi_translation(self):
+        """
+        This property returns the best translation for the POI this feedback comments on.
+
+        :return: The best poi translation
+        :rtype: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
+        """
+        return self.poi_translation.poi.best_translation
 
     @property
     def related_feedback(self):

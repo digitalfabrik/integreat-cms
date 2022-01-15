@@ -8,6 +8,7 @@ UNRELEASED
 * Add support for Python 3.9
 * Add APIv3 parents/ancestors endpoint
 * Add API tests
+* Improve performance of feedback list
 
 
 2021.12.0-beta
