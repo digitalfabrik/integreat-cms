@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 from ...constants import status, text_directions
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageForm, PageTranslationForm
-from ...models import PageTranslation, Region
+from ...models import PageTranslation
 from .page_context_mixin import PageContextMixin
 from ..media.media_context_mixin import MediaContextMixin
 
@@ -55,7 +55,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
         language = region.get_language_or_404(
             kwargs.get("language_slug"), only_active=True
         )
@@ -188,7 +188,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
         language = region.get_language_or_404(
             kwargs.get("language_slug"), only_active=True
         )

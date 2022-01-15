@@ -18,7 +18,7 @@ from ...constants import (
     translation_status,
 )
 from ...decorators import region_permission_required, permission_required
-from ...models import Region, EventTranslation
+from ...models import EventTranslation
 from ...forms import EventFilterForm
 from .event_context_mixin import EventContextMixin
 
@@ -72,7 +72,7 @@ class EventListView(TemplateView, EventContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
         # current region
-        region = Region.get_current_region(request)
+        region = request.region
 
         # current language
         language_slug = kwargs.get("language_slug")

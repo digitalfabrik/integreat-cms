@@ -55,7 +55,7 @@ def archive_page(request, page_id, region_slug, language_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
     if not request.user.has_perm("cms.change_page_object", page):
@@ -103,7 +103,7 @@ def restore_page(request, page_id, region_slug, language_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
     if not request.user.has_perm("cms.change_page_object", page):
@@ -170,7 +170,7 @@ def view_page(request, page_id, region_slug, language_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
@@ -216,7 +216,7 @@ def delete_page(request, page_id, region_slug, language_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
     if page.children.exists():
@@ -256,7 +256,7 @@ def export_pdf(request, region_slug, language_slug):
     :return: PDF document offered for download
     :rtype: ~django.http.HttpResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     # retrieve the selected page ids
     page_ids = request.POST.getlist("selected_ids[]")
     # collect the corresponding page objects
@@ -332,7 +332,7 @@ def download_xliff(request, region_slug, language_slug):
             },
         )
 
-    region = Region.get_current_region(request)
+    region = request.region
     pages = get_list_or_404(region.pages, id__in=page_ids)
 
     target_language = get_object_or_404(
@@ -390,7 +390,7 @@ def post_translation_state_ajax(request, region_slug):
     target_language = decoded_json["language"]
     page_id = decoded_json["pageId"]
     translation_state = decoded_json["translationState"]
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
     page_translation = page.get_translation(target_language.code)
     if page_translation:
@@ -537,7 +537,7 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
     target = get_object_or_404(region.pages, id=target_id)
 
@@ -824,7 +824,7 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
     :rtype: ~django.template.response.TemplateResponse
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
     if parent_id == "0":
@@ -871,7 +871,7 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
     :rtype: ~django.template.response.TemplateResponse
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
 
     if parent_id == "0":
         siblings = region.get_root_pages()

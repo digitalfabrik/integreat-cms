@@ -13,7 +13,7 @@ from django.http import HttpResponseNotFound
 from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required, permission_required
-from ...models import Region, ImprintPage, ImprintPageTranslation
+from ...models import ImprintPage, ImprintPageTranslation
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +38,7 @@ def archive_imprint(request, region_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
 
     try:
         imprint = region.imprint
@@ -79,7 +79,7 @@ def restore_imprint(request, region_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
 
     try:
         imprint = region.imprint
@@ -120,7 +120,7 @@ def delete_imprint(request, region_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
 
     try:
         imprint = region.imprint

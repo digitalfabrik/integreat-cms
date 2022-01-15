@@ -18,7 +18,7 @@
             </h1>
         </div>
         <div class="w-2/5 flex justify-end mb-6 gap-2">
-            <a href="{% url 'edit_page' page_id=source_page_translation.page.id region_slug=region.slug language_slug=target_language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
+            <a href="{% url 'edit_page' page_id=source_page_translation.page.id region_slug=request.region.slug language_slug=target_language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
                 {% trans 'Go Back to Page Editor' %}
             </a>
             {% has_perm 'cms.change_page_object' request.user source_page_translation.page as can_change_page_object %}

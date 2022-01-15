@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 from ...constants import feedback_ratings, feedback_read_status
 from ...decorators import region_permission_required, permission_required
 from ...forms import RegionFeedbackFilterForm
-from ...models import Feedback, Region
+from ...models import Feedback
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,7 @@ class RegionFeedbackListView(TemplateView):
         """
 
         # current region
-        region = Region.get_current_region(request)
+        region = request.region
 
         region_feedback = Feedback.objects.filter(region=region, is_technical=False)
 

@@ -17,7 +17,7 @@ from ...forms import (
     PushNotificationForm,
     PushNotificationTranslationForm,
 )
-from ...models import Language, PushNotification, PushNotificationTranslation, Region
+from ...models import Language, PushNotification, PushNotificationTranslation
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ class PushNotificationView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
         language = region.get_language_or_404(
             kwargs.get("language_slug"), only_active=True
         )
@@ -119,7 +119,7 @@ class PushNotificationView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
         language = Language.objects.get(slug=kwargs.get("language_slug"))
 
         push_notification_instance = PushNotification.objects.filter(

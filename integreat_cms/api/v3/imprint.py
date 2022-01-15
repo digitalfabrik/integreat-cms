@@ -4,7 +4,6 @@ imprint API endpoint
 from django.conf import settings
 from django.http import JsonResponse
 
-from ...cms.models import Region
 from ..decorators import json_response
 
 
@@ -54,7 +53,7 @@ def imprint(request, region_slug, language_slug):
     :return: JSON object according to APIv3 imprint endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     if hasattr(region, "imprint"):
         imprint_translation = region.imprint.get_public_translation(language_slug)
         if imprint_translation:

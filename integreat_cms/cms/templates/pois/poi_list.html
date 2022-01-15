@@ -11,7 +11,7 @@
 <div class="table-header">
     <div class="flex flex-wrap justify-between">
         <h1 class="heading">{% trans 'Locations on map' %}</h1>
-        <a href="{% url 'archived_pois' region_slug=region.slug language_slug=language.slug %}" class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
+        <a href="{% url 'archived_pois' region_slug=request.region.slug language_slug=language.slug %}" class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
             <span>{% trans 'Archived locations' %}</span>
             <span class="inline-block rounded-full bg-integreat-500 text-gray-800 px-2 py-1 text-xs font-bold">
                 {{ archived_count }}
@@ -23,8 +23,8 @@
             {% include "generic_language_switcher.html" with target='pois' %}
             {% include "search_input_form.html" with object_type="poi" %}
         </div>
-        {% if region.default_language == language and perms.cms.change_imprintpage %}
-            <a href="{% url 'new_poi' region_slug=region.slug language_slug=language.slug %}" class="btn">
+        {% if request.region.default_language == language and perms.cms.change_imprintpage %}
+            <a href="{% url 'new_poi' region_slug=request.region.slug language_slug=language.slug %}" class="btn">
                 {% trans 'Create location' %}
             </a>
         {% endif %}
@@ -43,7 +43,7 @@
                     <div class="lang-grid flags whitespace-nowrap">
                         {% spaceless %}
                             {% for lang in languages %}
-                                <a href="{% url 'pois' region_slug=region.slug language_slug=lang.slug %}">
+                                <a href="{% url 'pois' region_slug=request.region.slug language_slug=lang.slug %}">
                                     <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
                                 </a>
                             {% endfor %}

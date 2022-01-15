@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.utils.text import slugify
 
 from ...decorators import region_permission_required
-from ...models import Region, PageTranslation, EventTranslation, POITranslation
+from ...models import PageTranslation, EventTranslation, POITranslation
 from ...utils.slug_utils import generate_unique_slug
 
 
@@ -38,7 +38,7 @@ def slugify_ajax(request, region_slug, language_slug, model_type):
 
     json_data = json.loads(request.body)
     form_title = slugify(json_data["title"], allow_unicode=True)
-    region = Region.get_current_region(request)
+    region = request.region
     language = region.get_language_or_404(language_slug, only_active=True)
     model_id = request.GET.get("model_id")
 

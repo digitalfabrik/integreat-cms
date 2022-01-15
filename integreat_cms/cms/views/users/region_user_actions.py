@@ -10,7 +10,6 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required, permission_required
-from ...models import Region
 from ...utils.welcome_mail_utils import send_welcome_mail
 
 logger = logging.getLogger(__name__)
@@ -38,7 +37,7 @@ def delete_region_user(request, region_slug, user_id):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     user = get_object_or_404(region.users, id=user_id)
     if user.regions.count() == 1:
         logger.info("%r deleted %r", request.user, user)
@@ -82,7 +81,7 @@ def resend_activation_link_region(request, region_slug, user_id):
     :return: A redirection to region user list
     :rtype: ~django.http.HttpResponseRedirect
     """
-    region = Region.get_current_region(request)
+    region = request.region
     user = get_object_or_404(region.users, id=user_id)
     send_welcome_mail(request, user, activation=True)
     return redirect("region_users", region_slug=region.slug)

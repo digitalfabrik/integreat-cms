@@ -10,7 +10,6 @@ from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
 
 from ...forms import UserEmailForm, UserPasswordForm
-from ...models import Region
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +75,7 @@ class UserSettingsView(TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        region = Region.get_current_region(request)
+        region = request.region
 
         user = request.user
 

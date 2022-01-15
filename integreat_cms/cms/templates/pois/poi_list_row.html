@@ -4,7 +4,7 @@
 
 <tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
 	<td class="pr-2 pl-4">
-		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
 			{%  if poi_translation %}
                 {{ poi_translation.title }}
             {% else %}
@@ -14,7 +14,7 @@
 	</td>
     {% if backend_language and backend_language != language %}
         <td class="pr-2">
-            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block">
+            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block">
                 {% if poi.backend_translation %}
                     {{ poi.backend_translation.title }}
                 {% else %}
@@ -26,7 +26,7 @@
 	<td class="pr-2 lang-grid">
         {% spaceless %}
             {% for other_language_slug, other_status in poi.translation_states.items %}
-                <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=other_language_slug %}"
+                <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=other_language_slug %}"
                    class="{{ other_language_slug }}">
                     <div id="translation-icon">
                         {% if other_status == translation_status.IN_TRANSLATION %}
@@ -57,27 +57,27 @@
         {% endspaceless %}
 	</td>
     <td class="py-3 pl-2 pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
             {{ poi_translation.get_status_display }}
         </a>
     </td>
 	<td class="pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
             {{ poi.address }}
         </a>
 	</td>
 	<td class="pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
             {{ poi.postcode }}
         </a>
 	</td>
 	<td class="pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
             {{ poi.city }}
         </a>
 	</td>
 	<td class="pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}" class="block">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
             {{ poi.country }}
         </a>
 	</td>
@@ -96,7 +96,7 @@
             data-confirmation-title="{{ archive_dialog_title }}"
             data-confirmation-text="{{ archive_dialog_text }}"
             data-confirmation-subject="{{ poi_translation.title }}"
-            data-action="{% url 'archive_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}">
+            data-action="{% url 'archive_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
             <i data-feather="archive"></i>
         </button>
         {% if perms.cms.delete_poi %}
@@ -109,7 +109,7 @@
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"
                     data-confirmation-subject="{{ poi_translation.title }}"
-                    data-action="{% url 'delete_poi' poi_id=poi.id region_slug=region.slug language_slug=language.slug %}">
+                    data-action="{% url 'delete_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i data-feather="trash-2"></i>
                 </button>
             {% endif %}

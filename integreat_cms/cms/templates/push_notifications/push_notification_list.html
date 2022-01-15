@@ -12,7 +12,7 @@
             {% include "search_input_form.html" with object_type="push_notification" language_slug=language.slug %}
         </div>
         {% if perms.cms.change_pushnotification %}
-            <a href="{% url 'new_push_notification' region_slug=region.slug language_slug=language.slug %}" class="btn">
+            <a href="{% url 'new_push_notification' region_slug=request.region.slug language_slug=language.slug %}" class="btn">
                 {% trans 'Create news message' %}
             </a>
         {% endif %}
@@ -33,7 +33,7 @@
                     <div class="lang-grid flags whitespace-nowrap">
                         {% spaceless %}
                             {% for lang in languages %}
-                                <a href="{% url 'push_notifications' region_slug=region.slug language_slug=lang.slug %}">
+                                <a href="{% url 'push_notifications' region_slug=request.region.slug language_slug=lang.slug %}">
                                     <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
                                 </a>
                             {% endfor %}

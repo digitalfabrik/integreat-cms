@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import render
 
 from ...constants import translation_status
-from ...models import PageTranslation, Region
+from ...models import PageTranslation
 from ...decorators import region_permission_required
 
 
@@ -42,7 +42,7 @@ class TranslationCoverageView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
 
         total_number_pages = region.pages.count()
 

@@ -135,7 +135,7 @@ urlpatterns = [
                 url(r"^$", regions.RegionListView.as_view(), name="regions"),
                 url(r"^new$", regions.RegionView.as_view(), name="new_region"),
                 url(
-                    r"^(?P<region_slug>[-\w]+)/",
+                    r"^(?P<managed_region_slug>[-\w]+)/",
                     include(
                         [
                             url(

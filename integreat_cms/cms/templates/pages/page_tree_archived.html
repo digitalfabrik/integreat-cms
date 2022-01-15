@@ -43,7 +43,7 @@
                         <div class="lang-grid flags whitespace-nowrap">
                             {% spaceless %}
                                 {% for lang in languages %}
-                                    <a href="{% url 'pages' region_slug=region.slug language_slug=lang.slug %}">
+                                    <a href="{% url 'pages' region_slug=request.region.slug language_slug=lang.slug %}">
                                         <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
                                     </a>
                                 {% endfor %}

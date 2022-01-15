@@ -19,7 +19,7 @@ from django.utils.translation import ugettext as _
 
 from ..cms.constants import text_directions
 from ..cms.forms import PageTranslationForm
-from ..cms.models import Page, PageTranslation, Region
+from ..cms.models import Page, PageTranslation
 from ..cms.utils.file_utils import create_zip_archive
 from ..cms.utils.translation_utils import ugettext_many_lazy as __
 
@@ -378,7 +378,7 @@ def get_xliff_import_errors(request, page_translation):
     """
     error_messages = []
     # Get current region
-    region = Region.get_current_region(request)
+    region = request.region
     # Check whether user can import the page translation
     if not request.user.has_perm("cms.change_page_object", page_translation.page):
         error_messages.append(

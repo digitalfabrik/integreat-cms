@@ -77,7 +77,7 @@
                                 {% endif %}
                             </div>
                         {% else %}
-                            <a class="block p-4" style="color: inherit;" href="{% url 'edit_poi' poi_id=poi_form.instance.id region_slug=region.slug language_slug=other_language.slug %}">
+                            <a class="block p-4" style="color: inherit;" href="{% url 'edit_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=other_language.slug %}">
                                 {% if other_language in poi_form.instance.languages %}
                                     {% get_translation poi_form.instance other_language.slug as other_poi_translation %}
                                     {% if other_poi_translation.is_outdated %}
@@ -124,7 +124,7 @@
                         {{ poi_translation_form.instance.get_status_display }}
                     {% endif %}
                     <label for="{{ poi_translation_form.title.id_for_label }}"
-                        data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}">
+                        data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}">
                         {{ poi_translation_form.title.label }}
                     </label>
                     {% render_field poi_translation_form.title|add_error_class:"border-red-500" %}
@@ -133,7 +133,7 @@
                             {{ poi_translation_form.slug.label }}:
                         </label>
                         {% spaceless %}
-                            <a id="slug-link" href="https://integreat.app/{{ region.slug }}/{{ language.slug }}/" class="text-blue-500 hover:underline">https://integreat.app/{{ region.slug }}/{{ language.slug }}/</a>
+                            <a id="slug-link" href="https://integreat.app/{{ request.region.slug }}/{{ language.slug }}/" class="text-blue-500 hover:underline">https://integreat.app/{{ request.region.slug }}/{{ language.slug }}/</a>
                             <a id="edit-slug-btn" class="mx-2 btn-icon">
                                 <i data-feather="edit-3"></i>
                             </a>
@@ -142,7 +142,7 @@
                             </a>
                             <div class="slug-field hidden">
                                 <label for="{{ poi_translation_form.slug.id_for_label }}">
-                                    https://integreat.app/{{ region.slug }}/{{ language.slug }}/
+                                    https://integreat.app/{{ request.region.slug }}/{{ language.slug }}/
                                 </label>
                                 {% render_field poi_translation_form.slug|add_error_class:"slug-error" class="flex-grow appearance-none rounded bg-gray-200" %}
                             </div>
@@ -211,7 +211,7 @@
                                     data-confirmation-title="{{ restore_dialog_title }}"
                                     data-confirmation-text="{{ restore_dialog_text }}"
                                     data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
-                                    data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                    data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                     <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this location' %}
                                 </button>
                             {% else %}
@@ -220,7 +220,7 @@
                                     data-confirmation-title="{{ archive_dialog_title }}"
                                     data-confirmation-text="{{ archive_dialog_text }}"
                                     data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
-                                    data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                    data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                     <i data-feather="archive" class="mr-2"></i> {% trans 'Archive this location' %}
                                 </button>
                             {% endif %}
@@ -240,7 +240,7 @@
                                         </p>
                                     </div>
                                     {% for event in poi_form.instance.events.all %}
-                                        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
+                                        <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
                                             <i data-feather="edit" class="mr-2"></i> {{ event.best_translation.title }}
                                         </a>
                                     {% endfor %}
@@ -249,7 +249,7 @@
                                             data-confirmation-title="{{ delete_dialog_title }}"
                                             data-confirmation-text="{{ delete_dialog_text }}"
                                             data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
-                                            data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                            data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                         <i data-feather="trash-2" class="mr-2"></i> {% trans 'Delete this location' %}
                                     </button>
                                 {% endif %}

@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 
 from ...constants import status, translation_status
 from ...decorators import region_permission_required, permission_required
-from ...models import Region, Language, POITranslation
+from ...models import Language, POITranslation
 from ...forms import ObjectSearchForm
 from .poi_context_mixin import POIContextMixin
 
@@ -64,7 +64,7 @@ class POIListView(TemplateView, POIContextMixin):
 
         # current region
         region_slug = kwargs.get("region_slug")
-        region = Region.get_current_region(request)
+        region = request.region
 
         # current language
         language_slug = kwargs.get("language_slug")

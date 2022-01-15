@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from ...constants import translation_status, status
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageFilterForm
-from ...models import Region, Language, Page, PageTranslation
+from ...models import Language, Page, PageTranslation
 from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
@@ -64,7 +64,7 @@ class PageTreeView(TemplateView, PageContextMixin):
 
         # current region
         region_slug = kwargs.get("region_slug")
-        region = Region.get_current_region(request)
+        region = request.region
 
         # current language
         language_slug = kwargs.get("language_slug")

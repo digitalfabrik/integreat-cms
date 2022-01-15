@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 
 from ...constants import status
 from ...decorators import region_permission_required, permission_required
-from ...models import Region, Language
+from ...models import Language
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,7 @@ class PageRevisionView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
         page = get_object_or_404(region.pages, id=kwargs.get("page_id"))
 
         language = region.get_language_or_404(
@@ -126,7 +126,7 @@ class PageRevisionView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
         page = region.pages.get(id=kwargs.get("page_id"))
 
         language = Language.objects.get(slug=kwargs.get("language_slug"))

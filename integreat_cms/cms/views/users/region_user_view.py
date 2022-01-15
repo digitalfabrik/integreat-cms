@@ -9,7 +9,6 @@ from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required, permission_required
 from ...forms import RegionUserForm
-from ...models import Region
 from ...utils.welcome_mail_utils import send_welcome_mail
 
 logger = logging.getLogger(__name__)
@@ -46,7 +45,7 @@ class RegionUserView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
 
         # filter region users to make sure no users from other regions can be changed through this view
         user = region.users.filter(id=kwargs.get("user_id")).first()
@@ -84,7 +83,7 @@ class RegionUserView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
 
         # filter region users to make sure no users from other regions can be changed through this view
         user_instance = region.users.filter(id=kwargs.get("user_id")).first()

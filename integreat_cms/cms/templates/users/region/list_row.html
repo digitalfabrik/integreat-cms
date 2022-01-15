@@ -2,17 +2,17 @@
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
     <td class="pl-4">
-        <a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
+        <a href="{% url 'edit_region_user' region_slug=request.region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
             {{ user.username }}
         </a>
     </td>
 	<td>
-        <a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
+        <a href="{% url 'edit_region_user' region_slug=request.region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
             {{ user.first_name }}
         </a>
 	</td>
 	<td>
-        <a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
+        <a href="{% url 'edit_region_user' region_slug=request.region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
             {{ user.last_name }}
         </a>
 	</td>
@@ -22,14 +22,14 @@
 		</span>
 	</td>
 	<td>
-        <a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
+        <a href="{% url 'edit_region_user' region_slug=request.region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
 			{% if user.organization %}
 				{{ user.organization }}
 			{% endif %}
         </a>
 	</td>
 	<td>
-		<a href="{% url 'edit_region_user' region_slug=region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
+		<a href="{% url 'edit_region_user' region_slug=request.region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
 			{{ user.role }}
 		</a>
 	</td>
@@ -53,7 +53,7 @@
 			<span title="{% trans 'Inactive' %}">
 				<i data-feather="x" class="text-red-500 align-text-top"></i>
 			</span>
-			<form method="post" action="{% url 'resend_activation_link_region' region_slug=region.slug user_id=user.id %}" class="inline">
+			<form method="post" action="{% url 'resend_activation_link_region' region_slug=request.region.slug user_id=user.id %}" class="inline">
 				{% csrf_token %}
 				<button class="bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer">
 					{% trans 'Resend activation link' %}

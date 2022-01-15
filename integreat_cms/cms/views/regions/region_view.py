@@ -46,7 +46,9 @@ class RegionView(TemplateView, MediaContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region_instance = Region.objects.filter(slug=kwargs.get("region_slug")).first()
+        region_instance = Region.objects.filter(
+            slug=kwargs.get("managed_region_slug")
+        ).first()
         context = self.get_context_data(**kwargs)
         form = RegionForm(instance=region_instance)
 
@@ -73,7 +75,9 @@ class RegionView(TemplateView, MediaContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region_instance = Region.objects.filter(slug=kwargs.get("region_slug")).first()
+        region_instance = Region.objects.filter(
+            slug=kwargs.get("managed_region_slug")
+        ).first()
         context = self.get_context_data(**kwargs)
 
         form = RegionForm(
@@ -99,7 +103,7 @@ class RegionView(TemplateView, MediaContextMixin):
                 )
                 return redirect(
                     "edit_region",
-                    region_slug=form.instance.slug,
+                    managed_region_slug=form.instance.slug,
                 )
             # Add the success message
             messages.success(

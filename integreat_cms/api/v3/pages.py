@@ -5,7 +5,7 @@ from django.conf import settings
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 
-from ...cms.models import Region, Page
+from ...cms.models import Page
 from ..decorators import json_response
 
 
@@ -72,7 +72,7 @@ def pages(request, region_slug, language_slug):
     :return: JSON object according to APIv3 pages endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     result = []
     for page in region.get_pages(
         prefetch_translations=True, prefetch_public_translations=True
@@ -103,7 +103,7 @@ def get_single_page(request, language_slug):
     :return: the requested page
     :rtype: ~integreat_cms.cms.models.pages.page.Page
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     if request.GET.get("id"):
         page = get_object_or_404(region.pages, id=request.GET.get("id"))

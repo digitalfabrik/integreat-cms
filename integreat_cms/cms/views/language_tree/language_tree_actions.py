@@ -14,7 +14,7 @@ from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
 from ...constants import position
 from ...decorators import region_permission_required, permission_required
-from ...models import Region, LanguageTreeNode
+from ...models import LanguageTreeNode
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +48,7 @@ def move_language_tree_node(
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     language_tree_node = get_object_or_404(
         region.language_tree_nodes, id=language_tree_node_id
     )
@@ -104,7 +104,7 @@ def delete_language_tree_node(request, region_slug, language_tree_node_id):
     :rtype: ~django.http.HttpResponseRedirect
     """
     # get current region
-    region = Region.get_current_region(request)
+    region = request.region
     # get current selected language node
     language_node = get_object_or_404(
         region.language_tree_nodes, id=language_tree_node_id

@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 
 from ...forms import ObjectSearchForm
 from ...decorators import region_permission_required, permission_required
-from ...models import Language, Region, PushNotificationTranslation
+from ...models import Language, PushNotificationTranslation
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +48,7 @@ class PushNotificationListView(TemplateView):
         """
 
         # current region
-        region = Region.get_current_region(request)
+        region = request.region
 
         # current language
         language_slug = kwargs.get("language_slug")

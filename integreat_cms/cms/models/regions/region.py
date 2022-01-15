@@ -9,7 +9,6 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import override, ugettext, ugettext_lazy as _
-from django.shortcuts import get_object_or_404
 
 from ...constants import region_status, administrative_division
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -391,32 +390,6 @@ class Region(models.Model):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
         return MatomoApiManager(self)
-
-    @classmethod
-    def get_current_region(cls, request):
-        """
-        This class method returns the current region based on the current request and is used in
-        :func:`~integreat_cms.core.context_processors.region_slug_processor`
-
-        :param request: Django request
-        :type request: ~django.http.HttpRequest
-
-        :raises ~django.http.Http404: When the current request has a ``region_slug`` parameter, but there is no region
-                                      with that slug.
-
-        :return: The root :class:`~integreat_cms.cms.models.languages.language.Language` of a region
-        :rtype: ~integreat_cms.cms.models.languages.language.Language
-        """
-        # if rendered url is edit_region, the region slug originates from the region form.
-        if (
-            not hasattr(request, "resolver_match")
-            or request.resolver_match.url_name == "edit_region"
-        ):
-            return None
-        region_slug = request.resolver_match.kwargs.get("region_slug")
-        if not region_slug:
-            return None
-        return get_object_or_404(cls, slug=region_slug)
 
     def get_language_or_404(self, language_slug, only_active=False, only_visible=False):
         """

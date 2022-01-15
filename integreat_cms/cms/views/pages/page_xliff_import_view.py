@@ -11,7 +11,6 @@ from django.views.generic import TemplateView
 
 from ....xliff.utils import get_xliff_import_diff, xliff_import_confirm
 from ...decorators import region_permission_required, permission_required
-from ...models import Region
 from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
@@ -77,7 +76,7 @@ class PageXliffImportView(TemplateView, PageContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
         # Get current region and language
-        self.region = Region.get_current_region(request)
+        self.region = request.region
         self.language = self.region.get_language_or_404(
             kwargs.get("language_slug"), only_active=True
         )

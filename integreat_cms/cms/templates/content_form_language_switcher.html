@@ -4,12 +4,12 @@
 {% load i18n %}
 
 <div id="language-switcher" class="flex flex-col z-10 text-lg">
-    <span id="language-switcher-current" href="{% build_url target=target region_slug=region.slug language_slug=language.slug content_field=content_field content_id=content_id %}" class="font-bold flex justify-between bg-white py-2 px-4 rounded shadow hover:bg-gray-200 border-2 border-white hover:border-gray-200">
+    <span id="language-switcher-current" href="{% build_url target=target region_slug=request.region.slug language_slug=language.slug content_field=content_field content_id=content_id %}" class="font-bold flex justify-between bg-white py-2 px-4 rounded shadow hover:bg-gray-200 border-2 border-white hover:border-gray-200">
         Weitere Sprachen
     </span>
     <div id="language-switcher-list" class="h-0 hidden">
         {% for other_language in languages|sort_languages:language|slice:"4:" %}
-            <a href="{% build_url target=target region_slug=region.slug language_slug=other_language.slug content_field=content_field content_id=content_id %}" class="block flex justify-between whitespace-nowrap {% if forloop.last %} rounded-b {% endif %} shadow px-4 py-3 text-gray-800 hover:bg-gray-200 bg-white">
+            <a href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=content_id %}" class="block flex justify-between whitespace-nowrap {% if forloop.last %} rounded-b {% endif %} shadow px-4 py-3 text-gray-800 hover:bg-gray-200 bg-white">
                 {% if other_language in page.languages %}
                     {% get_translation instance other_language.slug as other_page_translation %}
                     {% if other_page_translation.is_outdated %}

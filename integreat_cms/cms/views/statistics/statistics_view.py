@@ -11,7 +11,6 @@ from django.views.generic import TemplateView
 from ...decorators import region_permission_required
 
 from ...forms import StatisticsFilterForm
-from ...models import Region
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +44,7 @@ class AnalyticsView(TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        region = Region.get_current_region(request)
+        region = request.region
 
         if not region.statistics_enabled:
             messages.error(request, _("Statistics are not enabled for this region."))

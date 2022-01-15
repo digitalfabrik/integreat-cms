@@ -13,7 +13,7 @@ from django.views.generic import TemplateView
 from ...constants import status
 from ...decorators import region_permission_required, permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
-from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI
+from ...models import Language, Event, EventTranslation, RecurrenceRule, POI
 from .event_context_mixin import EventContextMixin
 from ..media.media_context_mixin import MediaContextMixin
 
@@ -50,7 +50,7 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        region = Region.get_current_region(request)
+        region = request.region
         language = region.get_language_or_404(
             kwargs.get("language_slug"), only_active=True
         )
@@ -128,7 +128,7 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        region = Region.get_current_region(request)
+        region = request.region
         language = Language.objects.get(slug=kwargs.get("language_slug"))
         poi = POI.objects.filter(id=request.POST.get("location")).first()
 

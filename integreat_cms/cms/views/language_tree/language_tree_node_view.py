@@ -9,7 +9,6 @@ from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required, permission_required
 from ...forms import LanguageTreeNodeForm
-from ...models import Region
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +46,7 @@ class LanguageTreeNodeView(TemplateView):
         """
 
         # current region
-        region = Region.get_current_region(request)
+        region = request.region
         # current language tree node
         language_tree_node = region.language_tree_nodes.filter(
             id=kwargs.get("language_tree_node_id")
@@ -86,7 +85,7 @@ class LanguageTreeNodeView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
         # current region
-        region = Region.get_current_region(request)
+        region = request.region
         # current language tree node
         language_tree_node_instance = region.language_tree_nodes.filter(
             id=kwargs.get("language_tree_node_id")

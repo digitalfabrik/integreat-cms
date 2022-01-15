@@ -3,12 +3,12 @@
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
     <td class="pl-2">
-        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
             {{ push_notification|translation:language }}
         </a>
     </td>
     <td>
-        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
+        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
         	{{ push_notification.channel }}
         </a>
     </td>
@@ -17,7 +17,7 @@
 			<div class="lang-grid">
 				{% spaceless %}
 					{% for other_language in languages %}
-					<a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=region.slug language_slug=other_language.slug %}">
+					<a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=other_language.slug %}">
 						{% with pnt=push_notification|translation:other_language %}
 						<i data-feather="{% if pnt %}edit-2{% else %}plus{% endif %}" class="text-gray-800"></i>
 						{% endwith %}

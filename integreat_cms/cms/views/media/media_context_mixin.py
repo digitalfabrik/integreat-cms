@@ -4,7 +4,6 @@ from django.views.generic.base import ContextMixin
 from django.urls import reverse
 
 from ...constants import allowed_media
-from ...models import Region
 
 # pylint: disable=too-few-public-methods
 class MediaContextMixin(ContextMixin):
@@ -23,7 +22,6 @@ class MediaContextMixin(ContextMixin):
         :rtype: dict
         """
         context = super().get_context_data(**kwargs)
-        region = Region.get_current_region(self.request)
 
         media_config_data = {
             "mediaTranslations": {
@@ -86,7 +84,9 @@ class MediaContextMixin(ContextMixin):
             "expertMode": self.request.user.expert_mode,
             "allowedMediaTypes": ", ".join(dict(allowed_media.CHOICES)),
         }
-        kwargs = {"region_slug": region.slug} if region else {}
+        kwargs = (
+            {"region_slug": self.request.region.slug} if self.request.region else {}
+        )
         media_config_data["apiEndpoints"] = {
             "getDirectoryPath": reverse("mediacenter_directory_path", kwargs=kwargs),
             "getDirectoryContent": reverse(

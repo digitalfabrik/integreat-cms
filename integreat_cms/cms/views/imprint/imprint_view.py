@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 from ..media.media_context_mixin import MediaContextMixin
 from ...decorators import region_permission_required, permission_required
 from ...forms import ImprintTranslationForm
-from ...models import ImprintPageTranslation, ImprintPage, Region
+from ...models import ImprintPageTranslation, ImprintPage
 from ...constants import status
 
 logger = logging.getLogger(__name__)
@@ -52,7 +52,7 @@ class ImprintView(TemplateView, MediaContextMixin):
         """
 
         # current region
-        region = Region.get_current_region(request)
+        region = request.region
 
         # current language
         language_slug = kwargs.get("language_slug")
@@ -170,7 +170,7 @@ class ImprintView(TemplateView, MediaContextMixin):
         :rtype: ~django.http.HttpResponseRedirect
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
         language = region.get_language_or_404(
             kwargs.get("language_slug"), only_active=True
         )

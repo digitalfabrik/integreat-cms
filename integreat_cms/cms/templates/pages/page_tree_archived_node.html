@@ -8,7 +8,7 @@
         </span>
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
@@ -18,7 +18,7 @@
     </td>
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page.backend_translation %} {{ page.backend_translation.title }} {% endif %}">
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page.backend_translation %} {{ page.backend_translation.title }} {% endif %}">
                 {% if page.backend_translation %}
                     {{ page.backend_translation.title }}
                 {% else %}
@@ -32,7 +32,7 @@
             <div class="lang-grid">
                 {% spaceless %}
                     {% for other_language in languages %}
-                        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=other_language.slug %}">
+                        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language.slug %}">
                             {% get_translation page other_language.slug as other_translation %}
                             {% if other_translation %}
                                 {% if other_translation.currently_in_translation %}
@@ -61,18 +61,18 @@
     </td>
     <td>
         {% if page.explicitly_archived %}
-            <div  title="{% trans 'This page is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
+            <div  title="{% trans 'This page is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
                 {% trans 'Archived' %}
             </div>
         {% else %}
-            <div  title="{% trans 'This page is archived, because at least one of its parent pages is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
+            <div  title="{% trans 'This page is archived, because at least one of its parent pages is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
                 {% trans 'Archived, because a parent page is archived' %}
             </div>
         {% endif %}
     </td>
     <td class="pl-2 pr-4 py-3 flex flex-nowrap justify-end gap-2">
         <!-- TODO: add link to view page in web app -->
-        <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
+        <a href="{% url 'view_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
            target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="icon">
             <i data-feather="eye"></i>
         </a>
@@ -81,7 +81,7 @@
                     data-confirmation-title="{{ restore_dialog_title }}"
                     data-confirmation-text="{{ restore_dialog_text }}"
                     data-confirmation-subject="{{ page.best_translation.title }}"
-                    data-action="{% url 'restore_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
+                    data-action="{% url 'restore_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
                 <i data-feather="refresh-ccw"></i>
             </button>
         {% else %}
@@ -99,7 +99,7 @@
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"
                     data-confirmation-subject="{{ page.best_translation.title }}"
-                    data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
+                    data-action="{% url 'delete_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i data-feather="trash-2"></i>
                 </button>
             {% endif %}

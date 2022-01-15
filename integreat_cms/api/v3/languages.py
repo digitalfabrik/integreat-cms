@@ -3,7 +3,6 @@ API-endpoint to deliver a JSON with all active languages of an region.
 """
 from django.http import JsonResponse
 
-from ...cms.models import Region
 from ..decorators import json_response
 
 
@@ -21,7 +20,7 @@ def languages(request, region_slug):
     :return: JSON object according to APIv3 languages endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     result = [
         {

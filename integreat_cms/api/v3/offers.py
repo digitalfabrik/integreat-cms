@@ -4,7 +4,6 @@ Provides an endpoint for delivering a JSON with all active offers.
 from django.http import JsonResponse
 
 from ...cms.constants import postal_code
-from ...cms.models import Region
 from ..decorators import json_response
 
 
@@ -92,7 +91,7 @@ def offers(request, region_slug, language_slug=None):
     :return: JSON object according to APIv3 offers endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     result = [transform_offer(offer, region) for offer in region.offers.all()]
     return JsonResponse(
         result, safe=False

@@ -165,6 +165,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "integreat_cms.core.middleware.RegionMiddleware",
     "integreat_cms.cms.middleware.TimezoneMiddleware",
 ]
 
@@ -189,7 +190,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "integreat_cms.core.context_processors.region_slug_processor",
             ],
             "debug": DEBUG,
         },
