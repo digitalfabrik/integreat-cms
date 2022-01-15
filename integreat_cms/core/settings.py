@@ -165,13 +165,14 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "integreat_cms.cms.middleware.timezone_middleware.TimezoneMiddleware",
+    "integreat_cms.cms.middleware.TimezoneMiddleware",
 ]
 
 # The Django debug toolbar middleware will only be activated if the debug_toolbar app is installed
 if "debug_toolbar" in INSTALLED_APPS:
     # The debug toolbar middleware should be put first (see :doc:`django-debug-toolbar:installation`)
     MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
+    MIDDLEWARE.append("integreat_cms.api.middleware.JsonDebugToolbarMiddleware")
 
 #: Default URL dispatcher (see :setting:`django:ROOT_URLCONF`)
 ROOT_URLCONF = "integreat_cms.core.urls"
