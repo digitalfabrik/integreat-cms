@@ -27,7 +27,6 @@ class APIViewTest(ViewTest):
     """
 
     fixtures = [
-        "integreat_cms/cms/fixtures/roles.json",
         "integreat_cms/cms/fixtures/test_data.json",
     ]
 

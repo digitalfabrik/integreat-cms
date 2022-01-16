@@ -32,5 +32,12 @@ if settings.DEBUG:
             admin.site.register(model, ModelTreeAdmin)
         else:
             admin.site.register(model)
+    admin.site.register(apps.get_model("auth", "Permission"))
+    for model in apps.get_app_config("admin").get_models():
+        admin.site.register(model)
     for model in apps.get_app_config("linkcheck").get_models():
+        admin.site.register(model)
+    for model in apps.get_app_config("contenttypes").get_models():
+        admin.site.register(model)
+    for model in apps.get_app_config("sessions").get_models():
         admin.site.register(model)

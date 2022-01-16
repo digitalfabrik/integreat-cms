@@ -34,8 +34,6 @@ class RegionViewTest(ViewTest):
     This test checks whether all region views return status code 200.
     """
 
-    fixtures = ["integreat_cms/cms/fixtures/roles.json"]
-
     def setUp(self):
         region = Region.objects.create(
             slug="test_region",
