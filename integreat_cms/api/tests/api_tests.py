@@ -31,7 +31,7 @@ endpoint_data = [
     (
         "/api/augsburg/de/children?depth=2",
         "/augsburg/de/wp-json/extensions/v3/children?depth=2",
-        "integreat_cms/api/tests/expected-outputs/augsburg_de_pages.json",
+        "integreat_cms/api/tests/expected-outputs/api_augsburg_de_children_depth_2.json",
     ),
     (
         "/api/augsburg/de/events",
