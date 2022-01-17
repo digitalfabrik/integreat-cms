@@ -3,7 +3,7 @@ This is a collection of unit tests for the page and page translation model.
 """
 
 from django.test import TestCase
-from ...models import Page, PageTranslation, Region
+from integreat_cms.cms.models import Page, PageTranslation, Region
 
 
 class PageTest(TestCase):

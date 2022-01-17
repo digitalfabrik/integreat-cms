@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group as Role
 
-from ...models import Region, Language, LanguageTreeNode
+from integreat_cms.cms.models import Region, Language, LanguageTreeNode
+
 from .view_test import ViewTest
 from .view_test_utils import generate_test_functions
 
