@@ -8,16 +8,24 @@ from .view_test_utils import generate_test_functions
 
 
 region_views = [
+    "analytics",
+    "app_size",
     "dashboard",
     "media",
+    "mediacenter_directory_path",
+    "mediacenter_get_directory_content",
     "new_region_user",
+    "region_feedback",
     "region_users",
+    "statistics",
     "translation_coverage",
+    "user_settings",
 ]
 
 region_language_views = [
     "archived_pages",
     "archived_pois",
+    "edit_imprint",
     "events",
     "events_archived",
     "new_event",
@@ -36,9 +44,7 @@ class RegionViewTest(ViewTest):
     """
 
     def setUp(self):
-        region = Region.objects.create(
-            slug="test_region",
-        )
+        region = Region.objects.create(slug="test_region", statistics_enabled=True)
         language = Language.objects.create(
             slug="te-st", native_name="test_language", english_name="test_language"
         )
