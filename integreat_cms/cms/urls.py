@@ -759,6 +759,11 @@ urlpatterns = [
                                             name="new_event",
                                         ),
                                         url(
+                                            r"^auto-translate$",
+                                            events.automatic_translation,
+                                            name="automatic_translation_events",
+                                        ),
+                                        url(
                                             r"^(?P<event_id>[0-9]+)/",
                                             include(
                                                 [
@@ -819,6 +824,11 @@ urlpatterns = [
                                             r"^new$",
                                             pois.POIView.as_view(),
                                             name="new_poi",
+                                        ),
+                                        url(
+                                            r"^auto-translate$",
+                                            pois.automatic_translation,
+                                            name="automatic_translation_pois",
                                         ),
                                         url(
                                             r"^(?P<poi_id>[0-9]+)/",

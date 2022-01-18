@@ -233,3 +233,41 @@ def search_poi_ajax(request, region_slug):
             "region": region,
         },
     )
+
+
+@require_POST
+@login_required
+@region_permission_required
+@permission_required("cms.change_event")
+def automatic_translation(request, region_slug, language_slug):
+    """
+    Automatic translation for events
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: slug of the region which the event belongs to
+    :type region_slug: str
+
+    :param language_slug: current GUI language slug
+    :type language_slug: str
+
+    :return: The rendered template response
+    :rtype: ~django.template.response.TemplateResponse
+    """
+    # Get current region
+    region = request.region
+    # Retrieve the selected event ids
+    event_ids = request.POST.getlist("selected_ids[]")
+    # Collect the corresponding event objects
+    events = region.events.filter(id__in=event_ids).prefetch_translations()
+    logger.debug("Automatic translation for events: %r", events)
+
+    messages.warning(request, _("Automatic translations are not fully implemented yet"))
+    return redirect(
+        "events",
+        **{
+            "region_slug": region_slug,
+            "language_slug": language_slug,
+        }
+    )

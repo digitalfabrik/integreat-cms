@@ -3,15 +3,18 @@
 {% load content_filters %}
 
 <tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
-	<td class="pr-2 pl-4">
-		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
-			{%  if poi_translation %}
+    <td class="py-3 pl-4">
+        <input type="checkbox" name="selected_ids[]" value="{{ poi.id }}" form="bulk-action-form" class="bulk-select-item">
+    </td>
+    <td class="pr-2 pl-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
+            {%  if poi_translation %}
                 {{ poi_translation.title }}
             {% else %}
                 <i>{% trans 'Translation not available' %}</i>
             {% endif %}
-		</a>
-	</td>
+        </a>
+    </td>
     {% if backend_language and backend_language != language %}
         <td class="pr-2">
             <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block">
@@ -23,7 +26,7 @@
             </a>
         </td>
     {% endif %}
-	<td class="pr-2 lang-grid">
+    <td class="pr-2 lang-grid">
         {% spaceless %}
             {% for other_language_slug, other_status in poi.translation_states.items %}
                 <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=other_language_slug %}"
@@ -55,32 +58,32 @@
                 </a>
             {% endfor %}
         {% endspaceless %}
-	</td>
+    </td>
     <td class="py-3 pl-2 pr-2">
         <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
             {{ poi_translation.get_status_display }}
         </a>
     </td>
-	<td class="pr-2">
+    <td class="pr-2">
         <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
             {{ poi.address }}
         </a>
-	</td>
-	<td class="pr-2">
+    </td>
+    <td class="pr-2">
         <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
             {{ poi.postcode }}
         </a>
-	</td>
-	<td class="pr-2">
+    </td>
+    <td class="pr-2">
         <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
             {{ poi.city }}
         </a>
-	</td>
-	<td class="pr-2">
+    </td>
+    <td class="pr-2">
         <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
             {{ poi.country }}
         </a>
-	</td>
+    </td>
     <td class="pl-2 pr-4 py-3 min text-right flex flex-nowrap gap-2">
         {% if poi_translation.status == PUBLIC %}
             <a href="{{ WEBAPP_URL }}{{ poi_translation.get_absolute_url }}" 
