@@ -446,6 +446,10 @@ LOGGING = {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },
+        "deepl": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
+        },
         "django": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,

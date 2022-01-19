@@ -13,6 +13,7 @@ from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
 from cacheops import invalidate_model
+from ...deepl_api.utils import DeepLApi
 
 logger = logging.getLogger(__name__)
 
@@ -100,6 +101,9 @@ class BulkAutoTranslateView(BulkActionView):
     #: Whether the public translation objects should be prefetched
     prefetch_translations = True
 
+    #: the form of this bulk action
+    form = None
+
     def post(self, request, *args, **kwargs):
         r"""
         Translate multiple objects automatically
@@ -116,14 +120,23 @@ class BulkAutoTranslateView(BulkActionView):
         :return: The redirect
         :rtype: ~django.http.HttpResponseRedirect
         """
+        if not settings.DEEPL_ENABLED:
+            messages.error(request, _("Automatic translations are disabled"))
+            return super().post(request, *args, **kwargs)
+        # Collect the corresponding objects
         logger.debug("Automatic translation for: %r", self.get_queryset())
-
-        if settings.DEEPL_ENABLED:
-            messages.warning(
-                request, _("Automatic translations are not fully implemented yet")
+        deepl = DeepLApi()
+        if deepl.check_availability(request, kwargs.get("language_slug")):
+            deepl.deepl_translation(
+                request, self.get_queryset(), kwargs.get("language_slug"), self.form
             )
         else:
-            messages.error(request, _("Automatic translations are disabled"))
+            messages.warning(
+                request,
+                _(
+                    "This language is not supported by DeepL. Please try another language"
+                ),
+            )
 
         # Let the base view handle the redirect
         return super().post(request, *args, **kwargs)

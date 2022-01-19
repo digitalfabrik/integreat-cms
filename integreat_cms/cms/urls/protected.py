@@ -5,7 +5,14 @@ Views which should not have login protection go into :mod:`~integreat_cms.cms.ur
 """
 from django.urls import include, path
 
-from ..forms import LanguageForm, OfferTemplateForm, OrganizationForm, RegionForm
+from ..forms import (
+    LanguageForm,
+    OfferTemplateForm,
+    OrganizationForm,
+    RegionForm,
+    EventTranslationForm,
+    POITranslationForm,
+)
 from ..models import Event, Language, OfferTemplate, Organization, Page, POI, Role
 
 from ..views import (
@@ -835,7 +842,7 @@ urlpatterns = [
                                         path(
                                             "auto-translate/",
                                             bulk_action_views.BulkAutoTranslateView.as_view(
-                                                model=Event
+                                                model=Event, form=EventTranslationForm
                                             ),
                                             name="automatic_translation_events",
                                         ),
@@ -918,7 +925,7 @@ urlpatterns = [
                                         path(
                                             "auto-translate/",
                                             bulk_action_views.BulkAutoTranslateView.as_view(
-                                                model=POI
+                                                model=POI, form=POITranslationForm
                                             ),
                                             name="automatic_translation_pois",
                                         ),
