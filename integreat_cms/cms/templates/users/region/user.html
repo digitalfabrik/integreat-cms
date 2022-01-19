@@ -115,7 +115,7 @@
             <div class="pt-2 pb-4">
                 <button title="{% blocktrans %}Remove this user from region {{ request.region }}{% endblocktrans %}" class="btn confirmation-button btn-red"
                         data-confirmation-title="{% blocktrans %}Please confirm that you really want to remove this user from region {{ request.region }}.{% endblocktrans %}"
-                        data-confirmation-text="{% trans 'The user will keep access to the following regions:' %} {{ user_form.instance|remaining_regions:region|join:', ' }}"
+                        data-confirmation-text="{% trans 'The user will keep access to the following regions:' %} {{ user_form.instance|remaining_regions:request.region|join:', ' }}"
                         data-confirmation-subject="{{ user_form.username.value }}"
                         data-action="{% url 'delete_region_user' region_slug=request.region.slug user_id=user_form.instance.id %}">
                     <i data-feather="trash-2" class="mr-2"></i>
