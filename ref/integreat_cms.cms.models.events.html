@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-01-11T00:32:17+00:00" />
+    <meta property="article:modified_time" content="2022-12-30T22:42:13+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -259,9 +259,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.html">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#api-tests">API Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#api-tests-utils">API Tests Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.middleware.html#json-debug-toolbar-middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
@@ -350,6 +349,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-content-model">Abstract Content Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-content-translation">Abstract Content Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-tree-node">Abstract Tree Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#decorators">Decorators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -366,11 +367,6 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#user-filters">User Filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.pages.html">Pages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.views.html">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html">Utils</a><ul>
@@ -424,8 +420,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#region-middleware">Region Middleware</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#docker-settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#settings">Settings</a></li>
@@ -463,9 +462,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ref-ext/integreat_cms.html">Integreat CMS</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.api.html">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html#module-integreat_cms.api.tests.api_tests">API Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html#module-integreat_cms.api.tests.api_tests_utils">API Tests Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.middleware.html#module-integreat_cms.api.middleware.json_debug_toolbar_middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html">V3</a><ul>
@@ -554,6 +552,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_model">Abstract Content Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_translation">Abstract Content Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_tree_node">Abstract Tree Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.decorators">Decorators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -570,11 +570,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.pages.html">Pages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.views.html">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html">Utils</a><ul>
@@ -628,8 +623,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">Region Middleware</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.context_processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings">Settings</a></li>
@@ -710,7 +708,7 @@
 <h2>Event<a class="headerlink" href="#event" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.events.event.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.events.event.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel" title="integreat_cms.cms.models.abstract_content_model.AbstractContentModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.abstract_content_model.AbstractContentModel</span></code></a></p>
 <p>Data model representing an event.
 Can be directly imported from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models" title="integreat_cms.cms.models"><code class="xref py py-mod docutils literal notranslate"><span class="pre">models</span></code></a>.</p>
@@ -746,13 +744,13 @@ Can be directly imported from <a class="reference internal" href="../ref-ext/int
 </dl>
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
@@ -769,7 +767,7 @@ This method saves the new event.</p>
 <dd class="field-even"><p>A copy of this event</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event">Event</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><em>Event</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -790,14 +788,28 @@ Expects <code class="docutils literal notranslate"><span class="pre">start</span
 <dd class="field-even"><p>start datetimes of occurrences of the event that are in the given timeframe</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a> [ <a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.datetime" title="(in Python v3.9)">datetime</a> ]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a> [ <a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><em>datetime</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">has_location</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_translation_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Returns the translation model of this content model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The class of translations</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#type" title="(in Python v3.9)">type</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">has_location</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property checks whether the event has a physical location (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI" title="integreat_cms.cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -809,9 +821,9 @@ Expects <code class="docutils literal notranslate"><span class="pre">start</span
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py attribute">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_all_day</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">is_all_day</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property checks whether an event takes place the whole day by checking if start time is minimal and end
 time is maximal.</p>
 <dl class="field-list simple">
@@ -824,9 +836,9 @@ time is maximal.</p>
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py attribute">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_recurring</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">is_recurring</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property checks if the event has a recurrence rule and thereby determines, whether the event is recurring.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -838,24 +850,9 @@ time is maximal.</p>
 </dl>
 </dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">languages</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This property returns a QuerySet of all <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> objects,
-to which an event translation exists.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>QuerySet of all <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> an event is translated into</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language">Language</a> ]</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.ManagerFromEventQuerySet</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.ManagerFromEventQuerySet</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Django manager to access the ORM
 Use <code class="docutils literal notranslate"><span class="pre">Event.objects.all()</span></code> to fetch all objects.</p>
 <p>The default manager</p>
@@ -863,7 +860,7 @@ Use <code class="docutils literal notranslate"><span class="pre">Event.objects.a
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">recurrence_rule</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">recurrence_rule</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.OneToOneField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneToOneField</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule" title="integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrenceRule</span></code></a></p>
 <p>Recurrence rule (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule.event" title="integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule.event"><code class="xref py py-attr docutils literal notranslate"><span class="pre">event</span></code></a>)</p>
 <p>If the event is recurring, the recurrence rule contains all necessary information on the frequency, interval etc.
@@ -874,12 +871,12 @@ which is needed to calculate the single instances of a recurring event</p>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.events.event.</span></span><span class="sig-name descname"><span class="pre">EventQuerySet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.query.QuerySet</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.events.event.</span></span><span class="sig-name descname"><span class="pre">EventQuerySet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet" title="integreat_cms.cms.models.abstract_content_model.ContentQuerySet"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.abstract_content_model.ContentQuerySet</span></code></a></p>
 <p>Custom QuerySet to facilitate the filtering by date while taking recurring events into account.</p>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">filter_completed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">1,</span> <span class="pre">15)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">filter_completed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">1,</span> <span class="pre">19)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Filter all events that are not ongoing and don’t have any occurrences in the future. This is, per definition, if
 at least one of the following conditions is true:</p>
 <blockquote>
@@ -896,14 +893,14 @@ at least one of the following conditions is true:</p>
 <dd class="field-even"><p>The Queryset of events before the given date</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.EventQuerySet" title="integreat_cms.cms.models.events.event.EventQuerySet">EventQuerySet</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.EventQuerySet" title="integreat_cms.cms.models.events.event.EventQuerySet"><em>EventQuerySet</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">filter_upcoming</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">1,</span> <span class="pre">15)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">filter_upcoming</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">1,</span> <span class="pre">19)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Filter all events that take place after the given date. This is, per definition, if at least one of the
 following conditions is true:</p>
 <blockquote>
@@ -921,7 +918,7 @@ following conditions is true:</p>
 <dd class="field-even"><p>The Queryset of events after the given date</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.EventQuerySet" title="integreat_cms.cms.models.events.event.EventQuerySet">EventQuerySet</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.EventQuerySet" title="integreat_cms.cms.models.events.event.EventQuerySet"><em>EventQuerySet</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -941,7 +938,7 @@ following conditions is true:</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
 <li><p><strong>title</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Title</p></li>
-<li><p><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.2)"><em>SlugField</em></a>) – URL parameter. String identifier without spaces and special characters. Unique per region and language. Leave blank to generate unique parameter from title.</p></li>
+<li><p><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.2)"><em>SlugField</em></a>) – Link. String identifier without spaces and special characters. Unique per region and language. Leave blank to generate unique parameter from title.</p></li>
 <li><p><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Status</p></li>
 <li><p><strong>content</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><em>TextField</em></a>) – Content</p></li>
 <li><p><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Currently in translation. Flag to indicate a translation is being updated by an external translator</p></li>
@@ -980,9 +977,9 @@ following conditions is true:</p>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py attribute">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backend_edit_link</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">backend_edit_link</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function returns the absolute url to the editor for this translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1008,9 +1005,9 @@ following conditions is true:</p>
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py attribute">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">foreign_object</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">foreign_object</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is an alias of the event foreign key and is needed to generalize the <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.slug_utils" title="integreat_cms.cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
 for all content types</p>
 <dl class="field-list simple">
@@ -1018,14 +1015,14 @@ for all content types</p>
 <dd class="field-odd"><p>The event to which the translation belongs</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event">Event</a></p>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><em>Event</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py attribute">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">url_infix</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">url_infix</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the string “events” which is the infix of the url of  the event translation object
 Generates the infix of the url of the event translation object</p>
 <p>For information about the components of such an url,
@@ -1176,7 +1173,7 @@ and that <code class="docutils literal notranslate"><span class="pre">weekday_fo
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 11, 2022.
+      <span class="lastupdated">Last updated on Dec 30, 2022.
       </span></p>
   </div>
 

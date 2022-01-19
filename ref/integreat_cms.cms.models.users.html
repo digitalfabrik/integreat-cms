@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-01-05T16:44:05+00:00" />
+    <meta property="article:modified_time" content="2022-01-15T23:43:52+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Users &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -259,9 +259,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.html">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#api-tests">API Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#api-tests-utils">API Tests Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.middleware.html#json-debug-toolbar-middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
@@ -350,6 +349,8 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-content-model">Abstract Content Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-content-translation">Abstract Content Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-tree-node">Abstract Tree Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#decorators">Decorators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -366,11 +367,6 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#user-filters">User Filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.pages.html">Pages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.views.html">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html">Utils</a><ul>
@@ -424,8 +420,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#region-middleware">Region Middleware</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#docker-settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#settings">Settings</a></li>
@@ -463,9 +462,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ref-ext/integreat_cms.html">Integreat CMS</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.api.html">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html#module-integreat_cms.api.tests.api_tests">API Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html#module-integreat_cms.api.tests.api_tests_utils">API Tests Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.middleware.html#module-integreat_cms.api.middleware.json_debug_toolbar_middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html">V3</a><ul>
@@ -554,6 +552,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_model">Abstract Content Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_translation">Abstract Content Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_tree_node">Abstract Tree Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.decorators">Decorators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -570,11 +570,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.pages.html">Pages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.views.html">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html">Utils</a><ul>
@@ -628,8 +623,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">Region Middleware</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.context_processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings">Settings</a></li>
@@ -816,7 +814,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">MUNICIPALITY_TEAM</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">CMS_TEAM</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">APP_TEAM</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PROMO_TEAM</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MARKETING_TEAM</span></code></p></li>
 </ul>
 <p>Manage choices in <a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.role_names" title="integreat_cms.cms.constants.role_names"><code class="xref py py-mod docutils literal notranslate"><span class="pre">role_names</span></code></a></p>
 </dd></dl>
@@ -829,7 +827,28 @@
 <p>Custom user model that is used instead of the default Django user model</p>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.users.user.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.users.user.</span></span><span class="sig-name descname"><span class="pre">CustomUserManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.UserManager" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.UserManager</span></code></a></p>
+<p>This manager prefetches the regions of each user because they are needed for permissions checks and the region selection anyway</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get the queryset of users including the prefetched <code class="docutils literal notranslate"><span class="pre">regions</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The queryset of users</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><em>User</em></a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.users.user.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#django.contrib.auth.models.AbstractUser" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.AbstractUser</span></code></a></p>
 <p>A custom User model that replaces the default Django User model</p>
 <dl class="field-list simple">
@@ -868,32 +887,32 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chat_messages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage" title="integreat_cms.cms.models.chat.chat_message.ChatMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChatMessage</span></code></a>) – All chat messages of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.sender" title="integreat_cms.cms.models.chat.chat_message.ChatMessage.sender"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sender</span></code></a>)</p></li>
+<li><p><strong>poi_translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a>) – All poi translations of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.creator" title="integreat_cms.cms.models.pois.poi_translation.POITranslation.creator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">creator</span></code></a>)</p></li>
 <li><p><strong>event_translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a>) – All event translations of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation.creator" title="integreat_cms.cms.models.events.event_translation.EventTranslation.creator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">creator</span></code></a>)</p></li>
 <li><p><strong>feedback</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.Feedback" title="integreat_cms.cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a>) – All feedback of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.Feedback.read_by" title="integreat_cms.cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a>)</p></li>
-<li><p><strong>poi_translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a>) – All poi translations of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.creator" title="integreat_cms.cms.models.pois.poi_translation.POITranslation.creator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">creator</span></code></a>)</p></li>
-<li><p><strong>editable_pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All editable pages of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.editors" title="integreat_cms.cms.models.pages.page.Page.editors"><code class="xref py py-attr docutils literal notranslate"><span class="pre">editors</span></code></a>)</p></li>
-<li><p><strong>publishable_pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All publishable pages of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.publishers" title="integreat_cms.cms.models.pages.page.Page.publishers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">publishers</span></code></a>)</p></li>
 <li><p><strong>page_translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>) – All page translations of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.creator" title="integreat_cms.cms.models.pages.page_translation.PageTranslation.creator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">creator</span></code></a>)</p></li>
 <li><p><strong>imprint_translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation" title="integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPageTranslation</span></code></a>) – All imprint translations of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation.creator" title="integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation.creator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">creator</span></code></a>)</p></li>
+<li><p><strong>editable_pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All editable pages of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.editors" title="integreat_cms.cms.models.pages.page.Page.editors"><code class="xref py py-attr docutils literal notranslate"><span class="pre">editors</span></code></a>)</p></li>
+<li><p><strong>publishable_pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All publishable pages of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.publishers" title="integreat_cms.cms.models.pages.page.Page.publishers"><code class="xref py py-attr docutils literal notranslate"><span class="pre">publishers</span></code></a>)</p></li>
 <li><p><strong>mfa_keys</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_mfa_key.UserMfaKey" title="integreat_cms.cms.models.users.user_mfa_key.UserMfaKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserMfaKey</span></code></a>) – All mfa keys of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_mfa_key.UserMfaKey.user" title="integreat_cms.cms.models.users.user_mfa_key.UserMfaKey.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">full_user_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">full_user_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Return the full name of the user. If either the first or the last name are present, return them, otherwise
 return the username.</p>
 <dl class="field-list simple">
@@ -908,42 +927,50 @@ return the username.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">role</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;integreat_cms.cms.models.users.user.CustomUserManager</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Django manager to access the ORM
+Use <code class="docutils literal notranslate"><span class="pre">User.objects.all()</span></code> to fetch all objects.</p>
+<p>Custom model manager for user objects</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">role</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>We refer to Django user groups as roles.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The role of this user</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role" title="integreat_cms.cms.models.users.role.Role">Role</a></p>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.role.Role" title="integreat_cms.cms.models.users.role.Role"><em>Role</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unread_chat_messages</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unread_chat_messages</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Return all unread messages of this user</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The unread messages of this user</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage" title="integreat_cms.cms.models.chat.chat_message.ChatMessage">ChatMessage</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage" title="integreat_cms.cms.models.chat.chat_message.ChatMessage"><em>ChatMessage</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">update_chat_last_visited</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">update_chat_last_visited</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Update the <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.chat_last_visited" title="integreat_cms.cms.models.users.user.User.chat_last_visited"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chat_last_visited</span></code></a> to the current time</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the previous <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.chat_last_visited" title="integreat_cms.cms.models.users.user.User.chat_last_visited"><code class="xref py py-attr docutils literal notranslate"><span class="pre">chat_last_visited</span></code></a> value</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.datetime" title="(in Python v3.9)">datetime</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><em>datetime</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1009,7 +1036,7 @@ return the username.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 05, 2022.
+      <span class="lastupdated">Last updated on Jan 15, 2022.
       </span></p>
   </div>
 

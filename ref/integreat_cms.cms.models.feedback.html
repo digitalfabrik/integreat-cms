@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-01-11T00:32:17+00:00" />
+    <meta property="article:modified_time" content="2022-12-30T22:42:13+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feedback &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -259,9 +259,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.html">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#api-tests">API Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#api-tests-utils">API Tests Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.middleware.html#json-debug-toolbar-middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
@@ -350,6 +349,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-content-model">Abstract Content Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-content-translation">Abstract Content Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-tree-node">Abstract Tree Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#decorators">Decorators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -366,11 +367,6 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#user-filters">User Filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.pages.html">Pages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.views.html">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html">Utils</a><ul>
@@ -424,8 +420,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#region-middleware">Region Middleware</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#docker-settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#settings">Settings</a></li>
@@ -463,9 +462,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ref-ext/integreat_cms.html">Integreat CMS</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.api.html">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html#module-integreat_cms.api.tests.api_tests">API Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html#module-integreat_cms.api.tests.api_tests_utils">API Tests Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.middleware.html#module-integreat_cms.api.middleware.json_debug_toolbar_middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html">V3</a><ul>
@@ -554,6 +552,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_model">Abstract Content Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_translation">Abstract Content Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_tree_node">Abstract Tree Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.decorators">Decorators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -570,11 +570,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.pages.html">Pages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.views.html">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html">Utils</a><ul>
@@ -628,8 +623,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">Region Middleware</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.context_processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings">Settings</a></li>
@@ -767,7 +765,7 @@ The base model <a class="reference internal" href="../ref-ext/integreat_cms.cms.
 <dd class="field-odd"><p>The best event translation</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation">EventTranslation</a></p>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><em>EventTranslation</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -809,7 +807,7 @@ The base model <a class="reference internal" href="../ref-ext/integreat_cms.cms.
 <dd class="field-odd"><p>The queryset of related feedback</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.event_feedback.EventFeedback" title="integreat_cms.cms.models.feedback.event_feedback.EventFeedback">EventFeedback</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.event_feedback.EventFeedback" title="integreat_cms.cms.models.feedback.event_feedback.EventFeedback"><em>EventFeedback</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -896,7 +894,7 @@ The base model <a class="reference internal" href="../ref-ext/integreat_cms.cms.
 <dd class="field-odd"><p>The queryset of related feedback</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.event_list_feedback.EventListFeedback" title="integreat_cms.cms.models.feedback.event_list_feedback.EventListFeedback">EventListFeedback</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.event_list_feedback.EventListFeedback" title="integreat_cms.cms.models.feedback.event_list_feedback.EventListFeedback"><em>EventListFeedback</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1129,7 +1127,7 @@ otherwise.</p>
 <dd class="field-odd"><p>The queryset of related feedback</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.imprint_page_feedback.ImprintPageFeedback" title="integreat_cms.cms.models.feedback.imprint_page_feedback.ImprintPageFeedback">ImprintPageFeedback</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.imprint_page_feedback.ImprintPageFeedback" title="integreat_cms.cms.models.feedback.imprint_page_feedback.ImprintPageFeedback"><em>ImprintPageFeedback</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1216,7 +1214,7 @@ otherwise.</p>
 <dd class="field-odd"><p>The queryset of related feedback</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.map_feedback.MapFeedback" title="integreat_cms.cms.models.feedback.map_feedback.MapFeedback">MapFeedback</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.map_feedback.MapFeedback" title="integreat_cms.cms.models.feedback.map_feedback.MapFeedback"><em>MapFeedback</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1304,7 +1302,7 @@ otherwise.</p>
 <dd class="field-odd"><p>The queryset of related feedback</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.offer_feedback.OfferFeedback" title="integreat_cms.cms.models.feedback.offer_feedback.OfferFeedback">OfferFeedback</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.offer_feedback.OfferFeedback" title="integreat_cms.cms.models.feedback.offer_feedback.OfferFeedback"><em>OfferFeedback</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1391,7 +1389,7 @@ otherwise.</p>
 <dd class="field-odd"><p>The queryset of related feedback</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.offer_list_feedback.OfferListFeedback" title="integreat_cms.cms.models.feedback.offer_list_feedback.OfferListFeedback">OfferListFeedback</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.offer_list_feedback.OfferListFeedback" title="integreat_cms.cms.models.feedback.offer_list_feedback.OfferListFeedback"><em>OfferListFeedback</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1451,7 +1449,7 @@ otherwise.</p>
 <dd class="field-odd"><p>The best page translation</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a></p>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1493,7 +1491,7 @@ otherwise.</p>
 <dd class="field-odd"><p>The queryset of related feedback</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.page_feedback.PageFeedback" title="integreat_cms.cms.models.feedback.page_feedback.PageFeedback">PageFeedback</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.page_feedback.PageFeedback" title="integreat_cms.cms.models.feedback.page_feedback.PageFeedback"><em>PageFeedback</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1553,7 +1551,7 @@ otherwise.</p>
 <dd class="field-odd"><p>The best poi translation</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation">POITranslation</a></p>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation"><em>POITranslation</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1595,7 +1593,7 @@ otherwise.</p>
 <dd class="field-odd"><p>The queryset of related feedback</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.poi_feedback.POIFeedback" title="integreat_cms.cms.models.feedback.poi_feedback.POIFeedback">POIFeedback</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.poi_feedback.POIFeedback" title="integreat_cms.cms.models.feedback.poi_feedback.POIFeedback"><em>POIFeedback</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1682,7 +1680,7 @@ otherwise.</p>
 <dd class="field-odd"><p>The queryset of related feedback</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback" title="integreat_cms.cms.models.feedback.region_feedback.RegionFeedback">RegionFeedback</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback" title="integreat_cms.cms.models.feedback.region_feedback.RegionFeedback"><em>RegionFeedback</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1770,7 +1768,7 @@ otherwise.</p>
 <dd class="field-odd"><p>The queryset of related feedback</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback" title="integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback">SearchResultFeedback</a> ]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback" title="integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback"><em>SearchResultFeedback</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1795,7 +1793,7 @@ otherwise.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 11, 2022.
+      <span class="lastupdated">Last updated on Dec 30, 2022.
       </span></p>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-01-06T12:49:55+00:00" />
+    <meta property="article:modified_time" content="2022-12-30T22:42:13+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Templatetags &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Tests" href="integreat_cms.cms.tests.html" />
+    <link rel="next" title="Utils" href="integreat_cms.cms.utils.html" />
     <link rel="prev" title="Users" href="integreat_cms.cms.models.users.html" /> 
 </head>
 
@@ -259,9 +259,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.html">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#api-tests">API Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#api-tests-utils">API Tests Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.middleware.html#json-debug-toolbar-middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
@@ -350,6 +349,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-content-model">Abstract Content Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-content-translation">Abstract Content Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#abstract-tree-node">Abstract Tree Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#decorators">Decorators</a></li>
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Templatetags</a><ul>
@@ -366,11 +367,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#text-filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#tree-filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#user-filters">User Filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.pages.html">Pages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.views.html">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html">Utils</a><ul>
@@ -424,8 +420,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#region-middleware">Region Middleware</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#docker-settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#settings">Settings</a></li>
@@ -463,9 +462,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ref-ext/integreat_cms.html">Integreat CMS</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.api.html">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html#module-integreat_cms.api.tests.api_tests">API Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.tests.html#module-integreat_cms.api.tests.api_tests_utils">API Tests Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.middleware.html#module-integreat_cms.api.middleware.json_debug_toolbar_middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html">V3</a><ul>
@@ -554,6 +552,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_model">Abstract Content Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_translation">Abstract Content Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_tree_node">Abstract Tree Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#module-integreat_cms.cms.models.decorators">Decorators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -570,11 +570,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.pages.html">Pages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.tests.views.html">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html">Utils</a><ul>
@@ -628,8 +623,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">Region Middleware</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.context_processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings">Settings</a></li>
@@ -732,8 +730,28 @@ Filters transform the values of variables and are surrounded by <code class="doc
 <h2>Base Filters<a class="headerlink" href="#base-filters" title="Permalink to this headline"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.base_filters.</span></span><span class="sig-name descname"><span class="pre">get_private_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/base_filters.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This filter returns a private member of an element</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>element</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><em>object</em></a>) – The requested object</p></li>
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The key of the private variable (without the leading underscore)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The value of the private variable</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.base_filters.</span></span><span class="sig-name descname"><span class="pre">in_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comma_separated_list</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/base_filters.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This tag checks whether a given string value is contained in a comma separated list</p>
+<dd><p>This filter checks whether a given string value is contained in a comma separated list</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -780,7 +798,7 @@ Filters transform the values of variables and are surrounded by <code class="doc
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_int_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L156"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">get_int_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L161"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This filter returns the list data of a one-to-many field as ints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -810,7 +828,7 @@ Filters transform the values of variables and are surrounded by <code class="doc
 <dd class="field-even"><p>The requested language</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language">Language</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -830,8 +848,8 @@ Filters transform the values of variables and are surrounded by <code class="doc
 <dd class="field-even"><p>The translation object of the requested instance</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation">EventTranslation</a>,
-or <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation">POITranslation</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><em>EventTranslation</em></a>,
+or <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation"><em>POITranslation</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -851,15 +869,15 @@ or <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.
 <dd class="field-even"><p>The translation object of the requested instance</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation">PageTranslation</a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation">EventTranslation</a>,
-or <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation">POITranslation</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><em>EventTranslation</em></a>,
+or <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation"><em>POITranslation</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">is_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">is_empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L178"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This filter checks whether the given iterable is empty.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -876,7 +894,7 @@ or <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">object_translation_has_view_perm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L187"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">object_translation_has_view_perm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L192"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This filter accepts any translation of Event, Page or Poi and returns
 whether the user has the permission to view this object</p>
 <dl class="field-list simple">
@@ -901,33 +919,33 @@ whether the user has the permission to view this object</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This tag removes an object instance from a QuerySet.</p>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This tag removes an element from a list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>queryset</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a>) – The given QuerySet</p></li>
-<li><p><strong>instance</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><em>object</em></a>) – The object instance to be removed</p></li>
+<li><p><strong>elements</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The given list of elements</p></li>
+<li><p><strong>element</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><em>object</em></a>) – The element to be removed</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The QuerySet without the object instance</p>
+<dd class="field-even"><p>The list without the element</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">sort_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_languages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L134"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.content_filters.</span></span><span class="sig-name descname"><span class="pre">sort_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_languages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/content_filters.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This filter sorts languages in language tabs</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>current_language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The current language</p></li>
-<li><p><strong>other_languages</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a><em> [ </em><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a><em> ]</em>) – Other languages</p></li>
+<li><p><strong>other_languages</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> [ </em><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a><em> ]</em>) – Other languages</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1003,7 +1021,7 @@ whether the user has the permission to view this object</p>
 <p>This is a collection of tags and filters for <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> objects.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.page_filters.</span></span><span class="sig-name descname"><span class="pre">get_depth_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pageset</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/page_filters.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.page_filters.</span></span><span class="sig-name descname"><span class="pre">get_depth_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pageset</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/page_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the depth of node whithin the tree/pages in pageset.</p>
 <p>:param node : the page
 :type node : ~integreat_cms.cms.models.pages.page.Page</p>
@@ -1022,7 +1040,7 @@ whether the user has the permission to view this object</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.page_filters.</span></span><span class="sig-name descname"><span class="pre">get_highest_anscentor_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pageset</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/page_filters.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.page_filters.</span></span><span class="sig-name descname"><span class="pre">get_highest_anscentor_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pageset</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/page_filters.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the highest (farthest) anscestor of node whithin the tree/pages in pageset.</p>
 <p>:param node : the page
 :type node : ~integreat_cms.cms.models.pages.page.Page</p>
@@ -1034,24 +1052,7 @@ whether the user has the permission to view this object</p>
 <dd class="field-even"><p>the highest (farthest) anscestor of node whithin the tree/pages in pageset</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.page_filters.</span></span><span class="sig-name descname"><span class="pre">get_last_root_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/page_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This tag returns the last page on the root level.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pages</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> [ </em><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a><em> ]</em>) – The requested page tree</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The last root page of the given page list</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1120,7 +1121,7 @@ objects.</p>
 <dd class="field-even"><p>The push notification translation</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation">PushNotificationTranslation</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation"><em>PushNotificationTranslation</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1200,14 +1201,16 @@ this filter reduced the output when display in list view</p>
 <section id="tree-filters">
 <h2>Tree Filters<a class="headerlink" href="#tree-filters" title="Permalink to this headline"></a></h2>
 <p>This is a collection of tags and filters for models which inherit from the MPTT model
-(<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> and <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode" title="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>).</p>
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode" title="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTreeNode</span></code></a>
+(<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> and
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode" title="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeNode</span></code></a>).</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.tree_filters.</span></span><span class="sig-name descname"><span class="pre">get_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/tree_filters.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.tree_filters.</span></span><span class="sig-name descname"><span class="pre">get_children_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/tree_filters.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This filter returns the ids of all the node’s direct children.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a><em> or </em><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode" title="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode"><em>LanguageTreeNode</em></a>) – The requested node</p>
+<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode" title="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode"><em>AbstractTreeNode</em></a>) – The requested node</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The list of all the node’s children’s ids</p>
@@ -1220,11 +1223,11 @@ this filter reduced the output when display in list view</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.tree_filters.</span></span><span class="sig-name descname"><span class="pre">get_descendants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/tree_filters.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.tree_filters.</span></span><span class="sig-name descname"><span class="pre">get_descendant_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/tree_filters.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This filter returns the ids of all the node’s descendants.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a><em> or </em><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode" title="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode"><em>LanguageTreeNode</em></a>) – The requested node</p>
+<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode" title="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode"><em>AbstractTreeNode</em></a>) – The requested node</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The list of all the node’s descendants’ ids</p>
@@ -1254,7 +1257,7 @@ this filter reduced the output when display in list view</p>
 <dd class="field-even"><p>The Queryset of regions</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)">QuerySet</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region">Region</a> ]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a> [ <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a> ]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1267,7 +1270,7 @@ this filter reduced the output when display in list view</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="integreat_cms.cms.models.users.html" class="btn btn-neutral float-left" title="Users" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="integreat_cms.cms.tests.html" class="btn btn-neutral float-right" title="Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="integreat_cms.cms.utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -1277,7 +1280,7 @@ this filter reduced the output when display in list view</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 06, 2022.
+      <span class="lastupdated">Last updated on Dec 30, 2022.
       </span></p>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-01-05T16:44:05+00:00" />
+    <meta property="article:modified_time" content="2022-01-15T23:43:52+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Gvz API" href="integreat_cms.gvz_api.html" />
+    <link rel="next" title="Middleware" href="integreat_cms.core.middleware.html" />
     <link rel="prev" title="Utils" href="integreat_cms.cms.views.utils.html" /> 
 </head>
 
@@ -259,9 +259,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ref/integreat_cms.html">Integreat CMS</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.api.html">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.api.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.tests.html#api-tests">API Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.tests.html#api-tests-utils">API Tests Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.api.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.api.middleware.html#json-debug-toolbar-middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.api.v3.html">V3</a><ul>
@@ -350,6 +349,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.html#abstract-content-model">Abstract Content Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.html#abstract-content-translation">Abstract Content Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.html#abstract-tree-node">Abstract Tree Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.html#decorators">Decorators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -366,11 +367,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#user-filters">User Filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.cms.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.tests.pages.html">Pages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.tests.views.html">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html">Utils</a><ul>
@@ -424,8 +420,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.middleware.html#region-middleware">Region Middleware</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#docker-settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#settings">Settings</a></li>
@@ -463,9 +462,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.html">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#module-integreat_cms.api.tests.api_tests">API Tests</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.tests.html#module-integreat_cms.api.tests.api_tests_utils">API Tests Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.middleware.html#module-integreat_cms.api.middleware.json_debug_toolbar_middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
@@ -554,6 +552,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_model">Abstract Content Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_content_translation">Abstract Content Translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#module-integreat_cms.cms.models.abstract_tree_node">Abstract Tree Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#module-integreat_cms.cms.models.decorators">Decorators</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -570,11 +570,6 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.tests.html">Tests</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.pages.html">Pages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.tests.views.html">Views</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html">Utils</a><ul>
@@ -628,8 +623,11 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">Region Middleware</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.core.circleci_settings">Circleci Settings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.core.context_processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.core.docker_settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.core.logging_formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.core.settings">Settings</a></li>
@@ -700,6 +698,14 @@
   <section id="module-integreat_cms.core">
 <span id="core"></span><h1>Core<a class="headerlink" href="#module-integreat_cms.core" title="Permalink to this headline"></a></h1>
 <p>This package is the main entry point for the application and contains all configuration for the other packages.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.core.middleware.html">Middleware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">Region Middleware</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <section id="module-integreat_cms.core.circleci_settings">
 <span id="circleci-settings"></span><h2>Circleci Settings<a class="headerlink" href="#module-integreat_cms.core.circleci_settings" title="Permalink to this headline"></a></h2>
 <p>Django settings for our CircleCI workflow.
@@ -710,30 +716,6 @@ For the full list of settings and their values, see <a class="reference external
 <dt class="sig sig-object py" id="integreat_cms.core.circleci_settings.SECRET_KEY">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.circleci_settings.</span></span><span class="sig-name descname"><span class="pre">SECRET_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dummy'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/circleci_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.circleci_settings.SECRET_KEY" title="Permalink to this definition"></a></dt>
 <dd><p>Set a dummy secret key for CircleCI build even if it’s not in debug mode</p>
-</dd></dl>
-
-</section>
-<section id="module-integreat_cms.core.context_processors">
-<span id="context-processors"></span><h2>Context Processors<a class="headerlink" href="#module-integreat_cms.core.context_processors" title="Permalink to this headline"></a></h2>
-<p>Context processors pass additional variables to templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/templates/api/#context-processors" title="(in Django v3.2)"><span>Built-in template context processors</span></a>).</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="integreat_cms.core.context_processors.region_slug_processor">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.context_processors.</span></span><span class="sig-name descname"><span class="pre">region_slug_processor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/context_processors.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.context_processors.region_slug_processor" title="Permalink to this definition"></a></dt>
-<dd><p>This context processor retrieves the current <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter and passes it to the templates.
-Additionally, the <code class="docutils literal notranslate"><span class="pre">other_regions</span></code>-variable contains all other regions which are available via quick access.
-Usually, these are the regions configured in each user’s object, but if there are none set, we just list all
-available regions, ordered by the <code class="docutils literal notranslate"><span class="pre">last_updated</span></code> attribute.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current http request</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The current region and other quick access regions</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -1265,7 +1247,7 @@ Used in the following views:</p>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.INSTALLED_APPS">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">INSTALLED_APPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['integreat_cms.cms',</span> <span class="pre">'integreat_cms.gvz_api',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'linkcheck',</span> <span class="pre">'mptt',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig',</span> <span class="pre">'webpack_loader',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'polymorphic']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.INSTALLED_APPS" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">INSTALLED_APPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['integreat_cms.cms',</span> <span class="pre">'integreat_cms.gvz_api',</span> <span class="pre">'django.contrib.auth',</span> <span class="pre">'django.contrib.contenttypes',</span> <span class="pre">'django.contrib.messages',</span> <span class="pre">'django.contrib.sessions',</span> <span class="pre">'django.contrib.sitemaps',</span> <span class="pre">'django.contrib.staticfiles',</span> <span class="pre">'corsheaders',</span> <span class="pre">'linkcheck',</span> <span class="pre">'rules.apps.AutodiscoverRulesConfig',</span> <span class="pre">'treebeard',</span> <span class="pre">'webpack_loader',</span> <span class="pre">'widget_tweaks',</span> <span class="pre">'polymorphic']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.INSTALLED_APPS" title="Permalink to this definition"></a></dt>
 <dd><p>Enabled applications (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-INSTALLED_APPS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;integreat_cms.cms&#39;</span><span class="p">,</span>
@@ -1278,8 +1260,8 @@ Used in the following views:</p>
     <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
     <span class="s1">&#39;corsheaders&#39;</span><span class="p">,</span>
     <span class="s1">&#39;linkcheck&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;mptt&#39;</span><span class="p">,</span>
     <span class="s1">&#39;rules.apps.AutodiscoverRulesConfig&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;treebeard&#39;</span><span class="p">,</span>
     <span class="s1">&#39;webpack_loader&#39;</span><span class="p">,</span>
     <span class="s1">&#39;widget_tweaks&#39;</span><span class="p">,</span>
     <span class="s1">&#39;polymorphic&#39;</span><span class="p">,</span>
@@ -1489,7 +1471,7 @@ processor to add some variables to the template context.</p>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.MIDDLEWARE">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">MIDDLEWARE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['corsheaders.middleware.CorsMiddleware',</span> <span class="pre">'django.middleware.security.SecurityMiddleware',</span> <span class="pre">'django.contrib.sessions.middleware.SessionMiddleware',</span> <span class="pre">'django.middleware.locale.LocaleMiddleware',</span> <span class="pre">'django.middleware.common.CommonMiddleware',</span> <span class="pre">'django.middleware.csrf.CsrfViewMiddleware',</span> <span class="pre">'django.contrib.auth.middleware.AuthenticationMiddleware',</span> <span class="pre">'django.contrib.messages.middleware.MessageMiddleware',</span> <span class="pre">'django.middleware.clickjacking.XFrameOptionsMiddleware',</span> <span class="pre">'integreat_cms.cms.middleware.timezone_middleware.TimezoneMiddleware']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.MIDDLEWARE" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">MIDDLEWARE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['corsheaders.middleware.CorsMiddleware',</span> <span class="pre">'django.middleware.security.SecurityMiddleware',</span> <span class="pre">'django.contrib.sessions.middleware.SessionMiddleware',</span> <span class="pre">'django.middleware.locale.LocaleMiddleware',</span> <span class="pre">'django.middleware.common.CommonMiddleware',</span> <span class="pre">'django.middleware.csrf.CsrfViewMiddleware',</span> <span class="pre">'django.contrib.auth.middleware.AuthenticationMiddleware',</span> <span class="pre">'django.contrib.messages.middleware.MessageMiddleware',</span> <span class="pre">'django.middleware.clickjacking.XFrameOptionsMiddleware',</span> <span class="pre">'integreat_cms.core.middleware.RegionMiddleware',</span> <span class="pre">'integreat_cms.cms.middleware.TimezoneMiddleware']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.MIDDLEWARE" title="Permalink to this definition"></a></dt>
 <dd><p>Activated middlewares (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-MIDDLEWARE" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;corsheaders.middleware.CorsMiddleware&#39;</span><span class="p">,</span>
@@ -1501,7 +1483,8 @@ processor to add some variables to the template context.</p>
     <span class="s1">&#39;django.contrib.auth.middleware.AuthenticationMiddleware&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.messages.middleware.MessageMiddleware&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.middleware.clickjacking.XFrameOptionsMiddleware&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;integreat_cms.cms.middleware.timezone_middleware.TimezoneMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;integreat_cms.core.middleware.RegionMiddleware&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;integreat_cms.cms.middleware.TimezoneMiddleware&#39;</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -1618,7 +1601,7 @@ In debug mode, this is not required since <a class="reference external" href="ht
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.TEMPLATES">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">TEMPLATES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[{'BACKEND':</span> <span class="pre">'django.template.backends.django.DjangoTemplates',</span> <span class="pre">'DIRS':</span> <span class="pre">[],</span> <span class="pre">'APP_DIRS':</span> <span class="pre">True,</span> <span class="pre">'OPTIONS':</span> <span class="pre">{'context_processors':</span> <span class="pre">['django.template.context_processors.debug',</span> <span class="pre">'django.template.context_processors.request',</span> <span class="pre">'django.contrib.auth.context_processors.auth',</span> <span class="pre">'django.contrib.messages.context_processors.messages',</span> <span class="pre">'integreat_cms.core.context_processors.region_slug_processor'],</span> <span class="pre">'debug':</span> <span class="pre">False}}]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.TEMPLATES" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">TEMPLATES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[{'BACKEND':</span> <span class="pre">'django.template.backends.django.DjangoTemplates',</span> <span class="pre">'DIRS':</span> <span class="pre">[],</span> <span class="pre">'APP_DIRS':</span> <span class="pre">True,</span> <span class="pre">'OPTIONS':</span> <span class="pre">{'context_processors':</span> <span class="pre">['django.template.context_processors.debug',</span> <span class="pre">'django.template.context_processors.request',</span> <span class="pre">'django.contrib.auth.context_processors.auth',</span> <span class="pre">'django.contrib.messages.context_processors.messages'],</span> <span class="pre">'debug':</span> <span class="pre">False}}]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.TEMPLATES" title="Permalink to this definition"></a></dt>
 <dd><p>Config for HTML templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-TEMPLATES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
@@ -1631,7 +1614,6 @@ In debug mode, this is not required since <a class="reference external" href="ht
                 <span class="s1">&#39;django.template.context_processors.request&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;django.contrib.auth.context_processors.auth&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;django.contrib.messages.context_processors.messages&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;integreat_cms.core.context_processors.region_slug_processor&#39;</span><span class="p">,</span>
             <span class="p">],</span>
             <span class="s1">&#39;debug&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span>
         <span class="p">},</span>
@@ -1822,7 +1804,7 @@ python frameworks (in our case Django).</p>
 <dd class="field-even"><p>The WSGI callable</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>WSGIHandler</p>
+<dd class="field-odd"><p><em>WSGIHandler</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1835,7 +1817,7 @@ python frameworks (in our case Django).</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="integreat_cms.cms.views.utils.html" class="btn btn-neutral float-left" title="Utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="integreat_cms.gvz_api.html" class="btn btn-neutral float-right" title="Gvz API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="integreat_cms.core.middleware.html" class="btn btn-neutral float-right" title="Middleware" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -1845,7 +1827,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 05, 2022.
+      <span class="lastupdated">Last updated on Jan 15, 2022.
       </span></p>
   </div>
 
