@@ -219,8 +219,6 @@ function migrate_database {
         deescalate_privileges pipenv run integreat-cms-cli makemigrations --verbosity "${SCRIPT_VERBOSITY}"
         # Execute migrations
         deescalate_privileges pipenv run integreat-cms-cli migrate --verbosity "${SCRIPT_VERBOSITY}"
-        # Load the role fixtures
-        deescalate_privileges pipenv run integreat-cms-cli loaddata "${PACKAGE_DIR}/cms/fixtures/roles.json" --verbosity "${SCRIPT_VERBOSITY}"
         echo "✔ Finished database migrations" | print_success
         DATABASE_MIGRATED=1
     fi

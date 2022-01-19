@@ -64,7 +64,7 @@ def search_content_ajax(request, region_slug=None, language_slug=None):
     :raises AttributeError: If the request contains an object type which is unknown or if the user has no permission for it
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     body = json.loads(request.body.decode("utf-8"))
     query = body["query_string"]
     # whether to return only archived object, ignored if not applicable

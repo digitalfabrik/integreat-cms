@@ -8,13 +8,37 @@ from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 
 from .organization import Organization
 from ..chat.chat_message import ChatMessage
 from ..regions.region import Region
 
 logger = logging.getLogger(__name__)
+
+
+# pylint: disable=too-few-public-methods
+class CustomUserManager(UserManager):
+    """
+    This manager prefetches the regions of each user because they are needed for permissions checks and the region selection anyway
+    """
+
+    def get_queryset(self):
+        """
+        Get the queryset of users including the prefetched ``regions``
+
+        :return: The queryset of users
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.users.user.User ]
+        """
+        return (
+            super()
+            .get_queryset()
+            .prefetch_related(
+                models.Prefetch(
+                    "regions", queryset=Region.objects.order_by("-last_updated")
+                )
+            )
+        )
 
 
 class User(AbstractUser):
@@ -59,6 +83,9 @@ class User(AbstractUser):
             "Will be set to true once the user dismissed the page tree tutorial"
         ),
     )
+
+    #: Custom model manager for user objects
+    objects = CustomUserManager()
 
     @cached_property
     def role(self):

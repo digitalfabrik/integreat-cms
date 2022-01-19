@@ -3,14 +3,14 @@ import logging
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...constants import status
 from ...decorators import region_permission_required, permission_required
-from ...models import Region, Language, ImprintPage
+from ...models import Language, ImprintPage
 
 logger = logging.getLogger(__name__)
 
@@ -46,15 +46,14 @@ class ImprintRevisionView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
-        try:
-            imprint = region.imprint
-        except ImprintPage.DoesNotExist as e:
-            raise Http404 from e
+        region = request.region
+        imprint = region.imprint
+        if not imprint:
+            raise Http404("No imprint found for this region")
 
-        language = get_object_or_404(
-            region.language_tree_nodes, language__slug=kwargs.get("language_slug")
-        ).language
+        language = region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
+        )
 
         imprint_translations = imprint.translations.filter(language=language)
 
@@ -124,7 +123,7 @@ class ImprintRevisionView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
         try:
             imprint = region.imprint
         except ImprintPage.DoesNotExist as e:

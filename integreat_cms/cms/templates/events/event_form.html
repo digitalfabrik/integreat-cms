@@ -86,7 +86,7 @@
                                 {% endif %}
                                 </div>
                             {% else %}
-                                <a class="block px-4 pb-3 pt-2" style="color: inherit;" href="{% url 'edit_event' event_id=event_form.instance.id region_slug=region.slug language_slug=other_language.slug %}">
+                                <a class="block px-4 pb-3 pt-2" style="color: inherit;" href="{% url 'edit_event' event_id=event_form.instance.id region_slug=request.region.slug language_slug=other_language.slug %}">
                                     {% if other_language in event_form.instance.languages %}
                                         {% get_translation event_form.instance other_language.slug as other_event_translation %}
                                         {% if other_event_translation.is_outdated %}
@@ -106,11 +106,11 @@
                                         <span title="{% trans 'Translation missing' %}">
                                             <i data-feather="x"></i>
                                         </span>
-                                        {{ other_language.translated_name }}
-                                            <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
-                                        {% if other_language.secondary_country_code %}
-                                            <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                                        {% endif %}
+                                    {% endif %}
+                                    {{ other_language.translated_name }}
+                                    <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                    {% if other_language.secondary_country_code %}
+                                        <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
                                     {% endif %}
                                 </a>
                             {% endif %}
@@ -136,7 +136,7 @@
                     {% endif %}
                     <div class="flex justify-between">
                         <label for="{{ event_translation_form.title.id_for_label }}" 
-                        data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='event' %}{% if event_form.instance.id %}?model_id={{ event_form.instance.id }}{% endif %}">
+                        data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='event' %}{% if event_form.instance.id %}?model_id={{ event_form.instance.id }}{% endif %}">
                         {{ event_translation_form.title.label }}
                         </label>
                         {% if event_translation_form.instance.id %}
@@ -257,7 +257,7 @@
                             <label for="{{ event_form.location.id_for_label }}">{{ event_form.location.label }}</label>
                             {% trans 'Name of event location' as poi_title_placeholder %}
                             <div class="relative my-2">
-                                <input id="poi-query-input" type="search" autocomplete="off" class="pr-8 appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600"{% if event_form.disabled %} disabled{% endif %} placeholder="{% if poi %}{{ poi|poi_translation_title:current_language }}{% else %}{{ poi_title_placeholder }}{% endif %}" data-url="{% url 'search_poi_ajax' region_slug=region.slug %}" data-region-slug="{{ region.slug }}" data-default-placeholder="{{ poi_title_placeholder }}">
+                                <input id="poi-query-input" type="search" autocomplete="off" class="pr-8 appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600"{% if event_form.disabled %} disabled{% endif %} placeholder="{% if poi %}{{ poi|poi_translation_title:current_language }}{% else %}{{ poi_title_placeholder }}{% endif %}" data-url="{% url 'search_poi_ajax' region_slug=request.region.slug %}" data-region-slug="{{ request.region.slug }}" data-default-placeholder="{{ poi_title_placeholder }}">
                                 <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                                     <button id="poi-remove" title="{% trans 'Remove location from event' %}"{% if event_form.disabled %} disabled{% endif %}>
                                         <i data-feather="trash-2" class="h-5 w-5"></i>
@@ -294,7 +294,7 @@
                                     data-confirmation-title="{{ restore_dialog_title }}"
                                     data-confirmation-text="{{ restore_dialog_text}}"
                                     data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                    data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                    data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                     <i data-feather="refresh-ccw" class="mr-2"></i>
                                     {% trans 'Restore this event' %}
                                 </button>
@@ -304,7 +304,7 @@
                                     data-confirmation-title="{{ archive_dialog_title }}"
                                     data-confirmation-text="{{ archive_dialog_text }}"
                                     data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                    data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                    data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                     <i data-feather="archive" class="mr-2"></i>
                                     {% trans 'Archive this event' %}
                                 </button>
@@ -317,7 +317,7 @@
                                     data-confirmation-title="{{ delete_dialog_title }}"
                                     data-confirmation-text="{{ delete_dialog_text }}"
                                     data-confirmation-subject="{{ event_translation_form.instance.title }}"
-                                    data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                    data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                     <i data-feather="trash-2" class="mr-2"></i>
                                     {% trans 'Delete this event' %}
                                 </button>

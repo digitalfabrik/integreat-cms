@@ -9,6 +9,10 @@ UNRELEASED
 * Add APIv3 parents/ancestors endpoint
 * Add API tests
 * Improve performance of feedback list
+* Replace django-mptt by django-treebeard
+* Improve performance of page tree, event and POI lists
+* Improve performance of page, event and POI API endpoints
+* Add database migrations
 
 
 2021.12.0-beta

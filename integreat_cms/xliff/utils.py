@@ -19,7 +19,7 @@ from django.utils.translation import ugettext as _
 
 from ..cms.constants import text_directions
 from ..cms.forms import PageTranslationForm
-from ..cms.models import Page, PageTranslation, Region
+from ..cms.models import Page, PageTranslation
 from ..cms.utils.file_utils import create_zip_archive
 from ..cms.utils.translation_utils import ugettext_many_lazy as __
 
@@ -83,7 +83,7 @@ def pages_to_xliff_file(request, pages, target_language):
     # Generate file path for ZIP archive
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     region = pages[0].region
-    zip_name = f"{region.slug}_{timestamp}_{target_language.get_source_language(region).slug}_{target_language.slug}.zip"
+    zip_name = f"{region.slug}_{timestamp}_{region.get_source_language(target_language.slug).slug}_{target_language.slug}.zip"
     actual_filename = download_storage.save(f"{dir_name}/{zip_name}", ContentFile(""))
     # Create ZIP archive
     create_zip_archive(
@@ -126,7 +126,7 @@ def page_to_xliff(page, target_language, dir_name):
         )
     source_translation = target_page_translation.source_translation
     if not source_translation:
-        source_language = target_language.get_source_language(page.region)
+        source_language = page.region.get_source_language(target_language.slug)
         logger.warning(
             "Page translation %r does not have a source translation in %r and therefore cannot be exported to XLIFF.",
             target_page_translation,
@@ -378,7 +378,7 @@ def get_xliff_import_errors(request, page_translation):
     """
     error_messages = []
     # Get current region
-    region = Region.get_current_region(request)
+    region = request.region
     # Check whether user can import the page translation
     if not request.user.has_perm("cms.change_page_object", page_translation.page):
         error_messages.append(

@@ -7,7 +7,6 @@ import logging
 
 from django.shortcuts import get_object_or_404
 
-from ...cms.models import Region
 from ...cms.utils.pdf_utils import generate_pdf
 from ..decorators import json_response
 
@@ -34,7 +33,7 @@ def pdf_export(request, region_slug, language_slug):
     :return: The requested pages as PDF document (inline)
     :rtype: ~django.http.HttpResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     # Request unrestricted queryset because pdf generator performs further operations (e.g. aggregation) on the queryset
     pages = region.get_pages(return_unrestricted_queryset=True)
     if request.GET.get("url"):
@@ -48,5 +47,5 @@ def pdf_export(request, region_slug, language_slug):
             translations__slug=page_translation_slug,
             translations__language__slug=language_slug,
         )
-        pages = page.get_descendants(include_self=True)
+        pages = page.get_cached_descendants(include_self=True)
     return generate_pdf(region, language_slug, pages)

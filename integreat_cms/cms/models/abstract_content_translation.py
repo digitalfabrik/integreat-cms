@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Q
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from linkcheck.models import Link
@@ -20,7 +21,7 @@ class AbstractContentTranslation(models.Model):
     slug = models.SlugField(
         max_length=1024,
         allow_unicode=True,
-        verbose_name=_("URL parameter"),
+        verbose_name=_("link"),
         help_text=__(
             _("String identifier without spaces and special characters."),
             _("Unique per region and language."),
@@ -77,7 +78,7 @@ class AbstractContentTranslation(models.Model):
         """
         raise NotImplementedError
 
-    @property
+    @cached_property
     def foreign_object(self):
         """
         Returns the object the translation belongs to
@@ -87,7 +88,7 @@ class AbstractContentTranslation(models.Model):
         """
         raise NotImplementedError
 
-    @property
+    @cached_property
     def url_prefix(self):
         """
         Generates the prefix of the url of the content translation object
@@ -113,7 +114,7 @@ class AbstractContentTranslation(models.Model):
             + "/"
         )
 
-    @property
+    @cached_property
     def url_infix(self):
         """
         Generates the infix of the url of the content translation object
@@ -125,6 +126,7 @@ class AbstractContentTranslation(models.Model):
         """
         raise NotImplementedError
 
+    @cached_property
     def base_link(self):
         """
         Generates the base link which is the whole url without slug
@@ -135,6 +137,8 @@ class AbstractContentTranslation(models.Model):
         :return: the base link of the content
         :rtype: str
         """
+        if not self.id:
+            return settings.WEBAPP_URL + "/"
         return settings.WEBAPP_URL + self.url_prefix
 
     def get_absolute_url(self):
@@ -164,7 +168,7 @@ class AbstractContentTranslation(models.Model):
         """
         return self.url_prefix + self.slug + "/"
 
-    @property
+    @cached_property
     def backend_edit_link(self):
         """
         Generates the url of the edit page for the content
@@ -173,7 +177,7 @@ class AbstractContentTranslation(models.Model):
         """
         raise NotImplementedError
 
-    @property
+    @cached_property
     def available_languages(self):
         """
         This property checks in which :class:`~integreat_cms.cms.models.languages.language.Language` the content is
@@ -193,9 +197,10 @@ class AbstractContentTranslation(models.Model):
         :return: A dictionary containing the available languages of a content translation
         :rtype: dict
         """
-        languages = self.foreign_object.languages.exclude(id=self.language.id)
         available_languages = {}
-        for language in languages:
+        for language in self.foreign_object.public_languages:
+            if language == self.language:
+                continue
             other_translation = self.foreign_object.get_public_translation(
                 language.slug
             )
@@ -208,7 +213,7 @@ class AbstractContentTranslation(models.Model):
                 }
         return available_languages
 
-    @property
+    @cached_property
     def sitemap_alternates(self):
         """
         This property returns the language alternatives of a content translation for the use in sitemaps.
@@ -218,9 +223,10 @@ class AbstractContentTranslation(models.Model):
         :return: A list of dictionaries containing the alternative translations of a content translation
         :rtype: list [ dict ]
         """
-        languages = self.foreign_object.languages.exclude(id=self.language.id)
         available_languages = []
-        for language in languages:
+        for language in self.foreign_object.public_languages:
+            if language == self.language:
+                continue
             other_translation = self.foreign_object.get_public_translation(
                 language.slug
             )
@@ -233,7 +239,7 @@ class AbstractContentTranslation(models.Model):
                 )
         return available_languages
 
-    @property
+    @cached_property
     def source_translation(self):
         """
         This property returns the translation which was used to create the ``self`` translation.
@@ -245,14 +251,14 @@ class AbstractContentTranslation(models.Model):
                  default :class:`~integreat_cms.cms.models.languages.language.Language`)
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
-        source_language_tree_node = self.foreign_object.region.language_tree_nodes.get(
-            language=self.language
-        ).parent
-        if source_language_tree_node:
-            return self.foreign_object.get_translation(source_language_tree_node.slug)
+        source_language = self.foreign_object.region.get_source_language(
+            self.language.slug
+        )
+        if source_language:
+            return self.foreign_object.get_translation(source_language.slug)
         return None
 
-    @property
+    @cached_property
     def latest_revision(self):
         """
         This property is a link to the most recent version of this translation.
@@ -264,7 +270,7 @@ class AbstractContentTranslation(models.Model):
             language=self.language,
         ).first()
 
-    @property
+    @cached_property
     def latest_public_revision(self):
         """
         This property is a link to the most recent public version of this translation.
@@ -278,7 +284,7 @@ class AbstractContentTranslation(models.Model):
             status=status.PUBLIC,
         ).first()
 
-    @property
+    @cached_property
     def latest_major_revision(self):
         """
         This property is a link to the most recent major version of this translation.
@@ -291,7 +297,7 @@ class AbstractContentTranslation(models.Model):
             minor_edit=False,
         ).first()
 
-    @property
+    @cached_property
     def latest_major_public_revision(self):
         """
         This property is a link to the most recent major public version of this translation.
@@ -306,7 +312,7 @@ class AbstractContentTranslation(models.Model):
             minor_edit=False,
         ).first()
 
-    @property
+    @cached_property
     def previous_revision(self):
         """
         This property is a shortcut to the previous revision of this translation
@@ -320,7 +326,7 @@ class AbstractContentTranslation(models.Model):
             version=version,
         ).first()
 
-    @property
+    @cached_property
     def is_outdated(self):
         """
         This property checks whether a translation is outdated and thus needs a new revision of the content.
@@ -340,15 +346,15 @@ class AbstractContentTranslation(models.Model):
         :return: Flag to indicate whether the translation is outdated
         :rtype: bool
         """
-        # If the page translation is currently in translation, it is defined as not outdated
+        # If the translation is currently in translation, it is defined as not outdated
         if self.currently_in_translation:
             return False
         return self.is_outdated_helper
 
-    @property
+    @cached_property
     def is_outdated_helper(self):
         """
-        See :meth:`~integreat_cms.cms.models.pages.abstract_base_page_translation.AbstractBasePageTranslation.is_outdated`
+        See :meth:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.is_outdated`
         with the difference that it does not return ``False`` when ``currently_in_translation`` is ``True``.
 
         :return: Flag to indicate whether the translation is outdated
@@ -368,7 +374,7 @@ class AbstractContentTranslation(models.Model):
             return False
         return self_revision.last_updated < source_revision.last_updated
 
-    @property
+    @cached_property
     def is_up_to_date(self):
         """
         This property checks whether a translation is up to date.
@@ -422,7 +428,7 @@ class AbstractContentTranslation(models.Model):
         return (
             f"<{type(self).__name__} ("
             f"id: {self.id}, "
-            f"foreign_object_id: {self.foreign_object.id}, "
+            f"{self.foreign_field()}_id: {self.foreign_object.id}, "
             f"language: {self.language.slug}, "
             f"slug: {self.slug})>"
         )

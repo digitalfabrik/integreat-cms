@@ -2,14 +2,16 @@
 {% load content_filters %}
 {% load page_filters %}
 {% load tree_filters %}
-<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if page_depth == 0 %} drop-between {% endif %} h-3 -m-3 hidden level-{{page_depth}}"><td colspan="9"><div><span></span></div></td></tr>
-<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 child {% if page_depth > 0 %} hidden level-{{page_depth}}{% endif %}">
+
+{% get_translation page language.slug as page_translation %}
+<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if page.depth == 1 %} drop-between {% endif %} h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
+<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 child {% if page.depth > 1 %} hidden level-{{page.depth}}{% endif %}">
     <td class="pl-4">
         <input type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item">
     </td>
     <td class="hierarchy single_icon whitespace-nowrap">
         <span data-drag-id="{{ page.id }}"
-              data-node-descendants="{{ page|get_descendants }}"
+              data-node-descendants="{{ page|get_descendant_ids }}"
               class="{% if enable_drag_and_drop %}drag cursor-move{% else %}cursor-not-allowed{% endif %} text-gray-800 inline-block pl-4 align-middle"
               {% if enable_drag_and_drop %}
               draggable="true"
@@ -19,17 +21,17 @@
               {% endif %}>
             <i data-feather="move"></i>
         </span>
-        {% if not page.is_leaf_node %}
+        {% if not page.is_leaf %}
         <span class="collapse-subpages cursor-pointer inline-block align-middle"
               title="{% trans 'Collapse all subpages' %}"
               data-page-id="{{ page.id }}"
-              data-page-children="{{ page|get_children }}">
+              data-page-children="{{ page|get_children_ids }}">
                 <i data-feather="chevron-right"></i>
             </span>
         {% endif %}
     </td>
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
@@ -37,11 +39,9 @@
             {% endif %}
         </a>
     </td>
-    {% get_current_language as LANGUAGE_CODE %}
-    {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page.backend_translation %} {{ page.backend_translation.title }} {% endif %}">
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page.backend_translation %} {{ page.backend_translation.title }} {% endif %}">
                 <div class="translation-title">
                     {% if page.backend_translation %}
                         {{ page.backend_translation.title }}
@@ -63,34 +63,31 @@
         <div class="block py-3 px-2 text-gray-800">
             <div class="lang-grid">
                 {% spaceless %}
-                    {% for other_language in languages %}
-                        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=other_language.slug %}"
-                            class="{{ other_language.slug }}">
-                            {% get_translation page other_language.slug as other_translation %}
+                    {% for other_language_slug, other_status in page.translation_states.items %}
+                        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language_slug %}"
+                            class="{{ other_language_slug }}">
                             <div id="translation-icon">
-                            {% if other_translation %}
-                                {% if other_translation.currently_in_translation %}
+                                {% if other_status == translation_status.IN_TRANSLATION %}
                                     <span title="{% trans 'Currently in translation' %}">
-                                        <i data-feather="clock" class="{% if other_language == language %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i data-feather="clock" class="{% if other_language_slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
-                                {% elif other_translation.is_outdated %}
+                                {% elif other_status == translation_status.OUTDATED %}
                                     <span title="{% trans 'Translation outdated' %}">
-                                        <i data-feather="alert-triangle" class="{% if other_language == language %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i data-feather="alert-triangle" class="{% if other_language_slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
-                                {% else %}
+                                {% elif other_status == translation_status.UP_TO_DATE  %}
                                     <span title="{% trans 'Translation up-to-date' %}">
-                                        <i data-feather="check" class="{% if other_language == language %}text-green-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i data-feather="check" class="{% if other_language_slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
+                                    </span>
+                                {% elif other_status == translation_status.MISSING  %}
+                                    <span title="{% trans 'Translation missing' %}" class="no-trans">
+                                        <i data-feather="x" class="{% if other_language_slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% endif %}
-                            {% else %}
-                                <span title="{% trans 'Translation missing' %}" class="no-trans">
-                                    <i data-feather="x" class="{% if other_language == language %}text-red-500{% else %}text-gray-800{% endif %}"></i>
-                                </span>
-                            {% endif %}
                             </div>
                             <div id="ajax-icon" class="hidden">
                                 <span title="{% trans 'Currently in translation' %}">
-                                    <i data-feather="clock" class="{% if other_language == language %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                    <i data-feather="clock" class="{% if other_language_slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                                 </span>
                             </div>
                         </a>
@@ -110,7 +107,7 @@
         </div>
     </td>
     <td class="pl-2 pr-4 py-3 text-right flex flex-nowrap gap-2">
-        <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
+        <a href="{% url 'view_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
            target="_blank" rel="noopener noreferrer" title="{% trans 'View page as preview' %}" class="btn-icon">
             <i data-feather="eye"></i>
         </a>
@@ -124,7 +121,7 @@
                 <i data-feather="external-link"></i>
             </button>
         {% endif %}
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" title="{% trans 'Edit page' %}" class="btn-icon">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" title="{% trans 'Edit page' %}" class="btn-icon">
             <i data-feather="edit"></i>
         </a>
 
@@ -132,11 +129,11 @@
                 data-confirmation-title="{{ archive_dialog_title }}"
                 data-confirmation-text="{{ archive_dialog_text }}"
                 data-confirmation-subject="{{ page.best_translation.title }}"
-                data-action="{% url 'archive_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
+                data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
             <i data-feather="archive"></i>
         </button>
         {% if perms.cms.delete_page %}
-            {% if page.children.all %}
+            {% if not page.is_leaf %}
                 <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}" class="btn-icon" disabled>
                     <i data-feather="trash-2"></i>
                 </button>
@@ -145,12 +142,12 @@
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ page.best_translation.title }}"
-                        data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
+                        data-action="{% url 'delete_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i data-feather="trash-2"></i>
                 </button>
             {% endif %}
         {% endif %}
-        {% if region.short_urls_enabled and request.user.expert_mode %}
+        {% if request.region.short_urls_enabled and request.user.expert_mode %}
             {% if page_translation %}
             <button data-copy-to-clipboard="{{ page_translation.short_url }}" title="{% trans 'Copy short link' %}" class="btn-icon">
                 <i data-feather="copy"></i>

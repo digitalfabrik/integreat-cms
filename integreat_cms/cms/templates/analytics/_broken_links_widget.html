@@ -15,7 +15,7 @@
 {% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
         <p class="py-3">{% trans 'The list below shows all detected errors related to links.' %}</p>
-        <a href="{% url 'linkcheck_landing' region_slug=region.slug %}" class="btn">
+        <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}" class="btn">
             {% trans "Details" %}
         </a>
     </div>

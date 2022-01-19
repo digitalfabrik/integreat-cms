@@ -49,7 +49,7 @@ class MatomoApiManager:
         """
         self.matomo_token = region.matomo_token
         self.matomo_id = region.matomo_id
-        self.languages = region.languages
+        self.languages = region.active_languages
 
     async def fetch(self, session, **kwargs):
         r"""

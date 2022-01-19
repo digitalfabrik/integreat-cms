@@ -1,3 +1,4 @@
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from ..abstract_content_translation import AbstractContentTranslation
@@ -8,7 +9,7 @@ class AbstractBasePageTranslation(AbstractContentTranslation):
     Data model representing a page or imprint page translation
     """
 
-    @property
+    @cached_property
     def page(self):
         """
         The page the translation belongs to
@@ -17,7 +18,7 @@ class AbstractBasePageTranslation(AbstractContentTranslation):
         """
         raise NotImplementedError
 
-    @property
+    @cached_property
     def short_url(self):
         """
         This property calculates the short url dynamically
@@ -36,7 +37,7 @@ class AbstractBasePageTranslation(AbstractContentTranslation):
         """
         return "page"
 
-    @property
+    @cached_property
     def foreign_object(self):
         """
         This property is an alias of the page foreign key and is needed to generalize the :mod:`~integreat_cms.cms.utils.slug_utils`
@@ -47,18 +48,7 @@ class AbstractBasePageTranslation(AbstractContentTranslation):
         """
         return self.page
 
-    @property
-    def is_up_to_date(self):
-        """
-        This property checks whether a translation is up to date.
-        A translation is considered up to date when it is not outdated and not being translated at the moment.
-
-        :return: Flag which indicates whether a translation is up to date
-        :rtype: bool
-        """
-        return not self.currently_in_translation and not self.is_outdated
-
-    @property
+    @cached_property
     def readable_title(self):
         """
         Get the title of a page translation including the title in the best translation

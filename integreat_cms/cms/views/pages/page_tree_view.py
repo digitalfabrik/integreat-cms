@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from ...constants import translation_status, status
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageFilterForm
-from ...models import Region, Language, Page, PageTranslation
+from ...models import Language, Page, PageTranslation
 from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
@@ -64,7 +64,7 @@ class PageTreeView(TemplateView, PageContextMixin):
 
         # current region
         region_slug = kwargs.get("region_slug")
-        region = Region.get_current_region(request)
+        region = request.region
 
         # current language
         language_slug = kwargs.get("language_slug")
@@ -96,7 +96,11 @@ class PageTreeView(TemplateView, PageContextMixin):
             )
         context = self.get_context_data(**kwargs)
 
-        pages = region.get_pages(archived=self.archived)
+        pages = region.get_pages(
+            archived=self.archived,
+            prefetch_translations=True,
+            prefetch_public_translations=True,
+        )
         enable_drag_and_drop = True
         query = None
         # Filter pages according to given filters, if any
@@ -151,13 +155,14 @@ class PageTreeView(TemplateView, PageContextMixin):
             {
                 **context,
                 "current_menu_item": "pages",
-                "pages": pages,
+                "pages": pages.cache_tree(),
                 "archived_count": region.get_pages(archived=True).count(),
                 "language": language,
-                "languages": region.languages,
+                "languages": region.active_languages,
                 "filter_form": filter_form,
                 "enable_drag_and_drop": enable_drag_and_drop,
                 "search_query": query,
+                "translation_status": translation_status,
                 "PUBLIC": status.PUBLIC,
                 "WEBAPP_URL": settings.WEBAPP_URL,
             },

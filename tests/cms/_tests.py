@@ -5,9 +5,14 @@ They can be removed once they are migrated to the cms.tests package.
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from .constants import position, status, region_status
-from .models import Language, Region
-from .forms import LanguageTreeNodeForm, LanguageForm, PageForm, RegionForm
+from integreat_cms.cms.constants import position, status, region_status
+from integreat_cms.cms.models import Language, Region
+from integreat_cms.cms.forms import (
+    LanguageTreeNodeForm,
+    LanguageForm,
+    PageForm,
+    RegionForm,
+)
 
 
 # pylint: disable=too-many-instance-attributes,missing-class-docstring

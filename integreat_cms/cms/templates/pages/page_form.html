@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
+{% load base_filters %}
 {% load content_filters %}
 {% load page_filters %}
 {% load rules %}
@@ -110,7 +111,7 @@
                                         {% endif %}
                                     </div>
                         {% else %}
-                            <a class="px-4 pt-2 pb-3 block" style="color: inherit;" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=other_language.slug %}">
+                            <a class="px-4 pt-2 pb-3 block" style="color: inherit;" href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language.slug %}">
                                 {% if other_language in page.languages %}
                                     {% get_translation page_form.instance other_language.slug as other_page_translation %}
                                     {% if other_page_translation.is_outdated %}
@@ -154,13 +155,13 @@
                         <div class="flex justify-end mr-8">
                             {% trans 'Version' %}:
                             {{ page_translation_form.instance.version }}
-                            (<a href="{% url 'page_revisions' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
+                            (<a href="{% url 'page_revisions' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
                                 class="text-blue-500 hover:underline">{% trans 'Show versions' %}</a>)
                         </div>
                     {% endif %}
                     <div class="flex justify-between">
                         <label for="{{ page_translation_form.title.id_for_label }}"
-                            data-slugify-url="{% url 'slugify_ajax' region_slug=region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
+                            data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
                             {{ page_translation_form.title.label }}
                         </label>
                         {% if page_translation_form.instance.id %}
@@ -178,7 +179,7 @@
                     </div>
                     {% render_field page_translation_form.title|add_error_class:"border-red-500" %}
                     {% if page_translation_form.instance.id %}
-                        {% if region.short_urls_enabled and request.user.expert_mode %}
+                        {% if request.region.short_urls_enabled and request.user.expert_mode %}
                             <label class="inline-block mt-4">{% trans 'Short URL' %}:</label>
                             <a href="{{ page_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
                             <a href="#" data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
@@ -196,14 +197,14 @@
                                         data-unset-translation-state-language-code="{{ page_translation_form.instance.language.slug }}"
                                         id="undo-translation"
                                         class="italic text-purple-500"
-                                        data-url="{% url 'post_translation_state_ajax' region_slug=region.slug %}">
+                                        data-url="{% url 'post_translation_state_ajax' region_slug=request.region.slug %}">
                                     {% trans 'Abort translation process' %}
                                 </a><br>
                             </div>
                         {% endif %}
                     {% endif %}
                     <div id="link-container" class="flex items-center mt-4">
-                        <label for="{{ page_translation_form.slug.id_for_label }}" class="mr-2">
+                        <label for="{{ page_translation_form.slug.id_for_label }}" class="mr-2 whitespace-nowrap">
                             {{ page_translation_form.slug.label }}:
                         </label>
                         <a id="slug-link" href="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}" class="text-blue-500 hover:underline">{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}</a>
@@ -260,8 +261,8 @@
                 <div>
                     <label>{% trans 'Positioning' %}</label>
                     <label for="{{ page_form.parent.id_for_label }}" class="secondary">{{ page_form.parent.label }}</label>
-                    {% render_field page_form.related_page %}
-                    {% render_field page_form.position %}
+                    {% render_field page_form|get_private_member:"ref_node_id" %}
+                    {% render_field page_form|get_private_member:"position" %}
                     {% render_field page_form.parent id="parent" %}
                     <label class="btn-gray">{% trans 'Order' %}</label>
                     <div id="page_order_table" class="mb-4">
@@ -271,7 +272,7 @@
                 <div {% if not request.user.expert_mode %}hidden{% endif %}>
                     <label for="mirrored_page_region">{% trans 'Embed live content' %}</label>
                     {% render_field page_form.mirrored_page_region id="mirrored_page_region" %}
-                    <div class="relative my-2 {% if not page.mirrored_page %} hidden {% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' region_slug=region.slug %}?{% if page_form.instance.id %}page_id={{ page_form.instance.id }}&{% endif %}region_id=">
+                    <div class="relative my-2 {% if not page.mirrored_page %} hidden {% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' region_slug=request.region.slug %}?{% if page_form.instance.id %}page_id={{ page_form.instance.id }}&{% endif %}region_id=">
                         {% include "pages/_mirrored_page_field.html" %}
                     </div>
                     <div class="my-2 pb-2 {% if not page.mirrored_page %} hidden {% endif %}" id="mirrored_page_first_div">
@@ -279,7 +280,7 @@
                     </div>
                 </div>
                 {% if request.user.expert_mode %}
-                    {% if perms.cms.grant_page_permissions and region.page_permissions_enabled %}
+                    {% if perms.cms.grant_page_permissions and request.region.page_permissions_enabled %}
                         <div>
                             <label>{% trans 'Additional permissions for this page' %}</label>
                             <p class="italic">{% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}</p>
@@ -317,7 +318,7 @@
                                 data-confirmation-title="{{ restore_dialog_title }}"
                                 data-confirmation-text="{{ restore_dialog_text }}"
                                 data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                 <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this page' %}
                             </button>
                         {% elif page.implicitly_archived %}
@@ -332,7 +333,7 @@
                                 </p>
                             </div>
                             {% for ancestor in page.explicitly_archived_ancestors %}
-                                <a href="{% url 'edit_page' page_id=ancestor.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
+                                <a href="{% url 'edit_page' page_id=ancestor.id region_slug=request.region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
                                     <i data-feather="edit" class="mr-2"></i> {{ ancestor.best_translation.title }}
                                 </a>
                             {% endfor %}
@@ -342,7 +343,7 @@
                                 data-confirmation-title="{{ archive_dialog_title }}"
                                 data-confirmation-text="{{ archive_dialog_text }}"
                                 data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                 <i data-feather="archive" class="mr-2"></i>
                                 {% trans 'Archive this page' %}
                             </button>
@@ -353,15 +354,15 @@
                                 <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
                                     <p>
                                         {% trans 'You cannot delete a page which has subpages.' %}<br>
-                                        {% blocktrans count counter=page.get_descendants.count trimmed %}
+                                        {% blocktrans count counter=page.get_cached_descendants|length trimmed %}
                                             To delete this page, you have to delete or move its subpage first:
                                         {% plural %}
                                             To delete this page, you have to delete or move its subpages first:
                                         {% endblocktrans %}
                                     </p>
                                 </div>
-                                {% for descendant in page.get_descendants %}
-                                <a href="{% url 'edit_page' page_id=descendant.id region_slug=region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
+                                {% for descendant in page.get_cached_descendants %}
+                                <a href="{% url 'edit_page' page_id=descendant.id region_slug=request.region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
                                     <i data-feather="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
                                 </a>
                                 {% endfor %}
@@ -370,7 +371,7 @@
                                     data-confirmation-title="{{ delete_dialog_title }}"
                                     data-confirmation-text="{{ delete_dialog_text }}"
                                     data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                    data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=region.slug language_slug=language.slug %}">
+                                    data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                     <i data-feather="trash-2" class="mr-2"></i>
                                     {% trans 'Delete this page' %}
                                 </button>
@@ -395,7 +396,7 @@
                         <select id="side-by-side-select">
                             <option value="">---------</option>
                             {% for side_by_side_language_option in side_by_side_language_options %}
-                            <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=region.slug language_slug=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled{% elif side_by_side_language_option.selected %}selected{% endif %}>{{ side_by_side_language_option.label }}</option>
+                            <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=request.region.slug language_slug=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled{% elif side_by_side_language_option.selected %}selected{% endif %}>{{ side_by_side_language_option.label }}</option>
                             {% endfor %}
                         </select>
                         <a id="side-by-side-link" class="btn" disabled="disabled">

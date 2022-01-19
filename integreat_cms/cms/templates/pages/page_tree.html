@@ -2,7 +2,6 @@
 
 {% load i18n %}
 {% load static %}
-{% load mptt_tags %}
 {% load content_filters %}
 {% load page_filters %}
 {% load rules %}
@@ -12,7 +11,7 @@
 <div class="table-header">
     <div class="flex flex-wrap justify-between gap-4">
         <h1 class="heading">{% trans 'Page Tree' %} <button data-show-tutorial="page_tree_tutorial_seen" class="hover:text-blue-500"><i data-feather="help-circle" class="align-baseline"></i></button></h1>
-        <a href="{% url 'archived_pages' region_slug=region.slug language_slug=language.slug %}" class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
+        <a href="{% url 'archived_pages' region_slug=request.region.slug language_slug=language.slug %}" class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
             <span>{% trans 'Archived pages' %}</span>
             <span class="inline-block rounded-full bg-integreat-500 text-gray-800 px-2 py-1 text-xs font-bold">
                 {{ archived_count }}
@@ -33,12 +32,12 @@
             {% endif %}
             {% has_perm 'cms.change_page_object' request.user as can_edit_pages %}
             {% if can_edit_pages %}
-                {% if region.default_language == language %}
-                    <a href="{% url 'new_page' region_slug=region.slug language_slug=language.slug %}" class="btn">
+                {% if request.region.default_language == language %}
+                    <a href="{% url 'new_page' region_slug=request.region.slug language_slug=language.slug %}" class="btn">
                         {% trans 'Create page' %}
                     </a>
                 {% else %}
-                    <button title="{% trans 'You can only create pages in the default language' %} {{ region.default_language.translated_name }}." class="btn" disabled>
+                    <button title="{% trans 'You can only create pages in the default language' %} {{ request.region.default_language.translated_name }}." class="btn" disabled>
                         {% trans 'Create page' %}
                     </button>
                 {% endif %}
@@ -70,7 +69,7 @@
                         <div class="lang-grid flags whitespace-nowrap">
                             {% spaceless %}
                                 {% for lang in languages %}
-                                    <a href="{% url 'pages' region_slug=region.slug language_slug=lang.slug %}">
+                                    <a href="{% url 'pages' region_slug=request.region.slug language_slug=lang.slug %}">
                                         <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
                                     </a>
                                 {% endfor %}
@@ -83,20 +82,12 @@
                 </tr>
             </thead>
             <tbody>
-            {% if pages %}
-                {% get_last_root_page pages as last_root_page %}
-                {% recursetree pages %}
-                    {% get_translation node language.slug as page_translation %}
-                    {% get_depth_in node pages as page_depth %}
-                    {% include "pages/page_tree_node.html" with page=node %}
-                    {% if not node.is_leaf_node %}
-                        {{children}}
-                    {% endif %}
-                    {% if node == last_root_page %}
-                        <tr data-drop-id="{{ node.id }}" data-drop-position="right" class="drop drop-between h-3 hidden" title="test"><td colspan="9"><div><span></span></div></td></tr>
-                    {% endif %}
-                {% endrecursetree %}
-            {% else %}
+            {% for page in pages %}
+                {% include "pages/page_tree_node.html" %}
+                {% if forloop.last %}
+                    <tr data-drop-id="{% if page.is_root %}{{ page.id }}{% else %}{{ page.get_cached_ancestors.0.id }}{% endif %}" data-drop-position="right" class="drop drop-between h-3 hidden" title="test"><td colspan="9"><div><span></span></div></td></tr>
+                {% endif %}
+            {% empty %}
                 <tr>
                     <td></td>
                     <td colspan="8" class="px-2 py-3">
@@ -107,7 +98,7 @@
                         {% endif %}
                     </td>
                 </tr>
-            {% endif %}
+            {% endfor %}
             </tbody>
         </table>
     </div>
@@ -117,13 +108,13 @@
             <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
             <option
                 id="pdf-export-option"
-                data-bulk-action="{% url 'export_pdf' region_slug=region.slug language_slug=language.slug %}"
+                data-bulk-action="{% url 'export_pdf' region_slug=request.region.slug language_slug=language.slug %}"
                 data-target="_blank" data-language-slug="{{ language.slug }}">
                 {% trans 'Export published pages as PDF' %}
             </option>
             <option
-                {% if request.user.expert_mode and language != region.default_language %}
-                    data-bulk-action="{% url 'download_xliff' region_slug=region.slug language_slug=language.slug %}"
+                {% if request.user.expert_mode and language != request.region.default_language %}
+                    data-bulk-action="{% url 'download_xliff' region_slug=request.region.slug language_slug=language.slug %}"
                 {% else %}
                     disabled
                     title="{% trans 'You cannot export XLIFF files for the default language' %}"
@@ -140,7 +131,7 @@
         <h3 class="font-bold text-xl">{% trans 'Import XLIFF files' %}</h3>
         <div class="my-2 text-s text-gray-600">{% trans "Supported file extensions" %}: .zip, .xlf, .xliff</div>
         <form class="flex flex-wrap h-full mt-2 gap-2" method="post" enctype="multipart/form-data"
-              action="{% url 'upload_xliff' region_slug=region.slug language_slug=language.slug %}">
+              action="{% url 'upload_xliff' region_slug=request.region.slug language_slug=language.slug %}">
             <label id="xliff_file_label" for="xliff_file" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 m-0 rounded">
                 <i data-feather="upload" class="inline-block pr-1"></i>
                 {% trans 'Select files' %}

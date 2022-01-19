@@ -11,12 +11,12 @@
             {% blocktrans %}Page versions of "{{ page_title }}"{% endblocktrans %}
         {% endwith %}
     </h1>
-    <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="btn btn-gray">
+    <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="btn btn-gray">
         <i data-feather="arrow-left-circle" class="align-top"></i> {% trans 'Go Back to Page Editor' %}
     </a>
 </div>
 
-<form method="post" action="{% url 'page_revisions' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
+<form method="post" action="{% url 'page_revisions' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
     {% csrf_token %}
     <div class="w-3/5 m-auto mb-28 relative">
         <input type="range" name="revision" min="1" max="{{ page_translations.count }}" value="{{ selected_revision.version }}" id="revision-slider" list="steplist">
@@ -64,7 +64,7 @@
             <label>{% trans 'Title' %}</label>
             <h1>{{ page_translation.title }}</h1>
             <label>{% trans 'Content' %}</label>
-            {{ page_translation.text|safe }}
+            {{ page_translation.content|safe }}
         </div>
         <div class="revision-diff w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
         </div>

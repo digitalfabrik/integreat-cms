@@ -41,7 +41,7 @@ def archive(request, event_id, region_slug, language_slug):
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     event = get_object_or_404(region.events, id=event_id)
 
     event.archived = True
@@ -82,7 +82,7 @@ def duplicate(request, event_id, region_slug, language_slug):
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     event = get_object_or_404(region.events, id=event_id)
 
     event.duplicate(request.user)
@@ -118,7 +118,7 @@ def restore(request, event_id, region_slug, language_slug):
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     event = get_object_or_404(region.events, id=event_id)
 
     event.archived = False
@@ -159,7 +159,7 @@ def delete(request, event_id, region_slug, language_slug):
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     event = get_object_or_404(region.events, id=event_id)
 
     logger.info("%r deleted by %r", event, request.user)

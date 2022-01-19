@@ -1,22 +1,31 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group as Role
 
-from ...models import Region, Language, LanguageTreeNode
+from integreat_cms.cms.models import Region, Language, LanguageTreeNode
+
 from .view_test import ViewTest
 from .view_test_utils import generate_test_functions
 
 
 region_views = [
+    "analytics",
+    "app_size",
     "dashboard",
     "media",
+    "mediacenter_directory_path",
+    "mediacenter_get_directory_content",
     "new_region_user",
+    "region_feedback",
     "region_users",
+    "statistics",
     "translation_coverage",
+    "user_settings",
 ]
 
 region_language_views = [
     "archived_pages",
     "archived_pois",
+    "edit_imprint",
     "events",
     "events_archived",
     "new_event",
@@ -34,16 +43,12 @@ class RegionViewTest(ViewTest):
     This test checks whether all region views return status code 200.
     """
 
-    fixtures = ["integreat_cms/cms/fixtures/roles.json"]
-
     def setUp(self):
-        region = Region.objects.create(
-            slug="test_region",
-        )
+        region = Region.objects.create(slug="test_region", statistics_enabled=True)
         language = Language.objects.create(
             slug="te-st", native_name="test_language", english_name="test_language"
         )
-        LanguageTreeNode.objects.create(language=language, region=region)
+        LanguageTreeNode.add_root(language=language, region=region)
         user = get_user_model().objects.create_user("region_user")
         user.regions.add(region)
         user.save()

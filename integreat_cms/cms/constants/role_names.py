@@ -25,14 +25,14 @@ CMS_TEAM = "CMS_TEAM"
 #: App team
 APP_TEAM = "APP_TEAM"
 #: Promo team
-PROMO_TEAM = "PROMO_TEAM"
+MARKETING_TEAM = "MARKETING_TEAM"
 
 #: Choices for staff roles
 STAFF_ROLES = [
     (MUNICIPALITY_TEAM, _("Municipality team")),
     (CMS_TEAM, _("CMS team")),
     (APP_TEAM, _("App team")),
-    (PROMO_TEAM, _("Promo team")),
+    (MARKETING_TEAM, _("Marketing team")),
 ]
 
 #: Choices to use these constants in a database field

@@ -6,8 +6,6 @@ import logging
 import os
 import uuid
 
-from mptt.exceptions import InvalidMove
-
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -17,6 +15,8 @@ from django.http import HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
+
+from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
 from ....xliff.utils import pages_to_xliff_file
 from ...constants import text_directions
@@ -55,7 +55,7 @@ def archive_page(request, page_id, region_slug, language_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
     if not request.user.has_perm("cms.change_page_object", page):
@@ -103,7 +103,7 @@ def restore_page(request, page_id, region_slug, language_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
     if not request.user.has_perm("cms.change_page_object", page):
@@ -170,7 +170,7 @@ def view_page(request, page_id, region_slug, language_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
@@ -216,7 +216,7 @@ def delete_page(request, page_id, region_slug, language_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
     if page.children.exists():
@@ -256,11 +256,13 @@ def export_pdf(request, region_slug, language_slug):
     :return: PDF document offered for download
     :rtype: ~django.http.HttpResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     # retrieve the selected page ids
     page_ids = request.POST.getlist("selected_ids[]")
     # collect the corresponding page objects
-    pages = region.pages.filter(explicitly_archived=False, id__in=page_ids)
+    pages = region.pages.filter(
+        explicitly_archived=False, id__in=page_ids
+    ).prefetch_public_translations()
     # generate PDF document wrapped in a HtmlResponse object
     response = generate_pdf(region, language_slug, pages)
     if response.status_code == 200:
@@ -330,7 +332,7 @@ def download_xliff(request, region_slug, language_slug):
             },
         )
 
-    region = Region.get_current_region(request)
+    region = request.region
     pages = get_list_or_404(region.pages, id__in=page_ids)
 
     target_language = get_object_or_404(
@@ -388,7 +390,7 @@ def post_translation_state_ajax(request, region_slug):
     target_language = decoded_json["language"]
     page_id = decoded_json["pageId"]
     translation_state = decoded_json["translationState"]
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
     page_translation = page.get_translation(target_language.code)
     if page_translation:
@@ -535,12 +537,16 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
     target = get_object_or_404(region.pages, id=target_id)
 
     try:
-        page.move_to(target, position)
+        page.move(target, position)
+        # Call the save method on the (reloaded) node in order to trigger possible signal handlers etc.
+        # (The move()-method executes raw sql which might cause problems if the instance isn't fetched again)
+        page = Page.objects.get(id=page_id)
+        page.save()
         logger.debug(
             "%r moved to %r of %r by %r",
             page,
@@ -554,7 +560,7 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
                 page=page.best_translation.title
             ),
         )
-    except (ValueError, InvalidMove) as e:
+    except (ValueError, InvalidPosition, InvalidMoveToDescendant) as e:
         messages.error(request, e)
         logger.exception(e)
 
@@ -818,13 +824,14 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
     :rtype: ~django.template.response.TemplateResponse
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
     if parent_id == "0":
-        siblings = region.pages.filter(level=0)
+        siblings = region.get_root_pages()
     else:
-        siblings = region.pages.filter(parent__id=parent_id)
+        parent = get_object_or_404(region.pages, id=parent_id)
+        siblings = parent.get_cached_children()
 
     logger.debug(
         "Page order table for %r and siblings %r",
@@ -864,12 +871,13 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
     :rtype: ~django.template.response.TemplateResponse
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
 
     if parent_id == "0":
-        siblings = region.pages.filter(level=0)
+        siblings = region.get_root_pages()
     else:
-        siblings = region.pages.filter(parent__id=parent_id)
+        parent = get_object_or_404(region.pages, id=parent_id)
+        siblings = parent.get_cached_children()
 
     logger.debug(
         "Page order table for a new page and siblings %r",

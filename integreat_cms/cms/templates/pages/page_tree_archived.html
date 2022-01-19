@@ -1,7 +1,6 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load static %}
-{% load mptt_tags %}
 {% load content_filters %}
 {% load page_filters %}
 {% load rules %}
@@ -44,7 +43,7 @@
                         <div class="lang-grid flags whitespace-nowrap">
                             {% spaceless %}
                                 {% for lang in languages %}
-                                    <a href="{% url 'pages' region_slug=region.slug language_slug=lang.slug %}">
+                                    <a href="{% url 'pages' region_slug=request.region.slug language_slug=lang.slug %}">
                                         <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
                                     </a>
                                 {% endfor %}
@@ -56,21 +55,16 @@
                 </tr>
             </thead>
             <tbody>
-            {% if pages %}
-                {% recursetree pages %}
-                    {% get_translation node language.slug as page_translation %}
-                    {% include "pages/page_tree_archived_node.html" with page=node page_translation=page_translation %}
-                    {% if not node.is_leaf_node %}
-                        {{children}}
-                    {% endif %}
-                {% endrecursetree %}
-            {% else %}
-                <tr>
-                    <td colspan="7" class="px-4 py-3">
-                        {% trans 'No pages archived yet.' %}
-                    </td>
-                </tr>
-            {% endif %}
+                {% for page in pages %}
+                    {% get_translation page language.slug as page_translation %}
+                    {% include "pages/page_tree_archived_node.html" with page_translation=page_translation %}
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="px-4 py-3">
+                            {% trans 'No pages archived yet.' %}
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

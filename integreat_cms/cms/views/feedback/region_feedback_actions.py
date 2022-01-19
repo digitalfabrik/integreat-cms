@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required, permission_required
-from ...models import Feedback, Region
+from ...models import Feedback
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ def mark_region_feedback_as_read(request, region_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
 
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(
@@ -68,7 +68,7 @@ def mark_region_feedback_as_unread(request, region_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
 
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(
@@ -103,7 +103,7 @@ def delete_region_feedback(request, region_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
 
     selected_ids = request.POST.getlist("selected_ids[]")
     Feedback.objects.filter(

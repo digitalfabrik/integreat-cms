@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import render
 
 from ...constants import translation_status
-from ...models import PageTranslation, Region
+from ...models import PageTranslation
 from ...decorators import region_permission_required
 
 
@@ -42,14 +42,14 @@ class TranslationCoverageView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
 
         total_number_pages = region.pages.count()
 
         translation_coverage_data = []
         outdated_word_count = {}
 
-        for language in region.languages:
+        for language in region.active_languages:
             # Get all page translation of this region and language
             page_translations = PageTranslation.get_translations(region, language)
 
@@ -97,7 +97,9 @@ class TranslationCoverageView(TemplateView):
 
         # Assemble the ChartData in the format expected by ChartJS (one dataset for each translation status)
         chart_data = {
-            "labels": [language.translated_name for language in region.languages],
+            "labels": [
+                language.translated_name for language in region.active_languages
+            ],
             "datasets": [
                 {
                     "label": label,

@@ -3,7 +3,7 @@ import logging
 from django.utils.translation import ugettext_lazy as _
 
 from .abstract_base_page import AbstractBasePage
-from ..languages.language import Language
+from .imprint_page_translation import ImprintPageTranslation
 
 logger = logging.getLogger(__name__)
 
@@ -13,16 +13,15 @@ class ImprintPage(AbstractBasePage):
     Data model representing an imprint.
     """
 
-    @property
-    def languages(self):
+    @staticmethod
+    def get_translation_model():
         """
-        This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to
-        which an imprint translation exists.
+        Returns the translation model of this content model
 
-        :return: list of all :class:`~integreat_cms.cms.models.languages.language.Language` an imprint is translated into
-        :rtype: list [ ~integreat_cms.cms.models.languages.language.Language ]
+        :return: The class of translations
+        :rtype: type
         """
-        return Language.objects.filter(imprint_translations__page=self)
+        return ImprintPageTranslation
 
     class Meta:
         #: The verbose name of the model
@@ -30,6 +29,6 @@ class ImprintPage(AbstractBasePage):
         #: The plural verbose name of the model
         verbose_name_plural = _("imprints")
         #: The name that will be used by default for the relation from a related object back to this one
-        default_related_name = "imprint"
+        default_related_name = "imprints"
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view")

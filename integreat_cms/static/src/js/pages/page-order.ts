@@ -42,30 +42,40 @@ async function getPageOrderTable({ target }: Event) {
     const pageContainedInSiblings = document
       .querySelector(".drag")
       .getAttribute("data-contained-in-siblings");
+    const lastSiblingId = document
+      .getElementById("last-sibling")?.getAttribute("data-drop-id");
     if (pageContainedInSiblings) {
       // Reset hidden field values to default value
       document
-        .getElementById("id_related_page")
+        .getElementById("id__ref_node_id")
         .setAttribute(
           "value",
-          (document.getElementById("id_related_page") as HTMLInputElement)
+          (document.getElementById("id__ref_node_id") as HTMLInputElement)
             .defaultValue
         );
       document
-        .getElementById("id_position")
+        .getElementById("id__position")
         .setAttribute(
           "value",
-          (document.getElementById("id_position") as HTMLInputElement)
+          (document.getElementById("id__position") as HTMLInputElement)
             .defaultValue
         );
+    } else if (lastSiblingId) {
+      // Change hidden field values to last child of parent
+      document
+        .getElementById("id__ref_node_id")
+        .setAttribute("value", lastSiblingId);
+      document
+        .getElementById("id__position")
+        .setAttribute("value", "right");
     } else {
       // Change hidden field values to last child of parent
       document
-        .getElementById("id_related_page")
+        .getElementById("id__ref_node_id")
         .setAttribute("value", (target as HTMLInputElement).value);
       document
-        .getElementById("id_position")
-        .setAttribute("value", "last-child");
+        .getElementById("id__position")
+        .setAttribute("value", "first-child");
     }
     // Update the modified page title
     updatePageTitle();
@@ -209,10 +219,10 @@ function drop(event: Event) {
 
   // Passing the values to the hidden fields
   document
-    .getElementById("id_related_page")
+    .getElementById("id__ref_node_id")
     .setAttribute("value", target.getAttribute("data-drop-id"));
   document
-    .getElementById("id_position")
+    .getElementById("id__position")
     .setAttribute("value", target.getAttribute("data-drop-position"));
   // Register new event handlers
   registerEventHandlers();

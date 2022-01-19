@@ -40,7 +40,7 @@ class Serializer(base_serializer.Serializer):
 
         :raises ~django.core.serializers.base.SerializationError: If the serialization fails
         """
-        source_language = obj.language.get_source_language(obj.page.region)
+        source_language = obj.page.region.get_source_language(obj.language.slug)
         if not source_language:
             raise base.SerializationError(
                 "The page translation is in the region's default language."

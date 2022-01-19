@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from ..abstract_content_model import AbstractContentModel
 from ..media.media_file import MediaFile
-from ..languages.language import Language
+from ..pois.poi_translation import POITranslation
 
 
 class POI(AbstractContentModel):
@@ -42,16 +42,15 @@ class POI(AbstractContentModel):
         help_text=_("Whether or not the location is read-only and hidden in the API."),
     )
 
-    @property
-    def languages(self):
+    @staticmethod
+    def get_translation_model():
         """
-        This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to which a POI
-        translation exists.
+        Returns the translation model of this content model
 
-        :return: QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` a POI is translated into
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
+        :return: The class of translations
+        :rtype: type
         """
-        return Language.objects.filter(poi_translations__poi=self)
+        return POITranslation
 
     class Meta:
         #: The verbose name of the model

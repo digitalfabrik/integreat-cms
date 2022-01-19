@@ -7,7 +7,9 @@ from django.db.models import Q
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
-from ...constants import position, mirrored_page_first
+from treebeard.forms import MoveNodeForm
+
+from ...constants import mirrored_page_first, position
 from ...models import Page, Region
 from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
@@ -16,7 +18,7 @@ from .parent_field_widget import ParentFieldWidget
 logger = logging.getLogger(__name__)
 
 
-class PageForm(CustomModelForm):
+class PageForm(CustomModelForm, MoveNodeForm):
     """
     Form for creating and modifying page objects
     """
@@ -26,14 +28,6 @@ class PageForm(CustomModelForm):
         required=False,
         widget=ParentFieldWidget(),
         label=capfirst(Page._meta.get_field("parent").verbose_name),
-    )
-    related_page = forms.ModelChoiceField(
-        queryset=Page.objects.all(), required=False, widget=forms.HiddenInput()
-    )
-    position = forms.ChoiceField(
-        choices=position.CHOICES,
-        initial=position.LAST_CHILD,
-        widget=forms.HiddenInput(),
     )
     editors = forms.ModelChoiceField(
         queryset=get_user_model().objects.all(),
@@ -80,6 +74,10 @@ class PageForm(CustomModelForm):
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
 
+        # Hide tree node inputs
+        self.fields["_ref_node_id"].widget = forms.HiddenInput()
+        self.fields["_position"].widget = forms.HiddenInput()
+
         # pass form object to ParentFieldWidget
         self.fields["parent"].widget.form = self
 
@@ -123,45 +121,41 @@ class PageForm(CustomModelForm):
         # check if instance of this form already exists
         if self.instance.id:
             # remove children from possible parents
-            children = self.instance.get_descendants(include_self=True)
-            parent_queryset = parent_queryset.exclude(id__in=children)
+            descendant_ids = [
+                descendant.id
+                for descendant in self.instance.get_cached_descendants(
+                    include_self=True
+                )
+            ]
+            parent_queryset = parent_queryset.exclude(id__in=descendant_ids)
             self.fields["parent"].initial = self.instance.parent
-            # check if instance has siblings
-            previous_sibling = self.instance.get_previous_sibling()
-            next_sibling = self.instance.get_next_sibling()
-            if previous_sibling:
-                self.fields["related_page"].initial = previous_sibling
-                self.fields["position"].initial = position.RIGHT
-            elif next_sibling:
-                self.fields["related_page"].initial = next_sibling
-                self.fields["position"].initial = position.LEFT
-            else:
-                self.fields["related_page"].initial = self.instance.parent
-                self.fields["position"].initial = position.LAST_CHILD
             # Exclude the current page from the possible options for mirrored pages
             self.fields["mirrored_page"].queryset = self.fields[
                 "mirrored_page"
             ].queryset.exclude(id=self.instance.id)
+        else:
+            last_root_page = self.instance.region.get_root_pages().last()
+            if last_root_page:
+                self.fields["_ref_node_id"].initial = last_root_page.id
+                self.fields["_position"].initial = position.RIGHT
+            else:
+                self.fields["_ref_node_id"].initial = 0
+                self.fields["_position"].initial = position.FIRST_CHILD
 
         self.fields["parent"].queryset = parent_queryset
 
-    def save(self, commit=True):
+    def _clean_cleaned_data(self):
         """
-        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
-        which are not directly determined by input fields.
+        Delete auxiliary fields not belonging to node model and include instance attributes in cleaned_data
 
-        :param commit: Whether or not the changes should be written to the database
-        :type commit: bool
-
-        :return: The saved page object
-        :rtype: ~integreat_cms.cms.models.pages.page.Page
+        :return: The initial data for _ref_node_id and _position fields
+        :rtype: tuple
         """
-
-        page = super().save(commit=commit)
-
-        page.move_to(self.cleaned_data["related_page"], self.cleaned_data["position"])
-
-        return page
+        del self.cleaned_data["mirrored_page_region"]
+        # This workaround is required because the MoveNodeForm does not take
+        # instance attribute into account which are not included in cleaned_data
+        self.cleaned_data["region"] = self.instance.region
+        return super()._clean_cleaned_data()
 
     def get_editor_queryset(self):
         """

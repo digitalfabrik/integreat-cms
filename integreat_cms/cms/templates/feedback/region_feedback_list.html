@@ -10,7 +10,7 @@
 <div class="table-header">
     <h1 class="heading">{% trans 'Feedback' %}</h1>
     <div class="flex justify-between">
-        {% include "_search_input.html" with object_type="feedback" region_slug=region.slug related_form='region-feedback-filter-form' %}
+        {% include "_search_input.html" with object_type="feedback" region_slug=request.region.slug related_form='region-feedback-filter-form' %}
         <button id="filter-toggle" class="btn btn-light-blue">
             <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans 'Show filters' %}</span>
             <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans 'Hide filters' %}</span>
@@ -119,10 +119,10 @@
         <div class="flex self-start gap-2 mt-2">
             <select id="bulk-action">
                 <option>{% trans 'Select bulk action' %}</option>
-                <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=region.slug %}">{% trans 'Mark as read' %}</option>
-                <option data-bulk-action="{% url 'mark_region_feedback_as_unread' region_slug=region.slug %}">{% trans 'Mark as unread' %}</option>
+                <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=request.region.slug %}">{% trans 'Mark as read' %}</option>
+                <option data-bulk-action="{% url 'mark_region_feedback_as_unread' region_slug=request.region.slug %}">{% trans 'Mark as unread' %}</option>
                 {% if perms.cms.delete_feedback %}
-                    <option data-bulk-action="{% url 'delete_region_feedback' region_slug=region.slug %}">{% trans 'Delete' %}</option>
+                    <option data-bulk-action="{% url 'delete_region_feedback' region_slug=request.region.slug %}">{% trans 'Delete' %}</option>
                 {% endif %}
             </select>
             <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>

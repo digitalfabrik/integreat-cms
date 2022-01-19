@@ -1,5 +1,4 @@
 {% load static %}
-{% load mptt_tags %}
 {% load i18n %}
 {% load content_filters %}
 {% load render_bundle from webpack_loader %}
@@ -41,8 +40,8 @@
         <div id="header">
             <!-- make sure that image size fits in static frame to avoid problems -->
             <!-- only applicable if icon is present -->
-            {% if region.icon %}
-                <img src="{{ region.icon.path }}" height="32">
+            {% if request.region.icon %}
+                <img src="{{ request.region.icon.path }}" height="32">
             {% endif %}
         </div>
         <div id="footer">
@@ -52,7 +51,7 @@
                         <pdf:pagenumber>
                     </td>
                     <td id="second-footer">
-                        {{ region.full_name }}
+                        {{ request.region.full_name }}
                     </td>
                     <td id="third-footer">
                         <img src="{% static 'images/integreat-logo.jpg' %}" height="40">
@@ -75,24 +74,25 @@
             <div><pdf:nextpage></div>
         {% endif %}
 
-        {% recursetree pages %}
-            <li>
-                {% get_public_translation node language.slug as page_translation %}
-                {% if node.level < 2 %}
-                    <h1 class="{% if node.level == 0 %}root_title{% endif %}">{{ page_translation.title }}</h1>
-                {% else %}
-                    <h2>{{ page_translation.title }}</h2>
-                {% endif %}
-                <div class="content" style="padding-bottom: 30px;">
-                    {{ page_translation.text|safe }}
-                </div>
-                {% if not node.is_leaf_node %}
-                    <ul class="children">
-                        {{ children }}
-                    </ul>
-                {% endif %}
-            </li>
-        {% endrecursetree %}
+        {% for page, info in annotated_pages %}
+            {% if info.open %}
+                <ul><li>
+            {% else %}
+                </li><li>
+            {% endif %}
+            {% get_public_translation page language.slug as page_translation %}
+            {% if page.depth < 3 %}
+                <h1 class="{% if page.depth == 1 %}root_title{% endif %}">{{ page_translation.title }}</h1>
+            {% else %}
+                <h2>{{ page_translation.title }}</h2>
+            {% endif %}
+            <div class="content" style="padding-bottom: 30px;">
+                {{ page_translation.content|safe }}
+            </div>
+            {% for close in info.close %}
+                </li></ul>
+            {% endfor %}
+        {% endfor %}
         {% if right_to_left %}
             </div>
         {% endif %}

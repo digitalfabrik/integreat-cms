@@ -3,7 +3,6 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
 
-from ...cms.models import Region
 from ...cms.models.events.event_translation import EventTranslation
 from ...cms.utils.slug_utils import generate_unique_slug
 from ..decorators import json_response
@@ -149,10 +148,10 @@ def events(request, region_slug, language_slug):
     :return: JSON object according to APIv3 events endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     result = []
     now = timezone.now().date()
-    for event in region.events.filter(archived=False):
+    for event in region.events.prefetch_public_translations().filter(archived=False):
         event_translation = event.get_public_translation(language_slug)
         if event_translation:
             if event.end_date >= now:

@@ -3,18 +3,19 @@ from dateutil.rrule import weekday, rrule
 
 from django.db import models
 from django.db.models import Q
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from ...constants import frequency, status
 from ...utils.slug_utils import generate_unique_slug
-from ..abstract_content_model import AbstractContentModel
+from ..abstract_content_model import AbstractContentModel, ContentQuerySet
 from ..media.media_file import MediaFile
 from ..pois.poi import POI
-from ..regions.region import Language
+from .event_translation import EventTranslation
 from .recurrence_rule import RecurrenceRule
 
 
-class EventQuerySet(models.QuerySet):
+class EventQuerySet(ContentQuerySet):
     """
     Custom QuerySet to facilitate the filtering by date while taking recurring events into account.
     """
@@ -107,18 +108,17 @@ class Event(AbstractContentModel):
     #: The default manager
     objects = EventQuerySet.as_manager()
 
-    @property
-    def languages(self):
+    @staticmethod
+    def get_translation_model():
         """
-        This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects,
-        to which an event translation exists.
+        Returns the translation model of this content model
 
-        :return: QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` an event is translated into
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
+        :return: The class of translations
+        :rtype: type
         """
-        return Language.objects.filter(event_translations__event=self)
+        return EventTranslation
 
-    @property
+    @cached_property
     def is_recurring(self):
         """
         This property checks if the event has a recurrence rule and thereby determines, whether the event is recurring.
@@ -128,7 +128,7 @@ class Event(AbstractContentModel):
         """
         return bool(self.recurrence_rule)
 
-    @property
+    @cached_property
     def is_all_day(self):
         """
         This property checks whether an event takes place the whole day by checking if start time is minimal and end
@@ -141,7 +141,7 @@ class Event(AbstractContentModel):
             second=0, microsecond=0
         )
 
-    @property
+    @cached_property
     def has_location(self):
         """
         This property checks whether the event has a physical location (:class:`~integreat_cms.cms.models.pois.poi.POI`).

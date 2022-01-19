@@ -3,10 +3,10 @@ import logging
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from .abstract_base_page_translation import AbstractBasePageTranslation
-from .imprint_page import ImprintPage
 
 
 logger = logging.getLogger(__name__)
@@ -18,13 +18,13 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
     """
 
     page = models.ForeignKey(
-        ImprintPage,
+        "cms.ImprintPage",
         on_delete=models.CASCADE,
         related_name="translations",
         verbose_name=_("imprint"),
     )
 
-    @property
+    @cached_property
     def url_infix(self):
         """
         Generates the infix of the url of the imprint translation object
@@ -37,7 +37,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         """
         return ""
 
-    @property
+    @cached_property
     def backend_edit_link(self):
         """
         This function returns the absolute url to the editor for this translation
@@ -53,7 +53,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
             },
         )
 
-    @property
+    @cached_property
     def short_url(self):
         """
         This function returns the absolute short url to the imprint translation

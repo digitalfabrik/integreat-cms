@@ -7,7 +7,7 @@
     <div class="flex justify-between">
         {% include "search_input_form.html" with object_type="user" %}
         {% if perms.cms.change_user %}
-            <a href="{% url 'new_region_user' region_slug=region.slug %}" class="btn">
+            <a href="{% url 'new_region_user' region_slug=request.region.slug %}" class="btn">
                 {% trans 'Create user' %}
             </a>
         {% endif %}

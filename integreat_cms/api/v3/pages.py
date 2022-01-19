@@ -5,7 +5,7 @@ from django.conf import settings
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 
-from ...cms.models import Region, Page
+from ...cms.models import Page
 from ..decorators import json_response
 
 
@@ -23,12 +23,13 @@ def transform_page(page_translation):
         thumbnail = settings.BASE_URL + page_translation.page.icon.url
     else:
         thumbnail = None
-    if page_translation.page.parent:
-        parent_absolute_url = page_translation.page.parent.get_translation(
+    parent_page = page_translation.page.get_cached_parent()
+    if parent_page:
+        parent_absolute_url = parent_page.get_public_translation(
             page_translation.language.slug
         ).get_absolute_url()
         parent = {
-            "id": page_translation.page.parent.id,
+            "id": parent_page.id,
             "url": settings.BASE_URL + parent_absolute_url,
             "path": parent_absolute_url,
         }
@@ -71,9 +72,11 @@ def pages(request, region_slug, language_slug):
     :return: JSON object according to APIv3 pages endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     result = []
-    for page in region.get_pages():
+    for page in region.get_pages(
+        prefetch_translations=True, prefetch_public_translations=True
+    ).cache_tree():
         page_translation = page.get_public_translation(language_slug)
         if page_translation:
             result.append(transform_page(page_translation))
@@ -100,7 +103,7 @@ def get_single_page(request, language_slug):
     :return: the requested page
     :rtype: ~integreat_cms.cms.models.pages.page.Page
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     if request.GET.get("id"):
         page = get_object_or_404(region.pages, id=request.GET.get("id"))
@@ -192,7 +195,7 @@ def children(request, region_slug, language_slug):
         depth = depth - 1
     result = []
     for root in root_pages:
-        descendants = root.get_descendants_max_depth(True, depth)
+        descendants = root.get_tree_max_depth(max_depth=depth)
         for descendant in descendants:
             public_translation = descendant.get_public_translation(language_slug)
             if public_translation:
@@ -222,7 +225,7 @@ def parents(request, region_slug, language_slug):
     """
     current_page = get_single_page(request, language_slug)
     result = []
-    for ancestor in current_page.get_ancestors(include_self=False):
+    for ancestor in current_page.get_cached_ancestors(include_self=False):
         public_translation = ancestor.get_public_translation(language_slug)
         if not public_translation:
             raise Http404("No Page matches the given url or id.")

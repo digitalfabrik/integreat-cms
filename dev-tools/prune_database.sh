@@ -50,10 +50,6 @@ else
 
 fi
 
-# Remove migrations
-rm -rfv "${PACKAGE_DIR:?}/cms/migrations"
-echo "Removed database migrations" | print_info
-
 # Remove media files (because they are no longer usable without the corresponding database entries)
 rm -rfv "${PACKAGE_DIR:?}/media"
 echo "Removed media files" | print_info

@@ -6,7 +6,11 @@ from .view_test_utils import generate_test_functions
 
 admin_views = [
     "admin_dashboard",
+    "admin_feedback",
     "languages",
+    "media_admin",
+    "mediacenter_directory_path",
+    "mediacenter_get_directory_content",
     "new_language",
     "new_offer_template",
     "new_organization",
@@ -15,9 +19,7 @@ admin_views = [
     "new_user",
     "offer_templates",
     "organizations",
-    "regions",
-    "regions",
-    "regions",
+    "region_selection",
     "regions",
     "roles",
     "user_settings",

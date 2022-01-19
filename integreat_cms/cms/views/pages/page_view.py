@@ -3,7 +3,7 @@ import logging
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 from ...constants import status, text_directions
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageForm, PageTranslationForm
-from ...models import PageTranslation, Region
+from ...models import PageTranslation
 from .page_context_mixin import PageContextMixin
 from ..media.media_context_mixin import MediaContextMixin
 
@@ -55,8 +55,10 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
-        language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
+        region = request.region
+        language = region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
+        )
 
         # get page and translation objects if they exist
         page = region.pages.filter(id=kwargs.get("page_id")).first()
@@ -136,10 +138,11 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         )
 
         # Pass siblings to template to enable rendering of page order table
-        if not page or not page.parent:
-            siblings = region.pages.filter(level=0)
+        if page:
+            siblings = page.get_region_siblings()
         else:
-            siblings = page.parent.children.all()
+            siblings = region.get_root_pages()
+
         context = self.get_context_data(**kwargs)
         return render(
             request,
@@ -153,7 +156,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
                 "siblings": siblings,
                 "language": language,
                 # Languages for tab view
-                "languages": region.languages if page else [language],
+                "languages": region.active_languages if page else [language],
                 "side_by_side_language_options": side_by_side_language_options,
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
@@ -185,8 +188,10 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
-        language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
+        region = request.region
+        language = region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
+        )
         context = self.get_context_data(**kwargs)
 
         page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
@@ -200,12 +205,6 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
             page=page_instance,
             language=language,
         ).first()
-
-        # Pass siblings to template to enable rendering of page order table
-        if not page_instance or not page_instance.parent:
-            siblings = region.pages.filter(level=0)
-        else:
-            siblings = page_instance.parent.children.all()
 
         page_form = PageForm(
             data=request.POST,
@@ -276,6 +275,14 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
                 # Add the success message
                 page_translation_form.add_success_message(request)
 
+        # Pass siblings to template to enable rendering of page order table
+        if page_translation_form.instance.id:
+            siblings = page_translation_form.instance.page.get_region_siblings()
+        elif page_form.instance.id:
+            siblings = page_form.instance.get_region_siblings()
+        else:
+            siblings = region.get_root_pages()
+
         return render(
             request,
             self.template_name,
@@ -288,7 +295,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
                 "siblings": siblings,
                 "language": language,
                 # Languages for tab view
-                "languages": region.languages if page_instance else [language],
+                "languages": region.active_languages if page_instance else [language],
                 "side_by_side_language_options": self.get_side_by_side_language_options(
                     region, language, page_instance
                 ),
@@ -317,7 +324,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         """
 
         side_by_side_language_options = []
-        for language_node in region.language_tree_nodes.all():
+        for language_node in region.language_tree_nodes.filter(active=True):
             if language_node.parent:
                 source_translation = PageTranslation.objects.filter(
                     page=page,
