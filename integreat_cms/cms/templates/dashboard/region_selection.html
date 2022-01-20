@@ -13,8 +13,8 @@
         {% for region in request.user.regions.all %}
         <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
             <td class="pl-2">
-                <a href="{% url 'dashboard' region_slug=request.region.slug %}" class="block py-3 px-2 text-gray-800">
-                    {{ request.region.full_name }}
+                <a href="{% url 'dashboard' region_slug=region.slug %}" class="block py-3 px-2 text-gray-800">
+                    {{ region.full_name }}
                 </a>
             </td>
         </tr>

@@ -19,7 +19,6 @@ admin_views = [
     "new_user",
     "offer_templates",
     "organizations",
-    "region_selection",
     "regions",
     "roles",
     "user_settings",
