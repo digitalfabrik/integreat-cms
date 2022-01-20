@@ -117,16 +117,11 @@ urlpatterns = [
         RedirectView.as_view(url=django_settings.WIKI_URL),
         name="wiki_redirect",
     ),
-    url(r"^$", dashboard.RedirectView.as_view(), name="redirect"),
+    url(r"^$", dashboard.RegionSelection.as_view(), name="region_selection"),
     url(
         r"^admin_dashboard/$",
         dashboard.AdminDashboardView.as_view(),
         name="admin_dashboard",
-    ),
-    url(
-        r"^region_selection/$",
-        dashboard.RegionSelection.as_view(),
-        name="region_selection",
     ),
     url(
         r"^regions/",
