@@ -6,7 +6,7 @@
  *  TEMPLATE
  * ##########
  *
- * - Add <form> around list/table
+ * - Add <form id="bulk-action-form" method="post"> around list/table
  * - Add <input type="checkbox" id="bulk-select-all"> in table head
  * - Add <input type="checkbox" name="selected_ids[]" value="{{ item.id }}" class="bulk-select-item"> in each table row
  * - Add options for all bulk actions

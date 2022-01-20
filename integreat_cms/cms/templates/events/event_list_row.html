@@ -4,8 +4,11 @@
 {% load poi_filters %}
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
+    <td class="py-3 pl-4">
+        <input type="checkbox" name="selected_ids[]" value="{{ event.id }}" form="bulk-action-form" class="bulk-select-item">
+    </td>
     <td>
-        <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug%}" class="py-3 pl-4 pr-2 text-gray-800">
+        <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug%}" class="py-3 pl-2 pr-2 text-gray-800">
             {% if event_translation %}
                 {{ event_translation.title }}
             {% else %}

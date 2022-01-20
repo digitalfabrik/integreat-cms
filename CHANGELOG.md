@@ -13,6 +13,7 @@ UNRELEASED
 * Improve performance of page tree, event and POI lists
 * Improve performance of page, event and POI API endpoints
 * Add database migrations
+* Add bulk actions for events and POIs
 
 
 2021.12.0-beta
