@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import get_language, ugettext_lazy as _
 
 from ...constants.push_notifications import PN_MODES
@@ -51,13 +52,14 @@ class PushNotification(models.Model):
         ),
     )
 
-    @property
+    @cached_property
     def languages(self):
         """
-        This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to which an event
-        translation exists.
+        This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects,
+        to which a push notification translation exists.
 
-        :return: QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` an event is translated into
+        :return: QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` a push notification is
+                 translated into
         :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
         """
         return Language.objects.filter(
