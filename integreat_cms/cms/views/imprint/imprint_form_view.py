@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_imprintpage"), name="dispatch")
 @method_decorator(permission_required("cms.change_imprintpage"), name="post")
-class ImprintView(TemplateView, MediaContextMixin):
+class ImprintFormView(TemplateView, MediaContextMixin):
     """
     View for the imprint page form and imprint page translation form
     """

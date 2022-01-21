@@ -34,7 +34,7 @@ def archive_imprint(request, region_slug):
 
     :raises ~django.http.Http404: If no imprint exists for the region
 
-    :return: A redirection to the :class:`~integreat_cms.cms.views.imprint.imprint_view.ImprintView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.imprint.imprint_form_view.ImprintFormView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -75,7 +75,7 @@ def restore_imprint(request, region_slug):
 
     :raises ~django.http.Http404: If no imprint exists for the region
 
-    :return: A redirection to the :class:`~integreat_cms.cms.views.imprint.imprint_view.ImprintView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.imprint.imprint_form_view.ImprintFormView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 
@@ -116,7 +116,7 @@ def delete_imprint(request, region_slug):
 
     :raises ~django.http.Http404: If no imprint exists for the region
 
-    :return: A redirection to the :class:`~integreat_cms.cms.views.imprint.imprint_view.ImprintView`
+    :return: A redirection to the :class:`~integreat_cms.cms.views.imprint.imprint_form_view.ImprintFormView`
     :rtype: ~django.http.HttpResponseRedirect
     """
 

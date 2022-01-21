@@ -8,12 +8,15 @@ from django.conf.urls import include, url
 from django.conf import settings as django_settings
 from django.views.generic import RedirectView
 
+from .forms import LanguageForm, OfferTemplateForm, OrganizationForm, RegionForm
+
 from .views import (
     authentication,
     analytics,
     chat,
     dashboard,
     events,
+    form_views,
     offer_templates,
     language_tree,
     languages,
@@ -128,14 +131,20 @@ urlpatterns = [
         include(
             [
                 url(r"^$", regions.RegionListView.as_view(), name="regions"),
-                url(r"^new$", regions.RegionView.as_view(), name="new_region"),
                 url(
-                    r"^(?P<managed_region_slug>[-\w]+)/",
+                    r"^new$",
+                    form_views.CustomCreateView.as_view(form_class=RegionForm),
+                    name="new_region",
+                ),
+                url(
+                    r"^(?P<slug>[-\w]+)/",
                     include(
                         [
                             url(
                                 r"^edit$",
-                                regions.RegionView.as_view(),
+                                form_views.CustomUpdateView.as_view(
+                                    form_class=RegionForm
+                                ),
                                 name="edit_region",
                             ),
                             url(
@@ -153,20 +162,21 @@ urlpatterns = [
         include(
             [
                 url(r"^$", languages.LanguageListView.as_view(), name="languages"),
-                url(r"^new$", languages.LanguageView.as_view(), name="new_language"),
                 url(
-                    r"^(?P<language_slug>[-\w]+)/",
+                    r"^new$",
+                    form_views.CustomCreateView.as_view(form_class=LanguageForm),
+                    name="new_language",
+                ),
+                url(
+                    r"^(?P<slug>[-\w]+)/",
                     include(
                         [
                             url(
                                 r"^edit$",
-                                languages.LanguageView.as_view(),
+                                form_views.CustomUpdateView.as_view(
+                                    form_class=LanguageForm
+                                ),
                                 name="edit_language",
-                            ),
-                            url(
-                                r"^delete$",
-                                languages.LanguageView.as_view(),
-                                name="delete_language",
                             ),
                         ]
                     ),
@@ -179,12 +189,16 @@ urlpatterns = [
         include(
             [
                 url(r"^$", users.UserListView.as_view(), name="users"),
-                url(r"^new$", users.UserView.as_view(), name="new_user"),
+                url(r"^new$", users.UserFormView.as_view(), name="new_user"),
                 url(
                     r"^(?P<user_id>[0-9]+)/",
                     include(
                         [
-                            url(r"^edit$", users.UserView.as_view(), name="edit_user"),
+                            url(
+                                r"^edit$",
+                                users.UserFormView.as_view(),
+                                name="edit_user",
+                            ),
                             url(r"^delete$", users.delete_user, name="delete_user"),
                             url(
                                 r"^resend_activation_link$",
@@ -202,15 +216,19 @@ urlpatterns = [
         include(
             [
                 url(r"^$", roles.RoleListView.as_view(), name="roles"),
-                url(r"^new$", roles.RoleView.as_view(), name="new_role"),
+                url(r"^new$", roles.RoleFormView.as_view(), name="new_role"),
                 url(
                     r"^(?P<role_id>[0-9]+)/",
                     include(
                         [
-                            url(r"^edit$", roles.RoleView.as_view(), name="edit_role"),
+                            url(
+                                r"^edit$",
+                                roles.RoleFormView.as_view(),
+                                name="edit_role",
+                            ),
                             url(
                                 r"^delete$",
-                                roles.RoleView.as_view(),
+                                roles.RoleFormView.as_view(),
                                 name="delete_role",
                             ),
                         ]
@@ -230,16 +248,18 @@ urlpatterns = [
                 ),
                 url(
                     r"^new$",
-                    organizations.OrganizationView.as_view(),
+                    form_views.CustomCreateView.as_view(form_class=OrganizationForm),
                     name="new_organization",
                 ),
                 url(
-                    r"^(?P<organization_id>[0-9]+)/",
+                    r"^(?P<slug>[-\w]+)/",
                     include(
                         [
                             url(
                                 r"^edit$",
-                                organizations.OrganizationView.as_view(),
+                                form_views.CustomUpdateView.as_view(
+                                    form_class=OrganizationForm
+                                ),
                                 name="edit_organization",
                             ),
                             url(
@@ -281,32 +301,29 @@ urlpatterns = [
         ),
     ),
     url(
-        r"^offer_templates/",
+        r"^offer-templates/",
         include(
             [
                 url(
                     r"^$",
                     offer_templates.OfferTemplateListView.as_view(),
-                    name="offer_templates",
+                    name="offertemplates",
                 ),
                 url(
                     r"^new$",
-                    offer_templates.OfferTemplateView.as_view(),
-                    name="new_offer_template",
+                    form_views.CustomCreateView.as_view(form_class=OfferTemplateForm),
+                    name="new_offertemplate",
                 ),
                 url(
-                    r"^(?P<offer_template_id>[0-9]+)/",
+                    r"^(?P<slug>[-\w]+)/",
                     include(
                         [
                             url(
                                 r"^edit$",
-                                offer_templates.OfferTemplateView.as_view(),
-                                name="edit_offer_template",
-                            ),
-                            url(
-                                r"^delete$",
-                                offer_templates.OfferTemplateView.as_view(),
-                                name="delete_offer_templates",
+                                form_views.CustomUpdateView.as_view(
+                                    form_class=OfferTemplateForm
+                                ),
+                                name="edit_offertemplate",
                             ),
                         ]
                     ),
@@ -566,7 +583,7 @@ urlpatterns = [
                                         ),
                                         url(
                                             r"^new$",
-                                            pages.PageView.as_view(),
+                                            pages.PageFormView.as_view(),
                                             name="new_page",
                                         ),
                                         url(
@@ -612,7 +629,7 @@ urlpatterns = [
                                                     ),
                                                     url(
                                                         r"^edit$",
-                                                        pages.PageView.as_view(),
+                                                        pages.PageFormView.as_view(),
                                                         name="edit_page",
                                                     ),
                                                     url(
@@ -673,7 +690,7 @@ urlpatterns = [
                         [
                             url(
                                 r"^$",
-                                imprint.ImprintView.as_view(),
+                                imprint.ImprintFormView.as_view(),
                                 name="edit_imprint",
                             ),
                             url(
@@ -682,7 +699,7 @@ urlpatterns = [
                                     [
                                         url(
                                             r"^$",
-                                            imprint.ImprintView.as_view(),
+                                            imprint.ImprintFormView.as_view(),
                                             name="edit_imprint",
                                         ),
                                         url(
@@ -750,7 +767,7 @@ urlpatterns = [
                                         ),
                                         url(
                                             r"^new$",
-                                            events.EventView.as_view(),
+                                            events.EventFormView.as_view(),
                                             name="new_event",
                                         ),
                                         url(
@@ -764,7 +781,7 @@ urlpatterns = [
                                                 [
                                                     url(
                                                         r"^edit$",
-                                                        events.EventView.as_view(),
+                                                        events.EventFormView.as_view(),
                                                         name="edit_event",
                                                     ),
                                                     url(
@@ -817,7 +834,7 @@ urlpatterns = [
                                         ),
                                         url(
                                             r"^new$",
-                                            pois.POIView.as_view(),
+                                            pois.POIFormView.as_view(),
                                             name="new_poi",
                                         ),
                                         url(
@@ -836,7 +853,7 @@ urlpatterns = [
                                                     ),
                                                     url(
                                                         r"^edit$",
-                                                        pois.POIView.as_view(),
+                                                        pois.POIFormView.as_view(),
                                                         name="edit_poi",
                                                     ),
                                                     url(
@@ -910,7 +927,7 @@ urlpatterns = [
                                         ),
                                         url(
                                             r"^new$",
-                                            push_notifications.PushNotificationView.as_view(),
+                                            push_notifications.PushNotificationFormView.as_view(),
                                             name="new_push_notification",
                                         ),
                                         url(
@@ -919,7 +936,7 @@ urlpatterns = [
                                                 [
                                                     url(
                                                         r"^edit$",
-                                                        push_notifications.PushNotificationView.as_view(),
+                                                        push_notifications.PushNotificationFormView.as_view(),
                                                         name="edit_push_notification",
                                                     ),
                                                 ]
@@ -942,7 +959,7 @@ urlpatterns = [
                             ),
                             url(
                                 r"^new$",
-                                language_tree.LanguageTreeNodeView.as_view(),
+                                language_tree.LanguageTreeNodeFormView.as_view(),
                                 name="new_language_tree_node",
                             ),
                             url(
@@ -951,7 +968,7 @@ urlpatterns = [
                                     [
                                         url(
                                             r"^edit$",
-                                            language_tree.LanguageTreeNodeView.as_view(),
+                                            language_tree.LanguageTreeNodeFormView.as_view(),
                                             name="edit_language_tree_node",
                                         ),
                                         url(
@@ -983,7 +1000,7 @@ urlpatterns = [
                             ),
                             url(
                                 r"^new$",
-                                users.RegionUserView.as_view(),
+                                users.RegionUserFormView.as_view(),
                                 name="new_region_user",
                             ),
                             url(
@@ -992,7 +1009,7 @@ urlpatterns = [
                                     [
                                         url(
                                             r"^edit$",
-                                            users.RegionUserView.as_view(),
+                                            users.RegionUserFormView.as_view(),
                                             name="edit_region_user",
                                         ),
                                         url(

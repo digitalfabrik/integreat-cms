@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
-class PageView(TemplateView, PageContextMixin, MediaContextMixin):
+class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
     """
     View for the page form and page translation form
     """

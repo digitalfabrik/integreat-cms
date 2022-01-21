@@ -8,30 +8,29 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...decorators import staff_required, permission_required
-from ...forms import RegionForm
-from ...models import Region
-from ..media.media_context_mixin import MediaContextMixin
+from ...forms import RoleForm, GroupForm
+from ...models import Role
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(staff_required, name="dispatch")
-@method_decorator(permission_required("cms.view_region"), name="dispatch")
-@method_decorator(permission_required("cms.change_region"), name="post")
-class RegionView(TemplateView, MediaContextMixin):
+@method_decorator(permission_required("auth.view_group"), name="dispatch")
+@method_decorator(permission_required("auth.change_group"), name="post")
+class RoleFormView(TemplateView):
     """
-    View for the region form
+    View for the role form
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "regions/region_form.html"
+    template_name = "roles/role_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "regions"}
+    base_context = {"current_menu_item": "roles"}
 
     def get(self, request, *args, **kwargs):
         r"""
-        Render :class:`~integreat_cms.cms.forms.regions.region_form.RegionForm`
+        Render :class:`~integreat_cms.cms.forms.roles.role_form.RoleForm`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -45,22 +44,23 @@ class RegionView(TemplateView, MediaContextMixin):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-
-        region_instance = Region.objects.filter(
-            slug=kwargs.get("managed_region_slug")
-        ).first()
-        context = self.get_context_data(**kwargs)
-        form = RegionForm(instance=region_instance)
-
+        role_instance = (
+            Role.objects.filter(id=kwargs.get("role_id"))
+            .select_related("group")
+            .first()
+        )
+        role_form = RoleForm(instance=role_instance)
+        group_form = GroupForm(instance=getattr(role_instance, "group", None))
         return render(
-            request, self.template_name, {**self.base_context, **context, "form": form}
+            request,
+            self.template_name,
+            {"role_form": role_form, "group_form": group_form, **self.base_context},
         )
 
     # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         r"""
-        Render :class:`~integreat_cms.cms.forms.regions.region_form.RegionForm` and save :class:`~integreat_cms.cms.models.regions.region.Region`
-        object
+        Submit :class:`~integreat_cms.cms.forms.roles.role_form.RoleForm` and save :class:`~django.contrib.auth.models.Group` object
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -74,43 +74,44 @@ class RegionView(TemplateView, MediaContextMixin):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-
-        region_instance = Region.objects.filter(
-            slug=kwargs.get("managed_region_slug")
-        ).first()
-        context = self.get_context_data(**kwargs)
-
-        form = RegionForm(
-            data=request.POST, files=request.FILES, instance=region_instance
+        role_instance = (
+            Role.objects.filter(id=kwargs.get("role_id"))
+            .select_related("group")
+            .first()
+        )
+        role_form = RoleForm(data=request.POST, instance=role_instance)
+        group_form = GroupForm(
+            data=request.POST, instance=getattr(role_instance, "group", None)
         )
 
-        if not form.is_valid():
+        if not role_form.is_valid() or not group_form.is_valid():
             # Add error messages
-            form.add_error_messages(request)
-        elif not form.has_changed():
+            role_form.add_error_messages(request)
+        elif not role_form.has_changed() and not group_form.has_changed():
             # Add "no changes" messages
             messages.info(request, _("No changes made"))
         else:
-            # Save form
-            form.save()
+            # Save forms
+            role_form.instance.group = group_form.save()
+            role_form.save()
             # Add the success message and redirect to the edit page
-            if not region_instance:
+            if not role_instance:
                 messages.success(
                     request,
-                    _('Region "{}" was successfully created').format(
-                        form.instance.name
-                    ),
+                    _('Role "{}" was successfully created').format(role_form.instance),
                 )
                 return redirect(
-                    "edit_region",
-                    managed_region_slug=form.instance.slug,
+                    "edit_role",
+                    role_id=role_form.instance.id,
                 )
             # Add the success message
             messages.success(
                 request,
-                _('Region "{}" was successfully saved').format(form.instance.name),
+                _('Role "{}" was successfully saved').format(role_form.instance),
             )
 
         return render(
-            request, self.template_name, {"form": form, **self.base_context, **context}
+            request,
+            self.template_name,
+            {"role_form": role_form, "group_form": group_form, **self.base_context},
         )

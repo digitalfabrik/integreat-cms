@@ -2,7 +2,7 @@
 This package contains all views related to pages
 """
 from .page_tree_view import PageTreeView
-from .page_view import PageView
+from .page_form_view import PageFormView
 from .page_actions import (
     archive_page,
     restore_page,

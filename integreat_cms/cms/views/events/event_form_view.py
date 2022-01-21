@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
 @method_decorator(permission_required("cms.change_event"), name="post")
-class EventView(TemplateView, EventContextMixin, MediaContextMixin):
+class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
     """
     Class for rendering the events form
     """

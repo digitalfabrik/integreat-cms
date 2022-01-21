@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_pushnotification"), name="dispatch")
 @method_decorator(permission_required("cms.change_pushnotification"), name="post")
-class PushNotificationView(TemplateView):
+class PushNotificationFormView(TemplateView):
     """
     Class that handles HTTP POST and GET requests for editing push notifications
     """

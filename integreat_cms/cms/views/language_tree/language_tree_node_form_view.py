@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_languagetreenode"), name="dispatch")
 @method_decorator(permission_required("cms.change_languagetreenode"), name="post")
-class LanguageTreeNodeView(TemplateView):
+class LanguageTreeNodeFormView(TemplateView):
     """
     Class that handles viewing single language in the language tree.
     This view is available within regions.

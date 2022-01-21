@@ -22,9 +22,9 @@ class OfferTemplateListView(TemplateView):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "offer_templates/offer_template_list.html"
+    template_name = "offertemplates/offertemplate_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "offer_templates"}
+    base_context = {"current_menu_item": "offertemplates"}
 
     def get(self, request, *args, **kwargs):
         r"""

@@ -30,7 +30,7 @@ class OfferListFeedback(Feedback):
         :rtype: str
         """
         return reverse(
-            "offer_templates",
+            "offertemplates",
         )
 
     @property

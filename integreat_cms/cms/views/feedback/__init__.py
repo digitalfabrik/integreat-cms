@@ -1,3 +1,6 @@
+"""
+This package contains all views related to feedback
+"""
 from .admin_feedback_list_view import AdminFeedbackListView
 from .region_feedback_list_view import RegionFeedbackListView
 from .admin_feedback_actions import (
