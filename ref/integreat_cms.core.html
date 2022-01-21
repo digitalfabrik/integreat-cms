@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-01-15T23:43:52+00:00" />
+    <meta property="article:modified_time" content="2022-01-21T14:07:33+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2021.12.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -425,6 +425,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#circleci-settings">Circleci Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#settings">Settings</a></li>
@@ -628,6 +629,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.context_processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.logging_formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings">Settings</a></li>
@@ -717,6 +719,27 @@ For the full list of settings and their values, see <a class="reference external
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.circleci_settings.</span></span><span class="sig-name descname"><span class="pre">SECRET_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dummy'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/circleci_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Set a dummy secret key for CircleCI build even if it’s not in debug mode</p>
+</dd></dl>
+
+</section>
+<section id="context-processors">
+<h2>Context Processors<a class="headerlink" href="#context-processors" title="Permalink to this headline"></a></h2>
+<p>Context processors pass additional variables to templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/templates/api/#context-processors" title="(in Django v3.2)"><span>Built-in template context processors</span></a>).</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.context_processors.</span></span><span class="sig-name descname"><span class="pre">version_processor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/context_processors.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This context processor injects the current package version into the template context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current http request</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The currently installed version of this package</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -1516,7 +1539,7 @@ In debug mode, this is not required since <a class="reference external" href="ht
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">TEMPLATES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[{'BACKEND':</span> <span class="pre">'django.template.backends.django.DjangoTemplates',</span> <span class="pre">'DIRS':</span> <span class="pre">[],</span> <span class="pre">'APP_DIRS':</span> <span class="pre">True,</span> <span class="pre">'OPTIONS':</span> <span class="pre">{'context_processors':</span> <span class="pre">['django.template.context_processors.debug',</span> <span class="pre">'django.template.context_processors.request',</span> <span class="pre">'django.contrib.auth.context_processors.auth',</span> <span class="pre">'django.contrib.messages.context_processors.messages'],</span> <span class="pre">'debug':</span> <span class="pre">False}}]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">TEMPLATES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[{'BACKEND':</span> <span class="pre">'django.template.backends.django.DjangoTemplates',</span> <span class="pre">'DIRS':</span> <span class="pre">[],</span> <span class="pre">'APP_DIRS':</span> <span class="pre">True,</span> <span class="pre">'OPTIONS':</span> <span class="pre">{'context_processors':</span> <span class="pre">['django.template.context_processors.debug',</span> <span class="pre">'django.template.context_processors.request',</span> <span class="pre">'django.contrib.auth.context_processors.auth',</span> <span class="pre">'django.contrib.messages.context_processors.messages',</span> <span class="pre">'integreat_cms.core.context_processors.version_processor'],</span> <span class="pre">'debug':</span> <span class="pre">False}}]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Config for HTML templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-TEMPLATES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
@@ -1529,6 +1552,7 @@ In debug mode, this is not required since <a class="reference external" href="ht
                 <span class="s1">&#39;django.template.context_processors.request&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;django.contrib.auth.context_processors.auth&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;django.contrib.messages.context_processors.messages&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;integreat_cms.core.context_processors.version_processor&#39;</span><span class="p">,</span>
             <span class="p">],</span>
             <span class="s1">&#39;debug&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span>
         <span class="p">},</span>
@@ -1742,7 +1766,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 15, 2022.
+      <span class="lastupdated">Last updated on Jan 21, 2022.
       </span></p>
   </div>
 
