@@ -33,43 +33,63 @@
                 {% endif %}
             </div>
         </div>
-        <div class="{% if imprint %} w-2/3 {% else %} w-full {% endif %} flex flex-wrap flex-col pr-2">
-            <ul class="flex flex-wrap pl-4">
-                {% for other_language in languages %}
+        <div class="flex flex-wrap flex-col flex-grow pr-2 w-2/3">
+            <ul class="flex flex-wrap items-end pl-4">
+                {% for other_language in languages|sort_languages:language|slice:":4" %}
                     <li class="mr-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
-                        <div class="bg-white text-blue-500 {% if other_language != language %}hover:bg-blue-500 hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
+                        <div class="bg-white text-blue-500 {% if other_language != language %}hover:bg-blue-500 hover:text-white {% else %} cursor-default {% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
                             <div class="border-b-2 border-white">
-                        {% if other_language == language %}
-                            <div class="p-4">
-                                {% if imprint %}
-                                    {% if other_language in imprint.languages %}
-                                        {% if imprint_translation_form.instance.is_outdated %}
+                                {% if other_language == language %}
+                                    <div class="{{ language.slug }} py-2 px-4">
+                                        {% if imprint %}
+                                            {% if other_language in imprint.languages %}
+                                                {% if imprint_translation_form.instance.is_outdated %}
+                                                    <span title="{% trans 'Translation outdated' %}">
+                                                        <i data-feather="alert-triangle"></i>
+                                                    </span>
+                                                {% elif imprint_translation_form.instance.currently_in_translation %}
+                                                    <span title="{% trans 'Currently in translation' %}">
+                                                        <i data-feather="clock"></i>
+                                                    </span>
+                                                {% else %}
+                                                    <span title="{% trans 'Translation up-to-date' %}">
+                                                        <i data-feather="check"></i>
+                                                    </span>
+                                                {% endif %}
+                                            {% else %}
+                                                <span title="{% trans 'Translation missing' %}">
+                                                    <i data-feather="x"></i>
+                                                </span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span title="{% trans 'Create Translation' %}">
+                                                <i data-feather="plus"></i>
+                                            </span>
+                                        {% endif %}
+                                        {{ other_language.translated_name }}
+                                        <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                        {% if other_language.secondary_country_code %}
+                                            <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="hidden ajax p-4">
+                                        {% if imprint_translation_form.instance.is_outdated_helper %}
                                             <span title="{% trans 'Translation outdated' %}">
                                                 <i data-feather="alert-triangle"></i>
-                                            </span>
-                                        {% elif imprint_translation_form.instance.currently_in_translation %}
-                                            <span title="{% trans 'Currently in translation' %}">
-                                                <i data-feather="clock"></i>
                                             </span>
                                         {% else %}
                                             <span title="{% trans 'Translation up-to-date' %}">
                                                 <i data-feather="check"></i>
                                             </span>
                                         {% endif %}
-                                    {% else %}
-                                        <span title="{% trans 'Translation missing' %}">
-                                            <i data-feather="x"></i>
-                                        </span>
-                                    {% endif %}
-                                {% else %}
-                                    <span title="{% trans 'Create Translation' %}">
-                                        <i data-feather="plus"></i>
-                                    </span>
-                                {% endif %}
-                                {{ other_language.translated_name }}
-                            </div>
+                                        {{ other_language.translated_name }}
+                                        <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                        {% if other_language.secondary_country_code %}
+                                            <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                        {% endif %}
+                                    </div>
                         {% else %}
-                            <a class="p-4 block" style="color: inherit;" href="{% url 'edit_imprint' region_slug=request.region.slug language_slug=other_language.slug %}">
+                            <a class="px-4 py-2 block" style="color: inherit;" href="{% url 'edit_imprint' region_slug=request.region.slug language_slug=other_language.slug %}">
                                 {% if other_language in imprint.languages %}
                                     {% get_translation imprint other_language.slug as other_imprint_translation %}
                                     {% if other_imprint_translation.is_outdated %}
@@ -91,12 +111,21 @@
                                     </span>
                                 {% endif %}
                                 {{ other_language.translated_name }}
+                                <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                {% if other_language.secondary_country_code %}
+                                    <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                {% endif %}
                             </a>
                         {% endif %}
                             </div>
                         </div>
                     </li>
                 {% endfor %}
+                {% if languages|length > 4 %}
+                <div class="ml-auto z-10 cursor-pointer">
+                    {% include "content_form_language_switcher.html" with target='edit_imprint' instance=imprint_form.instance content_id=imprint_form.instance.id %}
+                </div>
+                {% endif %}
             </ul>
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
                 <div class="w-full p-4">
@@ -132,7 +161,7 @@
             </div>
         </div>
         {% if imprint %}
-            <div class="w-1/3 pl-4 flex flex-wrap flex-col">
+            <div class="pl-4 flex flex-wrap flex-col" style="width=400px">
                 <ul class="flex pl-4">
                     <li class="z-10" style="margin-bottom: -2px">
                         <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg p-4">
