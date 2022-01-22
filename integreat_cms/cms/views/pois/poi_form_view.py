@@ -167,19 +167,19 @@ class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
                         poi_translation_form.instance
                     ),
                 )
-                return redirect(
-                    "edit_poi",
-                    **{
-                        "poi_id": poi_form.instance.id,
-                        "region_slug": region.slug,
-                        "language_slug": language.slug,
-                    }
-                )
-            if not poi_form.has_changed() and not poi_translation_form.has_changed():
+            elif not poi_form.has_changed() and not poi_translation_form.has_changed():
                 messages.info(request, _("No changes detected, but date refreshed"))
             else:
                 # Add the success message
                 poi_translation_form.add_success_message(request)
+            return redirect(
+                "edit_poi",
+                **{
+                    "poi_id": poi_form.instance.id,
+                    "region_slug": region.slug,
+                    "language_slug": language.slug,
+                }
+            )
 
         return render(
             request,

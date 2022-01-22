@@ -108,26 +108,27 @@ class LanguageTreeNodeFormView(TemplateView):
             # Save form
             language_tree_node_form.save()
             # Add the success message and redirect to the edit page
-            if not language_tree_node_instance:
+            if language_tree_node_instance:
                 messages.success(
                     request,
                     _('Language tree node for "{}" was successfully saved').format(
                         language_tree_node_form.instance
                     ),
                 )
-                return redirect(
-                    "edit_language_tree_node",
-                    **{
-                        "language_tree_node_id": language_tree_node_form.instance.id,
-                        "region_slug": region.slug,
-                    }
+            else:
+                # Add the success message
+                messages.success(
+                    request,
+                    _('Language tree node for "{}" was successfully created').format(
+                        language_tree_node_form.instance
+                    ),
                 )
-            # Add the success message
-            messages.success(
-                request,
-                _('Language tree node for "{}" was successfully created').format(
-                    language_tree_node_form.instance
-                ),
+            return redirect(
+                "edit_language_tree_node",
+                **{
+                    "language_tree_node_id": language_tree_node_form.instance.id,
+                    "region_slug": region.slug,
+                }
             )
         return render(
             request,

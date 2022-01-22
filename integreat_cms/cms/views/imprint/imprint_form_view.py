@@ -212,15 +212,16 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             # Add the success message and redirect to the edit page
             if not imprint_instance:
                 messages.success(request, _("Imprint was successfully created"))
-                return redirect(
-                    "edit_imprint",
-                    **{
-                        "region_slug": region.slug,
-                        "language_slug": language.slug,
-                    },
-                )
-            # Add the success message
-            imprint_translation_form.add_success_message(request)
+            else:
+                # Add the success message
+                imprint_translation_form.add_success_message(request)
+            return redirect(
+                "edit_imprint",
+                **{
+                    "region_slug": region.slug,
+                    "language_slug": language.slug,
+                },
+            )
 
         return render(
             request,

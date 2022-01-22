@@ -209,15 +209,7 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
                         event_translation_form.instance
                     ),
                 )
-                return redirect(
-                    "edit_event",
-                    **{
-                        "event_id": event_form.instance.id,
-                        "region_slug": region.slug,
-                        "language_slug": language.slug,
-                    },
-                )
-            if (
+            elif (
                 not event_form.has_changed()
                 and not event_translation_form.has_changed()
                 and not recurrence_rule_form.has_changed()
@@ -226,6 +218,14 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
             else:
                 # Add the success message
                 event_translation_form.add_success_message(request)
+            return redirect(
+                "edit_event",
+                **{
+                    "event_id": event_form.instance.id,
+                    "region_slug": region.slug,
+                    "language_slug": language.slug,
+                },
+            )
 
         return render(
             request,

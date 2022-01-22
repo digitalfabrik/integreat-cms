@@ -118,16 +118,17 @@ class UserFormView(TemplateView):
                         user_form.instance.full_user_name
                     ),
                 )
-                return redirect(
-                    "edit_user",
-                    user_id=user_form.instance.id,
+            else:
+                # Add the success message
+                messages.success(
+                    request,
+                    _('User "{}" was successfully saved').format(
+                        user_form.instance.full_user_name
+                    ),
                 )
-            # Add the success message
-            messages.success(
-                request,
-                _('User "{}" was successfully saved').format(
-                    user_form.instance.full_user_name
-                ),
+            return redirect(
+                "edit_user",
+                user_id=user_form.instance.id,
             )
 
         if not user_form.instance.is_active:

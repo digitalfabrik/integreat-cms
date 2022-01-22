@@ -113,17 +113,18 @@ class RegionUserFormView(TemplateView):
                         region_user_form.instance.full_user_name
                     ),
                 )
-                return redirect(
-                    "edit_region_user",
-                    region_slug=region.slug,
-                    user_id=region_user_form.instance.id,
+            else:
+                # Add the success message
+                messages.success(
+                    request,
+                    _('User "{}" was successfully saved').format(
+                        region_user_form.instance.full_user_name
+                    ),
                 )
-            # Add the success message
-            messages.success(
-                request,
-                _('User "{}" was successfully saved').format(
-                    region_user_form.instance.full_user_name
-                ),
+            return redirect(
+                "edit_region_user",
+                region_slug=region.slug,
+                user_id=region_user_form.instance.id,
             )
 
         if not region_user_form.instance.is_active:

@@ -100,14 +100,15 @@ class RoleFormView(TemplateView):
                     request,
                     _('Role "{}" was successfully created').format(role_form.instance),
                 )
-                return redirect(
-                    "edit_role",
-                    role_id=role_form.instance.id,
+            else:
+                # Add the success message
+                messages.success(
+                    request,
+                    _('Role "{}" was successfully saved').format(role_form.instance),
                 )
-            # Add the success message
-            messages.success(
-                request,
-                _('Role "{}" was successfully saved').format(role_form.instance),
+            return redirect(
+                "edit_role",
+                role_id=role_form.instance.id,
             )
 
         return render(

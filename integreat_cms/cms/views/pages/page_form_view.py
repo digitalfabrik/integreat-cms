@@ -260,20 +260,21 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
                         page_translation_form.instance.title
                     ),
                 )
-                return redirect(
-                    "edit_page",
-                    **{
-                        "page_id": page_form.instance.id,
-                        "region_slug": region.slug,
-                        "language_slug": language.slug,
-                    },
-                )
-
-            if not page_form.has_changed() and not page_translation_form.has_changed():
+            elif (
+                not page_form.has_changed() and not page_translation_form.has_changed()
+            ):
                 messages.info(request, _("No changes detected, but date refreshed"))
             else:
                 # Add the success message
                 page_translation_form.add_success_message(request)
+            return redirect(
+                "edit_page",
+                **{
+                    "page_id": page_form.instance.id,
+                    "region_slug": region.slug,
+                    "language_slug": language.slug,
+                },
+            )
 
         # Pass siblings to template to enable rendering of page order table
         if page_translation_form.instance.id:
