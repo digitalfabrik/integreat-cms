@@ -19,13 +19,13 @@ logger = logging.getLogger(__name__)
 @method_decorator(staff_required, name="dispatch")
 @method_decorator(permission_required("cms.view_user"), name="dispatch")
 @method_decorator(permission_required("cms.change_user"), name="post")
-class UserView(TemplateView):
+class UserFormView(TemplateView):
     """
     View for the user form and user form
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "users/admin/user.html"
+    template_name = "users/user_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "user_form"}
 
@@ -118,16 +118,17 @@ class UserView(TemplateView):
                         user_form.instance.full_user_name
                     ),
                 )
-                return redirect(
-                    "edit_user",
-                    user_id=user_form.instance.id,
+            else:
+                # Add the success message
+                messages.success(
+                    request,
+                    _('User "{}" was successfully saved').format(
+                        user_form.instance.full_user_name
+                    ),
                 )
-            # Add the success message
-            messages.success(
-                request,
-                _('User "{}" was successfully saved').format(
-                    user_form.instance.full_user_name
-                ),
+            return redirect(
+                "edit_user",
+                user_id=user_form.instance.id,
             )
 
         if not user_form.instance.is_active:

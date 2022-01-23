@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import status, text_directions
+from ...constants import status, text_directions, translation_status
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation
@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
-class PageView(TemplateView, PageContextMixin, MediaContextMixin):
+class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
     """
     View for the page form and page translation form
     """
@@ -61,11 +61,13 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         )
 
         # get page and translation objects if they exist
-        page = region.pages.filter(id=kwargs.get("page_id")).first()
-        page_translation = PageTranslation.objects.filter(
-            page=page,
-            language=language,
-        ).first()
+        page = (
+            region.pages.filter(id=kwargs.get("page_id"))
+            .prefetch_translations()
+            .prefetch_public_translations()
+            .first()
+        )
+        page_translation = page.get_translation(language.slug) if page else None
 
         disabled = False
         if page:
@@ -139,9 +141,15 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
 
         # Pass siblings to template to enable rendering of page order table
         if page:
-            siblings = page.get_region_siblings()
+            siblings = (
+                page.region_siblings.prefetch_translations().prefetch_public_translations()
+            )
         else:
-            siblings = region.get_root_pages()
+            siblings = (
+                region.get_root_pages()
+                .prefetch_translations()
+                .prefetch_public_translations()
+            )
 
         context = self.get_context_data(**kwargs)
         return render(
@@ -161,6 +169,8 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
+                "translation_status": translation_status,
+                "translation_states": page.translation_states if page else [],
             },
         )
 
@@ -260,26 +270,27 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
                         page_translation_form.instance.title
                     ),
                 )
-                return redirect(
-                    "edit_page",
-                    **{
-                        "page_id": page_form.instance.id,
-                        "region_slug": region.slug,
-                        "language_slug": language.slug,
-                    },
-                )
-
-            if not page_form.has_changed() and not page_translation_form.has_changed():
+            elif (
+                not page_form.has_changed() and not page_translation_form.has_changed()
+            ):
                 messages.info(request, _("No changes detected, but date refreshed"))
             else:
                 # Add the success message
                 page_translation_form.add_success_message(request)
+            return redirect(
+                "edit_page",
+                **{
+                    "page_id": page_form.instance.id,
+                    "region_slug": region.slug,
+                    "language_slug": language.slug,
+                },
+            )
 
         # Pass siblings to template to enable rendering of page order table
         if page_translation_form.instance.id:
-            siblings = page_translation_form.instance.page.get_region_siblings()
+            siblings = page_translation_form.instance.page.region_siblings
         elif page_form.instance.id:
-            siblings = page_form.instance.get_region_siblings()
+            siblings = page_form.instance.region_siblings
         else:
             siblings = region.get_root_pages()
 
@@ -302,6 +313,10 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
+                "translation_status": translation_status,
+                "translation_states": page_instance.translation_states
+                if page_instance
+                else [],
             },
         )
 
@@ -324,21 +339,20 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         """
 
         side_by_side_language_options = []
-        for language_node in region.language_tree_nodes.filter(active=True):
-            if language_node.parent:
-                source_translation = PageTranslation.objects.filter(
-                    page=page,
-                    language=language_node.parent.language,
-                )
+        for language_node in filter(lambda n: n.active, region.language_tree):
+            if not language_node.is_root():
+                source_language = region.language_node_by_id.get(
+                    language_node.parent_id
+                ).language
                 side_by_side_language_options.append(
                     {
-                        "value": language_node.language.slug,
+                        "value": language_node.slug,
                         "label": _("{source_language} to {target_language}").format(
-                            source_language=language_node.parent.language.translated_name,
-                            target_language=language_node.language.translated_name,
+                            source_language=source_language.translated_name,
+                            target_language=language_node.translated_name,
                         ),
                         "selected": language_node.language == language,
-                        "disabled": not source_translation.exists(),
+                        "disabled": not page or source_language not in page.languages,
                     }
                 )
         return side_by_side_language_options

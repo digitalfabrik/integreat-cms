@@ -22,7 +22,7 @@ class RoleListView(TemplateView):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "roles/list.html"
+    template_name = "roles/role_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "roles"}
 

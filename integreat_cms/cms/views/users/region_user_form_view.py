@@ -18,13 +18,13 @@ logger = logging.getLogger(__name__)
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_user"), name="dispatch")
 @method_decorator(permission_required("cms.change_user"), name="post")
-class RegionUserView(TemplateView):
+class RegionUserFormView(TemplateView):
     """
     View for the user form of region users
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "users/region/user.html"
+    template_name = "users/region_user_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "region_user_form"}
 
@@ -113,17 +113,18 @@ class RegionUserView(TemplateView):
                         region_user_form.instance.full_user_name
                     ),
                 )
-                return redirect(
-                    "edit_region_user",
-                    region_slug=region.slug,
-                    user_id=region_user_form.instance.id,
+            else:
+                # Add the success message
+                messages.success(
+                    request,
+                    _('User "{}" was successfully saved').format(
+                        region_user_form.instance.full_user_name
+                    ),
                 )
-            # Add the success message
-            messages.success(
-                request,
-                _('User "{}" was successfully saved').format(
-                    region_user_form.instance.full_user_name
-                ),
+            return redirect(
+                "edit_region_user",
+                region_slug=region.slug,
+                user_id=region_user_form.instance.id,
             )
 
         if not region_user_form.instance.is_active:

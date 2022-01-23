@@ -1,5 +1,6 @@
 import logging
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from cacheops import invalidate_model
@@ -194,7 +195,8 @@ class AbstractTreeNode(NS_Node):
         """
         return cls.get_tree().filter(region__slug=region_slug)
 
-    def get_region_siblings(self):
+    @cached_property
+    def region_siblings(self):
         """
         Get all siblings of a specific node in its region
 
@@ -205,14 +207,15 @@ class AbstractTreeNode(NS_Node):
             return self.get_region_root_nodes(region_slug=self.region.slug)
         return super().get_siblings()
 
-    def get_prev_region_sibling(self):
+    @cached_property
+    def prev_region_sibling(self):
         """
         Get the previous node's sibling, or None if it was the leftmost sibling.
 
         :return: The previous node's sibling in its region
         :rtype: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
         """
-        siblings = self.get_region_siblings()
+        siblings = self.region_siblings
         ids = [obj.pk for obj in siblings]
         if self.pk in ids:
             idx = ids.index(self.pk)
@@ -220,14 +223,15 @@ class AbstractTreeNode(NS_Node):
                 return siblings[idx - 1]
         return None
 
-    def get_next_region_sibling(self):
+    @cached_property
+    def next_region_sibling(self):
         """
         Get the next node's sibling, or None if it was the rightmost sibling.
 
         :return: The next node's sibling in its region
         :rtype: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
         """
-        siblings = self.get_region_siblings()
+        siblings = self.region_siblings
         ids = [obj.pk for obj in siblings]
         if self.pk in ids:
             idx = ids.index(self.pk)
@@ -253,7 +257,8 @@ class AbstractTreeNode(NS_Node):
             return [*self._cached_ancestors, self]
         return self._cached_ancestors
 
-    def get_cached_parent(self):
+    @cached_property
+    def cached_parent(self):
         """
         Get the parent node of the current node object.
         Caches the result in the object itself to help in loops.
@@ -283,7 +288,8 @@ class AbstractTreeNode(NS_Node):
             return [self, *self._cached_descendants]
         return self._cached_descendants
 
-    def get_cached_children(self):
+    @cached_property
+    def cached_children(self):
         """
         Get all cached children
 

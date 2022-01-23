@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_pushnotification"), name="dispatch")
 @method_decorator(permission_required("cms.change_pushnotification"), name="post")
-class PushNotificationView(TemplateView):
+class PushNotificationFormView(TemplateView):
     """
     Class that handles HTTP POST and GET requests for editing push notifications
     """
@@ -222,15 +222,14 @@ class PushNotificationView(TemplateView):
                         messages.error(request, _("News message could not be sent"))
 
             # Redirect to the edit page
-            if not push_notification_instance:
-                return redirect(
-                    "edit_push_notification",
-                    **{
-                        "push_notification_id": pn_form.instance.id,
-                        "region_slug": region.slug,
-                        "language_slug": language.slug,
-                    },
-                )
+            return redirect(
+                "edit_push_notification",
+                **{
+                    "push_notification_id": pn_form.instance.id,
+                    "region_slug": region.slug,
+                    "language_slug": language.slug,
+                },
+            )
 
         return render(
             request,

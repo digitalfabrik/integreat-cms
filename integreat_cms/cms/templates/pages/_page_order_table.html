@@ -2,9 +2,8 @@
 {% load content_filters %}
 {% load page_filters %}
 <div class="table-listing">
-    <table data-activate-page-order class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white table-auto">
+    <table data-activate-page-order class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white table-auto cursor-default">
         <tbody>
-            {% get_current_language as LANGUAGE_CODE %}
             {% for sibling in siblings %}
                 {% if sibling == page %}
                     <tr class="border-2 border-blue-500 hover:bg-gray-100">
@@ -20,7 +19,7 @@
                         <td id="page_title" data-default-title="{{ sibling.best_translation.title }}">{{ sibling.best_translation.title }}</td>
                     </tr>
                 {% else %}
-                    {% if page and sibling.get_prev_region_sibling == page %}
+                    {% if page and page == previous_sibling %}
                         <tr data-drop-id="{{ sibling.id }}" data-drop-position="left" class="drop-deactivated drop-between-deactivated h-3 -m-3 hidden"><td colspan="2"><div><span></span></div></td></tr>
                     {% else %}
                         <tr data-drop-id="{{ sibling.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden"><td colspan="2"><div><span></span></div></td></tr>
@@ -29,14 +28,15 @@
                         <td></td>
                         <td>{{ sibling.best_translation.title }}</td>
                     </tr>
-                    {% if not sibling.get_next_region_sibling %}
-                        {% if not page in sibling.get_region_siblings %}
+                    {% if forloop.last %}
+                        {% if not page in siblings %}
                             <tr id="last-sibling" data-drop-id="{{ sibling.id }}" data-drop-position="right" class="drop-deactivated drop-between-deactivated h-3 -m-3 hidden"><td colspan="2"><div><span></span></div></td></tr>
                         {% else %}
                             <tr data-drop-id="{{ sibling.id }}" data-drop-position="right" class="drop drop-between h-3 -m-3 hidden"><td colspan="2"><div><span></span></div></td></tr>
                         {% endif %}
                     {% endif %}
                 {% endif %}
+                {% firstof sibling as previous_sibling %}
             {% endfor %}
             {% if not page in siblings %}
                 {% if not page %}

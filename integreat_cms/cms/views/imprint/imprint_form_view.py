@@ -9,6 +9,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
+from ...constants import translation_status
 from ..media.media_context_mixin import MediaContextMixin
 from ...decorators import region_permission_required, permission_required
 from ...forms import ImprintTranslationForm
@@ -22,7 +23,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_imprintpage"), name="dispatch")
 @method_decorator(permission_required("cms.change_imprintpage"), name="post")
-class ImprintView(TemplateView, MediaContextMixin):
+class ImprintFormView(TemplateView, MediaContextMixin):
     """
     View for the imprint page form and imprint page translation form
     """
@@ -147,6 +148,8 @@ class ImprintView(TemplateView, MediaContextMixin):
                 # Languages for tab view
                 "languages": region.active_languages if imprint else [language],
                 "side_by_side_language_options": side_by_side_language_options,
+                "translation_status": translation_status,
+                "translation_states": imprint.translation_states if imprint else [],
             },
         )
 
@@ -212,15 +215,16 @@ class ImprintView(TemplateView, MediaContextMixin):
             # Add the success message and redirect to the edit page
             if not imprint_instance:
                 messages.success(request, _("Imprint was successfully created"))
-                return redirect(
-                    "edit_imprint",
-                    **{
-                        "region_slug": region.slug,
-                        "language_slug": language.slug,
-                    },
-                )
-            # Add the success message
-            imprint_translation_form.add_success_message(request)
+            else:
+                # Add the success message
+                imprint_translation_form.add_success_message(request)
+            return redirect(
+                "edit_imprint",
+                **{
+                    "region_slug": region.slug,
+                    "language_slug": language.slug,
+                },
+            )
 
         return render(
             request,
@@ -237,6 +241,10 @@ class ImprintView(TemplateView, MediaContextMixin):
                 "side_by_side_language_options": self.get_side_by_side_language_options(
                     region, language, imprint_instance
                 ),
+                "translation_status": translation_status,
+                "translation_states": imprint_instance.translation_states
+                if imprint_instance
+                else [],
             },
         )
 

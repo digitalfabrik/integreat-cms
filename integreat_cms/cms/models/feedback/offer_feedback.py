@@ -37,9 +37,7 @@ class OfferFeedback(Feedback):
         :return: The url to the referred object
         :rtype: str
         """
-        return reverse(
-            "edit_offer_template", kwargs={"offer_template_id": self.offer.id}
-        )
+        return reverse("edit_offertemplate", kwargs={"slug": self.offer.slug})
 
     @property
     def related_feedback(self):

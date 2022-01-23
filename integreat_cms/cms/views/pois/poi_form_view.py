@@ -10,6 +10,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
+from ...constants import translation_status
 from ...decorators import region_permission_required, permission_required
 from ...forms import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Language
@@ -24,7 +25,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_poi"), name="dispatch")
 @method_decorator(permission_required("cms.change_poi"), name="post")
-class POIView(TemplateView, POIContextMixin, MediaContextMixin):
+class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
     """
     View for editing POIs
     """
@@ -85,6 +86,8 @@ class POIView(TemplateView, POIContextMixin, MediaContextMixin):
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if poi else [language],
+                "translation_status": translation_status,
+                "translation_states": poi.translation_states if poi else [],
             },
         )
 
@@ -167,19 +170,19 @@ class POIView(TemplateView, POIContextMixin, MediaContextMixin):
                         poi_translation_form.instance
                     ),
                 )
-                return redirect(
-                    "edit_poi",
-                    **{
-                        "poi_id": poi_form.instance.id,
-                        "region_slug": region.slug,
-                        "language_slug": language.slug,
-                    }
-                )
-            if not poi_form.has_changed() and not poi_translation_form.has_changed():
+            elif not poi_form.has_changed() and not poi_translation_form.has_changed():
                 messages.info(request, _("No changes detected, but date refreshed"))
             else:
                 # Add the success message
                 poi_translation_form.add_success_message(request)
+            return redirect(
+                "edit_poi",
+                **{
+                    "poi_id": poi_form.instance.id,
+                    "region_slug": region.slug,
+                    "language_slug": language.slug,
+                }
+            )
 
         return render(
             request,
@@ -192,5 +195,9 @@ class POIView(TemplateView, POIContextMixin, MediaContextMixin):
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if poi_instance else [language],
+                "translation_status": translation_status,
+                "translation_states": poi_instance.translation_states
+                if poi_instance
+                else [],
             },
         )

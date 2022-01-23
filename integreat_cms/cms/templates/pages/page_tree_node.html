@@ -63,31 +63,31 @@
         <div class="block py-3 px-2 text-gray-800">
             <div class="lang-grid">
                 {% spaceless %}
-                    {% for other_language_slug, other_status in page.translation_states.items %}
-                        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language_slug %}"
-                            class="{{ other_language_slug }}">
+                    {% for other_language, other_status in page.translation_states.values %}
+                        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language.slug %}"
+                            class="{{ other_language.slug }}">
                             <div id="translation-icon">
                                 {% if other_status == translation_status.IN_TRANSLATION %}
                                     <span title="{% trans 'Currently in translation' %}">
-                                        <i data-feather="clock" class="{% if other_language_slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i data-feather="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% elif other_status == translation_status.OUTDATED %}
                                     <span title="{% trans 'Translation outdated' %}">
-                                        <i data-feather="alert-triangle" class="{% if other_language_slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i data-feather="alert-triangle" class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% elif other_status == translation_status.UP_TO_DATE  %}
                                     <span title="{% trans 'Translation up-to-date' %}">
-                                        <i data-feather="check" class="{% if other_language_slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i data-feather="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% elif other_status == translation_status.MISSING  %}
                                     <span title="{% trans 'Translation missing' %}" class="no-trans">
-                                        <i data-feather="x" class="{% if other_language_slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i data-feather="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% endif %}
                             </div>
                             <div id="ajax-icon" class="hidden">
                                 <span title="{% trans 'Currently in translation' %}">
-                                    <i data-feather="clock" class="{% if other_language_slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                    <i data-feather="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                                 </span>
                             </div>
                         </a>

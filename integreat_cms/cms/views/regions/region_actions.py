@@ -39,7 +39,7 @@ def delete_region(request, *args, **kwargs):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = get_object_or_404(Region, slug=kwargs.get("managed_region_slug"))
+    region = get_object_or_404(Region, slug=kwargs.get("slug"))
     # Remove hierarchy to prevent ProtectedError when children get deleted before their parents
     region.pages.update(parent=None)
     region.language_tree_nodes.update(parent=None)

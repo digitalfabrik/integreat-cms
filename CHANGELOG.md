@@ -14,6 +14,7 @@ UNRELEASED
 * Improve performance of page, event and POI API endpoints
 * Add database migrations
 * Add bulk actions for events and POIs
+* Improve performance of content forms
 
 
 2021.12.0-beta

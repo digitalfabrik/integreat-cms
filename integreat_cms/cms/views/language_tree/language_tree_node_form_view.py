@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_languagetreenode"), name="dispatch")
 @method_decorator(permission_required("cms.change_languagetreenode"), name="post")
-class LanguageTreeNodeView(TemplateView):
+class LanguageTreeNodeFormView(TemplateView):
     """
     Class that handles viewing single language in the language tree.
     This view is available within regions.
@@ -108,26 +108,27 @@ class LanguageTreeNodeView(TemplateView):
             # Save form
             language_tree_node_form.save()
             # Add the success message and redirect to the edit page
-            if not language_tree_node_instance:
+            if language_tree_node_instance:
                 messages.success(
                     request,
                     _('Language tree node for "{}" was successfully saved').format(
                         language_tree_node_form.instance
                     ),
                 )
-                return redirect(
-                    "edit_language_tree_node",
-                    **{
-                        "language_tree_node_id": language_tree_node_form.instance.id,
-                        "region_slug": region.slug,
-                    }
+            else:
+                # Add the success message
+                messages.success(
+                    request,
+                    _('Language tree node for "{}" was successfully created').format(
+                        language_tree_node_form.instance
+                    ),
                 )
-            # Add the success message
-            messages.success(
-                request,
-                _('Language tree node for "{}" was successfully created').format(
-                    language_tree_node_form.instance
-                ),
+            return redirect(
+                "edit_language_tree_node",
+                **{
+                    "language_tree_node_id": language_tree_node_form.instance.id,
+                    "region_slug": region.slug,
+                }
             )
         return render(
             request,

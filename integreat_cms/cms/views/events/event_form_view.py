@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 
-from ...constants import status
+from ...constants import status, translation_status
 from ...decorators import region_permission_required, permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Language, Event, EventTranslation, RecurrenceRule, POI
@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
 @method_decorator(permission_required("cms.change_event"), name="post")
-class EventView(TemplateView, EventContextMixin, MediaContextMixin):
+class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
     """
     Class for rendering the events form
     """
@@ -109,6 +109,10 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
                 "url_link": url_link,
+                "translation_status": translation_status,
+                "translation_states": event_instance.translation_states
+                if event_instance
+                else [],
             },
         )
 
@@ -209,15 +213,7 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
                         event_translation_form.instance
                     ),
                 )
-                return redirect(
-                    "edit_event",
-                    **{
-                        "event_id": event_form.instance.id,
-                        "region_slug": region.slug,
-                        "language_slug": language.slug,
-                    },
-                )
-            if (
+            elif (
                 not event_form.has_changed()
                 and not event_translation_form.has_changed()
                 and not recurrence_rule_form.has_changed()
@@ -226,6 +222,14 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
             else:
                 # Add the success message
                 event_translation_form.add_success_message(request)
+            return redirect(
+                "edit_event",
+                **{
+                    "event_id": event_form.instance.id,
+                    "region_slug": region.slug,
+                    "language_slug": language.slug,
+                },
+            )
 
         return render(
             request,
@@ -239,5 +243,9 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
                 "poi": poi,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
+                "translation_status": translation_status,
+                "translation_states": event_instance.translation_states
+                if event_instance
+                else [],
             },
         )

@@ -21,7 +21,7 @@ class UserSettingsView(TemplateView):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "settings/user.html"
+    template_name = "settings/user_settings.html"
 
     @never_cache
     def get(self, request, *args, **kwargs):

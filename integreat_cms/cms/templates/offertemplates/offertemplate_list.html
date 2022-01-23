@@ -6,7 +6,7 @@
     <div class="flex flex-wrap justify-between">
         <h1 class="heading">{% trans 'Offer Templates' %}</h1>
         {% if perms.cms.change_offertemplate %}
-            <a href="{% url 'new_offer_template' %}" class="btn">
+            <a href="{% url 'new_offertemplate' %}" class="btn">
 	            {% trans 'Create offer template' %}
             </a>
         {% endif %}
@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         {% for offer_template in offer_templates %}
-            {% include "offer_templates/offer_template_list_row.html" %}
+            {% include "offertemplates/offertemplate_list_row.html" %}
         {% empty %}
             <tr>
 	            <td colspan="6" class="px-4 py-3">
@@ -38,6 +38,6 @@
         </tbody>
     </table>
 </div>
-{% url "offer_templates" as url %}
+{% url "offertemplates" as url %}
 {% include "pagination.html" with url=url chunk=offer_templates %}
 {% endblock %}

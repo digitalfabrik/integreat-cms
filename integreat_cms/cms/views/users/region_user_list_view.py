@@ -23,7 +23,7 @@ class RegionUserListView(TemplateView):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "users/region/list.html"
+    template_name = "users/region_user_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "region_users"}
 

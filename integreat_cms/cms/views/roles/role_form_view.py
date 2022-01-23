@@ -18,13 +18,13 @@ logger = logging.getLogger(__name__)
 @method_decorator(staff_required, name="dispatch")
 @method_decorator(permission_required("auth.view_group"), name="dispatch")
 @method_decorator(permission_required("auth.change_group"), name="post")
-class RoleView(TemplateView):
+class RoleFormView(TemplateView):
     """
     View for the role form
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "roles/role.html"
+    template_name = "roles/role_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "roles"}
 
@@ -100,14 +100,15 @@ class RoleView(TemplateView):
                     request,
                     _('Role "{}" was successfully created').format(role_form.instance),
                 )
-                return redirect(
-                    "edit_role",
-                    role_id=role_form.instance.id,
+            else:
+                # Add the success message
+                messages.success(
+                    request,
+                    _('Role "{}" was successfully saved').format(role_form.instance),
                 )
-            # Add the success message
-            messages.success(
-                request,
-                _('Role "{}" was successfully saved').format(role_form.instance),
+            return redirect(
+                "edit_role",
+                role_id=role_form.instance.id,
             )
 
         return render(
