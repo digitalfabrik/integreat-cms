@@ -56,125 +56,33 @@
             {% endif %}
         </div>
         <div class="flex flex-wrap flex-col flex-grow pr-2 w-2/3">
-            <ul class="flex flex-wrap items-end pl-4">
-                {% for other_language in languages|sort_languages:language|slice:":4" %}
-                    <li class="mr-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
-                        <div class="bg-white text-blue-500 {% if other_language != language %}hover:bg-blue-500 hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
-                            <div class="border-b-2 border-white">
-                                {% if other_language == language %}
-                                    <div class="{{ language.slug }} pt-2 pb-3 px-4">
-                                        {% if page %}
-                                            {% if other_language in page.languages %}
-                                                {% if page_translation_form.instance.is_outdated %}
-                                                    <span title="{% trans 'Translation outdated' %}">
-                                                        <i data-feather="alert-triangle"></i>
-                                                    </span>
-                                                {% elif page_translation_form.instance.currently_in_translation %}
-                                                    <span title="{% trans 'Currently in translation' %}">
-                                                        <i data-feather="clock"></i>
-                                                    </span>
-                                                {% else %}
-                                                    <span title="{% trans 'Translation up-to-date' %}">
-                                                        <i data-feather="check"></i>
-                                                    </span>
-                                                {% endif %}
-                                            {% else %}
-                                                <span title="{% trans 'Translation missing' %}">
-                                                    <i data-feather="x"></i>
-                                                </span>
-                                            {% endif %}
-                                        {% else %}
-                                            <span title="{% trans 'Create Translation' %}">
-                                                <i data-feather="plus"></i>
-                                            </span>
-                                        {% endif %}
-                                        {{ other_language.translated_name }}
-                                        <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
-                                        {% if other_language.secondary_country_code %}
-                                            <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                                        {% endif %}
-                                    </div>
-                                    <div class="hidden ajax p-4">
-                                        {% if page_translation_form.instance.is_outdated_helper %}
-                                            <span title="{% trans 'Translation outdated' %}">
-                                                <i data-feather="alert-triangle"></i>
-                                            </span>
-                                        {% else %}
-                                            <span title="{% trans 'Translation up-to-date' %}">
-                                                <i data-feather="check"></i>
-                                            </span>
-                                        {% endif %}
-                                        {{ other_language.translated_name }}
-                                        <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
-                                        {% if other_language.secondary_country_code %}
-                                            <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                                        {% endif %}
-                                    </div>
-                        {% else %}
-                            <a class="px-4 pt-2 pb-3 block" style="color: inherit;" href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language.slug %}">
-                                {% if other_language in page.languages %}
-                                    {% get_translation page_form.instance other_language.slug as other_page_translation %}
-                                    {% if other_page_translation.is_outdated %}
-                                        <span title="{% trans 'Translation outdated' %}">
-                                            <i data-feather="alert-triangle"></i>
-                                        </span>
-                                    {% elif other_page_translation.currently_in_translation %}
-                                        <span title="{% trans 'Currently in translation' %}">
-                                            <i data-feather="clock"></i>
-                                        </span>
-                                    {% else %}
-                                        <span title="{% trans 'Translation up-to-date' %}">
-                                            <i data-feather="check"></i>
-                                        </span>
-                                    {% endif %}
-                                {% else %}
-                                    <span title="{% trans 'Translation missing' %}">
-                                        <i data-feather="x"></i>
-                                    </span>
-                                {% endif %}
-                                {{ other_language.translated_name }}
-                                <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
-                                {% if other_language.secondary_country_code %}
-                                    <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                                {% endif %}
-                            </a>
-                        {% endif %}
-                            </div>
-                        </div>
-                    </li>
-                {% endfor %}
-                {% if languages|length > 4 %}
-                <div class="ml-auto z-10">
-                    {% include "content_form_language_switcher.html" with target='edit_page' instance=page_form.instance content_field="page_id" content_id=page_form.instance.id %}
-                </div>
-                {% endif %}
-            </ul>
+            {% include "_form_language_tabs.html" with target='edit_page' instance=page_form.instance content_field="page_id" %}
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
                 <div class="w-full p-4">
-                    {% if page_translation_form.instance.id %}
-                        <div class="flex justify-end mr-8">
-                            {% trans 'Version' %}:
-                            {{ page_translation_form.instance.version }}
-                            (<a href="{% url 'page_revisions' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-                                class="text-blue-500 hover:underline">{% trans 'Show versions' %}</a>)
-                        </div>
-                    {% endif %}
-                    <div class="flex justify-between">
+                    <div class="flex justify-between mr-2">
                         <label for="{{ page_translation_form.title.id_for_label }}"
                             data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
                             {{ page_translation_form.title.label }}
                         </label>
                         {% if page_translation_form.instance.id %}
-                            <span class="mb-2 mt-4 mr-8">
-                                <span class="font-bold">{% trans 'Status' %}:</span>
-                                {% if page.explicitly_archived %}
-                                    {% trans 'Archived' %}
-                                {% elif page.implicitly_archived %}
-                                    {% trans 'Archived, because a parent page is archived' %}
-                                {% else %}
-                                    {{ page_translation_form.instance.get_status_display }}
-                                {% endif %}
-                            </span>
+                            <div class="grid grid-cols-2 text-right">
+                                <div class="font-bold pr-2">{% trans 'Version' %}:</div>
+                                <div>
+                                    {{ page_translation_form.instance.version }}
+                                    (<a href="{% url 'page_revisions' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+                                    class="text-blue-500 hover:underline">{% trans 'Show' %}</a>)
+                                </div>
+                                <div class="font-bold pr-2">{% trans 'Status' %}:</div>
+                                <div>
+                                    {% if page.explicitly_archived %}
+                                        {% trans 'Archived' %}
+                                    {% elif page.implicitly_archived %}
+                                        {% trans 'Archived, because a parent page is archived' %}
+                                    {% else %}
+                                        {{ page_translation_form.instance.get_status_display }}
+                                    {% endif %}
+                                </div>
+                            </div>
                         {% endif %}
                     </div>
                     {% render_field page_translation_form.title|add_error_class:"border-red-500" %}
@@ -233,8 +141,8 @@
         <div class="pl-4 flex flex-wrap flex-col" style="width: 400px">
             <ul class="flex pl-4">
                 <li class="z-10" style="margin-bottom: -2px">
-                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg px-4">
-                        <div class="border-b-4 border-white">
+                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
+                        <div class="border-b-2 border-white">
                             <i data-feather="feather"></i>
                             {% trans 'Minor edit' %}
                         </div>
@@ -249,8 +157,8 @@
             </div>
             <ul class="flex pl-4">
                 <li class="z-10" style="margin-bottom: -2px">
-                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg px-4">
-                        <div class="border-b-4 border-white">
+                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
+                        <div class="border-b-2 border-white">
                             <i data-feather="settings"></i>
                             {% trans 'Settings of the page' %}
                         </div>
@@ -303,8 +211,8 @@
                 {% if page and can_edit_page %}
                     <ul class="flex pl-4">
                         <li class="z-10" style="margin-bottom: -2px">
-                            <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg px-4">
-                                <div class="border-b-4 border-white">
+                            <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
+                                <div class="border-b-2 border-white">
                                     <i data-feather="tool"></i>
                                     {% trans 'Actions' %}
                                 </div>
@@ -350,22 +258,24 @@
                         {% endif %}
                         {% if perms.cms.delete_page %}
                             <label>{% trans 'Delete page' %}</label>
-                            {% if page.children.exists %}
-                                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
-                                    <p>
-                                        {% trans 'You cannot delete a page which has subpages.' %}<br>
-                                        {% blocktrans count counter=page.get_cached_descendants|length trimmed %}
-                                            To delete this page, you have to delete or move its subpage first:
-                                        {% plural %}
-                                            To delete this page, you have to delete or move its subpages first:
-                                        {% endblocktrans %}
-                                    </p>
-                                </div>
-                                {% for descendant in page.get_cached_descendants %}
-                                <a href="{% url 'edit_page' page_id=descendant.id region_slug=request.region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
-                                    <i data-feather="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
-                                </a>
-                                {% endfor %}
+                            {% if not page.is_leaf %}
+                                {% with page.get_descendants.prefetch_translations as descendants %}
+                                    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
+                                        <p>
+                                            {% trans 'You cannot delete a page which has subpages.' %}<br>
+                                            {% blocktrans count counter=descendants|length trimmed %}
+                                                To delete this page, you have to delete or move its subpage first:
+                                            {% plural %}
+                                                To delete this page, you have to delete or move its subpages first:
+                                            {% endblocktrans %}
+                                        </p>
+                                    </div>
+                                    {% for descendant in descendants %}
+                                    <a href="{% url 'edit_page' page_id=descendant.id region_slug=request.region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
+                                        <i data-feather="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
+                                    </a>
+                                    {% endfor %}
+                                {% endwith %}
                             {% else %}
                                 <button title="{% trans 'Delete page' %}" class="btn confirmation-button btn-red"
                                     data-confirmation-title="{{ delete_dialog_title }}"
@@ -382,8 +292,8 @@
             {% if page %}
                 <ul class="flex pl-4">
                     <li class="z-10" style="margin-bottom: -2px">
-                        <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg px-4">
-                            <div class="border-b-4 border-white">
+                        <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
+                            <div class="border-b-2 border-white">
                                 <i data-feather="columns"></i>
                                 {% trans 'Translator view' %}
                             </div>

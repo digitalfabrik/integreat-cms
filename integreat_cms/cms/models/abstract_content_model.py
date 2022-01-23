@@ -247,8 +247,9 @@ class AbstractContentModel(models.Model):
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         return {
-            node.slug: self.get_translation_state(node)
+            node.slug: (node.language, self.get_translation_state(node))
             for node in self.region.language_tree
+            if node.active
         }
 
     def __str__(self):

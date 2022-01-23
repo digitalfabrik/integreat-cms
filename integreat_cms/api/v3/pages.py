@@ -23,7 +23,7 @@ def transform_page(page_translation):
         thumbnail = settings.BASE_URL + page_translation.page.icon.url
     else:
         thumbnail = None
-    parent_page = page_translation.page.get_cached_parent()
+    parent_page = page_translation.page.cached_parent
     if parent_page:
         parent_absolute_url = parent_page.get_public_translation(
             page_translation.language.slug

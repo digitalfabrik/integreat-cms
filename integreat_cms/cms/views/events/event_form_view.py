@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 
-from ...constants import status
+from ...constants import status, translation_status
 from ...decorators import region_permission_required, permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Language, Event, EventTranslation, RecurrenceRule, POI
@@ -109,6 +109,10 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
                 "url_link": url_link,
+                "translation_status": translation_status,
+                "translation_states": event_instance.translation_states
+                if event_instance
+                else [],
             },
         )
 
@@ -239,5 +243,9 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
                 "poi": poi,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
+                "translation_status": translation_status,
+                "translation_states": event_instance.translation_states
+                if event_instance
+                else [],
             },
         )

@@ -9,6 +9,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
+from ...constants import translation_status
 from ..media.media_context_mixin import MediaContextMixin
 from ...decorators import region_permission_required, permission_required
 from ...forms import ImprintTranslationForm
@@ -147,6 +148,8 @@ class ImprintFormView(TemplateView, MediaContextMixin):
                 # Languages for tab view
                 "languages": region.active_languages if imprint else [language],
                 "side_by_side_language_options": side_by_side_language_options,
+                "translation_status": translation_status,
+                "translation_states": imprint.translation_states if imprint else [],
             },
         )
 
@@ -238,6 +241,10 @@ class ImprintFormView(TemplateView, MediaContextMixin):
                 "side_by_side_language_options": self.get_side_by_side_language_options(
                     region, language, imprint_instance
                 ),
+                "translation_status": translation_status,
+                "translation_states": imprint_instance.translation_states
+                if imprint_instance
+                else [],
             },
         )
 

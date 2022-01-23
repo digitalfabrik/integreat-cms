@@ -8,6 +8,7 @@ from django.urls import reverse
 
 from django import template
 
+from ..constants import translation_status
 from ..models import Language, PageTranslation, EventTranslation, POITranslation
 
 logger = logging.getLogger(__name__)
@@ -82,7 +83,7 @@ def get_language(language_slug):
 
 
 @register.simple_tag
-def build_url(target, region_slug, language_slug, content_field, content_id):
+def build_url(target, region_slug, language_slug, content_field=None, content_id=None):
     """
     This tag returns the requested language by slug
 
@@ -104,14 +105,13 @@ def build_url(target, region_slug, language_slug, content_field, content_id):
     :return: list of args
     :rtype: str
     """
-    return reverse(
-        target,
-        kwargs={
-            "region_slug": region_slug,
-            "language_slug": language_slug,
-            content_field: content_id,
-        },
-    )
+    kwargs = {
+        "region_slug": region_slug,
+        "language_slug": language_slug,
+    }
+    if content_field and content_id:
+        kwargs[content_field] = content_id
+    return reverse(target, kwargs=kwargs)
 
 
 @register.filter
@@ -139,23 +139,31 @@ def remove(elements, element):
 
 
 @register.filter
-def sort_languages(other_languages, current_language):
+def sort_translation_states(translation_states, second_language):
     """
     This filter sorts languages in language tabs
 
-    :param current_language: The current language
-    :type current_language: ~integreat_cms.cms.models.languages.language.Language
+    :param translation_states: Other languages
+    :type translation_states: dict [ tuple ( ~integreat_cms.cms.models.languages.language.Language, str ) ]
 
-    :param other_languages: Other languages
-    :type other_languages: list [ ~integreat_cms.cms.models.languages.language.Language ]
+    :param second_language: The current language
+    :type second_language: ~integreat_cms.cms.models.languages.language.Language
 
     :return: the filtered list with the current language on the second position
     :rtype: list
     """
-    if other_languages[0] != current_language:
-        other_languages.remove(current_language)
-        other_languages.insert(1, current_language)
-    return other_languages
+    try:
+        first_language_slug = next(iter(translation_states))
+    except StopIteration:
+        return [(second_language, translation_status.MISSING)]
+    if first_language_slug != second_language.slug:
+        second_language_state = translation_states.pop(second_language.slug)
+        translation_states = list(translation_states.values())
+        translation_states.insert(1, second_language_state)
+    else:
+        translation_states = list(translation_states.values())
+    logger.debug(translation_states)
+    return translation_states
 
 
 @register.filter

@@ -47,83 +47,7 @@
     </div>
     <div class="flex flex-wrap">
         <div class="w-2/3 flex flex-wrap flex-col pr-2">
-            <ul class="flex flex-wrap items-end pl-4">
-                {% for other_language in languages|sort_languages:language|slice:":4" %}
-                    <li class="mr-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
-                        <div class="bg-white text-blue-500 {% if other_language != language %}hover:bg-blue-500 hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
-                            <div class="border-b-2 border-white">
-                            {% if other_language == language %}
-                                <div class="px-4 pb-3 pt-2">
-                                    {% if event_form.instance %}
-                                        {% if other_language in event_form.instance.languages %}
-                                            {% if event_translation_form.instance.is_outdated %}
-                                                <span title="{% trans 'Translation outdated' %}">
-                                                    <i data-feather="alert-triangle"></i>
-                                                </span>
-                                            {% elif event_translation_form.instance.currently_in_translation %}
-                                                <span title="{% trans 'Currently in translation' %}">
-                                                    <i data-feather="clock"></i>
-                                                </span>
-                                            {% else %}
-                                                <span title="{% trans 'Translation up-to-date' %}">
-                                                    <i data-feather="check"></i>
-                                                </span>
-                                            {% endif %}
-                                        {% else %}
-                                            <span title="{% trans 'Translation missing' %}">
-                                                <i data-feather="x"></i>
-                                            </span>
-                                        {% endif %}
-                                    {% else %}
-                                        <span title="{% trans 'Create Translation' %}">
-                                            <i data-feather="plus"></i>
-                                        </span>
-                                    {% endif %}
-                                    {{ other_language.translated_name }}
-                                    <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
-                                {% if other_language.secondary_country_code %}
-                                    <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                                {% endif %}
-                                </div>
-                            {% else %}
-                                <a class="block px-4 pb-3 pt-2" style="color: inherit;" href="{% url 'edit_event' event_id=event_form.instance.id region_slug=request.region.slug language_slug=other_language.slug %}">
-                                    {% if other_language in event_form.instance.languages %}
-                                        {% get_translation event_form.instance other_language.slug as other_event_translation %}
-                                        {% if other_event_translation.is_outdated %}
-                                            <span title="{% trans 'Translation outdated' %}">
-                                                <i data-feather="alert-triangle"></i>
-                                            </span>
-                                        {% elif other_event_translation.currently_in_translation %}
-                                            <span title="{% trans 'Currently in translation' %}">
-                                                <i data-feather="clock"></i>
-                                            </span>
-                                        {% else %}
-                                            <span title="{% trans 'Translation up-to-date' %}">
-                                                <i data-feather="check"></i>
-                                            </span>
-                                        {% endif %}
-                                    {% else %}
-                                        <span title="{% trans 'Translation missing' %}">
-                                            <i data-feather="x"></i>
-                                        </span>
-                                    {% endif %}
-                                    {{ other_language.translated_name }}
-                                    <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
-                                    {% if other_language.secondary_country_code %}
-                                        <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                                    {% endif %}
-                                </a>
-                            {% endif %}
-                            </div>
-                        </div>
-                    </li>
-                {% endfor %}
-                {% if languages|length > 4 %}
-                <div class="ml-auto z-10">
-                    {% include "content_form_language_switcher.html" with target='edit_event' instance=event_form.instance content_field="event_id" content_id=event_form.instance.id %}
-                </div>
-                {% endif %}
-            </ul>
+            {% include "_form_language_tabs.html" with target='edit_event' instance=event_form.instance content_field="event_id" %}
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
                 <div class="w-full p-4">
                     {% if event_translation_form.instance.id %}
@@ -177,8 +101,8 @@
         <div class="w-1/3 pl-4 flex flex-wrap flex-col">
             <ul class="flex pl-4">
                 <li class="z-10" style="margin-bottom: -2px">
-                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg px-4">
-                        <div class="border-b-4 border-white">
+                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
+                        <div class="border-b-2 border-white">
                             <i data-feather="settings"></i>
                             {% trans 'Settings for all translations' %}
                         </div>

@@ -2,7 +2,6 @@ import logging
 
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Permission
 from django.db.models import Q
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
@@ -91,7 +90,11 @@ class PageForm(CustomModelForm, MoveNodeForm):
             self.fields["publishers"].queryset = self.get_publisher_queryset()
 
         # limit possible parents to pages of current region
-        parent_queryset = self.instance.region.pages
+        parent_queryset = (
+            self.instance.region.pages.all()
+            .prefetch_translations()
+            .prefetch_public_translations()
+        )
 
         # Set the initial value for the mirrored page region
         if self.instance.mirrored_page:
@@ -108,26 +111,27 @@ class PageForm(CustomModelForm, MoveNodeForm):
                 if self.data["mirrored_page_region"]
                 else None
             )
-            self.fields["mirrored_page"].queryset = self.fields[
-                "mirrored_page"
-            ].queryset.filter(region=mirrored_page_region)
+            self.fields["mirrored_page"].queryset = (
+                self.fields["mirrored_page"]
+                .queryset.filter(region=mirrored_page_region)
+                .prefetch_translations()
+                .prefetch_public_translations()
+            )
         else:
             # If form is unbound (rendered without data), set the initial queryset to the pages of the initial region
             # to render the options for the mirrored page
-            self.fields["mirrored_page"].queryset = Page.objects.filter(
-                region=self.fields["mirrored_page_region"].initial
+            self.fields["mirrored_page"].queryset = (
+                Page.objects.filter(region=self.fields["mirrored_page_region"].initial)
+                .prefetch_translations()
+                .prefetch_public_translations()
             )
 
         # check if instance of this form already exists
         if self.instance.id:
             # remove children from possible parents
-            descendant_ids = [
-                descendant.id
-                for descendant in self.instance.get_cached_descendants(
-                    include_self=True
-                )
-            ]
-            parent_queryset = parent_queryset.exclude(id__in=descendant_ids)
+            parent_queryset = parent_queryset.exclude(
+                lft__range=(self.instance.lft, self.instance.rgt - 1)
+            )
             self.fields["parent"].initial = self.instance.parent
             # Exclude the current page from the possible options for mirrored pages
             self.fields["mirrored_page"].queryset = self.fields[
@@ -142,7 +146,8 @@ class PageForm(CustomModelForm, MoveNodeForm):
                 self.fields["_ref_node_id"].initial = 0
                 self.fields["_position"].initial = position.FIRST_CHILD
 
-        self.fields["parent"].queryset = parent_queryset
+        logger.debug(self.declared_fields["_ref_node_id"].choices)
+        self.fields["parent"].queryset = parent_queryset.all()
 
     def _clean_cleaned_data(self):
         """
@@ -157,6 +162,23 @@ class PageForm(CustomModelForm, MoveNodeForm):
         self.cleaned_data["region"] = self.instance.region
         return super()._clean_cleaned_data()
 
+    @classmethod
+    def mk_dropdown_tree(cls, model, for_node=None):
+        """
+        Creates a tree-like list of choices. Overwrites the parent method because the field is hidden anyway and
+        additional queries to render the page titles should be avoided.
+
+        :param model: ~integreat_cms.cms.models.pages.page.Page
+        :type model: type
+
+        :param for_node: The instance of this form
+        :type for_node: ~integreat_cms.cms.models.pages.page.Page
+
+        :return: A list of select options
+        :rtype: list
+        """
+        return [(None, "None")] + [(obj.pk, str(obj.pk)) for obj in Page.objects.all()]
+
     def get_editor_queryset(self):
         """
         This method retrieves all users, who are eligible to be defined as page editors because they don't yet have the
@@ -166,10 +188,9 @@ class PageForm(CustomModelForm, MoveNodeForm):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
-        permission_edit_page = Permission.objects.get(codename="change_page")
         users_without_permissions = get_user_model().objects.exclude(
-            Q(groups__permissions=permission_edit_page)
-            | Q(user_permissions=permission_edit_page)
+            Q(groups__permissions__codename="change_page")
+            | Q(user_permissions__codename="change_page")
             | Q(is_superuser=True)
         )
         if self.instance.id:
@@ -187,10 +208,9 @@ class PageForm(CustomModelForm, MoveNodeForm):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
-        permission_publish_page = Permission.objects.get(codename="publish_page")
         users_without_permissions = get_user_model().objects.exclude(
-            Q(groups__permissions=permission_publish_page)
-            | Q(user_permissions=permission_publish_page)
+            Q(groups__permissions__codename="publish_page")
+            | Q(user_permissions__codename="publish_page")
             | Q(is_superuser=True)
         )
         if self.instance.id:
