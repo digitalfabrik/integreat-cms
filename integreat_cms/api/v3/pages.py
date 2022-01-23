@@ -1,5 +1,5 @@
 """
-pages API endpoint
+Pages API endpoint
 """
 from django.conf import settings
 from django.http import JsonResponse, Http404
@@ -19,10 +19,6 @@ def transform_page(page_translation):
     :return: data necessary for API
     :rtype: dict
     """
-    if page_translation.page.icon:
-        thumbnail = settings.BASE_URL + page_translation.page.icon.url
-    else:
-        thumbnail = None
     parent_page = page_translation.page.cached_parent
     if parent_page:
         parent_absolute_url = parent_page.get_public_translation(
@@ -51,7 +47,9 @@ def transform_page(page_translation):
         "parent": parent,
         "order": page_translation.page.lft,  # use left edge indicator of mptt model for order
         "available_languages": page_translation.available_languages,
-        "thumbnail": thumbnail,
+        "thumbnail": page_translation.page.icon.url
+        if page_translation.page.icon
+        else None,
         "hash": None,
     }
 

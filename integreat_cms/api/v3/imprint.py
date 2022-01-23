@@ -1,7 +1,6 @@
 """
-imprint API endpoint
+Imprint API endpoint
 """
-from django.conf import settings
 from django.http import JsonResponse
 
 from ..decorators import json_response
@@ -17,10 +16,6 @@ def transform_imprint(imprint_translation):
     :return: data necessary for API
     :rtype: dict
     """
-    if imprint_translation.page.icon:
-        thumbnail = settings.BASE_URL + imprint_translation.page.icon.url
-    else:
-        thumbnail = None
     return {
         "id": imprint_translation.id,
         "url": imprint_translation.get_absolute_url(),
@@ -30,7 +25,9 @@ def transform_imprint(imprint_translation):
         "content": imprint_translation.content,
         "parent": None,
         "available_languages": imprint_translation.available_languages,
-        "thumbnail": thumbnail,
+        "thumbnail": imprint_translation.page.icon.url
+        if imprint_translation.page.icon
+        else None,
         "hash": None,
     }
 
