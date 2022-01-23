@@ -1,3 +1,6 @@
+"""
+This module includes functions related to the event API endpoint.
+"""
 from datetime import timedelta
 from django.conf import settings
 from django.http import JsonResponse

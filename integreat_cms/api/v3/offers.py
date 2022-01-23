@@ -1,5 +1,5 @@
 """
-Provides an endpoint for delivering a JSON with all active offers.
+This module includes functions related to the offers API endpoint.
 """
 from django.http import JsonResponse
 

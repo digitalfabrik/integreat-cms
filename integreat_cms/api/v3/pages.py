@@ -1,5 +1,5 @@
 """
-Pages API endpoint
+This module includes functions related to the pages API endpoint.
 """
 from django.conf import settings
 from django.http import JsonResponse, Http404

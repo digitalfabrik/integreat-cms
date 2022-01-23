@@ -1,9 +1,9 @@
 """
-Views to return JSON representations of regions
+This module includes functions related to the regions API endpoint.
 """
 from django.http import JsonResponse
 
-from ...cms.models import Region, Language
+from ...cms.models import Region
 from ...cms.constants import region_status
 from ..decorators import json_response
 
@@ -103,29 +103,3 @@ def hiddenregions(_):
     return JsonResponse(
         result, safe=False
     )  # Turn off Safe-Mode to allow serializing arrays
-
-
-@json_response
-def pushnew(_):
-    """
-    This is a magic black box convenience function for development. There is no
-    reason for it, but we like it. As we do not care about randomly generated languages
-    and it only consumes a few bytes of disk space, there is also no need to remove.
-    And as non-profit projects rarely generate little money, this also does not pose a
-    problem.
-
-    :return: All is right with the world
-    :rtype: ~realms.magic.unicorn
-    """
-    de = Language(slug="de", title="Deutsch", text_direction="ltr")
-    dutch = Language(slug="nl", title="Netherlands", text_direction="ltr")
-    de.save()
-    dutch.save()
-    region = Region(
-        title="Augsburg",
-        name="augsburg",
-        languages=[de, dutch],
-        push_notification_channels=[],
-    )
-    region.save()
-    return JsonResponse({"success": "Pushing successful"}, status=201)

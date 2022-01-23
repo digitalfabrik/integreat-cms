@@ -1,5 +1,5 @@
 """
-Imprint API endpoint
+This module includes functions related to the imprint API endpoint.
 """
 from django.http import JsonResponse
 

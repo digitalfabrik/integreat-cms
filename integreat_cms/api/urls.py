@@ -23,7 +23,7 @@ from .v3.locations import locations
 from .v3.pages import pages, children, parents, single_page
 from .v3.pdf_export import pdf_export
 from .v3.push_notifications import sent_push_notifications
-from .v3.regions import regions, liveregions, hiddenregions, pushnew
+from .v3.regions import regions, liveregions, hiddenregions
 from .v3.offers import offers
 
 content_api_urlpatterns = [
@@ -121,7 +121,6 @@ region_api_urlpatterns = [
     url(r"^$", regions, name="api_regions"),
     url(r"^live/?$", liveregions, name="api_regions_live"),
     url(r"^hidden/?$", hiddenregions, name="api_regions_hidden"),
-    url(r"^pushnew/?$", pushnew, name="api_pushnew"),
 ]
 
 
