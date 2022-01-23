@@ -1,5 +1,5 @@
 """
-Retrieve push notifications that have been sent, optionally filtering by channel.
+This module includes functions related to the push notification that are sent via firebase.
 """
 from django.http import JsonResponse
 

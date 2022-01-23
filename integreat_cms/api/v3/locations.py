@@ -1,3 +1,6 @@
+"""
+This module includes functions related to the locations/POIs API endpoint.
+"""
 from django.conf import settings
 from django.http import JsonResponse
 

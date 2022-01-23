@@ -1,5 +1,5 @@
 """
-API-endpoint to deliver a JSON with all active languages of an region.
+This module includes functions related to the languages API endpoint.
 """
 from django.http import JsonResponse
 
