@@ -420,7 +420,7 @@ LOGGING = {
     "loggers": {
         # Loggers of integreat-cms django apps
         "integreat_cms": {
-            "handlers": ["console-colored", "logfile", "mail_admins"],
+            "handlers": ["console-colored", "logfile"],
             "level": LOG_LEVEL,
         },
         # Syslog for authentication
