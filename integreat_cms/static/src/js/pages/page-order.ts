@@ -23,11 +23,12 @@ window.addEventListener("load", () => {
 
 // This function updates the page order table each time the parent select changes
 async function getPageOrderTable({ target }: Event) {
+  const parentField = (target as HTMLInputElement);
   // Get selected option node
   const selectedOption = document
     .getElementById("parent")
     .querySelector(
-      'option[value="' + (target as HTMLInputElement).value + '"]'
+      'option[value="' + parentField.value + '"]'
     );
   // Fetch page order table
   try {
@@ -44,38 +45,27 @@ async function getPageOrderTable({ target }: Event) {
       .getAttribute("data-contained-in-siblings");
     const lastSiblingId = document
       .getElementById("last-sibling")?.getAttribute("data-drop-id");
+    const refNodeField = document.getElementById("id__ref_node_id") as HTMLInputElement;
+    const positionField = document.getElementById("id__position") as HTMLInputElement;
+    // Save initial value for resetting the page order table later if initial parent is re-selected
+    if (!refNodeField.hasAttribute("data-default-value")) {
+      refNodeField.setAttribute("data-default-value", refNodeField.value)
+    }
+    if (!positionField.hasAttribute("data-default-value")) {
+      positionField.setAttribute("data-default-value", positionField.value)
+    }
     if (pageContainedInSiblings) {
       // Reset hidden field values to default value
-      document
-        .getElementById("id__ref_node_id")
-        .setAttribute(
-          "value",
-          (document.getElementById("id__ref_node_id") as HTMLInputElement)
-            .defaultValue
-        );
-      document
-        .getElementById("id__position")
-        .setAttribute(
-          "value",
-          (document.getElementById("id__position") as HTMLInputElement)
-            .defaultValue
-        );
+      refNodeField.value = refNodeField.getAttribute("data-default-value");
+      positionField.value = positionField.getAttribute("data-default-value");
     } else if (lastSiblingId) {
-      // Change hidden field values to last child of parent
-      document
-        .getElementById("id__ref_node_id")
-        .setAttribute("value", lastSiblingId);
-      document
-        .getElementById("id__position")
-        .setAttribute("value", "right");
+      // Change hidden field values to right of last sibling
+      refNodeField.value = lastSiblingId;
+      positionField.value = "right";
     } else {
-      // Change hidden field values to last child of parent
-      document
-        .getElementById("id__ref_node_id")
-        .setAttribute("value", (target as HTMLInputElement).value);
-      document
-        .getElementById("id__position")
-        .setAttribute("value", "first-child");
+      // Change hidden field values to first child of parent
+      refNodeField.value = parentField.value;
+      positionField.value = "first-child";
     }
     // Update the modified page title
     updatePageTitle();
