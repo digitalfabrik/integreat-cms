@@ -162,7 +162,6 @@ def sort_translation_states(translation_states, second_language):
         translation_states.insert(1, second_language_state)
     else:
         translation_states = list(translation_states.values())
-    logger.debug(translation_states)
     return translation_states
 
 
