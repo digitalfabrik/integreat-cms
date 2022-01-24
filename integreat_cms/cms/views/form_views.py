@@ -50,7 +50,7 @@ class CustomModelFormMixin(
         :return: The permissions that are required for views inheriting from this Mixin
         :rtype: ~collections.abc.Iterable
         """
-        return (f"change_{self.model._meta.model_name}",)
+        return (f"cms.change_{self.model._meta.model_name}",)
 
     @property
     def model(self):
