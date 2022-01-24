@@ -100,6 +100,11 @@ class UserFormView(TemplateView):
                     "A user has to be either staff/superuser or needs to be restricted to at least one region."
                 ),
             )
+        elif not request.user.is_superuser and "is_superuser" in user_form.changed_data:
+            messages.error(
+                request,
+                _("Superuser permissions need to be set by another superuser."),
+            )
         elif not user_form.has_changed():
             # Add "no changes" messages
             messages.info(request, _("No changes made"))

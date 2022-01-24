@@ -80,7 +80,7 @@
 			</div>
 			<div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                 <div class="divide-y divide-gray-200">
-                    <div>
+                    <div class="{% if not request.user.is_superuser %}hidden{% endif %}">
                         {% render_field user_form.is_superuser %}
                         <label for="{{ user_form.is_superuser.id_for_label }}">{{ user_form.is_superuser.label }}</label>
                         <div class="help-text">{{ user_form.is_superuser.help_text }}</div>
