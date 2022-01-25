@@ -133,7 +133,8 @@ class MatomoApiManager:
         # Execute async request to Matomo API
         response = loop.run_until_complete(
             self.get_matomo_id_async(
-                token_auth=token_auth, method="SitesManager.getSitesIdWithAdminAccess"
+                token_auth=token_auth,
+                method="SitesManager.getSitesIdWithAtLeastViewAccess",
             )
         )
 
