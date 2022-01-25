@@ -145,7 +145,7 @@ def search_content_ajax(request, region_slug=None, language_slug=None):
             for region in Region.search(query)
         )
 
-    if user.has_perm("auth.view_user") and "user" in object_types:
+    if user.has_perm("cms.view_user") and "user" in object_types:
         object_types.remove("user")
         results.extend(
             {
