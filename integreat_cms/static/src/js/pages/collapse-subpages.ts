@@ -27,6 +27,10 @@ function toggleSubpages(event: Event) {
   } else {
     collapseSpan.innerHTML = '<i data-feather="chevron-down"></i>';
   }
+  // Toggle title
+  const titleBuffer = collapseSpan.title;
+  collapseSpan.title = collapseSpan.getAttribute("data-alt-title");
+  collapseSpan.setAttribute("data-alt-title", titleBuffer);
   // Trigger icon replacement
   feather.replace({ class: 'inline-block' });
 }
@@ -51,7 +55,7 @@ function toggleSubpagesRecursive(collapseSpan: HTMLElement) {
     // Remove the left sibling from possible drop targets while it is collapsed
     document
       .getElementById("page-" + childId + "-drop-left")
-      .classList.toggle("drop-between");
+      ?.classList.toggle("drop-between");
     // Find out whether this page has children itself
     const collapseSpan = child.querySelector(
       ".collapse-subpages"

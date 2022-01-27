@@ -21,7 +21,7 @@
     <div class="flex flex-wrap justify-between gap-4">
         <div class="flex flex-wrap gap-4">
             {% include "generic_language_switcher.html" with target='pages' %}
-            {% include "_search_input.html" with object_type="page" related_form='page-filter-form' %}
+            {% include "_search_input.html" with object_type="page" related_form='page-filter-form' search_query=filter_form.cleaned_data.query %}
         </div>
         <div class="flex flex-wrap gap-4">
             {% if request.user.expert_mode %}
@@ -57,7 +57,9 @@
             <thead>
                 <tr class="border-b border-solid border-gray-200">
                     <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min"><input type="checkbox" id="bulk-select-all"></th>
-                    <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min">{% trans 'Hierarchy' %}</th>
+                    {% if not filter_form.has_changed %}
+                        <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min">{% trans 'Hierarchy' %}</th>
+                    {% endif %}
                     <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                     {% get_current_language as LANGUAGE_CODE %}
                     {% get_language LANGUAGE_CODE as backend_language %}

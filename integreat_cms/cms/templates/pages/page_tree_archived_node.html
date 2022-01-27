@@ -1,12 +1,25 @@
 {% load i18n %}
 {% load content_filters %}
 {% load page_filters %}
-<tr class="border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if page.depth > 1 %} child level-{{page.depth}}{% endif %}">
-    <td class="hierarchy single_icon">
-        <span class="text-gray-800 block py-3 pl-4 pr-2" title="{% trans 'Drag & drop is disabled for archived pages.' %}">
-            <i data-feather="move"></i>
-        </span>
-    </td>
+{% load tree_filters %}
+
+<tr id="page-{{ page.id }}" class="border-t border-b border-solid border-gray-200 hover:bg-gray-100 {% if page.relative_depth > 1 %} level-{{page.relative_depth}} {% if not filter_form.has_changed and page.parent.archived %} hidden {% endif %} {% endif %}">
+    {% if not filter_form.has_changed %}
+        <td class="hierarchy single_icon whitespace-nowrap">
+            <span class="cursor-move text-gray-800 inline-block pl-4 align-middle" title="{% trans 'Drag & drop is disabled for archived pages.' %}">
+                <i data-feather="move"></i>
+            </span>
+            {% if not page.is_leaf %}
+                <span class="collapse-subpages cursor-pointer inline-block align-middle"
+                  title="{% trans 'Expand all subpages' %}"
+                  data-alt-title="{% trans 'Collapse all subpages' %}"
+                  data-page-id="{{ page.id }}"
+                  data-page-children="{{ page|get_children_ids }}">
+                    <i data-feather="chevron-right"></i>
+                </span>
+            {% endif %}
+        </td>
+    {% endif %}
     <td>
         <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
             {% if page_translation %}
@@ -70,7 +83,12 @@
             </div>
         {% endif %}
     </td>
-    <td class="pl-2 pr-4 py-3 flex flex-nowrap justify-end gap-2">
+    <td>
+        <div class="block py-2 px-2 whitespace-nowrap text-gray-800">
+            {{ page_translation.last_updated|date:"d.m.Y, H:i" }}
+        </div>
+    </td>
+    <td class="pl-2 pr-4 py-2 flex flex-nowrap justify-end gap-2">
         <!-- TODO: add link to view page in web app -->
         <a href="{% url 'view_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
            target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="icon">
