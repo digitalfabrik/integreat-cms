@@ -15,6 +15,7 @@ UNRELEASED
 * Add database migrations
 * Add bulk actions for events and POIs
 * Improve performance of content forms
+* Improve performance of translation coverage view
 
 
 2021.12.0-beta

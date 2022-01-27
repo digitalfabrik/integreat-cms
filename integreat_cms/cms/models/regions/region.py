@@ -507,7 +507,7 @@ class Region(models.Model):
                                              (default: ``False``)
         :type prefetch_public_translations: bool
 
-        :param annotate_language_tree: Whether the pages should be anotated with the region's language tree
+        :param annotate_language_tree: Whether the pages should be annotated with the region's language tree
                                        (default: ``False``)
         :type annotate_language_tree: bool
 
