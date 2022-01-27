@@ -127,7 +127,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         This returns all of the page's ancestors which are archived.
 
         :return: The QuerySet of archived ancestors
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
+        :rtype: list [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         return [
             ancestor
@@ -143,7 +143,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         :return: Whether or not this page is implicitly archived
         :rtype: bool
         """
-        return self.explicitly_archived_ancestors
+        return bool(self.explicitly_archived_ancestors)
 
     @cached_property
     def archived(self):
