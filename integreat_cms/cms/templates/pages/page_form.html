@@ -167,6 +167,10 @@
             </ul>
             <div class="mb-4 px-4 pb-4 rounded border-2 border-solid border-blue-500 shadow bg-white divide-y divide-gray-200 space-y-4">
                 <div>
+                    <label for="{{ page_form.icon.id_for_label }}">{{ page_form.icon.label }}</label>
+                    {% render_field page_form.icon label=page_form.icon.label %}
+                </div>
+                <div>
                     <label>{% trans 'Positioning' %}</label>
                     <label for="{{ page_form.parent.id_for_label }}" class="secondary">{{ page_form.parent.label }}</label>
                     {% render_field page_form|get_private_member:"ref_node_id" %}
@@ -202,10 +206,6 @@
                     <label for="{{ page_form.organization.id_for_label }}">{{ page_form.organization.label }}</label>
                     <div class="help-text">{{ page_form.organization.help_text }}</div>
                     {% render_field page_form.organization|add_error_class:"border-red-500" %}
-                </div>
-                <div>
-                    <label for="{{ page_form.icon.id_for_label }}">{{ page_form.icon.label }}</label>
-                    {% render_field page_form.icon label=page_form.icon.label %}
                 </div>
             </div>
                 {% if page and can_edit_page %}
