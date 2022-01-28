@@ -212,15 +212,13 @@ class AbstractContentModel(models.Model):
 
     def get_translation_state(self, language):
         """
-        This function uses the reverse foreign key ``self.translations`` to get all translations of ``self``
-        and filters them to the requested :class:`~integreat_cms.cms.models.languages.language.Language` slug.
+        This function returns the current state of a translation in the given language.
 
         :param language: The desired :class:`~integreat_cms.cms.models.languages.language.Language`
         :type language: ~integreat_cms.cms.models.languages.language.Language
 
-        :return: The object translation in the requested :class:`~integreat_cms.cms.models.languages.language.Language` or
-                 :obj:`None` if no translation exists
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+        :return: A string describing the state of the translation, one of :data:`~integreat_cms.cms.constants.translation_status.CHOICES`
+        :rtype: str
         """
         translation = self.get_translation(language.slug)
         if not translation:
@@ -240,11 +238,10 @@ class AbstractContentModel(models.Model):
     @cached_property
     def translation_states(self):
         """
-        This function calculates all translations states of the object
+        This property calculates all translations states of the object
 
-        :return: The translation in the requested :class:`~integreat_cms.cms.models.languages.language.Language` or :obj:`None`
-                 if no translation exists
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+        :return: A dictionary containing each language as key and the given translation state as value
+        :rtype: dict
         """
         return {
             node.slug: (node.language, self.get_translation_state(node))
