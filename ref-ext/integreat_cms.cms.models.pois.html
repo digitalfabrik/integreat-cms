@@ -1007,18 +1007,16 @@ and filters them to the requested <a class="reference internal" href="integreat_
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pois.poi.POI.get_translation_state">
 <span class="sig-name descname"><span class="pre">get_translation_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L213"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pois.poi.POI.get_translation_state" title="Permalink to this definition"></a></dt>
-<dd><p>This function uses the reverse foreign key <code class="docutils literal notranslate"><span class="pre">self.translations</span></code> to get all translations of <code class="docutils literal notranslate"><span class="pre">self</span></code>
-and filters them to the requested <a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> slug.</p>
+<dd><p>This function returns the current state of a translation in the given language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>language</strong> (<a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The desired <a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a></p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The object translation in the requested <a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> or
-<a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if no translation exists</p>
+<dd class="field-even"><p>A string describing the state of the translation, one of <a class="reference internal" href="integreat_cms.cms.constants.html#integreat_cms.cms.constants.translation_status.CHOICES" title="integreat_cms.cms.constants.translation_status.CHOICES"><code class="xref py py-data docutils literal notranslate"><span class="pre">CHOICES</span></code></a></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><em>AbstractContentTranslation</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1211,14 +1209,13 @@ and not use this method.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pois.poi.POI.translation_states">
 <span class="sig-name descname"><span class="pre">translation_states</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pois/poi.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pois.poi.POI.translation_states" title="Permalink to this definition"></a></dt>
-<dd><p>This function calculates all translations states of the object</p>
+<dd><p>This property calculates all translations states of the object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The translation in the requested <a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a> or <a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>
-if no translation exists</p>
+<dd class="field-odd"><p>A dictionary containing each language as key and the given translation state as value</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><em>AbstractContentTranslation</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
