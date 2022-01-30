@@ -9,12 +9,14 @@ from django.conf import settings as django_settings
 from django.views.generic import RedirectView
 
 from .forms import LanguageForm, OfferTemplateForm, OrganizationForm, RegionForm
+from .models import Organization
 
 from .views import (
     authentication,
     analytics,
     chat,
     dashboard,
+    delete_views,
     events,
     form_views,
     offer_templates,
@@ -264,7 +266,9 @@ urlpatterns = [
                             ),
                             url(
                                 r"^delete$",
-                                organizations.organization_actions.delete,
+                                delete_views.CustomDeleteView.as_view(
+                                    model=Organization,
+                                ),
                                 name="delete_organization",
                             ),
                         ]

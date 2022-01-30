@@ -5,7 +5,6 @@ from django.contrib import messages
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
-    UserPassesTestMixin,
 )
 from django.urls import reverse
 from django.utils.translation import ugettext as _
@@ -13,21 +12,7 @@ from django.views.generic import CreateView, UpdateView
 from django.views.generic.edit import ModelFormMixin
 
 from .media import MediaContextMixin
-
-
-class StaffRequiredMixing(UserPassesTestMixin):
-    """
-    A mixin that can be used for class-based views that require that the user is either superuser or staff member
-    """
-
-    def test_func(self):
-        """
-        The test the user has to pass
-
-        :return: Whether the user has passed the test
-        :rtype: bool
-        """
-        return self.request.user.is_superuser or self.request.user.is_staff
+from .mixins import StaffRequiredMixing
 
 
 # pylint: disable=too-many-ancestors
