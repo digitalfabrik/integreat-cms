@@ -3700,7 +3700,7 @@ msgstr "Wiederholung"
 
 #: cms/templates/events/event_list.html:74
 #: cms/templates/events/event_list_archived.html:51
-#: cms/templates/languages/language_list.html:29
+#: cms/templates/languages/language_list.html:30
 #: cms/templates/offertemplates/offertemplate_list.html:25
 #: cms/templates/organizations/organization_list.html:23
 #: cms/templates/pages/page_tree.html:83
@@ -4198,6 +4198,35 @@ msgstr "oder"
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
 
+#: cms/templates/languages/language_form.html:85
+#: cms/templates/languages/language_list_row.html:37
+msgid "You cannot delete a language that is used in at least one region."
+msgstr ""
+"Diese Sprache kann nicht gelöscht werden, da sie in mindestens einer Region "
+"verwendet wird."
+
+#: cms/templates/languages/language_form.html:87
+#: cms/templates/languages/language_form.html:96
+msgid "Delete this language"
+msgstr "Diese Sprache löschen"
+
+#: cms/templates/languages/language_form.html:90
+#: cms/templates/languages/language_list_row.html:41
+msgid "Delete language"
+msgstr "Sprache löschen"
+
+#: cms/templates/languages/language_form.html:91
+#: cms/templates/languages/language_list_row.html:42
+msgid "Please confirm that you really want to delete this language"
+msgstr "Bitte bestätigen Sie, dass diese Sprache gelöscht werden soll"
+
+#: cms/templates/languages/language_form.html:92
+#: cms/templates/languages/language_list_row.html:43
+#: cms/templates/users/region_user_form.html:107
+#: cms/templates/users/user_form.html:131
+msgid "This cannot be reversed."
+msgstr "Dies kann nicht rückgängig gemacht werden."
+
 #: cms/templates/languages/language_list.html:7
 msgid "Manage Languages"
 msgstr "Sprachen"
@@ -4229,13 +4258,17 @@ msgstr "Erstellt"
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
 
-#: cms/templates/languages/language_list.html:38
+#: cms/templates/languages/language_list.html:29
+msgid "Number of regions where this language is used"
+msgstr "Anzahl der Regionen, in denen diese Sprache verwendet wird"
+
+#: cms/templates/languages/language_list.html:29
+msgid "Number of regions"
+msgstr "Anzahl an Regionen"
+
+#: cms/templates/languages/language_list.html:39
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
-
-#: cms/templates/languages/language_list_row.html:47
-msgid "Deleting languages is not implemented yet."
-msgstr "Das Löschen von Sprachen ist noch nicht implementiert."
 
 #: cms/templates/linkcheck/link_list_row.html:19
 msgid "Go to source"
@@ -5197,11 +5230,6 @@ msgstr "Diesen Benutzer löschen"
 #: cms/templates/users/user_form.html:130
 msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
-
-#: cms/templates/users/region_user_form.html:107
-#: cms/templates/users/user_form.html:131
-msgid "This cannot be reversed."
-msgstr "Dies kann nicht rückgängig gemacht werden."
 
 #: cms/templates/users/region_user_form.html:111
 #: cms/templates/users/user_form.html:129
@@ -6398,6 +6426,9 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Deleting languages is not implemented yet."
+#~ msgstr "Das Löschen von Sprachen ist noch nicht implementiert."
 
 #~ msgid "You cannot restore revisions of this imprint because it is archived."
 #~ msgstr ""
