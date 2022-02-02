@@ -3,6 +3,7 @@ This module contains view actions for objects related to POIs.
 """
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
@@ -199,7 +200,13 @@ def automatic_translation(request, region_slug, language_slug):
     pois = region.pois.filter(id__in=poi_ids).prefetch_translations()
     logger.debug("Automatic translation for POIs: %r", pois)
 
-    messages.warning(request, _("Automatic translations are not fully implemented yet"))
+    if settings.DEEPL_ENABLED:
+        messages.warning(
+            request, _("Automatic translations are not fully implemented yet")
+        )
+    else:
+        messages.error(request, _("Automatic translations are disabled"))
+
     return redirect(
         "pois",
         **{

@@ -4,6 +4,7 @@ This module contains action methods for events (archive, restore, ...)
 import json
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Subquery, OuterRef
@@ -263,7 +264,13 @@ def automatic_translation(request, region_slug, language_slug):
     events = region.events.filter(id__in=event_ids).prefetch_translations()
     logger.debug("Automatic translation for events: %r", events)
 
-    messages.warning(request, _("Automatic translations are not fully implemented yet"))
+    if settings.DEEPL_ENABLED:
+        messages.warning(
+            request, _("Automatic translations are not fully implemented yet")
+        )
+    else:
+        messages.error(request, _("Automatic translations are disabled"))
+
     return redirect(
         "events",
         **{

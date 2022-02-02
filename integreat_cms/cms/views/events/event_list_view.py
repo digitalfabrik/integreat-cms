@@ -215,6 +215,7 @@ class EventListView(TemplateView, EventContextMixin):
                 "search_query": query,
                 "WEBAPP_URL": settings.WEBAPP_URL,
                 "PUBLIC": status.PUBLIC,
+                "DEEPL_ENABLED": settings.DEEPL_ENABLED,
             },
         )
 

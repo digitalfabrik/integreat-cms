@@ -134,6 +134,7 @@ class POIListView(TemplateView, POIContextMixin):
                 "translation_status": translation_status,
                 "WEBAPP_URL": settings.WEBAPP_URL,
                 "PUBLIC": status.PUBLIC,
+                "DEEPL_ENABLED": settings.DEEPL_ENABLED,
                 **context,
             },
         )
