@@ -11,7 +11,7 @@ ensure_not_root
 
 # Check if npm dependencies are up to date
 echo "Updating JavaScript dependencies..." | print_info
-npx npm-check --update-all --skip-unused
+npm update
 
 # Fix npm security issues (skip all breaking changes)
 echo "Running security audit of JavaScript dependencies..." | print_info

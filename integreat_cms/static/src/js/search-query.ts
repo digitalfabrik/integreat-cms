@@ -115,7 +115,7 @@ export function setSearchQueryEventListeners() {
     })
 
     // Reset the search
-    document.getElementById("search-reset-btn").addEventListener("click", (event) => {
+    document.getElementById("search-reset-btn")?.addEventListener("click", (event) => {
         // Empty the search value
         table_search_input.value = "";
         // Submit the search
