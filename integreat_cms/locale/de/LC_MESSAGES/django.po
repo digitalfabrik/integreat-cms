@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 18:48+0000\n"
+"POT-Creation-Date: 2022-02-02 00:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1297,9 +1297,9 @@ msgstr "Aktiv"
 msgid "Hidden"
 msgstr "Versteckt"
 
-#: cms/constants/region_status.py:18 cms/models/pages/page.py:204
+#: cms/constants/region_status.py:18 cms/models/pages/page.py:284
 #: cms/models/regions/region.py:583 cms/templates/pages/page_form.html:78
-#: cms/templates/pages/page_tree_archived_node.html:65
+#: cms/templates/pages/page_tree_archived_node.html:78
 msgid "Archived"
 msgstr "Archiviert"
 
@@ -1363,8 +1363,8 @@ msgstr "Rechts nach Links"
 #: cms/templates/imprint/imprint_sbs.html:47
 #: cms/templates/imprint/imprint_sbs.html:97
 #: cms/templates/pages/page_sbs.html:54 cms/templates/pages/page_sbs.html:104
-#: cms/templates/pages/page_tree_archived_node.html:47
-#: cms/templates/pages/page_tree_node.html:79
+#: cms/templates/pages/page_tree_archived_node.html:60
+#: cms/templates/pages/page_tree_node.html:78
 #: cms/templates/pois/poi_list_row.html:44
 msgid "Translation up-to-date"
 msgstr "Übersetzung ist aktuell"
@@ -1378,9 +1378,9 @@ msgstr "Übersetzung ist aktuell"
 #: cms/templates/imprint/imprint_sbs.html:43
 #: cms/templates/imprint/imprint_sbs.html:93
 #: cms/templates/pages/page_sbs.html:50 cms/templates/pages/page_sbs.html:100
-#: cms/templates/pages/page_tree_archived_node.html:39
-#: cms/templates/pages/page_tree_node.html:71
-#: cms/templates/pages/page_tree_node.html:89
+#: cms/templates/pages/page_tree_archived_node.html:52
+#: cms/templates/pages/page_tree_node.html:70
+#: cms/templates/pages/page_tree_node.html:88
 #: cms/templates/pois/poi_list_row.html:36
 #: cms/templates/pois/poi_list_row.html:54
 msgid "Currently in translation"
@@ -1394,8 +1394,8 @@ msgstr "Wird derzeit übersetzt"
 #: cms/templates/imprint/imprint_sbs.html:39
 #: cms/templates/imprint/imprint_sbs.html:89
 #: cms/templates/pages/page_sbs.html:46 cms/templates/pages/page_sbs.html:96
-#: cms/templates/pages/page_tree_archived_node.html:43
-#: cms/templates/pages/page_tree_node.html:75
+#: cms/templates/pages/page_tree_archived_node.html:56
+#: cms/templates/pages/page_tree_node.html:74
 #: cms/templates/pois/poi_list_row.html:40
 msgid "Translation outdated"
 msgstr "Übersetzung ist veraltet"
@@ -1405,8 +1405,8 @@ msgstr "Übersetzung ist veraltet"
 #: cms/templates/_form_language_tabs.html:72
 #: cms/templates/events/event_list_archived_row.html:49
 #: cms/templates/events/event_list_row.html:51
-#: cms/templates/pages/page_tree_archived_node.html:52
-#: cms/templates/pages/page_tree_node.html:83
+#: cms/templates/pages/page_tree_archived_node.html:65
+#: cms/templates/pages/page_tree_node.html:82
 #: cms/templates/pois/poi_list_row.html:48
 msgid "Translation missing"
 msgstr "Übersetzung fehlt"
@@ -1586,8 +1586,8 @@ msgstr "Kategorie"
 #: cms/templates/pages/page_form.html:75
 #: cms/templates/pages/page_revisions.html:50
 #: cms/templates/pages/page_sbs.html:66 cms/templates/pages/page_sbs.html:123
-#: cms/templates/pages/page_sbs.html:128 cms/templates/pages/page_tree.html:79
-#: cms/templates/pages/page_tree_archived.html:53
+#: cms/templates/pages/page_sbs.html:128 cms/templates/pages/page_tree.html:81
+#: cms/templates/pages/page_tree_archived.html:64
 #: cms/templates/pois/poi_form.html:47 cms/templates/pois/poi_list.html:59
 #: cms/templates/pois/poi_list_archived.html:23
 #: cms/templates/regions/region_list.html:24
@@ -1801,7 +1801,7 @@ msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
 msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
-#: cms/models/abstract_content_model.py:72 cms/models/abstract_tree_node.py:93
+#: cms/models/abstract_content_model.py:72 cms/models/abstract_tree_node.py:34
 #: cms/models/feedback/feedback.py:25 cms/models/media/directory.py:23
 #: cms/models/media/media_file.py:135
 #: cms/models/push_notifications/push_notification.py:19
@@ -1902,11 +1902,11 @@ msgstr "Änderungsdatum"
 msgid "creator"
 msgstr "Ersteller"
 
-#: cms/models/abstract_tree_node.py:88
+#: cms/models/abstract_tree_node.py:29
 msgid "parent"
 msgstr "übergeordneter Knoten"
 
-#: cms/models/abstract_tree_node.py:344
+#: cms/models/abstract_tree_node.py:282
 msgid "The node \"{}\" in region \"{}\" cannot be moved to \"{}\"."
 msgstr ""
 "Der Knoten \"{}\" in Region \"{}\" kann nicht nach \"{}\" verschoben werden."
@@ -1953,7 +1953,7 @@ msgstr "End-Uhrzeit"
 msgid "recurrence rule"
 msgstr "Wiederholungs-Regel"
 
-#: cms/models/events/event.py:101 cms/models/pages/page.py:51
+#: cms/models/events/event.py:101 cms/models/pages/page.py:118
 #: cms/models/pois/poi.py:34
 msgid "icon"
 msgstr "Icon"
@@ -2421,10 +2421,10 @@ msgstr "Ob die Seite explizit archiviert ist oder nicht"
 #: cms/templates/events/event_list.html:56
 #: cms/templates/events/event_list_archived.html:29
 #: cms/templates/events/event_list_archived.html:33
-#: cms/templates/pages/page_form.html:28 cms/templates/pages/page_tree.html:61
-#: cms/templates/pages/page_tree.html:65
-#: cms/templates/pages/page_tree_archived.html:36
-#: cms/templates/pages/page_tree_archived.html:40
+#: cms/templates/pages/page_form.html:28 cms/templates/pages/page_tree.html:63
+#: cms/templates/pages/page_tree.html:67
+#: cms/templates/pages/page_tree_archived.html:47
+#: cms/templates/pages/page_tree_archived.html:51
 #: cms/templates/pois/poi_form.html:27 cms/templates/pois/poi_list.html:44
 #: cms/templates/pois/poi_list.html:46
 #: cms/templates/pois/poi_list_archived.html:24
@@ -2458,26 +2458,26 @@ msgstr "Impressums-Übersetzung"
 msgid "imprint translations"
 msgstr "Impressums-Übersetzungen"
 
-#: cms/models/pages/page.py:43
+#: cms/models/pages/page.py:110
 msgid "parent page"
 msgstr "übergeordnete Seite"
 
-#: cms/models/pages/page.py:62
+#: cms/models/pages/page.py:129
 msgid "mirrored page"
 msgstr "eingebettete Seite"
 
-#: cms/models/pages/page.py:64
+#: cms/models/pages/page.py:131
 msgid ""
 "If the page embeds live content from another page, it is referenced here."
 msgstr ""
 "Wenn die Seite Live-Inhalte von einer anderen Seite einbettet, wird hier auf "
 "sie verwiesen."
 
-#: cms/models/pages/page.py:71
+#: cms/models/pages/page.py:138
 msgid "Position of mirrored page"
 msgstr "Position der gespiegelten Seite"
 
-#: cms/models/pages/page.py:73
+#: cms/models/pages/page.py:140
 msgid ""
 "If a mirrored page is set, this field determines whether the live content is "
 "embedded before the content of this page or after."
@@ -2485,17 +2485,17 @@ msgstr ""
 "Wenn eine gespiegelte Seite eingestellt ist, bestimmt dieses Feld, ob der "
 "Live-Inhalt vor oder nach dem Inhalt dieser Seite eingebettet wird."
 
-#: cms/models/pages/page.py:80
+#: cms/models/pages/page.py:147
 msgid "editors"
 msgstr "Bearbeiter"
 
-#: cms/models/pages/page.py:82
+#: cms/models/pages/page.py:149
 msgid "A list of users who have the permission to edit this specific page."
 msgstr ""
 "Eine Liste von Benutzern, die die Berechtigung haben, diese bestimmte Seite "
 "zu editieren."
 
-#: cms/models/pages/page.py:84
+#: cms/models/pages/page.py:151
 msgid ""
 "Only has effect if these users do not have the permission to edit pages "
 "anyway."
@@ -2503,17 +2503,17 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: cms/models/pages/page.py:92
+#: cms/models/pages/page.py:159
 msgid "publishers"
 msgstr "Veröffentlicher"
 
-#: cms/models/pages/page.py:94
+#: cms/models/pages/page.py:161
 msgid "A list of users who have the permission to publish this specific page."
 msgstr ""
 "Eine Liste von Benutzern, die die Berechtigung haben, diese bestimmte Seite "
 "zu veröffentlichen."
 
-#: cms/models/pages/page.py:96
+#: cms/models/pages/page.py:163
 msgid ""
 "Only has effect if these users do not have the permission to publish pages "
 "anyway."
@@ -2521,22 +2521,22 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu veröffentlichen."
 
-#: cms/models/pages/page.py:105
+#: cms/models/pages/page.py:172
 msgid "responsible organization"
 msgstr "zuständige Organisation"
 
-#: cms/models/pages/page.py:107
+#: cms/models/pages/page.py:174
 msgid ""
 "This allows all members of the organization to edit and publish this page."
 msgstr ""
 "Dies erlaubt allen Mitgliedern der Organisation diese Seite zu bearbeiten "
 "und veröffentlichen"
 
-#: cms/models/pages/page.py:210 cms/models/pages/page_translation.py:30
+#: cms/models/pages/page.py:290 cms/models/pages/page_translation.py:30
 msgid "page"
 msgstr "Seite"
 
-#: cms/models/pages/page.py:212
+#: cms/models/pages/page.py:292
 msgid "pages"
 msgstr "Seiten"
 
@@ -3094,11 +3094,15 @@ msgstr "Weitere Sprachen"
 msgid "Integreat Editorial System"
 msgstr "Integreat Redaktionssystem"
 
-#: cms/templates/_search_input.html:13 cms/templates/_search_input.html:24
+#: cms/templates/_search_input.html:13 cms/templates/_search_input.html:33
 #: cms/templates/events/_event_filter_form.html:34
 #: cms/views/media/media_context_mixin.py:55
 msgid "Search"
 msgstr "Suchen"
+
+#: cms/templates/_search_input.html:25
+msgid "Reset search"
+msgstr "Suche zurücksetzen"
 
 #: cms/templates/_tinymce_config.html:23
 msgid "Do not translate the selected text."
@@ -3627,7 +3631,7 @@ msgstr "Archivierte Veranstaltungen"
 #: cms/templates/feedback/admin_feedback_list.html:15
 #: cms/templates/feedback/region_feedback_list.html:15
 #: cms/templates/pages/page_tree.html:29
-#: cms/templates/pages/page_tree_archived.html:19
+#: cms/templates/pages/page_tree_archived.html:28
 msgid "Show filters"
 msgstr "Filter einblenden"
 
@@ -3636,7 +3640,7 @@ msgstr "Filter einblenden"
 #: cms/templates/feedback/admin_feedback_list.html:16
 #: cms/templates/feedback/region_feedback_list.html:16
 #: cms/templates/pages/page_tree.html:30
-#: cms/templates/pages/page_tree_archived.html:20
+#: cms/templates/pages/page_tree_archived.html:29
 msgid "Hide filters"
 msgstr "Filter ausblenden"
 
@@ -3664,8 +3668,8 @@ msgstr "Wiederholung"
 #: cms/templates/languages/language_list.html:29
 #: cms/templates/offertemplates/offertemplate_list.html:25
 #: cms/templates/organizations/organization_list.html:23
-#: cms/templates/pages/page_tree.html:81
-#: cms/templates/pages/page_tree_archived.html:54
+#: cms/templates/pages/page_tree.html:83
+#: cms/templates/pages/page_tree_archived.html:66
 #: cms/templates/pois/poi_list.html:64
 #: cms/templates/pois/poi_list_archived.html:32
 #: cms/templates/roles/role_list.html:20
@@ -3684,7 +3688,7 @@ msgstr "Keine zukünftigen Veranstaltungen vorhanden."
 #: cms/templates/feedback/admin_feedback_list.html:128
 #: cms/templates/feedback/region_feedback_list.html:121
 #: cms/templates/linkcheck/links_by_filter.html:72
-#: cms/templates/pages/page_tree.html:107 cms/templates/pois/poi_list.html:87
+#: cms/templates/pages/page_tree.html:109 cms/templates/pois/poi_list.html:87
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
@@ -3696,7 +3700,7 @@ msgstr "Fehlende übersetzungen automatisch erstellen"
 #: cms/templates/feedback/admin_feedback_list.html:135
 #: cms/templates/feedback/region_feedback_list.html:128
 #: cms/templates/linkcheck/links_by_filter.html:80
-#: cms/templates/pages/page_tree.html:126 cms/templates/pois/poi_list.html:90
+#: cms/templates/pages/page_tree.html:128 cms/templates/pois/poi_list.html:90
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -3712,10 +3716,10 @@ msgstr "Keine zukünftigen Veranstaltungen archiviert."
 #: cms/templates/events/event_list_archived_row.html:24
 #: cms/templates/events/event_list_row.html:15
 #: cms/templates/events/event_list_row.html:27
-#: cms/templates/pages/page_tree_archived_node.html:15
-#: cms/templates/pages/page_tree_archived_node.html:25
-#: cms/templates/pages/page_tree_node.html:38
-#: cms/templates/pages/page_tree_node.html:49
+#: cms/templates/pages/page_tree_archived_node.html:28
+#: cms/templates/pages/page_tree_archived_node.html:38
+#: cms/templates/pages/page_tree_node.html:37
+#: cms/templates/pages/page_tree_node.html:48
 #: cms/templates/pois/poi_list_archived_row.html:16
 #: cms/templates/pois/poi_list_archived_row.html:26
 #: cms/templates/pois/poi_list_row.html:14
@@ -4096,8 +4100,8 @@ msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
 #: cms/templates/language_tree/language_tree.html:21
-#: cms/templates/pages/page_tree.html:60
-#: cms/templates/pages/page_tree_archived.html:35
+#: cms/templates/pages/page_tree.html:61
+#: cms/templates/pages/page_tree_archived.html:45
 msgid "Hierarchy"
 msgstr "Hierarchie"
 
@@ -4219,7 +4223,8 @@ msgstr "Erstellt"
 #: cms/templates/languages/language_list.html:28
 #: cms/templates/offertemplates/offertemplate_list.html:23
 #: cms/templates/pages/_page_xliff_import_diff.html:36
-#: cms/templates/pages/page_tree.html:80
+#: cms/templates/pages/page_tree.html:82
+#: cms/templates/pages/page_tree_archived.html:65
 #: cms/templates/regions/region_list.html:23
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
@@ -4410,7 +4415,7 @@ msgid "Show"
 msgstr "Anzeigen"
 
 #: cms/templates/pages/page_form.html:80
-#: cms/templates/pages/page_tree_archived_node.html:69
+#: cms/templates/pages/page_tree_archived_node.html:82
 msgid "Archived, because a parent page is archived"
 msgstr "Archiviert, weil eine übergeordnete Seite archiviert ist"
 
@@ -4457,7 +4462,7 @@ msgstr ""
 #: cms/templates/pages/page_form.html:224
 #: cms/templates/pages/page_form.html:225
 #: cms/templates/pages/page_form.html:233
-#: cms/templates/pages/page_tree_archived_node.html:80
+#: cms/templates/pages/page_tree_archived_node.html:98
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
@@ -4478,7 +4483,7 @@ msgstr[1] ""
 
 #: cms/templates/pages/page_form.html:249
 #: cms/templates/pages/page_form.html:250
-#: cms/templates/pages/page_tree_node.html:128
+#: cms/templates/pages/page_tree_node.html:127
 msgid "Archive page"
 msgstr "Seite archivieren"
 
@@ -4488,14 +4493,14 @@ msgstr "Diese Seite archivieren"
 
 #: cms/templates/pages/page_form.html:260
 #: cms/templates/pages/page_form.html:280
-#: cms/templates/pages/page_tree_archived_node.html:98
-#: cms/templates/pages/page_tree_node.html:141
+#: cms/templates/pages/page_tree_archived_node.html:116
+#: cms/templates/pages/page_tree_node.html:140
 msgid "Delete page"
 msgstr "Seite löschen"
 
 #: cms/templates/pages/page_form.html:265
-#: cms/templates/pages/page_tree_archived_node.html:94
-#: cms/templates/pages/page_tree_node.html:137
+#: cms/templates/pages/page_tree_archived_node.html:112
+#: cms/templates/pages/page_tree_node.html:136
 #: cms/views/pages/page_actions.py:223
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
@@ -4553,6 +4558,7 @@ msgstr ""
 "generieren"
 
 #: cms/templates/pages/page_tree.html:13
+#: cms/templates/pages/page_tree_archived.html:15
 msgid "Page Tree"
 msgstr "Seiten-Baum"
 
@@ -4568,88 +4574,102 @@ msgstr "Seite erstellen"
 msgid "You can only create pages in the default language"
 msgstr "Sie können Seiten nur in der Standard-Sprache anlegen"
 
-#: cms/templates/pages/page_tree.html:67
+#: cms/templates/pages/page_tree.html:69
 msgid "Tags"
 msgstr "Tags"
 
-#: cms/templates/pages/page_tree.html:95
+#: cms/templates/pages/page_tree.html:97
 msgid "No pages found with these filters."
 msgstr "Keine Seiten mit diesen Filtern gefunden."
 
-#: cms/templates/pages/page_tree.html:97
+#: cms/templates/pages/page_tree.html:99
 msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
-#: cms/templates/pages/page_tree.html:108
+#: cms/templates/pages/page_tree.html:110
 msgid "Archive pages"
 msgstr "Seiten archivieren"
 
-#: cms/templates/pages/page_tree.html:113
+#: cms/templates/pages/page_tree.html:115
 msgid "Export published pages as PDF"
 msgstr "Veröffentlichte Seiten als PDF exportieren"
 
-#: cms/templates/pages/page_tree.html:120
+#: cms/templates/pages/page_tree.html:122
 msgid "You cannot export XLIFF files for the default language"
 msgstr "Sie können keine XLIFF-Dateien für die Standard-Sprache exportieren"
 
-#: cms/templates/pages/page_tree.html:123
+#: cms/templates/pages/page_tree.html:125
 msgid "Export XLIFF for translation to"
 msgstr "Exportiere XLIFF für Übersetzung nach"
 
-#: cms/templates/pages/page_tree.html:131
+#: cms/templates/pages/page_tree.html:133
 msgid "Import XLIFF files"
 msgstr "XLIFF-Dateien importieren"
 
-#: cms/templates/pages/page_tree.html:132
+#: cms/templates/pages/page_tree.html:134
 msgid "Supported file extensions"
 msgstr "Unterstützte Dateiendungen"
 
-#: cms/templates/pages/page_tree.html:137
+#: cms/templates/pages/page_tree.html:139
 msgid "Select files"
 msgstr "Dateien auswählen"
 
-#: cms/templates/pages/page_tree.html:139
+#: cms/templates/pages/page_tree.html:141
 msgid "and {} other files"
 msgstr "und {} weitere Dateien"
 
-#: cms/templates/pages/page_tree.html:142
+#: cms/templates/pages/page_tree.html:144
 msgid "Import"
 msgstr "Importieren"
 
-#: cms/templates/pages/page_tree_archived.html:11
+#: cms/templates/pages/page_tree_archived.html:13
 msgid "Archived Pages"
 msgstr "Archivierte Seiten"
 
-#: cms/templates/pages/page_tree_archived.html:64
+#: cms/templates/pages/page_tree_archived.html:77
+msgid "No archived pages found with these filters."
+msgstr "Keine archivierten Seiten mit diesen Filtern gefunden."
+
+#: cms/templates/pages/page_tree_archived.html:79
 msgid "No pages archived yet."
 msgstr "Noch keine Seiten archiviert."
 
-#: cms/templates/pages/page_tree_archived_node.html:6
+#: cms/templates/pages/page_tree_archived_node.html:9
 msgid "Drag & drop is disabled for archived pages."
 msgstr "Drag & drop ist für archivierte Seiten nicht möglich."
 
-#: cms/templates/pages/page_tree_archived_node.html:64
+#: cms/templates/pages/page_tree_archived_node.html:14
+#: cms/templates/pages/page_tree_node.html:23
+msgid "Expand all subpages"
+msgstr "Alle Unterseiten ausklappen"
+
+#: cms/templates/pages/page_tree_archived_node.html:15
+#: cms/templates/pages/page_tree_node.html:24
+msgid "Collapse all subpages"
+msgstr "Alle Unterseiten einklappen"
+
+#: cms/templates/pages/page_tree_archived_node.html:77
 msgid "This page is archived."
 msgstr "Diese Seite ist archiviert."
 
-#: cms/templates/pages/page_tree_archived_node.html:68
+#: cms/templates/pages/page_tree_archived_node.html:81
 msgid ""
 "This page is archived, because at least one of its parent pages is archived."
 msgstr ""
 "Diese Seite ist archiviert, weil eine ihrer übergeordneten Seiten archiviert "
 "ist."
 
-#: cms/templates/pages/page_tree_archived_node.html:76
+#: cms/templates/pages/page_tree_archived_node.html:94
 msgid "View page"
 msgstr "Seite ansehen"
 
-#: cms/templates/pages/page_tree_archived_node.html:88
+#: cms/templates/pages/page_tree_archived_node.html:106
 msgid "To restore this page, you have to restore its archived parent page."
 msgstr ""
 "Um diese Seite wiederherzustellen, müssen Sie ihre archivierte übergeordnete "
 "Seite wiederherstellen."
 
-#: cms/templates/pages/page_tree_archived_node.html:94
+#: cms/templates/pages/page_tree_archived_node.html:112
 msgid "This also involves non-archived subpages."
 msgstr "Dies betrifft auch nicht-archivierte Unterseiten."
 
@@ -4657,41 +4677,33 @@ msgstr "Dies betrifft auch nicht-archivierte Unterseiten."
 msgid "Change the order and position of the pages with drag & drop."
 msgstr "Ändern Sie die Reihenfolge und Position der Seiten mit Drag & Drop."
 
-#: cms/templates/pages/page_tree_node.html:20
-msgid "Drag & drop is disabled when filters are applied."
-msgstr "Drag & drop nicht möglich, wenn Filter aktiv sind"
-
-#: cms/templates/pages/page_tree_node.html:26
-msgid "Collapse all subpages"
-msgstr "Alle Unterseiten einklappen"
-
-#: cms/templates/pages/page_tree_node.html:111
+#: cms/templates/pages/page_tree_node.html:110
 msgid "View page as preview"
 msgstr "Seite als Vorschau ansehen"
 
-#: cms/templates/pages/page_tree_node.html:116
+#: cms/templates/pages/page_tree_node.html:115
 msgid "Open page in web app"
 msgstr "Seite in der Web-App öffnen"
 
-#: cms/templates/pages/page_tree_node.html:120
+#: cms/templates/pages/page_tree_node.html:119
 msgid "This page cannot be opened in the web app, because it is not public."
 msgstr ""
 "Diese Seite kann nicht in der Web-App geöffnet werden, weil sie nicht "
 "veröffentlicht ist."
 
-#: cms/templates/pages/page_tree_node.html:124
+#: cms/templates/pages/page_tree_node.html:123
 msgid "Edit page"
 msgstr "Seite bearbeiten"
 
-#: cms/templates/pages/page_tree_node.html:137
+#: cms/templates/pages/page_tree_node.html:136
 msgid "This also involves archived subpages."
 msgstr "Dies betrifft auch archivierte Unterseiten."
 
-#: cms/templates/pages/page_tree_node.html:152
+#: cms/templates/pages/page_tree_node.html:151
 msgid "Copy short link"
 msgstr "Kurz-URL kopieren"
 
-#: cms/templates/pages/page_tree_node.html:156
+#: cms/templates/pages/page_tree_node.html:155
 msgid "You cannot copy a short link of a page which has no translation."
 msgstr "Sie können keine Kurz-URL zu einer fehlenden Übersetzung kopieren."
 
@@ -5645,7 +5657,7 @@ msgid "Imprint was successfully deleted"
 msgstr "Impressum wurde erfolgreich gelöscht"
 
 #: cms/views/imprint/imprint_form_view.py:73
-#: cms/views/pages/page_tree_view.py:84
+#: cms/views/pages/page_tree_view.py:83
 msgid "Please create at least one language node before creating pages."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie das Impressum "
@@ -6155,7 +6167,7 @@ msgid "You cannot restore revisions of this page because it is archived."
 msgstr ""
 "Sie können Revisionen dieser Seite nicht bearbeiten, weil sie archiviert ist."
 
-#: cms/views/pages/page_tree_view.py:95
+#: cms/views/pages/page_tree_view.py:94
 msgid "You don't have the permission to edit or create pages."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Seiten zu bearbeiten oder zu "
@@ -6404,6 +6416,12 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Drag & drop is disabled when filters are applied."
+#~ msgstr "Drag & drop ist nicht möglich, wenn Filter aktiv sind."
+
+#~ msgid "Collapsing subpages is disabled when filters are applied."
+#~ msgstr "Unterseiten einklappen ist nicht möglich, wenn Filter aktiv sind."
 
 #~ msgid "Language \"{}\" was successfully created"
 #~ msgstr "Sprache \"{}\" wurde erfolgreich erstellt"

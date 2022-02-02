@@ -4,34 +4,33 @@
 {% load tree_filters %}
 
 {% get_translation page language.slug as page_translation %}
-<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if page.depth == 1 %} drop-between {% endif %} h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
-<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 child {% if page.depth > 1 %} hidden level-{{page.depth}}{% endif %}">
+<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if page.relative_depth == 1 %} drop-between {% endif %} h-3 -m-3 hidden level-{{page.relative_depth}}"><td colspan="9"><div><span></span></div></td></tr>
+<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 {% if page.relative_depth > 1 %} level-{{page.relative_depth}} {% if not filter_form.has_changed %} hidden {% endif %} {% endif %}">
     <td class="pl-4">
         <input type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item">
     </td>
-    <td class="hierarchy single_icon whitespace-nowrap">
-        <span data-drag-id="{{ page.id }}"
-              data-node-descendants="{{ page|get_descendant_ids }}"
-              class="{% if enable_drag_and_drop %}drag cursor-move{% else %}cursor-not-allowed{% endif %} text-gray-800 inline-block pl-4 align-middle"
-              {% if enable_drag_and_drop %}
-              draggable="true"
-              title="{% trans 'Change the order and position of the pages with drag & drop.' %}"
-              {% else %}
-              title="{% trans 'Drag & drop is disabled when filters are applied.' %}"
-              {% endif %}>
-            <i data-feather="move"></i>
-        </span>
-        {% if not page.is_leaf %}
-        <span class="collapse-subpages cursor-pointer inline-block align-middle"
-              title="{% trans 'Collapse all subpages' %}"
-              data-page-id="{{ page.id }}"
-              data-page-children="{{ page|get_children_ids }}">
-                <i data-feather="chevron-right"></i>
+    {% if not filter_form.has_changed %}
+        <td class="hierarchy single_icon whitespace-nowrap">
+            <span data-drag-id="{{ page.id }}"
+                  data-node-descendants="{{ page|get_descendant_ids }}"
+                  class="drag cursor-move text-gray-800 inline-block pl-4 align-middle"
+                  draggable="true"
+                  title="{% trans 'Change the order and position of the pages with drag & drop.' %}">
+                <i data-feather="move"></i>
             </span>
-        {% endif %}
-    </td>
+            {% if page.cached_children|length > 0 %}
+                <span class="collapse-subpages cursor-pointer inline-block align-middle"
+                      title="{% trans 'Expand all subpages' %}"
+                      data-alt-title="{% trans 'Collapse all subpages' %}"
+                      data-page-id="{{ page.id }}"
+                      data-page-children="{{ page|get_children_ids }}">
+                    <i data-feather="chevron-right"></i>
+                </span>
+            {% endif %}
+        </td>
+    {% endif %}
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
@@ -41,7 +40,7 @@
     </td>
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page.backend_translation %} {{ page.backend_translation.title }} {% endif %}">
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page.backend_translation %} {{ page.backend_translation.title }} {% endif %}">
                 <div class="translation-title">
                     {% if page.backend_translation %}
                         {{ page.backend_translation.title }}
@@ -53,14 +52,14 @@
         </td>
     {% endif %}
     <td class="whitespace-nowrap">
-        <div class="block py-3 px-2 text-gray-800">
+        <div class="block py-1.5 px-2 text-gray-800">
             {% for tag in page_translation.tags %}
                 <span class="bg-orange-400 text-white rounded px-2 py-1">{{ tag }}</span>
             {% endfor %}
         </div>
     </td>
     <td class="whitespace-nowrap">
-        <div class="block py-3 px-2 text-gray-800">
+        <div class="block py-1.5 px-2 text-gray-800">
             <div class="lang-grid">
                 {% spaceless %}
                     {% for other_language, other_status in page.translation_states.values %}
@@ -97,16 +96,16 @@
         </div>
     </td>
     <td>
-        <div class="block py-3 px-2 text-gray-800">
+        <div class="block py-1.5 px-2 text-gray-800">
             {{ page_translation.get_status_display }}
         </div>
     </td>
     <td>
-        <div class="block py-3 px-2 whitespace-nowrap text-gray-800">
+        <div class="block py-1.5 px-2 whitespace-nowrap text-gray-800">
             {{ page_translation.last_updated|date:"d.m.Y, H:i" }}
         </div>
     </td>
-    <td class="pl-2 pr-4 py-3 text-right flex flex-nowrap gap-2">
+    <td class="pl-2 pr-4 py-1.5 text-right flex flex-nowrap gap-2">
         <a href="{% url 'view_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
            target="_blank" rel="noopener noreferrer" title="{% trans 'View page as preview' %}" class="btn-icon">
             <i data-feather="eye"></i>

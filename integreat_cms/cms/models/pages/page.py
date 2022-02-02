@@ -8,9 +8,11 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from treebeard.ns_tree import NS_NodeQuerySet
+
 from ...utils.translation_utils import ugettext_many_lazy as __
 from ..abstract_content_model import ContentQuerySet
-from ..abstract_tree_node import AbstractTreeNode, TreeNodeQuerySet, TreeNodeManager
+from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields
 from .abstract_base_page import AbstractBasePage
 from .page_translation import PageTranslation
@@ -18,14 +20,79 @@ from .page_translation import PageTranslation
 logger = logging.getLogger(__name__)
 
 
-class PageQuerySet(TreeNodeQuerySet, ContentQuerySet):
+class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
     """
     Custom queryset for pages to inherit methods from both querysets for tree nodes and content objects
     """
 
+    def cache_tree(self, archived=None):
+        """
+        Caches a page tree queryset in a python data structure.
+
+        :param archived: Whether the pages should be limited to either archived  or non-archived pages.
+                         If not passed or ``None``, both archived and non-archived pages are returned.
+        :type archived: bool
+
+        :return: A list of pages with cached children, descendants and ancestors and a list of all skipped pages
+        :rtype: tuple [ list, list ]
+        """
+        result = {}
+        skipped_pages = []
+        for page in (
+            self.prefetch_translations()
+            .prefetch_public_translations()
+            .order_by("tree_id", "lft")
+        ):
+            # pylint: disable=protected-access
+            page._cached_ancestors = []
+            page._cached_descendants = []
+            page._cached_children = []
+            # Determine whether the page should be included in the result
+            # pylint: disable=too-many-boolean-expressions
+            if (
+                # If page is explicitly archived, include it only when archive is either True or None
+                (page.explicitly_archived and archived is not False)
+                # If page is not explicitly archived, two cases are possible:
+                or (
+                    not page.explicitly_archived
+                    and (
+                        # If the page is a root page, include it only when archive is either False or None
+                        (not page.parent_id and not archived)
+                        # Alternatively, include it if its parent is in the result
+                        or (page.parent_id in result)
+                    )
+                )
+            ):
+                if page.parent_id in result:
+                    # Cache the page as child of the parent page
+                    # pylint: disable=protected-access
+                    result[page.parent_id]._cached_children.append(page)
+                    result[page.parent_id]._cached_descendants.append(page)
+                    # Cache the parent page as ancestor of the current page
+                    page._cached_ancestors.extend(
+                        result[page.parent_id]._cached_ancestors
+                    )
+                    page._cached_ancestors.append(result[page.parent_id])
+                    # Cache the current page as descendant of the parent's page ancestors
+                    for ancestor in result[page.parent_id]._cached_ancestors:
+                        if ancestor.id in result:
+                            result[ancestor.id]._cached_descendants.append(page)
+                    # Set the relative depth to the relative depth of the parent + 1
+                    page._relative_depth = result[page.parent_id].relative_depth + 1
+                else:
+                    # Set the relative depth to 1
+                    page._relative_depth = 1
+                result[page.id] = page
+            else:
+                # Keep track of all skipped pages
+                skipped_pages.append(page)
+        logger.debug("Cached result: %r", result)
+        logger.debug("Skipped pages: %r", skipped_pages)
+        return list(result.values()), skipped_pages
+
 
 # pylint: disable=too-few-public-methods
-class PageManager(TreeNodeManager):
+class PageManager(models.Manager):
     """
     Custom manager for pages to inherit methods from both managers for tree nodes and content objects
     """
@@ -183,6 +250,19 @@ class Page(AbstractTreeNode, AbstractBasePage):
         if self.mirrored_page:
             return self.mirrored_page.get_public_translation(language_slug)
         return None
+
+    @cached_property
+    def relative_depth(self):
+        """
+        The relative depth inside a cached tree structure. This is relevant for archived pages, where even sub-pages
+        should be displayed as root-pages if their parents are not archived.
+
+        :return: The relative depth of this node inside its queryset
+        :rtype: int
+        """
+        if hasattr(self, "_relative_depth"):
+            return self._relative_depth
+        return self.depth
 
     def __str__(self):
         """

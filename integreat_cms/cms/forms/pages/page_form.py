@@ -88,11 +88,7 @@ class PageForm(CustomModelForm, MoveNodeForm):
         )
 
         # Limit possible parents to pages of current region
-        parent_queryset = (
-            self.instance.region.pages.all()
-            .prefetch_translations()
-            .prefetch_public_translations()
-        )
+        parent_queryset = self.instance.region.pages.all()
 
         # Set the initial value for the mirrored page region
         if self.instance.mirrored_page:
@@ -149,16 +145,13 @@ class PageForm(CustomModelForm, MoveNodeForm):
         # Set choices of mirrored_page field manually to make use of cache_tree()
         logger.debug("Set choices for mirrored page field:")
         self.fields["mirrored_page"].choices = [
-            (page.id, str(page))
-            for page in mirrored_page_queryset.prefetch_translations()
-            .prefetch_public_translations()
-            .cache_tree()
+            (page.id, str(page)) for page in mirrored_page_queryset.cache_tree()[0]
         ]
 
         # Set choices of parent and _ref_node_id fields manually to make use of cache_tree()
         logger.debug("Set choices for parent field:")
         cached_parent_choices = [
-            (page.id, str(page)) for page in parent_queryset.cache_tree()
+            (page.id, str(page)) for page in parent_queryset.cache_tree()[0]
         ]
         self.fields["parent"].choices = cached_parent_choices
         self.fields["_ref_node_id"].choices = cached_parent_choices

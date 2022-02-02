@@ -6,70 +6,11 @@ from django.utils.translation import ugettext_lazy as _
 from cacheops import invalidate_model
 
 from treebeard.exceptions import InvalidPosition
-from treebeard.ns_tree import NS_Node, NS_NodeQuerySet
+from treebeard.ns_tree import NS_Node
 
 from ..constants import position
 
 logger = logging.getLogger(__name__)
-
-
-class TreeNodeQuerySet(NS_NodeQuerySet):
-    """
-    This queryset provides custom caching mechanisms for trees
-    """
-
-    def cache_tree(self):
-        """
-        Caches a tree queryset in a python data structure.
-
-        :return: A list of tree nodes with cached children, descendants and ancestors
-        :rtype: list
-        """
-        result = {}
-        for node in self.order_by("tree_id", "lft"):
-            # pylint: disable=protected-access
-            node._cached_ancestors = []
-            node._cached_descendants = []
-            node._cached_children = []
-            # Only include the element in the tree if it is either a root node or the parent is contained in the set
-            if not node.parent_id or node.parent_id in result:
-                if node.parent_id:
-                    # Cache the node as child of the parent node
-                    # pylint: disable=protected-access
-                    result[node.parent_id]._cached_children.append(node)
-                    result[node.parent_id]._cached_descendants.append(node)
-                    # Cache the parent node as ancestor of the current node
-                    node._cached_ancestors.extend(
-                        result[node.parent_id]._cached_ancestors
-                    )
-                    node._cached_ancestors.append(result[node.parent_id])
-                    # Cache the current node as descendant of the parent's node ancestors
-                    for ancestor in result[node.parent_id]._cached_ancestors:
-                        result[ancestor.id]._cached_descendants.append(node)
-                # Mark as initialized to know the difference between no children and no cache
-                # pylint: disable=protected-access
-                node._cache_initialized = True
-                result[node.id] = node
-            else:
-                logger.debug("Node %r skipped because parent node is not in tree", node)
-        logger.debug("Cached result: %r", result)
-        return list(result.values())
-
-
-# pylint: disable=too-few-public-methods
-class TreeNodeManager(models.Manager):
-    """
-    Custom manager for this queryset
-    """
-
-    def get_queryset(self):
-        """
-        Get the queryset of tree nodes
-
-        :return: The queryset of tree nodes
-        :rtype: ~integreat_cms.cms.models.abstract_tree_node.TreeNodeQuerySet [ ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode ]
-        """
-        return TreeNodeQuerySet(self.model).order_by("tree_id", "lft")
 
 
 class AbstractTreeNode(NS_Node):
@@ -92,9 +33,6 @@ class AbstractTreeNode(NS_Node):
         on_delete=models.CASCADE,
         verbose_name=_("region"),
     )
-
-    #: Custom model manager :class:`~integreat_cms.cms.models.abstract_tree_node.TreeNodeManager` for tree objects
-    objects = TreeNodeManager()
 
     def save(self, *args, **kwargs):
         r"""
