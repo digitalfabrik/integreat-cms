@@ -16,6 +16,7 @@ module.exports = {
     filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "integreat_cms/static/dist"),
     clean: true,
+    assetModuleFilename: 'assets/[name]-[hash][ext][query]'
   },
   module: {
     rules: [
@@ -79,18 +80,11 @@ module.exports = {
       },
       {
         test: /\.(woff(2)?|ttf|eot|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file-loader",
-        options: {
-          name: "fonts/[name].[hash].[ext]",
-          publicPath: "/static",
-        },
+        type: 'asset/resource'
       },
       {
         test: /\.(png|jpg|gif|svg)$/i,
-        loader: "url-loader",
-        options: {
-          limit: 8192,
-        },
+        type: 'asset/resource'
       },
     ],
   },

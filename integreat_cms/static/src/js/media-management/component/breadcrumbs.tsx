@@ -17,7 +17,7 @@ export default function Breadcrumbs({ breadCrumbs, searchQuery, mediaTranslation
     <nav className="p-2">
       <ul class="flex flex-wrap">
         <li>
-          <Link href={"/"} className={"block hover:bg-blue-600 px-3 py-2 rounded"}>
+          <Link href={"/"} className={"block hover:bg-blue-600 px-3 py-2 rounded"} media-library-link>
             {mediaTranslations.heading_media_root}
           </Link>
         </li>
