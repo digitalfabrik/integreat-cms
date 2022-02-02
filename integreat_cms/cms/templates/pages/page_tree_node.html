@@ -4,8 +4,8 @@
 {% load tree_filters %}
 
 {% get_translation page language.slug as page_translation %}
-<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if page.depth == 1 %} drop-between {% endif %} h-3 -m-3 hidden level-{{page.depth}}"><td colspan="9"><div><span></span></div></td></tr>
-<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 child {% if page.depth > 1 %} level-{{page.depth}} {% if not filter_form.has_changed %} hidden {% endif %} {% endif %}">
+<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if page.relative_depth == 1 %} drop-between {% endif %} h-3 -m-3 hidden level-{{page.relative_depth}}"><td colspan="9"><div><span></span></div></td></tr>
+<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 {% if page.relative_depth > 1 %} level-{{page.relative_depth}} {% if not filter_form.has_changed %} hidden {% endif %} {% endif %}">
     <td class="pl-4">
         <input type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item">
     </td>

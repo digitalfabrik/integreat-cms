@@ -47,11 +47,9 @@ class TranslationCoverageView(TemplateView):
         translation_coverage_data = {}
         outdated_word_count = Counter()
 
-        pages = (
-            region.pages.filter(explicitly_archived=False)
-            .prefetch_translations()
-            .cache_tree()
-        )
+        pages = region.pages.filter(explicitly_archived=False).cache_tree(
+            archived=False
+        )[0]
         for language in region.active_languages:
             language_coverage_data = Counter()
             for page in pages:

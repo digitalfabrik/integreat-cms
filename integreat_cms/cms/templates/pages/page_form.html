@@ -233,7 +233,7 @@
                             <label>{% trans 'Restore page' %}</label>
                             <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
                                 <p>
-                                    {% blocktrans count counter=page.explicitly_archived_ancestors.count trimmed %}
+                                    {% blocktrans count counter=page.explicitly_archived_ancestors|length trimmed %}
                                         To restore this page, you have to restore its parent page:
                                     {% plural %}
                                         To restore this page, you have to restore all its archived parent pages:

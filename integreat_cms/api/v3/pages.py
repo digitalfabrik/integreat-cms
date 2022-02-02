@@ -72,9 +72,11 @@ def pages(request, region_slug, language_slug):
     """
     region = request.region
     result = []
-    for page in region.get_pages(
-        prefetch_translations=True, prefetch_public_translations=True
-    ).cache_tree():
+    # The preliminary filter for explicitly_archived=False is not strictly required, but reduces the number of entries
+    # requested from the database
+    for page in region.pages.filter(explicitly_archived=False).cache_tree(
+        archived=False
+    )[0]:
         page_translation = page.get_public_translation(language_slug)
         if page_translation:
             result.append(transform_page(page_translation))

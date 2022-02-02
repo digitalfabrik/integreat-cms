@@ -1297,7 +1297,7 @@ msgstr "Aktiv"
 msgid "Hidden"
 msgstr "Versteckt"
 
-#: cms/constants/region_status.py:18 cms/models/pages/page.py:204
+#: cms/constants/region_status.py:18 cms/models/pages/page.py:284
 #: cms/models/regions/region.py:583 cms/templates/pages/page_form.html:78
 #: cms/templates/pages/page_tree_archived_node.html:78
 msgid "Archived"
@@ -1587,7 +1587,7 @@ msgstr "Kategorie"
 #: cms/templates/pages/page_revisions.html:50
 #: cms/templates/pages/page_sbs.html:66 cms/templates/pages/page_sbs.html:123
 #: cms/templates/pages/page_sbs.html:128 cms/templates/pages/page_tree.html:81
-#: cms/templates/pages/page_tree_archived.html:55
+#: cms/templates/pages/page_tree_archived.html:64
 #: cms/templates/pois/poi_form.html:47 cms/templates/pois/poi_list.html:59
 #: cms/templates/pois/poi_list_archived.html:23
 #: cms/templates/regions/region_list.html:24
@@ -1801,7 +1801,7 @@ msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
 msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
-#: cms/models/abstract_content_model.py:72 cms/models/abstract_tree_node.py:93
+#: cms/models/abstract_content_model.py:72 cms/models/abstract_tree_node.py:34
 #: cms/models/feedback/feedback.py:25 cms/models/media/directory.py:23
 #: cms/models/media/media_file.py:135
 #: cms/models/push_notifications/push_notification.py:19
@@ -1902,11 +1902,11 @@ msgstr "Änderungsdatum"
 msgid "creator"
 msgstr "Ersteller"
 
-#: cms/models/abstract_tree_node.py:88
+#: cms/models/abstract_tree_node.py:29
 msgid "parent"
 msgstr "übergeordneter Knoten"
 
-#: cms/models/abstract_tree_node.py:344
+#: cms/models/abstract_tree_node.py:282
 msgid "The node \"{}\" in region \"{}\" cannot be moved to \"{}\"."
 msgstr ""
 "Der Knoten \"{}\" in Region \"{}\" kann nicht nach \"{}\" verschoben werden."
@@ -1953,7 +1953,7 @@ msgstr "End-Uhrzeit"
 msgid "recurrence rule"
 msgstr "Wiederholungs-Regel"
 
-#: cms/models/events/event.py:101 cms/models/pages/page.py:51
+#: cms/models/events/event.py:101 cms/models/pages/page.py:118
 #: cms/models/pois/poi.py:34
 msgid "icon"
 msgstr "Icon"
@@ -2423,8 +2423,8 @@ msgstr "Ob die Seite explizit archiviert ist oder nicht"
 #: cms/templates/events/event_list_archived.html:33
 #: cms/templates/pages/page_form.html:28 cms/templates/pages/page_tree.html:63
 #: cms/templates/pages/page_tree.html:67
-#: cms/templates/pages/page_tree_archived.html:38
-#: cms/templates/pages/page_tree_archived.html:42
+#: cms/templates/pages/page_tree_archived.html:47
+#: cms/templates/pages/page_tree_archived.html:51
 #: cms/templates/pois/poi_form.html:27 cms/templates/pois/poi_list.html:44
 #: cms/templates/pois/poi_list.html:46
 #: cms/templates/pois/poi_list_archived.html:24
@@ -2458,26 +2458,26 @@ msgstr "Impressums-Übersetzung"
 msgid "imprint translations"
 msgstr "Impressums-Übersetzungen"
 
-#: cms/models/pages/page.py:43
+#: cms/models/pages/page.py:110
 msgid "parent page"
 msgstr "übergeordnete Seite"
 
-#: cms/models/pages/page.py:62
+#: cms/models/pages/page.py:129
 msgid "mirrored page"
 msgstr "eingebettete Seite"
 
-#: cms/models/pages/page.py:64
+#: cms/models/pages/page.py:131
 msgid ""
 "If the page embeds live content from another page, it is referenced here."
 msgstr ""
 "Wenn die Seite Live-Inhalte von einer anderen Seite einbettet, wird hier auf "
 "sie verwiesen."
 
-#: cms/models/pages/page.py:71
+#: cms/models/pages/page.py:138
 msgid "Position of mirrored page"
 msgstr "Position der gespiegelten Seite"
 
-#: cms/models/pages/page.py:73
+#: cms/models/pages/page.py:140
 msgid ""
 "If a mirrored page is set, this field determines whether the live content is "
 "embedded before the content of this page or after."
@@ -2485,17 +2485,17 @@ msgstr ""
 "Wenn eine gespiegelte Seite eingestellt ist, bestimmt dieses Feld, ob der "
 "Live-Inhalt vor oder nach dem Inhalt dieser Seite eingebettet wird."
 
-#: cms/models/pages/page.py:80
+#: cms/models/pages/page.py:147
 msgid "editors"
 msgstr "Bearbeiter"
 
-#: cms/models/pages/page.py:82
+#: cms/models/pages/page.py:149
 msgid "A list of users who have the permission to edit this specific page."
 msgstr ""
 "Eine Liste von Benutzern, die die Berechtigung haben, diese bestimmte Seite "
 "zu editieren."
 
-#: cms/models/pages/page.py:84
+#: cms/models/pages/page.py:151
 msgid ""
 "Only has effect if these users do not have the permission to edit pages "
 "anyway."
@@ -2503,17 +2503,17 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: cms/models/pages/page.py:92
+#: cms/models/pages/page.py:159
 msgid "publishers"
 msgstr "Veröffentlicher"
 
-#: cms/models/pages/page.py:94
+#: cms/models/pages/page.py:161
 msgid "A list of users who have the permission to publish this specific page."
 msgstr ""
 "Eine Liste von Benutzern, die die Berechtigung haben, diese bestimmte Seite "
 "zu veröffentlichen."
 
-#: cms/models/pages/page.py:96
+#: cms/models/pages/page.py:163
 msgid ""
 "Only has effect if these users do not have the permission to publish pages "
 "anyway."
@@ -2521,22 +2521,22 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu veröffentlichen."
 
-#: cms/models/pages/page.py:105
+#: cms/models/pages/page.py:172
 msgid "responsible organization"
 msgstr "zuständige Organisation"
 
-#: cms/models/pages/page.py:107
+#: cms/models/pages/page.py:174
 msgid ""
 "This allows all members of the organization to edit and publish this page."
 msgstr ""
 "Dies erlaubt allen Mitgliedern der Organisation diese Seite zu bearbeiten "
 "und veröffentlichen"
 
-#: cms/models/pages/page.py:210 cms/models/pages/page_translation.py:30
+#: cms/models/pages/page.py:290 cms/models/pages/page_translation.py:30
 msgid "page"
 msgstr "Seite"
 
-#: cms/models/pages/page.py:212
+#: cms/models/pages/page.py:292
 msgid "pages"
 msgstr "Seiten"
 
@@ -3627,7 +3627,7 @@ msgstr "Archivierte Veranstaltungen"
 #: cms/templates/feedback/admin_feedback_list.html:15
 #: cms/templates/feedback/region_feedback_list.html:15
 #: cms/templates/pages/page_tree.html:29
-#: cms/templates/pages/page_tree_archived.html:19
+#: cms/templates/pages/page_tree_archived.html:28
 msgid "Show filters"
 msgstr "Filter einblenden"
 
@@ -3636,7 +3636,7 @@ msgstr "Filter einblenden"
 #: cms/templates/feedback/admin_feedback_list.html:16
 #: cms/templates/feedback/region_feedback_list.html:16
 #: cms/templates/pages/page_tree.html:30
-#: cms/templates/pages/page_tree_archived.html:20
+#: cms/templates/pages/page_tree_archived.html:29
 msgid "Hide filters"
 msgstr "Filter ausblenden"
 
@@ -3665,7 +3665,7 @@ msgstr "Wiederholung"
 #: cms/templates/offertemplates/offertemplate_list.html:25
 #: cms/templates/organizations/organization_list.html:23
 #: cms/templates/pages/page_tree.html:83
-#: cms/templates/pages/page_tree_archived.html:57
+#: cms/templates/pages/page_tree_archived.html:66
 #: cms/templates/pois/poi_list.html:64
 #: cms/templates/pois/poi_list_archived.html:32
 #: cms/templates/roles/role_list.html:20
@@ -4097,7 +4097,7 @@ msgstr "Sprach-Knoten hinzufügen"
 
 #: cms/templates/language_tree/language_tree.html:21
 #: cms/templates/pages/page_tree.html:61
-#: cms/templates/pages/page_tree_archived.html:36
+#: cms/templates/pages/page_tree_archived.html:45
 msgid "Hierarchy"
 msgstr "Hierarchie"
 
@@ -4220,7 +4220,7 @@ msgstr "Erstellt"
 #: cms/templates/offertemplates/offertemplate_list.html:23
 #: cms/templates/pages/_page_xliff_import_diff.html:36
 #: cms/templates/pages/page_tree.html:82
-#: cms/templates/pages/page_tree_archived.html:56
+#: cms/templates/pages/page_tree_archived.html:65
 #: cms/templates/regions/region_list.html:23
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
@@ -4554,6 +4554,7 @@ msgstr ""
 "generieren"
 
 #: cms/templates/pages/page_tree.html:13
+#: cms/templates/pages/page_tree_archived.html:15
 msgid "Page Tree"
 msgstr "Seiten-Baum"
 
@@ -4617,15 +4618,15 @@ msgstr "und {} weitere Dateien"
 msgid "Import"
 msgstr "Importieren"
 
-#: cms/templates/pages/page_tree_archived.html:11
+#: cms/templates/pages/page_tree_archived.html:13
 msgid "Archived Pages"
 msgstr "Archivierte Seiten"
 
-#: cms/templates/pages/page_tree_archived.html:68
+#: cms/templates/pages/page_tree_archived.html:77
 msgid "No archived pages found with these filters."
 msgstr "Keine archivierten Seiten mit diesen Filtern gefunden."
 
-#: cms/templates/pages/page_tree_archived.html:70
+#: cms/templates/pages/page_tree_archived.html:79
 msgid "No pages archived yet."
 msgstr "Noch keine Seiten archiviert."
 
