@@ -12,7 +12,6 @@ from ...decorators import region_permission_required
 from ...models import (
     Region,
     EventTranslation,
-    PageTranslation,
     POITranslation,
     Feedback,
     PushNotificationTranslation,
@@ -78,9 +77,11 @@ def search_content_ajax(request, region_slug=None, language_slug=None):
     user = request.user
     if user.has_perm("cms.view_event") and "event" in object_types:
         object_types.remove("event")
-        event_translations = EventTranslation.search(
-            region, language_slug, query
-        ).filter(event__archived=archived_flag, status=status.PUBLIC)
+        event_translations = (
+            EventTranslation.search(region, language_slug, query)
+            .filter(event__archived=archived_flag, status=status.PUBLIC)
+            .select_related("event__region", "language")
+        )
         results.extend(
             format_object_translation(obj, "event") for obj in event_translations
         )
@@ -98,21 +99,21 @@ def search_content_ajax(request, region_slug=None, language_slug=None):
 
     if user.has_perm("cms.view_page") and "page" in object_types:
         object_types.remove("page")
-        # Here a filter is not possible since archived is a property on PageTranslation
-        page_translations = (
-            page_translation
-            for page_translation in PageTranslation.search(region, language_slug, query)
-            if page_translation.page.archived == archived_flag
-            and page_translation.status == status.PUBLIC
-        )
-        results.extend(
-            format_object_translation(obj, "page") for obj in page_translations
-        )
+        pages = region.pages.all().cache_tree(archived=archived_flag)[0]
+        for page in pages:
+            page_translation = page.get_translation(language_slug)
+            if page_translation and (
+                query.lower() in page_translation.slug
+                or query.lower() in page_translation.title.lower()
+            ):
+                results.append(format_object_translation(page_translation, "page"))
 
     if user.has_perm("cms.view_poi") and "poi" in object_types:
         object_types.remove("poi")
-        poi_translations = POITranslation.search(region, language_slug, query).filter(
-            poi__archived=archived_flag, status=status.PUBLIC
+        poi_translations = (
+            POITranslation.search(region, language_slug, query)
+            .filter(poi__archived=archived_flag, status=status.PUBLIC)
+            .select_related("poi__region", "language")
         )
         results.extend(
             format_object_translation(obj, "poi") for obj in poi_translations

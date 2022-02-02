@@ -388,12 +388,12 @@ class AbstractContentTranslation(models.Model):
     @classmethod
     def search(cls, region, language_slug, query):
         """
-        Searches for all poi translations which match the given `query` in their title or slug.
+        Searches for all content translations which match the given `query` in their title or slug.
         :param region: The current region
         :type region: ~integreat_cms.cms.models.regions.region.Region
         :param language_slug: The language slug
         :type language_slug: str
-        :param query: The query string used for filtering the pois
+        :param query: The query string used for filtering the content translations
         :type query: str
         :return: A query for all matching objects
         :rtype: ~django.db.models.QuerySet
