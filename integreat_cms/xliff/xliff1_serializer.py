@@ -1,6 +1,7 @@
 import logging
 from urllib.parse import urlparse
 
+from django.conf import settings
 from django.core.serializers import base
 
 from ..cms.models import Page, PageTranslation, Language
@@ -54,6 +55,23 @@ class Serializer(base_serializer.Serializer):
                 "target-language": obj.language.slug,
             },
         )
+        # This header is required to make sure the XLIFF file can be segmented with MemoQ's WPML filter to get the same
+        # translation memory as with the legacy export via WordPress/WPML. See also:
+        # https://docs.memoq.com/current/en/Places/wpml-xliff-filter.html
+        self.xml.startElement("header", {})
+        self.xml.startElement("phase-group", {})
+        self.xml.addQuickElement(
+            "phase",
+            attrs={
+                "phase-name": "shortcodes",
+                "process-name": "Shortcodes identification",
+            },
+        )
+        self.xml.addQuickElement(
+            "phase", attrs={"phase-name": "post_type", "process-name": "Post type"}
+        )
+        self.xml.endElement("phase-group")
+        self.xml.endElement("header")
         self.xml.startElement("body", {})
 
     def handle_field(self, obj, field):
@@ -66,9 +84,14 @@ class Serializer(base_serializer.Serializer):
         :param field: The model field
         :type field: ~django.db.models.Field
         """
+        # Use legacy field name if available
+        REVERSE_XLIFF_LEGACY_FIELDS = dict(
+            map(reversed, settings.XLIFF_LEGACY_FIELDS.items())
+        )
+        field_name = REVERSE_XLIFF_LEGACY_FIELDS.get(field.name, field.name)
         attrs = {
-            "id": field.name,
-            "resname": field.name,
+            "id": field_name,
+            "resname": field_name,
             "restype": "string",
             "datatype": "html",
         }
