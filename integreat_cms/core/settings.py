@@ -555,6 +555,18 @@ USE_L10N = True
 USE_TZ = True
 
 
+##########################
+# AUTOMATIC TRANSLATIONS #
+##########################
+
+#: Authentication token for the DeepL API. If not set, automatic translations via DeepL are disabled
+DEEPL_AUTH_KEY = os.environ.get("INTEGREAT_CMS_DEEPL_AUTH_KEY")
+
+#: Whether automatic translations via DeepL are enabled.
+#: This is ``True`` if :attr:`~integreat_cms.core.settings.DEEPL_AUTH_KEY` is set, ``False`` otherwise.
+DEEPL_ENABLED = bool(DEEPL_AUTH_KEY)
+
+
 ################
 # STATIC FILES #
 ################
