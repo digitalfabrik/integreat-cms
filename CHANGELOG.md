@@ -16,6 +16,7 @@ UNRELEASED
 * Add bulk actions for events and POIs
 * Improve performance of content forms
 * Improve performance of translation coverage view
+* Support legacy XLIFF export for MemoQ WPML filter
 
 
 2021.12.0-beta
