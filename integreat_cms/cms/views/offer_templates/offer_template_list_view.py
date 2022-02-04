@@ -24,7 +24,7 @@ class OfferTemplateListView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "offertemplates/offertemplate_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "offertemplates"}
+    extra_context = {"current_menu_item": "offertemplates"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -42,7 +42,7 @@ class OfferTemplateListView(TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        offer_templates = OfferTemplate.objects.all()
+        offer_templates = OfferTemplate.objects.all().prefetch_related("regions")
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
         paginator = Paginator(offer_templates.order_by("slug"), chunk_size)
@@ -51,5 +51,8 @@ class OfferTemplateListView(TemplateView):
         return render(
             request,
             self.template_name,
-            {**self.base_context, "offer_templates": offer_templates_chunk},
+            {
+                **self.get_context_data(**kwargs),
+                "offer_templates": offer_templates_chunk,
+            },
         )

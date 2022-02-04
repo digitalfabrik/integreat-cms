@@ -21,6 +21,7 @@ UNRELEASED
 * [ [#1101](https://github.com/digitalfabrik/integreat-cms/issues/1101) ] Fetch subpages of page tree gradually
 * [ [#1143](https://github.com/digitalfabrik/integreat-cms/issues/1143) ] Hide "Responsible organization" field in page form if no organizations exist
 * [ [#1151](https://github.com/digitalfabrik/integreat-cms/issues/1151) ] Add possibility to delete languages
+* [ [#1106](https://github.com/digitalfabrik/integreat-cms/issues/1106) ] Add possibility to delete offer templates
 
 
 2021.12.0-beta

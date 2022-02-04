@@ -3701,7 +3701,7 @@ msgstr "Wiederholung"
 #: cms/templates/events/event_list.html:74
 #: cms/templates/events/event_list_archived.html:51
 #: cms/templates/languages/language_list.html:30
-#: cms/templates/offertemplates/offertemplate_list.html:25
+#: cms/templates/offertemplates/offertemplate_list.html:26
 #: cms/templates/organizations/organization_list.html:23
 #: cms/templates/pages/page_tree.html:83
 #: cms/templates/pages/page_tree_archived.html:63
@@ -4212,6 +4212,7 @@ msgstr "Diese Sprache löschen"
 
 #: cms/templates/languages/language_form.html:90
 #: cms/templates/languages/language_list_row.html:41
+#: cms/templates/offertemplates/offertemplate_form.html:84
 msgid "Delete language"
 msgstr "Sprache löschen"
 
@@ -4222,6 +4223,8 @@ msgstr "Bitte bestätigen Sie, dass diese Sprache gelöscht werden soll"
 
 #: cms/templates/languages/language_form.html:92
 #: cms/templates/languages/language_list_row.html:43
+#: cms/templates/offertemplates/offertemplate_form.html:86
+#: cms/templates/offertemplates/offertemplate_list_row.html:33
 #: cms/templates/users/region_user_form.html:107
 #: cms/templates/users/user_form.html:131
 msgid "This cannot be reversed."
@@ -4263,6 +4266,7 @@ msgid "Number of regions where this language is used"
 msgstr "Anzahl der Regionen, in denen diese Sprache verwendet wird"
 
 #: cms/templates/languages/language_list.html:29
+#: cms/templates/offertemplates/offertemplate_list.html:25
 msgid "Number of regions"
 msgstr "Anzahl an Regionen"
 
@@ -4340,13 +4344,40 @@ msgstr "Erstellen"
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
+#: cms/templates/offertemplates/offertemplate_form.html:79
+#: cms/templates/offertemplates/offertemplate_list_row.html:27
+msgid ""
+"This offer template cannot be deleted because it is used in at least one "
+"region."
+msgstr ""
+"Diese Angebots-Vorlage kann nicht gelöscht werden, da sie in mindestens "
+"einer Region verwendet wird."
+
+#: cms/templates/offertemplates/offertemplate_form.html:81
+#: cms/templates/offertemplates/offertemplate_form.html:90
+msgid "Delete this offer templates"
+msgstr "Diese Angebots-Vorlage löschen"
+
+#: cms/templates/offertemplates/offertemplate_form.html:85
+#: cms/templates/offertemplates/offertemplate_list_row.html:32
+msgid "Please confirm that you really want to delete this offer template"
+msgstr "Bitte bestätigen Sie, dass diese Angebots-Vorlage gelöscht werden soll"
+
 #: cms/templates/offertemplates/offertemplate_list.html:10
 msgid "Create offer template"
 msgstr "Neue Angebots-Vorlage erstellen"
 
-#: cms/templates/offertemplates/offertemplate_list.html:34
+#: cms/templates/offertemplates/offertemplate_list.html:25
+msgid "Number of regions where this offer is enabled"
+msgstr "Anzahl der Regionen, in denen dieses Angebot verwendet wird"
+
+#: cms/templates/offertemplates/offertemplate_list.html:35
 msgid "No offer templates available yet."
 msgstr "Noch keine Angebots-Vorlagen vorhanden."
+
+#: cms/templates/offertemplates/offertemplate_list_row.html:31
+msgid "Delete offer templates"
+msgstr "Angebots-Vorlage löschen"
 
 #: cms/templates/organizations/organization_form.html:12
 #, python-format
@@ -5504,7 +5535,7 @@ msgstr ""
 "Adresse eingegeben haben, mit der Sie sich registriert haben, und überprüfen "
 "Sie Ihren Spam-Ordner."
 
-#: cms/views/delete_views.py:72
+#: cms/views/delete_views.py:85
 msgid "{} \"{}\" was successfully deleted"
 msgstr "{} \"{}\" wurde erfolgreich gelöscht"
 

@@ -9,7 +9,7 @@ from django.conf import settings as django_settings
 from django.views.generic import RedirectView
 
 from .forms import LanguageForm, OfferTemplateForm, OrganizationForm, RegionForm
-from .models import Organization, Language
+from .models import Language, OfferTemplate, Organization
 
 from .views import (
     authentication,
@@ -335,6 +335,13 @@ urlpatterns = [
                                     form_class=OfferTemplateForm
                                 ),
                                 name="edit_offertemplate",
+                            ),
+                            url(
+                                r"^delete$",
+                                delete_views.CustomDeleteView.as_view(
+                                    model=OfferTemplate, protect_manytomany="regions"
+                                ),
+                                name="delete_offertemplate",
                             ),
                         ]
                     ),

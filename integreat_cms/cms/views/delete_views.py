@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
+from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.translation import ugettext as _
@@ -27,6 +28,9 @@ class CustomModelDeleteMixin(
     This mixin handles error messages in form views of subclasses of
     :class:`~integreat_cms.cms.forms.custom_model_form.CustomModelForm`
     """
+
+    #: Whether the objects should be protected from deletion if it is used in many to many relationships
+    protect_manytomany = None
 
     def get_permission_required(self):
         """
@@ -60,10 +64,19 @@ class CustomModelDeleteMixin(
         :param \**kwargs: The supplied keyword arguments
         :type \**kwargs: dict
 
+        :raises django.db.IntegrityError: If the object has many to many relationships that prevent deletion
+
         :return: A redirection to the ``success_url``
         :rtype: ~django.http.HttpResponseRedirect
         """
         self.object = self.get_object()
+        # Check whether object has many to many relationships that should prevent deleting
+        if self.protect_manytomany:
+            manytomany_manager = getattr(self.object, self.protect_manytomany)
+            if manytomany_manager.exists():
+                raise IntegrityError(
+                    f"The object {self.object!r} cannot be deleted because of the following many to many relationship: {manytomany_manager.all()}"
+                )
         success_url = self.get_success_url()
         self.object.delete()
         logger.info("%r deleted by %r", self.object, request.user)
