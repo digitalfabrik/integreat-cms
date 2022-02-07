@@ -500,6 +500,11 @@ urlpatterns = [
                     name="get_page_order_table_ajax",
                 ),
                 url(
+                    r"^(?P<region_slug>[-\w]+)/(?P<language_slug>[-\w]+)/(?P<tree_id>[0-9]+)/(?P<lft>[0-9]+)/(?P<rgt>[0-9]+)/(?P<depth>[0-9]+)/get_children$",
+                    pages.PartialPageTreeView.as_view(),
+                    name="get_page_children_ajax",
+                ),
+                url(
                     r"^(?P<region_slug>[-\w]+)/search_poi$",
                     events.search_poi_ajax,
                     name="search_poi_ajax",

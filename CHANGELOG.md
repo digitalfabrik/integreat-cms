@@ -18,6 +18,7 @@ UNRELEASED
 * [ [#943](https://github.com/digitalfabrik/integreat-cms/issues/943) ] Improve performance of translation coverage view
 * [ [#1134](https://github.com/digitalfabrik/integreat-cms/issues/1134) ] Support legacy XLIFF export for MemoQ WPML filter
 * [ [#943](https://github.com/digitalfabrik/integreat-cms/issues/943) ] Improve performance of content searches
+* [ [#1101](https://github.com/digitalfabrik/integreat-cms/issues/1101) ] Fetch subpages of page tree gradually
 
 
 2021.12.0-beta

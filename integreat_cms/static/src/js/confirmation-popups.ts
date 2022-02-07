@@ -7,6 +7,10 @@ type EventHandler = (event: Event) => any;
 const handlers = new Map<HTMLElement, EventHandler>();
 
 window.addEventListener("load", () => {
+  addConfirmationDialogListeners();
+});
+
+export function addConfirmationDialogListeners () {
   // event handler for showing confirmation popups
   document
     .querySelectorAll(".confirmation-button")
@@ -14,7 +18,7 @@ window.addEventListener("load", () => {
       on(button, "click", showConfirmationPopup)
     );
   document.getElementById("close-confirmation-popup")?.addEventListener("click", closeConfirmationPopup);
-});
+}
 
 // Configures all objects that match `selector` to show a confirmation dialog on click.
 // On confirm `handler` gets invoked.
