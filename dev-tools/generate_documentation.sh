@@ -105,10 +105,23 @@ sed --in-place '/\.\. autofunction:: /a \ \ \ \ \ \ :noindex:' ${SPHINX_DIR}/${S
 # shellcheck disable=SC2251
 ! grep --recursive --files-without-match ":orphan:" ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}/*.rst --null | xargs --null --no-run-if-empty sed --in-place '1s/^/:orphan:\n\n/'
 
+# Copy changelog to documentation files
+cp CHANGELOG.md ${SPHINX_DIR}/changelog.rst
+
+# Add changelog heading
+sed --in-place '1s/^/Changelog\n=========\n\n/' ${SPHINX_DIR}/changelog.rst
+
+# Convert markdown-links to ReStructuredText-links
+# shellcheck disable=SC2016
+sed --in-place --regexp-extended 's|\[#([0-9]+)\]\(https://github\.com/digitalfabrik/integreat-cms/issues/([0-9]+)\)|:github:`#\1 <issues/\1>`|' ${SPHINX_DIR}/changelog.rst
+
 echo -e "Compiling reStructuredText files to HTML documentation..." | print_info
 
 # Compile .rst files to html documentation
 pipenv run sphinx-build -j auto -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
+
+# Remove temporary changelog file
+rm ${SPHINX_DIR}/changelog.rst
 
 # Check if script is running in CircleCI context
 if [[ -n "$CIRCLECI" ]]; then
