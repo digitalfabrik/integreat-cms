@@ -16,7 +16,7 @@ module.exports = {
     filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "integreat_cms/static/dist"),
     clean: true,
-    assetModuleFilename: 'assets/[name]-[hash][ext][query]'
+    assetModuleFilename: 'assets/[name][ext][query]'
   },
   module: {
     rules: [
@@ -84,7 +84,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif|svg)$/i,
-        type: 'asset/resource'
+        type: 'asset/inline'
       },
     ],
   },
