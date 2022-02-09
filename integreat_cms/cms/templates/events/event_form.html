@@ -50,24 +50,27 @@
             {% include "_form_language_tabs.html" with target='edit_event' instance=event_form.instance content_field="event_id" %}
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
                 <div class="w-full p-4">
-                    {% if event_translation_form.instance.id %}
-                        <div class="flex justify-end mr-8">
-                            <div class="self-start ml-auto">
-                                {% trans 'Version' %}:
-                                {{ event_translation_form.instance.version }}
-                            </div>
-                        </div>
-                    {% endif %}
                     <div class="flex justify-between">
                         <label for="{{ event_translation_form.title.id_for_label }}" 
                         data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='event' %}{% if event_form.instance.id %}?model_id={{ event_form.instance.id }}{% endif %}">
                         {{ event_translation_form.title.label }}
                         </label>
                         {% if event_translation_form.instance.id %}
-                            <span class="mr-8">
-                                <label class="inline-block">{% trans 'Status' %}:</label>
-                                {{ event_translation_form.instance.get_status_display }}
-                            </span>
+                            <div class="grid grid-cols-2 text-left">
+                                <div class="font-bold pr-2">{% trans 'Version' %}:</div>
+                                <div>
+                                    {{ event_translation_form.instance.version }}
+                                    <!-- TODO: Events Revisions -->
+                                </div>
+                                <div class="font-bold pr-2">{% trans 'Status' %}:</div>
+                                <div>
+                                    {% if event.archived %}
+                                        {% trans 'Archived' %}
+                                    {% else %}
+                                        {{ event_translation_form.instance.get_status_display }}
+                                    {% endif %}
+                                </div>
+                            </div>
                         {% endif %}
                     </div>
                     {% render_field event_translation_form.title|add_error_class:"border-red-500" %}
@@ -76,10 +79,10 @@
                             {{ event_translation_form.slug.label }}: 
                         </label>
                         <a id="slug-link" href="{{ url_link }}{{ event_translation_form.instance.slug }}" class="text-blue-500 hover:underline">{{ url_link }}{{ event_translation_form.instance.slug }}</a>
-                        <a id="edit-slug-btn" class="mx-2 btn-icon">
+                        <a id="edit-slug-btn" title="{% trans 'Edit' %}" class="mx-2 btn-icon">
                             <i data-feather="edit-3"></i>
                         </a>
-                        <a id="copy-slug-btn" class="btn-icon">
+                        <a id="copy-slug-btn" title="{% trans 'Copy to clipboard' %}" class="btn-icon">
                             <i data-feather="copy"></i>
                         </a>
                         <div class="slug-field hidden">

@@ -116,10 +116,10 @@
                             {{ page_translation_form.slug.label }}:
                         </label>
                         <a id="slug-link" href="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}" class="text-blue-500 hover:underline">{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}</a>
-                        <a id="edit-slug-btn" class="mx-2 btn-icon">
+                        <a id="edit-slug-btn" title="{% trans 'Edit' %}" class="mx-2 btn-icon">
                             <i data-feather="edit-3"></i>
                         </a>
-                        <a id="copy-slug-btn" class="btn-icon">
+                        <a id="copy-slug-btn" title="{% trans 'Copy to clipboard' %}" class="btn-icon">
                             <i data-feather="copy"></i>
                         </a>
                         <div class="slug-field hidden">
@@ -139,6 +139,7 @@
             </div>
         </div>
         <div class="pl-4 flex flex-wrap flex-col" style="width: 400px">
+            {% if page %}
             <ul class="flex pl-4">
                 <li class="z-10" style="margin-bottom: -2px">
                     <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
@@ -155,6 +156,7 @@
                 <label for="{{ page_translation_form.minor_edit.id_for_label }}" class="secondary">{{ page_translation_form.minor_edit.label }}</label>
                 <div class="help-text">{{ page_translation_form.minor_edit.help_text }}</div>
             </div>
+            {% endif %}
             <ul class="flex pl-4">
                 <li class="z-10" style="margin-bottom: -2px">
                     <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">

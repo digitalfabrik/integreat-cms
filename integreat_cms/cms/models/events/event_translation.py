@@ -4,8 +4,14 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from ..abstract_content_translation import AbstractContentTranslation
+from ..decorators import modify_fields
 
 
+@modify_fields(
+    slug={"verbose_name": _("event link")},
+    title={"verbose_name": _("title of the event")},
+    content={"verbose_name": _("description")},
+)
 class EventTranslation(AbstractContentTranslation):
     """
     Data model representing an event translation
