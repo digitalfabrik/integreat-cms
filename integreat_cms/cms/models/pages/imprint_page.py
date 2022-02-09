@@ -2,13 +2,13 @@ import logging
 
 from django.utils.translation import ugettext_lazy as _
 
-from .abstract_base_page import AbstractBasePage
 from .imprint_page_translation import ImprintPageTranslation
+from ..abstract_content_model import AbstractContentModel
 
 logger = logging.getLogger(__name__)
 
 
-class ImprintPage(AbstractBasePage):
+class ImprintPage(AbstractContentModel):
     """
     Data model representing an imprint.
     """

@@ -92,12 +92,6 @@ class ImprintFormView(TemplateView, MediaContextMixin):
 
         disabled = False
         if imprint:
-            # Make form disabled if imprint is archived
-            if imprint.archived:
-                disabled = True
-                messages.warning(
-                    request, _("You cannot manage the imprint because it is archived.")
-                )
             # Show information if latest changes are only saved as draft
             public_translation = imprint.get_public_translation(language.slug)
             if public_translation and imprint_translation != public_translation:

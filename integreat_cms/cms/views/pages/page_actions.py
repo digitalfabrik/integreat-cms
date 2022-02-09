@@ -392,7 +392,7 @@ def post_translation_state_ajax(request, region_slug):
     translation_state = decoded_json["translationState"]
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
-    page_translation = page.get_translation(target_language.code)
+    page_translation = page.get_translation(target_language.slug)
     if page_translation:
         page_translation.update(currently_in_translation=translation_state)
         return JsonResponse({"language": target_language})
