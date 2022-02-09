@@ -80,14 +80,6 @@ class ImprintRevisionView(TemplateView):
                 }
             )
 
-        if imprint.archived:
-            messages.warning(
-                request,
-                _(
-                    "You cannot restore revisions of this imprint because it is archived."
-                ),
-            )
-
         return render(
             request,
             self.template_name,

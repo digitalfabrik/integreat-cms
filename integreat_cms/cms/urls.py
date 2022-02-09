@@ -728,16 +728,6 @@ urlpatterns = [
                                 ),
                             ),
                             url(
-                                r"^archive$",
-                                imprint.archive_imprint,
-                                name="archive_imprint",
-                            ),
-                            url(
-                                r"^restore$",
-                                imprint.restore_imprint,
-                                name="restore_imprint",
-                            ),
-                            url(
                                 r"^delete$",
                                 imprint.delete_imprint,
                                 name="delete_imprint",

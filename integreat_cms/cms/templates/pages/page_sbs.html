@@ -138,8 +138,8 @@
                 </div>
                 <label for="{{ page_translation_form.title.id_for_label }}">{{ page_translation_form.title.label }}</label>
                 {% render_field page_translation_form.title|add_error_class:"border-red-500" id="target_translation_title" %}
-                <label for="{{ page_translation_form.content.id_for_label }}">{{ page_translation_form.text.label }}</label>
-                {% render_field page_translation_form.text|add_error_class:"border-red-500" class="tinymce_textarea" id="target_translation_tinymce" %}
+                <label for="{{ page_translation_form.content.id_for_label }}">{{ page_translation_form.content.label }}</label>
+                {% render_field page_translation_form.content|add_error_class:"border-red-500" class="tinymce_textarea" id="target_translation_tinymce" %}
                 <label>{% trans 'Implications on other translations' %}</label>
                 {% render_field page_translation_form.minor_edit id="minor_edit" %}
                 <label for="{{ page_translation_form.minor_edit.id_for_label }}" class="secondary">{{ page_translation_form.minor_edit.label }}</label>

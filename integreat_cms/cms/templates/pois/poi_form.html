@@ -41,27 +41,40 @@
             {% include "_form_language_tabs.html" with target='edit_poi' instance=poi_form.instance content_field="poi_id" %}
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
                 <div class="w-full p-4">
-                    {% if poi_translation_form.instance.id %}
-                        <label class="inline-block">{% trans 'Version' %}:</label>
-                        {{ poi_translation_form.instance.version }}<br>
-                        <label class="inline-block">{% trans 'Status' %}:</label>
-                        {{ poi_translation_form.instance.get_status_display }}
-                    {% endif %}
-                    <label for="{{ poi_translation_form.title.id_for_label }}"
-                        data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}">
-                        {{ poi_translation_form.title.label }}
-                    </label>
-                    {% render_field poi_translation_form.title|add_error_class:"border-red-500" %}
-                    <div id="link-container" class="flex items-center mt-4">
-                        <label for="{{ poi_translation_form.slug.id_for_label }}">
+                    <div class="flex justify-between">
+                        <label for="{{ poi_translation_form.title.id_for_label }}"
+                            data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}">
+                            {{ poi_translation_form.title.label }}
+                        </label>
+                        {% if poi_translation_form.instance.id %}
+                            <div class="grid grid-cols-2 text-left">
+                                <div class="font-bold pr-2">{% trans 'Version' %}:</div>
+                                <div>
+                                    {{ poi_translation_form.instance.version }}
+                                    <!-- TODO: POI Revisions -->
+                                </div>
+                                <div class="font-bold pr-2">{% trans 'Status' %}:</div>
+                                <div>
+                                    {% if poi.archived %}
+                                        {% trans 'Archived' %}
+                                    {% else %}
+                                        {{ poi_translation_form.instance.get_status_display }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% render_field poi_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
+                    <div id="link-container" class="flex items-center">
+                        <label for="{{ poi_translation_form.slug.id_for_label }}" class="mr-2">
                             {{ poi_translation_form.slug.label }}:
                         </label>
                         {% spaceless %}
                             <a id="slug-link" href="https://integreat.app/{{ request.region.slug }}/{{ language.slug }}/" class="text-blue-500 hover:underline">https://integreat.app/{{ request.region.slug }}/{{ language.slug }}/</a>
-                            <a id="edit-slug-btn" class="mx-2 btn-icon">
+                            <a id="edit-slug-btn" title="{% trans 'Edit' %}" class="mx-2 btn-icon">
                                 <i data-feather="edit-3"></i>
                             </a>
-                            <a id="copy-slug-btn" class="btn-icon">
+                            <a id="copy-slug-btn" title="{% trans 'Copy to clipboard' %}" class="btn-icon">
                                 <i data-feather="copy"></i>
                             </a>
                             <div class="slug-field hidden">

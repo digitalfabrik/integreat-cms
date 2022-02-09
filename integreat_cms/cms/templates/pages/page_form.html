@@ -85,10 +85,10 @@
                             </div>
                         {% endif %}
                     </div>
-                    {% render_field page_translation_form.title|add_error_class:"border-red-500" %}
+                    {% render_field page_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
                     {% if page_translation_form.instance.id %}
                         {% if request.region.short_urls_enabled and request.user.expert_mode %}
-                            <label class="inline-block mt-4">{% trans 'Short URL' %}:</label>
+                            <label class="inline-block">{% trans 'Short URL' %}:</label>
                             <a href="{{ page_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
                             <a href="#" data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
                                 <i data-feather="copy"></i>
@@ -111,15 +111,15 @@
                             </div>
                         {% endif %}
                     {% endif %}
-                    <div id="link-container" class="flex items-center mt-4">
+                    <div id="link-container" class="flex items-center">
                         <label for="{{ page_translation_form.slug.id_for_label }}" class="mr-2 whitespace-nowrap">
                             {{ page_translation_form.slug.label }}:
                         </label>
                         <a id="slug-link" href="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}" class="text-blue-500 hover:underline">{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}</a>
-                        <a id="edit-slug-btn" class="mx-2 btn-icon">
+                        <a id="edit-slug-btn" title="{% trans 'Edit' %}" class="mx-2 btn-icon">
                             <i data-feather="edit-3"></i>
                         </a>
-                        <a id="copy-slug-btn" class="btn-icon">
+                        <a id="copy-slug-btn" title="{% trans 'Copy to clipboard' %}" class="btn-icon">
                             <i data-feather="copy"></i>
                         </a>
                         <div class="slug-field hidden">
@@ -139,6 +139,7 @@
             </div>
         </div>
         <div class="pl-4 flex flex-wrap flex-col" style="width: 400px">
+            {% if page %}
             <ul class="flex pl-4">
                 <li class="z-10" style="margin-bottom: -2px">
                     <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
@@ -155,6 +156,7 @@
                 <label for="{{ page_translation_form.minor_edit.id_for_label }}" class="secondary">{{ page_translation_form.minor_edit.label }}</label>
                 <div class="help-text">{{ page_translation_form.minor_edit.help_text }}</div>
             </div>
+            {% endif %}
             <ul class="flex pl-4">
                 <li class="z-10" style="margin-bottom: -2px">
                     <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">

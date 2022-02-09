@@ -4,8 +4,14 @@ from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
 from ..abstract_content_translation import AbstractContentTranslation
+from ..decorators import modify_fields
 
 
+@modify_fields(
+    slug={"verbose_name": _("link to the location")},
+    title={"verbose_name": _("name of the location")},
+    content={"verbose_name": _("description")},
+)
 class POITranslation(AbstractContentTranslation):
     """
     Data model representing a POI translation

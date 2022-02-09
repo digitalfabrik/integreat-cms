@@ -9,7 +9,7 @@ import "tinymce/plugins/autosave";
 import "tinymce/plugins/charmap";
 import "tinymce/plugins/code";
 import "tinymce/plugins/directionality";
-import "tinymce/plugins/hr"
+import "tinymce/plugins/hr";
 import "tinymce/plugins/image";
 import "tinymce/plugins/link";
 import "tinymce/plugins/lists";
@@ -28,10 +28,7 @@ function parseSvg(svgUrl: string): string {
 
 /* This function adds an icon which can be inserted in the content */
 function addIcon(editor: Editor, tinymceConfig: HTMLElement, name: string): void {
-  editor.ui.registry.addIcon(
-      name,
-      parseSvg(require(`../../svg/${name}.svg`).default)
-  );
+  editor.ui.registry.addIcon(name, parseSvg(require(`../../svg/${name}.svg`)));
   editor.ui.registry.addMenuItem(name, {
     text: tinymceConfig.getAttribute(`data-${name}-icon-text`),
     icon: name,
@@ -46,19 +43,19 @@ function addIcon(editor: Editor, tinymceConfig: HTMLElement, name: string): void
 function toggleNoTranslate(editor: Editor) {
   editor.focus();
   const val = tinymce.activeEditor.dom.getAttrib(
-      tinymce.activeEditor.selection.getNode(),
-      "translate",
-      "yes"
+    tinymce.activeEditor.selection.getNode(),
+    "translate",
+    "yes"
   );
   if (val == "no") {
     tinymce.activeEditor.dom.setAttrib(
-        tinymce.activeEditor.selection.getNode(),
-        "translate",
-        null
+      tinymce.activeEditor.selection.getNode(),
+      "translate",
+      null
     );
   } else if (editor.selection.getContent().length > 0) {
     editor.selection.setContent(
-        '<span class="notranslate" translate="no">' +
+      '<span class="notranslate" translate="no">' +
         editor.selection.getContent() +
         "</span>"
     );
@@ -74,6 +71,7 @@ window.addEventListener("load", () => {
   if (tinymceConfig) {
     tinymce.init({
       selector: ".tinymce_textarea",
+      deprecation_warnings: false,
       menubar: "edit view insert format icon",
       menu: {
         edit: {
@@ -91,8 +89,8 @@ window.addEventListener("load", () => {
         },
         insert: {
           title: "Insert",
-          items: "openmediacenter add_link media | charmap hr"
-        }
+          items: "openmediacenter add_link media | charmap hr",
+        },
       },
       link_title: false,
       autosave_interval: "120s",
@@ -106,7 +104,7 @@ window.addEventListener("load", () => {
       },
       link_default_protocol: "https",
       target_list: false,
-      default_link_target: '',
+      default_link_target: "",
       document_base_url: tinymceConfig.getAttribute("data-webapp-url"),
       relative_urls: false,
       remove_script_host: false,
@@ -157,8 +155,10 @@ window.addEventListener("load", () => {
       content_css: tinymceConfig.getAttribute("data-content-css"),
       content_style: tinymceConfig.getAttribute("data-content-style"),
       language: tinymceConfig.getAttribute("data-language"),
-      directionality: tinymceConfig.getAttribute("data-directionality") as 'ltr' | 'rtl',
-      element_format: 'html',
+      directionality: tinymceConfig.getAttribute("data-directionality") as
+        | "ltr"
+        | "rtl",
+      element_format: "html",
       setup: (editor: Editor) => {
         addIcon(editor, tinymceConfig, "pin");
         addIcon(editor, tinymceConfig, "www");
@@ -167,17 +167,17 @@ window.addEventListener("load", () => {
         addIcon(editor, tinymceConfig, "clock");
         addIcon(editor, tinymceConfig, "idea");
         editor.ui.registry.addIcon(
-          "no_translate",
-          parseSvg(require("../../svg/no_translate.svg").default)
+          "no-translate",
+          parseSvg(require(`../../svg/no-translate.svg`))
         );
         editor.ui.registry.addButton("notranslate", {
           tooltip: tinymceConfig.getAttribute("data-no-translate-tooltip"),
-          icon: "no_translate",
+          icon: "no-translate",
           onAction: () => toggleNoTranslate(editor),
         });
         editor.ui.registry.addMenuItem("notranslate", {
           text: tinymceConfig.getAttribute("data-no-translate-text"),
-          icon: "no_translate",
+          icon: "no-translate",
           onAction: () => toggleNoTranslate(editor),
         });
       },
