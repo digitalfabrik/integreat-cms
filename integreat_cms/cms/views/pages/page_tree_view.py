@@ -95,10 +95,15 @@ class PageTreeView(TemplateView, PageContextMixin):
             )
         context = self.get_context_data(**kwargs)
 
-        page_queryset = region.pages.all()
-        pages, skipped_pages = page_queryset.cache_tree(archived=self.archived)
         # Filter pages according to given filters, if any
         filter_data = kwargs.get("filter_data")
+
+        if filter_data or self.archived:
+            page_queryset = region.pages.all()
+        else:
+            page_queryset = region.pages.filter(lft=1)
+        pages = page_queryset.cache_tree(archived=self.archived)[0]
+
         if filter_data:
             # Set data for filter form rendering
             filter_form = PageFilterForm(data=filter_data)
@@ -114,7 +119,6 @@ class PageTreeView(TemplateView, PageContextMixin):
                 **context,
                 "current_menu_item": "pages",
                 "pages": pages,
-                "skipped_count": len(skipped_pages),
                 "language": language,
                 "languages": region.active_languages,
                 "filter_form": filter_form,

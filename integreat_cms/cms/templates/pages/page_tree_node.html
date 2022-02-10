@@ -4,8 +4,8 @@
 {% load tree_filters %}
 
 {% get_translation page language.slug as page_translation %}
-<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if page.relative_depth == 1 %} drop-between {% endif %} h-3 -m-3 hidden level-{{page.relative_depth}}"><td colspan="9"><div><span></span></div></td></tr>
-<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 {% if page.relative_depth > 1 %} level-{{page.relative_depth}} {% if not filter_form.has_changed %} hidden {% endif %} {% endif %}">
+<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden level-{{page.relative_depth}}"><td colspan="9"><div><span></span></div></td></tr>
+<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 {% if page.relative_depth > 1 %} level-{{page.relative_depth}} {% endif %}{% if parent_id %}parent-page-{{ parent_id }}{% endif %}">
     <td class="pl-4">
         <input type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item">
     </td>
@@ -18,13 +18,15 @@
                   title="{% trans 'Change the order and position of the pages with drag & drop.' %}">
                 <i data-feather="move"></i>
             </span>
-            {% if page.cached_children|length > 0 %}
+            {% if not page.is_leaf %}
                 <span class="collapse-subpages cursor-pointer inline-block align-middle"
                       title="{% trans 'Expand all subpages' %}"
                       data-alt-title="{% trans 'Collapse all subpages' %}"
                       data-page-id="{{ page.id }}"
-                      data-page-children="{{ page|get_children_ids }}">
+                      data-page-children="{{ page|get_children_ids }}"
+                      data-page-children-url="{% url 'get_page_children_ajax' region_slug=request.region.slug language_slug=language.slug tree_id=page.tree_id lft=page.lft rgt=page.rgt depth=page.depth %}">
                     <i data-feather="chevron-right"></i>
+                    <svg class="animate-spin h-5 w-5 border-4 border-indigo-200 rounded-full border-t-blue-500 hidden" viewBox="0 0 24 24"></svg>
                 </span>
             {% endif %}
         </td>
