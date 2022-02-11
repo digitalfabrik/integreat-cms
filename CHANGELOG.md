@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.2.0-beta
+-------------
+
 * [ [#1065](https://github.com/digitalfabrik/integreat-cms/issues/1065) ] Fix APIv3 single page endpoint for multiple translation versions
 * [ [#1077](https://github.com/digitalfabrik/integreat-cms/issues/1077) ] Fix error when deleting a poi that is used by an event
 * [ [#844](https://github.com/digitalfabrik/integreat-cms/issues/844) ] Add tutorial to page tree view
