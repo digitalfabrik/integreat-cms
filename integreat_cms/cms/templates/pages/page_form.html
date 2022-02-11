@@ -204,11 +204,13 @@
                         </div>
                     {% endif %}
                 {% endif %}
-                <div {% if not request.user.expert_mode %}hidden{% endif %}>
-                    <label for="{{ page_form.organization.id_for_label }}">{{ page_form.organization.label }}</label>
-                    <div class="help-text">{{ page_form.organization.help_text }}</div>
-                    {% render_field page_form.organization|add_error_class:"border-red-500" %}
-                </div>
+                {% if page_form.organization.field.queryset.exists %}
+                    <div {% if not request.user.expert_mode %}hidden{% endif %}>
+                        <label for="{{ page_form.organization.id_for_label }}">{{ page_form.organization.label }}</label>
+                        <div class="help-text">{{ page_form.organization.help_text }}</div>
+                        {% render_field page_form.organization|add_error_class:"border-red-500" %}
+                    </div>
+                {% endif %}
             </div>
                 {% if page and can_edit_page %}
                     <ul class="flex pl-4">

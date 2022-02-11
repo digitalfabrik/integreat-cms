@@ -74,5 +74,24 @@
 			</div>
 		</div>
 	</div>
+	{% if form.instance.id and perms.cms.delete_offertemplate %}
+		{% if form.instance.regions.exists %}
+			<button title="{% trans 'This offer template cannot be deleted because it is used in at least one region.' %}" class="btn" disabled>
+				<i data-feather="trash-2"></i>
+				{% trans 'Delete this offer templates' %}
+			</button>
+		{% else %}
+			<button title="{% trans 'Delete language' %}" class="btn confirmation-button btn-red"
+					data-confirmation-title="{% trans 'Please confirm that you really want to delete this offer template' %}"
+					data-confirmation-text="{% trans 'This cannot be reversed.' %}"
+					data-confirmation-subject="{{ form.instance.name }}"
+					data-action="{% url 'delete_offertemplate' slug=form.instance.slug %}">
+				<i data-feather="trash-2"></i>
+				{% trans 'Delete this offer templates' %}
+			</button>
+		{% endif %}
+	{% endif %}
 </form>
+
+{% include "../generic_confirmation_dialog.html" %}
 {% endblock %}

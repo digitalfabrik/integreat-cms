@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-10 11:31+0000\n"
+"POT-Creation-Date: 2022-02-10 16:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -3700,8 +3700,8 @@ msgstr "Wiederholung"
 
 #: cms/templates/events/event_list.html:74
 #: cms/templates/events/event_list_archived.html:51
-#: cms/templates/languages/language_list.html:29
-#: cms/templates/offertemplates/offertemplate_list.html:25
+#: cms/templates/languages/language_list.html:30
+#: cms/templates/offertemplates/offertemplate_list.html:26
 #: cms/templates/organizations/organization_list.html:23
 #: cms/templates/pages/page_tree.html:83
 #: cms/templates/pages/page_tree_archived.html:63
@@ -3953,7 +3953,7 @@ msgid "Implications on other translations"
 msgstr "Auswirkungen auf andere Übersetzungen"
 
 #: cms/templates/imprint/imprint_form.html:102
-#: cms/templates/pages/page_form.html:219
+#: cms/templates/pages/page_form.html:221
 #: cms/templates/regions/region_list.html:25
 #: cms/templates/settings/user_settings.html:93
 msgid "Actions"
@@ -3981,7 +3981,7 @@ msgid "Side-by-Side view"
 msgstr "Side-by-Side-Ansicht"
 
 #: cms/templates/imprint/imprint_form.html:137
-#: cms/templates/pages/page_form.html:307
+#: cms/templates/pages/page_form.html:309
 msgid "Direction of translation"
 msgstr "Übersetzungsrichtung"
 
@@ -4198,6 +4198,38 @@ msgstr "oder"
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
 
+#: cms/templates/languages/language_form.html:85
+#: cms/templates/languages/language_list_row.html:37
+msgid "You cannot delete a language that is used in at least one region."
+msgstr ""
+"Diese Sprache kann nicht gelöscht werden, da sie in mindestens einer Region "
+"verwendet wird."
+
+#: cms/templates/languages/language_form.html:87
+#: cms/templates/languages/language_form.html:96
+msgid "Delete this language"
+msgstr "Diese Sprache löschen"
+
+#: cms/templates/languages/language_form.html:90
+#: cms/templates/languages/language_list_row.html:41
+#: cms/templates/offertemplates/offertemplate_form.html:84
+msgid "Delete language"
+msgstr "Sprache löschen"
+
+#: cms/templates/languages/language_form.html:91
+#: cms/templates/languages/language_list_row.html:42
+msgid "Please confirm that you really want to delete this language"
+msgstr "Bitte bestätigen Sie, dass diese Sprache gelöscht werden soll"
+
+#: cms/templates/languages/language_form.html:92
+#: cms/templates/languages/language_list_row.html:43
+#: cms/templates/offertemplates/offertemplate_form.html:86
+#: cms/templates/offertemplates/offertemplate_list_row.html:33
+#: cms/templates/users/region_user_form.html:107
+#: cms/templates/users/user_form.html:131
+msgid "This cannot be reversed."
+msgstr "Dies kann nicht rückgängig gemacht werden."
+
 #: cms/templates/languages/language_list.html:7
 msgid "Manage Languages"
 msgstr "Sprachen"
@@ -4229,13 +4261,18 @@ msgstr "Erstellt"
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
 
-#: cms/templates/languages/language_list.html:38
+#: cms/templates/languages/language_list.html:29
+msgid "Number of regions where this language is used"
+msgstr "Anzahl der Regionen, in denen diese Sprache verwendet wird"
+
+#: cms/templates/languages/language_list.html:29
+#: cms/templates/offertemplates/offertemplate_list.html:25
+msgid "Number of regions"
+msgstr "Anzahl an Regionen"
+
+#: cms/templates/languages/language_list.html:39
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
-
-#: cms/templates/languages/language_list_row.html:47
-msgid "Deleting languages is not implemented yet."
-msgstr "Das Löschen von Sprachen ist noch nicht implementiert."
 
 #: cms/templates/linkcheck/link_list_row.html:19
 msgid "Go to source"
@@ -4307,13 +4344,40 @@ msgstr "Erstellen"
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
+#: cms/templates/offertemplates/offertemplate_form.html:79
+#: cms/templates/offertemplates/offertemplate_list_row.html:27
+msgid ""
+"This offer template cannot be deleted because it is used in at least one "
+"region."
+msgstr ""
+"Diese Angebots-Vorlage kann nicht gelöscht werden, da sie in mindestens "
+"einer Region verwendet wird."
+
+#: cms/templates/offertemplates/offertemplate_form.html:81
+#: cms/templates/offertemplates/offertemplate_form.html:90
+msgid "Delete this offer templates"
+msgstr "Diese Angebots-Vorlage löschen"
+
+#: cms/templates/offertemplates/offertemplate_form.html:85
+#: cms/templates/offertemplates/offertemplate_list_row.html:32
+msgid "Please confirm that you really want to delete this offer template"
+msgstr "Bitte bestätigen Sie, dass diese Angebots-Vorlage gelöscht werden soll"
+
 #: cms/templates/offertemplates/offertemplate_list.html:10
 msgid "Create offer template"
 msgstr "Neue Angebots-Vorlage erstellen"
 
-#: cms/templates/offertemplates/offertemplate_list.html:34
+#: cms/templates/offertemplates/offertemplate_list.html:25
+msgid "Number of regions where this offer is enabled"
+msgstr "Anzahl der Regionen, in denen dieses Angebot verwendet wird"
+
+#: cms/templates/offertemplates/offertemplate_list.html:35
 msgid "No offer templates available yet."
 msgstr "Noch keine Angebots-Vorlagen vorhanden."
+
+#: cms/templates/offertemplates/offertemplate_list_row.html:31
+msgid "Delete offer templates"
+msgstr "Angebots-Vorlage löschen"
 
 #: cms/templates/organizations/organization_form.html:12
 #, python-format
@@ -4451,18 +4515,18 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: cms/templates/pages/page_form.html:226
-#: cms/templates/pages/page_form.html:227
-#: cms/templates/pages/page_form.html:235
+#: cms/templates/pages/page_form.html:228
+#: cms/templates/pages/page_form.html:229
+#: cms/templates/pages/page_form.html:237
 #: cms/templates/pages/page_tree_archived_node.html:98
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html:232
+#: cms/templates/pages/page_form.html:234
 msgid "Restore this page"
 msgstr "Diese Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html:238
+#: cms/templates/pages/page_form.html:240
 msgid "To restore this page, you have to restore its parent page:"
 msgid_plural ""
 "To restore this page, you have to restore all its archived parent pages:"
@@ -4473,31 +4537,31 @@ msgstr[1] ""
 "Um diese Seite wiederherzustellen, müssen Sie alle ihre archivierten "
 "übergeordneten Seiten wiederherstellen:"
 
-#: cms/templates/pages/page_form.html:251
-#: cms/templates/pages/page_form.html:252
+#: cms/templates/pages/page_form.html:253
+#: cms/templates/pages/page_form.html:254
 #: cms/templates/pages/page_tree_node.html:129
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: cms/templates/pages/page_form.html:258
+#: cms/templates/pages/page_form.html:260
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
-#: cms/templates/pages/page_form.html:262
-#: cms/templates/pages/page_form.html:282
+#: cms/templates/pages/page_form.html:264
+#: cms/templates/pages/page_form.html:284
 #: cms/templates/pages/page_tree_archived_node.html:116
 #: cms/templates/pages/page_tree_node.html:142
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: cms/templates/pages/page_form.html:267
+#: cms/templates/pages/page_form.html:269
 #: cms/templates/pages/page_tree_archived_node.html:112
 #: cms/templates/pages/page_tree_node.html:138
 #: cms/views/pages/page_actions.py:223
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
-#: cms/templates/pages/page_form.html:268
+#: cms/templates/pages/page_form.html:270
 msgid "To delete this page, you have to delete or move its subpage first:"
 msgid_plural ""
 "To delete this page, you have to delete or move its subpages first:"
@@ -4508,15 +4572,15 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie zuerst ihre Unterseiten löschen oder "
 "verschieben:"
 
-#: cms/templates/pages/page_form.html:288
+#: cms/templates/pages/page_form.html:290
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
-#: cms/templates/pages/page_form.html:300
+#: cms/templates/pages/page_form.html:302
 msgid "Translator view"
 msgstr "Übersetzeransicht"
 
-#: cms/templates/pages/page_form.html:316
+#: cms/templates/pages/page_form.html:318
 msgid "Show translator view"
 msgstr "Übersetzeransicht anzeigen"
 
@@ -5198,11 +5262,6 @@ msgstr "Diesen Benutzer löschen"
 msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
 
-#: cms/templates/users/region_user_form.html:107
-#: cms/templates/users/user_form.html:131
-msgid "This cannot be reversed."
-msgstr "Dies kann nicht rückgängig gemacht werden."
-
 #: cms/templates/users/region_user_form.html:111
 #: cms/templates/users/user_form.html:129
 msgid "Delete user"
@@ -5476,6 +5535,10 @@ msgstr ""
 "Adresse eingegeben haben, mit der Sie sich registriert haben, und überprüfen "
 "Sie Ihren Spam-Ordner."
 
+#: cms/views/delete_views.py:85
+msgid "{} \"{}\" was successfully deleted"
+msgstr "{} \"{}\" wurde erfolgreich gelöscht"
+
 #: cms/views/error_handler/error_handler.py:44
 msgid "Bad request"
 msgstr "Inkorrekte Anfrage"
@@ -5626,7 +5689,7 @@ msgstr "Feedback wurde als ungelesen markiert"
 msgid "Feedback was successfully deleted"
 msgstr "Feedback wurde erfolgreich gelöscht"
 
-#: cms/views/form_views.py:114 cms/views/imprint/imprint_sbs_view.py:210
+#: cms/views/form_views.py:99 cms/views/imprint/imprint_sbs_view.py:210
 #: cms/views/language_tree/language_tree_node_form_view.py:106
 #: cms/views/pages/page_sbs_view.py:196 cms/views/roles/role_form_view.py:92
 #: cms/views/settings/user_settings_view.py:94
@@ -5636,11 +5699,11 @@ msgstr "Feedback wurde erfolgreich gelöscht"
 msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
-#: cms/views/form_views.py:118
+#: cms/views/form_views.py:103
 msgid "{} \"{}\" was successfully saved"
 msgstr "{} \"{}\" wurde erfolgreich gespeichert"
 
-#: cms/views/form_views.py:125
+#: cms/views/form_views.py:110
 msgid "{} \"{}\" was successfully created"
 msgstr "{} \"{}\" wurde erfolgreich erstellt"
 
@@ -5938,10 +6001,6 @@ msgstr "Bitte bestätigen Sie, dass dieses Verzeichnis gelöscht werden soll"
 #: cms/views/media/media_context_mixin.py:76
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
-
-#: cms/views/organizations/organization_actions.py:36
-msgid "Organization was succesfully deleted"
-msgstr "Organisation wurde erfolgreich gelöscht"
 
 #: cms/views/organizations/organization_context_mixin.py:13
 msgid "Please confirm that you really want to delete this organization"
@@ -6398,6 +6457,9 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Deleting languages is not implemented yet."
+#~ msgstr "Das Löschen von Sprachen ist noch nicht implementiert."
 
 #~ msgid "You cannot restore revisions of this imprint because it is archived."
 #~ msgstr ""
