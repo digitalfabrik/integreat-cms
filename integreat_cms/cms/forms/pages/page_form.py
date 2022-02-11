@@ -2,12 +2,13 @@ import logging
 
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Permission
 from django.db.models import Q
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
-from ...constants import position, mirrored_page_first
+from treebeard.forms import MoveNodeForm
+
+from ...constants import mirrored_page_first, position
 from ...models import Page, Region
 from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
@@ -16,7 +17,7 @@ from .parent_field_widget import ParentFieldWidget
 logger = logging.getLogger(__name__)
 
 
-class PageForm(CustomModelForm):
+class PageForm(CustomModelForm, MoveNodeForm):
     """
     Form for creating and modifying page objects
     """
@@ -26,14 +27,6 @@ class PageForm(CustomModelForm):
         required=False,
         widget=ParentFieldWidget(),
         label=capfirst(Page._meta.get_field("parent").verbose_name),
-    )
-    related_page = forms.ModelChoiceField(
-        queryset=Page.objects.all(), required=False, widget=forms.HiddenInput()
-    )
-    position = forms.ChoiceField(
-        choices=position.CHOICES,
-        initial=position.LAST_CHILD,
-        widget=forms.HiddenInput(),
     )
     editors = forms.ModelChoiceField(
         queryset=get_user_model().objects.all(),
@@ -50,7 +43,9 @@ class PageForm(CustomModelForm):
         help_text=_("These users can edit and publish this page."),
     )
     mirrored_page_region = forms.ModelChoiceField(
-        queryset=Region.objects.all(), required=False
+        queryset=Region.objects.all(),
+        required=False,
+        label=_("Source region for live content"),
     )
 
     class Meta:
@@ -80,88 +75,117 @@ class PageForm(CustomModelForm):
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
 
-        # pass form object to ParentFieldWidget
+        # Hide tree node inputs
+        self.fields["_ref_node_id"].widget = forms.HiddenInput()
+        self.fields["_position"].widget = forms.HiddenInput()
+
+        # Pass form object to ParentFieldWidget
         self.fields["parent"].widget.form = self
 
-        if "data" in kwargs:
-            # dirty hack to remove fields when submitted by POST
-            del self.fields["editors"]
-            del self.fields["publishers"]
-        else:
-            # update the querysets otherwise
-            self.fields["editors"].queryset = self.get_editor_queryset()
-            self.fields["publishers"].queryset = self.get_publisher_queryset()
+        # Exclude current region from choices for mirrored content
+        self.fields["mirrored_page_region"].queryset = Region.objects.exclude(
+            id=self.instance.region_id
+        )
 
-        # limit possible parents to pages of current region
-        parent_queryset = self.instance.region.pages
+        # Limit possible parents to pages of current region
+        parent_queryset = self.instance.region.pages.all()
 
         # Set the initial value for the mirrored page region
         if self.instance.mirrored_page:
             self.fields[
                 "mirrored_page_region"
-            ].initial = self.instance.mirrored_page.region
+            ].initial = self.instance.mirrored_page.region_id
+
+        # Let mirrored page queryset be empty per default and only fill it if a region is selected
+        mirrored_page_queryset = Page.objects.none()
 
         if self.is_bound:
             # If form is bound (submitted with data) limit the queryset to the selected region to validate the selected
             # mirrored page and to render the options for the mirrored page.
             # If no region was selected, allow no mirrored page
-            mirrored_page_region = (
-                self.data["mirrored_page_region"]
-                if self.data["mirrored_page_region"]
-                else None
-            )
-            self.fields["mirrored_page"].queryset = self.fields[
-                "mirrored_page"
-            ].queryset.filter(region=mirrored_page_region)
+            mirrored_page_region = self.data["mirrored_page_region"]
+            if mirrored_page_region:
+                mirrored_page_queryset = Region.objects.get(
+                    id=mirrored_page_region
+                ).pages.all()
+            # Dirty hack to remove fields when submitted by POST (since they are handles by AJAX)
+            del self.fields["editors"]
+            del self.fields["publishers"]
         else:
             # If form is unbound (rendered without data), set the initial queryset to the pages of the initial region
             # to render the options for the mirrored page
-            self.fields["mirrored_page"].queryset = Page.objects.filter(
-                region=self.fields["mirrored_page_region"].initial
-            )
+            if self.instance.mirrored_page:
+                mirrored_page_queryset = self.instance.mirrored_page.region.pages.all()
+            # Update the querysets otherwise
+            self.fields["editors"].queryset = self.get_editor_queryset()
+            self.fields["publishers"].queryset = self.get_publisher_queryset()
 
-        # check if instance of this form already exists
+        # Check if instance of this form already exists
         if self.instance.id:
-            # remove children from possible parents
-            children = self.instance.get_descendants(include_self=True)
-            parent_queryset = parent_queryset.exclude(id__in=children)
-            self.fields["parent"].initial = self.instance.parent
-            # check if instance has siblings
-            previous_sibling = self.instance.get_previous_sibling()
-            next_sibling = self.instance.get_next_sibling()
-            if previous_sibling:
-                self.fields["related_page"].initial = previous_sibling
-                self.fields["position"].initial = position.RIGHT
-            elif next_sibling:
-                self.fields["related_page"].initial = next_sibling
-                self.fields["position"].initial = position.LEFT
-            else:
-                self.fields["related_page"].initial = self.instance.parent
-                self.fields["position"].initial = position.LAST_CHILD
+            # Remove descendants from possible parents
+            parent_queryset = parent_queryset.exclude(
+                tree_id=self.instance.tree_id,
+                lft__range=(self.instance.lft, self.instance.rgt - 1),
+            )
+            # Set initial value for parent field
+            self.fields["parent"].initial = self.instance.parent_id
             # Exclude the current page from the possible options for mirrored pages
-            self.fields["mirrored_page"].queryset = self.fields[
-                "mirrored_page"
-            ].queryset.exclude(id=self.instance.id)
+            mirrored_page_queryset = mirrored_page_queryset.exclude(id=self.instance.id)
+        else:
+            # Set the default position to the right of the last root page
+            last_root_page = self.instance.region.get_root_pages().last()
+            if last_root_page:
+                self.fields["_ref_node_id"].initial = last_root_page.id
+                self.fields["_position"].initial = position.RIGHT
+            else:
+                # If no page exists, treebeard expects the value "0" as reference node id
+                self.fields["_ref_node_id"].initial = 0
+                self.fields["_position"].initial = position.FIRST_CHILD
 
-        self.fields["parent"].queryset = parent_queryset
+        # Set choices of mirrored_page field manually to make use of cache_tree()
+        logger.debug("Set choices for mirrored page field:")
+        self.fields["mirrored_page"].choices = [
+            (page.id, str(page)) for page in mirrored_page_queryset.cache_tree()[0]
+        ]
 
-    def save(self, commit=True):
+        # Set choices of parent and _ref_node_id fields manually to make use of cache_tree()
+        logger.debug("Set choices for parent field:")
+        cached_parent_choices = [
+            (page.id, str(page)) for page in parent_queryset.cache_tree()[0]
+        ]
+        self.fields["parent"].choices = cached_parent_choices
+        self.fields["_ref_node_id"].choices = cached_parent_choices
+
+    def _clean_cleaned_data(self):
         """
-        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
-        which are not directly determined by input fields.
+        Delete auxiliary fields not belonging to node model and include instance attributes in cleaned_data
 
-        :param commit: Whether or not the changes should be written to the database
-        :type commit: bool
-
-        :return: The saved page object
-        :rtype: ~integreat_cms.cms.models.pages.page.Page
+        :return: The initial data for _ref_node_id and _position fields
+        :rtype: tuple
         """
+        del self.cleaned_data["mirrored_page_region"]
+        # This workaround is required because the MoveNodeForm does not take
+        # instance attribute into account which are not included in cleaned_data
+        self.cleaned_data["region"] = self.instance.region
+        return super()._clean_cleaned_data()
 
-        page = super().save(commit=commit)
+    @classmethod
+    def mk_dropdown_tree(cls, model, for_node=None):
+        """
+        Creates a tree-like list of choices. Overwrites the parent method because the field is hidden anyway and
+        additional queries to render the page titles should be avoided.
 
-        page.move_to(self.cleaned_data["related_page"], self.cleaned_data["position"])
+        :param model: ~integreat_cms.cms.models.pages.page.Page
+        :type model: type
 
-        return page
+        :param for_node: The instance of this form
+        :type for_node: ~integreat_cms.cms.models.pages.page.Page
+
+        :return: A list of select options
+        :rtype: list
+        """
+        # No need to calculate anything here, because we set self.fields["_ref_node_id"].choices manually
+        return []
 
     def get_editor_queryset(self):
         """
@@ -172,10 +196,9 @@ class PageForm(CustomModelForm):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
-        permission_edit_page = Permission.objects.get(codename="change_page")
         users_without_permissions = get_user_model().objects.exclude(
-            Q(groups__permissions=permission_edit_page)
-            | Q(user_permissions=permission_edit_page)
+            Q(groups__permissions__codename="change_page")
+            | Q(user_permissions__codename="change_page")
             | Q(is_superuser=True)
         )
         if self.instance.id:
@@ -193,10 +216,9 @@ class PageForm(CustomModelForm):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
-        permission_publish_page = Permission.objects.get(codename="publish_page")
         users_without_permissions = get_user_model().objects.exclude(
-            Q(groups__permissions=permission_publish_page)
-            | Q(user_permissions=permission_publish_page)
+            Q(groups__permissions__codename="publish_page")
+            | Q(user_permissions__codename="publish_page")
             | Q(is_superuser=True)
         )
         if self.instance.id:

@@ -1,6 +1,7 @@
 from django.views.generic.base import ContextMixin
 from django.utils.translation import ugettext_lazy
 
+
 # pylint: disable=too-few-public-methods
 class OrganizationContextMixin(ContextMixin):
     """

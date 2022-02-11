@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from .feedback import Feedback
@@ -28,7 +29,7 @@ class OfferFeedback(Feedback):
         """
         return self.offer.name
 
-    @property
+    @cached_property
     def object_url(self):
         """
         This property returns the url to the object this feedback comments on.
@@ -36,9 +37,7 @@ class OfferFeedback(Feedback):
         :return: The url to the referred object
         :rtype: str
         """
-        return reverse(
-            "edit_offer_template", kwargs={"offer_template_id": self.offer.id}
-        )
+        return reverse("edit_offertemplate", kwargs={"slug": self.offer.slug})
 
     @property
     def related_feedback(self):

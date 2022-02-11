@@ -66,7 +66,7 @@ intersphinx_mapping = {
         f"https://docs.python.org/{sys.version_info.major}.{sys.version_info.minor}/",
         None,
     ),
-    # "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
+    "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
     "requests": ("https://docs.python-requests.org/en/master/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
     "sphinx-rtd-theme": (
@@ -89,7 +89,11 @@ intersphinx_mapping = {
         "https://django-debug-toolbar.readthedocs.io/en/latest/",
         None,
     ),
-    "django-mptt": ("https://django-mptt.readthedocs.io/en/latest/", None),
+    "django-polymorphic": (
+        "https://django-polymorphic.readthedocs.io/en/latest/",
+        None,
+    ),
+    "django-treebeard": ("https://django-treebeard.readthedocs.io/en/latest/", None),
     "setuptools": ("https://setuptools.pypa.io/en/latest/", None),
     "twine": ("https://twine.readthedocs.io/en/latest/", None),
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
@@ -118,6 +122,8 @@ nitpick_ignore = [
     ("py:class", "builtins.int"),
     ("py:class", "builtins.AssertionError"),
     ("py:class", "builtins.int"),
+    ("py:class", "django.contrib.admin.helpers.ActionForm"),
+    ("py:class", "django.contrib.admin.checks.ModelAdminChecks"),
     ("py:attr", "django.contrib.auth.models.Permission.user_set"),
     ("py:attr", "django.contrib.auth.models.Group.role"),
     ("py:attr", "django.contrib.auth.models.Group.user_set"),
@@ -126,25 +132,29 @@ nitpick_ignore = [
     ("py:class", "django.utils.datastructures.MultiValueDict"),
     ("py:class", "django.contrib.auth.tokens.PasswordResetTokenGenerator"),
     ("py:func", "django.contrib.sitemaps.Sitemap._urls"),
+    (
+        "py:attr",
+        "django.contrib.contenttypes.models.ContentType.polymorphic_cms.feedback_set+",
+    ),
     ("py:class", "django.core.handlers.WSGIHandler"),
     ("py:class", "django.core.mail.EmailMultiAlternatives"),
     ("py:class", "django.core.serializers.base.ProgressBar"),
     ("py:class", "django.core.serializers.base.DeserializedObject"),
-    ("py:exc", "django.core.serializers.base.DeserializationError"),
-    ("py:exc", "django.core.serializers.base.SerializationError"),
+    ("py:class", "django.core.serializers.base.DeserializationError"),
+    ("py:class", "django.core.serializers.base.SerializationError"),
     ("py:class", "django.core.serializers.xml_serializer.Serializer"),
     ("py:class", "django.core.serializers.xml_serializer.Deserializer"),
     ("py:class", "django.forms.models.ModelChoiceIterator"),
+    ("py:class", "django.forms.widgets.LanguageTreeNodeForm"),
+    ("py:class", "django.forms.widgets.PageForm"),
     ("py:func", "django.utils.text.capfirst"),
     ("py:class", "django.utils.xmlutils.SimplerXMLGenerator"),
     ("py:class", "linkcheck.Linklist"),
     ("py:class", "linkcheck.models.Link"),
+    ("py:attr", "linkcheck.models.Link.+"),
     ("py:attr", "linkcheck.models.Link.event_translations"),
     ("py:attr", "linkcheck.models.Link.page_translations"),
     ("py:attr", "linkcheck.models.Link.poi_translations"),
-    ("py:class", "mptt.fields.TreeForeignKey"),
-    ("py:class", "mptt.forms.TreeNodeChoiceField"),
-    ("py:class", "mptt.models.MPTTModel"),
     ("py:class", "realms.magic.unicorn"),
     ("py:class", "webauthn.WebAuthnUser"),
     ("py:class", "xml.dom.minidom.Element"),
@@ -219,19 +229,24 @@ def linkcode_resolve(domain, info):
 # pylint: disable=unused-argument
 def patch_django_for_autodoc(app):
     """
-    Monkeypatch the :class:`~integreat_cms.cms.models.regions.region.RegionManager` because the default queryset is
-    accessed durinng sphinx build before ``django.setup()`` has been called, which causes problems with the mptt model.
+    Monkeypatch the docstring of ``get_sorted_pos_queryset()`` because the indentation levels are incorrect
 
     :param app: The Sphinx application object
     :type app: ~sphinx.application.Sphinx
     """
     # pylint: disable=import-outside-toplevel
-    from integreat_cms.cms.models.regions.region import RegionManager
-    from django.db.models import Manager
+    from treebeard.models import Node
 
-    docstring = RegionManager.get_queryset.__doc__
-    RegionManager.get_queryset = Manager.get_queryset
-    RegionManager.get_queryset.__doc__ = docstring
+    Node.get_sorted_pos_queryset.__doc__ = """
+    :returns:
+
+        A queryset of the nodes that must be moved to the right.
+        Called only for Node models with :attr:`node_order_by`
+
+    This function is based on _insertion_target_filters from django-mptt
+    (BSD licensed) by Jonathan Buchanan:
+    https://github.com/django-mptt/django-mptt/blob/0.3.0/mptt/signals.py
+    """
 
 
 def setup(app):

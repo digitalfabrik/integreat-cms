@@ -1,25 +1,27 @@
 {% load i18n %}
 {% load content_filters %}
 {% load page_filters %}
-<tr class="border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if page.depth > 0 %} child level-{{page.depth}}{% endif %}">
-    <td class="hierarchy single_icon">
-        <span class="text-gray-800 block py-3 pl-4 pr-2" title="{% trans 'Drag & drop is disabled for archived pages.' %}">
-            <i data-feather="move"></i>
-        </span>
-    </td>
+{% load tree_filters %}
+
+<tr id="page-{{ page.id }}" class="border-t border-b border-solid border-gray-200 hover:bg-gray-100 {% if page.relative_depth > 1 %} level-{{page.relative_depth}} {% if not filter_form.has_changed and page.parent.archived %} hidden {% endif %} {% endif %}">
+    {% if not filter_form.has_changed %}
+        <td class="hierarchy single_icon whitespace-nowrap">
+            <span class="cursor-move text-gray-800 inline-block pl-4 align-middle" title="{% trans 'Drag & drop is disabled for archived pages.' %}">
+                <i data-feather="move"></i>
+            </span>
+            {% if not page.is_leaf %}
+                <span class="collapse-subpages cursor-pointer inline-block align-middle"
+                  title="{% trans 'Expand all subpages' %}"
+                  data-alt-title="{% trans 'Collapse all subpages' %}"
+                  data-page-id="{{ page.id }}"
+                  data-page-children="{{ page|get_children_ids }}">
+                    <i data-feather="chevron-right"></i>
+                </span>
+            {% endif %}
+        </td>
+    {% endif %}
     <td>
-        {% if page.explicitly_archived %}
-            <a  title="{% trans 'This page is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
-                {% trans 'Archived' %}
-            </a>
-        {% else %}
-            <a  title="{% trans 'This page is archived, because at least one of its parent pages is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
-                {% trans 'Archived, because a parent page is archived' %}
-            </a>
-        {% endif %}
-    </td>
-    <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}" class="block py-3 pl-2 text-gray-800">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-2 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
@@ -27,11 +29,9 @@
             {% endif %}
         </a>
     </td>
-    {% get_current_language as LANGUAGE_CODE %}
-    {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 pl-2 text-gray-800">
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block py-2 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page.backend_translation %} {{ page.backend_translation.title }} {% endif %}">
                 {% if page.backend_translation %}
                     {{ page.backend_translation.title }}
                 {% else %}
@@ -41,11 +41,11 @@
         </td>
     {% endif %}
     <td class="whitespace-nowrap">
-        <div class="block py-3 pl-2 text-gray-800">
+        <div class="block py-2 pl-2 text-gray-800">
             <div class="lang-grid">
                 {% spaceless %}
                     {% for other_language in languages %}
-                        <a href="{% url 'edit_page' page_id=page.id region_slug=region.slug language_slug=other_language.slug %}">
+                        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language.slug %}">
                             {% get_translation page other_language.slug as other_translation %}
                             {% if other_translation %}
                                 {% if other_translation.currently_in_translation %}
@@ -72,9 +72,25 @@
             </div>
         </div>
     </td>
-    <td class="pl-2 pr-4 py-3 flex flex-nowrap justify-end gap-2">
+    <td>
+        {% if page.explicitly_archived %}
+            <div  title="{% trans 'This page is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-2 pl-2 text-gray-800">
+                {% trans 'Archived' %}
+            </div>
+        {% else %}
+            <div  title="{% trans 'This page is archived, because at least one of its parent pages is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-2 pl-2 text-gray-800">
+                {% trans 'Archived, because a parent page is archived' %}
+            </div>
+        {% endif %}
+    </td>
+    <td>
+        <div class="block py-2 px-2 whitespace-nowrap text-gray-800">
+            {{ page_translation.last_updated|date:"d.m.Y, H:i" }}
+        </div>
+    </td>
+    <td class="pl-2 pr-4 py-2 flex flex-nowrap justify-end gap-2">
         <!-- TODO: add link to view page in web app -->
-        <a href="{% url 'view_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}"
+        <a href="{% url 'view_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
            target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="icon">
             <i data-feather="eye"></i>
         </a>
@@ -83,7 +99,7 @@
                     data-confirmation-title="{{ restore_dialog_title }}"
                     data-confirmation-text="{{ restore_dialog_text }}"
                     data-confirmation-subject="{{ page.best_translation.title }}"
-                    data-action="{% url 'restore_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
+                    data-action="{% url 'restore_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
                 <i data-feather="refresh-ccw"></i>
             </button>
         {% else %}
@@ -101,7 +117,7 @@
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"
                     data-confirmation-subject="{{ page.best_translation.title }}"
-                    data-action="{% url 'delete_page' page_id=page.id region_slug=region.slug language_slug=language.slug %}">
+                    data-action="{% url 'delete_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i data-feather="trash-2"></i>
                 </button>
             {% endif %}

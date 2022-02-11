@@ -1,5 +1,4 @@
 {% extends "_base.html" %}
-
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
@@ -7,225 +6,164 @@
 {% load page_filters %}
 {% load rules %}
 {% load render_bundle from webpack_loader %}
-
 {% block content %}
-<form method="post" id="content_form">
-    {% csrf_token %}
-    <div class="flex flex-wrap">
-        <div class="w-full flex flex-wrap justify-between gap-4 mb-6">
-            <h1 class="heading">
-                {% if imprint %}
-                    {% if imprint_translation_form.instance.id %}
-                        {% trans 'Edit imprint' %}
+    <form method="post" id="content_form">
+        {% csrf_token %}
+        <div class="flex flex-wrap">
+            <div class="w-full flex flex-wrap justify-between gap-4 mb-6">
+                <h1 class="heading">
+                    {% if imprint %}
+                        {% if imprint_translation_form.instance.id %}
+                            {% trans 'Edit imprint' %}
+                        {% else %}
+                            {% trans 'Create new imprint translation' %}
+                        {% endif %}
                     {% else %}
-                        {% trans 'Create new imprint translation' %}
+                        {% trans 'Create imprint' %}
                     {% endif %}
-                {% else %}
-                    {% trans 'Create imprint' %}
-                {% endif %}
-            </h1>
-            <div class="flex flex-wrap gap-4">
-                {% if perms.cms.change_imprintpage %}
-                    {% if not imprint.id or not imprint.archived %}
+                </h1>
+                <div class="flex flex-wrap gap-4">
+                    {% if perms.cms.change_imprintpage %}
                         <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
                         <button name="submit_public" class="btn">{% trans 'Publish' %}</button>
                     {% endif %}
-                {% endif %}
-            </div>
-        </div>
-        <div class="{% if imprint %} w-2/3 {% else %} w-full {% endif %} flex flex-wrap flex-col pr-2">
-            <ul class="flex flex-wrap pl-4">
-                {% for other_language in languages %}
-                    <li class="mr-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
-                        <div class="bg-white text-blue-500 {% if other_language != language %}hover:bg-blue-500 hover:text-white{% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
-                            <div class="border-b-2 border-white">
-                        {% if other_language == language %}
-                            <div class="p-4">
-                                {% if imprint %}
-                                    {% if other_language in imprint.languages %}
-                                        {% if imprint_translation_form.instance.is_outdated %}
-                                            <span title="{% trans 'Translation outdated' %}">
-                                                <i data-feather="alert-triangle"></i>
-                                            </span>
-                                        {% elif imprint_translation_form.instance.currently_in_translation %}
-                                            <span title="{% trans 'Currently in translation' %}">
-                                                <i data-feather="clock"></i>
-                                            </span>
-                                        {% else %}
-                                            <span title="{% trans 'Translation up-to-date' %}">
-                                                <i data-feather="check"></i>
-                                            </span>
-                                        {% endif %}
-                                    {% else %}
-                                        <span title="{% trans 'Translation missing' %}">
-                                            <i data-feather="x"></i>
-                                        </span>
-                                    {% endif %}
-                                {% else %}
-                                    <span title="{% trans 'Create Translation' %}">
-                                        <i data-feather="plus"></i>
-                                    </span>
-                                {% endif %}
-                                {{ other_language.translated_name }}
-                            </div>
-                        {% else %}
-                            <a class="p-4 block" style="color: inherit;" href="{% url 'edit_imprint' region_slug=region.slug language_slug=other_language.slug %}">
-                                {% if other_language in imprint.languages %}
-                                    {% get_translation imprint other_language.slug as other_imprint_translation %}
-                                    {% if other_imprint_translation.is_outdated %}
-                                        <span title="{% trans 'Translation outdated' %}">
-                                            <i data-feather="alert-triangle"></i>
-                                        </span>
-                                    {% elif other_imprint_translation.currently_in_translation %}
-                                        <span title="{% trans 'Currently in translation' %}">
-                                            <i data-feather="clock"></i>
-                                        </span>
-                                    {% else %}
-                                        <span title="{% trans 'Translation up-to-date' %}">
-                                            <i data-feather="check"></i>
-                                        </span>
-                                    {% endif %}
-                                {% else %}
-                                    <span title="{% trans 'Translation missing' %}">
-                                        <i data-feather="x"></i>
-                                    </span>
-                                {% endif %}
-                                {{ other_language.translated_name }}
-                            </a>
-                        {% endif %}
-                            </div>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-            <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
-                <div class="w-full p-4">
-                    {% if imprint_translation_form.instance.id %}
-                        <label class="inline-block">{% trans 'Version' %}:</label>
-                        {{ imprint_translation_form.instance.version }}
-                        (<a href="{% url 'imprint_revisions' region_slug=region.slug language_slug=language.slug %}" class="text-blue-500 hover:underline">{% trans 'Show versions' %}</a>)<br>
-                        <label class="inline-block">{% trans 'Status' %}:</label>
-                        {{ imprint_translation_form.instance.get_status_display }}<br>
-                        <label class="inline-block">{% trans 'Link to the imprint' %}:</label>
-                        <a href="{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}</a>
-                        <a href="#" data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
-                            <i data-feather="copy"></i>
-                        </a><br>
-                        {% if region.short_urls_enabled and request.user.expert_mode %}
-                            <label class="inline-block">{% trans 'Short URL' %}:</label>
-                            <a href="{{ imprint_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ imprint_translation_form.instance.short_url }}</a>
-                            <a href="#" data-copy-to-clipboard="{{ imprint_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
-                                <i data-feather="copy"></i>
-                            </a>
-                        {% endif %}
-                    {% endif %}
-                    <label for="{{ imprint_translation_form.title.id_for_label }}">{{ imprint_translation_form.title.label }}</label>
-                    {% render_field imprint_translation_form.title|add_error_class:"border-red-500" %}
-                    <label for="{{ imprint_translation_form.text.id_for_label }}">{{ imprint_translation_form.text.label }}</label>
-                    {% render_field imprint_translation_form.text class="tinymce_textarea" %}
-                    {% if imprint_translation_form.instance.id %}
-                        {% render_field imprint_translation_form.minor_edit %}
-                        <label for="{{ imprint_translation_form.minor_edit.id_for_label }}">{{ imprint_translation_form.minor_edit.label }}</label>
-                        <div class="help-text">{{ imprint_translation_form.minor_edit.help_text }}</div>
-                    {% endif %}
                 </div>
             </div>
-        </div>
-        {% if imprint %}
-            <div class="w-1/3 pl-4 flex flex-wrap flex-col">
-                <ul class="flex pl-4">
-                    <li class="z-10" style="margin-bottom: -2px">
-                        <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg p-4">
-                            <div class="border-b-4 border-white">
-                                <i data-feather="tool"></i>
-                                {% trans 'Actions' %}
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
+            <div class="flex flex-wrap flex-col grow pr-2">
+                {% include "_form_language_tabs.html" with target='edit_imprint' instance=imprint %}
+                <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
                     <div class="w-full p-4">
-                        {% if perms.cms.change_imprintpage %}
-                        <div class="pt-2 pb-4">
-                            {% if imprint.archived %}
-                                <label>{% trans 'Restore imprint' %}</label>
-                                <button title="{% trans 'Restore imprint' %}" class="btn confirmation-button w-full"
-                                        data-confirmation-title="{% trans 'Please confirm that you really want to restore the imprint' %}"
-                                        data-confirmation-text="{% trans 'All translations of the imprint will also be restored.' %}"
-                                        data-confirmation-subject="{{ imprint_translation_form.instance.title }}"
-                                        data-action="{% url 'restore_imprint' region_slug=region.slug %}">
-                                    <i data-feather="refresh-ccw" class="mr-2"></i>
-                                    {% trans 'Restore the imprint' %}
-                                </button>
-                            {% else %}
-                                <label>{% trans 'Archive imprint' %}</label>
-                                <button title="{% trans 'Archive imprint' %}" class="btn confirmation-button w-full"
-                                        data-confirmation-title="{% trans 'Please confirm that you really want to archive the imprint' %}"
-                                        data-confirmation-text="{% trans 'All translations of the imprint will also be archived.' %}"
-                                        data-confirmation-subject="{{ imprint_translation_form.instance.title }}"
-                                        data-action="{% url 'archive_imprint' region_slug=region.slug %}">
-                                    <i data-feather="archive" class="mr-2"></i>
-                                    {% trans 'Archive the imprint' %}
-                                </button>
+                        <div class="flex justify-between mr-2">
+                            <label for="{{ page_translation_form.title.id_for_label }}"
+                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
+                                {{ imprint_translation_form.title.label }}
+                            </label>
+                            {% if imprint_translation_form.instance.id %}
+                                <div class="grid grid-cols-2 text-right">
+                                    <div class="font-bold pr-2">{% trans 'Version' %}:</div>
+                                    <div>
+                                        {{ imprint_translation_form.instance.version }}
+                                        (<a href="{% url 'imprint_revisions' region_slug=request.region.slug language_slug=language.slug %}"
+                                            class="text-blue-500 hover:underline">{% trans 'Show' %}</a>)
+                                    </div>
+                                    <div class="font-bold pr-2">{% trans 'Status' %}:</div>
+                                    <div>{{ imprint_translation_form.instance.get_status_display }}</div>
+                                </div>
                             {% endif %}
                         </div>
+                        {% render_field imprint_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
+                        {% if imprint_translation_form.instance.id %}
+                            {% if request.region.short_urls_enabled and request.user.expert_mode %}
+                            <label class="inline-block">{% trans 'Short URL' %}:</label>
+                            <a href="{{ imprint_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ imprint_translation_form.instance.short_url }}</a>
+                            <a href="#" data-copy-to-clipboard="{{ imprint_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class=" text-gray-800 hover:text-blue-500">
+                                <i data-feather="copy"></i>
+                            </a>
+                            {% endif %}
                         {% endif %}
-                        {% if perms.cms.delete_imprintpage %}
-                            <div class="pt-2 pb-4">
-                                <label>{% trans 'Delete imprint' %}</label>
-                                <button title="{% trans 'Delete imprint' %}" class="btn btn-red confirmation-button w-full"
-                                        data-confirmation-title="{% trans 'Please confirm that you really want to delete the imprint' %}"
-                                        data-confirmation-text="{% trans 'All translations of the imprint will also be deleted.' %}"
-                                        data-confirmation-subject="{{ imprint_translation_form.instance.title }}"
-                                        data-action="{% url 'delete_imprint' region_slug=region.slug %}">
-                                    <i data-feather="trash-2" class="mr-2"></i>
-                                    {% trans 'Delete the imprint' %}
-                                </button>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-                <ul class="flex pl-4">
-                    <li class="z-10" style="margin-bottom: -2px">
-                        <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg p-4">
-                            <div class="border-b-4 border-white">
-                                <i data-feather="columns"></i>
-                                {% trans 'Side-by-Side view' %}
-                            </div>
+                        <div id="link-container" class="flex items-center">
+                            <label class="inline-block">{% trans 'Link to the imprint' %}:</label>
+                            <a href="{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}</a>
+                            <a href="#" data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
+                                <i data-feather="copy"></i>
+                            </a>
                         </div>
-                    </li>
-                </ul>
-                <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                    <div class="w-full p-4 flex flex-col gap-4">
-                        <label for="side-by-side-select">{% trans 'Direction of translation' %}</label>
-                        <select id="side-by-side-select">
-                            <option value="">---------</option>
-                            {% for side_by_side_language_option in side_by_side_language_options %}
-                            <option value="{% url 'sbs_edit_imprint' region_slug=region.slug language_slug=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled{% elif side_by_side_language_option.selected %}selected{% endif %}>{{ side_by_side_language_option.label }}</option>
-                            {% endfor %}
-                        </select>
-                        <a id="side-by-side-link" class="btn" disabled="disabled">
-                            <i data-feather="external-link"></i>
-                            {% trans 'Show translations side by side' %}
-                        </a>
+                        <label for="{{ imprint_translation_form.content.id_for_label }}">{{ imprint_translation_form.content.label }}</label>
+                        {% render_field imprint_translation_form.content class="tinymce_textarea" %}
                     </div>
                 </div>
             </div>
-        {% endif %}
-    </div>
-</form>
-
-{{ media_config_data|json_script:"media_config_data" }}
-
-{% if not perms.cms.change_imprintpage or imprint.id and imprint.archived %}
-    {% include '../_tinymce_config.html' with readonly=1 %}
-{% else %}
-    {% include '../_tinymce_config.html' %}
-{% endif %}
-
-{% include "../generic_confirmation_dialog.html" %}
-{% endblock %}
-
+            {% if imprint %}
+                <div class="pl-4 flex flex-wrap flex-col" style="width: 400px">
+                    <ul class="flex pl-4">
+                        <li class="z-10" style="margin-bottom: -2px">
+                            <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
+                                <div class="border-b-2 border-white">
+                                    <i data-feather="feather"></i>
+                                    {% trans 'Minor edit' %}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
+                        <label>{% trans 'Implications on other translations' %}</label>
+                        {% render_field imprint_translation_form.minor_edit %}
+                        <label for="{{ imprint_translation_form.minor_edit.id_for_label }}"
+                               class="secondary">
+                            {{ imprint_translation_form.minor_edit.label }}
+                        </label>
+                        <div class="help-text">{{ imprint_translation_form.minor_edit.help_text }}</div>
+                    </div>
+                    <ul class="flex pl-4">
+                        <li class="z-10" style="margin-bottom: -2px">
+                            <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
+                                <div class="border-b-2 border-white">
+                                    <i data-feather="tool"></i>
+                                    {% trans 'Actions' %}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
+                        <div class="w-full p-4">
+                            {% if perms.cms.delete_imprintpage %}
+                                <div class="pt-2 pb-4">
+                                    <label>{% trans 'Delete imprint' %}</label>
+                                    <button title="{% trans 'Delete imprint' %}"
+                                            class="btn btn-red confirmation-button w-full"
+                                            data-confirmation-title="{% trans 'Please confirm that you really want to delete the imprint' %}"
+                                            data-confirmation-text="{% trans 'All translations of the imprint will also be deleted.' %}"
+                                            data-confirmation-subject="{{ imprint_translation_form.instance.title }}"
+                                            data-action="{% url 'delete_imprint' region_slug=request.region.slug %}">
+                                        <i data-feather="trash-2" class="mr-2"></i>
+                                        {% trans 'Delete the imprint' %}
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <ul class="flex pl-4">
+                        <li class="z-10" style="margin-bottom: -2px">
+                            <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
+                                <div class="border-b-2 border-white">
+                                    <i data-feather="columns"></i>
+                                    {% trans 'Side-by-Side view' %}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
+                        <div class="w-full p-4 flex flex-col gap-4">
+                            <label for="side-by-side-select">{% trans 'Direction of translation' %}</label>
+                            <select id="side-by-side-select">
+                                <option value="">
+                                    ---------
+                                </option>
+                                {% for side_by_side_language_option in side_by_side_language_options %}
+                                    <option value="{% url 'sbs_edit_imprint' region_slug=request.region.slug language_slug=side_by_side_language_option.value %}"
+                                            {% if side_by_side_language_option.disabled %}disabled{% elif side_by_side_language_option.selected %}selected{% endif %}>
+                                        {{ side_by_side_language_option.label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <a id="side-by-side-link" class="btn" disabled="disabled">
+                                <i data-feather="external-link"></i>
+                                {% trans 'Show translations side by side' %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </form>
+    {{ media_config_data|json_script:"media_config_data" }}
+    {% if not perms.cms.change_imprintpage %}
+        {% include '../_tinymce_config.html' with readonly=1 %}
+    {% else %}
+        {% include '../_tinymce_config.html' %}
+    {% endif %}
+    {% include "../generic_confirmation_dialog.html" %}
+{% endblock content %}
 {% block javascript %}
-{% render_bundle 'editor' 'js' %}
-{% endblock %}
+    {% render_bundle 'editor' 'js' %}
+{% endblock javascript %}

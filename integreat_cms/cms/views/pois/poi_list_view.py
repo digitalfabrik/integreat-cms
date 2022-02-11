@@ -9,9 +9,9 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import status
+from ...constants import status, translation_status
 from ...decorators import region_permission_required, permission_required
-from ...models import Region, Language, POITranslation
+from ...models import Language, POITranslation
 from ...forms import ObjectSearchForm
 from .poi_context_mixin import POIContextMixin
 
@@ -64,7 +64,7 @@ class POIListView(TemplateView, POIContextMixin):
 
         # current region
         region_slug = kwargs.get("region_slug")
-        region = Region.get_current_region(request)
+        region = request.region
 
         # current language
         language_slug = kwargs.get("language_slug")
@@ -115,7 +115,9 @@ class POIListView(TemplateView, POIContextMixin):
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(pois.order_by("region__slug"), chunk_size)
+        paginator = Paginator(
+            pois.prefetch_translations().order_by("region__slug"), chunk_size
+        )
         chunk = request.GET.get("page")
         poi_chunk = paginator.get_page(chunk)
         context = self.get_context_data(**kwargs)
@@ -127,10 +129,12 @@ class POIListView(TemplateView, POIContextMixin):
                 "pois": poi_chunk,
                 "archived_count": region.pois.filter(archived=True).count(),
                 "language": language,
-                "languages": region.languages,
+                "languages": region.active_languages,
                 "search_query": query,
+                "translation_status": translation_status,
                 "WEBAPP_URL": settings.WEBAPP_URL,
                 "PUBLIC": status.PUBLIC,
+                "DEEPL_ENABLED": settings.DEEPL_ENABLED,
                 **context,
             },
         )

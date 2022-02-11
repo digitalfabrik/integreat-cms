@@ -7,21 +7,6 @@ register = template.Library()
 
 
 @register.simple_tag
-def get_last_root_page(pages):
-    """
-    This tag returns the last page on the root level.
-
-    :param pages: The requested page tree
-    :type pages: list [ ~integreat_cms.cms.models.pages.page.Page ]
-
-    :return: The last root page of the given page list
-    :rtype: ~integreat_cms.cms.models.pages.page.Page
-    """
-    root_pages = list(filter(lambda p: not p.parent, pages))
-    return root_pages[-1] if root_pages else None
-
-
-@register.simple_tag
 def get_depth_in(node, pageset):
     """
     This tag returns the depth of node whithin the tree/pages in pageset.

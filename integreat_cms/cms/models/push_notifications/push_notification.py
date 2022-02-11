@@ -1,9 +1,11 @@
 from django.conf import settings
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import get_language, ugettext_lazy as _
 
-from ..regions.region import Region
 from ...constants.push_notifications import PN_MODES
+from ..languages.language import Language
+from ..regions.region import Region
 
 
 class PushNotification(models.Model):
@@ -49,6 +51,20 @@ class PushNotification(models.Model):
             "Sets behavior for dealing with not existing push notification translations"
         ),
     )
+
+    @cached_property
+    def languages(self):
+        """
+        This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects,
+        to which a push notification translation exists.
+
+        :return: QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` a push notification is
+                 translated into
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
+        """
+        return Language.objects.filter(
+            push_notification_translations__push_notification=self
+        )
 
     @property
     def backend_translation(self):
@@ -101,7 +117,7 @@ class PushNotification(models.Model):
         :return: The canonical string representation of the push notification
         :rtype: str
         """
-        return f"<PushNotification (id: {self.id}, channel: {self.channel.name}, region: {self.region.slug})>"
+        return f"<PushNotification (id: {self.id}, channel: {self.channel}, region: {self.region.slug})>"
 
     class Meta:
         #: The verbose name of the model

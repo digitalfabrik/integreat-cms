@@ -11,7 +11,6 @@ from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required
 from ...forms import StatisticsFilterForm
-from ...models import Region
 from ...utils.matomo_api_manager import MatomoException
 
 logger = logging.getLogger(__name__)
@@ -34,7 +33,7 @@ def get_total_visits_ajax(request, region_slug):
     :rtype: ~django.http.JsonResponse
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
 
     if not region.statistics_enabled:
         return JsonResponse(
@@ -74,7 +73,7 @@ def get_visits_per_language_ajax(request, region_slug):
     :rtype: ~django.http.JsonResponse
     """
 
-    region = Region.get_current_region(request)
+    region = request.region
 
     if not region.statistics_enabled:
         return JsonResponse(

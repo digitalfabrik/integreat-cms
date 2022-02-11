@@ -1,7 +1,6 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load static %}
-{% load mptt_tags %}
 {% load content_filters %}
 {% load page_filters %}
 {% load rules %}
@@ -14,7 +13,7 @@
             <form method="POST">
                 {% csrf_token %}
                 <input type="submit" value="{% trans 'Confirm' %}" class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white h-full font-bold py-3 px-4 rounded mr-2">
-                <a href="{% url 'pages' region_slug=region.slug language_slug=language.slug %}" class="inline-block bg-red-500 hover:bg-red-600 text-white h-full font-bold py-3 px-4 rounded">
+                <a href="{% url 'pages' region_slug=request.region.slug language_slug=language.slug %}" class="inline-block bg-red-500 hover:bg-red-600 text-white h-full font-bold py-3 px-4 rounded">
                     {% trans 'Abort' %}
                 </a>
                 <input type="hidden" value={{ upload_dir }} name="upload_dir">

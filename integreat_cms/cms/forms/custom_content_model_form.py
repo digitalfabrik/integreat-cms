@@ -22,13 +22,10 @@ class CustomContentModelForm(CustomModelForm):
     Form for the content model forms for pages, events and POIs.
     """
 
-    def content_clean_method(self, field_name):
+    def clean_content(self):
         """
-        Validate the content (text/description) field (see :ref:`overriding-modelform-clean-method`) and applies changes
+        Validate the content field (see :ref:`overriding-modelform-clean-method`) and applies changes
         to ``<img>``- and ``<a>``-Tags to match the guidelines.
-
-        :param field_name: the name of the field which is cleaned
-        :type field_name: str
 
         :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content
 
@@ -36,10 +33,10 @@ class CustomContentModelForm(CustomModelForm):
         :rtype: str
         """
         try:
-            content = fromstring(self.cleaned_data[field_name])
+            content = fromstring(self.cleaned_data["content"])
         except LxmlError:
             # The content is not guaranteed to be valid html, for example it may be empty
-            return self.cleaned_data[field_name]
+            return self.cleaned_data["content"]
 
         # Convert heading 1 to heading 2
         for heading in content.iter("h1"):

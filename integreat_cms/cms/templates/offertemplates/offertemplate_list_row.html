@@ -1,0 +1,41 @@
+{% load i18n %}
+
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+    <td>
+        <a href="{% url 'edit_offertemplate' slug=offer_template.slug %}" class="block py-3 pl-4 pr-2 text-gray-800">
+            {{ offer_template.name }}
+        </a>
+    </td>
+    <td class="pr-2">
+        {{ offer_template.slug }}
+    </td>
+    <td class="pr-2">
+        {{ offer_template.url }}
+    </td>
+    <td class="pr-2">
+        {{ offer_template.last_updated }}
+    </td>
+    <td class="pr-2">
+        {{ offer_template.created_date }}
+    </td>
+    <td class="pr-2">
+        {{ offer_template.regions.count }}
+    </td>
+    <td class="pl-2 pr-4 text-right">
+        {% if perms.cms.delete_offertemplate %}
+            {% if offer_template.regions.exists %}
+                <button title="{% trans 'This offer template cannot be deleted because it is used in at least one region.' %}" class="btn-icon" disabled>
+                    <i data-feather="trash-2"></i>
+                </button>
+            {% else %}
+                <button title="{% trans 'Delete offer templates' %}" class="confirmation-button btn-icon"
+                        data-confirmation-title="{% trans 'Please confirm that you really want to delete this offer template' %}"
+                        data-confirmation-text="{% trans 'This cannot be reversed.' %}"
+                        data-confirmation-subject="{{ offer_template.name }}"
+                        data-action="{% url 'delete_offertemplate' slug=offer_template.slug %}">
+                    <i data-feather="trash-2"></i>
+                </button>
+            {% endif %}
+        {% endif %}
+    </td>
+</tr>

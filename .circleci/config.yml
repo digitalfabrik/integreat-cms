@@ -5,7 +5,7 @@ orbs:
 jobs:
   pipenv-install:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     environment:
       PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -39,7 +39,7 @@ jobs:
             - integreat_cms.egg-info
   black:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - attach_workspace:
@@ -49,7 +49,7 @@ jobs:
           command: pipenv run black --check .
   pylint:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - attach_workspace:
@@ -59,7 +59,7 @@ jobs:
           command: pipenv run pylint_runner
   check-translations:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - attach_workspace:
@@ -72,7 +72,7 @@ jobs:
           command: ./dev-tools/check_translations.sh
   compile-translations:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - attach_workspace:
@@ -124,7 +124,7 @@ jobs:
             - integreat_cms/webpack-stats.json
   test:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
       - image: circleci/postgres:alpine
         environment:
           POSTGRES_USER: integreat
@@ -135,18 +135,19 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Check for missing migrations
+          command: pipenv run integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
+      - run:
           name: Migrate database
-          command: |
-            pipenv run integreat-cms-cli makemigrations cms --settings=integreat_cms.core.circleci_settings
-            pipenv run integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
+          command: pipenv run integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
       - run:
           name: Run tests
-          command: pipenv run integreat-cms-cli test integreat_cms --set=COVERAGE --settings=integreat_cms.core.circleci_settings
+          command: pipenv run integreat-cms-cli test tests --set=COVERAGE --settings=integreat_cms.core.circleci_settings
       - store_artifacts:
           path: htmlcov
   build-package:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - attach_workspace:
@@ -166,7 +167,7 @@ jobs:
             - dist
   publish-package:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - attach_workspace:
@@ -176,7 +177,7 @@ jobs:
           command: pipenv run twine upload --non-interactive ./dist/integreat-cms-*.tar.gz
   build-documentation:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - attach_workspace:
@@ -190,7 +191,7 @@ jobs:
             - docs
   deploy-documentation:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     environment:
       BRANCH: gh-pages
       DOC_DIR: docs
@@ -233,7 +234,7 @@ jobs:
             git push origin $BRANCH
   bump-dev-version:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - attach_workspace:
@@ -265,7 +266,7 @@ jobs:
             - integreat_cms/__init__.py
   bump-version:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - attach_workspace:
@@ -312,7 +313,7 @@ jobs:
           command: git checkout develop && git merge main --commit --no-edit && git push
   create-release:
     docker:
-      - image: cimg/python:3.7
+      - image: cimg/python:3.9
     steps:
       - checkout
       - attach_workspace:
@@ -325,7 +326,8 @@ jobs:
           command: |
             PREV_TAG=$(git describe --abbrev=0 --tags "${CIRCLE_TAG}^") || true
             CHANGELOG+=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
-            echo "export PREV_TAG=${PREV_TAG}\nexport CHANGELOG=\"${CHANGELOG}\"" >> $BASH_ENV
+            echo "export PREV_TAG=\"${PREV_TAG}\"" >> $BASH_ENV
+            echo "export CHANGELOG=\"${CHANGELOG}\"" >> $BASH_ENV
       - run:
           name: Create release as Deliverino app
           command: pipenv run ./.circleci/scripts/create_release.py -p "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" ./dist/integreat-cms-*.tar.gz
@@ -370,6 +372,7 @@ workflows:
           requires:
             - pipenv-install
             - webpack
+            - compile-translations
       - check-translations:
           requires:
             - pipenv-install

@@ -20,7 +20,7 @@ from ...forms import (
     CreateDirectoryForm,
     DirectoryForm,
 )
-from ...models import MediaFile, Region, Directory
+from ...models import MediaFile, Directory
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +44,7 @@ def get_directory_path_ajax(request, region_slug=None):
     :return: JSON response which indicates error or success
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     directory_path = []
 
@@ -80,7 +80,7 @@ def get_directory_content_ajax(request, region_slug=None):
     :return: JSON response which indicates error or success
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     directory = None
     if request.GET.get("directory"):
@@ -121,7 +121,7 @@ def get_query_search_results_ajax(request, region_slug=None):
     """
     query = request.GET.get("query")
     logger.debug("Media library searched with query %r", query)
-    region = Region.get_current_region(request)
+    region = request.region
 
     media_files = MediaFile.search(region, query)
     directories = Directory.search(region, query)
@@ -150,7 +150,7 @@ def upload_file_ajax(request, region_slug=None):
     :return: JSON response which indicates error or success
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     media_file_form = UploadMediaFileForm(data=request.POST, files=request.FILES)
 
@@ -202,7 +202,7 @@ def edit_file_ajax(request, region_slug=None):
     :return: JSON response which indicates error or success
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     media_file = get_object_or_404(
         MediaFile.objects.filter(region=region), id=request.POST.get("id")
@@ -268,7 +268,7 @@ def replace_file_ajax(request, region_slug=None):
     :return: JSON response which indicates error or success
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     media_file = get_object_or_404(
         MediaFile.objects.filter(region=region), id=request.POST.get("id")
@@ -324,7 +324,7 @@ def delete_file_ajax(request, region_slug=None):
     :return: JSON response which indicates error or success
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     media_file = get_object_or_404(
         MediaFile.objects.filter(region=region), id=request.POST.get("id")
@@ -370,7 +370,7 @@ def create_directory_ajax(request, region_slug=None):
     :return: JSON response which indicates error or success
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     directory_form = CreateDirectoryForm(data=request.POST)
 
@@ -422,7 +422,7 @@ def edit_directory_ajax(request, region_slug=None):
     :return: JSON response which indicates error or success
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     directory = get_object_or_404(
         Directory.objects.filter(region=region), id=request.POST.get("id")
@@ -483,7 +483,7 @@ def delete_directory_ajax(request, region_slug=None):
     :return: JSON response which indicates error or success
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     directory = get_object_or_404(
         Directory.objects.filter(region=region), id=request.POST.get("id")

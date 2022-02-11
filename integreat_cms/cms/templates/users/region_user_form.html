@@ -1,0 +1,130 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% load user_filters %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex justify-between mb-4">
+        <h1 class="heading">
+            {% if user_form.instance.id %}
+                {% with user_form.username.value as user_name %}
+                    {% blocktrans %}Edit user "{{ user_name }}"{% endblocktrans %}
+                {% endwith %}
+            {% else %}
+                {% trans 'Create new user' %}
+            {% endif %}
+        </h1>
+        {% if perms.cms.change_user %}
+            <button class="btn">{% trans 'Save' %}</button>
+        {% endif %}
+    </div>
+
+    <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+        <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="p-4 rounded bg-blue-500">
+                <h3 class="heading font-bold text-white"><i data-feather="user" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+            </div>
+            <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+                <!-- General Options for user management -->
+                <div>
+                    <label for="{{ user_form.username.id_for_label }}">{{ user_form.username.label }}</label>
+                    {% render_field user_form.username|add_error_class:"border-red-500" %}
+                </div>
+                <div>
+                    <label for="{{ user_form.first_name.id_for_label }}">{{ user_form.first_name.label }}</label>
+                    {% render_field user_form.first_name|add_error_class:"border-red-500" %}
+                </div>
+                <div>
+                    <label for="{{ user_form.last_name.id_for_label }}">{{ user_form.last_name.label }}</label>
+                    {% render_field user_form.last_name|add_error_class:"border-red-500" %}
+                </div>
+                <div>
+                    <label for="{{ user_form.email.id_for_label }}">{{ user_form.email.label }}</label>
+                    {% render_field user_form.email|add_error_class:"border-red-500" %}
+                </div>
+            </div>
+        </div>
+        <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="p-4 rounded bg-blue-500">
+                <h3 class="heading font-bold text-white"><i data-feather="lock" class="mr-2"></i> {% trans 'Login' %}</h3>
+            </div>
+            <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+                <div>
+                    {% render_field user_form.is_active %}
+                    <label for="{{ user_form.is_active.id_for_label }}">{{ user_form.is_active.label }}</label>
+                    <div class="help-text">{{ user_form.is_active.help_text }}</div>
+                </div>
+                {% if not user_form.instance.id %}
+                    <div>
+                        {% render_field user_form.send_activation_link %}
+                        <label for="{{ user_form.send_activation_link.id_for_label }}">{{ user_form.send_activation_link.label }}</label>
+                        <div class="help-text">{{ user_form.send_activation_link.help_text }}</div>
+                    </div>
+                {% endif %}
+                <div>
+                    <label for="{{ user_form.password.id_for_label }}">{{ user_form.password.label }}</label>
+                    <ul class="help-text mt-2">
+                        {% for item in user_form.password.help_text %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% render_field user_form.password|add_error_class:"border-red-500" %}
+                </div>
+            </div>
+        </div>
+        <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="p-4 rounded bg-blue-500">
+                <h3 class="heading font-bold text-white"><i data-feather="key" class="mr-2"></i> {% trans 'Permissions' %}</h3>
+            </div>
+            <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+                <div>
+                    {% render_field user_form.expert_mode %}
+                    <label for="{{ user_form.expert_mode.id_for_label }}">{{ user_form.expert_mode.label }}</label>
+                    <div class="help-text">{{ user_form.expert_mode.help_text }}</div>
+                </div>
+                <div>
+                    <label for="{{ user_form.role.id_for_label }}">{{ user_form.role.label }}</label>
+                    {% render_field user_form.role|add_error_class:"border-red-500" required="required" %}
+                    <div class="help-text">{{ user_form.role.help_text }}</div>
+                </div>
+                <div>
+                    <label for="{{ user_form.organization.id_for_label }}">{{ user_form.organization.label }}</label>
+                        {% render_field user_form.organization|add_error_class:"border-red-500" %}
+                    <div class="help-text">{{ user_form.organization.help_text }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if user_form.instance.id and perms.cms.delete_user %}
+        {% if user_form.instance.regions.count == 1 %}
+            <div class="pt-2 pb-4">
+                <button title="{% trans 'Delete this user' %}" class="btn confirmation-button btn-red"
+                        data-confirmation-title="{% trans 'Please confirm that you really want to delete this user' %}"
+                        data-confirmation-text="{% trans 'This cannot be reversed.' %}"
+                        data-confirmation-subject="{{ user_form.username.value }}"
+                        data-action="{% url 'delete_region_user' region_slug=request.region.slug user_id=user_form.instance.id %}">
+                    <i data-feather="trash-2" class="mr-2"></i>
+                    {% trans 'Delete user' %}
+                </button>
+            </div>
+        {% else %}
+            <div class="pt-2 pb-4">
+                <button title="{% blocktrans %}Remove this user from region {{ request.region }}{% endblocktrans %}" class="btn confirmation-button btn-red"
+                        data-confirmation-title="{% blocktrans %}Please confirm that you really want to remove this user from region {{ request.region }}.{% endblocktrans %}"
+                        data-confirmation-text="{% trans 'The user will keep access to the following regions:' %} {{ user_form.instance|remaining_regions:request.region|join:', ' }}"
+                        data-confirmation-subject="{{ user_form.username.value }}"
+                        data-action="{% url 'delete_region_user' region_slug=request.region.slug user_id=user_form.instance.id %}">
+                    <i data-feather="trash-2" class="mr-2"></i>
+                    {% trans 'Remove user from region' %}
+                </button>
+            </div>
+        {% endif %}
+    {% endif %}
+</form>
+
+{% include "../generic_confirmation_dialog.html" %}
+{% endblock %}

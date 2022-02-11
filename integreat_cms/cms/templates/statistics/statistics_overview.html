@@ -19,7 +19,7 @@
                 <div id="chart-server-error" class="text-red-500 px-4 hidden"><i data-feather="alert-triangle"></i> {% trans 'A server error has occurred.' %} {% trans 'Please contact the administrator.' %}</div>
                 <div id="chart-loading" class="px-4 hidden"><i data-feather="loader" class="animate-spin"></i> {% trans 'Loading...' %}</div>
                 <div id="chart-label-help-text" class="my-2 text-s text-gray-600 text-left hidden">{% trans 'Individual languages can be hidden by clicking on the labels.' %}</div>
-                <canvas id="statistics" data-statistics-url="{% url 'statistics_visits_per_language' region_slug=region.slug %}"></canvas>
+                <canvas id="statistics" data-statistics-url="{% url 'statistics_visits_per_language' region_slug=request.region.slug %}"></canvas>
             </div>
         </div>
         <div class="rounded border border-solid border-gray-200 shadow bg-white">
@@ -46,7 +46,7 @@
             </div>
             <div class="flex flex-col gap-4 p-4 pt-2">
                 <label for="export-format">{% trans 'Choose format' %}</label>
-                <select id="export-format" data-filename-prefix="{% trans 'Statistics' %} {{ region.name }}" data-language-column-title="{% trans 'Language' %}">
+                <select id="export-format" data-filename-prefix="{% trans 'Statistics' %} {{ request.region.name }}" data-language-column-title="{% trans 'Language' %}">
                     <option value="" selected>--- {% trans 'please select' %} ---</option>
                     <option value="image">{% trans 'Image/PNG' %}</option>
                     <option value="csv">{% trans 'Table Document/CSV' %}</option>

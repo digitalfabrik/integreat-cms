@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from .feedback import Feedback
@@ -21,7 +22,8 @@ class SearchResultFeedback(Feedback):
         """
         return _("Search results for {}").format(self.search_query)
 
-    @property
+    @cached_property
+    # pylint: disable=no-self-use
     def object_url(self):
         """
         This property returns the url to the object this feedback comments on.

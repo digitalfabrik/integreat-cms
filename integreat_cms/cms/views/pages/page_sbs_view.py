@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from ...constants import status
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageTranslationForm
-from ...models import Region, Language
+from ...models import Language
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +46,7 @@ class PageSideBySideView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
         page = region.pages.get(id=kwargs.get("page_id"))
 
         target_language = Language.objects.get(slug=kwargs.get("language_slug"))
@@ -127,7 +127,7 @@ class PageSideBySideView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
         page = region.pages.get(id=kwargs.get("page_id"))
 
         if not request.user.has_perm("cms.change_page_object", page):

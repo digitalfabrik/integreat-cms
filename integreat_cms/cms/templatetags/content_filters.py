@@ -4,8 +4,11 @@ This is a collection of tags and filters which are useful for all content types 
 """
 import logging
 
+from django.urls import reverse
+
 from django import template
 
+from ..constants import translation_status
 from ..models import Language, PageTranslation, EventTranslation, POITranslation
 
 logger = logging.getLogger(__name__)
@@ -79,21 +82,87 @@ def get_language(language_slug):
     return Language.objects.filter(slug=language_slug).first()
 
 
+@register.simple_tag
+def build_url(target, region_slug, language_slug, content_field=None, content_id=None):
+    """
+    This tag returns the requested language by slug
+
+    :param target: The slug of the requested target
+    :type target: str
+
+    :param region_slug: The slug of the requested region
+    :type region_slug: str
+
+    :param language_slug: The slug of the requested language
+    :type language_slug: str
+
+    :param content_field: The name of the content field
+    :type content_field: str
+
+    :param content_id: The id of the content
+    :type content_id: int
+
+    :return: list of args
+    :rtype: str
+    """
+    kwargs = {
+        "region_slug": region_slug,
+        "language_slug": language_slug,
+    }
+    if content_field and content_id:
+        kwargs[content_field] = content_id
+    return reverse(target, kwargs=kwargs)
+
+
 @register.filter
-def remove(queryset, instance):
+def remove(elements, element):
     """
-    This tag removes an object instance from a QuerySet.
+    This tag removes an element from a list.
 
-    :param queryset: The given QuerySet
-    :type queryset: ~django.db.models.query.QuerySet
+    :param elements: The given list of elements
+    :type elements: list
 
-    :param instance: The object instance to be removed
-    :type instance: object
+    :param element: The element to be removed
+    :type element: object
 
-    :return: The QuerySet without the object instance
-    :rtype: ~django.db.models.query.QuerySet
+    :return: The list without the element
+    :rtype: list
     """
-    return queryset.exclude(id=instance.id)
+    try:
+        # Copy input list to make sure it is not modified in place
+        result = elements.copy()
+        result.remove(element)
+        return result
+    except ValueError:
+        # If the element wasn't in the list to begin with, just return the input
+        return elements
+
+
+@register.filter
+def sort_translation_states(translation_states, second_language):
+    """
+    This filter sorts languages in language tabs
+
+    :param translation_states: Other languages
+    :type translation_states: dict [ tuple ( ~integreat_cms.cms.models.languages.language.Language, str ) ]
+
+    :param second_language: The current language
+    :type second_language: ~integreat_cms.cms.models.languages.language.Language
+
+    :return: the filtered list with the current language on the second position
+    :rtype: list
+    """
+    try:
+        first_language_slug = next(iter(translation_states))
+    except StopIteration:
+        return [(second_language, translation_status.MISSING)]
+    if first_language_slug != second_language.slug:
+        second_language_state = translation_states.pop(second_language.slug)
+        translation_states = list(translation_states.values())
+        translation_states.insert(1, second_language_state)
+    else:
+        translation_states = list(translation_states.values())
+    return translation_states
 
 
 @register.filter

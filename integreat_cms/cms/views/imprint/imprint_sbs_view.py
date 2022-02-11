@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required, permission_required
 from ...forms import ImprintTranslationForm
-from ...models import Region, Language, ImprintPage
+from ...models import Language, ImprintPage
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ class ImprintSideBySideView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
 
         try:
             imprint = region.imprint
@@ -144,7 +144,7 @@ class ImprintSideBySideView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
 
         try:
             imprint = region.imprint

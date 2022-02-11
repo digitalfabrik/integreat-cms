@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from ...constants import translation_status, status
 from ...decorators import region_permission_required, permission_required
 from ...forms import PageFilterForm
-from ...models import Region, Language, Page, PageTranslation
+from ...models import Language
 from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
@@ -44,7 +44,6 @@ class PageTreeView(TemplateView, PageContextMixin):
 
         return self.template_archived if self.archived else self.template
 
-    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         r"""
         Render page tree
@@ -64,7 +63,7 @@ class PageTreeView(TemplateView, PageContextMixin):
 
         # current region
         region_slug = kwargs.get("region_slug")
-        region = Region.get_current_region(request)
+        region = request.region
 
         # current language
         language_slug = kwargs.get("language_slug")
@@ -96,51 +95,19 @@ class PageTreeView(TemplateView, PageContextMixin):
             )
         context = self.get_context_data(**kwargs)
 
-        pages = region.get_pages(archived=self.archived)
-        enable_drag_and_drop = True
-        query = None
         # Filter pages according to given filters, if any
         filter_data = kwargs.get("filter_data")
+
+        if filter_data or self.archived:
+            page_queryset = region.pages.all()
+        else:
+            page_queryset = region.pages.filter(lft=1)
+        pages = page_queryset.cache_tree(archived=self.archived)[0]
+
         if filter_data:
             # Set data for filter form rendering
             filter_form = PageFilterForm(data=filter_data)
-            if filter_form.is_valid():
-                query = filter_form.cleaned_data["query"]
-                if query:
-                    page_translation_ids = set(
-                        page_translation.page.pk
-                        for page_translation in PageTranslation.search(
-                            region, language_slug, query
-                        )
-                    )
-                    pages = [page for page in pages if page.pk in page_translation_ids]
-
-                selected_status = filter_form.cleaned_data["translation_status"]
-                # only filter if at least one checkbox but not all are checked
-                if 0 < len(selected_status) < len(translation_status.CHOICES):
-                    enable_drag_and_drop = False
-
-                    def page_filter(page):
-                        """
-                        Filters page
-
-                        :param page: The according page
-                        :type page: ~integreat_cms.cms.models.pages.page.Page
-
-                        :return: Whether or not the page should be filtered based on its translation status
-                        :rtype: bool
-                        """
-                        translation = page.get_translation(language_slug)
-                        if not translation:
-                            return translation_status.MISSING in selected_status
-                        if translation.currently_in_translation:
-                            return translation_status.IN_TRANSLATION in selected_status
-                        if translation.is_outdated:
-                            return translation_status.OUTDATED in selected_status
-                        return translation_status.UP_TO_DATE in selected_status
-
-                    pages = map(lambda p: p.id, list(filter(page_filter, pages)))
-                    pages = Page.objects.filter(id__in=pages).order_by()
+            pages = self.filter_pages(pages, language_slug, filter_form)
         else:
             filter_form = PageFilterForm()
             filter_form.changed_data.clear()
@@ -152,12 +119,10 @@ class PageTreeView(TemplateView, PageContextMixin):
                 **context,
                 "current_menu_item": "pages",
                 "pages": pages,
-                "archived_count": region.get_pages(archived=True).count(),
                 "language": language,
-                "languages": region.languages,
+                "languages": region.active_languages,
                 "filter_form": filter_form,
-                "enable_drag_and_drop": enable_drag_and_drop,
-                "search_query": query,
+                "translation_status": translation_status,
                 "PUBLIC": status.PUBLIC,
                 "WEBAPP_URL": settings.WEBAPP_URL,
             },
@@ -180,3 +145,46 @@ class PageTreeView(TemplateView, PageContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
         return self.get(request, *args, **kwargs, filter_data=request.POST)
+
+    @staticmethod
+    def filter_pages(pages, language_slug, filter_form):
+        """
+        Filter the pages list according to the given filter data
+
+        :param pages: The list of pages
+        :type pages: list
+
+        :param language_slug: The slug of the current language
+        :type language_slug: str
+
+        :param filter_form: The filter form
+        :type filter_form: integreat_cms.cms.forms.pages.page_filter_form.PageFilterForm
+
+        :return: The filtered page list
+        :rtype: list
+        """
+        if filter_form.is_valid():
+            query = filter_form.cleaned_data["query"]
+            if query:
+                # Buffer variable because the pages list should not be modified during iteration
+                filtered_pages = []
+                for page in pages:
+                    translation = page.get_translation(language_slug)
+                    if translation and (
+                        query.lower() in translation.slug
+                        or query.lower() in translation.title.lower()
+                    ):
+                        filtered_pages.append(page)
+                pages = filtered_pages
+
+            selected_status = filter_form.cleaned_data["translation_status"]
+            # Only filter if at least one checkbox but not all are checked
+            if 0 < len(selected_status) < len(translation_status.CHOICES):
+                # Buffer variable because the pages list should not be modified during iteration
+                filtered_pages = []
+                for page in pages:
+                    translation_state = page.translation_states.get(language_slug)
+                    if translation_state and translation_state[1] in selected_status:
+                        filtered_pages.append(page)
+                pages = filtered_pages
+        return pages

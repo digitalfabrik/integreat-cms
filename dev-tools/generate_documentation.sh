@@ -33,7 +33,7 @@ fi
 echo -e "Patching Sphinx templates..." | print_info
 
 # Copy original footer file
-cp "$(pipenv --venv)/lib/python3.7/site-packages/sphinx_rtd_theme/footer.html" ${SPHINX_DIR}/templates
+cp "$(pipenv --venv)/lib/python3.9/site-packages/sphinx_rtd_theme/footer.html" ${SPHINX_DIR}/templates
 # Patch footer to add hyperlinks to copyright information
 if ! patch ${SPHINX_DIR}/templates/footer.html ${SPHINX_DIR}/patches/footer.diff; then
     echo -e "\nThe patch for the footer template could not be applied correctly." | print_error
@@ -43,7 +43,7 @@ if ! patch ${SPHINX_DIR}/templates/footer.html ${SPHINX_DIR}/patches/footer.diff
 fi
 
 # Copy original breadcrumbs file
-cp "$(pipenv --venv)/lib/python3.7/site-packages/sphinx_rtd_theme/breadcrumbs.html" ${SPHINX_DIR}/templates
+cp "$(pipenv --venv)/lib/python3.9/site-packages/sphinx_rtd_theme/breadcrumbs.html" ${SPHINX_DIR}/templates
 # Patch footer to add hyperlinks to copyright information
 if ! patch ${SPHINX_DIR}/templates/breadcrumbs.html ${SPHINX_DIR}/patches/breadcrumbs.diff; then
     echo -e "\nThe patch for the breadcrumbs template could not be applied correctly." | print_error
@@ -72,7 +72,7 @@ find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "*.rst" -print0 | xarg
     -e 's/Cms/CMS/g;s/Api/API/g;s/Poi/POI/g;s/Mfa/MFA/g;s/Pdf/PDF/g;s/Xliff1/XLIFF 1.2/g;s/Xliff2/XLIFF 2.0/g;s/Xliff/XLIFF/g' # Make specific keywords uppercase
 
 # Remove inherited members from tests
-find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "integreat_cms.cms.tests*.rst" -print0 | xargs -0 --no-run-if-empty sed --in-place '/:inherited-members:/d'
+find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "integreat_cms.*.tests.*rst" -print0 | xargs -0 --no-run-if-empty sed --in-place '/:inherited-members:/d'
 
 # Include _urls in sitemap automodule
 # shellcheck disable=SC2251
@@ -105,10 +105,23 @@ sed --in-place '/\.\. autofunction:: /a \ \ \ \ \ \ :noindex:' ${SPHINX_DIR}/${S
 # shellcheck disable=SC2251
 ! grep --recursive --files-without-match ":orphan:" ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}/*.rst --null | xargs --null --no-run-if-empty sed --in-place '1s/^/:orphan:\n\n/'
 
+# Copy changelog to documentation files
+cp CHANGELOG.md ${SPHINX_DIR}/changelog.rst
+
+# Add changelog heading
+sed --in-place '1s/^/Changelog\n=========\n\n/' ${SPHINX_DIR}/changelog.rst
+
+# Convert markdown-links to ReStructuredText-links
+# shellcheck disable=SC2016
+sed --in-place --regexp-extended 's|\[#([0-9]+)\]\(https://github\.com/digitalfabrik/integreat-cms/issues/([0-9]+)\)|:github:`#\1 <issues/\1>`|' ${SPHINX_DIR}/changelog.rst
+
 echo -e "Compiling reStructuredText files to HTML documentation..." | print_info
 
 # Compile .rst files to html documentation
 pipenv run sphinx-build -j auto -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
+
+# Remove temporary changelog file
+rm ${SPHINX_DIR}/changelog.rst
 
 # Check if script is running in CircleCI context
 if [[ -n "$CIRCLECI" ]]; then

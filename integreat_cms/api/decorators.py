@@ -1,3 +1,6 @@
+"""
+This module includes functions that are used as decorators in the API endpoints.
+"""
 import json
 
 from functools import wraps

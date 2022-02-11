@@ -6,7 +6,7 @@ import logging
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
@@ -39,7 +39,7 @@ def delete_region(request, *args, **kwargs):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    region = Region.get_current_region(request)
+    region = get_object_or_404(Region, slug=kwargs.get("slug"))
     # Remove hierarchy to prevent ProtectedError when children get deleted before their parents
     region.pages.update(parent=None)
     region.language_tree_nodes.update(parent=None)

@@ -26,7 +26,7 @@ Add dependencies
 
 When adding new functional dependencies, please add them to :github-source:`setup.cfg` and execute::
 
-    pipenv install --dev
+    pipenv update integreat-cms
 
 When adding a new dev dependency ``package``, just use::
 

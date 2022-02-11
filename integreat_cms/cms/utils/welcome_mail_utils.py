@@ -12,7 +12,6 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import ugettext as _
 
 from .account_activation_token_generator import account_activation_token_generator
-from ..models import Region
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +38,7 @@ def send_welcome_mail(request, user, activation):
     context = {
         "user": user,
         "base_url": settings.BASE_URL,
-        "region": Region.get_current_region(request),
+        "region": request.region,
     }
 
     if activation:

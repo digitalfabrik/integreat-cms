@@ -47,9 +47,10 @@ class MatomoApiManager:
         :param region: The region this Matomo API Manager connects to
         :type region: ~integreat_cms.cms.models.regions.region.Region
         """
+        self.region_name = region.name
         self.matomo_token = region.matomo_token
         self.matomo_id = region.matomo_id
-        self.languages = region.languages
+        self.languages = region.active_languages
 
     async def fetch(self, session, **kwargs):
         r"""
@@ -132,7 +133,8 @@ class MatomoApiManager:
         # Execute async request to Matomo API
         response = loop.run_until_complete(
             self.get_matomo_id_async(
-                token_auth=token_auth, method="SitesManager.getSitesIdWithAdminAccess"
+                token_auth=token_auth,
+                method="SitesManager.getSitesIdWithAtLeastViewAccess",
             )
         )
 
@@ -140,7 +142,9 @@ class MatomoApiManager:
             return response[0]
         except IndexError as e:
             # If no id is returned, there is no user with the given access token
-            raise MatomoException("The access token is not correct.") from e
+            raise MatomoException(
+                f"The access token for {self.region_name} is not correct."
+            ) from e
 
     async def get_total_visits_async(self, query_params):
         """

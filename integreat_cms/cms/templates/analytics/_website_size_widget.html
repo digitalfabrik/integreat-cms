@@ -14,7 +14,7 @@
 {% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
         <p class="py-3">{% trans 'The chart below shows the current size of the Integreat app.' %}</p>
-        <a href="{% url 'app_size' region_slug=region.slug %}" class="btn">
+        <a href="{% url 'app_size' region_slug=request.region.slug %}" class="btn">
             {% trans "Details" %}
         </a>
     </div>

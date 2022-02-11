@@ -4,47 +4,121 @@ from html import escape
 
 from django.conf import settings
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from mptt.models import MPTTModel, TreeForeignKey
+from treebeard.ns_tree import NS_NodeQuerySet
 
-from .abstract_base_page import AbstractBasePage
-from ..languages.language import Language
-from ..regions.region import Region
-from ..media.media_file import MediaFile
-from ..users.organization import Organization
 from ...utils.translation_utils import ugettext_many_lazy as __
+from ..abstract_content_model import ContentQuerySet
+from ..abstract_tree_node import AbstractTreeNode
+from ..decorators import modify_fields
+from .abstract_base_page import AbstractBasePage
+from .page_translation import PageTranslation
 
 logger = logging.getLogger(__name__)
 
 
-class Page(MPTTModel, AbstractBasePage):
+class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
+    """
+    Custom queryset for pages to inherit methods from both querysets for tree nodes and content objects
+    """
+
+    def cache_tree(self, archived=None):
+        """
+        Caches a page tree queryset in a python data structure.
+
+        :param archived: Whether the pages should be limited to either archived  or non-archived pages.
+                         If not passed or ``None``, both archived and non-archived pages are returned.
+        :type archived: bool
+
+        :return: A list of pages with cached children, descendants and ancestors and a list of all skipped pages
+        :rtype: tuple [ list, list ]
+        """
+        result = {}
+        skipped_pages = []
+        for page in (
+            self.prefetch_translations()
+            .prefetch_public_translations()
+            .order_by("tree_id", "lft")
+        ):
+            # pylint: disable=protected-access
+            page._cached_ancestors = []
+            page._cached_descendants = []
+            page._cached_children = []
+            # Determine whether the page should be included in the result
+            # pylint: disable=too-many-boolean-expressions
+            if (
+                # If page is explicitly archived, include it only when archive is either True or None
+                (page.explicitly_archived and archived is not False)
+                # If page is not explicitly archived, two cases are possible:
+                or (
+                    not page.explicitly_archived
+                    and (
+                        # If the page is a root page, include it only when archive is either False or None
+                        (not page.parent_id and not archived)
+                        # Alternatively, include it if its parent is in the result
+                        or (page.parent_id in result)
+                    )
+                )
+            ):
+                if page.parent_id in result:
+                    # Cache the page as child of the parent page
+                    # pylint: disable=protected-access
+                    result[page.parent_id]._cached_children.append(page)
+                    result[page.parent_id]._cached_descendants.append(page)
+                    # Cache the parent page as ancestor of the current page
+                    page._cached_ancestors.extend(
+                        result[page.parent_id]._cached_ancestors
+                    )
+                    page._cached_ancestors.append(result[page.parent_id])
+                    # Cache the current page as descendant of the parent's page ancestors
+                    for ancestor in result[page.parent_id]._cached_ancestors:
+                        if ancestor.id in result:
+                            result[ancestor.id]._cached_descendants.append(page)
+                    # Set the relative depth to the relative depth of the parent + 1
+                    page._relative_depth = result[page.parent_id].relative_depth + 1
+                else:
+                    # Set the relative depth to 1
+                    page._relative_depth = 1
+                result[page.id] = page
+            else:
+                # Keep track of all skipped pages
+                skipped_pages.append(page)
+        logger.debug("Cached result: %r", result)
+        logger.debug("Skipped pages: %r", skipped_pages)
+        return list(result.values()), skipped_pages
+
+
+# pylint: disable=too-few-public-methods
+class PageManager(models.Manager):
+    """
+    Custom manager for pages to inherit methods from both managers for tree nodes and content objects
+    """
+
+    def get_queryset(self):
+        """
+        Sets the custom queryset as the default.
+
+        :return: The sorted queryset
+        :rtype: ~integreat_cms.cms.models.pages.page.PageQuerySet
+        """
+        return PageQuerySet(self.model).order_by("tree_id", "lft")
+
+
+@modify_fields(parent={"verbose_name": _("parent page")})
+class Page(AbstractTreeNode, AbstractBasePage):
     """
     Data model representing a page.
     """
 
-    parent = TreeForeignKey(
-        "self",
-        null=True,
-        blank=True,
-        on_delete=models.PROTECT,
-        related_name="children",
-        verbose_name=_("parent page"),
-    )
     icon = models.ForeignKey(
-        MediaFile,
+        "cms.MediaFile",
         verbose_name=_("icon"),
         on_delete=models.SET_NULL,
-        related_name="icon_pages",
         blank=True,
         null=True,
-    )
-    region = models.ForeignKey(
-        Region,
-        on_delete=models.CASCADE,
-        related_name="pages",
-        verbose_name=_("region"),
     )
     mirrored_page = models.ForeignKey(
         "self",
@@ -91,28 +165,44 @@ class Page(MPTTModel, AbstractBasePage):
         ),
     )
     organization = models.ForeignKey(
-        Organization,
+        "cms.Organization",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name="pages",
         verbose_name=_("responsible organization"),
         help_text=_(
             "This allows all members of the organization to edit and publish this page."
         ),
     )
 
-    @property
+    #: Custom model manager to inherit methods from tree manager as well as the custom content queryset
+    objects = PageManager()
+
+    @staticmethod
+    def get_translation_model():
+        """
+        Returns the translation model of this content model
+
+        :return: The class of translations
+        :rtype: type
+        """
+        return PageTranslation
+
+    @cached_property
     def explicitly_archived_ancestors(self):
         """
         This returns all of the page's ancestors which are archived.
 
         :return: The QuerySet of archived ancestors
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
+        :rtype: list [ ~integreat_cms.cms.models.pages.page.Page ]
         """
-        return self.get_ancestors().filter(explicitly_archived=True)
+        return [
+            ancestor
+            for ancestor in self.get_cached_ancestors()
+            if ancestor.explicitly_archived
+        ]
 
-    @property
+    @cached_property
     def implicitly_archived(self):
         """
         This checks whether one of the page's ancestors is archived which means that this page is implicitly archived as well.
@@ -120,9 +210,9 @@ class Page(MPTTModel, AbstractBasePage):
         :return: Whether or not this page is implicitly archived
         :rtype: bool
         """
-        return self.explicitly_archived_ancestors.exists()
+        return bool(self.explicitly_archived_ancestors)
 
-    @property
+    @cached_property
     def archived(self):
         """
         A hierarchical page is archived either explicitly if ``explicitly_archived=True`` or implicitly if one of its
@@ -133,27 +223,6 @@ class Page(MPTTModel, AbstractBasePage):
         """
         return self.explicitly_archived or self.implicitly_archived
 
-    @property
-    def languages(self):
-        """
-        This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to which a page
-        translation exists.
-
-        :return: list of all :class:`~integreat_cms.cms.models.languages.language.Language` a page is translated into
-        :rtype: list [ ~integreat_cms.cms.models.languages.language.Language ]
-        """
-        return Language.objects.filter(page_translations__page=self)
-
-    @property
-    def depth(self):
-        """
-        Counts how many ancestors the page has. If the page is the root page, its depth is `0`.
-
-        :return: The depth of this page in its page tree
-        :rtype: str
-        """
-        return len(self.get_ancestors())
-
     @classmethod
     def get_root_pages(cls, region_slug):
         """
@@ -163,77 +232,9 @@ class Page(MPTTModel, AbstractBasePage):
         :type region_slug: str
 
         :return: All root pages i.e. pages without parents
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
+        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
-        return Page.objects.filter(region__slug=region_slug, parent=None)
-
-    def get_previous_sibling(self, *filter_args, **filter_kwargs):
-        r"""
-        This function gets all previous siblings of a page
-
-        :param \*filter_args: The supplied arguments
-        :type \*filter_args: list
-
-        :param \**filter_kwargs: The supplied kwargs
-        :type \**filter_kwargs: list
-
-        :return: The previous sibling
-        :rtype: ~integreat_cms.cms.models.pages.page.Page
-        """
-        # Only consider siblings from this region
-        filter_kwargs["region"] = self.region
-        return super().get_previous_sibling(*filter_args, **filter_kwargs)
-
-    def get_next_sibling(self, *filter_args, **filter_kwargs):
-        r"""
-        This function gets the next sibling of a page
-
-        :param \*filter_args: The supplied arguments
-        :type \*filter_args: list
-
-        :param \**filter_kwargs: The supplied kwargs
-        :type \**filter_kwargs: list
-
-        :return: The next sibling
-        :rtype: ~integreat_cms.cms.models.pages.page.Page
-        """
-        # Only consider siblings from this region
-        filter_kwargs["region"] = self.region
-        return super().get_next_sibling(*filter_args, **filter_kwargs)
-
-    def get_siblings(self, include_self=False):
-        """
-        This function gets all siblings of a page
-
-        :param include_self: gives state of include_self
-        :type include_self: bool
-
-        :return: All siblings of this page
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
-        """
-        # Return only siblings from the same region
-        return (
-            super().get_siblings(include_self=include_self).filter(region=self.region)
-        )
-
-    def get_descendants_max_depth(self, include_self, max_depth):
-        """
-        Return all descendants with depth less or equal to max depth relative to this nodes depth
-
-        :param include_self: Whether to include this node in the result
-        :type include_self: bool
-
-        :param max_depth: The nodes maximum depth in the tree
-        :type max_depth: int
-
-        :return: All descendants of this node with relative max depth
-        :rtype: ~mptt.querysets.TreeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
-        """
-        return (
-            super()
-            .get_descendants(include_self=include_self)
-            .filter(level__lte=self.get_level() + max_depth)
-        )
+        return cls.get_region_root_nodes(region_slug=region_slug)
 
     def get_mirrored_page_translation(self, language_slug):
         """
@@ -250,6 +251,19 @@ class Page(MPTTModel, AbstractBasePage):
             return self.mirrored_page.get_public_translation(language_slug)
         return None
 
+    @cached_property
+    def relative_depth(self):
+        """
+        The relative depth inside a cached tree structure. This is relevant for archived pages, where even sub-pages
+        should be displayed as root-pages if their parents are not archived.
+
+        :return: The relative depth of this node inside its queryset
+        :rtype: int
+        """
+        if hasattr(self, "_relative_depth"):
+            return self._relative_depth
+        return self.depth
+
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Page object (id)``.
@@ -262,7 +276,7 @@ class Page(MPTTModel, AbstractBasePage):
             [
                 # escape page title because string is marked as safe afterwards
                 escape(ancestor.best_translation.title)
-                for ancestor in self.get_ancestors(include_self=True)
+                for ancestor in self.get_cached_ancestors(include_self=True)
             ]
         )
         # Add warning if page is archived
@@ -276,6 +290,8 @@ class Page(MPTTModel, AbstractBasePage):
         verbose_name = _("page")
         #: The plural verbose name of the model
         verbose_name_plural = _("pages")
+        #: The name that will be used by default for the relation from a related object back to this one
+        default_related_name = "pages"
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view")
         #: The custom permissions for this model

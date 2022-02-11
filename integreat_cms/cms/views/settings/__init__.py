@@ -2,6 +2,7 @@
 This package contains all views related to settings
 """
 from .user_settings_view import UserSettingsView
+from .dismiss_tutorial_view import DismissTutorial
 
 from .mfa.authenticate_modify_mfa_view import AuthenticateModifyMfaView
 from .mfa.delete_user_mfa_key_view import DeleteUserMfaKeyView

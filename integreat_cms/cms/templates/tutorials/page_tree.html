@@ -1,0 +1,26 @@
+{% extends "../generic_tutorial_dialog.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<!-- Pop-Up Header -->
+<div class="flex items-center bg-blue-500 w-full rounded h-12">
+    <i data-feather="help-circle" class="text-white ml-2"></i>
+    <h2 class="flex items-center font-semibold leading-normal pl-2 text-white text-xl"> {% trans 'Introduction - Page Tree' %}</h2>
+</div>
+<!-- Pop-Up Content -->
+<div class="px-4">
+    <p class="mt-4 text-s max-w-fit text-gray-600">{% trans 'We merged "All pages" and "Tree View" into one single view. In this view you can do the following:' %}</p>
+    <ul class="list-disc my-2 pl-5 text-s text-gray-600">
+        <li>{% trans 'View the page hierarchy.' %}</li>
+        <li>{% trans 'Change the hierarchy with drag & drop.' %}</li>
+        <li>{% trans 'View the translation status.' %}</li>
+        <li>{% trans "Open the page editor by clicking on a page." %}</li>
+    </ul>
+    {% get_current_language as LANGUAGE_CODE %}
+
+    {% with 'images/page_tree_tutorial_'|add:LANGUAGE_CODE|add:'.gif' as image_static %}
+    <img src="{% static image_static %}" class="m-auto my-4 object-cover" />
+    {% endwith %}
+</div>
+{% endblock content %}

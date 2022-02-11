@@ -6,25 +6,28 @@
 import { off, on } from "./utils/wrapped-events";
 
 window.addEventListener("load", () => {
+  addDragAndDropListeners();
+});
 
+export function addDragAndDropListeners() {
   // Only activate event listeners if explicitly enabled
   if (!document.querySelector("[data-activate-tree-drag-drop]")) return;
-
+  
   // event handler for starting drag events
   document.querySelectorAll(".drag").forEach((node) => {
     (node as HTMLElement).addEventListener("dragstart", dragstart);
   });
-
+  
   // event handler for stopping drag events
   document.querySelectorAll(".drag").forEach(function (node) {
     on(node, "dragend", dragend);
   });
-
+  
   // event handler for dragleave events
   document.querySelectorAll(".drop").forEach((node) => {
     node.addEventListener("dragleave", dragleave);
   });
-
+  
   // event handler for drop events
   document.querySelectorAll(".drop").forEach((node) => {
     node.addEventListener("drop", (e: Event) => {
@@ -32,7 +35,7 @@ window.addEventListener("load", () => {
       drop(e as DragEvent);
     });
   });
-});
+}
 
 /*
  * This function handles the start of a dragging event

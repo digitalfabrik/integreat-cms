@@ -53,7 +53,7 @@ async function queryObjects(
                 "bg-gray-200",
                 "w-full",
                 "overflow-x-hidden",
-                "overflow-ellipsis",
+                "text-ellipsis",
                 "align-top"
             );
             child.innerText = value.title;
@@ -104,9 +104,21 @@ export function setSearchQueryEventListeners() {
 
     document.getElementById("table-search-suggestions").addEventListener("mousedown", ({ target }) => {
         let table_search_input = document.getElementById("table-search-input") as HTMLInputElement;
+        // Don't submit a value if the user clicked e.g. on the search bar and not a specific list element
+        if (!(target as HTMLElement).matches("li")) {
+            return;
+        }
         // Fill in search field with selected suggestion
         table_search_input.value = (target as HTMLElement).textContent;
         // Submit the search
         document.getElementById("search-submit-btn").click();
     })
+
+    // Reset the search
+    document.getElementById("search-reset-btn")?.addEventListener("click", (event) => {
+        // Empty the search value
+        table_search_input.value = "";
+        // Submit the search
+        document.getElementById("search-submit-btn").click();
+    });
 }

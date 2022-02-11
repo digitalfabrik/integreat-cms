@@ -9,7 +9,6 @@ from django.views.generic import TemplateView
 
 from ...forms import ObjectSearchForm
 from ...decorators import region_permission_required, permission_required
-from ...models import Region
 from ...utils.user_utils import search_users
 
 logger = logging.getLogger(__name__)
@@ -24,7 +23,7 @@ class RegionUserListView(TemplateView):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "users/region/list.html"
+    template_name = "users/region_user_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     base_context = {"current_menu_item": "region_users"}
 
@@ -45,7 +44,7 @@ class RegionUserListView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        region = Region.get_current_region(request)
+        region = request.region
 
         users = (
             region.users.select_related("organization")

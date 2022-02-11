@@ -1,0 +1,50 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+<div class="table-header">
+    <h1 class="heading">{% trans 'User Management' %}</h1>
+    <div class="flex justify-between">
+        {% include "search_input_form.html" with object_type="user" %}
+        {% if perms.cms.change_user %}
+            <a href="{% url 'new_region_user' region_slug=request.region.slug %}" class="btn">
+                {% trans 'Create user' %}
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="table-listing">
+    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <thead>
+            <tr class="border-b border-solid border-gray-200">
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Username' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'First Name' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Last Name' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'E-mail-address' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Organization' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Role' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Last Login' %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-4 min">{% trans 'Active' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            {% include "users/region_user_list_row.html" %}
+        {% empty %}
+            <tr>
+	            <td colspan="6" class="px-4 py-3">
+		            {% if search_query %}
+                        {% trans 'No users found with these filters.' %}
+                    {% else %}
+		                {% trans 'No users available yet.' %}
+                    {% endif %}
+	            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% url "region_users" as url %}
+{% include "pagination.html" with url=url chunk=users %}
+{% endblock %}

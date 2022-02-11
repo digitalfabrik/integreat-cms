@@ -32,7 +32,7 @@ if settings.DEBUG:
     urlpatterns.append(url(r"^admin/", admin.site.urls))
     # The Django debug toolbar urlpatterns will only be activated if the debug_toolbar app is installed
     if "debug_toolbar" in settings.INSTALLED_APPS:
-        urlpatterns.append(url(r"^__debug__/", include("debug_toolbar.toolbar")))
+        urlpatterns.append(url(r"^__debug__/", include("debug_toolbar.urls")))
 
 # Unfortunately we need to do this in such way, as the admin endpoint needs to be added before the endpoints of the other apps.
 urlpatterns += [

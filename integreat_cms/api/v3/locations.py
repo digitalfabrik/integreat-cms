@@ -1,7 +1,9 @@
+"""
+This module includes functions related to the locations/POIs API endpoint.
+"""
 from django.conf import settings
 from django.http import JsonResponse
 
-from ...cms.models import Region
 from ..decorators import json_response
 
 
@@ -48,12 +50,12 @@ def transform_poi_translation(poi_translation):
     poi = poi_translation.poi
     return {
         "id": poi_translation.id,
-        "url": settings.WEBAPP_URL + poi_translation.get_absolute_url(),
+        "url": settings.BASE_URL + poi_translation.get_absolute_url(),
         "path": poi_translation.get_absolute_url(),
         "title": poi_translation.title,
         "modified_gmt": poi_translation.last_updated.strftime("%Y-%m-%d %H:%M:%S"),
         "excerpt": poi_translation.short_description,
-        "content": poi_translation.description,
+        "content": poi_translation.content,
         "available_languages": poi_translation.available_languages,
         "thumbnail": poi.icon.url if poi.icon else None,
         "location": transform_poi(poi, poi_translation),
@@ -79,9 +81,9 @@ def locations(request, region_slug, language_slug):
     :return: JSON object according to APIv3 locations endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     result = []
-    for poi in region.pois.filter(archived=False):
+    for poi in region.pois.prefetch_public_translations().filter(archived=False):
         translation = poi.get_public_translation(language_slug)
         if translation:
             result.append(transform_poi_translation(translation))

@@ -1,8 +1,11 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
-{% block content %}
+{% load base_filters %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% block content %}
 <form method="post">
     {% csrf_token %}
     <div class="flex flex-wrap mb-4">
@@ -33,6 +36,8 @@
             </div>
             <div>
                 <label for="{{ language_tree_node_form.parent.id_for_label }}">{{ language_tree_node_form.parent.label }}</label>
+                {% render_field language_tree_node_form|get_private_member:"ref_node_id" %}
+                {% render_field language_tree_node_form|get_private_member:"position" %}
                 {% render_field language_tree_node_form.parent|add_error_class:"border-red-500" %}
             </div>
             <div>

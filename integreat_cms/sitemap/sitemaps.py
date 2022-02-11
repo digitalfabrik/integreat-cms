@@ -273,10 +273,9 @@ class OfferSitemap(WebappSitemap):
         """
         return [
             {
-                "location": f"{settings.WEBAPP_URL}/{self.region.slug}/{language_tree_node.slug}/offers/{obj.slug}",
-                "lang_slug": language_tree_node.slug,
+                "location": f"{settings.WEBAPP_URL}/{self.region.slug}/{language.slug}/offers/{obj.slug}",
+                "lang_slug": language.slug,
             }
-            for language_tree_node in self.region.language_tree_nodes.filter(
-                active=True
-            ).exclude(language=self.language)
+            for language in self.region.visible_languages
+            if language != self.language
         ]

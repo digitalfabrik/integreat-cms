@@ -1,9 +1,11 @@
+"""
+This module includes functions related to the event API endpoint.
+"""
 from datetime import timedelta
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
 
-from ...cms.models import Region
 from ...cms.models.events.event_translation import EventTranslation
 from ...cms.utils.slug_utils import generate_unique_slug
 from ..decorators import json_response
@@ -55,12 +57,12 @@ def transform_event_translation(event_translation):
 
     return {
         "id": event_translation.id,
-        "url": settings.WEBAPP_URL + event_translation.get_absolute_url(),
+        "url": settings.BASE_URL + event_translation.get_absolute_url(),
         "path": event_translation.get_absolute_url(),
         "title": event_translation.title,
         "modified_gmt": event_translation.last_updated.strftime("%Y-%m-%d %H:%M:%S"),
-        "excerpt": event_translation.description,
-        "content": event_translation.description,
+        "excerpt": event_translation.content,
+        "content": event_translation.content,
         "available_languages": event_translation.available_languages,
         "thumbnail": event.icon.url if event.icon else None,
         "location": location,
@@ -97,8 +99,8 @@ def transform_event_recurrences(event_translation, today):
     event_data = transform_event_translation(event_translation)
     event_length = event_translation.event.end_date - event_translation.event.start_date
 
-    url_base = event_data["url"][: event_data["url"].rfind("/")] + "/"
-    path_base = event_data["path"][: event_data["path"].rfind("/")] + "/"
+    url_base = event_data["url"][: event_data["url"].rstrip("/").rfind("/")]
+    path_base = event_data["path"][: event_data["path"].rstrip("/").rfind("/")]
 
     start_date = event_translation.event.start_date
     for recurrence_date in recurrence_rule.iter_after(start_date):
@@ -123,8 +125,8 @@ def transform_event_recurrences(event_translation, today):
         event_data_copy = {**event_data}
         event_data_copy["event"] = {**event_data_copy["event"]}
         event_data_copy["id"] = None
-        event_data_copy["url"] = url_base + unique_path
-        event_data_copy["path"] = path_base + unique_path
+        event_data_copy["url"] = f"{url_base}/{unique_path}/"
+        event_data_copy["path"] = f"{path_base}/{unique_path}/"
         event_data_copy["event"]["id"] = None
         event_data_copy["event"]["start_date"] = recurrence_date
         event_data_copy["event"]["end_date"] = recurrence_date + event_length
@@ -149,10 +151,10 @@ def events(request, region_slug, language_slug):
     :return: JSON object according to APIv3 events endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     result = []
     now = timezone.now().date()
-    for event in region.events.filter(archived=False):
+    for event in region.events.prefetch_public_translations().filter(archived=False):
         event_translation = event.get_public_translation(language_slug)
         if event_translation:
             if event.end_date >= now:

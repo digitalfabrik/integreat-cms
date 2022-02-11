@@ -19,6 +19,15 @@
         <div id="table-search-suggestions" class="absolute hidden shadow rounded-b top-full bg-graz-200 w-full z-10 max-h-60 overflow-y-auto cursor-pointer">
         </div>
     </div>
+    {% if search_query %}
+        <button
+            id="search-reset-btn"
+            title="{% trans 'Reset search' %}"
+            class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-3"
+        >
+            <i data-feather="x" class="w-5"></i>
+        </button>
+    {% endif %}
     <button
         id="search-submit-btn"
         title="{% trans 'Search' %}" {% if related_form %}form={{ related_form }}{% endif %}

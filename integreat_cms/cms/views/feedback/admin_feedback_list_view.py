@@ -111,6 +111,8 @@ class AdminFeedbackListView(TemplateView):
             filter_form = AdminFeedbackFilterForm()
             filter_form.changed_data.clear()
 
+        admin_feedback = admin_feedback.select_related("region", "language")
+
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         paginator = Paginator(admin_feedback, chunk_size)
         chunk = request.GET.get("page")

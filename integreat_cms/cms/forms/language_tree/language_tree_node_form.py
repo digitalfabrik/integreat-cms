@@ -1,7 +1,10 @@
 import logging
 
 from django import forms
+from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
+
+from treebeard.forms import MoveNodeForm
 
 from ..custom_model_form import CustomModelForm
 from ...models import Language, LanguageTreeNode
@@ -10,10 +13,16 @@ from ...models import Language, LanguageTreeNode
 logger = logging.getLogger(__name__)
 
 
-class LanguageTreeNodeForm(CustomModelForm):
+class LanguageTreeNodeForm(CustomModelForm, MoveNodeForm):
     """
     Form for creating and modifying language tree node objects
     """
+
+    parent = forms.ModelChoiceField(
+        queryset=LanguageTreeNode.objects.all(),
+        required=False,
+        label=capfirst(LanguageTreeNode._meta.get_field("parent").verbose_name),
+    )
 
     class Meta:
         """
@@ -24,7 +33,7 @@ class LanguageTreeNodeForm(CustomModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = LanguageTreeNode
         #: The fields of the model which should be handled by this form
-        fields = ["language", "parent", "visible", "active"]
+        fields = ["language", "visible", "active"]
 
     def __init__(self, **kwargs):
         r"""
@@ -34,17 +43,42 @@ class LanguageTreeNodeForm(CustomModelForm):
         :type \**kwargs: dict
         """
 
+        if "data" in kwargs:
+            # Copy QueryDict because it is immutable
+            data = kwargs.pop("data").copy()
+            # Use the parent node as value for the ref node
+            data["_ref_node_id"] = data["parent"]
+            data["_position"] = "first-child"
+            # Set the kwargs to updated POST data again
+            kwargs["data"] = data
+
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
 
+        # Hide tree node inputs
+        self.fields["_ref_node_id"].widget = forms.HiddenInput()
+        self.fields["_position"].widget = forms.HiddenInput()
+
         parent_queryset = self.instance.region.language_tree_nodes
-        excluded_languages = self.instance.region.languages.exclude(
-            language_tree_nodes=self.instance
-        )
 
         if self.instance.id:
-            children = self.instance.get_descendants(include_self=True)
-            parent_queryset = parent_queryset.exclude(id__in=children)
+            descendant_ids = [
+                descendant.id
+                for descendant in self.instance.get_cached_descendants(
+                    include_self=True
+                )
+            ]
+            parent_queryset = parent_queryset.exclude(id__in=descendant_ids)
+            self.fields["parent"].initial = self.instance.parent
+            excluded_languages = [
+                language.id
+                for language in self.instance.region.languages
+                if language != self.instance.language
+            ]
+        else:
+            excluded_languages = [
+                language.id for language in self.instance.region.languages
+            ]
 
         # limit possible parents to nodes of current region
         self.fields["parent"].queryset = parent_queryset
@@ -52,6 +86,18 @@ class LanguageTreeNodeForm(CustomModelForm):
         self.fields["language"].queryset = Language.objects.exclude(
             id__in=excluded_languages
         )
+
+    def _clean_cleaned_data(self):
+        """
+        Delete auxiliary fields not belonging to node model and include instance attributes in cleaned_data
+
+        :return: The initial data for _ref_node_id and _position fields
+        :rtype: tuple
+        """
+        # This workaround is required because the MoveNodeForm does not take
+        # instance attribute into account which are not included in cleaned_data
+        self.cleaned_data["region"] = self.instance.region
+        return super()._clean_cleaned_data()
 
     def clean(self):
         """

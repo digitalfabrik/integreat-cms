@@ -23,11 +23,11 @@
     </a>
     <div id="region-selector" class="relative flex flex-col justify-center px-2 cursor-pointer text-gray-800 hover:bg-gray-200 border-r border-gray-400">
         <div class="flex flex-wrap">
-            {% if region %}
-                <a href="{% url 'dashboard' region_slug=region.slug %}" class="block whitespace-nowrap">
+            {% if request.region %}
+                <a href="{% url 'dashboard' region_slug=request.region.slug %}" class="block whitespace-nowrap">
                     <i data-feather="home"></i>
-                    {{ region.full_name }}
-                    {% if other_regions or user.is_superuser or user.is_staff %}
+                    {{ request.region.full_name }}
+                    {% if request.region_selection or user.is_superuser or user.is_staff %}
                         <i data-feather="chevron-down"></i>
                     {% endif %}
                 </a>
@@ -35,22 +35,22 @@
                 <a href="{% url 'admin_dashboard' %}" class="block whitespace-nowrap">
                     <i data-feather="grid"></i>
                     {% trans 'Network Management' %}
-                    {% if other_regions or user.is_superuser or user.is_staff %}
+                    {% if request.region_selection or user.is_superuser or user.is_staff %}
                         <i data-feather="chevron-down"></i>
                     {% endif %}
                 </a>
             {% endif %}
         </div>
         <div id="region-list" class="absolute hidden shadow rounded-b top-full right-0 bg-gray-200">
-            {% for other_region in other_regions %}
-                <a href="{% url 'dashboard' region_slug=other_region.slug %}"
+            {% for region in request.region_selection %}
+                <a href="{% url 'dashboard' region_slug=region.slug %}"
                    class="block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-300">
                     <i data-feather="home"></i>
-                    {{ other_region.full_name }}
+                    {{ region.full_name }}
                 </a>
             {% endfor %}
             {% if user.is_superuser or user.is_staff %}
-                {% if region %}
+                {% if request.region %}
                     <a href="{% url 'admin_dashboard' %}"
                        class="block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-300 rounded-b">
                         <i data-feather="grid"></i>
@@ -61,13 +61,13 @@
         </div>
     </div>
     <div id="user-info" class="relative px-2 text-gray-800 flex flex-col justify-center cursor-pointer hover:bg-gray-200">
-        <a href="{% if region %}{% url 'user_settings' region_slug=region.slug %}{% else %}{% url 'user_settings' %}{% endif %}" class="relative block whitespace-nowrap">
+        <a href="{% if request.region %}{% url 'user_settings' region_slug=request.region.slug %}{% else %}{% url 'user_settings' %}{% endif %}" class="relative block whitespace-nowrap">
             <i data-feather="user"></i>
             {{ request.user.full_user_name }}
             <i data-feather="chevron-down"></i>
         </a>
         <div id="user-menu" class="absolute hidden shadow rounded-b top-full right-0 bg-gray-200">
-            <a href="{% if region %}{% url 'user_settings' region_slug=region.slug %}{% else %}{% url 'user_settings' %}{% endif %}" class="relative block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-400">
+            <a href="{% if request.region %}{% url 'user_settings' region_slug=request.region.slug %}{% else %}{% url 'user_settings' %}{% endif %}" class="relative block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-400">
                 <i data-feather="settings"></i>
                 {% trans 'User Settings' %}
             </a>
@@ -85,38 +85,38 @@
         </a>
     </div>
     <div id="menu" class="pb-2 overflow-y-auto">
-        {% if region %}
-            <a href="{% url 'dashboard' region_slug=region.slug %}"
+        {% if request.region %}
+            <a href="{% url 'dashboard' region_slug=request.region.slug %}"
                class="{% if current_menu_item == 'region_dashboard' %} active {% endif %}">
                 <i data-feather="grid"></i>
                 {% trans 'My Dashboard' %}
             </a>
             <!-- Analysis Section -->
             <div class="{% if current_menu_item|in_list:'analytics,statistics,translation_coverage,app_size,linkcheck' %} active {% endif %}">
-                <a href="{% url 'analytics' region_slug=region.slug %}"
+                <a href="{% url 'analytics' region_slug=request.region.slug %}"
                    class="{% if current_menu_item == 'analytics' %} active {% endif %}">
                     <i data-feather="activity"></i>
                     {% trans 'Analytics' %}
                 </a>
                 <div class="dropdown-container">
-                    {% if region.statistics_enabled %}
-                    <a href="{% url 'statistics' region_slug=region.slug %}"
+                    {% if request.region.statistics_enabled %}
+                    <a href="{% url 'statistics' region_slug=request.region.slug %}"
                        class="{% if current_menu_item == 'statistics' %} active {% endif %}">
                         <i data-feather="bar-chart"></i>
                         {% trans 'Statistics' %}
                     </a>
                     {% endif %}
-                    <a href="{% url 'translation_coverage' region_slug=region.slug %}"
+                    <a href="{% url 'translation_coverage' region_slug=request.region.slug %}"
                        class="{% if current_menu_item == 'translation_coverage' %} active {% endif %}">
                         <i data-feather="check-circle"></i>
                         {% trans 'Translation Report' %}
                     </a>
-                    <a href="{% url 'app_size' region_slug=region.slug %}"
+                    <a href="{% url 'app_size' region_slug=request.region.slug %}"
                        class="{% if current_menu_item == 'app_size' %} active {% endif %}">
                         <i data-feather="package"></i>
                         {% trans 'Size of the App' %}
                     </a>
-                    <a href="{% url 'linkcheck_landing' region_slug=region.slug %}"
+                    <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}"
                        class="{% if current_menu_item == 'linkcheck' %} active {% endif %}">
                         <i data-feather="link"></i>
                         {% trans 'Broken Link Checker' %}
@@ -128,72 +128,37 @@
                 <p class="font-bold"> {% trans "Contents" %} </p>
             </div>
             {% if perms.cms.view_directory and perms.cms.view_mediafile %}
-                <a href="{% url 'media' region_slug=region.slug %}" class="{% if current_menu_item == 'media' %} active {% endif %}">
+                <a href="{% url 'media' region_slug=request.region.slug %}" class="{% if current_menu_item == 'media' %} active {% endif %}">
                     <i data-feather='file'></i>
                     {% trans 'Media Library' %}
                 </a>
             {% endif %}
             {% if perms.cms.view_page %}
                 <div class="{% if current_menu_item|in_list:'pages,new_page' %} active {% endif %}">
-                    <a href="{% url 'pages' region_slug=region.slug %}">
+                    <a href="{% url 'pages' region_slug=request.region.slug %}">
                         <i data-feather="layout"></i>
                         {% trans 'Pages' %}
                     </a>
-                    {% if perms.cms.change_page and region.default_language and region.default_language == language %}
-                        <div class="dropdown-container">
-                            <a href="{% url 'pages' region_slug=region.slug %}"
-                               class="{% if current_menu_item == 'pages' %} active {% endif %}">
-                            {% trans 'All pages' %}
-                            </a>
-                            <a href="{% url 'new_page' region_slug=region.slug language_slug=language.slug %}"
-                               class="{% if current_menu_item == 'new_page' and not page %} active {% endif %}">
-                            {% trans 'Create page' %}
-                            </a>
-                        </div>
-                    {% endif %}
                 </div>
             {% endif %}
             {% if perms.cms.view_event %}
                 <div class="{% if current_menu_item|in_list:'events,events_form' %} active {% endif %}">
-                    <a href="{% url 'events' region_slug=region.slug %}">
+                    <a href="{% url 'events' region_slug=request.region.slug %}">
                         <i data-feather="calendar"></i>
                         {% trans 'Events' %}
                     </a>
-                    {% if perms.cms.change_event and region.default_language and region.default_language == language %}
-                        <div class="dropdown-container">
-                            <a href="{% url 'events' region_slug=region.slug %}"
-                               class="{% if current_menu_item == 'events' %} active {% endif %}">
-                            {% trans 'All events' %}
-                            </a>
-                            <a href="{% url 'new_event' region_slug=region.slug language_slug=language.slug %}"
-                               class="{% if current_menu_item == 'events_form' and not event_form.instance.id %} active {% endif %}">
-                            {% trans 'Create event' %}
-                            </a>
-                        </div>
-                    {% endif %}
                 </div>
             {% endif %}
             {% if perms.cms.view_poi %}
                 <div class="{% if current_menu_item|in_list:'pois,pois_form' %} active {% endif %}">
-                    <a href="{% url 'pois' region_slug=region.slug %}">
+                    <a href="{% url 'pois' region_slug=request.region.slug %}">
                         <i data-feather="map-pin"></i>
                         {% trans 'Locations on Map' %}
                     </a>
-                    {% if perms.cms.change_poi and region.default_language and region.default_language == language %}
-                        <div class="dropdown-container">
-                            <a href="{% url 'pois' region_slug=region.slug %}" class="{% if current_menu_item == 'pois' %} active {% endif %}">
-                            {% trans 'All locations' %}
-                            </a>
-                            <a href="{% url 'new_poi' region_slug=region.slug language_slug=language.slug %}"
-                               class="{% if current_menu_item == 'pois_form' and not poi_form.instance.id %} active {% endif %}">
-                            {% trans 'Create location' %}
-                            </a>
-                        </div>
-                    {% endif %}
                 </div>
             {% endif %}
             {% if perms.cms.view_feedback %}
-                <a href="{% url 'region_feedback' region_slug=region.slug %}"
+                <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
                    class="{% if current_menu_item == 'region_feedback' %} active {% endif %}">
                     <i data-feather="thumbs-up"></i>
                     {% trans 'Feedback' %}
@@ -201,26 +166,14 @@
             {% endif %}
             {% if perms.cms.view_pushnotification %}
                 <div  class="{% if current_menu_item|in_list:'push_notifications,push_notifications_form' %} active {% endif %}">
-                    <a href="{% url 'push_notifications' region_slug=region.slug %}">
+                    <a href="{% url 'push_notifications' region_slug=request.region.slug %}">
                         <i data-feather="send"></i>
                         {% trans 'News' %}
                     </a>
-                    {% if perms.cms.change_pushnotification and language %}
-                        <div class="dropdown-container">
-                            <a href="{% url 'push_notifications' region_slug=region.slug %}"
-                               class="{% if current_menu_item == 'push_notifications' %} active {% endif %}">
-                            {% trans 'All news messages' %}
-                            </a>
-                            <a href="{% url 'new_push_notification' region_slug=region.slug language_slug=language.slug %}"
-                               class="{% if current_menu_item == 'push_notifications_form' and not push_notification %} active {% endif %}">
-                                {% trans 'Create news message' %}
-                            </a>
-                        </div>
-                    {% endif %}
                 </div>
             {% endif %}
             {% if perms.cms.view_imprintpage %}
-                <a href="{% url 'edit_imprint' region_slug=region.slug %}"
+                <a href="{% url 'edit_imprint' region_slug=request.region.slug %}"
                    class="{% if current_menu_item == 'imprint' %} active {% endif %}">
                     <i data-feather="file-text"></i>
                     {% trans 'Imprint' %}
@@ -234,26 +187,14 @@
             {% endif %}
             {% if perms.cms.view_user %}
                 <div class="{% if current_menu_item|in_list:'region_users,region_user_form' %} active {% endif %}">
-                    <a href="{% url 'region_users' region_slug=region.slug %}">
+                    <a href="{% url 'region_users' region_slug=request.region.slug %}">
                         <i data-feather="users"></i>
                         {% trans 'Users' %}
                     </a>
-                    {% if perms.cms.change_user %}
-                        <div class="dropdown-container">
-                            <a href="{% url 'region_users' region_slug=region.slug %}"
-                               class="{% if current_menu_item == 'region_users' %} active {% endif %}">
-                            {% trans 'All users' %}
-                            </a>
-                            <a href="{% url 'new_region_user' region_slug=region.slug %}"
-                               class="{% if current_menu_item == 'region_user_form' and not user_form.instance.id %} active {% endif %}">
-                            {% trans 'Create user' %}
-                            </a>
-                        </div>
-                    {% endif %}
                 </div>
             {% endif %}
             {% if perms.cms.view_languagetreenode %}
-                <a href="{% url 'language_tree' region_slug=region.slug %}" class="{% if current_menu_item|in_list:'language_tree,language_tree_form' %} active {% endif %}">
+                <a href="{% url 'language_tree' region_slug=request.region.slug %}" class="{% if current_menu_item|in_list:'language_tree,language_tree_form' %} active {% endif %}">
                     <i data-feather="flag"></i>
                     {% trans 'Language Tree' %}
                 </a>
@@ -287,18 +228,6 @@
                         <i data-feather="users"></i>
                         {% trans 'Users' %}
                     </a>
-                    {% if perms.cms.change_user %}
-                    <div class="dropdown-container">
-                        <a href="{% url 'users' %}"
-                           class="{% if current_menu_item == 'users' %} active {% endif %}">
-                            {% trans 'All users' %}
-                        </a>
-                        <a href="{% url 'new_user' %}"
-                           class="{% if current_menu_item == 'user_form' and not user_form.instance.id %} active {% endif %}">
-                            {% trans 'Create user' %}
-                        </a>
-                    </div>
-                    {% endif %}
                 </div>
             {% endif %}
             {% if perms.auth.view_group %}
@@ -314,7 +243,7 @@
                 </a>
             {% endif %}
             {% if perms.cms.view_offer_template %}
-                <a href="{% url 'offer_templates' %}" class="{% if current_menu_item == 'offer_templates' %} active {% endif %}">
+                <a href="{% url 'offertemplates' %}" class="{% if current_menu_item == 'offertemplates' %} active {% endif %}">
                     <i data-feather="star"></i>
                     {% trans 'Offer Templates' %}
                 </a>
@@ -326,6 +255,9 @@
                 </a>
             {% endif %}
         {% endif %}
+    </div>
+    <div class="p-2 text-center absolute inset-x-0 bottom-0 bg-gray-700">
+        {% trans 'Version' %}: {{ version }}
     </div>
 </nav>
 <main class="relative min-h-screen flex pl-56 pt-14 bg-gray-100">

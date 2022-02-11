@@ -6,7 +6,6 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from ...decorators import region_permission_required, permission_required
-from ...models import Region
 from .language_tree_context_mixin import LanguageTreeContextMixin
 
 logger = logging.getLogger(__name__)
@@ -42,8 +41,7 @@ class LanguageTreeView(TemplateView, LanguageTreeContextMixin):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        region = Region.get_current_region(request)
-        language_tree = region.language_tree_nodes.all().select_related("language")
+        region = request.region
         context = self.get_context_data(**kwargs)
         return render(
             request,
@@ -51,6 +49,6 @@ class LanguageTreeView(TemplateView, LanguageTreeContextMixin):
             {
                 **self.base_context,
                 **context,
-                "language_tree": language_tree,
+                "language_tree": region.language_tree,
             },
         )

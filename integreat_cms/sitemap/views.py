@@ -60,14 +60,14 @@ class SitemapIndexView(TemplateResponseMixin, View):
         # Only add active regions to the sitemap index
         for region in Region.objects.filter(status=region_status.ACTIVE):
             # Only add active languages to the sitemap index
-            for language_tree_node in region.language_tree_nodes.filter(active=True):
+            for language in region.active_languages:
                 # Only add sitemaps with actual content (empty list evaluates to False)
-                if get_sitemaps(region, language_tree_node.language):
+                if get_sitemaps(region, language):
                     sitemap_url = reverse(
                         "sitemap",
                         kwargs={
                             "region_slug": region.slug,
-                            "language_slug": language_tree_node.slug,
+                            "language_slug": language.slug,
                         },
                     )
                     absolute_url = f"{settings.WEBAPP_URL}{sitemap_url}"
@@ -121,11 +121,10 @@ class SitemapView(TemplateResponseMixin, View):
             Region, slug=kwargs.get("region_slug"), status=region_status.ACTIVE
         )
         # Only return a sitemap if the language is active
-        language = get_object_or_404(
-            region.language_tree_nodes,
-            language__slug=kwargs.get("language_slug"),
-            active=True,
-        ).language
+        language = region.get_language_or_404(
+            kwargs.get("language_slug"),
+            only_visible=True,
+        )
 
         sitemaps = get_sitemaps(region, language)
 

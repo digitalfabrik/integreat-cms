@@ -1,9 +1,8 @@
 """
-API-endpoint to deliver a JSON with all active languages of an region.
+This module includes functions related to the languages API endpoint.
 """
 from django.http import JsonResponse
 
-from ...cms.models import Region
 from ..decorators import json_response
 
 
@@ -21,20 +20,18 @@ def languages(request, region_slug):
     :return: JSON object according to APIv3 languages endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
-    result = list(
-        map(
-            lambda l: {
-                "id": l.language.id,
-                "code": l.language.slug,
-                "bcp47_tag": l.language.bcp47_tag,
-                "native_name": l.language.native_name,
-                "dir": l.language.text_direction,
-            },
-            region.language_tree_nodes.filter(active=True),
-        )
-    )
+    result = [
+        {
+            "id": language.id,
+            "code": language.slug,
+            "bcp47_tag": language.bcp47_tag,
+            "native_name": language.native_name,
+            "dir": language.text_direction,
+        }
+        for language in region.visible_languages
+    ]
     return JsonResponse(
         result, safe=False
     )  # Turn off Safe-Mode to allow serializing arrays

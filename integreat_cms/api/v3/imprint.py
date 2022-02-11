@@ -1,10 +1,8 @@
 """
-imprint API endpoint
+This module includes functions related to the imprint API endpoint.
 """
-from django.conf import settings
 from django.http import JsonResponse
 
-from ...cms.models import Region
 from ..decorators import json_response
 
 
@@ -18,20 +16,18 @@ def transform_imprint(imprint_translation):
     :return: data necessary for API
     :rtype: dict
     """
-    if imprint_translation.page.icon:
-        thumbnail = settings.BASE_URL + imprint_translation.page.icon.url
-    else:
-        thumbnail = None
     return {
         "id": imprint_translation.id,
-        "url": imprint_translation.permalink,
+        "url": imprint_translation.get_absolute_url(),
         "title": imprint_translation.title,
         "modified_gmt": imprint_translation.last_updated,
-        "excerpt": imprint_translation.text,
-        "content": imprint_translation.text,
+        "excerpt": imprint_translation.content,
+        "content": imprint_translation.content,
         "parent": None,
         "available_languages": imprint_translation.available_languages,
-        "thumbnail": thumbnail,
+        "thumbnail": imprint_translation.page.icon.url
+        if imprint_translation.page.icon
+        else None,
         "hash": None,
     }
 
@@ -54,7 +50,7 @@ def imprint(request, region_slug, language_slug):
     :return: JSON object according to APIv3 imprint endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     if hasattr(region, "imprint"):
         imprint_translation = region.imprint.get_public_translation(language_slug)
         if imprint_translation:

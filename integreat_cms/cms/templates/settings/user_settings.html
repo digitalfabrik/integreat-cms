@@ -1,0 +1,118 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+<h1 class="heading">{% trans 'My User Settings' %}</h1>
+<div class="flex flex-wrap mt-4">
+    <div class="flex flex-wrap w-full xl:w-1/2 xl:pr-4">
+        <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="w-full p-4 rounded bg-blue-500">
+                <h3 class="font-bold text-white"><i data-feather="flag" class="mr-2"></i> {% trans 'My Language Preference' %}</h3>
+            </div>
+            <div class="px-4 pb-4">
+                <form action="{% url 'set_language' %}" method="post" class="w-full">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                    <label for="language">{% trans 'Choose language:' %}</label>
+                    <div class="mb-2">
+                        {% trans "This setting only affects this device." %}
+                    </div>
+                    <select name="language">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% for language_slug, language_name in LANGUAGES %}
+                        <option value="{{ language_slug }}"{% if language_slug == LANGUAGE_CODE %} selected{% endif %}>
+                            {{ language_slug|language_name_local }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn mt-4">
+                        {% trans 'Change language' %}
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="w-full p-4 rounded bg-blue-500">
+                <h3 class="font-bold text-white"><i data-feather="mail" class="mr-2"></i> {% trans 'My E-mail-address' %}</h3>
+            </div>
+            <div class="px-4 pb-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="{{ user_email_form.email.label }}">{{ user_email_form.email.label }}</label>
+                    {% render_field user_email_form.email|add_error_class:"border-red-500" %}
+
+                    <button name="submit_form" value="email_form" class="btn mt-4">{% trans 'Change e-mail-address' %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="w-full xl:w-1/2">
+        <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <div class="w-full p-4 rounded bg-blue-500">
+                <h3 class="heading font-bold text-white"><i data-feather="lock" class="mr-2"></i> {% trans 'My Password' %}</h3>
+            </div>
+            <div class="px-4 pb-4">
+                <form method="post">
+                {% csrf_token %}
+                <label for="{{ user_password_form.old_password.id_for_label }}" class="font-bold block p-2 pt-0 cursor-pointer">{{ user_password_form.old_password.label }}</label>
+                {% render_field user_password_form.old_password|add_error_class:"border-red-500" %}
+                <label for="{{ user_password_form.new_password.id_for_label }}">{{ user_password_form.new_password.label }}</label>
+                {% render_field user_password_form.new_password|add_error_class:"border-red-500" %}
+                <label for="{{ user_password_form.new_password_confirm.id_for_label }}">{{ user_password_form.new_password_confirm.label }}</label>
+                {% trans 'Enter my new password again here' as new_password_confirm_placeholder %}
+                {% render_field user_password_form.new_password_confirm|add_error_class:"border-red-500" placeholder=new_password_confirm_placeholder %}
+                <ul class="p-2">
+                    {% for item in user_password_form.new_password.help_text %}
+                        <li class="py-1">{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                <button name="submit_form" value="password_form" class="btn">{% trans 'Change password' %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+        <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white flex flex-wrap">
+            <div class="w-full p-4 rounded bg-blue-500">
+                <h3 class="heading font-bold text-white"><i data-feather="key" class="mr-2"></i> {% trans 'My 2-Factor-Authentication Keys' %}</h3>
+            </div>
+            <div class="p-4">
+                {% trans "You can use your FIDO2 keys to secure your account. Once you added a key to your account you won't be able to log in without using the key." %}<br>
+                {% trans "To make sure that you don't loose access to your account when you loose your FIDO2 key it is recommended to add multiple keys. Just make sure to keep at least one key at a secure place." %}
+            </div>
+            <div class="w-full p-4 table-listing">
+                <table class="w-full rounded border border-solid border-gray-200 shadow bg-white mb-4">
+                    <thead>
+                    <tr class="border-b border-solid border-gray-200">
+                        <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'Key name' %}</th>
+                        <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'Last usage' %}</th>
+                        <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'Date added' %}</th>
+                        <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">{% trans 'Actions' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key in keys %}
+                        <tr>
+                            <td class="pl-4">{{ key.name }}</td>
+                            <td class="pl-2 whitespace-nowrap">{{ key.last_usage }}</td>
+                            <td class="pl-2 whitespace-nowrap">{{ key.created_at }}</td>
+                            <td class="p-2 text-right"><a class="btn btn-red" href="{% url 'delete_mfa_key' key_id=key.id %}"><i data-feather="trash-2" class="text-white"></i></a></td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="px-4 py-3">
+                                {% trans 'No 2FA keys have been added yet.' %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <p><a class="btn" href="{% url 'register_new_mfa_key' %}">{% trans 'Add a new 2FA key' %}</a></p>
+            </div>
+        </div>
+</div>
+
+{% endblock %}

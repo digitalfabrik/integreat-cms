@@ -1,7 +1,9 @@
 import json
 import datetime
 import logging
-import webauthn
+from webauthn import verify_authentication_response, base64url_to_bytes
+from webauthn.helpers.structs import AuthenticationCredential
+from webauthn.helpers.exceptions import InvalidAuthenticationResponse
 
 from django.conf import settings
 from django.contrib.auth import get_user_model, login as auth_login
@@ -38,31 +40,24 @@ class MfaVerifyView(View):
         challenge = request.session["challenge"]
         assertion_response = json.loads(request.body)
         credential_id = assertion_response["id"]
-        key = user.mfa_keys.get(key_id=credential_id.encode("ascii"))
 
-        webauthn_user = webauthn.WebAuthnUser(
-            user.id,
-            user.username,
-            f"{user.first_name} {user.last_name}",
-            "",
-            str(key.key_id, "utf-8"),
-            str(key.public_key, "utf-8"),
-            key.sign_count,
-            settings.HOSTNAME,
-        )
-
-        webauthn_assertion_response = webauthn.WebAuthnAssertionResponse(
-            webauthn_user, assertion_response, challenge, settings.BASE_URL
-        )
+        key = user.mfa_keys.get(key_id=base64url_to_bytes(credential_id))
 
         try:
-            sign_count = webauthn_assertion_response.verify()
-        except webauthn.webauthn.AuthenticationRejectedException as e:
+            authentication_verification = verify_authentication_response(
+                credential=AuthenticationCredential.parse_raw(request.body),
+                expected_challenge=base64url_to_bytes(challenge),
+                expected_rp_id=settings.HOSTNAME,
+                expected_origin=settings.BASE_URL,
+                credential_public_key=key.public_key,
+                credential_current_sign_count=key.sign_count,
+            )
+        except InvalidAuthenticationResponse as e:
             logger.exception(e)
             return JsonResponse({"success": False, "error": "Authentication rejected"})
 
         # Update counter.
-        key.sign_count = sign_count
+        key.sign_count = authentication_verification.new_sign_count
         key.last_usage = datetime.datetime.now()
         key.save()
 

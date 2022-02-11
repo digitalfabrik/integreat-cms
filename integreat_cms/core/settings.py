@@ -109,7 +109,7 @@ BASE_URL = os.environ.get("INTEGREAT_CMS_BASE_URL", "http://localhost:8000")
 #: - :class:`~integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView`
 #: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_assert_view.MfaAssertView`
 #: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView`
-HOSTNAME = urlparse(BASE_URL).netloc
+HOSTNAME = urlparse(BASE_URL).hostname
 
 
 ########################
@@ -137,10 +137,11 @@ INSTALLED_APPS = [
     # Installed third-party-apps
     "corsheaders",
     "linkcheck",
-    "mptt",
     "rules.apps.AutodiscoverRulesConfig",
+    "treebeard",
     "webpack_loader",
     "widget_tweaks",
+    "polymorphic",
 ]
 
 # Install cacheops only if redis cache is available
@@ -164,13 +165,15 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "integreat_cms.cms.middleware.timezone_middleware.TimezoneMiddleware",
+    "integreat_cms.core.middleware.RegionMiddleware",
+    "integreat_cms.cms.middleware.TimezoneMiddleware",
 ]
 
 # The Django debug toolbar middleware will only be activated if the debug_toolbar app is installed
 if "debug_toolbar" in INSTALLED_APPS:
     # The debug toolbar middleware should be put first (see :doc:`django-debug-toolbar:installation`)
     MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
+    MIDDLEWARE.append("integreat_cms.api.middleware.JsonDebugToolbarMiddleware")
 
 #: Default URL dispatcher (see :setting:`django:ROOT_URLCONF`)
 ROOT_URLCONF = "integreat_cms.core.urls"
@@ -187,7 +190,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "integreat_cms.core.context_processors.region_slug_processor",
+                "integreat_cms.core.context_processors.version_processor",
             ],
             "debug": DEBUG,
         },
@@ -417,7 +420,7 @@ LOGGING = {
     "loggers": {
         # Loggers of integreat-cms django apps
         "integreat_cms": {
-            "handlers": ["console-colored", "logfile", "mail_admins"],
+            "handlers": ["console-colored", "logfile"],
             "level": LOG_LEVEL,
         },
         # Syslog for authentication
@@ -503,6 +506,16 @@ EMAIL_HOST_USER = os.environ.get("INTEGREAT_CMS_EMAIL_HOST_USER", SERVER_EMAIL)
 #: (see :setting:`django:EMAIL_PORT`)
 EMAIL_PORT = int(os.environ.get("INTEGREAT_CMS_EMAIL_PORT", 587))
 
+#: Whether to use a TLS (secure) connection when talking to the SMTP server.
+#: This is used for explicit TLS connections, generally on port 587.
+#: (see :setting:`django:EMAIL_USE_TLS`)
+EMAIL_USE_TLS = bool(strtobool(os.environ.get("INTEGREAT_CMS_EMAIL_USE_TLS", "True")))
+
+#: Whether to use an implicit TLS (secure) connection when talking to the SMTP server.
+#: In most email documentation this type of TLS connection is referred to as SSL. It is generally used on port 465.
+#: (see :setting:`django:EMAIL_USE_SSL`)
+EMAIL_USE_SSL = bool(strtobool(os.environ.get("INTEGREAT_CMS_EMAIL_USE_SSL", "False")))
+
 
 ########################
 # INTERNATIONALIZATION #
@@ -540,6 +553,18 @@ USE_L10N = True
 #: A boolean that specifies if datetimes will be timezone-aware by default or not
 #: (see :setting:`django:USE_TZ` and :doc:`topics/i18n/index`)
 USE_TZ = True
+
+
+##########################
+# AUTOMATIC TRANSLATIONS #
+##########################
+
+#: Authentication token for the DeepL API. If not set, automatic translations via DeepL are disabled
+DEEPL_AUTH_KEY = os.environ.get("INTEGREAT_CMS_DEEPL_AUTH_KEY")
+
+#: Whether automatic translations via DeepL are enabled.
+#: This is ``True`` if :attr:`~integreat_cms.core.settings.DEEPL_AUTH_KEY` is set, ``False`` otherwise.
+DEEPL_ENABLED = bool(DEEPL_AUTH_KEY)
 
 
 ################
@@ -723,10 +748,10 @@ SERIALIZATION_MODULES = {
 XLIFF_EXPORT_VERSION = os.environ.get("INTEGREAT_CMS_XLIFF_EXPORT_VERSION", "xliff-1.2")
 
 #: The default fields to be used for the XLIFF serialization
-XLIFF_DEFAULT_FIELDS = ("title", "text")
+XLIFF_DEFAULT_FIELDS = ("title", "content")
 
 #: A mapping for changed field names to preserve backward compatibility after a database field was renamed
-XLIFF_LEGACY_FIELDS = {"body": "text"}
+XLIFF_LEGACY_FIELDS = {"body": "content"}
 
 #: The directory where xliff files are stored
 XLIFF_ROOT = os.environ.get("INTEGREAT_CMS_XLIFF_ROOT", os.path.join(BASE_DIR, "xliff"))

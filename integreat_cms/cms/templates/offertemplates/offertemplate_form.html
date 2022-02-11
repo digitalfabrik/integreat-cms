@@ -1,0 +1,97 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<form method="post">
+    {% csrf_token %}
+    <div class="flex justify-between mb-4">
+		<h1 class="heading">
+			{% if form.initial %}
+				{% with form.name.value as offer_template_name %}
+					{% blocktrans %}Edit offer template "{{ offer_template_name }}"{% endblocktrans %}
+				{% endwith %}
+			{% else %}
+				{% trans 'Create new offer template' %}
+			{% endif %}
+		</h1>
+		{% if perms.cms.change_offertemplate %}
+			{% if form.initial %}
+				<button class="btn">{% trans 'Save' %}</button>
+			{% else %}
+				<button class="btn">{% trans 'Create' %}</button>
+			{% endif %}
+		{% endif %}
+    </div>
+
+    <div class="grid xl:grid-cols-2 gap-4">
+		<div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+			<div class="p-4 rounded bg-blue-500">
+				<h3 class="heading font-bold text-white"><i data-feather="star" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+			</div>
+			<div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+				<div>
+					<!-- General Options for offer_template management -->
+					<label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+					{% render_field form.name %}
+				</div>
+				<div>
+					<label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
+					<div class="help-text">{{ form.slug.help_text }}</div>
+					{% render_field form.slug %}
+				</div>
+				<div>
+					<label for="{{ form.url.id_for_label }}">{{ form.url.label }}</label>
+					<div class="help-text">{{ form.url.help_text }}</div>
+					{% render_field form.url %}
+				</div>
+				<div>
+					<label for="{{ form.thumbnail.id_for_label }}">{{ form.thumbnail.label }}</label>
+					<div class="mb-2 text-s text-gray-600">{{ form.thumbnail.help_text }}</div>
+					{% render_field form.thumbnail %}
+				</div>
+			</div>
+		</div>
+		<div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
+			<div class="p-4 rounded bg-blue-500">
+				<h3 class="heading font-bold text-white"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
+			</div>
+			<div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+				<div>
+					<label for="{{ form.post_data.id_for_label }}">{{ form.post_data.label }}</label>
+					<div class="help-text">{{ form.post_data.help_text }}</div>
+					{% if form.post_data.value == "null" %}
+						{% render_field form.post_data value="{}" %}
+					{% else %}
+						{% render_field form.post_data %}
+					{% endif %}
+				</div>
+				<div>
+					<label for="{{ form.use_postal_code.id_for_label }}">{{ form.use_postal_code.label }}</label>
+					<div class="help-text">{{ form.use_postal_code.help_text }}</div>
+					{% render_field form.use_postal_code %}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if form.instance.id and perms.cms.delete_offertemplate %}
+		{% if form.instance.regions.exists %}
+			<button title="{% trans 'This offer template cannot be deleted because it is used in at least one region.' %}" class="btn" disabled>
+				<i data-feather="trash-2"></i>
+				{% trans 'Delete this offer templates' %}
+			</button>
+		{% else %}
+			<button title="{% trans 'Delete language' %}" class="btn confirmation-button btn-red"
+					data-confirmation-title="{% trans 'Please confirm that you really want to delete this offer template' %}"
+					data-confirmation-text="{% trans 'This cannot be reversed.' %}"
+					data-confirmation-subject="{{ form.instance.name }}"
+					data-action="{% url 'delete_offertemplate' slug=form.instance.slug %}">
+				<i data-feather="trash-2"></i>
+				{% trans 'Delete this offer templates' %}
+			</button>
+		{% endif %}
+	{% endif %}
+</form>
+
+{% include "../generic_confirmation_dialog.html" %}
+{% endblock %}

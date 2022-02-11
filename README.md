@@ -18,7 +18,7 @@ Following packages are required before installing the project (install them with
 
 * npm version 7 or higher
 * nodejs version 12 or higher
-* python3.7 (Debian-based distributions) / python37 (Arch-based distributions)
+* python3.9 (Debian-based distributions) / python39 (Arch-based distributions)
 * python3.7-dev (only on Ubuntu)
 * python3-pip (Debian-based distributions) / python-pip (Arch-based distributions)
 * pipenv for python3 (if no recent version is packaged for your distro, use `pip3 install pipenv --user`)

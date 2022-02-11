@@ -1,11 +1,11 @@
 """
-pages API endpoint
+This module includes functions related to the pages API endpoint.
 """
 from django.conf import settings
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 
-from ...cms.models import Region, Page
+from ...cms.models import Page
 from ..decorators import json_response
 
 
@@ -19,21 +19,15 @@ def transform_page(page_translation):
     :return: data necessary for API
     :rtype: dict
     """
-    if page_translation.page.icon:
-        thumbnail = settings.BASE_URL + page_translation.page.icon.url
-    else:
-        thumbnail = None
-    if page_translation.page.parent:
+    parent_page = page_translation.page.cached_parent
+    if parent_page:
+        parent_absolute_url = parent_page.get_public_translation(
+            page_translation.language.slug
+        ).get_absolute_url()
         parent = {
-            "id": page_translation.page.parent.id,
-            "url": page_translation.page.parent.get_translation(
-                page_translation.language.slug
-            ).backend_base_link,
-            "path": "/"
-            + page_translation.page.parent.get_translation(
-                page_translation.language.slug
-            ).permalink
-            + "/",
+            "id": parent_page.id,
+            "url": settings.BASE_URL + parent_absolute_url,
+            "path": parent_absolute_url,
         }
     else:
         parent = {
@@ -41,18 +35,21 @@ def transform_page(page_translation):
             "url": None,
             "path": None,
         }
+    absolute_url = page_translation.get_absolute_url()
     return {
         "id": page_translation.id,
-        "url": page_translation.backend_base_link,
-        "path": "/" + page_translation.permalink + "/",
+        "url": settings.BASE_URL + absolute_url,
+        "path": absolute_url,
         "title": page_translation.title,
         "modified_gmt": page_translation.combined_last_updated,
-        "excerpt": page_translation.text,
+        "excerpt": page_translation.content,
         "content": page_translation.combined_text,
         "parent": parent,
         "order": page_translation.page.lft,  # use left edge indicator of mptt model for order
         "available_languages": page_translation.available_languages,
-        "thumbnail": thumbnail,
+        "thumbnail": page_translation.page.icon.url
+        if page_translation.page.icon
+        else None,
         "hash": None,
     }
 
@@ -73,9 +70,13 @@ def pages(request, region_slug, language_slug):
     :return: JSON object according to APIv3 pages endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    region = Region.get_current_region(request)
+    region = request.region
     result = []
-    for page in region.get_pages():
+    # The preliminary filter for explicitly_archived=False is not strictly required, but reduces the number of entries
+    # requested from the database
+    for page in region.pages.filter(explicitly_archived=False).cache_tree(
+        archived=False
+    )[0]:
         page_translation = page.get_public_translation(language_slug)
         if page_translation:
             result.append(transform_page(page_translation))
@@ -102,7 +103,7 @@ def get_single_page(request, language_slug):
     :return: the requested page
     :rtype: ~integreat_cms.cms.models.pages.page.Page
     """
-    region = Region.get_current_region(request)
+    region = request.region
 
     if request.GET.get("id"):
         page = get_object_or_404(region.pages, id=request.GET.get("id"))
@@ -113,11 +114,14 @@ def get_single_page(request, language_slug):
         # The last path component of the url is the page translation slug
         page_translation_slug = url.split("/")[-1]
         # Get page by filtering for translation slug and translation language slug
-        page = get_object_or_404(
-            region.pages,
+        filtered_pages = region.pages.filter(
             translations__slug=page_translation_slug,
             translations__language__slug=language_slug,
-        )
+        ).distinct()
+
+        if len(filtered_pages) != 1:
+            raise Http404("No matching page translation found for url.")
+        page = filtered_pages[0]
 
     else:
         raise RuntimeError("Either the id or the url parameter is required.")
@@ -191,9 +195,39 @@ def children(request, region_slug, language_slug):
         depth = depth - 1
     result = []
     for root in root_pages:
-        descendants = root.get_descendants_max_depth(True, depth)
+        descendants = root.get_tree_max_depth(max_depth=depth)
         for descendant in descendants:
             public_translation = descendant.get_public_translation(language_slug)
             if public_translation:
                 result.append(transform_page(public_translation))
+    return JsonResponse(result, safe=False)
+
+
+@json_response
+# pylint: disable=unused-argument
+def parents(request, region_slug, language_slug):
+    """
+    Retrieves all ancestors (parent and all nodes up to the root node) of a page
+
+    :param request: The request that has been sent to the Django server
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: Slug defining the region
+    :type region_slug: str
+
+    :param language_slug: Code to identify the desired language
+    :type language_slug: str
+
+    :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
+
+    :return: JSON with the requested page ancestors
+    :rtype: ~django.http.JsonResponse
+    """
+    current_page = get_single_page(request, language_slug)
+    result = []
+    for ancestor in current_page.get_cached_ancestors(include_self=False):
+        public_translation = ancestor.get_public_translation(language_slug)
+        if not public_translation:
+            raise Http404("No Page matches the given url or id.")
+        result.append(transform_page(public_translation))
     return JsonResponse(result, safe=False)

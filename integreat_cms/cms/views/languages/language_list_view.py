@@ -24,7 +24,7 @@ class LanguageListView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "languages/language_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "languages"}
+    extra_context = {"current_menu_item": "languages"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -42,7 +42,7 @@ class LanguageListView(TemplateView):
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
-        languages = Language.objects.all()
+        languages = Language.objects.all().prefetch_related("language_tree_nodes")
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
         paginator = Paginator(languages.order_by("slug"), chunk_size)
@@ -51,5 +51,5 @@ class LanguageListView(TemplateView):
         return render(
             request,
             self.template_name,
-            {**self.base_context, "languages": language_chunk},
+            {**self.get_context_data(**kwargs), "languages": language_chunk},
         )

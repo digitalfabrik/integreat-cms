@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from ..pages.page_translation import PageTranslation
@@ -26,9 +27,9 @@ class PageFeedback(Feedback):
         :return: The name of the object this feedback refers to
         :rtype: str
         """
-        return self.page_translation.page.best_translation.title
+        return self.best_page_translation.title
 
-    @property
+    @cached_property
     def object_url(self):
         """
         This property returns the url to the object this feedback comments on.
@@ -41,9 +42,19 @@ class PageFeedback(Feedback):
             kwargs={
                 "page_id": self.page_translation.page.id,
                 "region_slug": self.region.slug,
-                "language_slug": self.page_translation.page.best_translation.language.slug,
+                "language_slug": self.best_page_translation.language.slug,
             },
         )
+
+    @cached_property
+    def best_page_translation(self):
+        """
+        This property returns the best translation for the page this feedback comments on.
+
+        :return: The best page translation
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
+        """
+        return self.page_translation.page.best_translation
 
     @property
     def related_feedback(self):

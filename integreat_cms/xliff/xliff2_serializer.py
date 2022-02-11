@@ -69,7 +69,7 @@ class Serializer(base_serializer.Serializer):
                 "The page translation is in the region's default language."
             )
         self.target_language = target_language
-        self.source_language = target_language.get_source_language(region)
+        self.source_language = region.get_source_language(target_language.slug)
         logger.debug(
             "Starting XLIFF 2.0 serialization for translation from %r to %r",
             self.source_language,

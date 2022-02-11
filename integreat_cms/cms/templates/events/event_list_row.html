@@ -4,8 +4,11 @@
 {% load poi_filters %}
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
+    <td class="py-3 pl-4">
+        <input type="checkbox" name="selected_ids[]" value="{{ event.id }}" form="bulk-action-form" class="bulk-select-item">
+    </td>
     <td>
-        <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_slug=language.slug%}" class="py-3 pl-4 pr-2 text-gray-800">
+        <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug%}" class="py-3 pl-2 pr-2 text-gray-800">
             {% if event_translation %}
                 {{ event_translation.title }}
             {% else %}
@@ -17,7 +20,7 @@
     {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_slug=LANGUAGE_CODE %}" class="py-3 pr-2 text-gray-800">
+            <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="py-3 pr-2 text-gray-800">
                 {% if event.backend_translation %}
                     {{ event.backend_translation.title }}
                 {% else %}
@@ -28,28 +31,33 @@
     {% endif %}
     <td class="py-3 pr-2 text-gray-800 lang-grid">
         {% spaceless %}
-            {% for other_language in languages %}
-                <a href="{% url 'edit_event' event_id=event.id region_slug=region.slug language_slug=other_language.slug %}">
-                    {% get_translation event other_language.slug as other_translation %}
-                    {% if other_translation %}
-                        {% if other_translation.currently_in_translation %}
+            {% for other_language, other_status in event.translation_states.values %}
+                <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=other_language.slug %}"
+                   class="{{ other_language.slug }}">
+                    <div id="translation-icon">
+                        {% if other_status == translation_status.IN_TRANSLATION %}
                             <span title="{% trans 'Currently in translation' %}">
-                                <i data-feather="clock" class="{% if other_language == language %}text-blue-500{% endif %}"></i>
+                                <i data-feather="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
-                        {% elif other_translation.is_outdated %}
+                        {% elif other_status == translation_status.OUTDATED %}
                             <span title="{% trans 'Translation outdated' %}">
-                                <i data-feather="alert-triangle" class="{% if other_language == language %}text-yellow-500{% endif %}"></i>
+                                <i data-feather="alert-triangle" class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
-                        {% else %}
+                        {% elif other_status == translation_status.UP_TO_DATE  %}
                             <span title="{% trans 'Translation up-to-date' %}">
-                                <i data-feather="check" class="{% if other_language == language %}text-green-500{% endif %}"></i>
+                                <i data-feather="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
+                            </span>
+                        {% elif other_status == translation_status.MISSING  %}
+                            <span title="{% trans 'Translation missing' %}" class="no-trans">
+                                <i data-feather="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
                         {% endif %}
-                    {% else %}
-                        <span title="{% trans 'Translation missing' %}">
-                            <i data-feather="x" class="{% if other_language == language %}text-red-500{% endif %}"></i>
+                    </div>
+                    <div id="ajax-icon" class="hidden">
+                        <span title="{% trans 'Currently in translation' %}">
+                            <i data-feather="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                         </span>
-                    {% endif %}
+                    </div>
                 </a>
             {% endfor %}
         {% endspaceless %}
@@ -91,7 +99,7 @@
         {% endif %}
         {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if can_edit_event %}
-            <form action="{% url 'duplicate_event' event_id=event.id region_slug=region.slug language_slug=language.slug %}" method="POST">
+            <form action="{% url 'duplicate_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" method="POST">
                 {% csrf_token %}
                 <button class="btn-icon" title="{% trans 'Duplicate event' %}">
                     <i data-feather="copy"></i>
@@ -101,7 +109,7 @@
                 data-confirmation-title="{{ archive_dialog_title }}"
                 data-confirmation-text="{{ archive_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}" 
-                data-action="{% url 'archive_event' event_id=event.id region_slug=region.slug language_slug=language.slug %}">
+                data-action="{% url 'archive_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
                 <i data-feather="archive"></i>
             </button>
         {% endif %}
@@ -110,7 +118,7 @@
                 data-confirmation-title="{{ delete_dialog_title }}"
                 data-confirmation-text="{{ delete_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}"
-                data-action="{% url 'delete_event' event_id=event.id region_slug=region.slug language_slug=language.slug %}">
+                data-action="{% url 'delete_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
                 <i data-feather="trash-2"></i>
             </button>
         {% endif %}
