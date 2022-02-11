@@ -7,7 +7,7 @@
 {% load rules %}
 {% load render_bundle from webpack_loader %}
 {% block content %}
-    <form method="post" id="content_form">
+    <form method="post" id="content_form" data-unsaved-warning>
         {% csrf_token %}
         <div class="w-full flex flex-wrap justify-between gap-4 mb-4">
             <h1 class="heading">
