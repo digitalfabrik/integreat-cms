@@ -12,7 +12,7 @@ views, e.g.:
 * ``reverse_lazy("public:login")``
 """
 from django.conf import settings
-from django.conf.urls import include, url
+from django.urls import include, path
 from django.views.generic import RedirectView
 
 from ..views import (
@@ -27,45 +27,45 @@ app_name = "public"
 
 #: The url patterns of this module (see :doc:`topics/http/urls`)
 urlpatterns = [
-    url(r"^$", dashboard.RegionSelection.as_view(), name="region_selection"),
-    url(
-        r"^s/",
+    path("", dashboard.RegionSelection.as_view(), name="region_selection"),
+    path(
+        "s/",
         include(
             [
-                url(
-                    r"^p/(?P<short_url_id>[0-9]+)$",
+                path(
+                    "p/<int:short_url_id>/",
                     pages.expand_page_translation_id,
                     name="expand_page_translation_id",
                 ),
-                url(
-                    r"^i/(?P<imprint_translation_id>[0-9]+)$",
+                path(
+                    "i/<int:imprint_translation_id>/",
                     imprint.expand_imprint_translation_id,
                     name="expand_imprint_translation_id",
                 ),
             ]
         ),
     ),
-    url(
-        r"^login/",
+    path(
+        "login/",
         include(
             [
-                url(r"^$", authentication.LoginView.as_view(), name="login"),
-                url(
-                    r"^mfa/",
+                path("", authentication.LoginView.as_view(), name="login"),
+                path(
+                    "mfa/",
                     include(
                         [
-                            url(
-                                r"^$",
+                            path(
+                                "",
                                 authentication.MfaLoginView.as_view(),
                                 name="login_mfa",
                             ),
-                            url(
-                                r"^assert$",
+                            path(
+                                "assert/",
                                 authentication.MfaAssertView.as_view(),
                                 name="login_mfa_assert",
                             ),
-                            url(
-                                r"^verify$",
+                            path(
+                                "verify/",
                                 authentication.MfaVerifyView.as_view(),
                                 name="login_mfa_verify",
                             ),
@@ -75,35 +75,33 @@ urlpatterns = [
             ]
         ),
     ),
-    url(r"^logout/$", authentication.LogoutView.as_view(), name="logout"),
-    url(
-        r"^reset-password/",
+    path("logout/", authentication.LogoutView.as_view(), name="logout"),
+    path(
+        "reset-password/",
         include(
             [
-                url(
-                    r"^$",
+                path(
+                    "",
                     authentication.PasswordResetView.as_view(),
                     name="password_reset",
                 ),
-                url(
-                    r"^(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$",
+                path(
+                    "<uuid:uidb64>-<token>/",
                     authentication.PasswordResetConfirmView.as_view(),
                     name="password_reset_confirm",
                 ),
             ]
         ),
     ),
-    url(
-        r"^activate-account/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$",
+    path(
+        "activate-account/<uuid:uidb64>-<token>/",
         authentication.AccountActivationView.as_view(),
         name="activate_account",
     ),
-    url(
-        r"^wiki",
+    path(
+        "wiki/",
         RedirectView.as_view(url=settings.WIKI_URL),
         name="wiki_redirect",
     ),
-    url(
-        r"^favicon\.ico$", RedirectView.as_view(url="/static/images/integreat-icon.png")
-    ),
+    path("favicon.ico", RedirectView.as_view(url="/static/images/integreat-icon.png")),
 ]

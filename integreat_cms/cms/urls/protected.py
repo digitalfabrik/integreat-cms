@@ -3,7 +3,7 @@ URLconf for login-protected views of the cms package. These urls are processed b
 :mod:`~integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware`.
 Views which should not have login protection go into :mod:`~integreat_cms.cms.urls.public`.
 """
-from django.conf.urls import include, url
+from django.urls import include, path
 
 from ..forms import LanguageForm, OfferTemplateForm, OrganizationForm, RegionForm
 from ..models import Language, OfferTemplate, Organization, Role
@@ -34,59 +34,73 @@ from ..views import (
 
 #: The media library ajax url patterns are reused twice (for the admin media library and the region media library)
 media_ajax_urlpatterns = [
-    url(
-        r"^media/",
+    path(
+        "media/",
         include(
             [
-                url(
-                    r"^directory-path$",
-                    media.get_directory_path_ajax,
-                    name="mediacenter_directory_path",
+                path(
+                    "directory/",
+                    include(
+                        [
+                            path(
+                                "path/",
+                                media.get_directory_path_ajax,
+                                name="mediacenter_directory_path",
+                            ),
+                            path(
+                                "content/",
+                                media.get_directory_content_ajax,
+                                name="mediacenter_get_directory_content",
+                            ),
+                            path(
+                                "create/",
+                                media.create_directory_ajax,
+                                name="mediacenter_create_directory",
+                            ),
+                            path(
+                                "update/",
+                                media.edit_directory_ajax,
+                                name="mediacenter_edit_directory",
+                            ),
+                            path(
+                                "delete/",
+                                media.delete_directory_ajax,
+                                name="mediacenter_delete_directory",
+                            ),
+                        ]
+                    ),
                 ),
-                url(
-                    r"^directory-content$",
-                    media.get_directory_content_ajax,
-                    name="mediacenter_get_directory_content",
+                path(
+                    "file/",
+                    include(
+                        [
+                            path(
+                                "upload/",
+                                media.upload_file_ajax,
+                                name="mediacenter_upload_file",
+                            ),
+                            path(
+                                "edit/",
+                                media.edit_file_ajax,
+                                name="mediacenter_edit_file",
+                            ),
+                            path(
+                                "delete/",
+                                media.delete_file_ajax,
+                                name="mediacenter_delete_file",
+                            ),
+                            path(
+                                "replace/",
+                                media.replace_file_ajax,
+                                name="mediacenter_replace_file",
+                            ),
+                        ]
+                    ),
                 ),
-                url(
-                    r"^search",
+                path(
+                    "search/",
                     media.get_query_search_results_ajax,
                     name="mediacenter_get_search_result",
-                ),
-                url(
-                    r"^upload-file$",
-                    media.upload_file_ajax,
-                    name="mediacenter_upload_file",
-                ),
-                url(
-                    r"^edit-file$",
-                    media.edit_file_ajax,
-                    name="mediacenter_edit_file",
-                ),
-                url(
-                    r"^delete-file$",
-                    media.delete_file_ajax,
-                    name="mediacenter_delete_file",
-                ),
-                url(
-                    r"^replace-file$",
-                    media.replace_file_ajax,
-                    name="mediacenter_replace_file",
-                ),
-                url(
-                    r"^create-directory$",
-                    media.create_directory_ajax,
-                    name="mediacenter_create_directory",
-                ),
-                url(
-                    r"^update-directory$",
-                    media.edit_directory_ajax,
-                    name="mediacenter_edit_directory",
-                ),
-                url(
-                    r"^delete-directory$",
-                    media.delete_directory_ajax,
-                    name="mediacenter_delete_directory",
                 ),
             ]
         ),
@@ -95,32 +109,32 @@ media_ajax_urlpatterns = [
 
 #: The user setting url patterns are reused twice (for the staff area and the region area)
 user_settings_urlpatterns = [
-    url(
-        r"^user_settings/",
+    path(
+        "user-settings/",
         include(
             [
-                url(r"^$", settings.UserSettingsView.as_view(), name="user_settings"),
-                url(
-                    r"^mfa/",
+                path("", settings.UserSettingsView.as_view(), name="user_settings"),
+                path(
+                    "mfa/",
                     include(
                         [
-                            url(
-                                r"^authenticate/$",
+                            path(
+                                "authenticate/",
                                 settings.AuthenticateModifyMfaView.as_view(),
                                 name="authenticate_modify_mfa",
                             ),
-                            url(
-                                r"^get_challenge/$",
+                            path(
+                                "get-challenge/",
                                 settings.GetMfaChallengeView.as_view(),
                                 name="get_mfa_challenge",
                             ),
-                            url(
-                                r"^register/$",
+                            path(
+                                "register/",
                                 settings.RegisterUserMfaKeyView.as_view(),
                                 name="register_new_mfa_key",
                             ),
-                            url(
-                                r"^delete/(?P<key_id>\d+)$",
+                            path(
+                                "delete/<int:key_id>/",
                                 settings.DeleteUserMfaKeyView.as_view(),
                                 name="delete_mfa_key",
                             ),
@@ -134,34 +148,34 @@ user_settings_urlpatterns = [
 
 #: The url patterns of this module (see :doc:`topics/http/urls`)
 urlpatterns = [
-    url(
-        r"^admin_dashboard/$",
+    path(
+        "admin-dashboard/",
         dashboard.AdminDashboardView.as_view(),
         name="admin_dashboard",
     ),
-    url(
-        r"^regions/",
+    path(
+        "regions/",
         include(
             [
-                url(r"^$", regions.RegionListView.as_view(), name="regions"),
-                url(
-                    r"^new$",
+                path("", regions.RegionListView.as_view(), name="regions"),
+                path(
+                    "new/",
                     form_views.CustomCreateView.as_view(form_class=RegionForm),
                     name="new_region",
                 ),
-                url(
-                    r"^(?P<slug>[-\w]+)/",
+                path(
+                    "<slug:slug>/",
                     include(
                         [
-                            url(
-                                r"^edit$",
+                            path(
+                                "edit/",
                                 form_views.CustomUpdateView.as_view(
                                     form_class=RegionForm
                                 ),
                                 name="edit_region",
                             ),
-                            url(
-                                r"^delete$", regions.delete_region, name="delete_region"
+                            path(
+                                "delete/", regions.delete_region, name="delete_region"
                             ),
                         ]
                     ),
@@ -169,13 +183,13 @@ urlpatterns = [
             ]
         ),
     ),
-    url(r"^media-library/$", media.AdminMediaListView.as_view(), name="media_admin"),
-    url(
-        r"^languages/",
+    path("media-library/", media.AdminMediaListView.as_view(), name="media_admin"),
+    path(
+        "languages/",
         include(
             [
-                url(
-                    r"^$",
+                path(
+                    "",
                     list_views.ModelListView.as_view(
                         queryset=Language.objects.all().prefetch_related(
                             "language_tree_nodes"
@@ -183,24 +197,24 @@ urlpatterns = [
                     ),
                     name="languages",
                 ),
-                url(
-                    r"^new$",
+                path(
+                    "new/",
                     form_views.CustomCreateView.as_view(form_class=LanguageForm),
                     name="new_language",
                 ),
-                url(
-                    r"^(?P<slug>[-\w]+)/",
+                path(
+                    "<slug:slug>/",
                     include(
                         [
-                            url(
-                                r"^edit$",
+                            path(
+                                "edit/",
                                 form_views.CustomUpdateView.as_view(
                                     form_class=LanguageForm
                                 ),
                                 name="edit_language",
                             ),
-                            url(
-                                r"^delete$",
+                            path(
+                                "delete/",
                                 delete_views.CustomDeleteView.as_view(
                                     model=Language,
                                 ),
@@ -212,24 +226,24 @@ urlpatterns = [
             ]
         ),
     ),
-    url(
-        r"^users/",
+    path(
+        "users/",
         include(
             [
-                url(r"^$", users.UserListView.as_view(), name="users"),
-                url(r"^new$", users.UserFormView.as_view(), name="new_user"),
-                url(
-                    r"^(?P<user_id>[0-9]+)/",
+                path("", users.UserListView.as_view(), name="users"),
+                path("new/", users.UserFormView.as_view(), name="new_user"),
+                path(
+                    "<int:user_id>/",
                     include(
                         [
-                            url(
-                                r"^edit$",
+                            path(
+                                "edit/",
                                 users.UserFormView.as_view(),
                                 name="edit_user",
                             ),
-                            url(r"^delete$", users.delete_user, name="delete_user"),
-                            url(
-                                r"^resend_activation_link$",
+                            path("delete/", users.delete_user, name="delete_user"),
+                            path(
+                                "resend-activation-link",
                                 users.resend_activation_link,
                                 name="resend_activation_link",
                             ),
@@ -239,23 +253,23 @@ urlpatterns = [
             ]
         ),
     ),
-    url(
-        r"^roles/",
+    path(
+        "roles/",
         include(
             [
-                url(r"^$", list_views.ModelListView.as_view(model=Role), name="roles"),
-                url(r"^new$", roles.RoleFormView.as_view(), name="new_role"),
-                url(
-                    r"^(?P<role_id>[0-9]+)/",
+                path("", list_views.ModelListView.as_view(model=Role), name="roles"),
+                path("new/", roles.RoleFormView.as_view(), name="new_role"),
+                path(
+                    "<int:role_id>/",
                     include(
                         [
-                            url(
-                                r"^edit$",
+                            path(
+                                "edit/",
                                 roles.RoleFormView.as_view(),
                                 name="edit_role",
                             ),
-                            url(
-                                r"^delete$",
+                            path(
+                                "delete/",
                                 roles.RoleFormView.as_view(),
                                 name="delete_role",
                             ),
@@ -265,33 +279,33 @@ urlpatterns = [
             ]
         ),
     ),
-    url(
-        r"^organizations/",
+    path(
+        "organizations/",
         include(
             [
-                url(
-                    r"^$",
+                path(
+                    "",
                     list_views.ModelListView.as_view(model=Organization),
                     name="organizations",
                 ),
-                url(
-                    r"^new$",
+                path(
+                    "new/",
                     form_views.CustomCreateView.as_view(form_class=OrganizationForm),
                     name="new_organization",
                 ),
-                url(
-                    r"^(?P<slug>[-\w]+)/",
+                path(
+                    "<slug:slug>/",
                     include(
                         [
-                            url(
-                                r"^edit$",
+                            path(
+                                "edit/",
                                 form_views.CustomUpdateView.as_view(
                                     form_class=OrganizationForm
                                 ),
                                 name="edit_organization",
                             ),
-                            url(
-                                r"^delete$",
+                            path(
+                                "delete/",
                                 delete_views.CustomDeleteView.as_view(
                                     model=Organization,
                                 ),
@@ -303,62 +317,62 @@ urlpatterns = [
             ]
         ),
     ),
-    url(
-        r"^feedback/",
+    path(
+        "feedback/",
         include(
             [
-                url(
-                    r"^$",
+                path(
+                    "",
                     feedback.AdminFeedbackListView.as_view(),
                     name="admin_feedback",
                 ),
-                url(
-                    r"^mark_read$",
+                path(
+                    "mark-read/",
                     feedback.mark_admin_feedback_as_read,
                     name="mark_admin_feedback_as_read",
                 ),
-                url(
-                    r"^mark_unread$",
+                path(
+                    "mark-unread/",
                     feedback.mark_admin_feedback_as_unread,
                     name="mark_admin_feedback_as_unread",
                 ),
-                url(
-                    r"^delete$",
+                path(
+                    "delete/",
                     feedback.delete_admin_feedback,
                     name="delete_admin_feedback",
                 ),
             ]
         ),
     ),
-    url(
-        r"^offer-templates/",
+    path(
+        "offer-templates/",
         include(
             [
-                url(
-                    r"^$",
+                path(
+                    "",
                     list_views.ModelListView.as_view(
                         queryset=OfferTemplate.objects.all().prefetch_related("regions")
                     ),
                     name="offertemplates",
                 ),
-                url(
-                    r"^new$",
+                path(
+                    "new/",
                     form_views.CustomCreateView.as_view(form_class=OfferTemplateForm),
                     name="new_offertemplate",
                 ),
-                url(
-                    r"^(?P<slug>[-\w]+)/",
+                path(
+                    "<slug:slug>/",
                     include(
                         [
-                            url(
-                                r"^edit$",
+                            path(
+                                "edit/",
                                 form_views.CustomUpdateView.as_view(
                                     form_class=OfferTemplateForm
                                 ),
                                 name="edit_offertemplate",
                             ),
-                            url(
-                                r"^delete$",
+                            path(
+                                "delete/",
                                 delete_views.CustomDeleteView.as_view(
                                     model=OfferTemplate, protect_manytomany="regions"
                                 ),
@@ -370,286 +384,322 @@ urlpatterns = [
             ]
         ),
     ),
-    url(r"^", include(user_settings_urlpatterns)),
-    url(
-        r"^ajax/",
+    path("", include(user_settings_urlpatterns)),
+    path(
+        "ajax/",
         include(
             [
-                url(r"^", include(media_ajax_urlpatterns)),
-                url(
-                    r"^chat/",
+                path("", include(media_ajax_urlpatterns)),
+                path(
+                    "chat/",
                     include(
                         [
-                            url(
-                                r"send-message/?$",
+                            path(
+                                "send-message/",
                                 chat.send_chat_message,
                                 name="send_chat_message",
                             ),
-                            url(
-                                r"delete-message/(?P<message_id>[0-9]+)?$",
+                            path(
+                                "delete-message/<int:message_id>/",
                                 chat.delete_chat_message,
                                 name="delete_chat_message",
                             ),
                         ]
                     ),
                 ),
-                url(
-                    r"^search_content$",
+                path(
+                    "search/",
                     utils.search_content_ajax,
                     name="search_content_ajax",
                 ),
             ]
         ),
     ),
-    url(
-        r"^(?P<region_slug>[-\w]+)/",
+    path(
+        "<slug:region_slug>/",
         include(
             [
-                url(r"^$", dashboard.DashboardView.as_view(), name="dashboard"),
-                url(
-                    r"^ajax/",
+                path("", dashboard.DashboardView.as_view(), name="dashboard"),
+                path(
+                    "ajax/",
                     include(
                         [
-                            url(r"^", include(media_ajax_urlpatterns)),
-                            url(
-                                r"^render/",
+                            path("", include(media_ajax_urlpatterns)),
+                            path(
+                                "render/",
                                 include(
                                     [
-                                        url(
-                                            r"^mirrored_page_field/",
+                                        path(
+                                            "mirrored-page-field/",
                                             pages.render_mirrored_page_field,
                                             name="render_mirrored_page_field",
                                         ),
-                                        url(
-                                            r"^(?P<parent_id>[0-9]+)/new_order_table$",
-                                            pages.get_new_page_order_table_ajax,
-                                            name="get_new_page_order_table_ajax",
+                                        path(
+                                            "page-order-table/parent-<int:parent_id>/",
+                                            include(
+                                                [
+                                                    path(
+                                                        "",
+                                                        pages.get_new_page_order_table_ajax,
+                                                        name="get_new_page_order_table_ajax",
+                                                    ),
+                                                    path(
+                                                        "page-<int:page_id>/",
+                                                        pages.get_page_order_table_ajax,
+                                                        name="get_page_order_table_ajax",
+                                                    ),
+                                                ]
+                                            ),
                                         ),
-                                        url(
-                                            r"^(?P<page_id>[0-9]+)/(?P<parent_id>[0-9]+)/order_table$",
-                                            pages.get_page_order_table_ajax,
-                                            name="get_page_order_table_ajax",
-                                        ),
-                                        url(
-                                            r"^(?P<language_slug>[-\w]+)/(?P<tree_id>[0-9]+)/(?P<lft>[0-9]+)/(?P<rgt>[0-9]+)/(?P<depth>[0-9]+)/get_children$",
+                                        path(
+                                            "partial-page-tree/<slug:language_slug>/tree-<int:tree_id>/"
+                                            "lft-<int:lft>/rgt-<int:rgt>/depth-<int:depth>/",
                                             pages.PartialPageTreeView.as_view(),
                                             name="get_page_children_ajax",
                                         ),
                                     ]
                                 ),
                             ),
-                            url(
-                                r"^chat/",
+                            path(
+                                "chat/",
                                 include(
                                     [
-                                        url(
-                                            r"send-message/?$",
+                                        path(
+                                            "send-message/",
                                             chat.send_chat_message,
                                             name="send_chat_message",
                                         ),
-                                        url(
-                                            r"delete-message/(?P<message_id>[0-9]+)?$",
+                                        path(
+                                            "delete-message/<int:message_id>/",
                                             chat.delete_chat_message,
                                             name="delete_chat_message",
                                         ),
                                     ]
                                 ),
                             ),
-                            url(
-                                r"^statistics/",
+                            path(
+                                "statistics/",
                                 include(
                                     [
-                                        url(
-                                            r"total_views/?$",
+                                        path(
+                                            "total-views/",
                                             statistics.get_total_visits_ajax,
                                             name="statistics_total_visits",
                                         ),
-                                        url(
-                                            r"update_chart/?$",
+                                        path(
+                                            "update-chart/",
                                             statistics.get_visits_per_language_ajax,
                                             name="statistics_visits_per_language",
                                         ),
                                     ]
                                 ),
                             ),
-                            url(
-                                r"^grant_page_permission$",
-                                pages.grant_page_permission_ajax,
-                                name="grant_page_permission_ajax",
+                            path(
+                                "page-permission/",
+                                include(
+                                    [
+                                        path(
+                                            "grant/",
+                                            pages.grant_page_permission_ajax,
+                                            name="grant_page_permission_ajax",
+                                        ),
+                                        path(
+                                            "revoke/",
+                                            pages.revoke_page_permission_ajax,
+                                            name="revoke_page_permission_ajax",
+                                        ),
+                                    ]
+                                ),
                             ),
-                            url(
-                                r"^revoke_page_permission$",
-                                pages.revoke_page_permission_ajax,
-                                name="revoke_page_permission_ajax",
-                            ),
-                            url(
-                                r"^post_translation_state$",
+                            path(
+                                "post-translation-state/",
                                 pages.post_translation_state_ajax,
                                 name="post_translation_state_ajax",
                             ),
-                            url(
-                                r"^search_poi$",
+                            path(
+                                "search-poi/",
                                 events.search_poi_ajax,
                                 name="search_poi_ajax",
                             ),
-                            url(
-                                r"^(?P<language_slug>[-\w]+)/search_content$",
+                            path(
+                                "<slug:language_slug>/search/",
                                 utils.search_content_ajax,
                                 name="search_content_ajax",
                             ),
-                            url(
-                                r"^search_content$",
+                            path(
+                                "search/",
                                 utils.search_content_ajax,
                                 name="search_content_ajax",
                             ),
-                            url(
-                                r"^(?P<language_slug>[-\w]+)/(?P<model_type>event|page|poi)/slugify$",
+                            path(
+                                "<slug:language_slug>/<model_type>/slugify/",
                                 utils.slugify_ajax,
                                 name="slugify_ajax",
                             ),
-                            url(
-                                r"^dismiss-tutorial/(?P<slug>[-\w]+)/$",
+                            path(
+                                "dismiss-tutorial/<slug:slug>/",
                                 settings.DismissTutorial.as_view(),
                                 name="dismiss_tutorial",
                             ),
                         ]
                     ),
                 ),
-                url(
-                    r"^analytics/",
-                    analytics.AnalyticsView.as_view(),
-                    name="analytics",
-                ),
-                url(
-                    r"^statistics/$",
-                    statistics.AnalyticsView.as_view(),
-                    name="statistics",
-                ),
-                url(
-                    r"^translation_coverage/",
-                    analytics.TranslationCoverageView.as_view(),
-                    name="translation_coverage",
-                ),
-                url(
-                    r"^app_size/",
-                    analytics.AppSizeView.as_view(),
-                    name="app_size",
-                ),
-                url(
-                    r"^linkcheck/$",
-                    linkcheck.LinkListRedirectView.as_view(),
-                    name="linkcheck_landing",
-                ),
-                url(
-                    r"^linkcheck/(?P<link_filter>[-\w]+)/$",
-                    linkcheck.LinkListView.as_view(),
-                    name="linkcheck",
-                ),
-                url(
-                    r"^pages/",
+                path(
+                    "analytics/",
                     include(
                         [
-                            url(r"^$", pages.PageTreeView.as_view(), name="pages"),
-                            url(
-                                r"^(?P<language_slug>[-\w]+)/",
+                            path(
+                                "",
+                                analytics.AnalyticsView.as_view(),
+                                name="analytics",
+                            ),
+                            path(
+                                "statistics/",
+                                statistics.AnalyticsView.as_view(),
+                                name="statistics",
+                            ),
+                            path(
+                                "translation-coverage/",
+                                analytics.TranslationCoverageView.as_view(),
+                                name="translation_coverage",
+                            ),
+                            path(
+                                "app-size/",
+                                analytics.AppSizeView.as_view(),
+                                name="app_size",
+                            ),
+                            path(
+                                "linkcheck/",
                                 include(
                                     [
-                                        url(
-                                            r"^$",
+                                        path(
+                                            "",
+                                            linkcheck.LinkListRedirectView.as_view(),
+                                            name="linkcheck_landing",
+                                        ),
+                                        path(
+                                            "<slug:link_filter>/",
+                                            linkcheck.LinkListView.as_view(),
+                                            name="linkcheck",
+                                        ),
+                                    ]
+                                ),
+                            ),
+                        ]
+                    ),
+                ),
+                path(
+                    "pages/",
+                    include(
+                        [
+                            path("", pages.PageTreeView.as_view(), name="pages"),
+                            path(
+                                "<slug:language_slug>/",
+                                include(
+                                    [
+                                        path(
+                                            "",
                                             pages.PageTreeView.as_view(),
                                             name="pages",
                                         ),
-                                        url(
-                                            r"^new$",
+                                        path(
+                                            "new/",
                                             pages.PageFormView.as_view(),
                                             name="new_page",
                                         ),
-                                        url(
-                                            r"^archived$",
+                                        path(
+                                            "archived/",
                                             pages.PageTreeView.as_view(archived=True),
                                             name="archived_pages",
                                         ),
-                                        url(
-                                            r"^xliff/",
+                                        path(
+                                            "xliff/",
                                             include(
                                                 [
-                                                    url(
-                                                        r"download",
+                                                    path(
+                                                        "download/",
                                                         pages.download_xliff,
                                                         name="download_xliff",
                                                     ),
-                                                    url(
-                                                        r"^upload$",
+                                                    path(
+                                                        "upload/",
                                                         pages.upload_xliff,
                                                         name="upload_xliff",
                                                     ),
-                                                    url(
-                                                        r"^import/(?P<xliff_dir>[0-9a-f-]+)",
+                                                    path(
+                                                        "import/<uuid:xliff_dir>/",
                                                         pages.PageXliffImportView.as_view(),
                                                         name="import_xliff",
                                                     ),
                                                 ],
                                             ),
                                         ),
-                                        url(
-                                            r"^export$",
+                                        path(
+                                            "export/",
                                             pages.export_pdf,
                                             name="export_pdf",
                                         ),
-                                        url(
-                                            r"^(?P<page_id>[0-9]+)/",
+                                        path(
+                                            "<int:page_id>/",
                                             include(
                                                 [
-                                                    url(
-                                                        r"^view$",
+                                                    path(
+                                                        "view/",
                                                         pages.view_page,
                                                         name="view_page",
                                                     ),
-                                                    url(
-                                                        r"^edit$",
-                                                        pages.PageFormView.as_view(),
-                                                        name="edit_page",
-                                                    ),
-                                                    url(
-                                                        r"^sbs_edit$",
-                                                        pages.PageSideBySideView.as_view(),
-                                                        name="sbs_edit_page",
-                                                    ),
-                                                    url(
-                                                        r"^revisions/",
+                                                    path(
+                                                        "edit/",
                                                         include(
                                                             [
-                                                                url(
-                                                                    r"^$",
+                                                                path(
+                                                                    "",
+                                                                    pages.PageFormView.as_view(),
+                                                                    name="edit_page",
+                                                                ),
+                                                                path(
+                                                                    "side-by-side/",
+                                                                    pages.PageSideBySideView.as_view(),
+                                                                    name="sbs_edit_page",
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ),
+                                                    path(
+                                                        "revisions/",
+                                                        include(
+                                                            [
+                                                                path(
+                                                                    "",
                                                                     pages.PageRevisionView.as_view(),
                                                                     name="page_revisions",
                                                                 ),
-                                                                url(
-                                                                    r"^(?P<selected_revision>[0-9]+)$",
+                                                                path(
+                                                                    "<int:selected_revision>/",
                                                                     pages.PageRevisionView.as_view(),
                                                                     name="page_revisions",
                                                                 ),
                                                             ],
                                                         ),
                                                     ),
-                                                    url(
-                                                        r"^archive$",
+                                                    path(
+                                                        "archive/",
                                                         pages.archive_page,
                                                         name="archive_page",
                                                     ),
-                                                    url(
-                                                        r"^restore$",
+                                                    path(
+                                                        "restore/",
                                                         pages.restore_page,
                                                         name="restore_page",
                                                     ),
-                                                    url(
-                                                        r"^delete$",
+                                                    path(
+                                                        "delete/",
                                                         pages.delete_page,
                                                         name="delete_page",
                                                     ),
                                                     # warning: the move url is also hardcoded in src/integreat_cms/static/js/tree_drag_and_drop.js
-                                                    url(
-                                                        r"^move/(?P<target_id>[0-9]+)/(?P<position>[-\w]+)$",
+                                                    path(
+                                                        "move/<int:target_id>/<slug:position>/",
                                                         pages.move_page,
                                                         name="move_page",
                                                     ),
@@ -662,40 +712,47 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                url(
-                    r"^imprint/",
+                path(
+                    "imprint/",
                     include(
                         [
-                            url(
-                                r"^$",
+                            path(
+                                "",
                                 imprint.ImprintFormView.as_view(),
                                 name="edit_imprint",
                             ),
-                            url(
-                                r"^(?P<language_slug>[-\w]+)/",
+                            path(
+                                "<slug:language_slug>/",
                                 include(
                                     [
-                                        url(
-                                            r"^$",
-                                            imprint.ImprintFormView.as_view(),
-                                            name="edit_imprint",
-                                        ),
-                                        url(
-                                            r"^sbs_edit$",
-                                            imprint.ImprintSideBySideView.as_view(),
-                                            name="sbs_edit_imprint",
-                                        ),
-                                        url(
-                                            r"^revisions/",
+                                        path(
+                                            "edit/",
                                             include(
                                                 [
-                                                    url(
-                                                        r"^$",
+                                                    path(
+                                                        "",
+                                                        imprint.ImprintFormView.as_view(),
+                                                        name="edit_imprint",
+                                                    ),
+                                                    path(
+                                                        "side-by-side/",
+                                                        imprint.ImprintSideBySideView.as_view(),
+                                                        name="sbs_edit_imprint",
+                                                    ),
+                                                ],
+                                            ),
+                                        ),
+                                        path(
+                                            "revisions/",
+                                            include(
+                                                [
+                                                    path(
+                                                        "",
                                                         imprint.ImprintRevisionView.as_view(),
                                                         name="imprint_revisions",
                                                     ),
-                                                    url(
-                                                        r"^(?P<selected_revision>[0-9]+)$",
+                                                    path(
+                                                        "<int:selected_revision>",
                                                         imprint.ImprintRevisionView.as_view(),
                                                         name="imprint_revisions",
                                                     ),
@@ -705,8 +762,8 @@ urlpatterns = [
                                     ]
                                 ),
                             ),
-                            url(
-                                r"^delete$",
+                            path(
+                                "delete/",
                                 imprint.delete_imprint,
                                 name="delete_imprint",
                             ),
@@ -714,61 +771,61 @@ urlpatterns = [
                     ),
                 ),
                 # TODO: Change destination for delete_event, add view_event
-                url(
-                    r"^events/",
+                path(
+                    "events/",
                     include(
                         [
-                            url(r"^$", events.EventListView.as_view(), name="events"),
-                            url(
-                                r"^(?P<language_slug>[-\w]+)/",
+                            path("", events.EventListView.as_view(), name="events"),
+                            path(
+                                "<slug:language_slug>/",
                                 include(
                                     [
-                                        url(
-                                            r"^$",
+                                        path(
+                                            "",
                                             events.EventListView.as_view(),
                                             name="events",
                                         ),
-                                        url(
-                                            r"^archived$",
+                                        path(
+                                            "archived/",
                                             events.EventListView.as_view(archived=True),
                                             name="events_archived",
                                         ),
-                                        url(
-                                            r"^new$",
+                                        path(
+                                            "new/",
                                             events.EventFormView.as_view(),
                                             name="new_event",
                                         ),
-                                        url(
-                                            r"^auto-translate$",
+                                        path(
+                                            "auto-translate/",
                                             events.automatic_translation,
                                             name="automatic_translation_events",
                                         ),
-                                        url(
-                                            r"^(?P<event_id>[0-9]+)/",
+                                        path(
+                                            "<int:event_id>/",
                                             include(
                                                 [
-                                                    url(
-                                                        r"^edit$",
+                                                    path(
+                                                        "edit/",
                                                         events.EventFormView.as_view(),
                                                         name="edit_event",
                                                     ),
-                                                    url(
-                                                        r"^duplicate$",
+                                                    path(
+                                                        "duplicate/",
                                                         events.duplicate,
                                                         name="duplicate_event",
                                                     ),
-                                                    url(
-                                                        r"^archive$",
+                                                    path(
+                                                        "archive/",
                                                         events.archive,
                                                         name="archive_event",
                                                     ),
-                                                    url(
-                                                        r"^restore$",
+                                                    path(
+                                                        "restore/",
                                                         events.restore,
                                                         name="restore_event",
                                                     ),
-                                                    url(
-                                                        r"^delete$",
+                                                    path(
+                                                        "delete/",
                                                         events.delete,
                                                         name="delete_event",
                                                     ),
@@ -781,61 +838,61 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                url(
-                    r"^pois/",
+                path(
+                    "pois/",
                     include(
                         [
-                            url(r"^$", pois.POIListView.as_view(), name="pois"),
-                            url(
-                                r"^(?P<language_slug>[-\w]+)/",
+                            path("", pois.POIListView.as_view(), name="pois"),
+                            path(
+                                "<slug:language_slug>/",
                                 include(
                                     [
-                                        url(
-                                            r"^$",
+                                        path(
+                                            "",
                                             pois.POIListView.as_view(),
                                             name="pois",
                                         ),
-                                        url(
-                                            r"^archived$",
+                                        path(
+                                            "archived/",
                                             pois.POIListView.as_view(archived=True),
                                             name="archived_pois",
                                         ),
-                                        url(
-                                            r"^new$",
+                                        path(
+                                            "new/",
                                             pois.POIFormView.as_view(),
                                             name="new_poi",
                                         ),
-                                        url(
-                                            r"^auto-translate$",
+                                        path(
+                                            "auto-translate/",
                                             pois.automatic_translation,
                                             name="automatic_translation_pois",
                                         ),
-                                        url(
-                                            r"^(?P<poi_id>[0-9]+)/",
+                                        path(
+                                            "<int:poi_id>/",
                                             include(
                                                 [
-                                                    url(
-                                                        r"^view$",
+                                                    path(
+                                                        "view/",
                                                         pois.view_poi,
                                                         name="view_poi",
                                                     ),
-                                                    url(
-                                                        r"^edit$",
+                                                    path(
+                                                        "edit/",
                                                         pois.POIFormView.as_view(),
                                                         name="edit_poi",
                                                     ),
-                                                    url(
-                                                        r"^archive$",
+                                                    path(
+                                                        "archive/",
                                                         pois.archive_poi,
                                                         name="archive_poi",
                                                     ),
-                                                    url(
-                                                        r"^restore$",
+                                                    path(
+                                                        "restore/",
                                                         pois.restore_poi,
                                                         name="restore_poi",
                                                     ),
-                                                    url(
-                                                        r"^delete$",
+                                                    path(
+                                                        "delete/",
                                                         pois.delete_poi,
                                                         name="delete_poi",
                                                     ),
@@ -848,62 +905,62 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                url(
-                    r"^feedback/",
+                path(
+                    "feedback/",
                     include(
                         [
-                            url(
-                                r"^$",
+                            path(
+                                "",
                                 feedback.RegionFeedbackListView.as_view(),
                                 name="region_feedback",
                             ),
-                            url(
-                                r"^mark_read$",
+                            path(
+                                "mark-read/",
                                 feedback.mark_region_feedback_as_read,
                                 name="mark_region_feedback_as_read",
                             ),
-                            url(
-                                r"^mark_unread$",
+                            path(
+                                "mark-unread/",
                                 feedback.mark_region_feedback_as_unread,
                                 name="mark_region_feedback_as_unread",
                             ),
-                            url(
-                                r"^delete$",
+                            path(
+                                "delete/",
                                 feedback.delete_region_feedback,
                                 name="delete_region_feedback",
                             ),
                         ]
                     ),
                 ),
-                url(
-                    r"^push_notifications/",
+                path(
+                    "push-notifications/",
                     include(
                         [
-                            url(
-                                r"^$",
+                            path(
+                                "",
                                 push_notifications.PushNotificationListView.as_view(),
                                 name="push_notifications",
                             ),
-                            url(
-                                r"^(?P<language_slug>[-\w]+)/",
+                            path(
+                                "<slug:language_slug>/",
                                 include(
                                     [
-                                        url(
-                                            r"^$",
+                                        path(
+                                            "",
                                             push_notifications.PushNotificationListView.as_view(),
                                             name="push_notifications",
                                         ),
-                                        url(
-                                            r"^new$",
+                                        path(
+                                            "new/",
                                             push_notifications.PushNotificationFormView.as_view(),
                                             name="new_push_notification",
                                         ),
-                                        url(
-                                            r"^(?P<push_notification_id>[0-9]+)/",
+                                        path(
+                                            "<int:push_notification_id>/",
                                             include(
                                                 [
-                                                    url(
-                                                        r"^edit$",
+                                                    path(
+                                                        "edit/",
                                                         push_notifications.PushNotificationFormView.as_view(),
                                                         name="edit_push_notification",
                                                     ),
@@ -916,37 +973,37 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                url(
-                    r"^language-tree/",
+                path(
+                    "language-tree/",
                     include(
                         [
-                            url(
-                                r"^$",
+                            path(
+                                "",
                                 language_tree.LanguageTreeView.as_view(),
                                 name="language_tree",
                             ),
-                            url(
-                                r"^new$",
+                            path(
+                                "new/",
                                 language_tree.LanguageTreeNodeFormView.as_view(),
                                 name="new_language_tree_node",
                             ),
-                            url(
-                                r"^(?P<language_tree_node_id>[0-9]+)/",
+                            path(
+                                "<int:language_tree_node_id>/",
                                 include(
                                     [
-                                        url(
-                                            r"^edit$",
+                                        path(
+                                            "edit/",
                                             language_tree.LanguageTreeNodeFormView.as_view(),
                                             name="edit_language_tree_node",
                                         ),
-                                        url(
-                                            r"^delete$",
+                                        path(
+                                            "delete/",
                                             language_tree.delete_language_tree_node,
                                             name="delete_language_tree_node",
                                         ),
                                         # warning: the move url is also hardcoded in src/integreat_cms/static/js/tree_drag_and_drop.js
-                                        url(
-                                            r"^move/(?P<target_id>[0-9]+)/(?P<target_position>[-\w]+)$",
+                                        path(
+                                            "move/<int:target_id>/<slug:target_position>/",
                                             language_tree.move_language_tree_node,
                                             name="move_language_tree_node",
                                         ),
@@ -956,37 +1013,37 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                url(r"^media-library/$", media.MediaListView.as_view(), name="media"),
-                url(
-                    r"^users/",
+                path("media-library/", media.MediaListView.as_view(), name="media"),
+                path(
+                    "users/",
                     include(
                         [
-                            url(
-                                r"^$",
+                            path(
+                                "",
                                 users.RegionUserListView.as_view(),
                                 name="region_users",
                             ),
-                            url(
-                                r"^new$",
+                            path(
+                                "new/",
                                 users.RegionUserFormView.as_view(),
                                 name="new_region_user",
                             ),
-                            url(
-                                r"^(?P<user_id>[0-9]+)/",
+                            path(
+                                "<int:user_id>/",
                                 include(
                                     [
-                                        url(
-                                            r"^edit$",
+                                        path(
+                                            "edit/",
                                             users.RegionUserFormView.as_view(),
                                             name="edit_region_user",
                                         ),
-                                        url(
-                                            r"^delete$",
+                                        path(
+                                            "delete/",
                                             users.delete_region_user,
                                             name="delete_region_user",
                                         ),
-                                        url(
-                                            r"^resend_activation_link$",
+                                        path(
+                                            "resend-activation-link/",
                                             users.resend_activation_link_region,
                                             name="resend_activation_link_region",
                                         ),
@@ -996,7 +1053,7 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                url(r"^", include(user_settings_urlpatterns)),
+                path("", include(user_settings_urlpatterns)),
             ]
         ),
     ),

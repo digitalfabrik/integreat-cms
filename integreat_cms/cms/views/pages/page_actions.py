@@ -784,7 +784,7 @@ def revoke_page_permission_ajax(request, region_slug):
 
 @permission_required("cms.view_page")
 # pylint: disable=unused-argument
-def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
+def get_page_order_table_ajax(request, region_slug, parent_id, page_id):
     """
     Retrieve the order table for a given page and a given parent page.
     This is used in the page form to change the order of a page relative to its siblings.
@@ -795,11 +795,11 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param page_id: The id of the page of the current page form
-    :type page_id: int
-
     :param parent_id: The id of the parent page to which the order table should be returned
     :type parent_id: int
+
+    :param page_id: The id of the page of the current page form
+    :type page_id: int
 
     :return: The rendered page order table
     :rtype: ~django.template.response.TemplateResponse
