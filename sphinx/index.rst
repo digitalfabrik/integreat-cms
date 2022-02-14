@@ -89,6 +89,7 @@ Reference
     :hidden:
 
     ref/integreat_cms
+    ref/tests
 
 * :doc:`ref/integreat_cms`: The main package of the integreat-cms with the following sub-packages:
 
@@ -99,12 +100,15 @@ Reference
   - :doc:`ref/integreat_cms.sitemap`: This is the app to dynamically generate a sitemap.xml for the webapp
   - :doc:`ref/integreat_cms.xliff`: The XLIFF serializer module
 
+* :doc:`ref/tests`: The tests for integreat-cms
+
 
 .. toctree::
     :caption: Extended Reference
     :hidden:
 
     ref-ext/integreat_cms
+    ref-ext/tests
 
 
 Indices

@@ -1,8 +1,9 @@
-from django.test import TestCase
-from linkcheck.listeners import disable_listeners
-from .api_tests_utils import generate_test_functions
+"""
+This modules contains the config for the API tests
+"""
 
-endpoint_data = [
+#: The API endpoints
+API_ENDPOINTS = [
     (
         "/api/regions/",
         "/wp-json/extensions/v3/sites/",
@@ -44,25 +45,3 @@ endpoint_data = [
         "tests/api/expected-outputs/augsburg_de_page_1.json",
     ),
 ]
-
-
-class ApiTest(TestCase):
-    """
-    This test class checks all endpoints defined in `endpoint_data`.
-    It verifies that the content delivered by the endpoint is equivalent with the data
-    provided in the corresponding json file.
-    """
-
-    fixtures = [
-        "integreat_cms/cms/fixtures/test_data.json",
-    ]
-
-    @classmethod
-    def setUpClass(cls):
-        with disable_listeners():
-            super().setUpClass()
-
-    generate_test_functions(
-        class_variables=vars(),
-        endpoint_data=endpoint_data,
-    )
