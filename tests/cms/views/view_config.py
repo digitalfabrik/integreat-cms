@@ -51,9 +51,11 @@ VIEWS = [
             ("analytics", ROLES),
             ("app_size", ROLES),
             ("dashboard", ROLES),
+            ("language_tree", STAFF_ROLES),
             ("media", ROLES),
             ("mediacenter_directory_path", ROLES),
             ("mediacenter_get_directory_content", ROLES),
+            ("new_language_tree_node", STAFF_ROLES),
             ("new_region_user", STAFF_ROLES + [MANAGEMENT]),
             ("region_feedback", ROLES),
             ("region_users", STAFF_ROLES + [MANAGEMENT]),
@@ -70,9 +72,11 @@ VIEWS = [
             ("analytics", STAFF_ROLES),
             ("app_size", STAFF_ROLES),
             ("dashboard", STAFF_ROLES),
+            ("language_tree", STAFF_ROLES),
             ("media", STAFF_ROLES),
             ("mediacenter_directory_path", STAFF_ROLES),
             ("mediacenter_get_directory_content", STAFF_ROLES),
+            ("new_language_tree_node", STAFF_ROLES),
             ("new_region_user", STAFF_ROLES),
             ("region_feedback", STAFF_ROLES),
             ("region_users", STAFF_ROLES),
@@ -125,6 +129,175 @@ VIEWS = [
         # The kwargs for these views
         {"region_slug": "nurnberg", "language_slug": "de"},
     ),
+    (
+        [("edit_region", STAFF_ROLES)],
+        # The kwargs for these views
+        {"slug": "augsburg"},
+    ),
+    (
+        [("edit_language", STAFF_ROLES)],
+        # The kwargs for these views
+        {"slug": "de"},
+    ),
+    (
+        [("edit_user", STAFF_ROLES)],
+        # The kwargs for these views
+        {"user_id": 1},
+    ),
+    (
+        [("edit_role", [ROOT])],
+        # The kwargs for these views
+        {"role_id": 1},
+    ),
+    (
+        [("edit_offertemplate", STAFF_ROLES)],
+        # The kwargs for these views
+        {"slug": "ihk-lehrstellenboerse"},
+    ),
+    (
+        [("linkcheck", ROLES)],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "link_filter": "valid"},
+    ),
+    (
+        [("linkcheck", STAFF_ROLES)],
+        # The kwargs for these views
+        {"region_slug": "nurnberg", "link_filter": "valid"},
+    ),
+    (
+        [("linkcheck", ROLES)],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "link_filter": "unchecked"},
+    ),
+    (
+        [("linkcheck", STAFF_ROLES)],
+        # The kwargs for these views
+        {"region_slug": "nurnberg", "link_filter": "unchecked"},
+    ),
+    (
+        [("linkcheck", ROLES)],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "link_filter": "ignored"},
+    ),
+    (
+        [("linkcheck", STAFF_ROLES)],
+        # The kwargs for these views
+        {"region_slug": "nurnberg", "link_filter": "ignored"},
+    ),
+    (
+        [("linkcheck", ROLES)],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "link_filter": "invalid"},
+    ),
+    (
+        [("linkcheck", STAFF_ROLES)],
+        # The kwargs for these views
+        {"region_slug": "nurnberg", "link_filter": "invalid"},
+    ),
+    (
+        [("get_new_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "parent_id": 1},
+    ),
+    (
+        [("get_new_page_order_table_ajax", STAFF_ROLES)],
+        # The kwargs for these views
+        {"region_slug": "nurnberg", "parent_id": 7},
+    ),
+    (
+        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "parent_id": 1, "page_id": 2},
+    ),
+    (
+        [("get_page_order_table_ajax", STAFF_ROLES)],
+        # The kwargs for these views
+        {"region_slug": "nurnberg", "parent_id": 7, "page_id": 8},
+    ),
+    (
+        [("get_page_children_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        # The kwargs for these views
+        {
+            "region_slug": "augsburg",
+            "language_slug": "de",
+            "tree_id": 2,
+            "lft": 1,
+            "rgt": 12,
+            "depth": 1,
+        },
+    ),
+    (
+        [("get_page_children_ajax", STAFF_ROLES)],
+        # The kwargs for these views
+        {
+            "region_slug": "nurnberg",
+            "language_slug": "de",
+            "tree_id": 1,
+            "lft": 1,
+            "rgt": 14,
+            "depth": 1,
+        },
+    ),
+    (
+        [
+            ("view_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            ("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "en", "page_id": 1},
+    ),
+    (
+        [
+            ("view_page", STAFF_ROLES),
+            ("edit_page", STAFF_ROLES),
+            ("sbs_edit_page", STAFF_ROLES),
+            ("page_revisions", STAFF_ROLES),
+        ],
+        # The kwargs for these views
+        {"region_slug": "nurnberg", "language_slug": "en", "page_id": 7},
+    ),
+    (
+        [("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        # The kwargs for these views
+        {
+            "region_slug": "augsburg",
+            "language_slug": "de",
+            "page_id": 1,
+            "selected_revision": 1,
+        },
+    ),
+    (
+        [("edit_event", ROLES)],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "event_id": 1},
+    ),
+    (
+        [("edit_poi", ROLES)],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "poi_id": 1},
+    ),
+    (
+        [("edit_language_tree_node", STAFF_ROLES)],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_tree_node_id": 1},
+    ),
+    (
+        [("edit_language_tree_node", STAFF_ROLES)],
+        # The kwargs for these views
+        {"region_slug": "nurnberg", "language_tree_node_id": 5},
+    ),
+    (
+        [("edit_region_user", STAFF_ROLES + [MANAGEMENT])],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "user_id": 2},
+    ),
+    (
+        [("edit_region_user", STAFF_ROLES)],
+        # The kwargs for these views
+        {"region_slug": "nurnberg", "user_id": 2},
+    ),
 ]
 
 #: In order for these views to be used as parameters, we have to flatten the nested structure
@@ -164,9 +337,35 @@ REDIRECT_VIEWS = [
                 ROLES,
                 reverse("authenticate_modify_mfa", kwargs={"region_slug": "augsburg"}),
             ),
+            (
+                "linkcheck_landing",
+                STAFF_ROLES,
+                reverse(
+                    "linkcheck",
+                    kwargs={"region_slug": "augsburg", "link_filter": "invalid"},
+                ),
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg"},
+    ),
+    (
+        [
+            (
+                "sbs_edit_page",
+                STAFF_ROLES + [MANAGEMENT, EDITOR],
+                reverse(
+                    "edit_page",
+                    kwargs={
+                        "region_slug": "augsburg",
+                        "language_slug": "de",
+                        "page_id": 1,
+                    },
+                ),
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 1},
     ),
 ]
 
