@@ -1,20 +1,26 @@
 """
 This modules contains the config for the view tests
 """
-
 from django.conf import settings
 from django.urls import reverse
 
 from ...conftest import (
-    MANAGEMENT,
-    EDITOR,
-    STAFF_ROLES,
     ALL_ROLES,
+    EDITOR,
+    MANAGEMENT,
+    MUNICIPALITY_TEAM,
+    PRIV_STAFF_ROLES,
+    REGION_ROLES,
     ROLES,
     ROOT,
+    STAFF_ROLES,
 )
 
 #: This list contains the config for all views
+#: Each element is a tuple which consists of two elements: A list of view configs and the keyword arguments that are
+#: identical for all views in this list. Each view config item consists of the name of the view, the list of roles that
+#: are allowed to access that view and optionally post data that is sent with the request. The post data can either be
+#: a dict to send form data or a string to send JSON.
 VIEWS = [
     (
         [
@@ -57,6 +63,11 @@ VIEWS = [
             ("mediacenter_get_directory_content", ROLES),
             ("new_language_tree_node", STAFF_ROLES),
             ("new_region_user", STAFF_ROLES + [MANAGEMENT]),
+            (
+                "new_region_user",
+                PRIV_STAFF_ROLES + [MANAGEMENT],
+                {"username": "new_username", "email": "new@email.address", "role": 1},
+            ),
             ("region_feedback", ROLES),
             ("region_users", STAFF_ROLES + [MANAGEMENT]),
             ("translation_coverage", ROLES),
@@ -78,6 +89,11 @@ VIEWS = [
             ("mediacenter_get_directory_content", STAFF_ROLES),
             ("new_language_tree_node", STAFF_ROLES),
             ("new_region_user", STAFF_ROLES),
+            (
+                "new_region_user",
+                PRIV_STAFF_ROLES,
+                {"username": "new_username", "email": "new@email.address", "role": 1},
+            ),
             ("region_feedback", STAFF_ROLES),
             ("region_users", STAFF_ROLES),
             ("translation_coverage", STAFF_ROLES),
@@ -95,11 +111,42 @@ VIEWS = [
             ("archived_pages", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("archived_pois", ROLES),
             ("edit_imprint", ROLES),
+            (
+                "edit_imprint",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"title": "imprint", "submit_draft": True},
+            ),
             ("events", ROLES),
             ("events_archived", ROLES),
             ("new_event", ROLES),
+            (
+                "new_event",
+                PRIV_STAFF_ROLES + REGION_ROLES,
+                {
+                    "title": "new event",
+                    "start_date": "2030-01-01",
+                    "end_date": "2030-01-01",
+                    "is_all_day": True,
+                    "submit_draft": True,
+                },
+            ),
             ("new_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("new_poi", ROLES),
+            (
+                "new_poi",
+                PRIV_STAFF_ROLES + REGION_ROLES,
+                {
+                    "title": "new poi",
+                    "short_description": "short description",
+                    "address": "Test-Straße 5",
+                    "postcode": "54321",
+                    "city": "Augsburg",
+                    "country": "Deutschland",
+                    "longitude": 1,
+                    "latitude": 1,
+                    "submit_draft": True,
+                },
+            ),
             ("new_push_notification", STAFF_ROLES + [MANAGEMENT]),
             ("pages", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("pois", ROLES),
@@ -116,11 +163,53 @@ VIEWS = [
             ("archived_pages", STAFF_ROLES),
             ("archived_pois", STAFF_ROLES),
             ("edit_imprint", STAFF_ROLES),
+            (
+                "edit_imprint",
+                PRIV_STAFF_ROLES,
+                {"title": "imprint", "submit_draft": True},
+            ),
             ("events", STAFF_ROLES),
             ("events_archived", STAFF_ROLES),
             ("new_event", STAFF_ROLES),
+            (
+                "new_event",
+                PRIV_STAFF_ROLES,
+                {
+                    "title": "new event",
+                    "start_date": "2030-01-01",
+                    "end_date": "2030-01-01",
+                    "is_all_day": True,
+                    "submit_draft": True,
+                },
+            ),
             ("new_page", STAFF_ROLES),
+            (
+                "new_page",
+                PRIV_STAFF_ROLES,
+                {
+                    "title": "new page",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 7,
+                    "_position": "first-child",
+                    "submit_draft": True,
+                },
+            ),
             ("new_poi", STAFF_ROLES),
+            (
+                "new_poi",
+                PRIV_STAFF_ROLES,
+                {
+                    "title": "new poi",
+                    "short_description": "short description",
+                    "address": "Test-Straße 5",
+                    "postcode": "54321",
+                    "city": "Augsburg",
+                    "country": "Deutschland",
+                    "longitude": 1,
+                    "latitude": 1,
+                    "submit_draft": True,
+                },
+            ),
             ("new_push_notification", STAFF_ROLES),
             ("pages", STAFF_ROLES),
             ("pois", STAFF_ROLES),
@@ -130,12 +219,42 @@ VIEWS = [
         {"region_slug": "nurnberg", "language_slug": "de"},
     ),
     (
-        [("edit_region", STAFF_ROLES)],
+        [
+            ("edit_region", STAFF_ROLES),
+            (
+                "edit_region",
+                PRIV_STAFF_ROLES,
+                {
+                    "administrative_division": "CITY",
+                    "name": "Augsburg",
+                    "admin_mail": "augsburg@example.com",
+                    "postal_code": "86150",
+                    "status": "ACTIVE",
+                    "longitude": 1,
+                    "latitude": 1,
+                },
+            ),
+        ],
         # The kwargs for these views
         {"slug": "augsburg"},
     ),
     (
-        [("edit_language", STAFF_ROLES)],
+        [
+            ("edit_language", STAFF_ROLES),
+            (
+                "edit_language",
+                PRIV_STAFF_ROLES,
+                {
+                    "native_name": "New name",
+                    "english_name": "German",
+                    "slug": "de",
+                    "bcp47_tag": "de-de",
+                    "text_direction": "LEFT_TO_RIGHT",
+                    "table_of_contents": "Inhaltsverzeichnis",
+                    "primary_country_code": "de",
+                },
+            ),
+        ],
         # The kwargs for these views
         {"slug": "de"},
     ),
@@ -242,8 +361,31 @@ VIEWS = [
         [
             ("view_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            (
+                "edit_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {
+                    "title": "new title",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 21,
+                    "_position": "first-child",
+                    "submit_draft": True,
+                },
+            ),
             ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            (
+                "archive_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"post_data": True},
+            ),
+            (
+                "restore_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"post_data": True},
+            ),
+            ("delete_page", [ROOT, MUNICIPALITY_TEAM], {"post_data": True}),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "en", "page_id": 1},
@@ -254,9 +396,23 @@ VIEWS = [
             ("edit_page", STAFF_ROLES),
             ("sbs_edit_page", STAFF_ROLES),
             ("page_revisions", STAFF_ROLES),
+            ("archive_page", PRIV_STAFF_ROLES, {"post_data": True}),
+            ("restore_page", PRIV_STAFF_ROLES, {"post_data": True}),
+            ("delete_page", [ROOT, MUNICIPALITY_TEAM], {"post_data": True}),
         ],
         # The kwargs for these views
         {"region_slug": "nurnberg", "language_slug": "en", "page_id": 7},
+    ),
+    (
+        [("move_page", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], {"post_data": True})],
+        # The kwargs for these views
+        {
+            "region_slug": "augsburg",
+            "language_slug": "en",
+            "page_id": 1,
+            "target_id": 21,
+            "position": "first-child",
+        },
     ),
     (
         [("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR])],
@@ -269,27 +425,68 @@ VIEWS = [
         },
     ),
     (
-        [("edit_event", ROLES)],
+        [
+            ("edit_event", ROLES),
+            (
+                "edit_event",
+                PRIV_STAFF_ROLES + REGION_ROLES,
+                {
+                    "title": "new title",
+                    "start_date": "2030-01-01",
+                    "end_date": "2030-01-01",
+                    "is_all_day": True,
+                    "submit_draft": True,
+                },
+            ),
+            ("archive_event", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
+            ("restore_event", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
+            ("delete_event", PRIV_STAFF_ROLES, {"post_data": True}),
+        ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de", "event_id": 1},
     ),
     (
-        [("edit_poi", ROLES)],
+        [
+            ("edit_poi", ROLES),
+            (
+                "edit_poi",
+                PRIV_STAFF_ROLES + REGION_ROLES,
+                {
+                    "title": "new title",
+                    "short_description": "short description",
+                    "address": "Test-Straße 5",
+                    "postcode": "54321",
+                    "city": "Augsburg",
+                    "country": "Deutschland",
+                    "longitude": 1,
+                    "latitude": 1,
+                    "submit_draft": True,
+                },
+            ),
+            ("archive_poi", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
+            ("restore_poi", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
+            ("delete_poi", [ROOT, MUNICIPALITY_TEAM], {"post_data": True}),
+        ],
         # The kwargs for these views
-        {"region_slug": "augsburg", "language_slug": "de", "poi_id": 1},
+        {"region_slug": "augsburg", "language_slug": "de", "poi_id": 4},
     ),
     (
-        [("edit_language_tree_node", STAFF_ROLES)],
+        [
+            ("edit_language_tree_node", STAFF_ROLES),
+            ("edit_language_tree_node", PRIV_STAFF_ROLES, {"language": 3, "parent": 2}),
+        ],
         # The kwargs for these views
-        {"region_slug": "augsburg", "language_tree_node_id": 1},
+        {"region_slug": "augsburg", "language_tree_node_id": 3},
     ),
     (
-        [("edit_language_tree_node", STAFF_ROLES)],
-        # The kwargs for these views
-        {"region_slug": "nurnberg", "language_tree_node_id": 5},
-    ),
-    (
-        [("edit_region_user", STAFF_ROLES + [MANAGEMENT])],
+        [
+            ("edit_region_user", STAFF_ROLES + [MANAGEMENT]),
+            (
+                "edit_region_user",
+                PRIV_STAFF_ROLES + [MANAGEMENT],
+                {"username": "new_username", "email": "new@email.address", "role": 1},
+            ),
+        ],
         # The kwargs for these views
         {"region_slug": "augsburg", "user_id": 2},
     ),
@@ -298,13 +495,18 @@ VIEWS = [
         # The kwargs for these views
         {"region_slug": "nurnberg", "user_id": 2},
     ),
+    (
+        [("dismiss_tutorial", ROLES, {"post_data": True})],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "slug": "page-tree"},
+    ),
 ]
 
 #: In order for these views to be used as parameters, we have to flatten the nested structure
 PARAMETRIZED_VIEWS = [
-    (view_name, kwargs, roles)
+    (view_name, kwargs, post_data[0] if post_data else {}, roles)
     for view_conf, kwargs in VIEWS
-    for view_name, roles in view_conf
+    for view_name, roles, *post_data in view_conf
 ]
 
 #: This list contains the config for all views which should check whether they correctly redirect to another url
@@ -362,10 +564,21 @@ REDIRECT_VIEWS = [
                         "page_id": 1,
                     },
                 ),
-            ),
+            )
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de", "page_id": 1},
+    ),
+    (
+        [
+            (
+                "public:expand_page_translation_id",
+                ALL_ROLES,
+                "https://integreat.app/augsburg/de/willkommen/",
+            )
+        ],
+        # The kwargs for these views
+        {"short_url_id": 1},
     ),
 ]
 

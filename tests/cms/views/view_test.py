@@ -8,8 +8,8 @@ from .view_config import PARAMETRIZED_VIEWS, PARAMETRIZED_REDIRECT_VIEWS
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("view_name,kwargs,roles", PARAMETRIZED_VIEWS)
-def test_view_status_code(login_role_user, view_name, kwargs, roles):
+@pytest.mark.parametrize("view_name,kwargs,post_data,roles", PARAMETRIZED_VIEWS)
+def test_view_status_code(login_role_user, view_name, kwargs, post_data, roles):
     """
     This test checks whether the given view return the correct status code for the current role
 
@@ -22,16 +22,35 @@ def test_view_status_code(login_role_user, view_name, kwargs, roles):
     :param kwargs: The keyword argument passed to the view
     :type kwargs: dict
 
+    :param post_data: The post data for this view
+    :type post_data: dict
+
     :param roles: The list of roles which should be able to access this view
     :type roles: list
     """
     client, role = login_role_user
     url = reverse(view_name, args=(), kwargs=kwargs)
-    response = client.get(url)
+    if post_data:
+        kwargs = {"data": post_data}
+        # If the post data is a string, assume json as content type
+        if isinstance(post_data, str):
+            kwargs["content_type"] = "application/json"
+        response = client.post(url, **kwargs)
+    else:
+        response = client.get(url)
     print(response.headers)
     if role in roles:
         # If the role should be allowed to access the view, we expect a successful result
-        assert response.status_code == 200
+        if post_data:
+            if response.headers.get("Content-Type") == "application/json":
+                # Json-views should return 200
+                assert response.status_code == 200
+            else:
+                # Normal post-views should redirect after a successful operation (200 usually mean form errors)
+                assert response.status_code == 302
+        else:
+            # Get-views should return 200
+            assert response.status_code == 200
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
         assert response.status_code == 302

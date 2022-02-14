@@ -27,6 +27,8 @@ ANONYMOUS = "ANONYMOUS"
 REGION_ROLES = [MANAGEMENT, EDITOR, EVENT_MANAGER]
 #: All roles of staff users
 STAFF_ROLES = [ROOT, MUNICIPALITY_TEAM, CMS_TEAM, APP_TEAM, MARKETING_TEAM]
+#: All roles of staff users that don't just have read-only permissions
+PRIV_STAFF_ROLES = [ROOT, MUNICIPALITY_TEAM, CMS_TEAM]
 #: All region and staff roles
 ROLES = REGION_ROLES + STAFF_ROLES
 #: All region and staff roles and anonymous users
