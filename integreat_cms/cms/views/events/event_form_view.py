@@ -65,7 +65,10 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
         recurrence_rule_instance = RecurrenceRule.objects.filter(
             event=event_instance
         ).first()
-        poi_instance = region.pois.filter(events=event_instance).first()
+        if event_instance:
+            poi_instance = event_instance.location
+        else:
+            poi_instance = None
 
         # Make form disabled if event is archived or user doesn't have the permission to edit the event
         if event_instance and event_instance.archived:
