@@ -3,7 +3,6 @@ This module contains action methods for the author chat
 """
 import logging
 
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
@@ -15,13 +14,16 @@ from ...models import ChatMessage
 logger = logging.getLogger(__name__)
 
 
-@login_required
-def send_chat_message(request):
+# pylint: disable=unused-argument
+def send_chat_message(request, region_slug=None):
     """
     Send chat message
 
     :param request: The current request
     :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
 
     :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
@@ -52,13 +54,16 @@ def send_chat_message(request):
 
 
 @require_POST
-@login_required
-def delete_chat_message(request, message_id):
+# pylint: disable=unused-argument
+def delete_chat_message(request, region_slug=None, message_id=None):
     """
     Delete chat message
 
     :param request: The current request
     :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
 
     :param message_id: The id of the message
     :type message_id: int

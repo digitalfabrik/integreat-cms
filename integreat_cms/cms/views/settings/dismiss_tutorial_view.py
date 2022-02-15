@@ -1,19 +1,20 @@
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from django.http.response import HttpResponseRedirect
-from django.views.generic.base import RedirectView
+from django.http import JsonResponse
+from django.views.generic.base import View
 
 
-@method_decorator(login_required, name="dispatch")
-class DismissTutorial(RedirectView):
+class DismissTutorial(View):
     """
     View to mark a tutorial dismissed for the current user.
     If it was marked dismissed it should not be shown again automatically.
     """
 
+    #: The list of HTTP method names that this view will accept.
+    #: Since this changes the database, we want to have the csrf protection of post views.
+    http_method_names = ["post"]
+
     def post(self, request, *args, **kwargs):
         r"""
-        Marks a tutorial as dismissed if one is provided in tutorial_id and dismiss_tutorial is set.
+        Marks a tutorial as dismissed
 
         :param request: The current request
         :type request: ~django.http.HttpRequest
@@ -27,12 +28,15 @@ class DismissTutorial(RedirectView):
         :return: The rendered template response
         :rtype: ~django.http.HttpResponseRedirect
         """
-        redirect_url = request.POST.get("redirect_url", "/")
 
-        tutorial_id = request.POST.get("tutorial_id")
-        if request.POST.get("dismiss_tutorial") and tutorial_id:
-            if tutorial_id == "page_tree_tutorial_seen":
-                request.user.page_tree_tutorial_seen = True
-            request.user.save()
+        tutorial_slug = kwargs.get("slug")
+        if tutorial_slug == "page-tree":
+            request.user.page_tree_tutorial_seen = True
+        else:
+            return JsonResponse(
+                {"error": f"Tutorial '{tutorial_slug}' not found."}, status=404
+            )
 
-        return HttpResponseRedirect(redirect_url)
+        request.user.save()
+
+        return JsonResponse({"success": f"Tutorial '{tutorial_slug}' was dismissed."})

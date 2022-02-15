@@ -14,7 +14,7 @@ class LogoutView(auth_views.LogoutView):
 
     def dispatch(self, request, *args, **kwargs):
         r"""
-        This function sends message, if loggout was successful
+        This function sends message, if logout was successful
 
         :param request: The current request
         :type request: ~django.http.HttpRequest

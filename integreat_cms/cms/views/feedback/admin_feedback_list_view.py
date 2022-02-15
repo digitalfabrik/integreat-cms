@@ -3,22 +3,19 @@ import logging
 from datetime import date
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from ...constants import feedback_ratings, feedback_read_status
-from ...decorators import staff_required, permission_required
+from ...decorators import permission_required
 from ...forms import AdminFeedbackFilterForm
 from ...models import Feedback
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(staff_required, name="dispatch")
 @method_decorator(permission_required("cms.view_feedback"), name="dispatch")
 class AdminFeedbackListView(TemplateView):
     """

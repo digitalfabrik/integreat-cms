@@ -1,9 +1,3 @@
 """
-We use unit tests to validate that the functionality of the cms works as expected.
-
-For more information, see :doc:`topics/testing/index` and :doc:`topics/testing/overview`.
+This package contains tests of the :mod:`integreat_cms.cms` app
 """
-from .pages import *
-from .views.admin_view_test import AdminViewTest
-from .views.api_view_test import APIViewTest
-from .views.region_view_test import RegionViewTest

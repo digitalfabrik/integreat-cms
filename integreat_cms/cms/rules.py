@@ -37,7 +37,7 @@ def is_page_editor(user, page):
     :return: Whether or not ``user`` is an editor of ``page``
     :rtype: bool
     """
-    if not page:
+    if not page or not page.id:
         return False
     return user in page.editors.all()
 
@@ -56,7 +56,7 @@ def is_page_publisher(user, page):
     :return: Whether or not ``user`` is a publisher of ``page``
     :rtype: bool
     """
-    if not page:
+    if not page or not page.id:
         return False
     return user in page.publishers.all()
 
@@ -76,7 +76,7 @@ def can_edit_all_pages(user, page):
     :rtype: bool
     """
     if not (user.is_superuser or user.is_staff):
-        if page and page.region not in user.regions.all():
+        if page and page.id and page.region not in user.regions.all():
             return False
     return user.has_perm("cms.change_page")
 
@@ -96,7 +96,7 @@ def can_publish_all_pages(user, page):
     :rtype: bool
     """
     if not (user.is_superuser or user.is_staff):
-        if page and page.region not in user.regions.all():
+        if page and page.id and page.region not in user.regions.all():
             return False
     return user.has_perm("cms.publish_page")
 
@@ -115,7 +115,7 @@ def is_in_responsible_organization(user, page):
     :return: Whether or not ``user`` is a member of ``page.organization``
     :rtype: bool
     """
-    if not page or not page.organization:
+    if not page or not page.id or not page.organization:
         return False
     return user in page.organization.members.all()
 

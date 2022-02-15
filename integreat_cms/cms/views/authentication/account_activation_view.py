@@ -22,7 +22,7 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
     #: The template which should be rendered
     template_name = "authentication/account_activation_form.html"
     #: If the password was successfully reset, redirect to the login
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("public:login")
     #: The generator for activation tokens
     #: (use :class:`~integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator` instead of the default one to
     #: make sure password reset tokens are not accepted for account activation and vice versa)
@@ -46,7 +46,7 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
                 self.request,
                 _("You are already logged in."),
             )
-            return redirect("redirect")
+            return redirect("public:region_selection")
         response = super().dispatch(*args, **kwargs)
         if isinstance(response, HttpResponseRedirect) or self.validlink:
             # If the link is valid, render the password reset confirm form (redirect means valid because the first step
@@ -66,7 +66,7 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
             ),
         )
         logger.debug("An invalid account activation link was used.")
-        return redirect("login")
+        return redirect("public:login")
 
     def form_valid(self, form):
         """

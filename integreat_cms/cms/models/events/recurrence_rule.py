@@ -5,10 +5,11 @@ from django.db import models
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
+from ..abstract_base_model import AbstractBaseModel
 from ...constants import frequency, weekdays, weeks
 
 
-class RecurrenceRule(models.Model):
+class RecurrenceRule(AbstractBaseModel):
     """
     Data model representing the recurrence frequency and interval of an event
     """
@@ -186,7 +187,7 @@ class RecurrenceRule(models.Model):
             self.event.best_translation.title, self.get_frequency_display()
         )
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<RecurrenceRule: RecurrenceRule object (id)>``.
         It is used for logging.
@@ -203,3 +204,5 @@ class RecurrenceRule(models.Model):
         verbose_name_plural = _("recurrence rules")
         #: The default permissions for this model
         default_permissions = ()
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["pk"]

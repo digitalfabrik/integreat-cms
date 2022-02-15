@@ -4,7 +4,6 @@ This module contains deletion views for our models that don't need custom handli
 import logging
 from django.contrib import messages
 from django.contrib.auth.mixins import (
-    LoginRequiredMixin,
     PermissionRequiredMixin,
 )
 from django.db import IntegrityError
@@ -13,15 +12,11 @@ from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.generic import DeleteView
 
-from .mixins import StaffRequiredMixing
-
 logger = logging.getLogger(__name__)
 
 
 # pylint: disable=too-many-ancestors
 class CustomModelDeleteMixin(
-    LoginRequiredMixin,
-    StaffRequiredMixing,
     PermissionRequiredMixin,
 ):
     """

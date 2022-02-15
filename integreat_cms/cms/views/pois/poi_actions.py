@@ -5,21 +5,18 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...models import POI
 
 logger = logging.getLogger(__name__)
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_poi")
 def archive_poi(request, poi_id, region_slug, language_slug):
     """
@@ -58,8 +55,6 @@ def archive_poi(request, poi_id, region_slug, language_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_poi")
 def restore_poi(request, poi_id, region_slug, language_slug):
     """
@@ -98,8 +93,6 @@ def restore_poi(request, poi_id, region_slug, language_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.delete_poi")
 def delete_poi(request, poi_id, region_slug, language_slug):
     """
@@ -135,8 +128,6 @@ def delete_poi(request, poi_id, region_slug, language_slug):
     )
 
 
-@login_required
-@region_permission_required
 @permission_required("cms.view_poi")
 # pylint: disable=unused-argument
 def view_poi(request, poi_id, region_slug, language_slug):
@@ -173,8 +164,6 @@ def view_poi(request, poi_id, region_slug, language_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_poi")
 def automatic_translation(request, region_slug, language_slug):
     """

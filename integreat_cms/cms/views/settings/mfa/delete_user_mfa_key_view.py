@@ -4,7 +4,6 @@ This module contains all views related to multi-factor authentication
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -15,7 +14,6 @@ from ....decorators import modify_mfa_authenticated
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
 @method_decorator(modify_mfa_authenticated, name="dispatch")
 class DeleteUserMfaKeyView(TemplateView):
     """
@@ -94,4 +92,7 @@ class DeleteUserMfaKeyView(TemplateView):
             ),
         )
         key.delete()
-        return redirect("user_settings")
+        kwargs = (
+            {"region_slug": self.request.region.slug} if self.request.region else {}
+        )
+        return redirect("user_settings", **kwargs)

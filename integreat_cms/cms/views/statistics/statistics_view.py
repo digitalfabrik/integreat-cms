@@ -2,21 +2,16 @@
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import region_permission_required
 
 from ...forms import StatisticsFilterForm
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 class AnalyticsView(TemplateView):
     """
     View for the statistics overview.
@@ -25,7 +20,7 @@ class AnalyticsView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "statistics/statistics_overview.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "statistics"}
+    extra_context = {"current_menu_item": "statistics"}
 
     # pylint: disable=unused-variable
     def get(self, request, *args, **kwargs):
@@ -61,7 +56,7 @@ class AnalyticsView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "form": form,
             },
         )

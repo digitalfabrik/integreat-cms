@@ -166,6 +166,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "integreat_cms.core.middleware.RegionMiddleware",
+    "integreat_cms.core.middleware.AccessControlMiddleware",
     "integreat_cms.cms.middleware.TimezoneMiddleware",
 ]
 

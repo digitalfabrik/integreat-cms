@@ -10,13 +10,13 @@
 <header class="fixed h-14 pl-56 top-0 inset-x-0 flex flex-wrap z-50 bg-gray-300">
     <div class="flex-1 relative w-full"></div>
     {% if debug and request.user.is_staff %}
-        <a href="/admin" target="_blank" rel="noopener noreferrer"
+        <a href="{% url 'admin:index' %}" target="_blank" rel="noopener noreferrer"
            class="relative px-2 pt-4 text-gray-800 hover:bg-gray-200 border-r border-gray-400">
             <i data-feather="sliders"></i>
             {% trans 'Django Admin' %}
         </a>
     {% endif %}
-    <a href="{% url 'wiki_redirect' %}" target="_blank" rel="noopener noreferrer"
+    <a href="{% url 'public:wiki_redirect' %}" target="_blank" rel="noopener noreferrer"
        class="relative px-2 pt-4 text-gray-800 hover:bg-gray-200 border-r border-gray-400">
         <img class="inline-block" fill="none" width="21" height="21" src="{% static 'images/integreat-icon-contur-only.png' %}">
         {% trans 'Documentation (Wiki)' %}
@@ -71,7 +71,7 @@
                 <i data-feather="settings"></i>
                 {% trans 'User Settings' %}
             </a>
-            <a href="{% url 'logout' %}" class="relative block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-400 rounded-b">
+            <a href="{% url 'public:logout' %}" class="relative block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-400 rounded-b">
                 <i data-feather="log-out" class="text-red-500"></i>
                 {% trans 'Log out' %}
             </a>
@@ -194,7 +194,7 @@
                 </div>
             {% endif %}
             {% if perms.cms.view_languagetreenode %}
-                <a href="{% url 'language_tree' region_slug=request.region.slug %}" class="{% if current_menu_item|in_list:'language_tree,language_tree_form' %} active {% endif %}">
+                <a href="{% url 'language_tree' region_slug=request.region.slug %}" class="{% if current_menu_item|in_list:'languagetreenodes,language_tree_form' %} active {% endif %}">
                     <i data-feather="flag"></i>
                     {% trans 'Language Tree' %}
                 </a>

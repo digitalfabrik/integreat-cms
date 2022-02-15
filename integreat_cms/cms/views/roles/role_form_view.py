@@ -1,21 +1,18 @@
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import staff_required, permission_required
+from ...decorators import permission_required
 from ...forms import RoleForm, GroupForm
 from ...models import Role
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(staff_required, name="dispatch")
 @method_decorator(permission_required("auth.view_group"), name="dispatch")
 @method_decorator(permission_required("auth.change_group"), name="post")
 class RoleFormView(TemplateView):
@@ -26,7 +23,7 @@ class RoleFormView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "roles/role_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "roles"}
+    extra_context = {"current_menu_item": "roles"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -54,7 +51,11 @@ class RoleFormView(TemplateView):
         return render(
             request,
             self.template_name,
-            {"role_form": role_form, "group_form": group_form, **self.base_context},
+            {
+                **self.get_context_data(**kwargs),
+                "role_form": role_form,
+                "group_form": group_form,
+            },
         )
 
     # pylint: disable=unused-argument
@@ -114,5 +115,9 @@ class RoleFormView(TemplateView):
         return render(
             request,
             self.template_name,
-            {"role_form": role_form, "group_form": group_form, **self.base_context},
+            {
+                **self.get_context_data(**kwargs),
+                "role_form": role_form,
+                "group_form": group_form,
+            },
         )

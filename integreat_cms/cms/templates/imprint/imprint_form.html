@@ -94,19 +94,19 @@
                         </label>
                         <div class="help-text">{{ imprint_translation_form.minor_edit.help_text }}</div>
                     </div>
-                    <ul class="flex pl-4">
-                        <li class="z-10" style="margin-bottom: -2px">
-                            <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
-                                <div class="border-b-2 border-white">
-                                    <i data-feather="tool"></i>
-                                    {% trans 'Actions' %}
+                    {% if perms.cms.delete_imprintpage %}
+                        <ul class="flex pl-4">
+                            <li class="z-10" style="margin-bottom: -2px">
+                                <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
+                                    <div class="border-b-2 border-white">
+                                        <i data-feather="tool"></i>
+                                        {% trans 'Actions' %}
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                        <div class="w-full p-4">
-                            {% if perms.cms.delete_imprintpage %}
+                            </li>
+                        </ul>
+                        <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
+                            <div class="w-full p-4">
                                 <div class="pt-2 pb-4">
                                     <label>{% trans 'Delete imprint' %}</label>
                                     <button title="{% trans 'Delete imprint' %}"
@@ -119,9 +119,9 @@
                                         {% trans 'Delete the imprint' %}
                                     </button>
                                 </div>
-                            {% endif %}
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                     <ul class="flex pl-4">
                         <li class="z-10" style="margin-bottom: -2px">
                             <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">

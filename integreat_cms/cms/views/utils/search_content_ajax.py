@@ -2,13 +2,11 @@ import logging
 import json
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
 from ...constants import status
 from ...utils.user_utils import search_users
-from ...decorators import region_permission_required
 from ...models import (
     Region,
     EventTranslation,
@@ -44,8 +42,6 @@ def format_object_translation(object_translation, typ):
 
 
 @require_POST
-@login_required
-@region_permission_required
 # pylint: disable=unused-argument
 def search_content_ajax(request, region_slug=None, language_slug=None):
     """Searches all pois, events and pages for the current region and returns all that
@@ -54,13 +50,17 @@ def search_content_ajax(request, region_slug=None, language_slug=None):
 
     :param request: The current request
     :type request: ~django.http.HttpResponse
-    :param region_slug: region identifier
+
+    :param region_slug: The slug of the current region
     :type region_slug: str
+
     :param language_slug: language slug
     :type language_slug: str
+
+    :raises AttributeError: If the request contains an object type which is unknown or if the user has no permission for it
+
     :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
     :rtype: ~django.http.JsonResponse
-    :raises AttributeError: If the request contains an object type which is unknown or if the user has no permission for it
     """
 
     region = request.region

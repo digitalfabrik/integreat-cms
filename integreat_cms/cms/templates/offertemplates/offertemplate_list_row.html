@@ -29,8 +29,8 @@
                 </button>
             {% else %}
                 <button title="{% trans 'Delete offer templates' %}" class="confirmation-button btn-icon"
-                        data-confirmation-title="{% trans 'Please confirm that you really want to delete this offer template' %}"
-                        data-confirmation-text="{% trans 'This cannot be reversed.' %}"
+                        data-confirmation-title="{{ delete_dialog_title }}"
+                        data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ offer_template.name }}"
                         data-action="{% url 'delete_offertemplate' slug=offer_template.slug %}">
                     <i data-feather="trash-2"></i>

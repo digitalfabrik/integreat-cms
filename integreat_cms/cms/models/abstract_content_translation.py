@@ -8,11 +8,12 @@ from django.utils.translation import ugettext_lazy as _
 from linkcheck.models import Link
 
 from .languages.language import Language
+from .abstract_base_model import AbstractBaseModel
 from ..constants import status
 from ..utils.translation_utils import ugettext_many_lazy as __
 
 
-class AbstractContentTranslation(models.Model):
+class AbstractContentTranslation(AbstractBaseModel):
     """
     Data model representing a translation of some kind of content (e.g. pages or events)
     """
@@ -417,7 +418,7 @@ class AbstractContentTranslation(models.Model):
         """
         return self.title
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method.
         It is used for logging.

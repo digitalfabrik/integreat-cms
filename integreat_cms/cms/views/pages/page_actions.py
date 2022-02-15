@@ -9,7 +9,6 @@ import uuid
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
@@ -20,7 +19,7 @@ from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
 from ....xliff.utils import pages_to_xliff_file
 from ...constants import text_directions
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...forms import PageForm
 from ...models import Page, Region, PageTranslation
 from ...utils.file_utils import extract_zip_archive
@@ -31,8 +30,6 @@ logger = logging.getLogger(__name__)
 
 
 @require_POST
-@login_required
-@region_permission_required
 def archive_page(request, page_id, region_slug, language_slug):
     """
     Archive page object
@@ -79,8 +76,6 @@ def archive_page(request, page_id, region_slug, language_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 def restore_page(request, page_id, region_slug, language_slug):
     """
     Restore page object (set ``archived=False``)
@@ -146,8 +141,6 @@ def restore_page(request, page_id, region_slug, language_slug):
     )
 
 
-@login_required
-@region_permission_required
 @permission_required("cms.view_page")
 # pylint: disable=unused-argument
 def view_page(request, page_id, region_slug, language_slug):
@@ -193,8 +186,6 @@ def view_page(request, page_id, region_slug, language_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.delete_page")
 def delete_page(request, page_id, region_slug, language_slug):
     """
@@ -235,8 +226,6 @@ def delete_page(request, page_id, region_slug, language_slug):
     )
 
 
-@login_required
-@region_permission_required
 @permission_required("cms.view_page")
 # pylint: disable=unused-argument
 def export_pdf(request, region_slug, language_slug):
@@ -296,8 +285,6 @@ def expand_page_translation_id(request, short_url_id):
     return HttpResponseNotFound("<h1>Page not found</h1>")
 
 
-@login_required
-@region_permission_required
 @permission_required("cms.view_page")
 def download_xliff(request, region_slug, language_slug):
     """
@@ -369,8 +356,6 @@ def download_xliff(request, region_slug, language_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_page")
 # pylint: disable=unused-argument
 def post_translation_state_ajax(request, region_slug):
@@ -402,8 +387,6 @@ def post_translation_state_ajax(request, region_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_page")
 def upload_xliff(request, region_slug, language_slug):
     """
@@ -507,8 +490,6 @@ def upload_xliff(request, region_slug, language_slug):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_page")
 # pylint: disable=too-many-arguments
 def move_page(request, region_slug, language_slug, page_id, target_id, position):
@@ -574,17 +555,18 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_page")
 @permission_required("cms.grant_page_permissions")
-# pylint: disable=too-many-branches
-def grant_page_permission_ajax(request):
+# pylint: disable=too-many-branches,unused-argument
+def grant_page_permission_ajax(request, region_slug):
     """
     Grant a user editing or publishing permissions on a specific page object
 
     :param request: The current request
     :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
 
     :raises ~django.core.exceptions.PermissionDenied: If page permissions are disabled for this region or the user does
                                                       not have the permission to grant page permissions
@@ -689,17 +671,18 @@ def grant_page_permission_ajax(request):
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_page")
 @permission_required("cms.grant_page_permissions")
-# pylint: disable=too-many-branches
-def revoke_page_permission_ajax(request):
+# pylint: disable=too-many-branches,unused-argument
+def revoke_page_permission_ajax(request, region_slug):
     """
     Remove a page permission for a given user and page
 
     :param request: The current request
     :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
 
     :raises ~django.core.exceptions.PermissionDenied: If page permissions are disabled for this region or the user does
                                                       not have the permission to revoke page permissions
@@ -799,11 +782,9 @@ def revoke_page_permission_ajax(request):
     )
 
 
-@login_required
-@region_permission_required
 @permission_required("cms.view_page")
 # pylint: disable=unused-argument
-def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
+def get_page_order_table_ajax(request, region_slug, parent_id, page_id):
     """
     Retrieve the order table for a given page and a given parent page.
     This is used in the page form to change the order of a page relative to its siblings.
@@ -814,11 +795,11 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
-    :param page_id: The id of the page of the current page form
-    :type page_id: int
-
     :param parent_id: The id of the parent page to which the order table should be returned
     :type parent_id: int
+
+    :param page_id: The id of the page of the current page form
+    :type page_id: int
 
     :return: The rendered page order table
     :rtype: ~django.template.response.TemplateResponse
@@ -849,8 +830,6 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
     )
 
 
-@login_required
-@region_permission_required
 @permission_required("cms.view_page")
 # pylint: disable=unused-argument
 def get_new_page_order_table_ajax(request, region_slug, parent_id):
@@ -893,8 +872,6 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
     )
 
 
-@login_required
-@region_permission_required
 @permission_required("cms.view_page")
 # pylint: disable=unused-argument
 def render_mirrored_page_field(request, region_slug):

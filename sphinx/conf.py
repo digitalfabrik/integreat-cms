@@ -67,6 +67,10 @@ intersphinx_mapping = {
         None,
     ),
     "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
+    "pytest": ("https://docs.pytest.org/en/latest/", None),
+    "pytest-cov": ("https://pytest-cov.readthedocs.io/en/latest/", None),
+    "pytest-django": ("https://pytest-django.readthedocs.io/en/latest/", None),
+    "pytest-xdist": ("https://pytest-xdist.readthedocs.io/en/latest/", None),
     "requests": ("https://docs.python-requests.org/en/master/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
     "sphinx-rtd-theme": (
@@ -258,3 +262,9 @@ def setup(app):
     """
     # Setup Django after config is initialized
     app.connect("django-configured", patch_django_for_autodoc)
+    # Add crossref type for links to the pytest documentation
+    app.add_crossref_type(
+        directivename="fixture",
+        rolename="fixture",
+        indextemplate="pair: %s; fixture",
+    )

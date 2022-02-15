@@ -3,7 +3,6 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -17,7 +16,7 @@ from ...constants import (
     events_time_range,
     translation_status,
 )
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...models import EventTranslation
 from ...forms import EventFilterForm
 from .event_context_mixin import EventContextMixin
@@ -25,8 +24,6 @@ from .event_context_mixin import EventContextMixin
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
 class EventListView(TemplateView, EventContextMixin):
     """
@@ -38,6 +35,13 @@ class EventListView(TemplateView, EventContextMixin):
     template = "events/event_list.html"
     #: Template for list of archived events
     template_archived = "events/event_list_archived.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
+    extra_context = {
+        "current_menu_item": "events",
+        "WEBAPP_URL": settings.WEBAPP_URL,
+        "PUBLIC": status.PUBLIC,
+        "DEEPL_ENABLED": settings.DEEPL_ENABLED,
+    }
     #: Whether or not to show archived events
     archived = False
 
@@ -198,13 +202,11 @@ class EventListView(TemplateView, EventContextMixin):
         )
         chunk = request.GET.get("page")
         event_chunk = paginator.get_page(chunk)
-        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
-                **context,
-                "current_menu_item": "events",
+                **self.get_context_data(**kwargs),
                 "events": event_chunk,
                 "archived_count": region.events.filter(archived=True).count(),
                 "language": language,
@@ -213,9 +215,6 @@ class EventListView(TemplateView, EventContextMixin):
                 "filter_poi": poi,
                 "translation_status": translation_status,
                 "search_query": query,
-                "WEBAPP_URL": settings.WEBAPP_URL,
-                "PUBLIC": status.PUBLIC,
-                "DEEPL_ENABLED": settings.DEEPL_ENABLED,
             },
         )
 

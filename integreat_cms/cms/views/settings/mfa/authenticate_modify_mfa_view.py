@@ -4,11 +4,9 @@ This module contains all views related to multi-factor authentication
 import logging
 import time
 
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.generic import FormView
 
@@ -17,7 +15,6 @@ from ....forms import AuthenticationForm
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
 class AuthenticateModifyMfaView(FormView):
     """
     View to authenticate a user before changing the mfa settings
@@ -27,8 +24,18 @@ class AuthenticateModifyMfaView(FormView):
     template_name = "settings/mfa/authenticate.html"
     #: The form class for this form view (see :class:`~django.views.generic.edit.FormMixin`)
     form_class = AuthenticationForm
-    #: The URL to redirect to when the form is successfully processed (see :class:`~django.views.generic.edit.FormMixin`)
-    success_url = reverse_lazy("register_new_mfa_key")
+
+    def get_success_url(self):
+        """
+        Determine the URL to redirect to when the user is authenticated successfully
+
+        :return: The url to redirect on success
+        :rtype: str
+        """
+        kwargs = (
+            {"region_slug": self.request.region.slug} if self.request.region else {}
+        )
+        return reverse("register_new_mfa_key", kwargs=kwargs)
 
     def form_valid(self, form):
         """

@@ -32,7 +32,7 @@ class MfaVerifyView(View):
 
         if "mfa_user_id" not in request.session:
             return JsonResponse(
-                {"success": False, "error": _("You need to log in first")}
+                {"success": False, "error": _("You need to log in first")}, status=403
             )
 
         user = get_user_model().objects.get(id=request.session["mfa_user_id"])
@@ -54,7 +54,9 @@ class MfaVerifyView(View):
             )
         except InvalidAuthenticationResponse as e:
             logger.exception(e)
-            return JsonResponse({"success": False, "error": "Authentication rejected"})
+            return JsonResponse(
+                {"success": False, "error": "Authentication rejected"}, status=403
+            )
 
         # Update counter.
         key.sign_count = authentication_verification.new_sign_count

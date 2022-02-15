@@ -13,7 +13,7 @@
                 <h3 class="font-bold text-white"><i data-feather="flag" class="mr-2"></i> {% trans 'My Language Preference' %}</h3>
             </div>
             <div class="px-4 pb-4">
-                <form action="{% url 'set_language' %}" method="post" class="w-full">
+                <form action="{% url 'i18n:set_language' %}" method="post" class="w-full">
                     {% csrf_token %}
                     <input name="next" type="hidden" value="{{ redirect_to }}">
                     <label for="language">{% trans 'Choose language:' %}</label>
@@ -99,7 +99,17 @@
                             <td class="pl-4">{{ key.name }}</td>
                             <td class="pl-2 whitespace-nowrap">{{ key.last_usage }}</td>
                             <td class="pl-2 whitespace-nowrap">{{ key.created_at }}</td>
-                            <td class="p-2 text-right"><a class="btn btn-red" href="{% url 'delete_mfa_key' key_id=key.id %}"><i data-feather="trash-2" class="text-white"></i></a></td>
+                            <td class="p-2 text-right">
+                                <a class="btn btn-red" href="{% spaceless %}
+                                       {% if request.region %}
+                                           {% url 'delete_mfa_key' region_slug=request.region.slug key_id=key.id %}
+                                       {% else %}
+                                           {% url 'delete_mfa_key' key_id=key.id %}
+                                       {% endif %}
+                                   {% endspaceless %}">
+                                    <i data-feather="trash-2" class="text-white"></i>
+                                </a>
+                            </td>
                         </tr>
                     {% empty %}
                         <tr>
@@ -110,7 +120,17 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                <p><a class="btn" href="{% url 'register_new_mfa_key' %}">{% trans 'Add a new 2FA key' %}</a></p>
+                <p>
+                    <a class="btn" href="{% spaceless %}
+                           {% if request.region %}
+                               {% url 'register_new_mfa_key' region_slug=request.region.slug %}
+                           {% else %}
+                               {% url 'register_new_mfa_key' %}
+                           {% endif %}
+                        {% endspaceless %}">
+                        {% trans 'Add a new 2FA key' %}
+                    </a>
+                </p>
             </div>
         </div>
 </div>

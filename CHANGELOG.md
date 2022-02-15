@@ -1,6 +1,11 @@
 UNRELEASED
 ----------
 
+* [ [#1162](https://github.com/digitalfabrik/integreat-cms/issues/1162) ] Allow management role to delete imprint
+* [ [#765](https://github.com/digitalfabrik/integreat-cms/issues/765) ] Add extended view tests
+* [ [#765](https://github.com/digitalfabrik/integreat-cms/issues/765) ] Add tests of form submissions
+* [ [#1163](https://github.com/digitalfabrik/integreat-cms/issues/1163) ] Fix error when editor creates new page
+
 
 2022.2.0-beta
 -------------

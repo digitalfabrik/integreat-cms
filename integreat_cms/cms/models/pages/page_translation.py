@@ -91,7 +91,7 @@ class PageTranslation(AbstractBasePageTranslation):
         """
 
         return settings.BASE_URL + reverse(
-            "expand_page_translation_id", kwargs={"short_url_id": self.id}
+            "public:expand_page_translation_id", kwargs={"short_url_id": self.id}
         )
 
     @cached_property

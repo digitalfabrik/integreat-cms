@@ -21,18 +21,6 @@ def main():
     """" Application entry point """
     read_config()
 
-    running_tests = False
-    for arg in sys.argv:
-        if arg == "--set=COVERAGE":
-            running_tests = True
-    if running_tests:
-        # pylint: disable=import-outside-toplevel
-        from coverage import Coverage
-
-        cov = Coverage()
-        cov.erase()
-        cov.start()
-
     try:
         # pylint: disable=import-outside-toplevel
         from django.core.management import execute_from_command_line
@@ -51,13 +39,6 @@ def main():
             )
         raise
     execute_from_command_line(sys.argv)
-
-    if running_tests:
-        cov.stop()
-        cov.save()
-        cov.html_report()
-        covered = cov.report()
-        cov.erase()
 
 
 if __name__ == "__main__":

@@ -7,7 +7,6 @@ from webauthn import generate_registration_options, options_to_json
 from webauthn.helpers import bytes_to_base64url
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import View
@@ -17,19 +16,24 @@ from ....decorators import modify_mfa_authenticated
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
 @method_decorator(modify_mfa_authenticated, name="dispatch")
 class GetMfaChallengeView(View):
     """
     View to generate a challenge for multi-factor-authentication
     """
 
-    def get(self, request):
-        """
+    def get(self, request, *args, **kwargs):
+        r"""
         Return MFA challenge
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
 
         :return: The mfa challenge as JSON
         :rtype: ~django.http.JsonResponse

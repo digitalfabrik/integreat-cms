@@ -22,7 +22,7 @@ class PasswordResetView(auth_views.PasswordResetView):
     #: The full name of a template to use for the subject of the email with the reset password link.
     subject_template_name = "authentication/password_reset_email_subject.html"
     #: If the password reset process was successfully initialized, stay on the password reset page
-    success_url = reverse_lazy("password_reset")
+    success_url = reverse_lazy("public:password_reset")
 
     def dispatch(self, *args, **kwargs):
         r"""
@@ -42,7 +42,7 @@ class PasswordResetView(auth_views.PasswordResetView):
                 self.request,
                 _("You are already logged in."),
             )
-            return redirect("redirect")
+            return redirect("public:region_selection")
         return super().dispatch(*args, **kwargs)
 
     def form_valid(self, form):

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
       overlayForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const data = new FormData(overlayForm as HTMLFormElement);
-        if (data.get("dismiss_tutorial")) {
+        if (data.get("dismiss-tutorial")) {
           fetch(overlayForm.getAttribute("action"), {
             method: overlayForm.getAttribute("method"),
             body: data,

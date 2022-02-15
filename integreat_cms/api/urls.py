@@ -1,7 +1,7 @@
 """
 Expansion of API-Endpoints for the CMS
 """
-from django.conf.urls import include, url
+from django.urls import include, path
 
 from .v3.events import events
 from .v3.feedback import (
@@ -26,128 +26,120 @@ from .v3.push_notifications import sent_push_notifications
 from .v3.regions import regions, liveregions, hiddenregions
 from .v3.offers import offers
 
+
+#: The namespace for this URL config (see :attr:`django.urls.ResolverMatch.app_name`)
+app_name = "api"
+
 content_api_urlpatterns = [
-    url(r"^pages/?$", pages, name="api_pages"),
-    url(r"^locations/?$", locations, name="api_locations"),
-    url(r"^events/?$", events, name="api_events"),
-    url(
-        r"^(?:page|post)/?$",
-        single_page,
-        name="api_single_page",
-    ),
-    url(r"^children/?$", children, name="api_children"),
-    url(r"^parents/?$", parents, name="api_parents"),
-    url(
-        r"^pdf/?$",
-        pdf_export,
-        name="api_pdf_export",
-    ),
-    url(
-        r"^sent_push_notifications/?$",
+    path("pages/", pages, name="pages"),
+    path("locations/", locations, name="locations"),
+    path("events/", events, name="events"),
+    path("page/", single_page, name="single_page"),
+    path("post/", single_page, name="single_page"),
+    path("children/", children, name="children"),
+    path("parents/", parents, name="parents"),
+    path("pdf/", pdf_export, name="pdf_export"),
+    path(
+        "sent_push_notifications/",
         sent_push_notifications,
-        name="api_sent_push_notifications",
+        name="sent_push_notifications",
     ),
-    url(
-        r"^(?:imprint|disclaimer)/?$",
-        imprint,
-        name="api_imprint",
-    ),
-    url(r"^(?:offers|extras)/?$", offers, name="api_offers"),
-    url(
-        r"^feedback/",
+    path("imprint/", imprint, name="imprint"),
+    path("disclaimer/", imprint, name="imprint"),
+    path("offers/", offers, name="offers"),
+    path("extras/", offers, name="offers"),
+    path(
+        "feedback/",
         include(
             [
-                url(
-                    r"^$",
+                path(
+                    "",
                     legacy_feedback_endpoint.legacy_feedback_endpoint,
-                    name="api_legacy_feedback_endpoint",
+                    name="legacy_feedback_endpoint",
                 ),
-                url(
-                    r"^categories/?$",
+                path(
+                    "categories/",
                     region_feedback.region_feedback,
-                    name="api_region_feedback",
+                    name="region_feedback",
                 ),
-                url(
-                    r"^page/?$",
-                    page_feedback.page_feedback,
-                    name="api_page_feedback",
-                ),
-                url(
-                    r"^poi/?$",
+                path("page/", page_feedback.page_feedback, name="page_feedback"),
+                path(
+                    "poi/",
                     poi_feedback.poi_feedback,
-                    name="api_poi_feedback",
+                    name="poi_feedback",
                 ),
-                url(
-                    r"^event/?$",
+                path(
+                    "event/",
                     event_feedback.event_feedback,
-                    name="api_event_feedback",
+                    name="event_feedback",
                 ),
-                url(
-                    r"^events/?$",
+                path(
+                    "events/",
                     event_list_feedback.event_list_feedback,
-                    name="api_event_list_feedback",
+                    name="event_list_feedback",
                 ),
-                url(
-                    r"^imprint-page/?$",
+                path(
+                    "imprint-page/",
                     imprint_page_feedback.imprint_page_feedback,
-                    name="api_imprint_page_feedbacks",
+                    name="imprint_page_feedbacks",
                 ),
-                url(
-                    r"^map/?$",
+                path(
+                    "map/",
                     map_feedback.map_feedback,
-                    name="api_map_feedback",
+                    name="map_feedback",
                 ),
-                url(
-                    r"^search/?$",
+                path(
+                    "search/",
                     search_result_feedback.search_result_feedback,
-                    name="api_search_result_feedback",
+                    name="search_result_feedback",
                 ),
-                url(
-                    r"^(?:extras|offers)/?$",
+                path(
+                    "extras/",
                     offer_list_feedback.offer_list_feedback,
-                    name="api_offer_list_feedback",
+                    name="offer_list_feedback",
                 ),
-                url(
-                    r"^(?:extra|offer)/?$",
-                    offer_feedback.offer_feedback,
-                    name="api_offer_feedback",
+                path(
+                    "offers/",
+                    offer_list_feedback.offer_list_feedback,
+                    name="offer_list_feedback",
                 ),
+                path("extra/", offer_feedback.offer_feedback, name="offer_feedback"),
+                path("offer/", offer_feedback.offer_feedback, name="offer_feedback"),
             ]
         ),
     ),
 ]
 
 region_api_urlpatterns = [
-    url(r"^$", regions, name="api_regions"),
-    url(r"^live/?$", liveregions, name="api_regions_live"),
-    url(r"^hidden/?$", hiddenregions, name="api_regions_hidden"),
+    path("", regions, name="regions"),
+    path("live/", liveregions, name="regions_live"),
+    path("hidden/", hiddenregions, name="regions_hidden"),
 ]
 
-
+#: The url patterns of this module (see :doc:`topics/http/urls`)
 urlpatterns = [
-    url(r"^api/regions/", include(region_api_urlpatterns)),
-    url(r"^wp-json/extensions/v3/sites/", include(region_api_urlpatterns)),
-    url(
-        r"^api/(?P<region_slug>[-\w]+)/",
+    path("api/regions/", include(region_api_urlpatterns)),
+    path("wp-json/extensions/v3/sites/", include(region_api_urlpatterns)),
+    path(
+        "api/<slug:region_slug>/",
         include(
             [
-                url(r"^languages/?$", languages, name="api_languages"),
-                url(r"^(?:offers|extras)/?$", offers, name="api_offers"),
-                url(r"^(?P<language_slug>[-\w]+)/", include(content_api_urlpatterns)),
+                path("languages/", languages, name="languages"),
+                path("offers/", offers, name="offers"),
+                path("extras/", offers, name="offers"),
+                path("<slug:language_slug>/", include(content_api_urlpatterns)),
             ]
         ),
     ),
-    url(
-        r"^(?P<region_slug>[-\w]+)/",
+    path(
+        "<slug:region_slug>/",
         include(
             [
-                url(
-                    r"^de/wp-json/extensions/v3/languages/?$",
-                    languages,
-                    name="api_languages",
+                path(
+                    "de/wp-json/extensions/v3/languages/", languages, name="languages"
                 ),
-                url(
-                    r"^(?P<language_slug>[-\w]+)/wp-json/extensions/v3/",
+                path(
+                    "<slug:language_slug>/wp-json/extensions/v3/",
                     include(content_api_urlpatterns),
                 ),
             ]

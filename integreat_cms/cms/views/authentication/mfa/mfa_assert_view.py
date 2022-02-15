@@ -34,7 +34,7 @@ class MfaAssertView(View):
         """
         if "mfa_user_id" not in request.session:
             return JsonResponse(
-                {"success": False, "error": _("You need to log in first")}
+                {"success": False, "error": _("You need to log in first")}, status=403
             )
 
         if request.user.is_authenticated:

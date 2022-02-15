@@ -18,7 +18,7 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
     #: The template which should be rendered
     template_name = "authentication/password_reset_confirm.html"
     #: If the password was successfully reset, redirect to the login
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("public:login")
 
     def dispatch(self, *args, **kwargs):
         r"""
@@ -38,7 +38,7 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
                 self.request,
                 _("You are already logged in."),
             )
-            return redirect("redirect")
+            return redirect("public:region_selection")
         response = super().dispatch(*args, **kwargs)
         if isinstance(response, HttpResponseRedirect) or self.validlink:
             # If the link is valid, render the password reset confirm form (redirect means valid because the first step
@@ -56,7 +56,7 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
             ),
         )
         logger.debug("An invalid password reset link was used.")
-        return redirect("password_reset")
+        return redirect("public:password_reset")
 
     def form_valid(self, form):
         """

@@ -1,8 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
 from django.utils.translation import gettext as _
 from django.views.generic import ListView
@@ -10,20 +8,23 @@ from django.views.generic.base import RedirectView
 
 from linkcheck.models import Link
 
-from ...decorators import region_permission_required
 from ...utils.filter_links import filter_links
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 class LinkListView(ListView):
     """
     View for retrieving a list of links grouped by their state
     """
 
+    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "linkcheck/links_by_filter.html"
+    #: Designates the name of the variable to use in the context
+    #: (see :class:`~django.views.generic.list.MultipleObjectMixin`)
     context_object_name = "filtered_links"
+    #: An integer specifying how many objects should be displayed per page
+    #: (see :class:`~django.views.generic.list.MultipleObjectMixin`)
     paginate_by = settings.PER_PAGE
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "linkcheck"}
 
     def get_queryset(self):
@@ -74,8 +75,6 @@ class LinkListView(ListView):
         return redirect("linkcheck", region_slug=region_slug, link_filter=link_filter)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 class LinkListRedirectView(RedirectView):
     """
     View for redirecting to main page of the broken link checker

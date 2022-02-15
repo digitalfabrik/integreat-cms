@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from ..constants import status, translation_status
 from .regions.region import Region
-
+from .abstract_base_model import AbstractBaseModel
 
 logger = logging.getLogger(__name__)
 
@@ -61,7 +61,7 @@ class ContentQuerySet(models.QuerySet):
         )
 
 
-class AbstractContentModel(models.Model):
+class AbstractContentModel(AbstractBaseModel):
     """
     Abstract base class for all content models
     """
@@ -259,7 +259,7 @@ class AbstractContentModel(models.Model):
         """
         return self.best_translation.title
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<AbstractContentModel: AbstractContentModel object (id)>``.
         It is used for logging.
