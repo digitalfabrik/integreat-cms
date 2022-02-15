@@ -59,9 +59,22 @@
             {% include "_form_language_tabs.html" with target='edit_page' instance=page_form.instance content_field="page_id" %}
             <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
                 <div class="w-full p-4">
+                    {% if page_translation_form.instance.currently_in_translation %}
+                        <div id="currently-in-translation-warning">
+                            <i data-feather="alert-triangle" class="text-red-500"></i>
+                            <label class="inline-block mb-2 font-bold">{% trans 'Warning' %}:</label>
+                            {% trans 'Translation in progress' %}
+                            (<a href="#"
+                                data-cancel-translation-process
+                                data-url="{% url 'cancel_translation_process_ajax' region_slug=request.region.slug language_slug=page_translation_form.instance.language.slug page_id=page.id %}"
+                                id="cancel-translation"
+                                class="text-blue-500 hover:underline">{% trans 'Cancel translation process' %}</a>)
+                            <br>
+                        </div>
+                    {% endif %}
                     <div class="flex justify-between mr-2">
                         <label for="{{ page_translation_form.title.id_for_label }}"
-                            data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
+                               data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
                             {{ page_translation_form.title.label }}
                         </label>
                         {% if page_translation_form.instance.id %}
@@ -93,22 +106,6 @@
                             <a href="#" data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
                                 <i data-feather="copy"></i>
                             </a><br>
-                        {% endif %}
-                        {% if page_translation_form.instance.currently_in_translation %}
-                            <div id="trans-warn">
-                                <i data-feather="alert-triangle" class="text-red-800"></i>
-                                <label class="inline-block mb-2 font-bold">{% trans 'Warning' %}:</label>
-                                {% trans 'Translation in progress' %}
-                                <a href="#"
-                                        data-unset-translation-state
-                                        data-unset-translation-state-id="{{ page.id }}"
-                                        data-unset-translation-state-language-code="{{ page_translation_form.instance.language.slug }}"
-                                        id="undo-translation"
-                                        class="italic text-purple-500"
-                                        data-url="{% url 'post_translation_state_ajax' region_slug=request.region.slug %}">
-                                    {% trans 'Abort translation process' %}
-                                </a><br>
-                            </div>
                         {% endif %}
                     {% endif %}
                     <div id="link-container" class="flex items-center">

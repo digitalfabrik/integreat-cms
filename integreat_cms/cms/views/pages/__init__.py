@@ -18,7 +18,7 @@ from .page_actions import (
     get_page_order_table_ajax,
     get_new_page_order_table_ajax,
     render_mirrored_page_field,
-    post_translation_state_ajax,
+    cancel_translation_process_ajax,
 )
 from .page_sbs_view import PageSideBySideView
 from .page_revision_view import PageRevisionView
