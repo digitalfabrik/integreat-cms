@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-02-09T12:35:39+00:00" />
+    <meta property="article:modified_time" content="2022-02-14T21:00:17+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Feedback &mdash; integreat-cms 2022.2.0-beta documentation</title>
+  <title>Tests &mdash; integreat-cms 2022.2.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/integreat-icon.png"/>
-    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref/integreat_cms.api.v3.feedback.html" />
+    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref/tests.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="CMS" href="integreat_cms.cms.html" />
-    <link rel="prev" title="V3" href="integreat_cms.api.v3.html" /> 
+    <link rel="next" title="API" href="tests.api.html" />
+    <link rel="prev" title="XLIFF" href="integreat_cms.xliff.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -258,14 +258,14 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="integreat_cms.api.html">API</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.html">API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.middleware.html">Middleware</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.middleware.html#json-debug-toolbar-middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#events">Events</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#imprint">Imprint</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#languages">Languages</a></li>
@@ -466,7 +466,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tests</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tests.api.html">API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#api-config">API Config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#api-test">API Test</a></li>
@@ -480,7 +480,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html#conftest">Conftest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conftest">Conftest</a></li>
 </ul>
 </li>
 </ul>
@@ -735,12 +735,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="integreat_cms.html">Integreat CMS</a> &raquo;</li>
-          <li><a href="integreat_cms.api.html">API</a> &raquo;</li>
-          <li><a href="integreat_cms.api.v3.html">V3</a> &raquo;</li>
-      <li>Feedback</li>
+      <li>Tests</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../ref-ext/integreat_cms.api.v3.feedback.html" class="fa fa-search-plus"> Open extended view</a>
+            <a href="../ref-ext/tests.html" class="fa fa-search-plus"> Open extended view</a>
           
       </li>
   </ul>
@@ -749,382 +746,143 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="feedback">
-<h1>Feedback<a class="headerlink" href="#feedback" title="Permalink to this headline"></a></h1>
-<section id="event-feedback">
-<h2>Event Feedback<a class="headerlink" href="#event-feedback" title="Permalink to this headline"></a></h2>
+  <section id="tests">
+<h1>Tests<a class="headerlink" href="#tests" title="Permalink to this headline"></a></h1>
+<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v7.1.0.dev221+gf22451717)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
+<p>In addition, we use the following plugins:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/index.html" title="(in pytest-cov v3.0.0)"><span class="xref std std-doc">pytest-cov</span></a>: This plugin produces coverage reports.</p></li>
+<li><p><a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/index.html" title="(in pytest-django)"><span class="xref std std-doc">pytest-django</span></a>: Provide a few helpers for Django</p></li>
+<li><p><a class="reference external" href="https://pytest-xdist.readthedocs.io/en/latest/index.html" title="(in pytest-xdist)"><span>pytest-xdist</span></a>: Enable distributing tests across multiple CPUs to speed up test execution</p></li>
+</ul>
+<p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/" title="(in Django v3.2)"><span>Testing in Django</span></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/overview/" title="(in Django v3.2)"><span>Writing and running tests</span></a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tests.api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests.api.html#api-config">API Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.api.html#api-test">API Test</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests.cms.html">CMS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests.cms.views.html">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.html#view-config">View Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.html#view-test">View Test</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="conftest">
+<h2>Conftest<a class="headerlink" href="#conftest" title="Permalink to this headline"></a></h2>
+<p>This module contains shared fixtures for pytest</p>
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">ALL_ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['MANAGEMENT',</span> <span class="pre">'EDITOR',</span> <span class="pre">'EVENT_MANAGER',</span> <span class="pre">'ROOT',</span> <span class="pre">'MUNICIPALITY_TEAM',</span> <span class="pre">'CMS_TEAM',</span> <span class="pre">'APP_TEAM',</span> <span class="pre">'MARKETING_TEAM',</span> <span class="pre">'ANONYMOUS']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>All region and staff roles and anonymous users</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="s1">&#39;MANAGEMENT&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;EDITOR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;EVENT_MANAGER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ROOT&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;MUNICIPALITY_TEAM&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CMS_TEAM&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;APP_TEAM&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;MARKETING_TEAM&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ANONYMOUS&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">ANONYMOUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ANONYMOUS'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>A role identifier for anonymous users</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">PRIV_STAFF_ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['ROOT',</span> <span class="pre">'MUNICIPALITY_TEAM',</span> <span class="pre">'CMS_TEAM']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>All roles of staff users that don’t just have read-only permissions</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;ROOT&#39;</span><span class="p">,</span> <span class="s1">&#39;MUNICIPALITY_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;CMS_TEAM&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">REGION_ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['MANAGEMENT',</span> <span class="pre">'EDITOR',</span> <span class="pre">'EVENT_MANAGER']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>All roles of region users</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;MANAGEMENT&#39;</span><span class="p">,</span> <span class="s1">&#39;EDITOR&#39;</span><span class="p">,</span> <span class="s1">&#39;EVENT_MANAGER&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['MANAGEMENT',</span> <span class="pre">'EDITOR',</span> <span class="pre">'EVENT_MANAGER',</span> <span class="pre">'ROOT',</span> <span class="pre">'MUNICIPALITY_TEAM',</span> <span class="pre">'CMS_TEAM',</span> <span class="pre">'APP_TEAM',</span> <span class="pre">'MARKETING_TEAM']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>All region and staff roles</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="s1">&#39;MANAGEMENT&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;EDITOR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;EVENT_MANAGER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ROOT&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;MUNICIPALITY_TEAM&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CMS_TEAM&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;APP_TEAM&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;MARKETING_TEAM&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">ROOT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ROOT'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>A role identifier for superusers</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">STAFF_ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['ROOT',</span> <span class="pre">'MUNICIPALITY_TEAM',</span> <span class="pre">'CMS_TEAM',</span> <span class="pre">'APP_TEAM',</span> <span class="pre">'MARKETING_TEAM']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>All roles of staff users</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;ROOT&#39;</span><span class="p">,</span> <span class="s1">&#39;MUNICIPALITY_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;CMS_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;APP_TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;MARKETING_TEAM&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.event_feedback.</span></span><span class="sig-name descname"><span class="pre">event_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/event_feedback.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback about single event in database</p>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">load_test_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">django_db_setup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_db_blocker</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Load the test data initially for all test cases</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
+<li><p><strong>django_db_setup</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/database.html#std-fixture-django_db_setup" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">django_db_setup</span></code></a>) – The fixture providing the database availability</p></li>
+<li><p><strong>django_db_blocker</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/database.html#std-fixture-django_db_blocker" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">django_db_blocker</span></code></a>) – The fixture providing the database blocker</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>decorated function that saves feedback in database</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.9)"><em>Callable</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.event_feedback.</span></span><span class="sig-name descname"><span class="pre">event_feedback_internal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/event_feedback.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback about single event in database</p>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">login_role_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_db_blocker</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get the test user of the current role and force a login. Gets executed only once per user.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.FixtureRequest" title="(in pytest v7.1.0.dev221+gf22451717)"><em>pytest.FixtureRequest</em></a>) – The request object providing the parametrized role variable through <code class="docutils literal notranslate"><span class="pre">request.param</span></code></p></li>
+<li><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>django_db_blocker</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/database.html#std-fixture-django_db_blocker" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">django_db_blocker</span></code></a>) – The fixture providing the database blocker</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>JSON object according to APIv3 single page feedback endpoint definition</p>
+<dd class="field-even"><p>The http client and the current role</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)"><em>JsonResponse</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="event-list-feedback">
-<h2>Event List Feedback<a class="headerlink" href="#event-list-feedback" title="Permalink to this headline"></a></h2>
-<p>APIv3 endpoint for the events (list)</p>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.event_list_feedback.</span></span><span class="sig-name descname"><span class="pre">event_list_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/event_list_feedback.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback on events list in database</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>JSON object according to APIv3 event list feedback endpoint definition</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)"><em>JsonResponse</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="imprint-page-feedback">
-<h2>Imprint Page Feedback<a class="headerlink" href="#imprint-page-feedback" title="Permalink to this headline"></a></h2>
-<p>APIv3 endpoint for feedback about the imprint</p>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.imprint_page_feedback.</span></span><span class="sig-name descname"><span class="pre">imprint_page_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/imprint_page_feedback.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback about imprint in database</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>decorated function that saves feedback in database</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.9)"><em>Callable</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.imprint_page_feedback.</span></span><span class="sig-name descname"><span class="pre">imprint_page_feedback_internal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/imprint_page_feedback.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback about imprint in database</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>JSON object according to APIv3 imprint feedback endpoint definition</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)"><em>JsonResponse</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="legacy-feedback-endpoint">
-<h2>Legacy Feedback Endpoint<a class="headerlink" href="#legacy-feedback-endpoint" title="Permalink to this headline"></a></h2>
-<p>APIv3 legacy feedback endpoint for pages, events and imprint</p>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.legacy_feedback_endpoint.</span></span><span class="sig-name descname"><span class="pre">legacy_feedback_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/legacy_feedback_endpoint.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Decorate function for storing feedback about single page, imprint or event in database. This
-is a legacy endpoint for compatibility.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>decorated function that saves feedback in database</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.9)"><em>Callable</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="map-feedback">
-<h2>Map Feedback<a class="headerlink" href="#map-feedback" title="Permalink to this headline"></a></h2>
-<p>APIv3 endpoint for the map (POIs in general)</p>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.map_feedback.</span></span><span class="sig-name descname"><span class="pre">map_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/map_feedback.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback on map in database</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>JSON object according to APIv3 event list feedback endpoint definition</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)"><em>JsonResponse</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="offer-feedback">
-<h2>Offer Feedback<a class="headerlink" href="#offer-feedback" title="Permalink to this headline"></a></h2>
-<p>APIv3 feedback endpoint for feedback about single offer</p>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.offer_feedback.</span></span><span class="sig-name descname"><span class="pre">offer_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/offer_feedback.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback about single offer in database</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>JSON object according to APIv3 offer feedback endpoint definition</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)"><em>JsonResponse</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="offer-list-feedback">
-<h2>Offer List Feedback<a class="headerlink" href="#offer-list-feedback" title="Permalink to this headline"></a></h2>
-<p>APIv3 feedback endpoint for feedback about offers</p>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.offer_list_feedback.</span></span><span class="sig-name descname"><span class="pre">offer_list_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/offer_list_feedback.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback about offers list in database</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>JSON object according to APIv3 offers list feedback endpoint definition</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)"><em>JsonResponse</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="page-feedback">
-<h2>Page Feedback<a class="headerlink" href="#page-feedback" title="Permalink to this headline"></a></h2>
-<p>APIv3 endpoint for feedback bout single pages</p>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.page_feedback.</span></span><span class="sig-name descname"><span class="pre">page_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/page_feedback.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Decorate function for storing feedback about single page in database</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>decorated function that saves feedback in database</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.9)"><em>Callable</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.page_feedback.</span></span><span class="sig-name descname"><span class="pre">page_feedback_internal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/page_feedback.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback about single event in database</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>JSON object according to APIv3 single page feedback endpoint definition</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)"><em>JsonResponse</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="poi-feedback">
-<h2>POI Feedback<a class="headerlink" href="#poi-feedback" title="Permalink to this headline"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.poi_feedback.</span></span><span class="sig-name descname"><span class="pre">poi_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/poi_feedback.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback about single POI in database</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>decorated function that saves feedback in database</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.9)"><em>Callable</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="region-feedback">
-<h2>Region Feedback<a class="headerlink" href="#region-feedback" title="Permalink to this headline"></a></h2>
-<p>APIv3 endpoint for feedback about full region (main level of content)</p>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.region_feedback.</span></span><span class="sig-name descname"><span class="pre">region_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/region_feedback.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback about region / main pages in database</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>JSON object according to APIv3 region feedback endpoint definition</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)"><em>JsonResponse</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="search-result-feedback">
-<h2>Search Result Feedback<a class="headerlink" href="#search-result-feedback" title="Permalink to this headline"></a></h2>
-<p>APIv3 app search result feedback endpoint</p>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.feedback.search_result_feedback.</span></span><span class="sig-name descname"><span class="pre">search_result_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_technical</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/feedback/search_result_feedback.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Store feedback on app search results in database</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – HTTP request body data</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region of this sitemap’s urls</p></li>
-<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language of this sitemap’s urls</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The comment sent as feedback</p></li>
-<li><p><strong>rating</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – up or downvote, neutral</p></li>
-<li><p><strong>is_technical</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – is feedback on content or on tech</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>JSON object according to APIv3 search result feedback endpoint definition</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)"><em>JsonResponse</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1136,8 +894,8 @@ is a legacy endpoint for compatibility.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="integreat_cms.api.v3.html" class="btn btn-neutral float-left" title="V3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="integreat_cms.cms.html" class="btn btn-neutral float-right" title="CMS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="integreat_cms.xliff.html" class="btn btn-neutral float-left" title="XLIFF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tests.api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -1147,7 +905,7 @@ is a legacy endpoint for compatibility.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 09, 2022.
+      <span class="lastupdated">Last updated on Feb 14, 2022.
       </span></p>
   </div>
 
