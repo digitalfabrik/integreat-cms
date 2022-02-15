@@ -2,6 +2,7 @@ import feather from "feather-icons";
 
 import { addDragAndDropListeners } from "../tree-drag-and-drop";
 import { addConfirmationDialogListeners } from "../confirmation-popups";
+import { toggleBulkActionButton }from "../bulk-actions";
 
 /*
  * The functionality to toggle subpages
@@ -124,9 +125,14 @@ async function fetchSubpages(collapseSpan: HTMLElement): Promise<number[]> {
   let parentRow = collapseSpan.closest("tr");
   childrenDoc.querySelectorAll("tr").forEach(function(rowToinsert: HTMLTableRowElement) {
     let newCollapseSpan = rowToinsert.querySelector(".collapse-subpages");
+    let newCheckbox = rowToinsert.querySelector(".bulk-select-item");
     if (newCollapseSpan) {
       // add event listener for page expansion if not leaf node
       newCollapseSpan.addEventListener("click", toggleSubpages);
+    }
+    if (newCheckbox) {
+      // add event listener to update bulk action button
+      newCheckbox.addEventListener("change", toggleBulkActionButton);
     }
     if (!rowToinsert.classList.contains("drop-between")) {
       // record children ids to update all ancestors descendants data attribute

@@ -34,17 +34,15 @@ function isInputElement(el: Element): el is HTMLInputElement {
 
 window.addEventListener("load", () => {
   const selectAllCheckbox = document.getElementById("bulk-select-all");
-  const bulkAction = document.getElementById("bulk-action") as HTMLSelectElement;
   const bulkActionForm = document.getElementById("bulk-action-form");
   const selectItems = Array.from(document.getElementsByClassName("bulk-select-item"));
-  const bulkActionButton = document.getElementById(
-    "bulk-action-execute"
-  ) as HTMLButtonElement;
+  const bulkAction = document.getElementById("bulk-action") as HTMLSelectElement;
 
   if (selectAllCheckbox && isInputElement(selectAllCheckbox)) {
     selectAllCheckbox.addEventListener("click", () => {
       const value = selectAllCheckbox.checked;
-      selectItems
+      // get all currently rendered page checkboxes
+      Array.from(document.getElementsByClassName("bulk-select-item"))
         .filter(isInputElement)
         .forEach((checkbox) => (checkbox.checked = value));
       toggleBulkActionButton();
@@ -63,23 +61,6 @@ window.addEventListener("load", () => {
     el.addEventListener("change", toggleBulkActionButton);
   });
 
-  function toggleBulkActionButton() {
-    // Only activate button if at least one item and the action is selected
-    // also check if at least one page translation exists for PDF export before activation
-    let selectedAction = bulkAction.options[bulkAction.selectedIndex];
-    if (
-      !selectItems
-        .filter(isInputElement)
-        .some((el) => el.checked) ||
-      bulkAction.selectedIndex === 0 ||
-      (selectedAction.id === "pdf-export-option" && !hasTranslation())
-    ) {
-      bulkActionButton.disabled = true;
-    } else {
-      bulkActionButton.disabled = false;
-    }
-  }
-
   function bulkActionExecute(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
@@ -95,16 +76,39 @@ window.addEventListener("load", () => {
     form.submit();
   }
 
-  function hasTranslation(): boolean {
-    // checks if at least one of the selected pages has a translation for the current language
-    let languageSlug = document.getElementById("pdf-export-option").dataset.languageSlug;
-    return selectItems
-      .filter(isInputElement)
-      .filter(inputElement => inputElement.checked)
-      .some(inputElement => {
-        return inputElement
-          .closest("tr")
-          .querySelector(`.lang-grid .${languageSlug} .no-trans`) === null;
-      });
-  }
 });
+
+export function toggleBulkActionButton() {
+  // Only activate button if at least one item and the action is selected
+  // also check if at least one page translation exists for PDF export before activation
+  const selectItems = Array.from(document.getElementsByClassName("bulk-select-item"));
+  const bulkAction = document.getElementById("bulk-action") as HTMLSelectElement;
+  const bulkActionButton = document.getElementById(
+    "bulk-action-execute"
+  ) as HTMLButtonElement;
+  let selectedAction = bulkAction.options[bulkAction.selectedIndex];
+  if (
+    !selectItems
+      .filter(isInputElement)
+      .some((el) => el.checked) ||
+    bulkAction.selectedIndex === 0 ||
+    (selectedAction.id === "pdf-export-option" && !hasTranslation(selectItems))
+  ) {
+    bulkActionButton.disabled = true;
+  } else {
+    bulkActionButton.disabled = false;
+  }
+}
+
+function hasTranslation(selectItems: Element[]): boolean {
+  // checks if at least one of the selected pages has a translation for the current language
+  let languageSlug = document.getElementById("pdf-export-option").dataset.languageSlug;
+  return selectItems
+    .filter(isInputElement)
+    .filter(inputElement => inputElement.checked)
+    .some(inputElement => {
+      return inputElement
+        .closest("tr")
+        .querySelector(`.lang-grid .${languageSlug} .no-trans`) === null;
+    });
+}
