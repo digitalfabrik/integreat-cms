@@ -1,3 +1,4 @@
+import feather from "feather-icons";
 import { getCsrfToken } from "../utils/csrf-token";
 
 window.addEventListener("load", () => {
@@ -40,6 +41,8 @@ async function queryPois(
     // Set and display new data
     document.getElementById("poi-query-result").classList.remove("hidden");
     document.getElementById("poi-query-result").innerHTML = data;
+    // trigger icon replacement
+    feather.replace({ class: 'inline-block' });
   }
 
   document.querySelectorAll(".option-new-poi").forEach((node) => {
@@ -50,7 +53,7 @@ async function queryPois(
   });
 
   document.querySelectorAll(".option-existing-poi").forEach((node) => {
-    console.debug("add", node);
+    console.debug("Set event listener for existing POI:", node);
     node.addEventListener("click", (event) => {
       event.preventDefault();
       setPoi(event);
@@ -64,9 +67,13 @@ function setPoi({ target }: Event) {
     option.getAttribute("data-poi-title"),
     option.getAttribute("data-poi-id"),
     option.getAttribute("data-poi-address"),
+    option.getAttribute("data-poi-postcode"),
     option.getAttribute("data-poi-city"),
     option.getAttribute("data-poi-country")
   );
+  // Show the address container
+  document.getElementById("poi-address-container")?.classList.remove("hidden");
+  console.debug("Rendered POI data");
 }
 
 function removePoi() {
@@ -77,8 +84,12 @@ function removePoi() {
     "-1",
     "",
     "",
+    "",
     ""
   );
+  // Hide the address container
+  document.getElementById("poi-address-container")?.classList.add("hidden");
+  console.debug("Removed POI data");
 }
 
 function newPoiWindow({ target }: Event) {
@@ -95,6 +106,7 @@ function renderPoiData(
   queryPlaceholder: string,
   id: string,
   address: string,
+  postcode: string,
   city: string,
   country: string
 ) {
@@ -102,10 +114,12 @@ function renderPoiData(
     .getElementById("poi-query-input")
     .setAttribute("placeholder", queryPlaceholder);
   document.getElementById("id_location")?.setAttribute("value", id);
-  document.getElementById("poi-address")?.setAttribute("value", address);
-  document.getElementById("poi-city")?.setAttribute("value", city);
-  document.getElementById("poi-country")?.setAttribute("value", country);
-
+  const poiAddress = document.getElementById("poi-address");
+  if (poiAddress) {
+    poiAddress.textContent = `${address}\n${postcode} ${city}\n${country}`;
+  }
+  document.getElementById("poi-google-maps-link")
+      ?.setAttribute("href", `https://www.google.com/maps/search/?api=1&query=${address}, ${postcode} ${city}, ${country}`)
   document.getElementById("poi-query-result").classList.add("hidden");
   (document.getElementById("poi-query-input") as HTMLInputElement).value = "";
 }

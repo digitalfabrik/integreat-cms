@@ -7,6 +7,7 @@ UNRELEASED
 * [ [#1163](https://github.com/digitalfabrik/integreat-cms/issues/1163) ] Fix error when editor creates new page
 * [ [#1165](https://github.com/digitalfabrik/integreat-cms/issues/1165) ] Fix bulk action button for sub pages
 * [ [#1173](https://github.com/digitalfabrik/integreat-cms/issues/1173) ] Fix bug where unused location is preselected for new event
+* [ [#1166](https://github.com/digitalfabrik/integreat-cms/issues/1166) ] Fix creation of location from event form
 
 
 2022.2.0-beta

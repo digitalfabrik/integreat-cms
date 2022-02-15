@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-15 14:46+0000\n"
+"POT-Creation-Date: 2022-02-16 00:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: cms/constants/administrative_division.py:38
-#: cms/templates/events/event_form.html:204 cms/templates/pois/poi_list.html:62
+#: cms/templates/pois/poi_list.html:62
 #: cms/templates/pois/poi_list_archived.html:30
 msgid "City"
 msgstr "Stadt"
@@ -3535,10 +3535,14 @@ msgstr "Filter zurücksetzen"
 msgid "Apply filter"
 msgstr "Filter anwenden"
 
-#: cms/templates/events/_poi_query_result.html:11
+#: cms/templates/events/_poi_query_result.html:10
+msgid "Select existing location"
+msgstr "Bestehenden Ort auswählen"
+
+#: cms/templates/events/_poi_query_result.html:31
 #, python-format
-msgid "Create location with title \"%(poi_query)s\""
-msgstr "Ort mit Titel \"%(poi_query)s\" erstellen"
+msgid "Create location \"%(poi_query)s\""
+msgstr "Ort \"%(poi_query)s\" erstellen"
 
 #: cms/templates/events/event_form.html:21
 #, python-format
@@ -3602,57 +3606,47 @@ msgstr "Name des Veranstaltungsortes"
 msgid "Remove location from event"
 msgstr "Veranstaltungsort von Veranstaltung entfernen"
 
-#: cms/templates/events/event_form.html:198
+#: cms/templates/events/event_form.html:195
 msgid ""
 "Create an event location or start typing the name of an existing location"
 msgstr ""
 "Erstellen Sie einen Veranstaltungsort oder beginnen Sie den Namen eines "
 "bestehenden Veranstaltungsortes einzutippen"
 
-#: cms/templates/events/event_form.html:200
+#: cms/templates/events/event_form.html:201
 #: cms/templates/pois/poi_form.html:115
 msgid "Address"
 msgstr "Adresse"
 
-#: cms/templates/events/event_form.html:202 cms/templates/pois/poi_list.html:60
-#: cms/templates/pois/poi_list_archived.html:28
-msgid "Street"
-msgstr "Straße"
+#: cms/templates/events/event_form.html:209
+msgid "Open on Google Maps"
+msgstr "Auf Google Maps öffnen"
 
-#: cms/templates/events/event_form.html:206 cms/templates/pois/poi_list.html:63
-#: cms/templates/pois/poi_list_archived.html:31
-msgid "Country"
-msgstr "Land"
-
-#: cms/templates/events/event_form.html:208
-msgid "Map"
-msgstr "Karte"
-
-#: cms/templates/events/event_form.html:219
+#: cms/templates/events/event_form.html:221
 #: cms/templates/events/event_list_archived_row.html:84
 msgid "Restore event"
 msgstr "Veranstaltung wiederherstellen"
 
-#: cms/templates/events/event_form.html:226
+#: cms/templates/events/event_form.html:228
 msgid "Restore this event"
 msgstr "Diese Veranstaltung wiederherstellen"
 
-#: cms/templates/events/event_form.html:229
+#: cms/templates/events/event_form.html:231
 #: cms/templates/events/event_list_row.html:108
 msgid "Archive event"
 msgstr "Veranstaltung archivieren"
 
-#: cms/templates/events/event_form.html:236
+#: cms/templates/events/event_form.html:238
 msgid "Archive this event"
 msgstr "Diese Veranstaltung archivieren"
 
-#: cms/templates/events/event_form.html:242
+#: cms/templates/events/event_form.html:244
 #: cms/templates/events/event_list_archived_row.html:93
 #: cms/templates/events/event_list_row.html:117
 msgid "Delete event"
 msgstr "Veranstaltung löschen"
 
-#: cms/templates/events/event_form.html:249
+#: cms/templates/events/event_form.html:251
 msgid "Delete this event"
 msgstr "Diese Veranstaltung löschen"
 
@@ -4833,10 +4827,20 @@ msgstr "Archivierte Orte"
 msgid "Create location"
 msgstr "Ort erstellen"
 
+#: cms/templates/pois/poi_list.html:60
+#: cms/templates/pois/poi_list_archived.html:28
+msgid "Street"
+msgstr "Straße"
+
 #: cms/templates/pois/poi_list.html:61
 #: cms/templates/pois/poi_list_archived.html:29
 msgid "Postal Code"
 msgstr "Postleitzahl"
+
+#: cms/templates/pois/poi_list.html:63
+#: cms/templates/pois/poi_list_archived.html:31
+msgid "Country"
+msgstr "Land"
 
 #: cms/templates/pois/poi_list.html:75
 msgid "No locations found with these filters."
@@ -6437,6 +6441,9 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Map"
+#~ msgstr "Karte"
 
 #~ msgid "Please confirm that you really want to delete this language"
 #~ msgstr "Bitte bestätigen Sie, dass diese Sprache gelöscht werden soll"
