@@ -1,7 +1,7 @@
 """
 Expansion of API-Endpoints for the CMS
 """
-from django.urls import include, path
+from django.urls import include, path, re_path
 
 from .v3.events import events
 from .v3.feedback import (
@@ -48,63 +48,57 @@ content_api_urlpatterns = [
     path("disclaimer/", imprint, name="imprint"),
     path("offers/", offers, name="offers"),
     path("extras/", offers, name="offers"),
+    re_path(
+        r"^feedback/?$",
+        legacy_feedback_endpoint.legacy_feedback_endpoint,
+        name="legacy_feedback_endpoint",
+    ),
     path(
         "feedback/",
         include(
             [
-                path(
-                    "",
-                    legacy_feedback_endpoint.legacy_feedback_endpoint,
-                    name="legacy_feedback_endpoint",
-                ),
-                path(
-                    "categories/",
+                re_path(
+                    r"^categories/?$",
                     region_feedback.region_feedback,
                     name="region_feedback",
                 ),
-                path("page/", page_feedback.page_feedback, name="page_feedback"),
-                path(
-                    "poi/",
-                    poi_feedback.poi_feedback,
-                    name="poi_feedback",
+                re_path(r"^page/?$", page_feedback.page_feedback, name="page_feedback"),
+                re_path(r"^poi/?$", poi_feedback.poi_feedback, name="poi_feedback"),
+                re_path(
+                    r"^event/?$", event_feedback.event_feedback, name="event_feedback"
                 ),
-                path(
-                    "event/",
-                    event_feedback.event_feedback,
-                    name="event_feedback",
-                ),
-                path(
-                    "events/",
+                re_path(
+                    r"^events/?$",
                     event_list_feedback.event_list_feedback,
                     name="event_list_feedback",
                 ),
-                path(
-                    "imprint-page/",
+                re_path(
+                    r"^imprint-page/?$",
                     imprint_page_feedback.imprint_page_feedback,
                     name="imprint_page_feedbacks",
                 ),
-                path(
-                    "map/",
-                    map_feedback.map_feedback,
-                    name="map_feedback",
-                ),
-                path(
-                    "search/",
+                re_path(r"^map/?$", map_feedback.map_feedback, name="map_feedback"),
+                re_path(
+                    r"^search/?$",
                     search_result_feedback.search_result_feedback,
                     name="search_result_feedback",
                 ),
-                path(
-                    "extras/",
+                re_path(
+                    r"^offers/?$",
                     offer_list_feedback.offer_list_feedback,
                     name="offer_list_feedback",
                 ),
-                path(
-                    "offers/",
+                re_path(
+                    r"^extras/?$",
                     offer_list_feedback.offer_list_feedback,
                     name="offer_list_feedback",
                 ),
-                path("extra/", offer_feedback.offer_feedback, name="offer_feedback"),
-                path("offer/", offer_feedback.offer_feedback, name="offer_feedback"),
+                re_path(
+                    r"^offer/?$", offer_feedback.offer_feedback, name="offer_feedback"
+                ),
+                re_path(
+                    r"^extra/?$", offer_feedback.offer_feedback, name="offer_feedback"
+                ),
             ]
         ),
     ),
