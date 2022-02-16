@@ -61,7 +61,7 @@ def login_role_user(request, load_test_data, django_db_blocker):
     :type request: pytest.FixtureRequest
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
+    :type load_test_data: NoneType
 
     :param django_db_blocker: The fixture providing the database blocker
     :type django_db_blocker: :fixture:`django_db_blocker`
