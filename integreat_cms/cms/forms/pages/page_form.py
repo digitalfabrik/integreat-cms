@@ -82,11 +82,6 @@ class PageForm(CustomModelForm, MoveNodeForm):
         # Pass form object to ParentFieldWidget
         self.fields["parent"].widget.form = self
 
-        # Exclude current region from choices for mirrored content
-        self.fields["mirrored_page_region"].queryset = Region.objects.exclude(
-            id=self.instance.region_id
-        )
-
         # Limit possible parents to pages of current region
         parent_queryset = self.instance.region.pages.all()
 
