@@ -86,7 +86,7 @@ urlpatterns = [
                     name="password_reset",
                 ),
                 path(
-                    "<uuid:uidb64>-<token>/",
+                    "<uidb64>/<token>/",
                     authentication.PasswordResetConfirmView.as_view(),
                     name="password_reset_confirm",
                 ),
@@ -94,7 +94,7 @@ urlpatterns = [
         ),
     ),
     path(
-        "activate-account/<uuid:uidb64>-<token>/",
+        "activate-account/<uidb64>/<token>/",
         authentication.AccountActivationView.as_view(),
         name="activate_account",
     ),

@@ -126,6 +126,7 @@ nitpick_ignore = [
     ("py:class", "builtins.int"),
     ("py:class", "builtins.AssertionError"),
     ("py:class", "builtins.int"),
+    ("py:class", "NoneType"),
     ("py:class", "django.contrib.admin.helpers.ActionForm"),
     ("py:class", "django.contrib.admin.checks.ModelAdminChecks"),
     ("py:attr", "django.contrib.auth.models.Permission.user_set"),

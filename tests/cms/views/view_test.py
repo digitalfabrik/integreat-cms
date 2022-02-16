@@ -1,10 +1,15 @@
 import pytest
 
 from django.conf import settings
+from django.test.client import Client
 from django.urls import reverse
 
 from ...conftest import ANONYMOUS
-from .view_config import PARAMETRIZED_VIEWS, PARAMETRIZED_REDIRECT_VIEWS
+from .view_config import (
+    PARAMETRIZED_VIEWS,
+    PARAMETRIZED_REDIRECT_VIEWS,
+    PARAMETRIZED_PUBLIC_VIEWS,
+)
 
 
 @pytest.mark.django_db
@@ -29,7 +34,7 @@ def test_view_status_code(login_role_user, view_name, kwargs, post_data, roles):
     :type roles: list
     """
     client, role = login_role_user
-    url = reverse(view_name, args=(), kwargs=kwargs)
+    url = reverse(view_name, kwargs=kwargs)
     if post_data:
         kwargs = {"data": post_data}
         # If the post data is a string, assume json as content type
@@ -84,8 +89,39 @@ def test_view_redirect(login_role_user, view_name, kwargs, roles, target):
     client, role = login_role_user
     # For redirection checks, we only test the given roles
     if role in roles:
-        url = reverse(view_name, args=(), kwargs=kwargs)
+        url = reverse(view_name, kwargs=kwargs)
         response = client.get(url)
         print(response.headers)
         assert response.status_code == 302
         assert response.headers.get("location") == target
+
+
+# pylint: disable=unused-argument
+@pytest.mark.django_db
+@pytest.mark.parametrize("view_name,post_data", PARAMETRIZED_PUBLIC_VIEWS)
+def test_public_view_status_code(load_test_data, view_name, post_data):
+    """
+    This test checks whether the given view return the correct status code for anonymous users
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :type load_test_data: NoneType
+
+    :param view_name: The identifier of the view
+    :type view_name: str
+
+    :param post_data: The post data for this view
+    :type post_data: dict
+    """
+    client = Client()
+    url = reverse(view_name)
+    if post_data:
+        response = client.post(url, data=post_data)
+    else:
+        response = client.get(url)
+    print(response.headers)
+    if post_data:
+        # Post-views should redirect after a successful operation
+        assert response.status_code == 302
+    else:
+        # Get-views should return 200
+        assert response.status_code == 200

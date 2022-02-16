@@ -28,6 +28,7 @@ VIEWS = [
             ("api:regions_live", ALL_ROLES),
             ("api:regions_hidden", ALL_ROLES),
             ("public:login_mfa", ALL_ROLES),
+            ("sitemap:index", ALL_ROLES),
             ("admin_dashboard", STAFF_ROLES),
             ("admin_feedback", STAFF_ROLES),
             ("languages", STAFF_ROLES),
@@ -108,6 +109,7 @@ VIEWS = [
             ("api:pages", ALL_ROLES),
             ("api:pdf_export", ALL_ROLES),
             ("api:sent_push_notifications", ALL_ROLES),
+            ("sitemap:region_language", ALL_ROLES),
             ("archived_pages", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("archived_pois", ROLES),
             ("edit_imprint", ROLES),
@@ -598,4 +600,12 @@ PARAMETRIZED_REDIRECT_VIEWS = [
     (view_name, kwargs, roles, target)
     for view_conf, kwargs in REDIRECT_VIEWS
     for view_name, roles, target in view_conf
+]
+
+#: Public views that only work for anonymous users
+PARAMETRIZED_PUBLIC_VIEWS = [
+    ("public:login", {}),
+    ("public:login_mfa", {}),
+    ("public:password_reset", {}),
+    ("public:password_reset", {"email": "root@root.root"}),
 ]
