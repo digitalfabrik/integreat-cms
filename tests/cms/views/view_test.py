@@ -48,8 +48,8 @@ def test_view_status_code(login_role_user, view_name, kwargs, post_data, roles):
         # If the role should be allowed to access the view, we expect a successful result
         if post_data:
             if response.headers.get("Content-Type") == "application/json":
-                # Json-views should return 200
-                assert response.status_code == 200
+                # Json-views should return 200 or 201 CREATED (for feedback)
+                assert response.status_code in [200, 201]
             else:
                 # Normal post-views should redirect after a successful operation (200 usually mean form errors)
                 assert response.status_code == 302

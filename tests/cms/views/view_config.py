@@ -109,6 +109,216 @@ VIEWS = [
             ("api:pages", ALL_ROLES),
             ("api:pdf_export", ALL_ROLES),
             ("api:sent_push_notifications", ALL_ROLES),
+            (
+                "api:legacy_feedback_endpoint",
+                ALL_ROLES,
+                {
+                    "permalink": "/aubsburg/de/willkommen",
+                    "comment": "Cool page!",
+                    "rating": "up",
+                    "category": "Inhalte",
+                },
+            ),
+            (
+                "api:legacy_feedback_endpoint",
+                ALL_ROLES,
+                {
+                    "permalink": "/aubsburg/de/willkommen",
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
+            (
+                "api:legacy_feedback_endpoint",
+                ALL_ROLES,
+                {
+                    "permalink": "/aubsburg/de/events/test-veranstaltung",
+                    "comment": "Cool event!",
+                    "rating": "up",
+                    "category": "Inhalte",
+                },
+            ),
+            (
+                "api:legacy_feedback_endpoint",
+                ALL_ROLES,
+                {
+                    "permalink": "/aubsburg/de/events/test-veranstaltung",
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
+            (
+                "api:region_feedback",
+                ALL_ROLES,
+                {"comment": "Cool region!", "rating": "up", "category": "Inhalte"},
+            ),
+            (
+                "api:region_feedback",
+                ALL_ROLES,
+                {
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
+            (
+                "api:page_feedback",
+                ALL_ROLES,
+                {
+                    "slug": "willkommen",
+                    "comment": "Cool page!",
+                    "rating": "up",
+                    "category": "Inhalte",
+                },
+            ),
+            (
+                "api:page_feedback",
+                ALL_ROLES,
+                {
+                    "slug": "willkommen",
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
+            (
+                "api:poi_feedback",
+                ALL_ROLES,
+                {
+                    "slug": "test-ort",
+                    "comment": "Cool POI!",
+                    "rating": "up",
+                    "category": "Inhalte",
+                },
+            ),
+            (
+                "api:poi_feedback",
+                ALL_ROLES,
+                {
+                    "slug": "test-ort",
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
+            (
+                "api:event_feedback",
+                ALL_ROLES,
+                {
+                    "slug": "test-veranstaltung",
+                    "comment": "Cool event!",
+                    "rating": "up",
+                    "category": "Inhalte",
+                },
+            ),
+            (
+                "api:event_feedback",
+                ALL_ROLES,
+                {
+                    "slug": "test-veranstaltung",
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
+            (
+                "api:event_list_feedback",
+                ALL_ROLES,
+                {"comment": "Cool events!", "rating": "up", "category": "Inhalte"},
+            ),
+            (
+                "api:event_list_feedback",
+                ALL_ROLES,
+                {
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
+            (
+                "api:imprint_page_feedbacks",
+                ALL_ROLES,
+                {"comment": "Cool imprint!", "rating": "up", "category": "Inhalte"},
+            ),
+            (
+                "api:imprint_page_feedbacks",
+                ALL_ROLES,
+                {
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
+            (
+                "api:map_feedback",
+                ALL_ROLES,
+                {"comment": "Cool map!", "rating": "up", "category": "Inhalte"},
+            ),
+            (
+                "api:map_feedback",
+                ALL_ROLES,
+                {
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
+            (
+                "api:search_result_feedback",
+                ALL_ROLES,
+                {
+                    "query": "search query",
+                    "comment": "Cool search results!",
+                    "rating": "up",
+                    "category": "Inhalte",
+                },
+            ),
+            (
+                "api:search_result_feedback",
+                ALL_ROLES,
+                {
+                    "query": "search query",
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
+            (
+                "api:offer_list_feedback",
+                ALL_ROLES,
+                {"comment": "Cool offers!", "rating": "up", "category": "Inhalte"},
+            ),
+            (
+                "api:offer_list_feedback",
+                ALL_ROLES,
+                {
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
+            (
+                "api:offer_feedback",
+                ALL_ROLES,
+                {
+                    "slug": "sprungbrett",
+                    "comment": "Cool offer!",
+                    "rating": "up",
+                    "category": "Inhalte",
+                },
+            ),
+            (
+                "api:offer_feedback",
+                ALL_ROLES,
+                {
+                    "slug": "sprungbrett",
+                    "comment": "Strange bug!",
+                    "rating": "down",
+                    "category": "Technisches Feedback",
+                },
+            ),
             ("sitemap:region_language", ALL_ROLES),
             ("archived_pages", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("archived_pois", ROLES),
