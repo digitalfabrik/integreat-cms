@@ -300,6 +300,9 @@ function require_database {
         echo "✔ Running PostgreSQL database detected" | print_success
         # Migrate database
         migrate_database
+
+        # Set default settings for other dev tools, e.g. testing
+        export DJANGO_SETTINGS_MODULE="integreat_cms.core.settings"
     else
         # Make sure script has the permission to run docker
         ensure_docker_permission
