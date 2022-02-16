@@ -607,4 +607,5 @@ PARAMETRIZED_PUBLIC_VIEWS = [
     ("public:login", {}),
     ("public:login_mfa", {}),
     ("public:password_reset", {}),
+    ("public:password_reset", {"email": "root@root.root"}),
 ]
