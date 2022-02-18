@@ -12,6 +12,7 @@ UNRELEASED
 * [ [#1185](https://github.com/digitalfabrik/integreat-cms/issues/1185) ] Fix feedback API
 * [ [#1188](https://github.com/digitalfabrik/integreat-cms/issues/1188) ] Fix error in broken link checker
 * [ [#1179](https://github.com/digitalfabrik/integreat-cms/issues/1179) ] Disable browser cache of page tree
+* [ [#1190](https://github.com/digitalfabrik/integreat-cms/issues/1190) ] Add possibility to set custom region prefix
 
 
 2022.2.0-beta

@@ -106,6 +106,17 @@ class Region(AbstractBaseModel):
             _("Specify as JSON."),
         ),
     )
+    custom_prefix = models.CharField(
+        max_length=48,
+        blank=True,
+        verbose_name=_("custom prefix"),
+        help_text=__(
+            _("Enter parts of the name that should not affect sorting."),
+            _(
+                "Use this field only if the prefix is not an available choice in the list of administrative divisions above."
+            ),
+        ),
+    )
 
     events_enabled = models.BooleanField(
         default=True,
@@ -351,7 +362,8 @@ class Region(AbstractBaseModel):
         :return: The prefix of the region
         :rtype: str
         """
-
+        if self.custom_prefix:
+            return self.custom_prefix
         if self.administrative_division_included and self.default_language:
             # Get administrative division in region's default language
             with override(self.default_language.slug):
