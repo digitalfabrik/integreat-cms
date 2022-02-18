@@ -512,9 +512,9 @@ urlpatterns = [
                                 ),
                             ),
                             path(
-                                "post-translation-state/",
-                                pages.post_translation_state_ajax,
-                                name="post_translation_state_ajax",
+                                "cancel-translation-process/<slug:language_slug>/<int:page_id>/",
+                                pages.cancel_translation_process_ajax,
+                                name="cancel_translation_process_ajax",
                             ),
                             path(
                                 "search-poi/",

@@ -1,50 +1,31 @@
 import {getCsrfToken} from "../utils/csrf-token";
 
-interface TranslationState {
-  language: string;
-}
-
 window.addEventListener("load", () => {
-  document
-    .querySelectorAll("[data-unset-translation-state]")
-    .forEach((unsetTranslationButton) =>
-      unsetTranslationButton.addEventListener("click", (event) => {
-        event.preventDefault();
-        unsetTranslationState(
-          unsetTranslationButton.getAttribute(
-            "data-unset-translation-state-id"
-          ),
-          unsetTranslationButton.getAttribute(
-            "data-unset-translation-state-language-code"
-          )
-        );
-      })
-    );
+  document.getElementById("cancel-translation")
+    ?.addEventListener("click", unsetTranslationState);
 });
 
 /*
 These functions get triggered when user reset the currently_in_translation state
 ajax POST request for database update is send, update of translation state icons accordingly
 */
-function unsetTranslationState(pageId: string, languageCode: string) {
+function unsetTranslationState(event: Event) {
+  event.preventDefault();
   // fetch url from template
-  const url = document.getElementById("undo-translation").dataset.url;
-  const translationState = false;
+  const url = document.getElementById("cancel-translation").dataset.url;
   // send ajax request for database update
-  postTranslationState(url, pageId, languageCode, translationState)
+  cancelTranslationState(url)
     // on success update GUI
     .then((response) => updateTranslationForm(response));
+  console.debug("Cancelled translation process");
 }
 
 /*
 sends ajax request for updating all pages 
 to the given translationState
 */
-async function postTranslationState(
+async function cancelTranslationState(
   url: string,
-  pageId: string,
-  languageCode: string,
-  translationState: boolean
 ) {
   const response = await fetch(url, {
     method: "POST",
@@ -53,30 +34,15 @@ async function postTranslationState(
       HTTP_X_REQUESTED_WITH: "XMLHttpRequest",
       "X-CSRFToken": getCsrfToken(),
     },
-    body: JSON.stringify({
-      language: languageCode,
-      pageId: pageId,
-      translationState: translationState,
-    }),
   });
   return await response.json();
 }
 
-function updateTranslationForm(data: TranslationState) {
-  /* the icons representing the state of the translation 
-    depend on template context at the moment the form was called
-    so to update the GUI state, initial state gets hidden and current state is displayed */
-  const translationTab = document.querySelector(`.${data.language}`);
-  translationTab.classList.add("hidden");
-  siblings(translationTab, ".ajax").forEach((node) =>
-    node.classList.remove("hidden")
-  );
-  document.getElementById("trans-warn").classList.add("hidden");
-}
-
-function siblings(node: Element, selector: string) {
-  const parentNode = node.parentNode;
-  return [...parentNode.querySelectorAll(selector)]
-    .filter((el) => el.parentNode === parentNode)
-    .filter((el) => el !== node);
+function updateTranslationForm(data: any) {
+  // Hide warning
+  document.getElementById("currently-in-translation-warning").classList.add("hidden");
+  // Hide initial "currently-in-translation" icon
+  document.getElementById("currently-in-translation-state").classList.add("hidden");
+  // Reset to the new icon (either up to date or outdated)
+  document.getElementById(`reset-translation-state-${data.translationState}`).classList.remove("hidden");
 }

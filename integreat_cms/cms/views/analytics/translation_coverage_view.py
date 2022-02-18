@@ -39,7 +39,7 @@ class TranslationCoverageView(TemplateView):
         for language in region.active_languages:
             language_coverage_data = Counter()
             for page in pages:
-                translation_state = page.get_translation_state(language)
+                translation_state = page.get_translation_state(language.slug)
                 language_coverage_data[translation_state] += 1
 
                 if translation_state == translation_status.OUTDATED:

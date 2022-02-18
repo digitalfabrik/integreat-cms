@@ -210,22 +210,22 @@ class AbstractContentModel(AbstractBaseModel):
         """
         return self.backend_translation or self.default_translation
 
-    def get_translation_state(self, language):
+    def get_translation_state(self, language_slug):
         """
         This function returns the current state of a translation in the given language.
 
-        :param language: The desired :class:`~integreat_cms.cms.models.languages.language.Language`
-        :type language: ~integreat_cms.cms.models.languages.language.Language
+        :param language_slug: The slug of the desired :class:`~integreat_cms.cms.models.languages.language.Language`
+        :type language_slug: str
 
         :return: A string describing the state of the translation, one of :data:`~integreat_cms.cms.constants.translation_status.CHOICES`
         :rtype: str
         """
-        translation = self.get_translation(language.slug)
+        translation = self.get_translation(language_slug)
         if not translation:
             return translation_status.MISSING
         if translation.currently_in_translation:
             return translation_status.IN_TRANSLATION
-        source_language = self.region.get_source_language(language.slug)
+        source_language = self.region.get_source_language(language_slug)
         if not source_language:
             return translation_status.UP_TO_DATE
         source_translation = self.get_translation(source_language.slug)
@@ -244,7 +244,7 @@ class AbstractContentModel(AbstractBaseModel):
         :rtype: dict
         """
         return {
-            node.slug: (node.language, self.get_translation_state(node))
+            node.slug: (node.language, self.get_translation_state(node.slug))
             for node in self.region.language_tree
             if node.active
         }

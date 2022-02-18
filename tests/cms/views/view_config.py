@@ -723,6 +723,17 @@ VIEWS = [
         # The kwargs for these views
         {"region_slug": "augsburg", "slug": "page-tree"},
     ),
+    (
+        [
+            (
+                "cancel_translation_process_ajax",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"post_data": True},
+            )
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "en", "page_id": 1},
+    ),
 ]
 
 #: In order for these views to be used as parameters, we have to flatten the nested structure

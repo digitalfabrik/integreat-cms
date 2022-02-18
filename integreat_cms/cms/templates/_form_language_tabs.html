@@ -15,9 +15,18 @@
                             <a class="block py-2 px-4" href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}">
                         {% endif %}
                         {% if other_status == translation_status.IN_TRANSLATION %}
-                            <span title="{% trans 'Currently in translation' %}">
+                            <span {% if other_language == language %} id="currently-in-translation-state" {% endif %} title="{% trans 'Currently in translation' %}">
                                 <i data-feather="clock"></i>
                             </span>
+                            {# For the current language, provide fallback icons in case translation process is cancelled #}
+                            {% if other_language == language %}
+                                <span id="reset-translation-state-{{ translation_status.OUTDATED }}" title="{% trans 'Translation outdated' %}" class="hidden">
+                                    <i data-feather="alert-triangle"></i>
+                                </span>
+                                <span id="reset-translation-state-{{ translation_status.UP_TO_DATE }}" title="{% trans 'Translation up-to-date' %}" class="hidden">
+                                    <i data-feather="check"></i>
+                                </span>
+                            {% endif %}
                         {% elif other_status == translation_status.OUTDATED %}
                             <span title="{% trans 'Translation outdated' %}">
                                 <i data-feather="alert-triangle"></i>

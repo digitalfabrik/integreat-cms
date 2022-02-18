@@ -17,6 +17,7 @@ from django.views.decorators.http import require_POST
 
 from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
+from ....api.decorators import json_response
 from ....xliff.utils import pages_to_xliff_file
 from ...constants import text_directions
 from ...decorators import permission_required
@@ -357,10 +358,11 @@ def download_xliff(request, region_slug, language_slug):
 
 @require_POST
 @permission_required("cms.change_page")
+@json_response
 # pylint: disable=unused-argument
-def post_translation_state_ajax(request, region_slug):
+def cancel_translation_process_ajax(request, region_slug, language_slug, page_id):
     """
-    This view is called for manually unseting the translation process
+    This view is called for manually unsetting the translation process
 
     :param request: ajax request
     :type request: ~django.http.HttpRequest
@@ -368,21 +370,35 @@ def post_translation_state_ajax(request, region_slug):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
+    :param language_slug: The slug of the current language
+    :type language_slug: str
+
+    :param page_id: The id of the requested page
+    :type page_id: int
+
     :return: on success returns language of updated translation
     :rtype: ~django.http.JsonResponse
     """
-    decoded_json = json.loads(request.body.decode("utf-8"))
-    target_language = decoded_json["language"]
-    page_id = decoded_json["pageId"]
-    translation_state = decoded_json["translationState"]
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
-    page_translation = page.get_translation(target_language.slug)
-    if page_translation:
-        page_translation.update(currently_in_translation=translation_state)
-        return JsonResponse({"language": target_language})
+    page_translation = page.get_translation(language_slug)
+    if not page_translation:
+        return JsonResponse(
+            {
+                "error": f"Page {page} does not have a translation for language '{language_slug}'"
+            },
+            status=404,
+        )
+    page_translation.currently_in_translation = False
+    page_translation.save()
+    # Get new (respectively old) translation state
+    translation_state = page.get_translation_state(language_slug)
     return JsonResponse(
-        {"error": _("Could not update page translation state")}, status=400
+        {
+            "success": f"Cancelled translation process for page {page} and language {page_translation.language}",
+            "languageSlug": page_translation.language.slug,
+            "translationState": translation_state,
+        }
     )
 
 

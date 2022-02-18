@@ -9,10 +9,12 @@ UNRELEASED
 * [ [#1173](https://github.com/digitalfabrik/integreat-cms/issues/1173) ] Fix bug where unused location is preselected for new event
 * [ [#1166](https://github.com/digitalfabrik/integreat-cms/issues/1166) ] Fix creation of location from event form
 * [ [#1172](https://github.com/digitalfabrik/integreat-cms/issues/1172) ] Fix filtering for locations in event list
+* [ [#1184](https://github.com/digitalfabrik/integreat-cms/issues/1184) ] Allow user to embed live content from current region
 * [ [#1185](https://github.com/digitalfabrik/integreat-cms/issues/1185) ] Fix feedback API
 * [ [#1188](https://github.com/digitalfabrik/integreat-cms/issues/1188) ] Fix error in broken link checker
 * [ [#1179](https://github.com/digitalfabrik/integreat-cms/issues/1179) ] Disable browser cache of page tree
 * [ [#1190](https://github.com/digitalfabrik/integreat-cms/issues/1190) ] Add possibility to set custom region prefix
+* [ [#1164](https://github.com/digitalfabrik/integreat-cms/issues/1164) ] Fix possibility to cancel translation process
 
 
 2022.2.0-beta
