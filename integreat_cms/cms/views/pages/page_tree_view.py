@@ -107,7 +107,7 @@ class PageTreeView(TemplateView, PageContextMixin):
             filter_form = PageFilterForm()
             filter_form.changed_data.clear()
 
-        return render(
+        response = render(
             request,
             self.template_name,
             {
@@ -118,6 +118,9 @@ class PageTreeView(TemplateView, PageContextMixin):
                 "filter_form": filter_form,
             },
         )
+        # Disable browser cache of page tree to prevent subpages from being expanded after using "back"-button
+        response["Cache-Control"] = "no-store, must-revalidate"
+        return response
 
     def post(self, request, *args, **kwargs):
         r"""

@@ -11,6 +11,7 @@ UNRELEASED
 * [ [#1172](https://github.com/digitalfabrik/integreat-cms/issues/1172) ] Fix filtering for locations in event list
 * [ [#1185](https://github.com/digitalfabrik/integreat-cms/issues/1185) ] Fix feedback API
 * [ [#1188](https://github.com/digitalfabrik/integreat-cms/issues/1188) ] Fix error in broken link checker
+* [ [#1179](https://github.com/digitalfabrik/integreat-cms/issues/1179) ] Disable browser cache of page tree
 
 
 2022.2.0-beta
