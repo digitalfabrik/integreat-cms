@@ -1,13 +1,15 @@
 import logging
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+from django.utils.translation import override, ugettext_lazy as _
 from django.apps import apps
 
 from ....gvz_api.utils import GvzRegion
 from ...models import Region, PageTranslation, LanguageTreeNode
 from ...utils.matomo_api_manager import MatomoException
 from ...utils.slug_utils import generate_unique_slug_helper
+from ...utils.translation_utils import ugettext_many_lazy as __
 from ..icon_widget import IconWidget
 from ..custom_model_form import CustomModelForm
 
@@ -56,6 +58,7 @@ class RegionForm(CustomModelForm):
             "administrative_division_included",
             "offers",
             "short_urls_enabled",
+            "custom_prefix",
         ]
         #: The widgets which are used in this form
         widgets = {
@@ -164,6 +167,100 @@ class RegionForm(CustomModelForm):
         :rtype: str
         """
         return generate_unique_slug_helper(self, "region")
+
+    def clean_custom_prefix(self):
+        """
+        Validate the custom prefix field. (see :ref:`overriding-modelform-clean-method`)
+
+        :return: The given prefix or ``None`` if it is invalid
+        :rtype: str
+        """
+        cleaned_data = self.cleaned_data
+        # Validate custom prefix
+        if cleaned_data.get("custom_prefix"):
+            # Get the administrative divisions as conflicting options
+            administrative_divisions = [
+                label
+                for choice, label in self.fields["administrative_division"].choices
+            ]
+            for language_slug, language_name in settings.LANGUAGES:
+                # Check if at least one translation of the labels matches the prefix
+                with override(language_slug):
+                    # Force evaluation of lazy-translated text
+                    translated_administrative_divisions = list(
+                        map(str, administrative_divisions)
+                    )
+                # Check if custom prefix could also be set via the administrative division
+                if (
+                    cleaned_data.get("custom_prefix")
+                    in translated_administrative_divisions
+                ):
+                    error_messages = []
+                    # Get currently selected administrative division
+                    selected_administrative_division = dict(
+                        self.fields["administrative_division"].choices
+                    )[cleaned_data.get("administrative_division")]
+                    # Check if administrative division needs to be changed to translated version
+                    if cleaned_data.get("custom_prefix") in administrative_divisions:
+                        desired_administrative_division = cleaned_data.get(
+                            "custom_prefix"
+                        )
+                    else:
+                        # Get index of translated administrative division
+                        index = translated_administrative_divisions.index(
+                            cleaned_data.get("custom_prefix")
+                        )
+                        # Get original label which needs to be selected in list
+                        desired_administrative_division = administrative_divisions[
+                            index
+                        ]
+                    if (
+                        selected_administrative_division
+                        == desired_administrative_division
+                    ):
+                        error_messages.append(
+                            _(
+                                "'{}' is already selected as administrative division."
+                            ).format(selected_administrative_division)
+                        )
+                    else:
+                        error_messages.append(
+                            _("Please select '{}' as administrative division.").format(
+                                desired_administrative_division
+                            )
+                        )
+                    # Check if default language needs to be changed in order to use this administrative division
+                    if (
+                        not self.instance.default_language
+                        or self.instance.default_language.native_name != language_name
+                    ):
+                        error_messages.append(
+                            _(
+                                "Please set {} as default language for this region."
+                            ).format(_(language_name))
+                        )
+                    # Check if administrative division is included in name yet
+                    if not cleaned_data.get("administrative_division_included"):
+                        error_messages.append(
+                            _("Please enable '{}'.").format(
+                                self.fields["administrative_division_included"].label
+                            )
+                        )
+                    self.add_error(
+                        "custom_prefix",
+                        __(*error_messages),
+                    )
+        # Check if administrative division is also included in the name and allow only one of both prefix options
+        if cleaned_data.get("custom_prefix") and cleaned_data.get(
+            "administrative_division_included"
+        ):
+            self.add_error(
+                "custom_prefix",
+                _(
+                    "You cannot include the administrative division into the name and use a custom prefix at the same time."
+                ),
+            )
+        return cleaned_data.get("custom_prefix")
 
 
 def duplicate_language_tree(

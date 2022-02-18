@@ -39,6 +39,12 @@
                         <div class="help-text">{{ form.administrative_division_included.help_text }}</div>
                     </div>
                     <div>
+                        <!-- Option for including custom prefix before region name -->
+                        <label for="{{ form.custom_prefix.id_for_label }}">{{ form.custom_prefix.label }}</label>
+                        {% render_field form.custom_prefix|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ form.custom_prefix.help_text }}</div>
+                    </div>
+                    <div>
                         <!-- General Options for region management -->
                         <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
                         {% render_field form.name|add_error_class:"border-red-500" %}
