@@ -17,7 +17,7 @@
         </a>
     {% endif %}
     <a href="{% url 'public:wiki_redirect' %}" target="_blank" rel="noopener noreferrer"
-       class="relative px-2 pt-4 text-gray-800 hover:bg-gray-200 border-r border-gray-400">
+       class="relative px-2 pt-4 text-gray-900 hover:bg-gray-200 border-r border-gray-400">
         <img class="inline-block" fill="none" width="21" height="21" src="{% static 'images/integreat-icon-contur-only.png' %}">
         {% trans 'Documentation (Wiki)' %}
     </a>
@@ -78,7 +78,7 @@
         </div>
     </div>
 </header>
-<nav id="primary-navigation" class="w-56 h-full fixed left-0 inset-y-0 text-gray-300 bg-gray-600 z-50">
+<nav id="primary-navigation" class="w-56 h-full fixed left-0 inset-y-0 text-gray-200 bg-gray-700 z-50">
     <div class="w-full p-1 h-14 bg-gray-700">
         <a href="/">
             <div class="h-full w-full bg-logo-white hover:bg-logo-yellow bg-contain bg-center bg-no-repeat"></div>
@@ -91,8 +91,8 @@
                 <i data-feather="grid"></i>
                 {% trans 'My Dashboard' %}
             </a>
-            <!-- Analysis Section -->
-            <div class="{% if current_menu_item|in_list:'analytics,statistics,translation_coverage,app_size,linkcheck' %} active {% endif %}">
+            <!-- Analytics Section -->
+            <div class="{% if current_menu_item|in_list:'analytics,statistics,translation_coverage,linkcheck' %} active {% endif %}">
                 <a href="{% url 'analytics' region_slug=request.region.slug %}"
                    class="{% if current_menu_item == 'analytics' %} active {% endif %}">
                     <i data-feather="activity"></i>
@@ -110,11 +110,6 @@
                        class="{% if current_menu_item == 'translation_coverage' %} active {% endif %}">
                         <i data-feather="check-circle"></i>
                         {% trans 'Translation Report' %}
-                    </a>
-                    <a href="{% url 'app_size' region_slug=request.region.slug %}"
-                       class="{% if current_menu_item == 'app_size' %} active {% endif %}">
-                        <i data-feather="package"></i>
-                        {% trans 'Size of the App' %}
                     </a>
                     <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}"
                        class="{% if current_menu_item == 'linkcheck' %} active {% endif %}">

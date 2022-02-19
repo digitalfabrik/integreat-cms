@@ -8,18 +8,17 @@
         <p class="py-3 text-lg"> {% trans 'Here you will find a set of tools to check the success and correctness of your app. Click on the Details button of a tool to get further information.' %}</p>
         <div class="xl:flex gap-3 pt-4">
             <div class="xl:w-1/2">
-                <!-- Broken Link Widget -->
-                {% include "analytics/_broken_links_widget.html" %}
-                <!-- Translation Status Widget -->
-                {% include "analytics/_translation_overview_widget.html" %}
-            </div>
-            <div class="xl:w-1/2">
                 <!-- Statistic Widget -->
                 {% if request.region.statistics_enabled %}
                     {% include "statistics/_statistics_widget.html" %}
                 {% endif %}
-                <!-- App Size Widget -->
-                {% include "analytics/_website_size_widget.html" %}
+
+                <!-- Translation Status Widget: TODO -->
+            </div>
+            <div class="xl:w-1/2">
+                <!-- Broken Link Widget -->
+                {% include "analytics/_broken_links_widget.html" %}
+                <!-- App Size Widget: TODO -->
             </div>
         </div>
     </div>
