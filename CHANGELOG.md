@@ -15,6 +15,7 @@ UNRELEASED
 * [ [#1179](https://github.com/digitalfabrik/integreat-cms/issues/1179) ] Disable browser cache of page tree
 * [ [#1190](https://github.com/digitalfabrik/integreat-cms/issues/1190) ] Add possibility to set custom region prefix
 * [ [#1164](https://github.com/digitalfabrik/integreat-cms/issues/1164) ] Fix possibility to cancel translation process
+* [ [#1175](https://github.com/digitalfabrik/integreat-cms/issues/1175) ] Don't show empty tag if the page has subpages
 
 
 2022.2.0-beta
