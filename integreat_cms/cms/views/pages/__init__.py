@@ -16,7 +16,6 @@ from .page_actions import (
     grant_page_permission_ajax,
     revoke_page_permission_ajax,
     get_page_order_table_ajax,
-    get_new_page_order_table_ajax,
     render_mirrored_page_field,
     cancel_translation_process_ajax,
 )

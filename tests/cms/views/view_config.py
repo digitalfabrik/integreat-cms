@@ -537,12 +537,12 @@ VIEWS = [
         {"region_slug": "nurnberg", "link_filter": "invalid"},
     ),
     (
-        [("get_new_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "parent_id": 1},
     ),
     (
-        [("get_new_page_order_table_ajax", STAFF_ROLES)],
+        [("get_page_order_table_ajax", STAFF_ROLES)],
         # The kwargs for these views
         {"region_slug": "nurnberg", "parent_id": 7},
     ),
@@ -555,6 +555,16 @@ VIEWS = [
         [("get_page_order_table_ajax", STAFF_ROLES)],
         # The kwargs for these views
         {"region_slug": "nurnberg", "parent_id": 7, "page_id": 8},
+    ),
+    (
+        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "page_id": 2},
+    ),
+    (
+        [("get_page_order_table_ajax", STAFF_ROLES)],
+        # The kwargs for these views
+        {"region_slug": "nurnberg", "page_id": 8},
     ),
     (
         [("get_page_children_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],

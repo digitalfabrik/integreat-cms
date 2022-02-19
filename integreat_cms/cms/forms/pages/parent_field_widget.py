@@ -41,26 +41,17 @@ class ParentFieldWidget(forms.widgets.Select):
         :return: The option dict
         :rtype: dict
         """
+        # Create dictionary of options
         option_dict = super().create_option(
             name, value, label, selected, index, subindex=subindex, attrs=attrs
         )
-        if not value:
-            value = 0
+        kwargs = {"region_slug": self.form.instance.region.slug}
+        if value:
+            kwargs["parent_id"] = value
         if self.form.instance.id:
-            option_dict["attrs"]["data-url"] = reverse(
-                "get_page_order_table_ajax",
-                kwargs={
-                    "region_slug": self.form.instance.region.slug,
-                    "page_id": self.form.instance.id,
-                    "parent_id": value,
-                },
-            )
-        else:
-            option_dict["attrs"]["data-url"] = reverse(
-                "get_new_page_order_table_ajax",
-                kwargs={
-                    "region_slug": self.form.instance.region.slug,
-                    "parent_id": value,
-                },
-            )
+            kwargs["page_id"] = self.form.instance.id
+        option_dict["attrs"]["data-url"] = reverse(
+            "get_page_order_table_ajax",
+            kwargs=kwargs,
+        )
         return option_dict
