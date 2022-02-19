@@ -146,6 +146,20 @@ user_settings_urlpatterns = [
     ),
 ]
 
+#: The page order table url patterns are reused twice (for root pages and for subpages)
+page_order_table_urlpatterns = [
+    path(
+        "",
+        pages.get_page_order_table_ajax,
+        name="get_page_order_table_ajax",
+    ),
+    path(
+        "page-<int:page_id>/",
+        pages.get_page_order_table_ajax,
+        name="get_page_order_table_ajax",
+    ),
+]
+
 #: The url patterns of this module (see :doc:`topics/http/urls`)
 urlpatterns = [
     path(
@@ -435,18 +449,20 @@ urlpatterns = [
                                             name="render_mirrored_page_field",
                                         ),
                                         path(
-                                            "page-order-table/parent-<int:parent_id>/",
+                                            "page-order-table/",
                                             include(
                                                 [
                                                     path(
                                                         "",
-                                                        pages.get_new_page_order_table_ajax,
-                                                        name="get_new_page_order_table_ajax",
+                                                        include(
+                                                            page_order_table_urlpatterns
+                                                        ),
                                                     ),
                                                     path(
-                                                        "page-<int:page_id>/",
-                                                        pages.get_page_order_table_ajax,
-                                                        name="get_page_order_table_ajax",
+                                                        "parent-<int:parent_id>/",
+                                                        include(
+                                                            page_order_table_urlpatterns
+                                                        ),
                                                     ),
                                                 ]
                                             ),

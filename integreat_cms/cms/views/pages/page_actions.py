@@ -800,7 +800,7 @@ def revoke_page_permission_ajax(request, region_slug):
 
 @permission_required("cms.view_page")
 # pylint: disable=unused-argument
-def get_page_order_table_ajax(request, region_slug, parent_id, page_id):
+def get_page_order_table_ajax(request, region_slug, parent_id=None, page_id=None):
     """
     Retrieve the order table for a given page and a given parent page.
     This is used in the page form to change the order of a page relative to its siblings.
@@ -822,16 +822,20 @@ def get_page_order_table_ajax(request, region_slug, parent_id, page_id):
     """
 
     region = request.region
-    page = get_object_or_404(region.pages, id=page_id)
 
-    if parent_id == "0":
-        siblings = region.get_root_pages()
+    if page_id:
+        page = get_object_or_404(region.pages, id=page_id)
     else:
+        page = None
+
+    if parent_id:
         parent = get_object_or_404(region.pages, id=parent_id)
         siblings = parent.cached_children
+    else:
+        siblings = region.get_root_pages()
 
     logger.debug(
-        "Page order table for %r and siblings %r",
+        "Page order table for page %r and siblings %r",
         page,
         siblings,
     )
@@ -841,48 +845,6 @@ def get_page_order_table_ajax(request, region_slug, parent_id, page_id):
         "pages/_page_order_table.html",
         {
             "page": page,
-            "siblings": siblings,
-        },
-    )
-
-
-@permission_required("cms.view_page")
-# pylint: disable=unused-argument
-def get_new_page_order_table_ajax(request, region_slug, parent_id):
-    """
-    Retrieve the order table for a new page and a given parent page.
-    This is used in the page form to set the position of a new page relative to its siblings.
-
-    :param request: The current request
-    :type request: ~django.http.HttpResponse
-
-    :param region_slug: The slug of the current region
-    :type region_slug: str
-
-    :param parent_id: The id of the parent page to which the order table should be returned
-    :type parent_id: int
-
-    :return: The rendered page order table
-    :rtype: ~django.template.response.TemplateResponse
-    """
-
-    region = request.region
-
-    if parent_id == "0":
-        siblings = region.get_root_pages()
-    else:
-        parent = get_object_or_404(region.pages, id=parent_id)
-        siblings = parent.cached_children
-
-    logger.debug(
-        "Page order table for a new page and siblings %r",
-        siblings,
-    )
-
-    return render(
-        request,
-        "pages/_page_order_table.html",
-        {
             "siblings": siblings,
         },
     )
