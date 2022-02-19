@@ -134,6 +134,6 @@ function drop(event: DragEvent) {
   const target_position = target.getAttribute("data-drop-position");
   // abuse confirmation dialog form to perform action
   let form = document.getElementById("confirmation-dialog").querySelector("form");
-  form.action = window.location.href + node_id + "/move/" + target_id + "/" + target_position;
+  form.action = window.location.href + node_id + "/move/" + target_id + "/" + target_position + "/";
   form.submit();
 }
