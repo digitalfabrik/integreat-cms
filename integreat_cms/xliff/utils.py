@@ -8,6 +8,8 @@ import glob
 import os
 import uuid
 
+from copy import deepcopy
+
 from django.conf import settings
 from django.contrib import messages
 from django.core import serializers
@@ -400,7 +402,8 @@ def get_xliff_import_errors(request, page_translation):
             }
         )
     # Retrieve existing page translation in the target language
-    existing_translation = page_translation.latest_revision
+    # (using model instances in forms may change them, so we need to copy it in order to not change the cached property)
+    existing_translation = deepcopy(page_translation.latest_revision)
     # Validate page translation
     page_translation_form = PageTranslationForm(
         data=model_to_dict(page_translation),

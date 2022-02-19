@@ -79,7 +79,7 @@ class PageXliffImportView(TemplateView, PageContextMixin):
         )
         # Get directory path of the uploaded XLIFF files
         self.xliff_dir = os.path.join(
-            settings.XLIFF_UPLOAD_DIR, kwargs.get("xliff_dir")
+            settings.XLIFF_UPLOAD_DIR, str(kwargs.get("xliff_dir"))
         )
 
         if not os.path.isdir(self.xliff_dir):
