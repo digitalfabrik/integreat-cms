@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-02-18T00:31:27+00:00" />
+    <meta property="article:modified_time" content="2022-02-19T13:17:45+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Urls &mdash; integreat-cms 2022.2.0-beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -779,6 +779,18 @@ Views which should not have login protection go into <a class="reference interna
 </dd></dl>
 
 <dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.cms.urls.protected.page_order_table_urlpatterns">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.urls.protected.</span></span><span class="sig-name descname"><span class="pre">page_order_table_urlpatterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;URLPattern</span> <span class="pre">''</span> <span class="pre">[name='get_page_order_table_ajax']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'page-&lt;int:page_id&gt;/'</span> <span class="pre">[name='get_page_order_table_ajax']&gt;]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/urls/protected.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.urls.protected.page_order_table_urlpatterns" title="Permalink to this definition"></a></dt>
+<dd><p>The page order table url patterns are reused twice (for root pages and for subpages)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="o">&lt;</span><span class="nx">URLPattern</span> <span class="s1">&#39;&#39;</span> <span class="p">[</span><span class="nx">name</span><span class="o">=</span><span class="s1">&#39;get_page_order_table_ajax&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="o">&lt;</span><span class="nx">URLPattern</span> <span class="s1">&#39;page-&lt;int:page_id&gt;/&#39;</span> <span class="p">[</span><span class="nx">name</span><span class="o">=</span><span class="s1">&#39;get_page_order_table_ajax&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.urls.protected.urlpatterns">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.urls.protected.</span></span><span class="sig-name descname"><span class="pre">urlpatterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;URLPattern</span> <span class="pre">'admin-dashboard/'</span> <span class="pre">[name='admin_dashboard']&gt;,</span> <span class="pre">&lt;URLResolver</span> <span class="pre">&lt;URLPattern</span> <span class="pre">list&gt;</span> <span class="pre">(None:None)</span> <span class="pre">'regions/'&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'media-library/'</span> <span class="pre">[name='media_admin']&gt;,</span> <span class="pre">&lt;URLResolver</span> <span class="pre">&lt;URLPattern</span> <span class="pre">list&gt;</span> <span class="pre">(None:None)</span> <span class="pre">'languages/'&gt;,</span> <span class="pre">&lt;URLResolver</span> <span class="pre">&lt;URLPattern</span> <span class="pre">list&gt;</span> <span class="pre">(None:None)</span> <span class="pre">'users/'&gt;,</span> <span class="pre">&lt;URLResolver</span> <span class="pre">&lt;URLPattern</span> <span class="pre">list&gt;</span> <span class="pre">(None:None)</span> <span class="pre">'roles/'&gt;,</span> <span class="pre">&lt;URLResolver</span> <span class="pre">&lt;URLPattern</span> <span class="pre">list&gt;</span> <span class="pre">(None:None)</span> <span class="pre">'organizations/'&gt;,</span> <span class="pre">&lt;URLResolver</span> <span class="pre">&lt;URLPattern</span> <span class="pre">list&gt;</span> <span class="pre">(None:None)</span> <span class="pre">'feedback/'&gt;,</span> <span class="pre">&lt;URLResolver</span> <span class="pre">&lt;URLPattern</span> <span class="pre">list&gt;</span> <span class="pre">(None:None)</span> <span class="pre">'offer-templates/'&gt;,</span> <span class="pre">&lt;URLResolver</span> <span class="pre">&lt;URLResolver</span> <span class="pre">list&gt;</span> <span class="pre">(None:None)</span> <span class="pre">''&gt;,</span> <span class="pre">&lt;URLResolver</span> <span class="pre">&lt;URLResolver</span> <span class="pre">list&gt;</span> <span class="pre">(None:None)</span> <span class="pre">'ajax/'&gt;,</span> <span class="pre">&lt;URLResolver</span> <span class="pre">&lt;URLPattern</span> <span class="pre">list&gt;</span> <span class="pre">(None:None)</span> <span class="pre">'&lt;slug:region_slug&gt;/'&gt;]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/urls/protected.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.urls.protected.urlpatterns" title="Permalink to this definition"></a></dt>
 <dd><p>The url patterns of this module (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/urls/" title="(in Django v3.2)"><span>URL dispatcher</span></a>)</p>
@@ -865,7 +877,7 @@ views, e.g.:</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 18, 2022.
+      <span class="lastupdated">Last updated on Feb 19, 2022.
       </span></p>
   </div>
 
