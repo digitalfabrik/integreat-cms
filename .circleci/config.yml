@@ -282,7 +282,7 @@ jobs:
             git remote set-url origin "https://x-access-token:$DELIVERINO_ACCESS_TOKEN@github.com/digitalfabrik/integreat-cms.git"
       - run:
           name: Bump version
-          command: pipenv run bumpver update
+          command: pipenv run bumpver update --tag=final
       - run:
           name: Get tag of newly created version
           command: |
@@ -330,7 +330,7 @@ jobs:
             echo "export CHANGELOG=\"${CHANGELOG}\"" >> $BASH_ENV
       - run:
           name: Create release as Deliverino app
-          command: pipenv run ./.circleci/scripts/create_release.py -p "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" ./dist/integreat-cms-*.tar.gz
+          command: pipenv run ./.circleci/scripts/create_release.py "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" ./dist/integreat-cms-*.tar.gz
   notify-mattermost:
     docker:
       - image: cimg/base:stable
