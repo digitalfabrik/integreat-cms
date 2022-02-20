@@ -11,15 +11,17 @@
         </p>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 2xl:grid-cols-4">
-        <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 rounded border border-solid border-gray-200 shadow-2xl bg-white">
+        <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 rounded border border-blue-500 shadow-2xl">
             <div class="rounded p-4 bg-water-500">
                 <h3 class="heading font-bold text-black"><i data-feather="check-circle" class="pb-1"></i>
                     {% trans 'Overview of the current translation status' %}
                 </h3>
             </div>
-            <canvas id="translation_coverage_chart"></canvas>
+            <div class="p-5 bg-white text-center rounded">
+                <canvas id="translation_coverage_chart" data-chart-languages="{% trans 'Languages' %}" data-chart-hits="{% trans 'Number of Pages' %}"></canvas>
+            </div>
         </div>
-        <div class="rounded border border-solid border-gray-200 shadow-2xl bg-white">
+        <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="rounded p-4 bg-water-500">
                 <h3 class="heading font-bold text-black">
                     <i data-feather="shopping-bag" class="pb-1"></i>
@@ -70,4 +72,4 @@
 </div>
 
 {{ coverage_data|json_script:"translation_coverage_data" }}
-{% endblock %}
+{% endblock content %}

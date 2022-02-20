@@ -22,7 +22,7 @@
 
     <div class="flex flex-wrap">
       <div class="w-full xl:w-1/2">
-        <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow-2xl bg-white">
+        <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="w-full p-4 rounded bg-water-500">
                 <h3 class="font-bold text-black"><i data-feather="flag" class="mr-2"></i> {% trans 'Name' %}</h3>
             </div>
@@ -35,14 +35,14 @@
                 <div class="mb-2 text-s text-gray-600">{{ form.english_name.help_text }}</div>
             </div>
         </div>
-        <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow-2xl bg-white">
+        <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="w-full p-4 rounded bg-water-500">
                 <h3 class="font-bold text-black"><i data-feather="tag" class="mr-2"></i> {% trans 'Identifier' %}</h3>
             </div>
             <div class="w-full p-4">
                 <label for="{{ form.slug.id_for_label }}" class="block mb-2">{{ form.slug.label }}</label>
                 {% render_field form.slug|add_error_class:"border-red-500" %}
-                <div class="mb-2 text-s text-gray-600">{{ form.slug.help_text }} {% trans 'This is in many cases a single (macro-)language tag, according to the' %} <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" class="underline">IANA Subtag Registry</a> {% trans 'or'%} <a href="https://iso639-3.sil.org/code_tables/639/data" class="underline" target="_blank">ISO 639</a>.</div>
+                <div class="mb-2 text-s text-gray-600">{{ form.slug.help_text }} {% trans 'This is in many cases a single (macro-)language tag, according to the' %} <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" class="underline">IANA Subtag Registry</a> {% trans 'or' %} <a href="https://iso639-3.sil.org/code_tables/639/data" class="underline" target="_blank">ISO 639</a>.</div>
                 <label for="{{ form.bcp47_tag.id_for_label }}" class="block mb-2">{{ form.bcp47_tag.label }}</label>
                 {% render_field form.bcp47_tag|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.bcp47_tag.help_text }}</div>
@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="w-full xl:w-1/2 xl:pl-4">
-        <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow-2xl bg-white">
+        <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="w-full p-4 rounded bg-water-500">
                 <h3 class="font-bold text-black"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
             </div>
@@ -99,4 +99,4 @@
     {% endif %}
 </form>
 {% include "../generic_confirmation_dialog.html" %}
-{% endblock %}
+{% endblock content %}

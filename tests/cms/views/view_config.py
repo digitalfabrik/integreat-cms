@@ -56,7 +56,6 @@ VIEWS = [
         [
             ("api:languages", ALL_ROLES),
             ("analytics", ROLES),
-            ("app_size", ROLES),
             ("dashboard", ROLES),
             ("language_tree", STAFF_ROLES),
             ("media", ROLES),
@@ -82,7 +81,6 @@ VIEWS = [
         [
             ("api:languages", ALL_ROLES),
             ("analytics", STAFF_ROLES),
-            ("app_size", STAFF_ROLES),
             ("dashboard", STAFF_ROLES),
             ("language_tree", STAFF_ROLES),
             ("media", STAFF_ROLES),
@@ -113,7 +111,7 @@ VIEWS = [
                 "api:legacy_feedback_endpoint",
                 ALL_ROLES,
                 {
-                    "permalink": "/aubsburg/de/willkommen",
+                    "permalink": "/augsburg/de/willkommen",
                     "comment": "Cool page!",
                     "rating": "up",
                     "category": "Inhalte",
@@ -123,7 +121,7 @@ VIEWS = [
                 "api:legacy_feedback_endpoint",
                 ALL_ROLES,
                 {
-                    "permalink": "/aubsburg/de/willkommen",
+                    "permalink": "/augsburg/de/willkommen",
                     "comment": "Strange bug!",
                     "rating": "down",
                     "category": "Technisches Feedback",
@@ -133,7 +131,7 @@ VIEWS = [
                 "api:legacy_feedback_endpoint",
                 ALL_ROLES,
                 {
-                    "permalink": "/aubsburg/de/events/test-veranstaltung",
+                    "permalink": "/augsburg/de/events/test-veranstaltung",
                     "comment": "Cool event!",
                     "rating": "up",
                     "category": "Inhalte",
@@ -143,7 +141,7 @@ VIEWS = [
                 "api:legacy_feedback_endpoint",
                 ALL_ROLES,
                 {
-                    "permalink": "/aubsburg/de/events/test-veranstaltung",
+                    "permalink": "/augsburg/de/events/test-veranstaltung",
                     "comment": "Strange bug!",
                     "rating": "down",
                     "category": "Technisches Feedback",

@@ -10,7 +10,7 @@
         <h1 class="heading">{% trans 'Statistics' %}</h1>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 2xl:grid-cols-4">
-        <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 rounded border border-solid border-gray-200 shadow-2xl bg-white">
+        <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="rounded p-4 bg-water-500">
                 <h3 class="heading font-bold text-black"><i data-feather="trending-up" class="pb-1"></i> {% trans 'Number of online accesses' %}</h3>
             </div>
@@ -22,7 +22,7 @@
                 <canvas id="statistics" data-statistics-url="{% url 'statistics_visits_per_language' region_slug=request.region.slug %}"></canvas>
             </div>
         </div>
-        <div class="rounded border border-solid border-gray-200 shadow-2xl bg-white">
+        <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="rounded p-4 bg-water-500">
                 <h3 class="heading font-bold text-black"><i data-feather="calendar" class="pb-1"></i> {% trans 'Adjust time period' %}</h3>
             </div>
@@ -30,17 +30,17 @@
                 {% csrf_token %}
                 <label for="{{ form.start_date.id_for_label }}">{{ form.start_date.label }}</label>
                 {% render_field form.start_date|add_error_class:"border-red-500" %}
-                <div id="start_date_error" class="chart-client-error text-red-500 pb-2 hidden"><i data-feather="alert-triangle"></i> <span></span></div>
+                <div id="start_date_error" class="chart-client-error text-red-500 pb-2 hidden"><i data-feather="alert-triangle"></i></div>
                 <label for="{{ form.end_date.id_for_label }}">{{ form.end_date.label }}</label>
                 {% render_field form.end_date|add_error_class:"border-red-500" %}
-                <div id="end_date_error" class="chart-client-error text-red-500 pb-2 hidden"><i data-feather="alert-triangle"></i> <span></span></div>
+                <div id="end_date_error" class="chart-client-error text-red-500 pb-2 hidden"><i data-feather="alert-triangle"></i></div>
                 <label for="{{ form.period.id_for_label }}">{{ form.period.label }}</label>
                 {% render_field form.period|add_error_class:"border-red-500" %}
-                <div id="period_error" class="chart-client-error text-red-500 pb-2 hidden"><i data-feather="alert-triangle"></i> <span></span></div>
+                <div id="period_error" class="chart-client-error text-red-500 pb-2 hidden"><i data-feather="alert-triangle"></i></div>
                 <button class="btn mt-4">{% trans 'Customize view' %}</button>
             </form>
         </div>
-        <div class="rounded border border-solid border-gray-200 shadow-2xl bg-white">
+        <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="rounded p-4 bg-water-500">
                 <h3 class="heading font-bold text-black"><i data-feather="download" class="pb-1"></i> {% trans 'Export' %}</h3>
             </div>
@@ -58,4 +58,4 @@
     </div>
 </div>
 
-{% endblock %}
+{% endblock content %}

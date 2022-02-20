@@ -11,12 +11,13 @@ from ...constants import status
 from ...decorators import permission_required
 from ...forms import PageTranslationForm
 from ...models import Language
+from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
-class PageSideBySideView(TemplateView):
+class PageSideBySideView(TemplateView, PageContextMixin):
     """
     View for the page side by side form
     """

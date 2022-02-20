@@ -70,6 +70,10 @@ module.exports = {
       width: {
         '120': '30rem',
       },
+      screens: {
+        '3xl': '1700px',
+        '4xl': '2100px',
+      },
     },
   },
   plugins: [require('@tailwindcss/forms'),],

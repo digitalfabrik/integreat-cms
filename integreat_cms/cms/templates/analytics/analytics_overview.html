@@ -1,19 +1,19 @@
 {% extends "_base.html" %}
-
 {% load i18n %}
-
 {% block content %}
     <div class="dashboard">
         <h1 class="heading">{% trans 'Analytics' %}</h1>
-        <p class="py-3 text-lg"> {% trans 'Here you will find a set of tools to check the success and correctness of your app. Click on the Details button of a tool to get further information.' %}</p>
+        <p class="py-3 text-lg">
+            {% trans 'Here you will find a set of tools to check the success and correctness of your app. Click on the Details button of a tool to get further information.' %}
+        </p>
         <div class="xl:flex gap-3 pt-4">
             <div class="xl:w-1/2">
                 <!-- Statistic Widget -->
                 {% if request.region.statistics_enabled %}
                     {% include "statistics/_statistics_widget.html" %}
                 {% endif %}
-
                 <!-- Translation Status Widget: TODO -->
+                {% include "analytics/_translation_overview_widget.html" %}
             </div>
             <div class="xl:w-1/2">
                 <!-- Broken Link Widget -->
@@ -22,5 +22,4 @@
             </div>
         </div>
     </div>
-
-{% endblock %}
+{% endblock content %}
