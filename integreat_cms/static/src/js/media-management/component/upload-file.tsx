@@ -29,8 +29,8 @@ export default function UploadFile({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   return (
-    <div className="flex-auto min-w-0 rounded-lg border-blue-500 shadow-xl bg-white">
-      <div class="rounded w-full p-4 bg-blue-500 text-white font-bold">
+    <div className="flex-auto min-w-0 rounded border border-blue-500 shadow-2xl bg-white">
+      <div class="rounded w-full p-4 bg-water-500 font-bold">
         <FilePlus class="inline-block mr-2 h-5" />
         {mediaTranslations.heading_upload_file}
       </div>

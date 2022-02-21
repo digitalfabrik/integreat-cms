@@ -246,10 +246,10 @@ export default function Library({
       )}
       <div className="flex flex-1 flex-col-reverse lg:flex-row gap-4 mt-4">
         <div
-          className="relative flex-1 bg-white border-gray-800 shadow-xl rounded-lg"
+          className="relative flex-1 bg-white border border-blue-500 shadow-2xl rounded"
           onClick={() => setFileIndex(null)}
         >
-          <div class="rounded w-full bg-blue-500 text-white font-bold">
+          <div class="rounded w-full bg-water-500 font-bold">
             <Breadcrumbs
               breadCrumbs={directoryPath}
               searchQuery={searchQuery}

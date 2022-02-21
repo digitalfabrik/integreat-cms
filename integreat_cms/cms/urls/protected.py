@@ -580,11 +580,6 @@ urlpatterns = [
                                 name="translation_coverage",
                             ),
                             path(
-                                "app-size/",
-                                analytics.AppSizeView.as_view(),
-                                name="app_size",
-                            ),
-                            path(
                                 "linkcheck/",
                                 include(
                                     [

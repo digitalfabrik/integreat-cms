@@ -24,9 +24,9 @@
 
     <div class="flex flex-wrap">
         <div class="w-1/2 pr-2">
-            <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-                <div class="p-4 rounded bg-blue-500">
-                    <h3 class="heading font-bold text-white"><i data-feather="map" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+            <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                <div class="p-4 rounded bg-water-500">
+                    <h3 class="heading font-bold text-black"><i data-feather="map" class="mr-2"></i> {% trans 'General Settings' %}</h3>
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                     <div>
@@ -94,9 +94,9 @@
             </div>
         </div>
     <div class="w-1/2 pl-2">
-        <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-            <div class="p-4 rounded bg-blue-500">
-                <h3 class="heading font-bold text-white"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
+        <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+            <div class="p-4 rounded bg-water-500">
+                <h3 class="heading font-bold text-black"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
             </div>
             <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
                 <div>
@@ -154,9 +154,9 @@
             </div>
         </div>
         {% if not form.instance.id %}
-        <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-            <div class="w-full p-4 rounded bg-blue-500">
-                <h3 class="heading font-bold text-white">{% trans 'Duplicate content of another region' %}</h3>
+        <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+            <div class="w-full p-4 rounded bg-water-500">
+                <h3 class="heading font-bold text-black"><i data-feather="copy" class="mr-2"></i>{% trans 'Duplicate content of another region' %}</h3>
             </div>
             <div class="w-full p-4">
                 <label for="{{ form.duplicated_region.id_for_label }}">{% trans 'Copy languages, pages and media from another region' %}</label>
@@ -182,4 +182,4 @@
 {{ media_config_data|json_script:"media_config_data" }}
 
 {% include "../generic_confirmation_dialog.html" %}
-{% endblock %}
+{% endblock content %}

@@ -86,8 +86,8 @@ export default function EditSidebar({
   }, [file]);
 
   return (
-    <div className="w-full lg:w-96 2xl:w-120 rounded-lg border-blue-500 shadow-xl bg-white">
-      <div class="rounded w-full p-4 bg-blue-500 text-white font-bold">
+    <div className="w-full lg:w-96 2xl:w-120 rounded border border-blue-500 shadow-2xl bg-white">
+      <div class="rounded w-full p-4 bg-water-500 font-bold">
         <div class="flex flex-row justify-between">
           <span>
             <Sliders class="mr-1 inline-block h-5" />
@@ -95,7 +95,7 @@ export default function EditSidebar({
           </span>
           <button
             title={mediaTranslations.btn_close}
-            class="hover:text-blue-500 hover:bg-white text-white font-bold rounded-full"
+            class="hover:bg-blue-500 hover:text-white font-bold rounded-full"
             onClick={() => setFileIndex(null)}
           >
             <XCircle class="inline-block h-5 align-text-bottom" />

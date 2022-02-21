@@ -36,7 +36,7 @@ export default function SelectMedia({
             mediaTranslations={mediaTranslations}
           ></MediaManagement>
         </div>
-        <button onClick={cancel} className="hover:text-blue-500 absolute top-6 right-3">
+        <button onClick={cancel} className="p-1 rounded-full hover:bg-blue-500 hover:text-white absolute top-6 right-6">
           <XCircle className="inline-block h-8 w-8" />
         </button>
       </div>

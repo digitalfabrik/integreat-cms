@@ -43,8 +43,8 @@ export default function EditDirectorySidebar({
 
   {
     return (
-      <div className="w-full lg:w-96 2xl:w-120  rounded-lg border-blue-500 bg-white border-solid shadow-xl">
-        <div class="rounded w-full p-4 bg-blue-500 text-white font-bold">
+      <div className="w-full lg:w-96 2xl:w-120 rounded border border-blue-500 bg-white border-solid shadow-2xl">
+        <div class="rounded w-full p-4 bg-water-500 font-bold">
           <Sliders class="mr-1 inline-block h-5" />
           {mediaTranslations.heading_directory_properties}
         </div>
