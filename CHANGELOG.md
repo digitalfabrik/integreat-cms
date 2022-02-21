@@ -1,7 +1,8 @@
 UNRELEASED
 ----------
 
-* [ [#1223](https://github.com/digitalfabrik/integreat-cms/issues/1223) ] Remove icon from imprint api
+* [ [#1223](https://github.com/digitalfabrik/integreat-cms/issues/1223) ] Remove icon from imprint API
+* [ [#1224](https://github.com/digitalfabrik/integreat-cms/issues/1224) ] Fix PDF export API
 
 
 2022.2.2

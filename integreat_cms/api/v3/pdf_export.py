@@ -5,8 +5,9 @@ related to the current region and language will be returned.
 """
 import logging
 
-from django.shortcuts import get_object_or_404
+from django.http import Http404
 
+from ...cms.models import Page
 from ...cms.utils.pdf_utils import generate_pdf
 from ..decorators import json_response
 
@@ -30,6 +31,8 @@ def pdf_export(request, region_slug, language_slug):
     :param language_slug: current language slug
     :type language_slug: str
 
+    :raises ~django.http.Http404: HTTP status 404 if the requested page translation cannot be found.
+
     :return: The requested pages as PDF document (inline)
     :rtype: ~django.http.HttpResponse
     """
@@ -42,10 +45,13 @@ def pdf_export(request, region_slug, language_slug):
         # the last path component of the url is the page translation slug
         page_translation_slug = url.split("/")[-1]
         # get page by filtering for translation slug and translation language slug
-        page = get_object_or_404(
-            pages,
+        page = pages.filter(
             translations__slug=page_translation_slug,
             translations__language__slug=language_slug,
-        )
-        pages = page.get_cached_descendants(include_self=True)
+        ).distinct()
+        if len(page) != 1:
+            raise Http404("No matching page translation found for url.")
+        pages = Page.get_tree(page[0]).prefetch_public_translations()
+    else:
+        pages = pages.prefetch_public_translations()
     return generate_pdf(region, language_slug, pages)
