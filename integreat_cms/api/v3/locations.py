@@ -22,6 +22,19 @@ def transform_poi(poi, poi_translation):
     :return: data necessary for API
     :rtype: dict
     """
+    if not poi or not poi_translation:
+        return {
+            "id": None,
+            "name": None,
+            "address": None,
+            "town": None,
+            "state": None,
+            "postcode": None,
+            "region": None,
+            "country": None,
+            "latitude": None,
+            "longitude": None,
+        }
     return {
         "id": poi.id,
         "name": poi_translation.title,
