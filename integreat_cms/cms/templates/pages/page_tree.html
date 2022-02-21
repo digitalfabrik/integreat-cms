@@ -114,16 +114,18 @@
                 data-target="_blank" data-language-slug="{{ language.slug }}">
                 {% trans 'Export published pages as PDF' %}
             </option>
-            <option
-                {% if request.user.expert_mode and language != request.region.default_language %}
-                    data-bulk-action="{% url 'download_xliff' region_slug=request.region.slug language_slug=language.slug %}"
-                {% else %}
-                    disabled
-                    title="{% trans 'You cannot export XLIFF files for the default language' %}"
-                {% endif %}
-            >
-                {% trans 'Export XLIFF for translation to' %} {{ language.translated_name }}
-            </option>
+            {% if request.user.expert_mode %}
+                <option
+                    {% if language == request.region.default_language %}
+                        disabled
+                        title="{% trans 'You cannot export XLIFF files for the default language' %}"
+                    {% else %}
+                        data-bulk-action="{% url 'download_xliff' region_slug=request.region.slug language_slug=language.slug %}"
+                    {% endif %}
+                >
+                    {% trans 'Export XLIFF for translation to' %} {{ language.translated_name }}
+                </option>
+            {% endif %}
         </select>
         <button id="bulk-action-execute" class="btn">{% trans 'Execute' %}</button>
     </div>
