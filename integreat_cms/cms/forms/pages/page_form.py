@@ -6,18 +6,17 @@ from django.db.models import Q
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
-from treebeard.forms import MoveNodeForm
-
 from ...constants import mirrored_page_first, position
 from ...models import Page, Region
 from ..custom_model_form import CustomModelForm
+from ..custom_tree_node_form import CustomTreeNodeForm
 from ..icon_widget import IconWidget
 from .parent_field_widget import ParentFieldWidget
 
 logger = logging.getLogger(__name__)
 
 
-class PageForm(CustomModelForm, MoveNodeForm):
+class PageForm(CustomModelForm, CustomTreeNodeForm):
     """
     Form for creating and modifying page objects
     """
@@ -75,10 +74,6 @@ class PageForm(CustomModelForm, MoveNodeForm):
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
 
-        # Hide tree node inputs
-        self.fields["_ref_node_id"].widget = forms.HiddenInput()
-        self.fields["_position"].widget = forms.HiddenInput()
-
         # Pass form object to ParentFieldWidget
         self.fields["parent"].widget.form = self
 
@@ -134,7 +129,7 @@ class PageForm(CustomModelForm, MoveNodeForm):
                 self.fields["_position"].initial = position.RIGHT
             else:
                 # If no page exists, treebeard expects the value "0" as reference node id
-                self.fields["_ref_node_id"].initial = 0
+                self.fields["_ref_node_id"].initial = ""
                 self.fields["_position"].initial = position.FIRST_CHILD
 
         # Set choices of mirrored_page field manually to make use of cache_tree()
@@ -160,28 +155,7 @@ class PageForm(CustomModelForm, MoveNodeForm):
         :rtype: tuple
         """
         del self.cleaned_data["mirrored_page_region"]
-        # This workaround is required because the MoveNodeForm does not take
-        # instance attribute into account which are not included in cleaned_data
-        self.cleaned_data["region"] = self.instance.region
         return super()._clean_cleaned_data()
-
-    @classmethod
-    def mk_dropdown_tree(cls, model, for_node=None):
-        """
-        Creates a tree-like list of choices. Overwrites the parent method because the field is hidden anyway and
-        additional queries to render the page titles should be avoided.
-
-        :param model: ~integreat_cms.cms.models.pages.page.Page
-        :type model: type
-
-        :param for_node: The instance of this form
-        :type for_node: ~integreat_cms.cms.models.pages.page.Page
-
-        :return: A list of select options
-        :rtype: list
-        """
-        # No need to calculate anything here, because we set self.fields["_ref_node_id"].choices manually
-        return []
 
     def get_editor_queryset(self):
         """

@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1214](https://github.com/digitalfabrik/integreat-cms/issues/1214) ] Fix API return format of event location
+* [ [#1218](https://github.com/digitalfabrik/integreat-cms/issues/1218) ] Fix saving of first root node
 
 
 2022.2.1
