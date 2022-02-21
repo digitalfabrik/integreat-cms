@@ -136,6 +136,11 @@ urlpatterns = [
                     "<slug:language_slug>/wp-json/extensions/v3/",
                     include(content_api_urlpatterns),
                 ),
+                path(
+                    "<slug:language_slug>/wp-json/ig-mpdf/v1/pdf/",
+                    pdf_export,
+                    name="pdf_export",
+                ),
             ]
         ),
     ),
