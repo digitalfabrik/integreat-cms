@@ -10,7 +10,10 @@
 {% block content %}
     {% get_current_language as LANGUAGE_CODE %}
     {% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
-    <form enctype="multipart/form-data" method="post" id="content_form" data-unsaved-warning>
+    <form enctype="multipart/form-data"
+          method="post"
+          id="content_form"
+          data-unsaved-warning>
         {% csrf_token %}
         <div class="w-full flex flex-wrap justify-between mb-6">
             <h1 class="heading">
@@ -51,7 +54,7 @@
                 </div>
             {% endif %}
         </div>
-        <div class="grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_400px_400px] gap-4">
+        <div class="grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] {% if page %} 4xl:grid-cols-[minmax(0px,_1fr)_400px_400px]{% endif %} gap-4">
             <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col flex-auto">
                 {% include "_form_language_tabs.html" with target='edit_page' instance=page_form.instance content_field="page_id" %}
                 <div class="w-full rounded border border-blue-500 bg-white shadow-2xl flex flex-col flex-auto">
@@ -225,103 +228,103 @@
                     </div>
                 </div>
             </div>
-            <div class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col gap-4">
-                {% if page and can_edit_page %}
-                    <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
-                        <div class="rounded p-4 bg-water-500">
-                            <h3 class="heading font-bold text-black">
-                                <i data-feather="tool" class="pb-1"></i>
-                                {% trans 'Actions' %}
-                            </h3>
-                        </div>
-                        <div class="w-full px-4 pb-4 rounded shadow bg-white">
-                            {% if page.explicitly_archived %}
-                                <label>
-                                    {% trans 'Restore page' %}
-                                </label>
-                                <button title="{% trans 'Restore page' %}"
-                                        class="btn confirmation-button w-full"
-                                        data-confirmation-title="{{ restore_dialog_title }}"
-                                        data-confirmation-text="{{ restore_dialog_text }}"
-                                        data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                        data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                    <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this page' %}
-                                </button>
-                            {% elif page.implicitly_archived %}
-                                <label>
-                                    {% trans 'Restore page' %}
-                                </label>
-                                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
-                                     role="alert">
-                                    <p>
-                                        {% blocktrans count counter=page.explicitly_archived_ancestors|length trimmed %}
-                                    To restore this page, you have to restore its parent page:
-                                {% plural %}
-                                    To restore this page, you have to restore all its archived parent pages:
-                                {% endblocktrans %}
-                                    </p>
-                                </div>
-                                {% for ancestor in page.explicitly_archived_ancestors %}
-                                    <a href="{% url 'edit_page' page_id=ancestor.id region_slug=request.region.slug language_slug=language.slug %}"
-                                       class="block pt-2 hover:underline">
-                                        <i data-feather="edit" class="mr-2"></i> {{ ancestor.best_translation.title }}
-                                    </a>
-                                {% endfor %}
-                            {% else %}
-                                <label>
-                                    {% trans 'Archive page' %}
-                                </label>
-                                <button title="{% trans 'Archive page' %}"
-                                        class="btn confirmation-button w-full"
-                                        data-confirmation-title="{{ archive_dialog_title }}"
-                                        data-confirmation-text="{{ archive_dialog_text }}"
-                                        data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                        data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                    <i data-feather="archive" class="mr-2"></i>
-                                    {% trans 'Archive this page' %}
-                                </button>
-                            {% endif %}
-                            {% if perms.cms.delete_page %}
-                                <label>
-                                    {% trans 'Delete page' %}
-                                </label>
-                                {% if not page.is_leaf %}
-                                    {% with page.get_descendants.prefetch_translations as descendants %}
-                                        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
-                                             role="alert">
-                                            <p>
-                                                {% trans 'You cannot delete a page which has subpages.' %}
-                                                <br />
-                                                {% blocktrans count counter=descendants|length trimmed %}
-                                            To delete this page, you have to delete or move its subpage first:
-                                        {% plural %}
-                                            To delete this page, you have to delete or move its subpages first:
-                                        {% endblocktrans %}
-                                            </p>
-                                        </div>
-                                        {% for descendant in descendants %}
-                                            <a href="{% url 'edit_page' page_id=descendant.id region_slug=request.region.slug language_slug=language.slug %}"
-                                               class="block pt-2 hover:underline">
-                                                <i data-feather="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
-                                            </a>
-                                        {% endfor %}
-                                    {% endwith %}
-                                {% else %}
-                                    <button title="{% trans 'Delete page' %}"
-                                            class="btn confirmation-button btn-red w-full"
-                                            data-confirmation-title="{{ delete_dialog_title }}"
-                                            data-confirmation-text="{{ delete_dialog_text }}"
+            {% if page %}
+                <div class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col gap-4">
+                    {% if can_edit_page %}
+                        <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                            <div class="rounded p-4 bg-water-500">
+                                <h3 class="heading font-bold text-black">
+                                    <i data-feather="tool" class="pb-1"></i>
+                                    {% trans 'Actions' %}
+                                </h3>
+                            </div>
+                            <div class="w-full px-4 pb-4 rounded shadow bg-white">
+                                {% if page.explicitly_archived %}
+                                    <label>
+                                        {% trans 'Restore page' %}
+                                    </label>
+                                    <button title="{% trans 'Restore page' %}"
+                                            class="btn confirmation-button w-full"
+                                            data-confirmation-title="{{ restore_dialog_title }}"
+                                            data-confirmation-text="{{ restore_dialog_text }}"
                                             data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                            data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                        <i data-feather="trash-2" class="mr-2"></i>
-                                        {% trans 'Delete this page' %}
+                                            data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                                        <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this page' %}
+                                    </button>
+                                {% elif page.implicitly_archived %}
+                                    <label>
+                                        {% trans 'Restore page' %}
+                                    </label>
+                                    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+                                         role="alert">
+                                        <p>
+                                            {% blocktrans count counter=page.explicitly_archived_ancestors|length trimmed %}
+                                        To restore this page, you have to restore its parent page:
+                                    {% plural %}
+                                        To restore this page, you have to restore all its archived parent pages:
+                                    {% endblocktrans %}
+                                        </p>
+                                    </div>
+                                    {% for ancestor in page.explicitly_archived_ancestors %}
+                                        <a href="{% url 'edit_page' page_id=ancestor.id region_slug=request.region.slug language_slug=language.slug %}"
+                                           class="block pt-2 hover:underline">
+                                            <i data-feather="edit" class="mr-2"></i> {{ ancestor.best_translation.title }}
+                                        </a>
+                                    {% endfor %}
+                                {% else %}
+                                    <label>
+                                        {% trans 'Archive page' %}
+                                    </label>
+                                    <button title="{% trans 'Archive page' %}"
+                                            class="btn confirmation-button w-full"
+                                            data-confirmation-title="{{ archive_dialog_title }}"
+                                            data-confirmation-text="{{ archive_dialog_text }}"
+                                            data-confirmation-subject="{{ page_translation_form.instance.title }}"
+                                            data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                                        <i data-feather="archive" class="mr-2"></i>
+                                        {% trans 'Archive this page' %}
                                     </button>
                                 {% endif %}
-                            {% endif %}
+                                {% if perms.cms.delete_page %}
+                                    <label>
+                                        {% trans 'Delete page' %}
+                                    </label>
+                                    {% if not page.is_leaf %}
+                                        {% with page.get_descendants.prefetch_translations as descendants %}
+                                            <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+                                                 role="alert">
+                                                <p>
+                                                    {% trans 'You cannot delete a page which has subpages.' %}
+                                                    <br />
+                                                    {% blocktrans count counter=descendants|length trimmed %}
+                                                To delete this page, you have to delete or move its subpage first:
+                                            {% plural %}
+                                                To delete this page, you have to delete or move its subpages first:
+                                            {% endblocktrans %}
+                                                </p>
+                                            </div>
+                                            {% for descendant in descendants %}
+                                                <a href="{% url 'edit_page' page_id=descendant.id region_slug=request.region.slug language_slug=language.slug %}"
+                                                   class="block pt-2 hover:underline">
+                                                    <i data-feather="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
+                                                </a>
+                                            {% endfor %}
+                                        {% endwith %}
+                                    {% else %}
+                                        <button title="{% trans 'Delete page' %}"
+                                                class="btn confirmation-button btn-red w-full"
+                                                data-confirmation-title="{{ delete_dialog_title }}"
+                                                data-confirmation-text="{{ delete_dialog_text }}"
+                                                data-confirmation-subject="{{ page_translation_form.instance.title }}"
+                                                data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                                            <i data-feather="trash-2" class="mr-2"></i>
+                                            {% trans 'Delete this page' %}
+                                        </button>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
-                {% if page %}
+                    {% endif %}
                     <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">
@@ -350,8 +353,8 @@
                             </a>
                         </div>
                     </div>
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
     </form>
     {{ media_config_data|json_script:"media_config_data" }}
