@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.2.1
+--------
+
 First stable release of the new content management system for the Integreat app
 
 * [ [#1162](https://github.com/digitalfabrik/integreat-cms/issues/1162) ] Allow management role to delete imprint
