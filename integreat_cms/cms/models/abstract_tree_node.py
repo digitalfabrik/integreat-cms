@@ -8,12 +8,13 @@ from cacheops import invalidate_model
 from treebeard.exceptions import InvalidPosition
 from treebeard.ns_tree import NS_Node
 
+from .abstract_base_model import AbstractBaseModel
 from ..constants import position
 
 logger = logging.getLogger(__name__)
 
 
-class AbstractTreeNode(NS_Node):
+class AbstractTreeNode(NS_Node, AbstractBaseModel):
     """
     Abstract data model representing a tree node within a region.
     """
@@ -307,6 +308,16 @@ class AbstractTreeNode(NS_Node):
         This dummy method definition exists to silence pylint's warning:
         Method 'fix_tree' is abstract in class 'Node' but is not overridden (abstract-method)
         """
+
+    def get_repr(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<AbstractTreeNode: AbstractTreeNode object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the language node
+        :rtype: str
+        """
+        return f"<AbstractTreeNode (id: {self.id}, parent: {self.parent.slug}, region: {self.region.slug})>"
 
     class Meta:
         #: Abstract model

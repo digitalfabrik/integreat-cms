@@ -33,6 +33,18 @@ module.exports = {
           '800': '#97830d',
           '900': '#7b6b0b'
         },
+        'water': {
+          '50': '#fefeff', 
+          '100': '#fcfdff', 
+          '200': '#f8fafe', 
+          '300': '#f4f7fe', 
+          '400': '#ecf1fd', 
+          '500': '#e4ebfc', 
+          '600': '#cdd4e3', 
+          '700': '#abb0bd', 
+          '800': '#898d97', 
+          '900': '#70737b'
+        }
       },
       backgroundImage: {
         'icon': "url('../images/integreat-icon.png')",
@@ -57,6 +69,10 @@ module.exports = {
       },
       width: {
         '120': '30rem',
+      },
+      screens: {
+        '3xl': '1700px',
+        '4xl': '2100px',
       },
     },
   },

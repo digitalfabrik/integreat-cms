@@ -5,7 +5,6 @@ Typically, they do not render a whole page, but only parts of it or they redirec
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
@@ -13,15 +12,13 @@ from django.views.decorators.http import require_POST
 from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
 from ...constants import position
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...models import LanguageTreeNode
 
 logger = logging.getLogger(__name__)
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.change_languagetreenode")
 def move_language_tree_node(
     request, region_slug, language_tree_node_id, target_id, target_position
@@ -83,8 +80,6 @@ def move_language_tree_node(
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.delete_languagetreenode")
 def delete_language_tree_node(request, region_slug, language_tree_node_id):
     """

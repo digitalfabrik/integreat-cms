@@ -2,6 +2,7 @@
 This is a collection of tags and filters for strings.
 """
 from django import template
+from django.utils.translation import ugettext as _
 
 register = template.Library()
 
@@ -31,6 +32,8 @@ def linkcheck_status_filter(status_message):
     :return: a concise message
     :rtype: str
     """
+    if not status_message:
+        return _("Unknown")
     if status_message.startswith("Other Error:"):
-        return "Other Error"
+        return _("Error")
     return status_message

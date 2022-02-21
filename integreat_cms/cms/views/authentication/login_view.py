@@ -38,6 +38,6 @@ class LoginView(auth_views.LoginView):
         user = form.get_user()
         if user.mfa_keys.exists():
             self.request.session["mfa_user_id"] = user.id
-            return redirect("login_mfa")
+            return redirect("public:login_mfa")
         auth_login(self.request, form.get_user())
         return redirect(self.get_success_url())

@@ -1,5 +1,3 @@
-from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -7,12 +5,9 @@ from django.views.generic import TemplateView
 
 from integreat_cms.cms.views.pages.page_context_mixin import PageContextMixin
 
-from ...constants import status, translation_status
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
 class PartialPageTreeView(TemplateView, PageContextMixin):
     """
@@ -60,19 +55,15 @@ class PartialPageTreeView(TemplateView, PageContextMixin):
         children = pages[depth:]
         # For every depth level, exactly one ancestor is in the list
         ancestor_ids = [ancestor.id for ancestor in pages[:depth]]
-        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template,
             {
-                **context,
+                **self.get_context_data(**kwargs),
                 "pages": children,
                 "ancestor_ids": ancestor_ids,
                 "language": language,
                 "languages": region.active_languages,
                 "parent_id": parent.id,
-                "translation_status": translation_status,
-                "PUBLIC": status.PUBLIC,
-                "WEBAPP_URL": settings.WEBAPP_URL,
             },
         )

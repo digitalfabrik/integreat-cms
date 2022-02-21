@@ -39,8 +39,8 @@
                 </button>
             {% else %}
                 <button title="{% trans 'Delete language' %}" class="confirmation-button btn-icon"
-                        data-confirmation-title="{% trans 'Please confirm that you really want to delete this language' %}"
-                        data-confirmation-text="{% trans 'This cannot be reversed.' %}"
+                        data-confirmation-title="{{ delete_dialog_title }}"
+                        data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ language.translated_name }}"
                         data-action="{% url 'delete_language' slug=language.slug %}">
                     <i data-feather="trash-2"></i>

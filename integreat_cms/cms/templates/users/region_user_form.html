@@ -6,7 +6,7 @@
 {% load user_filters %}
 
 {% block content %}
-<form method="post">
+<form method="post" data-unsaved-warning>
     {% csrf_token %}
     <div class="flex justify-between mb-4">
         <h1 class="heading">
@@ -24,9 +24,9 @@
     </div>
 
     <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-        <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-            <div class="p-4 rounded bg-blue-500">
-                <h3 class="heading font-bold text-white"><i data-feather="user" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+        <div class="mb-4 rounded border border-blue-500 shadow-2xl bg-white">
+            <div class="p-4 rounded bg-water-500">
+                <h3 class="heading font-bold text-black"><i data-feather="user" class="mr-2"></i> {% trans 'General Settings' %}</h3>
             </div>
             <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                 <!-- General Options for user management -->
@@ -48,9 +48,9 @@
                 </div>
             </div>
         </div>
-        <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-            <div class="p-4 rounded bg-blue-500">
-                <h3 class="heading font-bold text-white"><i data-feather="lock" class="mr-2"></i> {% trans 'Login' %}</h3>
+        <div class="mb-4 rounded border border-blue-500 shadow-2xl bg-white">
+            <div class="p-4 rounded bg-water-500">
+                <h3 class="heading font-bold text-black"><i data-feather="lock" class="mr-2"></i> {% trans 'Login' %}</h3>
             </div>
             <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                 <div>
@@ -76,9 +76,9 @@
                 </div>
             </div>
         </div>
-        <div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-            <div class="p-4 rounded bg-blue-500">
-                <h3 class="heading font-bold text-white"><i data-feather="key" class="mr-2"></i> {% trans 'Permissions' %}</h3>
+        <div class="mb-4 rounded border border-blue-500 shadow-2xl bg-white">
+            <div class="p-4 rounded bg-water-500">
+                <h3 class="heading font-bold text-black"><i data-feather="key" class="mr-2"></i> {% trans 'Permissions' %}</h3>
             </div>
             <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                 <div>
@@ -127,4 +127,4 @@
 </form>
 
 {% include "../generic_confirmation_dialog.html" %}
-{% endblock %}
+{% endblock content %}

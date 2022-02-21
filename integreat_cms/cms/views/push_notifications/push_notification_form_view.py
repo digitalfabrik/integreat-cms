@@ -3,7 +3,6 @@ import logging
 from datetime import datetime
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -12,7 +11,7 @@ from django.views.generic import TemplateView
 from django.forms import modelformset_factory
 
 from .push_notification_sender import PushNotificationSender
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...forms import (
     PushNotificationForm,
     PushNotificationTranslationForm,
@@ -22,8 +21,6 @@ from ...models import Language, PushNotification, PushNotificationTranslation
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_pushnotification"), name="dispatch")
 @method_decorator(permission_required("cms.change_pushnotification"), name="post")
 class PushNotificationFormView(TemplateView):
@@ -34,7 +31,7 @@ class PushNotificationFormView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "push_notifications/push_notification_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "push_notifications_form"}
+    extra_context = {"current_menu_item": "push_notifications_form"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -90,7 +87,7 @@ class PushNotificationFormView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "push_notification_form": push_notification_form,
                 "pnt_formset": pnt_formset,
                 "language": language,
@@ -235,7 +232,7 @@ class PushNotificationFormView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "push_notification_form": pn_form,
                 "pnt_formset": pnt_formset,
                 "language": language,

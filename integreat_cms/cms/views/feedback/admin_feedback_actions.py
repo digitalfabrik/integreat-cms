@@ -4,20 +4,17 @@ This module contains action methods for feedack items (archive, restore, ...)
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from ...decorators import staff_required, permission_required
+from ...decorators import permission_required
 from ...models import Feedback
 
 logger = logging.getLogger(__name__)
 
 
 @require_POST
-@login_required
-@staff_required
 @permission_required("cms.change_feedback")
 def mark_admin_feedback_as_read(request):
     """
@@ -42,8 +39,6 @@ def mark_admin_feedback_as_read(request):
 
 
 @require_POST
-@login_required
-@staff_required
 @permission_required("cms.change_feedback")
 def mark_admin_feedback_as_unread(request):
     """
@@ -68,8 +63,6 @@ def mark_admin_feedback_as_unread(request):
 
 
 @require_POST
-@login_required
-@staff_required
 @permission_required("cms.delete_feedback")
 def delete_admin_feedback(request):
     """

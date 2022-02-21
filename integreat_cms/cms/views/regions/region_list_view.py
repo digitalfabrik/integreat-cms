@@ -1,21 +1,18 @@
 import logging
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from ...forms import ObjectSearchForm
-from ...decorators import staff_required, permission_required
+from ...decorators import permission_required
 from ...models import Region
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(staff_required, name="dispatch")
 @method_decorator(permission_required("cms.view_region"), name="dispatch")
 class RegionListView(TemplateView):
     """
@@ -25,7 +22,7 @@ class RegionListView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "regions/region_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "regions"}
+    extra_context = {"current_menu_item": "regions"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -61,7 +58,11 @@ class RegionListView(TemplateView):
         return render(
             request,
             self.template_name,
-            {**self.base_context, "regions": region_chunk, "search_query": query},
+            {
+                **self.get_context_data(**kwargs),
+                "regions": region_chunk,
+                "search_query": query,
+            },
         )
 
     def post(self, request, *args, **kwargs):

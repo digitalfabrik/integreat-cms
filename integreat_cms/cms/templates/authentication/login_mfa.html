@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <div data-mfa-login data-mfa-login-assert-url="{% url 'login_mfa_assert' %}" data-mfa-login-verify-url="{% url 'login_mfa_verify' %}">
+    <div data-mfa-login data-mfa-login-assert-url="{% url 'public:login_mfa_assert' %}" data-mfa-login-verify-url="{% url 'public:login_mfa_verify' %}">
         <div class="auth-error bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5 hidden" role="alert">
             <p>{% trans 'Unable to verify your 2FA key, please try again.' %}</p>
         </div>

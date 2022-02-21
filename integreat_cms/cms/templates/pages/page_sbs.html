@@ -1,52 +1,96 @@
 {% extends "_base.html" %}
-
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
 {% load rules %}
 {% load render_bundle from webpack_loader %}
-
 {% block content %}
-<form method="post" id="content_form">
-<div>
-    <div class="flex flex-wrap mb-4">
-        <div class="w-3/5 flex flex-wrap flex-col justify-center mb-6">
-            <h1 class="heading">
-	            {% with page_title=source_page_translation.title source_language=source_page_translation.language.translated_name target_language_name=target_language.translated_name %}
-	            {% blocktrans %}Translate "{{ page_title }}" from {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
-	            {% endwith %}
-            </h1>
-        </div>
-        <div class="w-2/5 flex justify-end mb-6 gap-2">
-            <a href="{% url 'edit_page' page_id=source_page_translation.page.id region_slug=request.region.slug language_slug=target_language.slug %}" class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
-                {% trans 'Go Back to Page Editor' %}
-            </a>
-            {% has_perm 'cms.change_page_object' request.user source_page_translation.page as can_change_page_object %}
-            {% if not source_page_translation.page.archived %}
-            {% if can_change_page_object %}
-            <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
-            {% endif %}
-            {% has_perm 'cms.publish_page_object' request.user source_page_translation.page as can_publish_page %}
-            {% if can_publish_page %}
-            <button name="submit_public" class="btn">{% trans 'Publish' %}</button>
-            {% else %}
-            <button name="submit_review" class="btn">{% trans 'Submit for review' %}</button>
-            {% endif %}
-            {% endif %}
-        </div>
-    </div>
-
-    <div class="flex flex-wrap">
-        <div class="w-1/2 pr-2">
-            <ul class="flex pl-4">
-                <li class="z-10" style="margin-bottom: -2px">
-                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg p-4">
-                        <div class="border-b-4 border-white">
-                            {% if source_page_translation.is_outdated %}
+    <form method="post" id="content_form" data-unsaved-warning>
+        <div>
+            <div class="flex flex-wrap mb-4">
+                <div class="w-3/5 flex flex-wrap flex-col justify-center mb-6">
+                    <h1 class="heading">
+                        {% with page_title=source_page_translation.title source_language=source_page_translation.language.translated_name target_language_name=target_language.translated_name %}
+                            {% blocktrans %}Translate "{{ page_title }}" from {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
+                        {% endwith %}
+                    </h1>
+                </div>
+                <div class="w-2/5 flex justify-end mb-6 gap-2">
+                    <a href="{% url 'edit_page' page_id=source_page_translation.page.id region_slug=request.region.slug language_slug=target_language.slug %}"
+                       class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
+                        {% trans 'Go Back to Page Editor' %}
+                    </a>
+                    {% has_perm 'cms.change_page_object' request.user source_page_translation.page as can_change_page_object %}
+                    {% if not source_page_translation.page.archived %}
+                        {% if can_change_page_object %}
+                            <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
+                        {% endif %}
+                        {% has_perm 'cms.publish_page_object' request.user source_page_translation.page as can_publish_page %}
+                        {% if can_publish_page %}
+                            <button name="submit_public" class="btn">{% trans 'Publish' %}</button>
+                        {% else %}
+                            <button name="submit_review" class="btn">{% trans 'Submit for review' %}</button>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="border border-blue-500 rounded shadow-2xl">
+                    <div class="rounded p-4 bg-water-500 font-bold">
+                        {% if source_page_translation.is_outdated %}
+                            <span title="{% trans 'Translation outdated' %}">
+                                <i data-feather="alert-triangle"></i>
+                            </span>
+                        {% elif source_page_translation.currently_in_translation %}
+                            <span title="{% trans 'Currently in translation' %}">
+                                <i data-feather="clock"></i>
+                            </span>
+                        {% else %}
+                            <span title="{% trans 'Translation up-to-date' %}">
+                                <i data-feather="check"></i>
+                            </span>
+                        {% endif %}
+                        {{ source_page_translation.language.translated_name }}
+                    </div>
+                    <div class="px-4 pb-4 rounded bg-white">
+                        <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
+                        {{ source_page_translation.version }}
+                        <br>
+                        <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
+                        {{ source_page_translation.get_status_display }}
+                        <label>{{ page_translation_form.slug.label }}</label>
+                        <div class="slug-field">
+                            <label>{{ source_page_translation.base_link }}</label>
+                            <input type="text" value="{{ source_page_translation.slug }}" disabled>
+                        </div>
+                        <label>{{ page_translation_form.title.label }}</label>
+                        <input id="source_translation_title"
+                               type="text"
+                               value="{{ source_page_translation.title }}"
+                               disabled>
+                        <div class="mt-4">
+                            <label class="block mt-4 font-bold">{{ page_translation_form.content.label }}</label>
+                            <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea" disabled>{{source_page_translation.content}}</textarea>
+                        </div>
+                        <label>{% trans 'Copy content' %}</label>
+                        <button id="copy-translation-content"
+                                title="{% trans 'Copy content' %}"
+                                class="btn w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                            {% with source_language=source_page_translation.language.translated_name target_language_name=target_language.translated_name %}
+                                {% blocktrans %}Copy content of {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
+                            {% endwith %}
+                            <i data-feather="arrow-right-circle" class="mr-2"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="border border-blue-500 rounded shadow-2xl">
+                    <div class="rounded p-4 bg-water-500 font-bold">
+                        {% if page_translation_form.instance.id %}
+                            {% if page_translation_form.instance.is_outdated %}
                                 <span title="{% trans 'Translation outdated' %}">
                                     <i data-feather="alert-triangle"></i>
                                 </span>
-                            {% elif source_page_translation.currently_in_translation %}
+                            {% elif page_translation_form.instance.currently_in_translation %}
                                 <span title="{% trans 'Currently in translation' %}">
                                     <i data-feather="clock"></i>
                                 </span>
@@ -55,109 +99,56 @@
                                     <i data-feather="check"></i>
                                 </span>
                             {% endif %}
-                            {{ source_page_translation.language.translated_name }}
-                        </div>
+                        {% else %}
+                            <span title="{% trans 'Create Translation' %}">
+                                <i data-feather="plus"></i>
+                            </span>
+                        {% endif %}
+                        {{ target_language.translated_name }}
                     </div>
-                </li>
-            </ul>
-            <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
-                {{ source_page_translation.version }}<br>
-                <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
-                {{ source_page_translation.get_status_display }}
-                <label>{{ page_translation_form.slug.label }}</label>
-                <div class="slug-field">
-                    <label>{{ source_page_translation.base_link }}</label>
-                    <input type="text" value="{{ source_page_translation.slug }}" disabled>
+                    <div class="px-4 pb-4 rounded bg-white">
+                        {% csrf_token %}
+                        {% if page_translation_form.instance.id %}
+                            <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
+                            {{ page_translation_form.instance.version }}
+                            <br>
+                            <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
+                            {{ page_translation_form.instance.get_status_display }}
+                        {% else %}
+                            <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
+                            {% trans 'New' %}
+                            <br>
+                            <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
+                            {% trans 'Not saved yet' %}
+                        {% endif %}
+                        <label for="{{ page_translation_form.slug.id_for_label }}">{{ page_translation_form.slug.label }}</label>
+                        <div class="slug-field">
+                            <label for="{{ page_translation_form.slug.id_for_label }}">{{ page_translation_form.instance.base_link }}</label>
+                            {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder %}
+                            {% render_field page_translation_form.slug placeholder=slug_placeholder %}
+                        </div>
+                        <label for="{{ page_translation_form.title.id_for_label }}">{{ page_translation_form.title.label }}</label>
+                        {% render_field page_translation_form.title|add_error_class:"border-red-500" id="target_translation_title" %}
+                        <label for="{{ page_translation_form.content.id_for_label }}">{{ page_translation_form.content.label }}</label>
+                        {% render_field page_translation_form.content|add_error_class:"border-red-500" class="tinymce_textarea" id="target_translation_tinymce" %}
+                        <label>{% trans 'Implications on other translations' %}</label>
+                        {% render_field page_translation_form.minor_edit id="minor_edit" %}
+                        <label for="{{ page_translation_form.minor_edit.id_for_label }}"
+                               class="secondary">
+                            {{ page_translation_form.minor_edit.label }}
+                        </label>
+                        <div class="help-text">{{ page_translation_form.minor_edit.help_text }}</div>
+                    </div>
                 </div>
-                <label>{{ page_translation_form.title.label }}</label>
-                <input id="source_translation_title" type="text" value="{{source_page_translation.title}}" disabled>
-	            <div class="mt-4">
-                    <label class="block mt-4 font-bold">{{ page_translation_form.content.label }}</label>
-                    <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea" disabled>{{source_page_translation.content}}</textarea>
-                </div>
-
-                <label>{% trans 'Copy content' %}</label>
-                <button id="copy-translation-content" title="{% trans 'Copy content' %}" class="btn w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                    {% with source_language=source_page_translation.language.translated_name target_language_name=target_language.translated_name %}
-                        {% blocktrans %}Copy content of {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
-                    {% endwith %}
-                    <i data-feather="arrow-right-circle" class="mr-2"></i>
-                </button>
             </div>
         </div>
-        <div class="w-1/2 pr-2">
-            <ul class="flex pl-4">
-                <li class="z-10" style="margin-bottom: -2px">
-                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg p-4">
-                        <div class="border-b-4 border-white">
-                            {% if page_translation_form.instance.id %}
-                                {% if page_translation_form.instance.is_outdated %}
-                                    <span title="{% trans 'Translation outdated' %}">
-                                        <i data-feather="alert-triangle"></i>
-                                    </span>
-                                {% elif page_translation_form.instance.currently_in_translation %}
-                                    <span title="{% trans 'Currently in translation' %}">
-                                        <i data-feather="clock"></i>
-                                    </span>
-                                {% else %}
-                                    <span title="{% trans 'Translation up-to-date' %}">
-                                        <i data-feather="check"></i>
-                                    </span>
-                                {% endif %}
-                            {% else %}
-                                <span title="{% trans 'Create Translation' %}">
-                                    <i data-feather="plus"></i>
-                                </span>
-                            {% endif %}
-                            {{ target_language.translated_name }}
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                {% csrf_token %}
-                {% if page_translation_form.instance.id %}
-                    <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
-                    {{ page_translation_form.instance.version }}<br>
-                    <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
-                    {{ page_translation_form.instance.get_status_display }}
-                {% else %}
-                    <label class="inline-block mt-4 mb-2 font-bold">{% trans 'Version' %}:</label>
-                    {% trans 'New' %}<br>
-                    <label class="inline-block mb-2 font-bold">{% trans 'Status' %}:</label>
-                    {% trans 'Not saved yet' %}
-                {% endif %}
-                <label for="{{ page_translation_form.slug.id_for_label }}">{{ page_translation_form.slug.label }}</label>
-                <div class="slug-field">
-                    <label for="{{ page_translation_form.slug.id_for_label }}">
-                        {{ page_translation_form.instance.base_link }}
-                    </label>
-                    {% trans ' Leave blank to generate unique permalink from title' as slug_placeholder%}
-                    {% render_field page_translation_form.slug placeholder=slug_placeholder %}
-                </div>
-                <label for="{{ page_translation_form.title.id_for_label }}">{{ page_translation_form.title.label }}</label>
-                {% render_field page_translation_form.title|add_error_class:"border-red-500" id="target_translation_title" %}
-                <label for="{{ page_translation_form.content.id_for_label }}">{{ page_translation_form.content.label }}</label>
-                {% render_field page_translation_form.content|add_error_class:"border-red-500" class="tinymce_textarea" id="target_translation_tinymce" %}
-                <label>{% trans 'Implications on other translations' %}</label>
-                {% render_field page_translation_form.minor_edit id="minor_edit" %}
-                <label for="{{ page_translation_form.minor_edit.id_for_label }}" class="secondary">{{ page_translation_form.minor_edit.label }}</label>
-                <div class="help-text">{{ page_translation_form.minor_edit.help_text }}</div>
-            </div>
-        </div>
-    </div>
-</div>
-</form>
-
-{% if not can_change_page_object or page_translation_form.instance.id and page_translation_form.instance.page.archived %}
-    {% include '../_tinymce_config.html' with readonly=1 language=target_language %}
-{% else %}
-    {% include '../_tinymce_config.html' with language=target_language %}
-{% endif %}
-
+    </form>
+    {% if not can_change_page_object or page_translation_form.instance.id and page_translation_form.instance.page.archived %}
+        {% include '../_tinymce_config.html' with readonly=1 language=target_language %}
+    {% else %}
+        {% include '../_tinymce_config.html' with language=target_language %}
+    {% endif %}
 {% endblock %}
-
 {% block javascript %}
-{% render_bundle 'editor' 'js' %}
+    {% render_bundle 'editor' 'js' %}
 {% endblock %}

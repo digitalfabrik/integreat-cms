@@ -1,17 +1,13 @@
 import json
 
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.utils.text import slugify
 
-from ...decorators import region_permission_required
 from ...models import PageTranslation, EventTranslation, POITranslation
 from ...utils.slug_utils import generate_unique_slug
 
 
-@login_required
-@region_permission_required
 # pylint: disable=unused-argument
 def slugify_ajax(request, region_slug, language_slug, model_type):
     """checks the current user input for title and generates unique slug for permalink

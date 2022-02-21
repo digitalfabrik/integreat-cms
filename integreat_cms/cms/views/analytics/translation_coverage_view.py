@@ -1,20 +1,14 @@
 import logging
 from collections import Counter
 
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from django.shortcuts import render
 
 from ...constants import translation_status
-from ...decorators import region_permission_required
 
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 class TranslationCoverageView(TemplateView):
     """
     View to calculate and show the translation coverage statistics (up to date translations, missing translation, etc)
@@ -22,27 +16,19 @@ class TranslationCoverageView(TemplateView):
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "analytics/translation_coverage.html"
-    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "translation_coverage"}
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         r"""
-        Render the translation coverage
-
-        :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
-        :param \*args: The supplied arguments
-        :type \*args: list
+        Extend context by traanslation coverage data
 
         :param \**kwargs: The supplied keyword arguments
         :type \**kwargs: dict
 
-        :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
+        :return: The context dictionary
+        :rtype: dict
         """
 
-        region = request.region
+        region = self.request.region
 
         translation_coverage_data = {}
         outdated_word_count = Counter()
@@ -53,7 +39,7 @@ class TranslationCoverageView(TemplateView):
         for language in region.active_languages:
             language_coverage_data = Counter()
             for page in pages:
-                translation_state = page.get_translation_state(language)
+                translation_state = page.get_translation_state(language.slug)
                 language_coverage_data[translation_state] += 1
 
                 if translation_state == translation_status.OUTDATED:
@@ -86,13 +72,13 @@ class TranslationCoverageView(TemplateView):
             ],
         }
 
-        return render(
-            request,
-            self.template_name,
+        context = super().get_context_data(**kwargs)
+        context.update(
             {
-                **self.base_context,
+                "current_menu_item": "translation_coverage",
                 "coverage_data": chart_data,
                 "outdated_word_count": dict(outdated_word_count),
                 "total_outdated_words": sum(outdated_word_count.values()),
-            },
+            }
         )
+        return context

@@ -6,7 +6,7 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 
 from ...cms.models import Page
-from ..decorators import json_response
+from ..decorators import json_response, matomo_tracking
 
 
 def transform_page(page_translation):
@@ -54,6 +54,7 @@ def transform_page(page_translation):
     }
 
 
+@matomo_tracking
 @json_response
 # pylint: disable=unused-argument
 def pages(request, region_slug, language_slug):
@@ -129,6 +130,7 @@ def get_single_page(request, language_slug):
     return page
 
 
+@matomo_tracking
 @json_response
 # pylint: disable=unused-argument
 def single_page(request, region_slug, language_slug):
@@ -162,6 +164,7 @@ def single_page(request, region_slug, language_slug):
     raise Http404("No Page matches the given url or id.")
 
 
+@matomo_tracking
 @json_response
 # pylint: disable=unused-argument
 def children(request, region_slug, language_slug):

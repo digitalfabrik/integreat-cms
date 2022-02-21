@@ -1,11 +1,12 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from ..abstract_base_model import AbstractBaseModel
 from ..languages.language import Language
 from .push_notification import PushNotification
 
 
-class PushNotificationTranslation(models.Model):
+class PushNotificationTranslation(AbstractBaseModel):
     """
     Data model representing a push notification translation
     """
@@ -66,7 +67,7 @@ class PushNotificationTranslation(models.Model):
         """
         return self.title
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<PushNotificationTranslation: PushNotificationTranslation object (id)>``.
         It is used for logging.

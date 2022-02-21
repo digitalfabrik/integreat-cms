@@ -65,6 +65,8 @@ import "./js/pagination/pagination.ts";
 
 import "./js/tutorial-overlay.ts";
 
+import "./js/unsaved-warning";
+
 window.addEventListener('load',() => {
     feather.replace({ class: 'inline-block' });
 })

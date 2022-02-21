@@ -91,7 +91,7 @@ class PageTranslation(AbstractBasePageTranslation):
         """
 
         return settings.BASE_URL + reverse(
-            "expand_page_translation_id", kwargs={"short_url_id": self.id}
+            "public:expand_page_translation_id", kwargs={"short_url_id": self.id}
         )
 
     @cached_property
@@ -140,7 +140,7 @@ class PageTranslation(AbstractBasePageTranslation):
         This functions returns a list of translated tags which apply to this function.
         Supported tags:
         * Live content: if the page of this translation has live content
-        * Empty: if the page contains no text
+        * Empty: if the page contains no text and has no subpages (TODO: Can also be empty if subpages are archived)
 
         :return: A list of tags which apply to this translation
         :rtype: list [ str ]
@@ -150,7 +150,7 @@ class PageTranslation(AbstractBasePageTranslation):
         if self.page.mirrored_page:
             tags.append(_("Live content"))
 
-        if not self.combined_text.strip():
+        if not self.combined_text.strip() and self.page.is_leaf():
             tags.append(_("Empty"))
 
         return tags

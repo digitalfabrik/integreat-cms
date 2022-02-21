@@ -2,8 +2,10 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
+from ..abstract_base_model import AbstractBaseModel
 
-class UserMfaKey(models.Model):
+
+class UserMfaKey(AbstractBaseModel):
     """
     Data model representing a user's multi-factor-authentication (MFA) key
     """
@@ -47,7 +49,7 @@ class UserMfaKey(models.Model):
         """
         return f"{self.name} ({self.user.full_user_name})"
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<UserMfaKey: UserMfaKey object (id)>``.
         It is used for logging.
@@ -71,3 +73,5 @@ class UserMfaKey(models.Model):
                 "name",
             ),
         )
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["name"]

@@ -2,22 +2,19 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...forms import ImprintTranslationForm
 from ...models import Language, ImprintPage
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_imprintpage"), name="dispatch")
 @method_decorator(permission_required("cms.change_imprintpage"), name="post")
 class ImprintSideBySideView(TemplateView):
@@ -28,7 +25,7 @@ class ImprintSideBySideView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "imprint/imprint_sbs.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {
+    extra_context = {
         "current_menu_item": "imprint",
         "WEBAPP_URL": settings.WEBAPP_URL,
         "IMPRINT_SLUG": settings.IMPRINT_SLUG,
@@ -116,7 +113,7 @@ class ImprintSideBySideView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "imprint_translation_form": imprint_translation_form,
                 "source_imprint_translation": source_imprint_translation,
                 "target_language": target_language,
@@ -218,7 +215,7 @@ class ImprintSideBySideView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "imprint_translation_form": imprint_translation_form,
                 "source_imprint_translation": source_imprint_translation,
                 "target_language": target_language,

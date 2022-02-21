@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 {% load widget_tweaks %}
-<form method="post">
+<form method="post" data-unsaved-warning>
     {% csrf_token %}
     <div class="flex justify-between mb-4">
 		<h1 class="heading">
@@ -25,9 +25,9 @@
     </div>
 
     <div class="grid xl:grid-cols-2 gap-4">
-		<div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-			<div class="p-4 rounded bg-blue-500">
-				<h3 class="heading font-bold text-white"><i data-feather="star" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+		<div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+			<div class="p-4 rounded bg-water-500">
+				<h3 class="heading font-bold text-black"><i data-feather="star" class="mr-2"></i> {% trans 'General Settings' %}</h3>
 			</div>
 			<div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
 				<div>
@@ -52,9 +52,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-			<div class="p-4 rounded bg-blue-500">
-				<h3 class="heading font-bold text-white"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
+		<div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+			<div class="p-4 rounded bg-water-500">
+				<h3 class="heading font-bold text-black"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
 			</div>
 			<div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
 				<div>
@@ -82,8 +82,8 @@
 			</button>
 		{% else %}
 			<button title="{% trans 'Delete language' %}" class="btn confirmation-button btn-red"
-					data-confirmation-title="{% trans 'Please confirm that you really want to delete this offer template' %}"
-					data-confirmation-text="{% trans 'This cannot be reversed.' %}"
+					data-confirmation-title="{{ delete_dialog_title }}"
+					data-confirmation-text="{{ delete_dialog_text }}"
 					data-confirmation-subject="{{ form.instance.name }}"
 					data-action="{% url 'delete_offertemplate' slug=form.instance.slug %}">
 				<i data-feather="trash-2"></i>

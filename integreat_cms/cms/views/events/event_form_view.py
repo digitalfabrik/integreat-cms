@@ -2,7 +2,6 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -11,7 +10,7 @@ from django.views.generic import TemplateView
 
 
 from ...constants import status, translation_status
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Language, Event, EventTranslation, RecurrenceRule, POI
 from .event_context_mixin import EventContextMixin
@@ -21,8 +20,6 @@ from ..media.media_context_mixin import MediaContextMixin
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
 @method_decorator(permission_required("cms.change_event"), name="post")
 class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
@@ -32,6 +29,11 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "events/event_form.html"
+    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
+    extra_context = {
+        "current_menu_item": "events_form",
+        "translation_status": translation_status,
+    }
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
@@ -63,7 +65,10 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
         recurrence_rule_instance = RecurrenceRule.objects.filter(
             event=event_instance
         ).first()
-        poi_instance = region.pois.filter(events=event_instance).first()
+        if event_instance:
+            poi_instance = event_instance.location
+        else:
+            poi_instance = None
 
         # Make form disabled if event is archived or user doesn't have the permission to edit the event
         if event_instance and event_instance.archived:
@@ -94,14 +99,12 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
         recurrence_rule_form = RecurrenceRuleForm(
             instance=recurrence_rule_instance, disabled=disabled
         )
-        context = self.get_context_data(**kwargs)
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/events/"
         return render(
             request,
             self.template_name,
             {
-                **context,
-                "current_menu_item": "events_form",
+                **self.get_context_data(**kwargs),
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
@@ -109,7 +112,6 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
                 "url_link": url_link,
-                "translation_status": translation_status,
                 "translation_states": event_instance.translation_states
                 if event_instance
                 else [],
@@ -236,14 +238,12 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
-                "current_menu_item": "events",
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
                 "poi": poi,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
-                "translation_status": translation_status,
                 "translation_states": event_instance.translation_states
                 if event_instance
                 else [],

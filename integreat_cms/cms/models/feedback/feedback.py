@@ -8,11 +8,12 @@ from polymorphic.models import PolymorphicModel
 
 from ...constants import feedback_ratings
 from ...utils.translation_utils import ugettext_many_lazy as __
+from ..abstract_base_model import AbstractBaseModel
 from ..languages.language import Language
 from ..regions.region import Region
 
 
-class Feedback(PolymorphicModel):
+class Feedback(PolymorphicModel, AbstractBaseModel):
     """
     Database model representing feedback from app-users.
     Do not directly create instances of this base model, but of the submodels (e.g. PageFeedback) instead.
@@ -133,7 +134,7 @@ class Feedback(PolymorphicModel):
         """
         return self.comment
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Feedback: Feedback object (id)>``.
         It is used for logging.

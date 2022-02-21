@@ -1,5 +1,4 @@
 {% extends "_base.html" %}
-
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
@@ -8,14 +7,11 @@
 {% load page_filters %}
 {% load rules %}
 {% load render_bundle from webpack_loader %}
-
-
 {% block content %}
-{% get_current_language as LANGUAGE_CODE %}
-{% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
-<form enctype="multipart/form-data" method="post" id="content_form">
-    {% csrf_token %}
-    <div class="flex flex-wrap items-start">
+    {% get_current_language as LANGUAGE_CODE %}
+    {% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
+    <form enctype="multipart/form-data" method="post" id="content_form" data-unsaved-warning>
+        {% csrf_token %}
         <div class="w-full flex flex-wrap justify-between mb-6">
             <h1 class="heading">
                 {% if page %}
@@ -55,285 +51,317 @@
                 </div>
             {% endif %}
         </div>
-        <div class="flex flex-wrap flex-col flex-grow pr-2 w-2/3">
-            {% include "_form_language_tabs.html" with target='edit_page' instance=page_form.instance content_field="page_id" %}
-            <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white flex-auto">
-                <div class="w-full p-4">
-                    <div class="flex justify-between mr-2">
-                        <label for="{{ page_translation_form.title.id_for_label }}"
-                            data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
-                            {{ page_translation_form.title.label }}
-                        </label>
-                        {% if page_translation_form.instance.id %}
-                            <div class="grid grid-cols-2 text-right">
-                                <div class="font-bold pr-2">{% trans 'Version' %}:</div>
-                                <div>
-                                    {{ page_translation_form.instance.version }}
-                                    (<a href="{% url 'page_revisions' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-                                    class="text-blue-500 hover:underline">{% trans 'Show' %}</a>)
-                                </div>
-                                <div class="font-bold pr-2">{% trans 'Status' %}:</div>
-                                <div>
-                                    {% if page.explicitly_archived %}
-                                        {% trans 'Archived' %}
-                                    {% elif page.implicitly_archived %}
-                                        {% trans 'Archived, because a parent page is archived' %}
-                                    {% else %}
-                                        {{ page_translation_form.instance.get_status_display }}
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endif %}
-                    </div>
-                    {% render_field page_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
-                    {% if page_translation_form.instance.id %}
-                        {% if request.region.short_urls_enabled and request.user.expert_mode %}
-                            <label class="inline-block">{% trans 'Short URL' %}:</label>
-                            <a href="{{ page_translation_form.instance.short_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
-                            <a href="#" data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}" title="{% trans 'Copy to clipboard' %}" class="px-2 text-gray-800 hover:text-blue-500">
-                                <i data-feather="copy"></i>
-                            </a><br>
-                        {% endif %}
+        <div class="grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_400px_400px] gap-4">
+            <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col flex-auto">
+                {% include "_form_language_tabs.html" with target='edit_page' instance=page_form.instance content_field="page_id" %}
+                <div class="w-full rounded border border-blue-500 bg-white shadow-2xl flex flex-col flex-auto">
+                    <div class="flex flex-col flex-auto p-4">
                         {% if page_translation_form.instance.currently_in_translation %}
-                            <div id="trans-warn">
-                                <i data-feather="alert-triangle" class="text-red-800"></i>
+                            <div id="currently-in-translation-warning">
+                                <i data-feather="alert-triangle" class="text-red-500"></i>
                                 <label class="inline-block mb-2 font-bold">{% trans 'Warning' %}:</label>
                                 {% trans 'Translation in progress' %}
-                                <a href="#"
-                                        data-unset-translation-state
-                                        data-unset-translation-state-id="{{ page.id }}"
-                                        data-unset-translation-state-language-code="{{ page_translation_form.instance.language.slug }}"
-                                        id="undo-translation"
-                                        class="italic text-purple-500"
-                                        data-url="{% url 'post_translation_state_ajax' region_slug=request.region.slug %}">
-                                    {% trans 'Abort translation process' %}
-                                </a><br>
+                                (<a href="#"
+                                data-cancel-translation-process
+                                data-url="{% url 'cancel_translation_process_ajax' region_slug=request.region.slug language_slug=page_translation_form.instance.language.slug page_id=page.id %}"
+                                id="cancel-translation"
+                                class="text-blue-500 hover:underline">{% trans 'Cancel translation process' %}</a>)
+                                <br />
                             </div>
                         {% endif %}
-                    {% endif %}
-                    <div id="link-container" class="flex items-center">
-                        <label for="{{ page_translation_form.slug.id_for_label }}" class="mr-2 whitespace-nowrap">
-                            {{ page_translation_form.slug.label }}:
-                        </label>
-                        <a id="slug-link" href="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}" class="text-blue-500 hover:underline">{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}</a>
-                        <a id="edit-slug-btn" title="{% trans 'Edit' %}" class="mx-2 btn-icon">
-                            <i data-feather="edit-3"></i>
-                        </a>
-                        <a id="copy-slug-btn" title="{% trans 'Copy to clipboard' %}" class="btn-icon">
-                            <i data-feather="copy"></i>
-                        </a>
-                        <div class="slug-field hidden">
-                            <label for="{{ page_translation_form.slug.id_for_label }}">{{ page_translation_form.instance.base_link }}</label>
-                            {% render_field page_translation_form.slug|add_error_class:"slug-error" %}
-                        </div>
-                        <a id="save-slug-btn" class="mx-2 btn-icon hidden">
-                            <i data-feather="save"></i>
-                        </a>
-                        <a id="restore-slug-btn" class="btn-icon hidden">
-                            <i data-feather="x-circle"></i>
-                        </a>
-                    </div>
-                    <label for="{{ page_translation_form.content.id_for_label }}">{{ page_translation_form.content.label }}</label>
-                    {% render_field page_translation_form.content class="tinymce_textarea" %}
-                </div>
-            </div>
-        </div>
-        <div class="pl-4 flex flex-wrap flex-col" style="width: 400px">
-            {% if page %}
-            <ul class="flex pl-4">
-                <li class="z-10" style="margin-bottom: -2px">
-                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
-                        <div class="border-b-2 border-white">
-                            <i data-feather="feather"></i>
-                            {% trans 'Minor edit' %}
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                <label>{% trans 'Implications on other translations' %}</label>
-                {% render_field page_translation_form.minor_edit %}
-                <label for="{{ page_translation_form.minor_edit.id_for_label }}" class="secondary">{{ page_translation_form.minor_edit.label }}</label>
-                <div class="help-text">{{ page_translation_form.minor_edit.help_text }}</div>
-            </div>
-            {% endif %}
-            <ul class="flex pl-4">
-                <li class="z-10" style="margin-bottom: -2px">
-                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
-                        <div class="border-b-2 border-white">
-                            <i data-feather="settings"></i>
-                            {% trans 'Settings of the page' %}
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div class="mb-4 px-4 pb-4 rounded border-2 border-solid border-blue-500 shadow bg-white divide-y divide-gray-200 space-y-4">
-                <div>
-                    <label for="{{ page_form.icon.id_for_label }}">{{ page_form.icon.label }}</label>
-                    {% render_field page_form.icon label=page_form.icon.label %}
-                </div>
-                <div>
-                    <label>{% trans 'Positioning' %}</label>
-                    <label for="{{ page_form.parent.id_for_label }}" class="secondary">{{ page_form.parent.label }}</label>
-                    {% render_field page_form|get_private_member:"ref_node_id" %}
-                    {% render_field page_form|get_private_member:"position" %}
-                    {% render_field page_form.parent id="parent" %}
-                    <label class="btn-gray">{% trans 'Order' %}</label>
-                    <div id="page_order_table" class="mb-4">
-                        {% include "pages/_page_order_table.html" %}
-                    </div>
-                </div>
-                <div {% if not request.user.expert_mode %}hidden{% endif %}>
-                    <label for="mirrored_page_region">{% trans 'Embed live content' %}</label>
-                    {% render_field page_form.mirrored_page_region id="mirrored_page_region" %}
-                    <div class="relative my-2 {% if not page.mirrored_page %} hidden {% endif %}" id="mirrored_page_div" data-url="{% url 'render_mirrored_page_field' region_slug=request.region.slug %}?{% if page_form.instance.id %}page_id={{ page_form.instance.id }}&{% endif %}region_id=">
-                        {% include "pages/_mirrored_page_field.html" %}
-                    </div>
-                    <div class="my-2 pb-2 {% if not page.mirrored_page %} hidden {% endif %}" id="mirrored_page_first_div">
-                        {% render_field page_form.mirrored_page_first id="mirrored_page_first" %}
-                    </div>
-                </div>
-                {% if request.user.expert_mode %}
-                    {% if perms.cms.grant_page_permissions and request.region.page_permissions_enabled %}
-                        <div>
-                            <label>{% trans 'Additional permissions for this page' %}</label>
-                            <p class="italic">{% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}</p>
-                            <div id="page_permission_table">
-                                {% include "pages/_page_permission_table.html" %}
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endif %}
-                {% if page_form.organization.field.queryset.exists %}
-                    <div {% if not request.user.expert_mode %}hidden{% endif %}>
-                        <label for="{{ page_form.organization.id_for_label }}">{{ page_form.organization.label }}</label>
-                        <div class="help-text">{{ page_form.organization.help_text }}</div>
-                        {% render_field page_form.organization|add_error_class:"border-red-500" %}
-                    </div>
-                {% endif %}
-            </div>
-                {% if page and can_edit_page %}
-                    <ul class="flex pl-4">
-                        <li class="z-10" style="margin-bottom: -2px">
-                            <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
-                                <div class="border-b-2 border-white">
-                                    <i data-feather="tool"></i>
-                                    {% trans 'Actions' %}
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="w-full p-4 mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white flex flex-col">
-                        {% if page.explicitly_archived %}
-                            <label>{% trans 'Restore page' %}</label>
-                            <button title="{% trans 'Restore page' %}" class="btn confirmation-button"
-                                data-confirmation-title="{{ restore_dialog_title }}"
-                                data-confirmation-text="{{ restore_dialog_text }}"
-                                data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this page' %}
-                            </button>
-                        {% elif page.implicitly_archived %}
-                            <label>{% trans 'Restore page' %}</label>
-                            <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
-                                <p>
-                                    {% blocktrans count counter=page.explicitly_archived_ancestors|length trimmed %}
-                                        To restore this page, you have to restore its parent page:
-                                    {% plural %}
-                                        To restore this page, you have to restore all its archived parent pages:
-                                    {% endblocktrans %}
-                                </p>
-                            </div>
-                            {% for ancestor in page.explicitly_archived_ancestors %}
-                                <a href="{% url 'edit_page' page_id=ancestor.id region_slug=request.region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
-                                    <i data-feather="edit" class="mr-2"></i> {{ ancestor.best_translation.title }}
-                                </a>
-                            {% endfor %}
-                        {% else %}
-                            <label>{% trans 'Archive page' %}</label>
-                            <button title="{% trans 'Archive page' %}" class="btn confirmation-button"
-                                data-confirmation-title="{{ archive_dialog_title }}"
-                                data-confirmation-text="{{ archive_dialog_text }}"
-                                data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                <i data-feather="archive" class="mr-2"></i>
-                                {% trans 'Archive this page' %}
-                            </button>
-                        {% endif %}
-                        {% if perms.cms.delete_page %}
-                            <label>{% trans 'Delete page' %}</label>
-                            {% if not page.is_leaf %}
-                                {% with page.get_descendants.prefetch_translations as descendants %}
-                                    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
-                                        <p>
-                                            {% trans 'You cannot delete a page which has subpages.' %}<br>
-                                            {% blocktrans count counter=descendants|length trimmed %}
-                                                To delete this page, you have to delete or move its subpage first:
-                                            {% plural %}
-                                                To delete this page, you have to delete or move its subpages first:
-                                            {% endblocktrans %}
-                                        </p>
+                        <div class="flex justify-between mr-2">
+                            <label for="{{ page_translation_form.title.id_for_label }}"
+                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
+                                {{ page_translation_form.title.label }}
+                            </label>
+                            {% if page_translation_form.instance.id %}
+                                <div class="grid grid-cols-2 text-right">
+                                    <div class="font-bold pr-2">{% trans 'Version' %}:</div>
+                                    <div>
+                                        {{ page_translation_form.instance.version }}
+                                        (<a href="{% url 'page_revisions' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+                                        class="text-blue-500 hover:underline">{% trans 'Show' %}</a>)
                                     </div>
-                                    {% for descendant in descendants %}
-                                    <a href="{% url 'edit_page' page_id=descendant.id region_slug=request.region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
-                                        <i data-feather="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
-                                    </a>
-                                    {% endfor %}
-                                {% endwith %}
-                            {% else %}
-                                <button title="{% trans 'Delete page' %}" class="btn confirmation-button btn-red"
-                                    data-confirmation-title="{{ delete_dialog_title }}"
-                                    data-confirmation-text="{{ delete_dialog_text }}"
-                                    data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                                    data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                    <i data-feather="trash-2" class="mr-2"></i>
-                                    {% trans 'Delete this page' %}
-                                </button>
+                                    <div class="font-bold pr-2">{% trans 'Status' %}:</div>
+                                    <div>
+                                        {% if page.explicitly_archived %}
+                                            {% trans 'Archived' %}
+                                        {% elif page.implicitly_archived %}
+                                            {% trans 'Archived, because a parent page is archived' %}
+                                        {% else %}
+                                            {{ page_translation_form.instance.get_status_display }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% render_field page_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
+                        {% if page_translation_form.instance.id %}
+                            {% if request.region.short_urls_enabled and request.user.expert_mode %}
+                                <label class="inline-block">{% trans 'Short URL' %}:</label>
+                                <a href="{{ page_translation_form.instance.short_url }}"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
+                                <a href="#"
+                                   data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}"
+                                   title="{% trans 'Copy to clipboard' %}"
+                                   class="px-2 text-gray-800 hover:text-blue-500">
+                                    <i data-feather="copy"></i>
+                                </a>
+                                <br />
                             {% endif %}
                         {% endif %}
-                    </div>
-                {% endif %}
-            {% if page %}
-                <ul class="flex pl-4">
-                    <li class="z-10" style="margin-bottom: -2px">
-                        <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
-                            <div class="border-b-2 border-white">
-                                <i data-feather="columns"></i>
-                                {% trans 'Translator view' %}
+                        <div id="link-container" class="flex items-center">
+                            <label for="{{ page_translation_form.slug.id_for_label }}"
+                                   class="mr-2 whitespace-nowrap">
+                                {{ page_translation_form.slug.label }}:
+                            </label>
+                            <a id="slug-link"
+                               href="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}"
+                               class="text-blue-500 hover:underline">{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}</a>
+                            <a id="edit-slug-btn" title="{% trans 'Edit' %}" class="mx-2 btn-icon">
+                                <i data-feather="edit-3"></i>
+                            </a>
+                            <a id="copy-slug-btn"
+                               title="{% trans 'Copy to clipboard' %}"
+                               class="btn-icon">
+                                <i data-feather="copy"></i>
+                            </a>
+                            <div class="slug-field hidden">
+                                <label for="{{ page_translation_form.slug.id_for_label }}">{{ page_translation_form.instance.base_link }}</label>
+                                {% render_field page_translation_form.slug|add_error_class:"slug-error" %}
                             </div>
+                            <a id="save-slug-btn" class="mx-2 btn-icon hidden">
+                                <i data-feather="save"></i>
+                            </a>
+                            <a id="restore-slug-btn" class="btn-icon hidden">
+                                <i data-feather="x-circle"></i>
+                            </a>
                         </div>
-                    </li>
-                </ul>
-                <div class="w-full mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                    <div class="w-full p-4 flex flex-col gap-4">
-                        <label for="side-by-side-select">{% trans 'Direction of translation' %}</label>
-                        <select id="side-by-side-select">
-                            <option value="">---------</option>
-                            {% for side_by_side_language_option in side_by_side_language_options %}
-                            <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=request.region.slug language_slug=side_by_side_language_option.value %}"{% if side_by_side_language_option.disabled %}disabled{% elif side_by_side_language_option.selected %}selected{% endif %}>{{ side_by_side_language_option.label }}</option>
-                            {% endfor %}
-                        </select>
-                        <a id="side-by-side-link" class="btn" disabled="disabled">
-                            <i data-feather="external-link"></i>
-                            {% trans 'Show translator view' %}
-                        </a>
+                        <label for="{{ page_translation_form.content.id_for_label }}">{{ page_translation_form.content.label }}</label>
+                        {% render_field page_translation_form.content class+="tinymce_textarea flex-auto" %}
                     </div>
                 </div>
-            {% endif %}
+            </div>
+            <div class="flex flex-wrap flex-col gap-4">
+                {% if page %}
+                    <div class="rounded border border-blue-500 shadow-2xl bg-white">
+                        <div class="rounded p-4 bg-water-500">
+                            <h3 class="heading font-bold text-black">
+                                <i data-feather="feather" class="pb-1"></i>
+                                {% trans "Minor edit" %}
+                            </h3>
+                        </div>
+                        <div class="w-full px-4 pb-4 rounded shadow bg-white">
+                            <label>{% trans 'Implications on other translations' %}</label>
+                            {% render_field page_translation_form.minor_edit %}
+                            <label for="{{ page_translation_form.minor_edit.id_for_label }}"
+                                   class="secondary">
+                                {{ page_translation_form.minor_edit.label }}
+                            </label>
+                            <div class="help-text">{{ page_translation_form.minor_edit.help_text }}</div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                    <div class="rounded p-4 bg-water-500">
+                        <h3 class="heading font-bold text-black">
+                            <i data-feather="settings" class="pb-1"></i>
+                            {% trans 'Settings of the page' %}
+                        </h3>
+                    </div>
+                    <div class="w-full px-4 pb-4 rounded shadow bg-white">
+                        <div>
+                            <label for="{{ page_form.icon.id_for_label }}">{{ page_form.icon.label }}</label>
+                            {% render_field page_form.icon label=page_form.icon.label %}
+                        </div>
+                        <div>
+                            <label>{% trans 'Positioning' %}</label>
+                            <label for="{{ page_form.parent.id_for_label }}" class="secondary">{{ page_form.parent.label }}</label>
+                            {% render_field page_form|get_private_member:"ref_node_id" %}
+                            {% render_field page_form|get_private_member:"position" %}
+                            {% render_field page_form.parent id="parent" %}
+                            <label class="btn-gray">{% trans 'Order' %}</label>
+                            <div id="page_order_table" class="mb-4">{% include "pages/_page_order_table.html" %}</div>
+                        </div>
+                        <div {% if not request.user.expert_mode %}hidden{% endif %}>
+                            <label for="mirrored_page_region">{% trans 'Embed live content' %}</label>
+                            {% render_field page_form.mirrored_page_region id="mirrored_page_region" %}
+                            <div class="relative my-2 {% if not page.mirrored_page %} hidden{% endif %}"
+                                 id="mirrored_page_div"
+                                 data-url="{% url 'render_mirrored_page_field' region_slug=request.region.slug %}?{% if page_form.instance.id %}page_id={{ page_form.instance.id }}&{% endif %}region_id=">
+                                {% include "pages/_mirrored_page_field.html" %}
+                            </div>
+                            <div class="my-2 pb-2 {% if not page.mirrored_page %} hidden{% endif %}"
+                                 id="mirrored_page_first_div">
+                                {% render_field page_form.mirrored_page_first id="mirrored_page_first" %}
+                            </div>
+                        </div>
+                        {% if request.user.expert_mode %}
+                            {% if perms.cms.grant_page_permissions and request.region.page_permissions_enabled %}
+                                <div>
+                                    <label>{% trans 'Additional permissions for this page' %}</label>
+                                    <p class="italic">
+                                        {% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}
+                                    </p>
+                                    <div id="page_permission_table">
+                                        {% include "pages/_page_permission_table.html" %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        {% if page_form.organization.field.queryset.exists %}
+                            <div {% if not request.user.expert_mode %}hidden{% endif %}>
+                                <label for="{{ page_form.organization.id_for_label }}">
+                                    {{ page_form.organization.label }}
+                                </label>
+                                <div class="help-text">
+                                    {{ page_form.organization.help_text }}
+                                </div>
+                                {% render_field page_form.organization|add_error_class:"border-red-500" %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col gap-4">
+                {% if page and can_edit_page %}
+                    <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                        <div class="rounded p-4 bg-water-500">
+                            <h3 class="heading font-bold text-black">
+                                <i data-feather="tool" class="pb-1"></i>
+                                {% trans 'Actions' %}
+                            </h3>
+                        </div>
+                        <div class="w-full px-4 pb-4 rounded shadow bg-white">
+                            {% if page.explicitly_archived %}
+                                <label>
+                                    {% trans 'Restore page' %}
+                                </label>
+                                <button title="{% trans 'Restore page' %}"
+                                        class="btn confirmation-button w-full"
+                                        data-confirmation-title="{{ restore_dialog_title }}"
+                                        data-confirmation-text="{{ restore_dialog_text }}"
+                                        data-confirmation-subject="{{ page_translation_form.instance.title }}"
+                                        data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                                    <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this page' %}
+                                </button>
+                            {% elif page.implicitly_archived %}
+                                <label>
+                                    {% trans 'Restore page' %}
+                                </label>
+                                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+                                     role="alert">
+                                    <p>
+                                        {% blocktrans count counter=page.explicitly_archived_ancestors|length trimmed %}
+                                    To restore this page, you have to restore its parent page:
+                                {% plural %}
+                                    To restore this page, you have to restore all its archived parent pages:
+                                {% endblocktrans %}
+                                    </p>
+                                </div>
+                                {% for ancestor in page.explicitly_archived_ancestors %}
+                                    <a href="{% url 'edit_page' page_id=ancestor.id region_slug=request.region.slug language_slug=language.slug %}"
+                                       class="block pt-2 hover:underline">
+                                        <i data-feather="edit" class="mr-2"></i> {{ ancestor.best_translation.title }}
+                                    </a>
+                                {% endfor %}
+                            {% else %}
+                                <label>
+                                    {% trans 'Archive page' %}
+                                </label>
+                                <button title="{% trans 'Archive page' %}"
+                                        class="btn confirmation-button w-full"
+                                        data-confirmation-title="{{ archive_dialog_title }}"
+                                        data-confirmation-text="{{ archive_dialog_text }}"
+                                        data-confirmation-subject="{{ page_translation_form.instance.title }}"
+                                        data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                                    <i data-feather="archive" class="mr-2"></i>
+                                    {% trans 'Archive this page' %}
+                                </button>
+                            {% endif %}
+                            {% if perms.cms.delete_page %}
+                                <label>
+                                    {% trans 'Delete page' %}
+                                </label>
+                                {% if not page.is_leaf %}
+                                    {% with page.get_descendants.prefetch_translations as descendants %}
+                                        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+                                             role="alert">
+                                            <p>
+                                                {% trans 'You cannot delete a page which has subpages.' %}
+                                                <br />
+                                                {% blocktrans count counter=descendants|length trimmed %}
+                                            To delete this page, you have to delete or move its subpage first:
+                                        {% plural %}
+                                            To delete this page, you have to delete or move its subpages first:
+                                        {% endblocktrans %}
+                                            </p>
+                                        </div>
+                                        {% for descendant in descendants %}
+                                            <a href="{% url 'edit_page' page_id=descendant.id region_slug=request.region.slug language_slug=language.slug %}"
+                                               class="block pt-2 hover:underline">
+                                                <i data-feather="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
+                                            </a>
+                                        {% endfor %}
+                                    {% endwith %}
+                                {% else %}
+                                    <button title="{% trans 'Delete page' %}"
+                                            class="btn confirmation-button btn-red w-full"
+                                            data-confirmation-title="{{ delete_dialog_title }}"
+                                            data-confirmation-text="{{ delete_dialog_text }}"
+                                            data-confirmation-subject="{{ page_translation_form.instance.title }}"
+                                            data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                                        <i data-feather="trash-2" class="mr-2"></i>
+                                        {% trans 'Delete this page' %}
+                                    </button>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if page %}
+                    <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                        <div class="rounded p-4 bg-water-500">
+                            <h3 class="heading font-bold text-black">
+                                <i data-feather="columns" class="pb-1"></i>
+                                {% trans 'Translator view' %}
+                            </h3>
+                        </div>
+                        <div class="w-full px-4 pb-4 rounded shadow bg-white flex flex-col">
+                            <label for="side-by-side-select">
+                                {% trans 'Direction of translation' %}
+                            </label>
+                            <select id="side-by-side-select">
+                                <option value="">
+                                    ---------
+                                </option>
+                                {% for side_by_side_language_option in side_by_side_language_options %}
+                                    <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=request.region.slug language_slug=side_by_side_language_option.value %}"
+                                            {% if side_by_side_language_option.disabled %}disabled{% elif side_by_side_language_option.selected %}selected{% endif %}>
+                                        {{ side_by_side_language_option.label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <a id="side-by-side-link" class="btn mt-4" disabled="disabled">
+                                <i data-feather="external-link"></i>
+                                {% trans 'Show translator view' %}
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
         </div>
-    </div>
-</form>
-{{ media_config_data|json_script:"media_config_data" }}
-
-{% if not can_edit_page or page_form.instance.id and page_form.instance.archived %}
-    {% include '../_tinymce_config.html' with readonly=1 %}
-{% else %}
-    {% include '../_tinymce_config.html' %}
-{% endif %}
-
-{% include "../generic_confirmation_dialog.html" %}
-{% endblock %}
-
+    </form>
+    {{ media_config_data|json_script:"media_config_data" }}
+    {% if not can_edit_page or page_form.instance.id and page_form.instance.archived %}
+        {% include '../_tinymce_config.html' with readonly=1 %}
+    {% else %}
+        {% include '../_tinymce_config.html' %}
+    {% endif %}
+    {% include "../generic_confirmation_dialog.html" %}
+{% endblock content %}
 {% block javascript %}
-{% render_bundle 'editor' 'js' %}
-{% endblock %}
+    {% render_bundle 'editor' 'js' %}
+{% endblock javascript %}

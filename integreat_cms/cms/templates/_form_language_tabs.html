@@ -6,18 +6,27 @@
 {% with translation_states|sort_translation_states:language as sorted_translation_states %}
     <ul class="flex flex-wrap items-end px-4">
         {% for other_language, other_status in sorted_translation_states|slice:":4" %}
-            <li class="mr-1 {% if other_language == language %}z-10{% endif %}" style="margin-bottom: -2px">
-                <div class="bg-white text-blue-500 {% if other_language == language %} cursor-default {% else %} hover:bg-blue-500 hover:text-white {% endif %} border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
+            <li class="mr-2 -mb-[2px] {% if other_language == language %}z-10{% endif %}">
+                <div class="bg-white font-bold">
                     <div class="border-b-2 border-white">
                         {% if other_language == language %}
-                            <div class="py-2 px-4">
+                            <div class="py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t text-blue-500 cursor-default">
                         {% else %}
-                            <a class="block py-2 px-4" href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}">
+                            <a class="block py-[calc(0.75rem+2px)] px-4 bg-water-500 border-l border-t border-r border-blue-500 rounded-t text-black hover:bg-white hover:text-blue-500" href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}">
                         {% endif %}
                         {% if other_status == translation_status.IN_TRANSLATION %}
-                            <span title="{% trans 'Currently in translation' %}">
+                            <span {% if other_language == language %} id="currently-in-translation-state" {% endif %} title="{% trans 'Currently in translation' %}">
                                 <i data-feather="clock"></i>
                             </span>
+                            {# For the current language, provide fallback icons in case translation process is cancelled #}
+                            {% if other_language == language %}
+                                <span id="reset-translation-state-{{ translation_status.OUTDATED }}" title="{% trans 'Translation outdated' %}" class="hidden">
+                                    <i data-feather="alert-triangle"></i>
+                                </span>
+                                <span id="reset-translation-state-{{ translation_status.UP_TO_DATE }}" title="{% trans 'Translation up-to-date' %}" class="hidden">
+                                    <i data-feather="check"></i>
+                                </span>
+                            {% endif %}
                         {% elif other_status == translation_status.OUTDATED %}
                             <span title="{% trans 'Translation outdated' %}">
                                 <i data-feather="alert-triangle"></i>
@@ -47,14 +56,14 @@
         {% endfor %}
         {% if instance and sorted_translation_states|length > 4 %}
             <li class="ml-auto z-10">
-                <div id="language-switcher" class="flex flex-col text-blue-500">
-                    <div id="language-switcher-current" class="font-bold text-right bg-white py-2 px-4 border-l-2 border-t-2 border-r-2 border-blue-500 rounded-t-lg cursor-default">
+                <div id="language-switcher" class="flex flex-col text-black">
+                    <div id="language-switcher-current" class="font-bold text-right bg-water-500 py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t cursor-default">
                         {% trans 'Other Languages' %}
                         <i data-feather="chevron-down"></i>
                     </div>
                     <div id="language-switcher-list" class="h-0 hidden z-10">
                         {% for other_language, other_status in sorted_translation_states|slice:"4:" %}
-                        <a href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}" class="flex justify-between font-bold whitespace-nowrap {% if forloop.last %} rounded-b border-b-2 {% endif %} py-2 px-3 border-l-2 border-r-2 border-t border-blue-500 hover:bg-blue-500 hover:text-white bg-white">
+                        <a href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}" class="flex justify-between font-bold whitespace-nowrap {% if forloop.last %} rounded-b border-b {% endif %} py-2 px-3 border-l border-r border-t border-blue-500 hover:bg-water-500 bg-white">
                             <div>
                                 {% if other_status == translation_status.IN_TRANSLATION %}
                                     <span title="{% trans 'Currently in translation' %}">

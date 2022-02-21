@@ -18,7 +18,13 @@
             data-confirmation-title="{% trans 'Please confirm that you really want to delete this chat message:' %}"
             data-confirmation-text="{% trans 'Sender:' %} {{ message.sender.full_user_name }}<br>{% trans 'Sent on:' %} {{ message.sent_datetime }}"
             data-confirmation-subject="{{ message.text }}"
-            data-action="{% url 'delete_chat_message' message_id=message.id %}">
+            data-action="{% spaceless %}
+                {% if request.region %}
+                    {% url 'delete_chat_message' region_slug=request.region.slug message_id=message.id %}
+                {% else %}
+                    {% url 'delete_chat_message' message_id=message.id %}
+                {% endif %}
+            {% endspaceless %}">
         <i data-feather="trash-2"></i>
     </button>
     <span class="text-gray-600 float-right">{{ message.sent_datetime }}</span>

@@ -67,6 +67,10 @@ intersphinx_mapping = {
         None,
     ),
     "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
+    "pytest": ("https://docs.pytest.org/en/latest/", None),
+    "pytest-cov": ("https://pytest-cov.readthedocs.io/en/latest/", None),
+    "pytest-django": ("https://pytest-django.readthedocs.io/en/latest/", None),
+    "pytest-xdist": ("https://pytest-xdist.readthedocs.io/en/latest/", None),
     "requests": ("https://docs.python-requests.org/en/master/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
     "sphinx-rtd-theme": (
@@ -122,6 +126,7 @@ nitpick_ignore = [
     ("py:class", "builtins.int"),
     ("py:class", "builtins.AssertionError"),
     ("py:class", "builtins.int"),
+    ("py:class", "NoneType"),
     ("py:class", "django.contrib.admin.helpers.ActionForm"),
     ("py:class", "django.contrib.admin.checks.ModelAdminChecks"),
     ("py:attr", "django.contrib.auth.models.Permission.user_set"),
@@ -149,6 +154,7 @@ nitpick_ignore = [
     ("py:class", "django.forms.widgets.PageForm"),
     ("py:func", "django.utils.text.capfirst"),
     ("py:class", "django.utils.xmlutils.SimplerXMLGenerator"),
+    ("py:class", "linkcheck.apps.LinkcheckConfig"),
     ("py:class", "linkcheck.Linklist"),
     ("py:class", "linkcheck.models.Link"),
     ("py:attr", "linkcheck.models.Link.+"),
@@ -258,3 +264,9 @@ def setup(app):
     """
     # Setup Django after config is initialized
     app.connect("django-configured", patch_django_for_autodoc)
+    # Add crossref type for links to the pytest documentation
+    app.add_crossref_type(
+        directivename="fixture",
+        rolename="fixture",
+        indextemplate="pair: %s; fixture",
+    )

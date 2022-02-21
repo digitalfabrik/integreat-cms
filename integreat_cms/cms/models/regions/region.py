@@ -13,6 +13,7 @@ from django.utils.translation import override, ugettext, ugettext_lazy as _
 from ...constants import region_status, administrative_division
 from ...utils.translation_utils import ugettext_many_lazy as __
 from ...utils.matomo_api_manager import MatomoApiManager
+from ..abstract_base_model import AbstractBaseModel
 from ..offers.offer_template import OfferTemplate
 
 
@@ -53,7 +54,8 @@ class RegionManager(models.Manager):
         )
 
 
-class Region(models.Model):
+# pylint: disable=too-many-public-methods
+class Region(AbstractBaseModel):
     """
     Data model representing region.
     """
@@ -102,6 +104,17 @@ class Region(models.Model):
             _("E.g. smaller municipalities in that area."),
             _("If empty, the CMS will try to fill this automatically."),
             _("Specify as JSON."),
+        ),
+    )
+    custom_prefix = models.CharField(
+        max_length=48,
+        blank=True,
+        verbose_name=_("custom prefix"),
+        help_text=__(
+            _("Enter parts of the name that should not affect sorting."),
+            _(
+                "Use this field only if the prefix is not an available choice in the list of administrative divisions above."
+            ),
         ),
     )
 
@@ -349,7 +362,8 @@ class Region(models.Model):
         :return: The prefix of the region
         :rtype: str
         """
-
+        if self.custom_prefix:
+            return self.custom_prefix
         if self.administrative_division_included and self.default_language:
             # Get administrative division in region's default language
             with override(self.default_language.slug):
@@ -584,7 +598,7 @@ class Region(models.Model):
         # mark as safe so that the warning triangle is not escaped
         return mark_safe(label)
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Region: Region object (id)>``.
         It is used for logging.

@@ -25,8 +25,8 @@ export default function CreateDirectory({
   setCreateDirectory,
 }: Props) {
   return (
-    <div className="flex-auto rounded-lg border-blue-500 shadow-xl bg-white">
-      <div class="rounded w-full p-4 bg-blue-500 text-white font-bold">
+    <div className="flex-auto rounded border border-blue-500 shadow-2xl bg-white">
+      <div class="rounded w-full p-4 bg-water-500 font-bold">
         <FolderPlus class="inline-block mr-2 h-5" />
         {mediaTranslations.heading_create_directory}
       </div>

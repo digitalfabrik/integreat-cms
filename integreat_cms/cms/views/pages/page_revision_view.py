@@ -1,7 +1,6 @@
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
@@ -9,14 +8,12 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...constants import status
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...models import Language
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
 class PageRevisionView(TemplateView):
     """
@@ -26,7 +23,7 @@ class PageRevisionView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_revisions.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "pages"}
+    extra_context = {"current_menu_item": "pages"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -97,7 +94,7 @@ class PageRevisionView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "page": page,
                 "page_translations": page_translations,
                 "api_revision": page_translations.filter(status=status.PUBLIC).first(),
@@ -197,7 +194,7 @@ class PageRevisionView(TemplateView):
             request,
             self.template_name,
             {
-                **self.base_context,
+                **self.get_context_data(**kwargs),
                 "page": page,
                 "page_translations": page_translations,
                 "api_revision": page_translations.filter(status=status.PUBLIC).first(),

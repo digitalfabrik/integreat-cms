@@ -4,10 +4,11 @@ from django.utils.functional import cached_property
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
 
+from ..abstract_base_model import AbstractBaseModel
 from ...constants import role_names
 
 
-class Role(models.Model):
+class Role(AbstractBaseModel):
     """
     Meta information about the default Django auth group model
     """
@@ -52,7 +53,7 @@ class Role(models.Model):
         """
         return self.get_name_display()
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Role: Role object (id)>``.
         It is used for logging.
@@ -69,3 +70,5 @@ class Role(models.Model):
         verbose_name_plural = _("roles")
         #: The default permissions for this model
         default_permissions = ()
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["name"]

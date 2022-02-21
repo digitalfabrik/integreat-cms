@@ -58,6 +58,9 @@ echo -e "Scanning Python source code and generating reStructuredText files from 
 export SPHINX_APIDOC_OPTIONS="members,undoc-members,inherited-members,show-inheritance"
 pipenv run sphinx-apidoc --no-toc --module-first -o "${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}" "${PACKAGE_DIR}" "${PACKAGE_DIR}/cms/migrations"
 
+# Generate rst files for tests module
+pipenv run sphinx-apidoc --no-toc --module-first -o "${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}" "tests"
+
 echo -e "Patching reStructuredText files..." | print_info
 
 # Modify .rst files to remove unnecessary submodule- & subpackage-titles
@@ -70,9 +73,6 @@ find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "*.rst" -print0 | xarg
     -e '/^[^ ]\+$/s/\(.*\.\)\?\([^\.]\+\)/\u\2/' `# Remove module path in headings (separated by dots) and make first letter uppercase` \
     -e '/^[^ ]\+$/s/\\_\([a-z]\)/ \u\1/g' `# Replace \_ with spaces in headings and make following letter uppercase` \
     -e 's/Cms/CMS/g;s/Api/API/g;s/Poi/POI/g;s/Mfa/MFA/g;s/Pdf/PDF/g;s/Xliff1/XLIFF 1.2/g;s/Xliff2/XLIFF 2.0/g;s/Xliff/XLIFF/g' # Make specific keywords uppercase
-
-# Remove inherited members from tests
-find ${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR} -type f -name "integreat_cms.*.tests.*rst" -print0 | xargs -0 --no-run-if-empty sed --in-place '/:inherited-members:/d'
 
 # Include _urls in sitemap automodule
 # shellcheck disable=SC2251

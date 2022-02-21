@@ -1,5 +1,4 @@
 {% extends "_base.html" %}
-
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
@@ -7,17 +6,15 @@
 {% load rules %}
 {% load poi_filters %}
 {% load render_bundle from webpack_loader %}
-
 {% block content %}
-<form id="content_form" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="flex flex-wrap">
-        <div class="w-full flex flex-wrap justify-between mb-6">
+    <form id="content_form" method="post" enctype="multipart/form-data" data-unsaved-warning>
+        {% csrf_token %}
+        <div class="w-full flex flex-wrap justify-between mb-4">
             <h1 class="heading">
                 {% if poi_form.instance.id %}
                     {% if poi_translation_form.instance.id %}
                         {% with poi_translation_form.instance.title as poi_title %}
-                        {% blocktrans %}Edit location "{{ poi_title }}"{% endblocktrans %}
+                            {% blocktrans %}Edit location "{{ poi_title }}"{% endblocktrans %}
                         {% endwith %}
                     {% else %}
                         {% trans 'Create new translation of the location' %}
@@ -37,181 +34,204 @@
                 </div>
             {% endif %}
         </div>
-        <div class="w-2/3 flex flex-wrap flex-col pr-2">
-            {% include "_form_language_tabs.html" with target='edit_poi' instance=poi_form.instance content_field="poi_id" %}
-            <div class="w-full mb-4 rounded border-2 border-blue-500 bg-white">
-                <div class="w-full p-4">
-                    <div class="flex justify-between">
-                        <label for="{{ poi_translation_form.title.id_for_label }}"
-                            data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}">
-                            {{ poi_translation_form.title.label }}
-                        </label>
-                        {% if poi_translation_form.instance.id %}
-                            <div class="grid grid-cols-2 text-left">
-                                <div class="font-bold pr-2">{% trans 'Version' %}:</div>
-                                <div>
-                                    {{ poi_translation_form.instance.version }}
-                                    <!-- TODO: POI Revisions -->
+        <div class="grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_400px_400px] gap-4">
+            <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col">
+                {% include "_form_language_tabs.html" with target='edit_poi' instance=poi_form.instance content_field="poi_id" %}
+                <div class="flex flex-col flex-auto w-full rounded border border-blue-500 bg-white shadow-2xl">
+                    <div class="flex flex-col w-full p-4 flex-auto">
+                        <div class="flex justify-between">
+                            <label for="{{ poi_translation_form.title.id_for_label }}"
+                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}">
+                                {{ poi_translation_form.title.label }}
+                            </label>
+                            {% if poi_translation_form.instance.id %}
+                                <div class="grid grid-cols-2 text-left">
+                                    <div class="font-bold pr-2">{% trans 'Version' %}:</div>
+                                    <div>
+                                        {{ poi_translation_form.instance.version }}
+                                        <!-- TODO: POI Revisions -->
+                                    </div>
+                                    <div class="font-bold pr-2">{% trans 'Status' %}:</div>
+                                    <div>
+                                        {% if poi.archived %}
+                                            {% trans 'Archived' %}
+                                        {% else %}
+                                            {{ poi_translation_form.instance.get_status_display }}
+                                        {% endif %}
+                                    </div>
                                 </div>
-                                <div class="font-bold pr-2">{% trans 'Status' %}:</div>
-                                <div>
-                                    {% if poi.archived %}
-                                        {% trans 'Archived' %}
-                                    {% else %}
-                                        {{ poi_translation_form.instance.get_status_display }}
-                                    {% endif %}
+                            {% endif %}
+                        </div>
+                        {% render_field poi_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
+                        <div id="link-container" class="flex items-center">
+                            <label for="{{ poi_translation_form.slug.id_for_label }}" class="mr-2">{{ poi_translation_form.slug.label }}:</label>
+                            {% spaceless %}
+                                <a id="slug-link"
+                                   href="https://integreat.app/{{ request.region.slug }}/{{ language.slug }}/"
+                                   class="text-blue-500 hover:underline">https://integreat.app/{{ request.region.slug }}/{{ language.slug }}/</a>
+                                <a id="edit-slug-btn" title="{% trans 'Edit' %}" class="mx-2 btn-icon">
+                                    <i data-feather="edit-3"></i>
+                                </a>
+                                <a id="copy-slug-btn"
+                                   title="{% trans 'Copy to clipboard' %}"
+                                   class="btn-icon">
+                                    <i data-feather="copy"></i>
+                                </a>
+                                <div class="slug-field hidden">
+                                    <label for="{{ poi_translation_form.slug.id_for_label }}">
+                                        https://integreat.app/{{ request.region.slug }}/{{ language.slug }}/
+                                    </label>
+                                    {% render_field poi_translation_form.slug|add_error_class:"slug-error" class="flex-grow appearance-none rounded bg-gray-200" %}
                                 </div>
-                            </div>
-                        {% endif %}
-                    </div>
-                    {% render_field poi_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
-                    <div id="link-container" class="flex items-center">
-                        <label for="{{ poi_translation_form.slug.id_for_label }}" class="mr-2">
-                            {{ poi_translation_form.slug.label }}:
+                                <a id="save-slug-btn" class="mx-2 btn-icon hidden">
+                                    <i data-feather="save"></i>
+                                </a>
+                                <a id="restore-slug-btn" class="btn-icon hidden">
+                                    <i data-feather="x-circle"></i>
+                                </a>
+                            {% endspaceless %}
+                        </div>
+                        <label for="{{ poi_translation_form.short_description.id_for_label }}">
+                            {{ poi_translation_form.short_description.label }}
                         </label>
-                        {% spaceless %}
-                            <a id="slug-link" href="https://integreat.app/{{ request.region.slug }}/{{ language.slug }}/" class="text-blue-500 hover:underline">https://integreat.app/{{ request.region.slug }}/{{ language.slug }}/</a>
-                            <a id="edit-slug-btn" title="{% trans 'Edit' %}" class="mx-2 btn-icon">
-                                <i data-feather="edit-3"></i>
-                            </a>
-                            <a id="copy-slug-btn" title="{% trans 'Copy to clipboard' %}" class="btn-icon">
-                                <i data-feather="copy"></i>
-                            </a>
-                            <div class="slug-field hidden">
-                                <label for="{{ poi_translation_form.slug.id_for_label }}">
-                                    https://integreat.app/{{ request.region.slug }}/{{ language.slug }}/
-                                </label>
-                                {% render_field poi_translation_form.slug|add_error_class:"slug-error" class="flex-grow appearance-none rounded bg-gray-200" %}
-                            </div>
-                            <a id="save-slug-btn" class="mx-2 btn-icon hidden">
-                                <i data-feather="save"></i>
-                            </a>
-                            <a id="restore-slug-btn" class="btn-icon hidden">
-                                <i data-feather="x-circle"></i>
-                            </a>
-                        {% endspaceless %}
+                        {% render_field poi_translation_form.short_description|add_error_class:"border-red-500" %}
+                        <label for="{{ poi_translation_form.content.id_for_label }}">{{ poi_translation_form.content.label }}</label>
+                        {% render_field poi_translation_form.content class+="tinymce_textarea flex-auto" %}
                     </div>
-                    <label for="{{ poi_translation_form.short_description.id_for_label }}">{{ poi_translation_form.short_description.label }}</label>
-                    {% render_field poi_translation_form.short_description|add_error_class:"border-red-500" %}
-                    <label for="{{ poi_translation_form.content.id_for_label }}">{{ poi_translation_form.content.label }}</label>
-                    {% render_field poi_translation_form.content class="tinymce_textarea" %}
                 </div>
             </div>
-        </div>
-        <div class="w-1/3 pl-4 flex flex-wrap flex-col">
-            <ul class="flex pl-4">
-                <li class="z-10" style="margin-bottom: -2px;">
-                    <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg py-2 px-4">
-                        <div class="border-b-2 border-white">
-                            <i data-feather="flag"></i>
-                            {% trans 'Settings for all translations' %}
+            <div class="flex flex-wrap flex-col gap-4">
+                <div class="rounded border border-blue-500 shadow-2xl bg-white">
+                    <div class="rounded p-4 bg-water-500">
+                        <h3 class="heading font-bold text-black">
+                            <i data-feather="map-pin" class="h-5"></i>
+                            {% trans 'Position' %}
+                        </h3>
+                    </div>
+                    <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
+                        <div>
+                            <label>{% trans 'Address' %}</label>
+                            <label for="{{ poi_form.address.id_for_label }}" class="secondary">{{ poi_form.address.label }}</label>
+                            {% render_field poi_form.address|add_error_class:"border-red-500" %}
+                            <label for="{{ poi_form.postcode.id_for_label }}" class="secondary">{{ poi_form.postcode.label }}</label>
+                            {% render_field poi_form.postcode|add_error_class:"border-red-500" %}
+                            <label for="{{ poi_form.city.id_for_label }}" class="secondary">{{ poi_form.city.label }}</label>
+                            {% render_field poi_form.city|add_error_class:"border-red-500" %}
+                            <label for="{{ poi_form.country.id_for_label }}" class="secondary">{{ poi_form.country.label }}</label>
+                            {% render_field poi_form.country|add_error_class:"border-red-500" %}
+                        </div>
+                        <div>
+                            {% render_field poi_form.location_not_on_map %}
+                            <label for="{{ poi_form.location_not_on_map.id_for_label }}">{{ poi_form.location_not_on_map.label }}</label>
+                            <div class="help-text">{{ poi_form.location_not_on_map.help_text }}</div>
+                        </div>
+                        <div>
+                            <label>{% trans 'Position' %}</label>
+                            <label for="{{ poi_form.longitude.id_for_label }}" class="secondary">{{ poi_form.longitude.label }}</label>
+                            {% render_field poi_form.longitude|add_error_class:"border-red-500" %}
+                            <div class="help-text">{{ poi_form.longitude.help_text }}</div>
+                            <label for="{{ poi_form.latitude.id_for_label }}" class="secondary">{{ poi_form.latitude.label }}</label>
+                            {% render_field poi_form.latitude|add_error_class:"border-red-500" %}
+                            <div class="help-text">{{ poi_form.latitude.help_text }}</div>
                         </div>
                     </div>
-                </li>
-            </ul>
-            <div class="mb-4 rounded border-2 border-solid border-blue-500 shadow bg-white">
-                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
-                    <div>
-                        <label>{% trans 'Address' %}</label>
-                        <label for="{{ poi_form.address.id_for_label }}" class="secondary">{{ poi_form.address.label }}</label>
-                        {% render_field poi_form.address|add_error_class:"border-red-500" %}
-                        <label for="{{ poi_form.postcode.id_for_label }}" class="secondary">{{ poi_form.postcode.label }}</label>
-                        {% render_field poi_form.postcode|add_error_class:"border-red-500" %}
-                        <label for="{{ poi_form.city.id_for_label }}" class="secondary">{{ poi_form.city.label }}</label>
-                        {% render_field poi_form.city|add_error_class:"border-red-500" %}
-                        <label for="{{ poi_form.country.id_for_label }}" class="secondary">{{ poi_form.country.label }}</label>
-                        {% render_field poi_form.country|add_error_class:"border-red-500" %}
+                </div>
+            </div>
+            <div class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col gap-4">
+                <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                    <div class="rounded p-4 bg-water-500">
+                        <h3 class="heading font-bold text-black">
+                            <i data-feather="image" class="pb-1"></i>
+                            {{ poi_form.icon.label }}
+                        </h3>
                     </div>
-                    <div>
-                        {% render_field poi_form.location_not_on_map %}
-                        <label for="{{ poi_form.location_not_on_map.id_for_label }}">{{ poi_form.location_not_on_map.label }}</label>
-                        <div class="help-text">{{ poi_form.location_not_on_map.help_text }}</div>
-                    </div>
-                    <div>
-                        <label>{% trans 'Position' %}</label>
-                        <label for="{{ poi_form.longitude.id_for_label }}" class="secondary">{{ poi_form.longitude.label }}</label>
-                        {% render_field poi_form.longitude|add_error_class:"border-red-500" %}
-                        <div class="help-text">{{ poi_form.longitude.help_text }}</div>
-                        <label for="{{ poi_form.latitude.id_for_label }}" class="secondary">{{ poi_form.latitude.label }}</label>
-                        {% render_field poi_form.latitude|add_error_class:"border-red-500" %}
-                        <div class="help-text">{{ poi_form.latitude.help_text }}</div>
-                    </div>
-                    <div>
+                    <div class="w-full px-4 pb-4 rounded shadow bg-white">
                         <label for="{{ poi_form.icon.id_for_label }}">{{ poi_form.icon.label }}</label>
                         {% render_field poi_form.icon label=poi_form.icon.label %}
                     </div>
-                    {% if poi_form.instance.id %}
-                        <div>
-                            {% if poi_form.instance.archived %}
-                            <label>{% trans 'Restore location' %}</label>
-                                <button title="{% trans 'Restore location' %}" class="btn confirmation-button w-full"
-                                    data-confirmation-title="{{ restore_dialog_title }}"
-                                    data-confirmation-text="{{ restore_dialog_text }}"
-                                    data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
-                                    data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                    <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this location' %}
-                                </button>
-                            {% else %}
-                            <label>{% trans 'Archive location' %}</label>
-                                <button title="{% trans 'Archive location' %}" class="btn confirmation-button w-full"
-                                    data-confirmation-title="{{ archive_dialog_title }}"
-                                    data-confirmation-text="{{ archive_dialog_text }}"
-                                    data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
-                                    data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                    <i data-feather="archive" class="mr-2"></i> {% trans 'Archive this location' %}
-                                </button>
-                            {% endif %}
+                </div>
+                {% if poi_form.instance.id and perms.cms.change_poi %}
+                    <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                        <div class="rounded p-4 bg-water-500">
+                            <h3 class="heading font-bold text-black">
+                                <i data-feather="tool" class="pb-1"></i>
+                                {% trans 'Actions' %}
+                            </h3>
                         </div>
-                        {% if perms.cms.delete_poi %}
+                        <div class="w-full px-4 pb-4 rounded shadow bg-white">
                             <div>
-                                <label>{% trans 'Delete location' %}</label>
-                                {% if poi_form.instance.events.exists %}
-                                    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5" role="alert">
-                                        <p>
-                                            {% trans 'You cannot delete a location which is referenced by an event.' %}<br>
-                                            {% blocktrans count counter=poi_form.instance.events.count trimmed %}
-                                                To delete this location, you have to delete this event first:
-                                            {% plural %}
-                                                To delete this location, you have to delete these events first:
-                                            {% endblocktrans %}
-                                        </p>
-                                    </div>
-                                    {% for event in poi_form.instance.events.all %}
-                                        <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" class="block pt-2 hover:underline">
-                                            <i data-feather="edit" class="mr-2"></i> {{ event.best_translation.title }}
-                                        </a>
-                                    {% endfor %}
-                                {% else %}
-                                    <button title="{% trans 'Delete location' %}" class="btn confirmation-button w-full btn-red"
-                                            data-confirmation-title="{{ delete_dialog_title }}"
-                                            data-confirmation-text="{{ delete_dialog_text }}"
+                                {% if poi_form.instance.archived %}
+                                    <label>{% trans 'Restore location' %}</label>
+                                    <button title="{% trans 'Restore location' %}"
+                                            class="btn confirmation-button w-full"
+                                            data-confirmation-title="{{ restore_dialog_title }}"
+                                            data-confirmation-text="{{ restore_dialog_text }}"
                                             data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
-                                            data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                        <i data-feather="trash-2" class="mr-2"></i> {% trans 'Delete this location' %}
+                                            data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                                        <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this location' %}
+                                    </button>
+                                {% else %}
+                                    <label>{% trans 'Archive location' %}</label>
+                                    <button title="{% trans 'Archive location' %}"
+                                            class="btn confirmation-button w-full"
+                                            data-confirmation-title="{{ archive_dialog_title }}"
+                                            data-confirmation-text="{{ archive_dialog_text }}"
+                                            data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
+                                            data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                                        <i data-feather="archive" class="mr-2"></i> {% trans 'Archive this location' %}
                                     </button>
                                 {% endif %}
                             </div>
-                        {% endif %}
-                    {% endif %}
-                </div>
+                            {% if perms.cms.delete_poi %}
+                                <div>
+                                    <label>{% trans 'Delete location' %}</label>
+                                    {% if poi_form.instance.events.exists %}
+                                        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+                                             role="alert">
+                                            <p>
+                                                {% trans 'You cannot delete a location which is referenced by an event.' %}
+                                                <br />
+                                                {% blocktrans count counter=poi_form.instance.events.count trimmed %}
+                                        To delete this location, you have to delete this event first:
+                                        {% plural %}
+                                        To delete this location, you have to delete these events first:
+                                        {% endblocktrans %}
+                                            </p>
+                                        </div>
+                                        {% for event in poi_form.instance.events.all %}
+                                            <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
+                                               class="block pt-2 hover:underline">
+                                                <i data-feather="edit" class="mr-2"></i> {{ event.best_translation.title }}
+                                            </a>
+                                        {% endfor %}
+                                    {% else %}
+                                        <button title="{% trans 'Delete location' %}"
+                                                class="btn confirmation-button w-full btn-red"
+                                                data-confirmation-title="{{ delete_dialog_title }}"
+                                                data-confirmation-text="{{ delete_dialog_text }}"
+                                                data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
+                                                data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                                            <i data-feather="trash-2" class="mr-2"></i> {% trans 'Delete this location' %}
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
-    </div>
-</form>
-{{ media_config_data|json_script:"media_config_data" }}
-
-{% if poi_form.instance.id and poi_form.instance.archived %}
-    {% include '../_tinymce_config.html' with readonly=1 %}
-{% else %}
-    {% include '../_tinymce_config.html' %}
-{% endif %}
-
-{% if poi_form.instance.id %}
-    {% include '../generic_confirmation_dialog.html' %}
-{% endif %}
-
-{% endblock %}
-
+    </form>
+    {{ media_config_data|json_script:"media_config_data" }}
+    {% if poi_form.instance.id and poi_form.instance.archived %}
+        {% include '../_tinymce_config.html' with readonly=1 %}
+    {% else %}
+        {% include '../_tinymce_config.html' %}
+    {% endif %}
+    {% if poi_form.instance.id %}
+        {% include '../generic_confirmation_dialog.html' %}
+    {% endif %}
+{% endblock content %}
 {% block javascript %}
-{% render_bundle 'editor' 'js' %}
-{% endblock %}
+    {% render_bundle 'editor' 'js' %}
+{% endblock javascript %}

@@ -13,18 +13,16 @@
                 {% if request.region.statistics_enabled %}
                     {% include "statistics/_statistics_widget.html" %}
                 {% endif %}
-                <!-- Broken Link Widget -->
-                {% include "analytics/_broken_links_widget.html" %}
-                <!-- Translation Status Widget -->
-                {% include "analytics/_translation_overview_widget.html" %}
-                <!-- App Size Widget -->
-                {% include "analytics/_website_size_widget.html" %}
-            </div>
-            <div class="xl:w-1/2">
                 <!-- Chat Widget -->
                 {% if chat_form %}
                     {% include "chat/_chat_widget.html" %}
                 {% endif %}
+                <!-- Translation Status Widget: TODO-->
+                <!-- App Size Widget: TODO -->
+            </div>
+            <div class="xl:w-1/2">
+                <!-- Broken Link Widget -->
+                {% include "analytics/_broken_links_widget.html" %}
                 <!-- News Widget -->
                 {% include "dashboard/_news_widget.html" %}
             </div>

@@ -9,7 +9,13 @@
 {% endblock %}
 
 {% block content %}
-    <form id="add-mfa-key" data-mfa-challenge-url="{% url 'get_mfa_challenge' %}">
+    <form id="add-mfa-key" data-mfa-challenge-url="{% spaceless %}
+              {% if request.region %}
+                  {% url 'get_mfa_challenge' region_slug=request.region.slug %}
+              {% else %}
+                  {% url 'get_mfa_challenge' %}
+              {% endif %}
+          {% endspaceless %}">
         <div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5 hidden add-mfa-error" role="alert">
             <p>{% trans 'Something went wrong during 2FA registration' %}:</p>
             <p class="add-mfa-error-msg"></p>

@@ -4,14 +4,12 @@ A view representing an instance of a point of interest. POIs can be created or u
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import translation_status
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...forms import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Language
 from .poi_context_mixin import POIContextMixin
@@ -21,8 +19,6 @@ from ...constants import status
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_poi"), name="dispatch")
 @method_decorator(permission_required("cms.change_poi"), name="post")
 class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
@@ -33,7 +29,7 @@ class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pois/poi_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    base_context = {"current_menu_item": "pois_form"}
+    extra_context = {"current_menu_item": "pois_form"}
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -74,19 +70,16 @@ class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
         poi_translation_form = POITranslationForm(
             instance=poi_translation, disabled=disabled
         )
-        context = self.get_context_data(**kwargs)
         return render(
             request,
             self.template_name,
             {
-                **self.base_context,
-                **context,
+                **self.get_context_data(**kwargs),
                 "poi_form": poi_form,
                 "poi_translation_form": poi_translation_form,
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if poi else [language],
-                "translation_status": translation_status,
                 "translation_states": poi.translation_states if poi else [],
             },
         )
@@ -188,14 +181,12 @@ class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
             request,
             self.template_name,
             {
-                **self.base_context,
                 **self.get_context_data(**kwargs),
                 "poi_form": poi_form,
                 "poi_translation_form": poi_translation_form,
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if poi_instance else [language],
-                "translation_status": translation_status,
                 "translation_states": poi_instance.translation_states
                 if poi_instance
                 else [],

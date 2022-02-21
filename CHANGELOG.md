@@ -1,6 +1,31 @@
 UNRELEASED
 ----------
 
+First stable release of the new content management system for the Integreat app
+
+* [ [#1162](https://github.com/digitalfabrik/integreat-cms/issues/1162) ] Allow management role to delete imprint
+* [ [#765](https://github.com/digitalfabrik/integreat-cms/issues/765) ] Add extended view tests
+* [ [#765](https://github.com/digitalfabrik/integreat-cms/issues/765) ] Add tests of form submissions
+* [ [#1163](https://github.com/digitalfabrik/integreat-cms/issues/1163) ] Fix error when editor creates new page
+* [ [#1165](https://github.com/digitalfabrik/integreat-cms/issues/1165) ] Fix bulk action button for sub pages
+* [ [#1173](https://github.com/digitalfabrik/integreat-cms/issues/1173) ] Fix bug where unused location is preselected for new event
+* [ [#1166](https://github.com/digitalfabrik/integreat-cms/issues/1166) ] Fix creation of location from event form
+* [ [#1172](https://github.com/digitalfabrik/integreat-cms/issues/1172) ] Fix filtering for locations in event list
+* [ [#1184](https://github.com/digitalfabrik/integreat-cms/issues/1184) ] Allow user to embed live content from current region
+* [ [#1185](https://github.com/digitalfabrik/integreat-cms/issues/1185) ] Fix feedback API
+* [ [#1188](https://github.com/digitalfabrik/integreat-cms/issues/1188) ] Fix error in broken link checker
+* [ [#1179](https://github.com/digitalfabrik/integreat-cms/issues/1179) ] Disable browser cache of page tree
+* [ [#1190](https://github.com/digitalfabrik/integreat-cms/issues/1190) ] Add possibility to set custom region prefix
+* [ [#1164](https://github.com/digitalfabrik/integreat-cms/issues/1164) ] Fix possibility to cancel translation process
+* [ [#1175](https://github.com/digitalfabrik/integreat-cms/issues/1175) ] Don't show empty tag if the page has subpages
+* [ [#1200](https://github.com/digitalfabrik/integreat-cms/issues/1200) ] Fix parent page select input
+* [ [#1196](https://github.com/digitalfabrik/integreat-cms/issues/1196) ] Track API requests with Matomo
+* [ [#1209](https://github.com/digitalfabrik/integreat-cms/issues/1209) ] Support legacy PDF API
+* [ [#1212](https://github.com/digitalfabrik/integreat-cms/issues/1212) ] Only show xliff export option for expert users
+* [ [#988](https://github.com/digitalfabrik/integreat-cms/issues/988) ] Add browser warning when leaving unsaved forms
+* [ [#1208](https://github.com/digitalfabrik/integreat-cms/issues/1208) ] Allow editor role to publish events
+* [ [#1208](https://github.com/digitalfabrik/integreat-cms/issues/1208) ] Hide feedback and imprint for editor and event manager role
+
 
 2022.2.0-beta
 -------------

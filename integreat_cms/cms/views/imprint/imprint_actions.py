@@ -5,22 +5,19 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseNotFound
 from django.views.decorators.http import require_POST
 
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from ...models import ImprintPage, ImprintPageTranslation
 
 logger = logging.getLogger(__name__)
 
 
 @require_POST
-@login_required
-@region_permission_required
 @permission_required("cms.delete_imprintpage")
 def delete_imprint(request, region_slug):
     """

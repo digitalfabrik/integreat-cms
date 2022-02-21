@@ -8,7 +8,7 @@
     {% if uid and token %}
     {% trans 'Please click the link below to set a password and activate your account.' %}
 
-    {{ base_url }}{% url 'activate_account' uidb64=uid token=token %}
+    {{ base_url }}{% url 'public:activate_account' uidb64=uid token=token %}
     {% else %}
     {% trans 'Please click the link below to log in with your password and to your account.' %}
 

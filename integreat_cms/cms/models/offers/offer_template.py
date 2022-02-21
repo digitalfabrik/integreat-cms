@@ -2,11 +2,12 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from ..abstract_base_model import AbstractBaseModel
 from ...constants import postal_code
 from ...utils.translation_utils import ugettext_many_lazy as __
 
 
-class OfferTemplate(models.Model):
+class OfferTemplate(AbstractBaseModel):
     """
     The OfferTemplate model is used to store templates of offers which can be activated for specific regions. The
     information stored in an offer template is global, so if you need parameters, which depend on local information
@@ -69,7 +70,7 @@ class OfferTemplate(models.Model):
         """
         return self.name
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<OfferTemplate: OfferTemplate object (id)>``.
         It is used for logging.
@@ -86,3 +87,5 @@ class OfferTemplate(models.Model):
         verbose_name_plural = _("offer templates")
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view")
+        #: The fields which are used to sort the returned objects of a QuerySet
+        ordering = ["slug"]

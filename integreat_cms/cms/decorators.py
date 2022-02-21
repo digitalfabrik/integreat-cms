@@ -11,39 +11,6 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 
 
-def staff_required(function):
-    """
-    This decorator can be used to make sure a view can only be retrieved by users who are either staff or superusers.
-
-    :param function: The view function which should be protected
-    :type function: ~collections.abc.Callable
-
-    :return: The decorated function
-    :rtype: ~collections.abc.Callable
-    """
-
-    def is_staff(user):
-        """
-        This function checks, whether or not a user is a superuser or staff member.
-
-        :param user: The user, that is checked
-        :type user: ~integreat_cms.cms.models.users.user.User
-
-        :raises ~django.core.exceptions.PermissionDenied: If user doesn't have the permission to access the staff area
-
-        :return: whether or not the user is staff member
-        :rtype: bool
-        """
-
-        if user.is_superuser or user.is_staff:
-            return True
-        raise PermissionDenied(
-            f"{user!r} does not have the permission to access this staff area"
-        )
-
-    return user_passes_test(is_staff)(function)
-
-
 def permission_required(permission):
     """
     Decorator for views that checks whether a user has a particular permission enabled.
@@ -151,7 +118,10 @@ def modify_mfa_authenticated(function):
             "modify_mfa_authentication_time"
         ] < (time.time() - 5 * 60):
             request.session["mfa_redirect_url"] = request.path
-            return redirect("authenticate_modify_mfa")
+            region_kargs = (
+                {"region_slug": request.region.slug} if request.region else {}
+            )
+            return redirect("authenticate_modify_mfa", **region_kargs)
         return function(request, *args, **kwargs)
 
     return wrap

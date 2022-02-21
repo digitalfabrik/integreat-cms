@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from ..abstract_base_model import AbstractBaseModel
 
 # pylint: disable=too-few-public-methods
 class ChatHistoryManager(models.Manager):
@@ -28,7 +29,7 @@ class ChatHistoryManager(models.Manager):
         )
 
 
-class ChatMessage(models.Model):
+class ChatMessage(AbstractBaseModel):
     """
     A model for a message in the author chat
     """
@@ -60,7 +61,7 @@ class ChatMessage(models.Model):
         """
         return f"{self.sent_datetime.strftime('%Y-%m-%d %H:%M')} - {self.sender.full_user_name}: {self.text}"
 
-    def __repr__(self):
+    def get_repr(self):
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<ChatMessage: ChatMessage object (id)>``.
         It is used for logging.

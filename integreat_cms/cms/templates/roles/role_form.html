@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 {% load widget_tweaks %}
-<form method="post">
+<form method="post" data-unsaved-warning>
     {% csrf_token %}
     <div class="flex flex-wrap mb-4">
         <div class="w-2/5 flex flex-wrap flex-col justify-center">
@@ -21,9 +21,9 @@
     </div>
     <div class="flex flex-wrap">
 	    <div class="w-full">
-		    <div class="w-full mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-				<div class="w-full p-4 rounded bg-blue-500">
-					<h3 class="heading font-bold text-white"><i data-feather="key" class="mr-2"></i> {% trans 'Role settings' %}</h3>
+		    <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+				<div class="w-full p-4 rounded bg-water-500">
+					<h3 class="heading font-bold text-black"><i data-feather="key" class="mr-2"></i> {% trans 'Role settings' %}</h3>
 				</div>
 				<div class="px-4 pb-4">
 					<label for="{{ role_form.name.id_for_label }}" >{{ role_form.name.label }}</label>
@@ -38,4 +38,4 @@
 		</div>
 </div>
 </form>
-{% endblock %}
+{% endblock content %}

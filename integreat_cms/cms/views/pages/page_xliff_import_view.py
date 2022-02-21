@@ -3,21 +3,18 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ....xliff.utils import get_xliff_import_diff, xliff_import_confirm
-from ...decorators import region_permission_required, permission_required
+from ...decorators import permission_required
 from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(login_required, name="dispatch")
-@method_decorator(region_permission_required, name="dispatch")
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
 class PageXliffImportView(TemplateView, PageContextMixin):
     """
@@ -82,7 +79,7 @@ class PageXliffImportView(TemplateView, PageContextMixin):
         )
         # Get directory path of the uploaded XLIFF files
         self.xliff_dir = os.path.join(
-            settings.XLIFF_UPLOAD_DIR, kwargs.get("xliff_dir")
+            settings.XLIFF_UPLOAD_DIR, str(kwargs.get("xliff_dir"))
         )
 
         if not os.path.isdir(self.xliff_dir):
