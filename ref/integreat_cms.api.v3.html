@@ -1234,7 +1234,7 @@ Single pages may be requested by url parameter, if no parameter is included all 
 related to the current region and language will be returned.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.pdf_export.</span></span><span class="sig-name descname"><span class="pre">pdf_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/pdf_export.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.pdf_export.</span></span><span class="sig-name descname"><span class="pre">pdf_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/pdf_export.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>View function that either returns the requested page specified by the
 url parameter or returns all pages of current region and language as PDF document
 by forwarding the request to <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.generate_pdf" title="integreat_cms.cms.utils.pdf_utils.generate_pdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_pdf()</span></code></a></p>
@@ -1246,11 +1246,14 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/inte
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – current language slug</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The requested pages as PDF document (inline)</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – HTTP status 404 if the requested page translation cannot be found.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a></p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The requested pages as PDF document (inline)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a></p>
 </dd>
 </dl>
 </dd></dl>
