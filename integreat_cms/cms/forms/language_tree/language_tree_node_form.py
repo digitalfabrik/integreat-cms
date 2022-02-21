@@ -4,16 +4,15 @@ from django import forms
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
-from treebeard.forms import MoveNodeForm
-
 from ..custom_model_form import CustomModelForm
+from ..custom_tree_node_form import CustomTreeNodeForm
 from ...models import Language, LanguageTreeNode
 
 
 logger = logging.getLogger(__name__)
 
 
-class LanguageTreeNodeForm(CustomModelForm, MoveNodeForm):
+class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
     """
     Form for creating and modifying language tree node objects
     """
@@ -55,10 +54,6 @@ class LanguageTreeNodeForm(CustomModelForm, MoveNodeForm):
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
 
-        # Hide tree node inputs
-        self.fields["_ref_node_id"].widget = forms.HiddenInput()
-        self.fields["_position"].widget = forms.HiddenInput()
-
         parent_queryset = self.instance.region.language_tree_nodes
 
         if self.instance.id:
@@ -69,7 +64,7 @@ class LanguageTreeNodeForm(CustomModelForm, MoveNodeForm):
                 )
             ]
             parent_queryset = parent_queryset.exclude(id__in=descendant_ids)
-            self.fields["parent"].initial = self.instance.parent
+            self.fields["parent"].initial = self.instance.parent_id
             excluded_languages = [
                 language.id
                 for language in self.instance.region.languages
@@ -82,22 +77,11 @@ class LanguageTreeNodeForm(CustomModelForm, MoveNodeForm):
 
         # limit possible parents to nodes of current region
         self.fields["parent"].queryset = parent_queryset
+        self.fields["_ref_node_id"].choices = self.fields["parent"].choices
         # limit possible languages to those which are not yet included in the tree
         self.fields["language"].queryset = Language.objects.exclude(
             id__in=excluded_languages
         )
-
-    def _clean_cleaned_data(self):
-        """
-        Delete auxiliary fields not belonging to node model and include instance attributes in cleaned_data
-
-        :return: The initial data for _ref_node_id and _position fields
-        :rtype: tuple
-        """
-        # This workaround is required because the MoveNodeForm does not take
-        # instance attribute into account which are not included in cleaned_data
-        self.cleaned_data["region"] = self.instance.region
-        return super()._clean_cleaned_data()
 
     def clean(self):
         """

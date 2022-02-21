@@ -278,7 +278,16 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         # Do not allow to move a node outside its region
         if self.region != target.region:
             # Allow moving as siblings of root nodes (because it's a separate tree)
-            if not (target.is_root() and pos in [position.LEFT, position.RIGHT]):
+            if not (
+                target.is_root()
+                and pos
+                in [
+                    position.LEFT,
+                    position.RIGHT,
+                    position.FIRST_SIBLING,
+                    position.LAST_SIBLING,
+                ]
+            ):
                 raise InvalidPosition(
                     _('The node "{}" in region "{}" cannot be moved to "{}".').format(
                         self, self.region, target.region

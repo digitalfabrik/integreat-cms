@@ -18,6 +18,8 @@ class LanguageTreeView(LanguageTreeContextMixin, ModelListView):
     template_name = "language_tree/language_tree.html"
     #: The model of this list view
     model = LanguageTreeNode
+    #: Disable pagination for language tree
+    paginate_by = None
 
     def get_queryset(self):
         """

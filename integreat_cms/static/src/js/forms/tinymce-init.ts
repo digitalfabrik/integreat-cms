@@ -94,7 +94,7 @@ window.addEventListener("load", () => {
       },
       link_title: false,
       autosave_interval: "120s",
-      forced_root_block: false,
+      forced_root_block: true,
       plugins:
         "code fullscreen autosave preview media image lists directionality wordcount hr charmap",
       external_plugins: {
