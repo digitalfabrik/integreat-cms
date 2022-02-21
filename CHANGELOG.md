@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+First stable release of the new content management system for the Integreat app
+
 * [ [#1162](https://github.com/digitalfabrik/integreat-cms/issues/1162) ] Allow management role to delete imprint
 * [ [#765](https://github.com/digitalfabrik/integreat-cms/issues/765) ] Add extended view tests
 * [ [#765](https://github.com/digitalfabrik/integreat-cms/issues/765) ] Add tests of form submissions
@@ -16,6 +18,10 @@ UNRELEASED
 * [ [#1190](https://github.com/digitalfabrik/integreat-cms/issues/1190) ] Add possibility to set custom region prefix
 * [ [#1164](https://github.com/digitalfabrik/integreat-cms/issues/1164) ] Fix possibility to cancel translation process
 * [ [#1175](https://github.com/digitalfabrik/integreat-cms/issues/1175) ] Don't show empty tag if the page has subpages
+* [ [#1200](https://github.com/digitalfabrik/integreat-cms/issues/1200) ] Fix parent page select input
+* [ [#1196](https://github.com/digitalfabrik/integreat-cms/issues/1196) ] Track API requests with Matomo
+* [ [#1209](https://github.com/digitalfabrik/integreat-cms/issues/1209) ] Support legacy PDF API
+* [ [#1212](https://github.com/digitalfabrik/integreat-cms/issues/1212) ] Only show xliff export option for expert users
 * [ [#988](https://github.com/digitalfabrik/integreat-cms/issues/988) ] Add browser warning when leaving unsaved forms
 * [ [#1208](https://github.com/digitalfabrik/integreat-cms/issues/1208) ] Allow editor role to publish events
 * [ [#1208](https://github.com/digitalfabrik/integreat-cms/issues/1208) ] Hide feedback and imprint for editor and event manager role
