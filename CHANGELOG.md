@@ -17,6 +17,8 @@ UNRELEASED
 * [ [#1164](https://github.com/digitalfabrik/integreat-cms/issues/1164) ] Fix possibility to cancel translation process
 * [ [#1175](https://github.com/digitalfabrik/integreat-cms/issues/1175) ] Don't show empty tag if the page has subpages
 * [ [#988](https://github.com/digitalfabrik/integreat-cms/issues/988) ] Add browser warning when leaving unsaved forms
+* [ [#1208](https://github.com/digitalfabrik/integreat-cms/issues/1208) ] Allow editor role to publish events
+* [ [#1208](https://github.com/digitalfabrik/integreat-cms/issues/1208) ] Hide feedback and imprint for editor and event manager role
 
 
 2022.2.0-beta
