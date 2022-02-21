@@ -127,6 +127,7 @@ INSTALLED_APPS = [
     # Installed custom apps
     "integreat_cms.cms",
     "integreat_cms.gvz_api",
+    "integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig",
     # Installed Django apps
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -136,7 +137,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Installed third-party-apps
     "corsheaders",
-    "linkcheck",
     "rules.apps.AutodiscoverRulesConfig",
     "treebeard",
     "webpack_loader",
