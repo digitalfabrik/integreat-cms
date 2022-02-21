@@ -51,9 +51,8 @@ def transform_event_translation(event_translation):
             event.location.get_public_translation(event_translation.language.slug)
             or event.location.default_translation
         )
-        location = transform_poi(event.location, location_translation)
     else:
-        location = None
+        location_translation = None
 
     return {
         "id": event_translation.id,
@@ -65,7 +64,7 @@ def transform_event_translation(event_translation):
         "content": event_translation.content,
         "available_languages": event_translation.available_languages,
         "thumbnail": event.icon.url if event.icon else None,
-        "location": location,
+        "location": transform_poi(event.location, location_translation),
         "event": transform_event(event),
         "hash": None,
     }

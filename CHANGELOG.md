@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1214](https://github.com/digitalfabrik/integreat-cms/issues/1214) ] Fix API return format of event location
+
 
 2022.2.1
 --------
