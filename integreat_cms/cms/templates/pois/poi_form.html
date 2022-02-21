@@ -7,7 +7,7 @@
 {% load poi_filters %}
 {% load render_bundle from webpack_loader %}
 {% block content %}
-    <form id="content_form" method="post" enctype="multipart/form-data">
+    <form id="content_form" method="post" enctype="multipart/form-data" data-unsaved-warning>
         {% csrf_token %}
         <div class="w-full flex flex-wrap justify-between mb-4">
             <h1 class="heading">

@@ -10,7 +10,7 @@
 {% block content %}
     {% get_current_language as LANGUAGE_CODE %}
     {% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
-    <form enctype="multipart/form-data" method="post" id="content_form">
+    <form enctype="multipart/form-data" method="post" id="content_form" data-unsaved-warning>
         {% csrf_token %}
         <div class="w-full flex flex-wrap justify-between mb-6">
             <h1 class="heading">
