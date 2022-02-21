@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1223](https://github.com/digitalfabrik/integreat-cms/issues/1223) ] Remove icon from imprint api
+
 
 2022.2.2
 --------
