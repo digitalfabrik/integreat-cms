@@ -233,7 +233,7 @@ def add_roles(apps, schema_editor):
     """
     Add the default roles for users
 
-    :param apps:
+    :param apps: The configuration of installed applications
     :type apps: ~django.apps.registry.Apps
 
     :param schema_editor: The database abstraction layer that creates actual SQL code
@@ -266,7 +266,7 @@ def remove_roles(apps, schema_editor):
     """
     Remove the default roles for users
 
-    :param apps: The
+    :param apps: The configuration of installed applications
     :type apps: ~django.apps.registry.Apps
 
     :param schema_editor: The database abstraction layer that creates actual SQL code
