@@ -25,9 +25,7 @@ def transform_imprint(imprint_translation):
         "content": imprint_translation.content,
         "parent": None,
         "available_languages": imprint_translation.available_languages,
-        "thumbnail": imprint_translation.page.icon.url
-        if imprint_translation.page.icon
-        else None,
+        "thumbnail": None,
         "hash": None,
     }
 
