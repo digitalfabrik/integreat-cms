@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-01-27T12:58:49+00:00" />
+    <meta property="article:modified_time" content="2022-02-21T18:35:28+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Constants &mdash; integreat-cms 2022.2.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -329,6 +329,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#custom-model-form">Custom Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#custom-tree-node-form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#icon-widget">Icon Widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#object-search-form">Object Search Form</a></li>
 </ul>
@@ -561,6 +562,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_model_form">Custom Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_tree_node_form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.icon_widget">Icon Widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.object_search_form">Object Search Form</a></li>
 </ul>
@@ -1708,7 +1710,7 @@ instances in <a class="reference internal" href="integreat_cms.cms.forms.events.
 <section id="module-integreat_cms.cms.constants.position">
 <span id="position"></span><h2>Position<a class="headerlink" href="#module-integreat_cms.cms.constants.position" title="Permalink to this headline"></a></h2>
 <p>This module contains all possible positions inside a MPTT tree model.
-It is used to determine the relative position of pages in relation to another page.</p>
+It is used to determine the relative position of nodes in relation to another node.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.position.CHOICES">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.position.</span></span><span class="sig-name descname"><span class="pre">CHOICES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(('first-child',</span> <span class="pre">'First</span> <span class="pre">subpage</span> <span class="pre">of'),</span> <span class="pre">('last-child',</span> <span class="pre">'Last</span> <span class="pre">subpage</span> <span class="pre">of'),</span> <span class="pre">('left',</span> <span class="pre">'Left</span> <span class="pre">neighbor</span> <span class="pre">of'),</span> <span class="pre">('right',</span> <span class="pre">'Right</span> <span class="pre">neighbor</span> <span class="pre">of'))</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/position.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.position.CHOICES" title="Permalink to this definition"></a></dt>
@@ -1726,25 +1728,37 @@ It is used to determine the relative position of pages in relation to another pa
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.position.FIRST_CHILD">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.position.</span></span><span class="sig-name descname"><span class="pre">FIRST_CHILD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'first-child'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/position.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.position.FIRST_CHILD" title="Permalink to this definition"></a></dt>
-<dd><p>First child of page</p>
+<dd><p>First child of node</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.cms.constants.position.FIRST_SIBLING">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.position.</span></span><span class="sig-name descname"><span class="pre">FIRST_SIBLING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'first-sibling'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/position.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.position.FIRST_SIBLING" title="Permalink to this definition"></a></dt>
+<dd><p>First sibling of node</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.position.LAST_CHILD">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.position.</span></span><span class="sig-name descname"><span class="pre">LAST_CHILD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'last-child'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/position.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.position.LAST_CHILD" title="Permalink to this definition"></a></dt>
-<dd><p>Last child of page</p>
+<dd><p>Last child of node</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.cms.constants.position.LAST_SIBLING">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.position.</span></span><span class="sig-name descname"><span class="pre">LAST_SIBLING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'last-sibling'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/position.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.position.LAST_SIBLING" title="Permalink to this definition"></a></dt>
+<dd><p>Last sibling of node</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.position.LEFT">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.position.</span></span><span class="sig-name descname"><span class="pre">LEFT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'left'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/position.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.position.LEFT" title="Permalink to this definition"></a></dt>
-<dd><p>Left neighbor of page</p>
+<dd><p>Left neighbor of node</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.position.RIGHT">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.position.</span></span><span class="sig-name descname"><span class="pre">RIGHT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'right'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/position.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.constants.position.RIGHT" title="Permalink to this definition"></a></dt>
-<dd><p>Right neighbor of page</p>
+<dd><p>Right neighbor of node</p>
 </dd></dl>
 
 </section>
@@ -2207,7 +2221,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 27, 2022.
+      <span class="lastupdated">Last updated on Feb 21, 2022.
       </span></p>
   </div>
 
