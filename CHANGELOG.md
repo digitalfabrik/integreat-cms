@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1227](https://github.com/digitalfabrik/integreat-cms/issues/1227) ] Correct URL and Path field in imprint API
+* [ [#1226](https://github.com/digitalfabrik/integreat-cms/issues/1226) ] Skip cache for childen and parents end points
 
 
 2022.2.3

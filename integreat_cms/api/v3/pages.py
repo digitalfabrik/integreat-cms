@@ -19,7 +19,7 @@ def transform_page(page_translation):
     :return: data necessary for API
     :rtype: dict
     """
-    parent_page = page_translation.page.cached_parent
+    parent_page = page_translation.page.parent
     if parent_page:
         parent_absolute_url = parent_page.get_public_translation(
             page_translation.language.slug
@@ -228,7 +228,7 @@ def parents(request, region_slug, language_slug):
     """
     current_page = get_single_page(request, language_slug)
     result = []
-    for ancestor in current_page.get_cached_ancestors(include_self=False):
+    for ancestor in current_page.get_ancestors():
         public_translation = ancestor.get_public_translation(language_slug)
         if not public_translation:
             raise Http404("No Page matches the given url or id.")
