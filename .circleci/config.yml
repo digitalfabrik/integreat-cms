@@ -245,20 +245,12 @@ jobs:
             # Install recent version of pip
             pip install --upgrade pip
             # Check which versions of integreat-cms are available on the TestPyPI repository
-            AVAILABLE_VERSIONS=$(pip index versions integreat-cms --pre -i https://test.pypi.org/simple/)
-            echo $AVAILABLE_VERSIONS
-            # Generate new version names until one is available
-            while true; do
-              # Bump version to next alpha version
-              pipenv run bumpver update -n -t alpha --no-commit
-              # Read current version into environment variables
-              eval $(pipenv run bumpver show --env -n)
-              # If the current PEP440 version is not available on TestPyPI, break from the loop and continue
-              if ! echo $AVAILABLE_VERSIONS | grep -q $PEP440_VERSION; then
-                break
-              fi
-              echo "Version $PEP440_VERSION already exists on TestPyPI!"
-            done
+            CURRENT_ALPHA_VERSION=$(pip index versions integreat-cms --pre -i https://test.pypi.org/simple/ 2> /dev/null | head -n 1 | sed "s/integreat-cms (\([^()]*\)a0)/\1-alpha/")
+            echo "Current alpha version on TestPyPI: ${CURRENT_ALPHA_VERSION}"
+            # Bump version to current alpha version
+            pipenv run bumpver update -n --set-version="${CURRENT_ALPHA_VERSION}" --no-commit
+            # Bump version to next alpha version
+            pipenv run bumpver update -n -t alpha --no-commit
       - persist_to_workspace:
           root: .
           paths:
