@@ -1,12 +1,16 @@
 """
 This module includes functions related to the pages API endpoint.
 """
+import logging
 from django.conf import settings
+from django.core.exceptions import MultipleObjectsReturned
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 
 from ...cms.models import Page
 from ..decorators import json_response, matomo_tracking
+
+logger = logging.getLogger(__name__)
 
 
 def transform_page(page_translation):
@@ -97,6 +101,8 @@ def get_single_page(request, language_slug):
     :param language_slug: Code to identify the desired language
     :type language_slug: str
 
+    :raises ~django.core.exceptions.MultipleObjectsReturned: If the given url cannot be resolved unambiguously
+
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
     :raises RuntimeError: If neither the id nor the url parameter is given
@@ -120,7 +126,16 @@ def get_single_page(request, language_slug):
             translations__language__slug=language_slug,
         ).distinct()
 
-        if len(filtered_pages) != 1:
+        if len(filtered_pages) > 1:
+            logger.error(
+                "Page translation slug %r is not unique per region and language, found multiple: %r",
+                page_translation_slug,
+                filtered_pages,
+            )
+            raise MultipleObjectsReturned(
+                "This page translation slug is not unique, please contact your server administrator."
+            )
+        if len(filtered_pages) == 0:
             raise Http404("No matching page translation found for url.")
         page = filtered_pages[0]
 
@@ -226,7 +241,10 @@ def parents(request, region_slug, language_slug):
     :return: JSON with the requested page ancestors
     :rtype: ~django.http.JsonResponse
     """
-    current_page = get_single_page(request, language_slug)
+    try:
+        current_page = get_single_page(request, language_slug)
+    except RuntimeError as e:
+        return JsonResponse({"error": str(e)}, status=400)
     result = []
     for ancestor in current_page.get_ancestors():
         public_translation = ancestor.get_public_translation(language_slug)
