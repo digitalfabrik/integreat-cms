@@ -46,6 +46,7 @@ content_api_urlpatterns = [
     ),
     path("imprint/", imprint, name="imprint"),
     path("disclaimer/", imprint, name="imprint"),
+    path("disclaimer", imprint, name="imprint"),
     path("offers/", offers, name="offers"),
     path("extras/", offers, name="offers"),
     re_path(
