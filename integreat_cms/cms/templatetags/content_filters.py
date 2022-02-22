@@ -7,6 +7,7 @@ import logging
 from django.urls import reverse
 
 from django import template
+from django.utils.translation import gettext as _
 
 from ..constants import translation_status
 from ..models import Language, PageTranslation, EventTranslation, POITranslation
@@ -80,6 +81,33 @@ def get_language(language_slug):
     :rtype: ~integreat_cms.cms.models.languages.language.Language
     """
     return Language.objects.filter(slug=language_slug).first()
+
+
+@register.simple_tag
+def minor_edit_help_text(region, language, translation_form):
+    """
+    This tag returns the help text of the minor edit field of the given form
+
+    :param region: current region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param language: The current language
+    :type language: ~integreat_cms.cms.models.languages.language.Language
+
+    :param translation_form: The given model form
+    :type translation_form: ~integreat_cms.cms.forms.custom_model_form.CustomModelForm
+
+    :return: The minor edit help text
+    :rtype: str
+    """
+    language_node = region.language_node_by_slug[language.slug]
+    if language_node.is_leaf():
+        return _("Tick if this edit should not change the status of this translation.")
+    if language_node.is_root():
+        return translation_form["minor_edit"].help_text
+    return _(
+        "Tick if this edit should not change the status of this translation and does not require an update of translations in other languages."
+    )
 
 
 @register.simple_tag

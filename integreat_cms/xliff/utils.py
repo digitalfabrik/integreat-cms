@@ -271,7 +271,7 @@ def get_xliff_import_diff(request, xliff_dir):
     for xliff_file, deserialized_objects in xliffs_to_pages(request, xliff_dir).items():
         for deserialized in deserialized_objects:
             page_translation = deserialized.object
-            existing_translation = page_translation.latest_revision or PageTranslation(
+            existing_translation = page_translation.latest_version or PageTranslation(
                 page=page_translation.page,
                 language=page_translation.language,
             )
@@ -403,7 +403,7 @@ def get_xliff_import_errors(request, page_translation):
         )
     # Retrieve existing page translation in the target language
     # (using model instances in forms may change them, so we need to copy it in order to not change the cached property)
-    existing_translation = deepcopy(page_translation.latest_revision)
+    existing_translation = deepcopy(page_translation.latest_version)
     # Validate page translation
     page_translation_form = PageTranslationForm(
         data=model_to_dict(page_translation),

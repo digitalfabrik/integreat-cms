@@ -1,4 +1,5 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
@@ -7,6 +8,7 @@
 {% load page_filters %}
 {% load rules %}
 {% load render_bundle from webpack_loader %}
+
 {% block content %}
     {% get_current_language as LANGUAGE_CODE %}
     {% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
@@ -163,7 +165,7 @@
                                    class="secondary">
                                 {{ page_translation_form.minor_edit.label }}
                             </label>
-                            <div class="help-text">{{ page_translation_form.minor_edit.help_text }}</div>
+                            <div class="help-text">{% minor_edit_help_text request.region language page_translation_form %}</div>
                         </div>
                     </div>
                 {% endif %}

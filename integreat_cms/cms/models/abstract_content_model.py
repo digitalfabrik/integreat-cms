@@ -60,6 +60,30 @@ class ContentQuerySet(models.QuerySet):
             )
         )
 
+    def prefetch_major_public_translations(self):
+        """
+        Get the queryset including the custom attribute ``prefetched_major_public_translations`` which contains the
+        latest major (in other words not a minor edit) public translations of each content object in each language
+
+        :return: The queryset of content objects
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
+        """
+        TranslationModel = self.model.get_translation_model()
+        foreign_field = TranslationModel.foreign_field() + "_id"
+        return self.prefetch_related(
+            models.Prefetch(
+                "translations",
+                queryset=TranslationModel.objects.filter(
+                    status=status.PUBLIC,
+                    minor_edit=False,
+                )
+                .order_by(foreign_field, "language_id", "-version")
+                .distinct(foreign_field, "language_id")
+                .select_related("language"),
+                to_attr="prefetched_major_public_translations",
+            )
+        )
+
 
 class AbstractContentModel(AbstractBaseModel):
     """
@@ -178,6 +202,45 @@ class AbstractContentModel(AbstractBaseModel):
         return self.prefetched_public_translations_by_language_slug.get(language_slug)
 
     @cached_property
+    def prefetched_major_public_translations_by_language_slug(self):
+        """
+        This method returns a mapping from language slugs to their major public translations of this object
+
+        :return: The object translation in the requested :class:`~integreat_cms.cms.models.languages.language.Language` or
+                 :obj:`None` if no translation exists
+        :rtype: dict
+        """
+        try:
+            # Try to get the prefetched translations (which are already distinct per language)
+            prefetched_public_translations = self.prefetched_major_public_translations
+        except AttributeError:
+            # If the translations were not prefetched, query it from the database
+            prefetched_public_translations = (
+                self.translations.filter(status=status.PUBLIC, minor_edit=False)
+                .select_related("language")
+                .order_by("language__id", "-version")
+                .distinct("language__id")
+            )
+        return {
+            translation.language.slug: translation
+            for translation in prefetched_public_translations
+        }
+
+    def get_major_public_translation(self, language_slug):
+        """
+        This function retrieves the newest major public translation of a content object.
+
+        :param language_slug: The slug of the requested :class:`~integreat_cms.cms.models.languages.language.Language`
+        :type language_slug: str
+
+        :return: The public translation of a content object
+        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+        """
+        return self.prefetched_major_public_translations_by_language_slug.get(
+            language_slug
+        )
+
+    @cached_property
     def backend_translation(self):
         """
         This function returns the translation of this content object in the current backend language.
@@ -220,20 +283,10 @@ class AbstractContentModel(AbstractBaseModel):
         :return: A string describing the state of the translation, one of :data:`~integreat_cms.cms.constants.translation_status.CHOICES`
         :rtype: str
         """
-        translation = self.get_translation(language_slug)
+        translation = self.get_major_public_translation(language_slug)
         if not translation:
             return translation_status.MISSING
-        if translation.currently_in_translation:
-            return translation_status.IN_TRANSLATION
-        source_language = self.region.get_source_language(language_slug)
-        if not source_language:
-            return translation_status.UP_TO_DATE
-        source_translation = self.get_translation(source_language.slug)
-        if not source_translation:
-            return translation_status.UP_TO_DATE
-        if translation.last_updated > source_translation.last_updated:
-            return translation_status.UP_TO_DATE
-        return translation_status.OUTDATED
+        return translation.translation_state
 
     @cached_property
     def translation_states(self):

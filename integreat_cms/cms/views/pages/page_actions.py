@@ -277,9 +277,7 @@ def expand_page_translation_id(request, short_url_id):
     :rtype: ~django.http.HttpResponseRedirect
     """
 
-    page_translation = PageTranslation.objects.get(
-        id=short_url_id
-    ).latest_public_revision
+    page_translation = PageTranslation.objects.get(id=short_url_id).public_version
 
     if page_translation and not page_translation.page.archived:
         return redirect(settings.WEBAPP_URL + page_translation.get_absolute_url())
