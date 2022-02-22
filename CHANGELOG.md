@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1227](https://github.com/digitalfabrik/integreat-cms/issues/1227) ] Correct URL and Path field in imprint API
+
 
 2022.2.3
 --------
