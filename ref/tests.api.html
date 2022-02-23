@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-02-14T04:23:16+00:00" />
+    <meta property="article:modified_time" content="2022-02-22T14:03:23+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API &mdash; integreat-cms 2022.2.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -768,48 +768,68 @@
 <p>This modules contains the config for the API tests</p>
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.api.api_config.</span></span><span class="sig-name descname"><span class="pre">API_ENDPOINTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('/api/regions/',</span> <span class="pre">'/wp-json/extensions/v3/sites/',</span> <span class="pre">'tests/api/expected-outputs/regions.json'),</span> <span class="pre">('/api/regions/live/',</span> <span class="pre">'/wp-json/extensions/v3/sites/live/',</span> <span class="pre">'tests/api/expected-outputs/regions_live.json'),</span> <span class="pre">('/api/augsburg/de/pages/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/pages/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_pages.json'),</span> <span class="pre">('/api/augsburg/de/locations/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/locations/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_locations.json'),</span> <span class="pre">('/api/augsburg/de/children/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/children/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_children.json'),</span> <span class="pre">('/api/augsburg/de/children/?depth=2',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/children/?depth=2',</span> <span class="pre">'tests/api/expected-outputs/api_augsburg_de_children_depth_2.json'),</span> <span class="pre">('/api/augsburg/de/events/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/events/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_events.json'),</span> <span class="pre">('/api/augsburg/de/page/?id=1',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/page/?id=1',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_page_1.json')]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/api_config.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.api.api_config.</span></span><span class="sig-name descname"><span class="pre">API_ENDPOINTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('/api/regions/',</span> <span class="pre">'/wp-json/extensions/v3/sites/',</span> <span class="pre">'tests/api/expected-outputs/regions.json',</span> <span class="pre">200),</span> <span class="pre">('/api/regions/live/',</span> <span class="pre">'/wp-json/extensions/v3/sites/live/',</span> <span class="pre">'tests/api/expected-outputs/regions_live.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/pages/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/pages/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_pages.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/locations/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/locations/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_locations.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/children/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/children/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_children.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/children/?depth=3&amp;url=/augsburg/de/behörden-und-beratung/behörden/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/children/?depth=3&amp;url=/augsburg/de/behörden-und-beratung/behörden/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_children_archived_descendants.json',</span> <span class="pre">200),</span> <span class="pre">('/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_page_archived.json',</span> <span class="pre">404),</span> <span class="pre">('/api/augsburg/de/children/?depth=2',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/children/?depth=2',</span> <span class="pre">'tests/api/expected-outputs/api_augsburg_de_children_depth_2.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/events/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/events/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_events.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/page/?id=1',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/page/?id=1',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_page_1.json',</span> <span class="pre">200)]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/api_config.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The API endpoints</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/regions/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/wp-json/extensions/v3/sites/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/regions.json&#39;</span><span class="p">,</span>
+        <span class="mf">200</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/regions/live/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/wp-json/extensions/v3/sites/live/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/regions_live.json&#39;</span><span class="p">,</span>
+        <span class="mf">200</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/pages/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/pages/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_pages.json&#39;</span><span class="p">,</span>
+        <span class="mf">200</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/locations/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/locations/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_locations.json&#39;</span><span class="p">,</span>
+        <span class="mf">200</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/children/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/children/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_children.json&#39;</span><span class="p">,</span>
+        <span class="mf">200</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;/api/augsburg/de/children/?depth=3&amp;url=/augsburg/de/behörden-und-beratung/behörden/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/children/?depth=3&amp;url=/augsburg/de/behörden-und-beratung/behörden/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_children_archived_descendants.json&#39;</span><span class="p">,</span>
+        <span class="mf">200</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_page_archived.json&#39;</span><span class="p">,</span>
+        <span class="mf">404</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/children/?depth=2&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/children/?depth=2&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/api_augsburg_de_children_depth_2.json&#39;</span><span class="p">,</span>
+        <span class="mf">200</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/events/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/events/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_events.json&#39;</span><span class="p">,</span>
+        <span class="mf">200</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/page/?id=1&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/page/?id=1&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_page_1.json&#39;</span><span class="p">,</span>
+        <span class="mf">200</span><span class="p">,</span>
     <span class="p">),</span>
 <span class="p">]</span>
 </pre></div>
@@ -821,7 +841,7 @@
 <h2>API Test<a class="headerlink" href="#api-test" title="Permalink to this headline"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.api.api_test.</span></span><span class="sig-name descname"><span class="pre">test_api_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/api_test.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.api.api_test.</span></span><span class="sig-name descname"><span class="pre">test_api_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/api_test.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This test class checks all endpoints defined in <a class="reference internal" href="../ref-ext/tests.api.html#tests.api.api_config.API_ENDPOINTS" title="tests.api.api_config.API_ENDPOINTS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">API_ENDPOINTS</span></code></a>.
 It verifies that the content delivered by the endpoint is equivalent with the data
 provided in the corresponding json file.</p>
@@ -832,6 +852,7 @@ provided in the corresponding json file.</p>
 <li><p><strong>endpoint</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The url of the new Django pattern</p></li>
 <li><p><strong>wp_endpoint</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The legacy url of the wordpress endpoint pattern</p></li>
 <li><p><strong>expected_result</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The path to the json file that contains the expected result</p></li>
+<li><p><strong>expected_code</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The expected HTTP status code</p></li>
 </ul>
 </dd>
 </dl>
@@ -855,7 +876,7 @@ provided in the corresponding json file.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 14, 2022.
+      <span class="lastupdated">Last updated on Feb 22, 2022.
       </span></p>
   </div>
 
