@@ -160,7 +160,11 @@ def matomo_tracking(func):
         :return: The response of the given function or an 404 :class:`~django.http.JsonResponse`
         :rtype: ~django.http.JsonResponse
         """
-        if not request.region.matomo_id or not request.region.matomo_token:
+        if (
+            not settings.MATOMO_TRACKING
+            or not request.region.matomo_id
+            or not request.region.matomo_token
+        ):
             return func(request, *args, **kwargs)
         data = {
             "idsite": request.region.matomo_id,
