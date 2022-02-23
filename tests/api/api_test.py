@@ -9,10 +9,10 @@ from .api_config import API_ENDPOINTS
 # pylint: disable=unused-argument
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "endpoint,wp_endpoint,expected_result,expected_code", API_ENDPOINTS
+    "endpoint,wp_endpoint,expected_result,expected_code,request_body", API_ENDPOINTS
 )
 def test_api_result(
-    load_test_data, endpoint, wp_endpoint, expected_result, expected_code
+    load_test_data, endpoint, wp_endpoint, expected_result, expected_code, request_body
 ):
     """
     This test class checks all endpoints defined in :attr:`~tests.api.api_config.API_ENDPOINTS`.
@@ -31,14 +31,27 @@ def test_api_result(
     :param expected_result: The path to the json file that contains the expected result
     :type expected_result: str
 
+    :param request_body: request body data
+    :type request_body: dict
+
     :param expected_code: The expected HTTP status code
     :type expected_code: int
     """
     client = Client()
-    response = client.get(endpoint, format="json")
+    if request_body is None:
+        response = client.get(endpoint, format="json")
+    else:
+        response = client.post(
+            endpoint, request_body, format="json", content_type="application/json"
+        )
     print(response.headers)
     assert response.status_code == expected_code
-    response_wp = client.get(wp_endpoint, format="json")
+    if request_body is None:
+        response_wp = client.get(wp_endpoint, format="json")
+    else:
+        response_wp = client.post(
+            wp_endpoint, request_body, format="json", content_type="application/json"
+        )
     print(response_wp.headers)
     assert response_wp.status_code == expected_code
     with open(expected_result, encoding="utf-8") as f:

@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1271](https://github.com/digitalfabrik/integreat-cms/issues/1271) ] Fix feedback API endpoint
+* [ [#1099](https://github.com/digitalfabrik/integreat-cms/issues/1099) ] Add push content API
 
 
 2022.3.2

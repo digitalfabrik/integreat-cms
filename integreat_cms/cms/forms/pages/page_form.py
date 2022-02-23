@@ -39,6 +39,10 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         required=False,
         label=_("Source region for live content"),
     )
+    enable_api_token = forms.BooleanField(
+        required=False,
+        label=_("Enable write access via API for this page"),
+    )
 
     class Meta:
         """
@@ -55,6 +59,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             "mirrored_page_first",
             "organization",
             "parent",
+            "api_token",
         ]
         #: The widgets for the fields if they differ from the standard widgets
         widgets = {
@@ -76,6 +81,10 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
 
         # Pass form object to ParentFieldWidget
         self.fields["parent"].widget.form = self
+
+        # The api token field should not be edited manually
+        self.fields["api_token"].widget.attrs["readonly"] = True
+        self.fields["enable_api_token"].initial = bool(self.instance.api_token)
 
         # Limit possible parents to pages of current region
         parent_queryset = self.instance.region.pages.all()
@@ -153,6 +162,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         :rtype: tuple
         """
         del self.cleaned_data["mirrored_page_region"]
+        del self.cleaned_data["enable_api_token"]
         return super()._clean_cleaned_data()
 
     def get_editor_queryset(self):

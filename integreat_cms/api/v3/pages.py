@@ -2,12 +2,15 @@
 This module includes functions related to the pages API endpoint.
 """
 import logging
+import json
 from django.conf import settings
 from django.core.exceptions import MultipleObjectsReturned
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 
 from ...cms.models import Page
+from ...cms.forms import PageTranslationForm
 from ..decorators import json_response, matomo_tracking
 
 logger = logging.getLogger(__name__)
@@ -301,3 +304,61 @@ def get_public_ancestor_translations(current_page, language_slug):
             raise Http404("No Page matches the given url or id.")
         result.append(transform_page(public_translation))
     return result
+
+
+@csrf_exempt
+@json_response
+# pylint: disable=unused-argument
+def push_page_translation_content(request, region_slug, language_slug):
+    """
+    Retrieves all ancestors (parent and all nodes up to the root node) of a page
+
+    :param request: The request that has been sent to the Django server
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: Slug defining the region
+    :type region_slug: str
+
+    :param language_slug: Code to identify the desired language
+    :type language_slug: str
+
+    :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
+
+    :return: JSON with the requested page ancestors
+    :rtype: ~django.http.JsonResponse
+    """
+    try:
+        data = json.loads(request.body)
+    except json.decoder.JSONDecodeError as e:
+        logger.error("Push Content: failed to parse JSON: %s", e)
+        return JsonResponse({"status": "error"}, status=405)
+
+    if not all(key in data for key in ["content", "token"]):
+        logger.error("Push Content: missing required key.")
+        return JsonResponse({"status": "error"}, status=405)
+
+    page = request.region.pages.filter(api_token=data["token"]).first()
+    if not page or data["token"] == "":
+        return JsonResponse(data={"status": "denied"}, status=403)
+
+    translation = page.get_translation(language_slug)
+    data = {
+        "content": data["content"],
+        "title": translation.title,
+        "slug": translation.slug,
+        "status": translation.status,
+        "minor_edit": False,
+    }
+    page_translation_form = PageTranslationForm(
+        data=data,
+        instance=translation,
+        additional_instance_attributes={
+            "page": page,
+            "creator": None,
+        },
+    )
+    if page_translation_form.is_valid():
+        page_translation_form.save()
+        return JsonResponse({"status": "success"})
+    logger.error("Push Content: failed to validate page translation.")
+    return JsonResponse({"status": "error"}, status=405)
