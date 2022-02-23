@@ -31,6 +31,11 @@ MATOMO_URL = os.environ.get(
     "INTEGREAT_CMS_MATOMO_URL", "https://statistics.integreat-app.de"
 )
 
+#: Enable tracking of API requests in Matomo
+MATOMO_TRACKING = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_MATOMO_TRACKING", "False"))
+)
+
 #: The slug for the legal notice (see e.g. :class:`~integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation`)
 IMPRINT_SLUG = "imprint"
 
