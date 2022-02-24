@@ -9,7 +9,7 @@ from linkcheck.models import Link
 
 from .languages.language import Language
 from .abstract_base_model import AbstractBaseModel
-from ..constants import status
+from ..constants import status, translation_status
 from ..utils.translation_utils import ugettext_many_lazy as __
 
 
@@ -241,6 +241,17 @@ class AbstractContentTranslation(AbstractBaseModel):
         return available_languages
 
     @cached_property
+    def source_language(self):
+        """
+        This property returns the source language of this language in this
+        :class:`~integreat_cms.cms.models.regions.region.Region`'s language tree
+
+        :return: The source language of this translation
+        :rtype: ~integreat_cms.cms.models.languages.language.Language
+        """
+        return self.foreign_object.region.get_source_language(self.language.slug)
+
+    @cached_property
     def source_translation(self):
         """
         This property returns the translation which was used to create the ``self`` translation.
@@ -252,27 +263,40 @@ class AbstractContentTranslation(AbstractBaseModel):
                  default :class:`~integreat_cms.cms.models.languages.language.Language`)
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
-        source_language = self.foreign_object.region.get_source_language(
-            self.language.slug
-        )
-        if source_language:
-            return self.foreign_object.get_translation(source_language.slug)
+        if self.source_language:
+            return self.foreign_object.get_translation(self.source_language.slug)
         return None
 
     @cached_property
-    def latest_revision(self):
+    def major_public_source_translation(self):
+        """
+        This property returns the latest major public version of the translation which was used to create the ``self``
+        translation. It derives this information from the :class:`~integreat_cms.cms.models.regions.region.Region`'s root
+        :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode`.
+
+        :return: The content translation in the source :class:`~integreat_cms.cms.models.languages.language.Language`
+                 (:obj:`None` if the translation is in the :class:`~integreat_cms.cms.models.regions.region.Region`'s
+                 default :class:`~integreat_cms.cms.models.languages.language.Language`)
+        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+        """
+        if self.source_language:
+            return self.foreign_object.get_major_public_translation(
+                self.source_language.slug
+            )
+        return None
+
+    @cached_property
+    def latest_version(self):
         """
         This property is a link to the most recent version of this translation.
 
         :return: The latest revision of the translation
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
-        return self.foreign_object.translations.filter(
-            language=self.language,
-        ).first()
+        return self.foreign_object.get_translation(self.language.slug)
 
     @cached_property
-    def latest_public_revision(self):
+    def public_version(self):
         """
         This property is a link to the most recent public version of this translation.
         If the translation itself is not public, this property can return a revision which is older than ``self``.
@@ -280,26 +304,10 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: The latest public revision of the translation
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
-        return self.foreign_object.translations.filter(
-            language=self.language,
-            status=status.PUBLIC,
-        ).first()
+        return self.foreign_object.get_public_translation(self.language.slug)
 
     @cached_property
-    def latest_major_revision(self):
-        """
-        This property is a link to the most recent major version of this translation.
-
-        :return: The latest major revision of the translation
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
-        """
-        return self.foreign_object.translations.filter(
-            language=self.language,
-            minor_edit=False,
-        ).first()
-
-    @cached_property
-    def latest_major_public_revision(self):
+    def major_public_version(self):
         """
         This property is a link to the most recent major public version of this translation.
         This is used when translations, which are derived from this translation, check whether they are up to date.
@@ -307,25 +315,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: The latest major public revision of the translation
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
-        return self.foreign_object.translations.filter(
-            language=self.language,
-            status=status.PUBLIC,
-            minor_edit=False,
-        ).first()
-
-    @cached_property
-    def previous_revision(self):
-        """
-        This property is a shortcut to the previous revision of this translation
-
-        :return: The previous translation
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
-        """
-        version = self.version - 1
-        return self.foreign_object.translations.filter(
-            language=self.language,
-            version=version,
-        ).first()
+        return self.foreign_object.get_major_public_translation(self.language.slug)
 
     @cached_property
     def is_outdated(self):
@@ -347,33 +337,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: Flag to indicate whether the translation is outdated
         :rtype: bool
         """
-        # If the translation is currently in translation, it is defined as not outdated
-        if self.currently_in_translation:
-            return False
-        return self.is_outdated_helper
-
-    @cached_property
-    def is_outdated_helper(self):
-        """
-        See :meth:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.is_outdated`
-        with the difference that it does not return ``False`` when ``currently_in_translation`` is ``True``.
-
-        :return: Flag to indicate whether the translation is outdated
-        :rtype: bool
-        """
-        source_translation = self.source_translation
-        # If self.language is the root language, this translation can never be outdated
-        if not source_translation:
-            return False
-        # If the source translation is outdated, this translation can not be up to date
-        if source_translation.is_outdated:
-            return True
-        self_revision = self.latest_major_public_revision
-        source_revision = source_translation.latest_major_public_revision
-        # If one of the translations has no major public revision, it cannot be outdated
-        if not self_revision or not source_revision:
-            return False
-        return self_revision.last_updated < source_revision.last_updated
+        return self.translation_state == translation_status.OUTDATED
 
     @cached_property
     def is_up_to_date(self):
@@ -384,7 +348,40 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: Flag which indicates whether a translation is up to date
         :rtype: bool
         """
-        return not self.currently_in_translation and not self.is_outdated
+        return self.translation_state == translation_status.UP_TO_DATE
+
+    # pylint: disable=too-many-return-statements
+    @cached_property
+    def translation_state(self):
+        """
+        This function returns the current state of a translation in the given language.
+
+        :return: A string describing the state of the translation, one of :data:`~integreat_cms.cms.constants.translation_status.CHOICES`
+        :rtype: str
+        """
+        translation = self.major_public_version
+        if not translation:
+            # If the page does not have a major public version, it is considered "missing" (keep in mind that it might
+            # have draft versions or public versions that are marked as "minor edit")
+            return translation_status.MISSING
+        if translation.currently_in_translation:
+            return translation_status.IN_TRANSLATION
+        if not self.source_language:
+            # If the language of this translation is the root of this region's language tree, it is always "up to date"
+            return translation_status.UP_TO_DATE
+        source_translation = self.major_public_source_translation
+        if not source_translation:
+            # If the source language does not have a major public version, the translation is considered "outdated",
+            # because the content is not in sync with its source translation
+            return translation_status.OUTDATED
+        if source_translation.translation_state == translation_status.OUTDATED:
+            # If the source translation is already outdated, this translation is as well
+            return translation_status.OUTDATED
+        if translation.last_updated > source_translation.last_updated:
+            # If the translation was edited after the source translation, we consider it up to date
+            return translation_status.UP_TO_DATE
+        # If the translation was edited before the last major change in the source language, it is outdated
+        return translation_status.OUTDATED
 
     @classmethod
     def search(cls, region, language_slug, query):

@@ -71,7 +71,7 @@ def expand_imprint_translation_id(request, imprint_translation_id):
 
     imprint_translation = ImprintPageTranslation.objects.get(
         id=imprint_translation_id
-    ).latest_public_revision
+    ).public_version
 
     if imprint_translation and not imprint_translation.page.archived:
         return redirect(settings.WEBAPP_URL + imprint_translation.get_absolute_url())

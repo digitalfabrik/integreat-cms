@@ -54,6 +54,9 @@
         {% elif forloop.first %}
             ({% trans 'This is <b>not</b> the version shown in the apps.' %})
         {% endif %}
+        {% if page_translation.minor_edit %}
+            - <i>{% trans 'Minor edit' %}</i>
+        {% endif %}
         <span class="float-right">
             <label class="inline-block">{% trans 'Author' %}:</label>
             {% firstof page_translation.creator deleted_user_text %}
