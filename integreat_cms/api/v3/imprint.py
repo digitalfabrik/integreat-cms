@@ -1,6 +1,7 @@
 """
 This module includes functions related to the imprint API endpoint.
 """
+from django.conf import settings
 from django.http import JsonResponse
 
 from ..decorators import json_response
@@ -16,9 +17,11 @@ def transform_imprint(imprint_translation):
     :return: data necessary for API
     :rtype: dict
     """
+    absolute_url = imprint_translation.get_absolute_url()
     return {
         "id": imprint_translation.id,
-        "url": imprint_translation.get_absolute_url(),
+        "url": settings.BASE_URL + absolute_url,
+        "path": absolute_url,
         "title": imprint_translation.title,
         "modified_gmt": imprint_translation.last_updated,
         "excerpt": imprint_translation.content,

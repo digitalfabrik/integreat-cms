@@ -4,6 +4,8 @@ from django import forms
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
+from cacheops import invalidate_obj
+
 from ..custom_model_form import CustomModelForm
 from ..custom_tree_node_form import CustomTreeNodeForm
 from ...models import Language, LanguageTreeNode
@@ -119,3 +121,25 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
             "LanguageTreeNodeForm validated [2] with cleaned data %r", cleaned_data
         )
         return cleaned_data
+
+    def save(self, commit=True):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to flush
+        the cache after commiting.
+
+        :param commit: Whether or not the changes should be written to the database
+        :type commit: bool
+
+        :return: The saved page translation object
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
+        """
+        # Save CustomModelForm and flush Cache
+        result = super().save(commit=commit)
+
+        for page in self.instance.region.pages.all():
+            invalidate_obj(page)
+        for poi in self.instance.region.pois.all():
+            invalidate_obj(poi)
+        for event in self.instance.region.events.all():
+            invalidate_obj(event)
+        return result

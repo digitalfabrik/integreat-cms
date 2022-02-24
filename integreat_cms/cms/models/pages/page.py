@@ -25,7 +25,7 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
     Custom queryset for pages to inherit methods from both querysets for tree nodes and content objects
     """
 
-    def cache_tree(self, archived=None):
+    def cache_tree(self, archived=None, language_slug=None):
         """
         Caches a page tree queryset in a python data structure.
 
@@ -33,9 +33,18 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
                          If not passed or ``None``, both archived and non-archived pages are returned.
         :type archived: bool
 
+        :param language_slug: Code to identify the desired language (optional, requires ``archived`` to be ``False``)
+        :type language_slug: str
+
+        :raises ValueError: Indicates that the combination of parameters is not supported.
+
         :return: A list of pages with cached children, descendants and ancestors and a list of all skipped pages
         :rtype: tuple [ list, list ]
         """
+        if language_slug is not None and archived is not False:
+            raise ValueError(
+                "archived must be False in order to filter for public translations by language_slug"
+            )
         result = {}
         skipped_pages = []
         for page in (
@@ -60,6 +69,11 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
                         (not page.parent_id and not archived)
                         # Alternatively, include it if its parent is in the result
                         or (page.parent_id in result)
+                    )
+                    # If the page is not archived, we may want to check if a translation exists for a given language
+                    and (
+                        language_slug is None
+                        or page.get_public_translation(language_slug)
                     )
                 )
             ):

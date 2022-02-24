@@ -1,6 +1,12 @@
 UNRELEASED
 ----------
 
+* [ [#1227](https://github.com/digitalfabrik/integreat-cms/issues/1227) ] Correct URL and Path field in imprint API
+* [ [#1222](https://github.com/digitalfabrik/integreat-cms/issues/1222) ] Fix missing translations and archived pages in API
+* [ [#1131](https://github.com/digitalfabrik/integreat-cms/issues/1131) ] Flush Cache of related objects when changing a tree
+* [ [#1242](https://github.com/digitalfabrik/integreat-cms/issues/1242) ] Add setting to activate Matomo tracking
+* [ [#1197](https://github.com/digitalfabrik/integreat-cms/issues/1197) ] Fix calculation of translation status
+
 
 2022.2.3
 --------

@@ -43,12 +43,16 @@ class PartialPageTreeView(TemplateView, PageContextMixin):
             kwargs.get("language_slug"), only_active=True
         )
         # List of all ancestors, the requested parent and all direct children
-        pages = region.pages.filter(
-            # This condition queries the parent and all direct children
-            Q(tree_id=tree_id, lft__range=(lft, rgt - 1), depth__lte=depth + 1)
-            # This condition queries all ancestors
-            | Q(tree_id=tree_id, lft__lt=lft, rgt__gt=rgt)
-        ).cache_tree(False)[0]
+        pages = (
+            region.pages.filter(
+                # This condition queries the parent and all direct children
+                Q(tree_id=tree_id, lft__range=(lft, rgt - 1), depth__lte=depth + 1)
+                # This condition queries all ancestors
+                | Q(tree_id=tree_id, lft__lt=lft, rgt__gt=rgt)
+            )
+            .prefetch_major_public_translations()
+            .cache_tree(False)[0]
+        )
         # If the depth is 1, the first element must be the direct parent, etc.
         parent = pages[depth - 1]
         # The remaining pages are the direct children

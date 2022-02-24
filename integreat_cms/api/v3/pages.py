@@ -1,12 +1,16 @@
 """
 This module includes functions related to the pages API endpoint.
 """
+import logging
 from django.conf import settings
+from django.core.exceptions import MultipleObjectsReturned
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 
 from ...cms.models import Page
 from ..decorators import json_response, matomo_tracking
+
+logger = logging.getLogger(__name__)
 
 
 def transform_page(page_translation):
@@ -16,25 +20,40 @@ def transform_page(page_translation):
     :param page_translation: single page translation object
     :type page_translation: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
 
+    :raises ~django.http.Http404: HTTP status 404 if a parent is archived
+
     :return: data necessary for API
     :rtype: dict
     """
+    fallback_parent = {
+        "id": 0,
+        "url": None,
+        "path": None,
+    }
+
     parent_page = page_translation.page.cached_parent
-    if parent_page:
-        parent_absolute_url = parent_page.get_public_translation(
+    if parent_page and not parent_page.explicitly_archived:
+        parent_public_translation = parent_page.get_public_translation(
             page_translation.language.slug
-        ).get_absolute_url()
-        parent = {
-            "id": parent_page.id,
-            "url": settings.BASE_URL + parent_absolute_url,
-            "path": parent_absolute_url,
-        }
+        )
+        if parent_public_translation:
+            parent_absolute_url = parent_public_translation.get_absolute_url()
+            parent = {
+                "id": parent_page.id,
+                "url": settings.BASE_URL + parent_absolute_url,
+                "path": parent_absolute_url,
+            }
+        else:
+            logger.info(
+                "The parent %r of %r does not have a public translation in %r",
+                parent_page,
+                page_translation.page,
+                page_translation.language,
+            )
+            raise Http404("No Page matches the given url or id.")
     else:
-        parent = {
-            "id": 0,
-            "url": None,
-            "path": None,
-        }
+        parent = fallback_parent
+
     absolute_url = page_translation.get_absolute_url()
     return {
         "id": page_translation.id,
@@ -76,7 +95,7 @@ def pages(request, region_slug, language_slug):
     # The preliminary filter for explicitly_archived=False is not strictly required, but reduces the number of entries
     # requested from the database
     for page in region.pages.filter(explicitly_archived=False).cache_tree(
-        archived=False
+        archived=False, language_slug=language_slug
     )[0]:
         page_translation = page.get_public_translation(language_slug)
         if page_translation:
@@ -89,13 +108,15 @@ def pages(request, region_slug, language_slug):
 def get_single_page(request, language_slug):
     """
     Helper function returning the desired page or a 404 if the
-    requested page does not exist.
+    requested page does not exist or is archived.
 
     :param request: The request that has been sent to the Django server
     :type request: ~django.http.HttpRequest
 
     :param language_slug: Code to identify the desired language
     :type language_slug: str
+
+    :raises ~django.core.exceptions.MultipleObjectsReturned: If the given url cannot be resolved unambiguously
 
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
@@ -120,12 +141,27 @@ def get_single_page(request, language_slug):
             translations__language__slug=language_slug,
         ).distinct()
 
-        if len(filtered_pages) != 1:
+        if len(filtered_pages) > 1:
+            logger.error(
+                "Page translation slug %r is not unique per region and language, found multiple: %r",
+                page_translation_slug,
+                filtered_pages,
+            )
+            raise MultipleObjectsReturned(
+                "This page translation slug is not unique, please contact your server administrator."
+            )
+        if len(filtered_pages) == 0:
             raise Http404("No matching page translation found for url.")
         page = filtered_pages[0]
 
     else:
         raise RuntimeError("Either the id or the url parameter is required.")
+
+    if page.explicitly_archived:
+        raise Http404("No matching page translation found for url.")
+
+    # Check if any ancestor is archived -> will raise a 404
+    get_public_ancestor_translations(page, language_slug)
 
     return page
 
@@ -185,6 +221,7 @@ def children(request, region_slug, language_slug):
     :return: JSON with the requested page descendants
     :rtype: ~django.http.JsonResponse
     """
+
     depth = int(request.GET.get("depth", 1))
     try:
         # try to get a single ancestor page based on the requests query string
@@ -197,12 +234,17 @@ def children(request, region_slug, language_slug):
         # like in wordpress depth = 0 will return no results in this case
         depth = depth - 1
     result = []
+    # pylint: disable=unused-variable
+    public_region_pages, skipped_pages = request.region.pages.filter(
+        explicitly_archived=False, tree_id__in=[page.tree_id for page in root_pages]
+    ).cache_tree(archived=False, language_slug=language_slug)
     for root in root_pages:
         descendants = root.get_tree_max_depth(max_depth=depth)
         for descendant in descendants:
-            public_translation = descendant.get_public_translation(language_slug)
-            if public_translation:
-                result.append(transform_page(public_translation))
+            if descendant in public_region_pages:
+                result.append(
+                    transform_page(descendant.get_public_translation(language_slug))
+                )
     return JsonResponse(result, safe=False)
 
 
@@ -210,7 +252,8 @@ def children(request, region_slug, language_slug):
 # pylint: disable=unused-argument
 def parents(request, region_slug, language_slug):
     """
-    Retrieves all ancestors (parent and all nodes up to the root node) of a page
+    Retrieves all ancestors (parent and all nodes up to the root node) of a page.
+    If any ancestor is archived, an 404 is raised.
 
     :param request: The request that has been sent to the Django server
     :type request: ~django.http.HttpRequest
@@ -226,11 +269,36 @@ def parents(request, region_slug, language_slug):
     :return: JSON with the requested page ancestors
     :rtype: ~django.http.JsonResponse
     """
-    current_page = get_single_page(request, language_slug)
+    try:
+        current_page = get_single_page(request, language_slug)
+    except RuntimeError as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    if not current_page.get_public_translation(language_slug):
+        raise Http404("No Page matches the given url or id.")
+    result = get_public_ancestor_translations(current_page, language_slug)
+    return JsonResponse(result, safe=False)
+
+
+def get_public_ancestor_translations(current_page, language_slug):
+    """
+    Retrieves all ancestors (parent and all nodes up to the root node) of a page.
+    If any ancestor is archived or has a missing translation, a 404 is raised.
+
+    :param current_page: the page that needs a list of its ancestor translations
+    :type current_page: ~integreat_cms.cms.models.pages.page.Page
+
+    :param language_slug: Code to identify the desired language
+    :type language_slug: str
+
+    :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
+
+    :return: JSON with the requested page ancestors
+    :rtype: ~django.http.JsonResponse
+    """
     result = []
-    for ancestor in current_page.get_cached_ancestors(include_self=False):
+    for ancestor in current_page.get_ancestors():
         public_translation = ancestor.get_public_translation(language_slug)
-        if not public_translation:
+        if not public_translation or ancestor.explicitly_archived:
             raise Http404("No Page matches the given url or id.")
         result.append(transform_page(public_translation))
-    return JsonResponse(result, safe=False)
+    return result
