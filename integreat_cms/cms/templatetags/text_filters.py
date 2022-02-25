@@ -1,6 +1,8 @@
 """
 This is a collection of tags and filters for strings.
 """
+import json
+
 from django import template
 from django.utils.translation import ugettext as _
 
@@ -37,3 +39,17 @@ def linkcheck_status_filter(status_message):
     if status_message.startswith("Other Error:"):
         return _("Error")
     return status_message
+
+
+@register.filter(name="to_json")
+def to_json(obj):
+    """
+    Converts the given obj to a json string
+
+    :param obj: The input object
+    :type obj: object
+
+    :return: object as json string
+    :rtype: str
+    """
+    return json.dumps(obj)

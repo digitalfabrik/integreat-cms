@@ -16,6 +16,7 @@ import "./js/filter-form.ts";
 import "./js/copy-clipboard.ts";
 import "./js/bulk-actions.ts";
 import "./js/confirmation-popups.ts";
+import "./js/content-edit-lock.ts";
 import "./js/revisions.ts";
 import "./js/search-query.ts";
 

@@ -226,6 +226,9 @@
         {% include '../_tinymce_config.html' with readonly=1 %}
     {% else %}
         {% include '../_tinymce_config.html' %}
+        {% if poi_form.instance.id %}
+            {% include '../_content_edit_lock.html' with lock_key=poi_form.instance.edit_lock_key %}
+        {% endif %}
     {% endif %}
     {% if poi_form.instance.id %}
         {% include '../generic_confirmation_dialog.html' %}

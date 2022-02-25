@@ -129,6 +129,11 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             region, language, imprint
         )
 
+        # If the imprint does not exist yet, use a dummy key to lock it
+        edit_lock_key = (
+            imprint.edit_lock_key if imprint else (region.slug, ImprintPage.__name__)
+        )
+
         return render(
             request,
             self.template_name,
@@ -141,6 +146,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
                 "languages": region.active_languages if imprint else [language],
                 "side_by_side_language_options": side_by_side_language_options,
                 "translation_states": imprint.translation_states if imprint else [],
+                "lock_key": edit_lock_key,
             },
         )
 

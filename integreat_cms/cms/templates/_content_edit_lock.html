@@ -1,0 +1,8 @@
+{% load text_filters %}
+
+<div
+    id="content-edit-lock-data"
+    data-heartbeat-url="{% url 'content_edit_lock_heartbeat' region_slug=request.region.slug %}"
+    data-lock-release-url="{% url 'content_edit_lock_release' region_slug=request.region.slug %}"
+    data-heartbeat-payload="{{ lock_key|to_json }}"
+></div>
