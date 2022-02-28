@@ -59,7 +59,7 @@ class POITranslation(AbstractContentTranslation):
         :return: The infix of the url
         :rtype: str
         """
-        return "pois"
+        return "locations"
 
     @cached_property
     def backend_edit_link(self):
