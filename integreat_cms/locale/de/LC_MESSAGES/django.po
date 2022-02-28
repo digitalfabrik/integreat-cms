@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-24 11:46+0000\n"
+"POT-Creation-Date: 2022-03-24 11:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1459,15 +1459,23 @@ msgstr "Dritte Woche"
 msgid "Fourth week"
 msgstr "Vierte Woche"
 
-#: cms/forms/custom_content_model_form.py:90
+#: cms/forms/custom_content_model_form.py:56
+msgid ""
+"Could not update because this content because it is already being edited by "
+"another user"
+msgstr ""
+"Sie können diese Seite nicht aktualisieren, weil sie bereits von jemand "
+"anderem bearbeitet wird."
+
+#: cms/forms/custom_content_model_form.py:129
 msgid "{} \"{}\" was successfully saved as draft"
 msgstr "{} \"{}\" wurde erfolgreich als Entwurf gespeichert"
 
-#: cms/forms/custom_content_model_form.py:97
+#: cms/forms/custom_content_model_form.py:136
 msgid "{} \"{}\" was successfully updated"
 msgstr "{} \"{}\" wurde erfolgreich aktualisiert"
 
-#: cms/forms/custom_content_model_form.py:104
+#: cms/forms/custom_content_model_form.py:143
 msgid "{} \"{}\" was successfully published"
 msgstr "{} \"{}\" wurde erfolgreich veröffentlicht"
 
@@ -5826,18 +5834,18 @@ msgstr ""
 "veröffentlichen, aber Sie können Änderungen vornehmen und diese zur "
 "Überprüfung vorlegen."
 
-#: cms/views/events/event_form_view.py:192
-#: cms/views/imprint/imprint_form_view.py:204
-#: cms/views/pages/page_form_view.py:254 cms/views/pois/poi_form_view.py:156
+#: cms/views/events/event_form_view.py:193
+#: cms/views/imprint/imprint_form_view.py:215
+#: cms/views/pages/page_form_view.py:255 cms/views/pois/poi_form_view.py:157
 msgid "No changes detected, autosave skipped"
 msgstr "Keine Änderungen vorgenommen, automatisches Speichern übersprungen"
 
-#: cms/views/events/event_form_view.py:214
+#: cms/views/events/event_form_view.py:215
 msgid "Event \"{}\" was successfully created"
 msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/events/event_form_view.py:223
-#: cms/views/pages/page_form_view.py:285 cms/views/pois/poi_form_view.py:170
+#: cms/views/events/event_form_view.py:224
+#: cms/views/pages/page_form_view.py:286 cms/views/pois/poi_form_view.py:171
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
@@ -5890,14 +5898,14 @@ msgstr "{} \"{}\" wurde erfolgreich erstellt"
 msgid "Imprint was successfully deleted"
 msgstr "Impressum wurde erfolgreich gelöscht"
 
-#: cms/views/imprint/imprint_form_view.py:73
+#: cms/views/imprint/imprint_form_view.py:74
 #: cms/views/pages/page_tree_view.py:77
 msgid "Please create at least one language node before creating pages."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
 "verwalten."
 
-#: cms/views/imprint/imprint_form_view.py:101
+#: cms/views/imprint/imprint_form_view.py:102
 #, python-format
 msgid ""
 "This is <b>not</b> the most recent public revision of this translation. "
@@ -5908,18 +5916,18 @@ msgstr ""
 "Stattdessen wird die <a href='%(revision_url)s' class='underline hover:no-"
 "underline'>Revision %(revision)s</a> in den Apps angezeigt."
 
-#: cms/views/imprint/imprint_form_view.py:120
+#: cms/views/imprint/imprint_form_view.py:121
 #: cms/views/imprint/imprint_sbs_view.py:65
 msgid "You don't have the permission to edit the imprint."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um das Impressum zu bearbeiten."
 
-#: cms/views/imprint/imprint_form_view.py:214
+#: cms/views/imprint/imprint_form_view.py:225
 msgid "Imprint was successfully created"
 msgstr "Impressum wurde erfolgreich erstellt"
 
-#: cms/views/imprint/imprint_form_view.py:274
-#: cms/views/pages/page_form_view.py:357
+#: cms/views/imprint/imprint_form_view.py:286
+#: cms/views/pages/page_form_view.py:358
 #, python-brace-format
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
@@ -6365,7 +6373,7 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu veröffentlichen, "
 "aber Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
 
-#: cms/views/pages/page_form_view.py:278
+#: cms/views/pages/page_form_view.py:279
 msgid "Page \"{}\" was successfully created"
 msgstr "Seite \"{}\" wurde erfolgreich erstellt"
 
@@ -6430,7 +6438,7 @@ msgstr "Alle Übersetzungen dieses Ortes werden gelöscht."
 msgid "You cannot edit this location because it is archived."
 msgstr "Sie können diesen Ort nicht bearbeiten, da er archiviert ist."
 
-#: cms/views/pois/poi_form_view.py:165
+#: cms/views/pois/poi_form_view.py:166
 msgid "Location \"{}\" was successfully created"
 msgstr "Ort \"{}\" wurde erfolgreich erstellt"
 

@@ -14,6 +14,7 @@ from ...decorators import permission_required
 from ...forms import ImprintTranslationForm
 from ...models import ImprintPageTranslation, ImprintPage
 from ...constants import status
+from ...utils.content_edit_lock import get_locking_user
 
 logger = logging.getLogger(__name__)
 
@@ -185,6 +186,14 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             language=language,
         ).first()
 
+        # Since imprints have a special rule for the lock key, compute it here and just pass it to the form
+        lock_key = (
+            imprint_translation_instance.page.edit_lock_key
+            if imprint_translation_instance
+            else (region.slug, ImprintPage.__name__)
+        )
+        locked_by_user = get_locking_user(*lock_key)
+
         imprint_translation_form = ImprintTranslationForm(
             data=request.POST,
             instance=imprint_translation_instance,
@@ -192,6 +201,8 @@ class ImprintFormView(TemplateView, MediaContextMixin):
                 "creator": request.user,
                 "language": language,
             },
+            changed_by_user=request.user,
+            locked_by_user=locked_by_user,
         )
 
         if not imprint_translation_form.is_valid():
@@ -241,6 +252,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
                 "translation_states": imprint_instance.translation_states
                 if imprint_instance
                 else [],
+                "lock_key": lock_key,
             },
         )
 

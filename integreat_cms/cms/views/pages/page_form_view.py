@@ -232,6 +232,7 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
                 "language": language,
                 "page": page_form.instance,
             },
+            changed_by_user=request.user,
         )
 
         if not page_form.is_valid() or not page_translation_form.is_valid():

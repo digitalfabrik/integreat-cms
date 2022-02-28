@@ -167,6 +167,7 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
                 "language": language,
                 "event": event_form.instance,
             },
+            changed_by_user=request.user,
         )
 
         if (

@@ -142,6 +142,7 @@ class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
                 "language": language,
                 "poi": poi_form.instance,
             },
+            changed_by_user=request.user,
         )
 
         if not poi_form.is_valid() or not poi_translation_form.is_valid():
