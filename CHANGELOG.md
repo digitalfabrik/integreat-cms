@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1086](https://github.com/digitalfabrik/integreat-cms/issues/1086) ] Provide correct URL for POI
+
 
 2022.2.4
 --------

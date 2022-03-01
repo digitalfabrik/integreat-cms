@@ -99,7 +99,7 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
         recurrence_rule_form = RecurrenceRuleForm(
             instance=recurrence_rule_instance, disabled=disabled
         )
-        url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/events/"
+        url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{event_translation_form.instance.url_infix}/"
         return render(
             request,
             self.template_name,
@@ -232,7 +232,7 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
                     "language_slug": language.slug,
                 },
             )
-
+        url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{event_translation_form.instance.url_infix}/"
         return render(
             request,
             self.template_name,
@@ -244,6 +244,7 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
                 "poi": poi,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
+                "url_link": url_link,
                 "translation_states": event_instance.translation_states
                 if event_instance
                 else [],

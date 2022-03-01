@@ -3,6 +3,7 @@ A view representing an instance of a point of interest. POIs can be created or u
 """
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -70,6 +71,7 @@ class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
         poi_translation_form = POITranslationForm(
             instance=poi_translation, disabled=disabled
         )
+        url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{poi_translation_form.instance.url_infix}/"
         return render(
             request,
             self.template_name,
@@ -80,6 +82,7 @@ class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if poi else [language],
+                "url_link": url_link,
                 "translation_states": poi.translation_states if poi else [],
             },
         )
@@ -120,7 +123,7 @@ class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
                     "poi_id": poi_instance.id,
                     "region_slug": region.slug,
                     "language_slug": language.slug,
-                }
+                },
             )
 
         poi_form = POIForm(
@@ -174,9 +177,9 @@ class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
                     "poi_id": poi_form.instance.id,
                     "region_slug": region.slug,
                     "language_slug": language.slug,
-                }
+                },
             )
-
+        url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{poi_translation_form.instance.url_infix}/"
         return render(
             request,
             self.template_name,
@@ -187,6 +190,7 @@ class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if poi_instance else [language],
+                "url_link": url_link,
                 "translation_states": poi_instance.translation_states
                 if poi_instance
                 else [],
