@@ -25,6 +25,7 @@ class CustomTreeNodeForm(MoveNodeForm):
 
         # Hide tree node inputs
         self.fields["_ref_node_id"].widget = forms.HiddenInput()
+        self.fields["_ref_node_id"]._coerce = int
         self.fields["_position"].widget = forms.HiddenInput()
 
     def _clean_cleaned_data(self):
