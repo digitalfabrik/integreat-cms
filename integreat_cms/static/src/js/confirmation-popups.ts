@@ -76,7 +76,7 @@ function handleSubmit(event: Event, button: HTMLButtonElement) {
   // Trigger the custom "action-confirmed" event of the source button
   button.dispatchEvent(new Event("action-confirmed"));
   // Close conformation popup
-  closeConfirmationPopupAjax(event);
+  closeConfirmationPopup(event);
 }
 
 function closeConfirmationPopup(event: Event) {
@@ -85,13 +85,7 @@ function closeConfirmationPopup(event: Event) {
   document.getElementById("popup-overlay").classList.add("hidden");
   const confirmationPopup = document.getElementById("confirmation-dialog");
   confirmationPopup.classList.add("hidden");
-}
 
-function closeConfirmationPopupAjax(event: Event) {
-  closeConfirmationPopup(event);
-  // If ajax mode is enabled, remove custom event handler which was inserted in the showConfirmationPopup() function
-  // Handle form submission differently
-  const confirmationPopup = document.getElementById("confirmation-dialog");
   if (handlers.has(confirmationPopup)) {
     confirmationPopup
       .querySelector("form")
