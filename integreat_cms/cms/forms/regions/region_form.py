@@ -6,7 +6,7 @@ from django.utils.translation import override, ugettext_lazy as _
 from django.apps import apps
 
 from ....gvz_api.utils import GvzRegion
-from ...models import Region, PageTranslation, LanguageTreeNode
+from ...models import Region, Page, PageTranslation, LanguageTreeNode
 from ...utils.matomo_api_manager import MatomoException
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -346,6 +346,17 @@ def duplicate_pages(
         logger.debug(
             "%s Source page %r started", "|  " * (level + 1) + "├" + "─", target_page
         )
+        # If the page is a root page, we need to assign a new tree id
+        if not target_parent:
+            last_root_page = Page.get_last_root_node()
+            override_tree_id = last_root_page.tree_id + 1
+            logger.debug(
+                "%s Page is a root page, assigning new tree_id %r",
+                "|  " * (level + 1) + "├" + "─",
+                override_tree_id,
+            )
+        else:
+            override_tree_id = None
         # Store the source page id into a buffer (if we store the whole object instance instead of only the id,
         # it will also change when we change target_page, because both variables would reference the same object)
         source_page_id = target_page.pk
@@ -355,6 +366,8 @@ def duplicate_pages(
         target_page.region = target_region
         # Delete the primary key to duplicate the object instance instead of updating it
         target_page.pk = None
+        # Set new tree id
+        target_page.tree_id = override_tree_id or target_parent.tree_id
         # Check if the page is valid
         target_page.full_clean()
         # Save duplicated page
