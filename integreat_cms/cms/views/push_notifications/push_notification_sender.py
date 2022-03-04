@@ -87,17 +87,30 @@ class PushNotificationSender:
         :rtype: ~requests.Response
         """
         if settings.DEBUG:
-            region_slug = Region.objects.get(
-                id=settings.TEST_BLOG_ID
-            ).slug  # Testumgebung - prevent sending PNs to actual users in development
+            region = Region.objects.get(
+                slug=settings.TEST_REGION_SLUG
+            )  # Testumgebung - prevent sending PNs to actual users in development
         else:
-            region_slug = self.push_notification.region.slug
+            region = self.push_notification.region
         payload = {
-            "to": f"/topics/{region_slug}-{pnt.language.slug}-{self.push_notification.channel}",
+            "to": f"/topics/{region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
             "notification": {"title": pnt.title, "body": pnt.text},
             "data": {
                 "lanCode": pnt.language.slug,
-                "city": self.push_notification.region.slug,
+                "city": region.slug,
+                "blog_id": region.id,
+                "group": self.push_notification.channel,
+            },
+            "apns": {
+                "headers": {"apns-priority": "5"},
+            },
+            "android": {
+                "ttl": "86400s",
+            },
+            "payload": {
+                "aps": {
+                    "category": "NEW_MESSAGE_CATEGORY",
+                }
             },
         }
         headers = {"Authorization": f"key={self.auth_key}"}
