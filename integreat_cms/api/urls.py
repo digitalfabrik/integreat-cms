@@ -40,7 +40,7 @@ content_api_urlpatterns = [
     path("parents/", parents, name="parents"),
     path("pdf/", pdf_export, name="pdf_export"),
     path(
-        "sent_push_notifications/",
+        "fcm/",
         sent_push_notifications,
         name="sent_push_notifications",
     ),
