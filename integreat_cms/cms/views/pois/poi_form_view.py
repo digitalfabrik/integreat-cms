@@ -15,6 +15,7 @@ from ...forms import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Language
 from .poi_context_mixin import POIContextMixin
 from ..media.media_context_mixin import MediaContextMixin
+from ..mixins import ContentEditLockMixin
 from ...constants import status
 
 logger = logging.getLogger(__name__)
@@ -22,7 +23,9 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(permission_required("cms.view_poi"), name="dispatch")
 @method_decorator(permission_required("cms.change_poi"), name="post")
-class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
+class POIFormView(
+    TemplateView, POIContextMixin, MediaContextMixin, ContentEditLockMixin
+):
     """
     View for editing POIs
     """
@@ -31,6 +34,8 @@ class POIFormView(TemplateView, POIContextMixin, MediaContextMixin):
     template_name = "pois/poi_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "pois_form"}
+    #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`)
+    back_url_name = "pois"
 
     def get(self, request, *args, **kwargs):
         r"""

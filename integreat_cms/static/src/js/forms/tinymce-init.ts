@@ -22,6 +22,10 @@ import { Editor } from "tinymce";
 
 import { autosaveEditor } from "./autosave";
 
+export function storeDraft() {
+  tinymce.activeEditor.plugins.autosave.storeDraft();
+}
+
 function parseSvg(svgUrl: string): string {
   return atob(svgUrl.replace("data:image/svg+xml;base64,", ""));
 }

@@ -44,7 +44,7 @@ def linkcheck_status_filter(status_message):
 @register.filter(name="to_json")
 def to_json(obj):
     """
-    Converts the given obj to a json string
+    Converts the given object to a json string
 
     :param obj: The input object
     :type obj: object

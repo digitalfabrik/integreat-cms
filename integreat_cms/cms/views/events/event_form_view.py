@@ -15,6 +15,7 @@ from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Language, Event, EventTranslation, RecurrenceRule, POI
 from .event_context_mixin import EventContextMixin
 from ..media.media_context_mixin import MediaContextMixin
+from ..mixins import ContentEditLockMixin
 
 
 logger = logging.getLogger(__name__)
@@ -22,7 +23,9 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
 @method_decorator(permission_required("cms.change_event"), name="post")
-class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
+class EventFormView(
+    TemplateView, EventContextMixin, MediaContextMixin, ContentEditLockMixin
+):
     """
     Class for rendering the events form
     """
@@ -34,6 +37,8 @@ class EventFormView(TemplateView, EventContextMixin, MediaContextMixin):
         "current_menu_item": "events_form",
         "translation_status": translation_status,
     }
+    #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`
+    back_url_name = "events"
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):

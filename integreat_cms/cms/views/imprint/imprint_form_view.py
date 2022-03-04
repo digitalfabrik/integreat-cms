@@ -130,7 +130,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             region, language, imprint
         )
 
-        # If the imprint does not exist yet, use a dummy key to lock it
+        # If the imprint does not exist yet, create the key manually
         edit_lock_key = (
             imprint.edit_lock_key if imprint else (region.slug, ImprintPage.__name__)
         )
@@ -140,6 +140,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
+                "back_url": reverse("dashboard", kwargs={"region_slug": region.slug}),
                 "imprint_translation_form": imprint_translation_form,
                 "imprint": imprint,
                 "language": language,
@@ -188,8 +189,8 @@ class ImprintFormView(TemplateView, MediaContextMixin):
 
         # Since imprints have a special rule for the lock key, compute it here and just pass it to the form
         lock_key = (
-            imprint_translation_instance.page.edit_lock_key
-            if imprint_translation_instance
+            imprint_instance.edit_lock_key
+            if imprint_instance
             else (region.slug, ImprintPage.__name__)
         )
         locked_by_user = get_locking_user(*lock_key)
@@ -239,6 +240,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
+                "back_url": reverse("dashboard", kwargs={"region_slug": region.slug}),
                 "imprint_translation_form": imprint_translation_form,
                 "imprint": imprint_instance,
                 "language": language,

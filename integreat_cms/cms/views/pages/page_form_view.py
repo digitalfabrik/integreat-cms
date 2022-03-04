@@ -14,12 +14,15 @@ from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation
 from .page_context_mixin import PageContextMixin
 from ..media.media_context_mixin import MediaContextMixin
+from ..mixins import ContentEditLockMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
-class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
+class PageFormView(
+    TemplateView, PageContextMixin, MediaContextMixin, ContentEditLockMixin
+):
     """
     View for the page form and page translation form
     """
@@ -30,6 +33,8 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
     extra_context = {
         "current_menu_item": "new_page",
     }
+    #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`)
+    back_url_name = "pages"
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):

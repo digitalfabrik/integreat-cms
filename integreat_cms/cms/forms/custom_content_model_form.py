@@ -44,8 +44,10 @@ class CustomContentModelForm(CustomModelForm):
         :return: The cleaned data (see :ref:`overriding-modelform-clean-method`)
         :rtype: dict
         """
+        force_update = self.cleaned_data["status"] == status.AUTO_SAVE
         if (
-            self.changed_by_user
+            not force_update
+            and self.changed_by_user
             and self.locked_by_user
             and self.changed_by_user != self.locked_by_user
         ):
