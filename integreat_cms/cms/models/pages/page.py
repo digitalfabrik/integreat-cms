@@ -299,6 +299,21 @@ class Page(AbstractTreeNode, AbstractBasePage):
         # mark as safe so that the arrow and the warning triangle are not escaped
         return mark_safe(label)
 
+    def get_repr(self):
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<Page: Page object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the page
+        :rtype: str
+        """
+        parent_str = f", parent: {self.parent_id}" if self.parent_id else ""
+        region_str = f", region: {self.region.slug}" if self.region else ""
+        slug_str = (
+            f", slug: {self.best_translation.slug}" if self.best_translation else ""
+        )
+        return f"<Page (id: {self.id}{parent_str}{region_str}{slug_str})>"
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("page")

@@ -4,6 +4,8 @@ Custom user model that is used instead of the default Django user model
 
 import logging
 
+from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
+
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -96,10 +98,27 @@ class User(AbstractUser, AbstractBaseModel):
         :return: The role of this user
         :rtype: ~integreat_cms.cms.models.users.role.Role
         """
-        groups = self.groups.all()
-        if groups:
-            # Assume users only have one group/role
-            return groups[0].role
+        # Many-to-many relationships can only be used for objects that are already saved to the database
+        if self.id:
+            groups = self.groups.all()
+            if groups:
+                # Assume users only have one group/role
+                return groups[0].role
+        return None
+
+    @cached_property
+    def distinct_region(self):
+        """
+        If the user is no staff member and has exactly one region, this property returns it
+
+        :return: The only region of this user
+        :rtype: ~integreat_cms.cms.models.regions.region.Region
+        """
+        # Many-to-many relationships can only be used for objects that are already saved to the database
+        if self.id and not self.is_staff:
+            regions = self.regions.all()
+            if len(regions) == 1:
+                return regions[0]
         return None
 
     @property
@@ -159,22 +178,34 @@ class User(AbstractUser, AbstractBaseModel):
         :return: The canonical string representation of the user
         :rtype: str
         """
-        optional_fields = ""
-        if not self._state.adding:
-            if self.is_staff:
-                if self.role:
-                    optional_fields += f", team: {self.role.english_name}"
-                if self.is_superuser:
-                    optional_fields += ", superuser"
+        # Get username representation
+        username_str = f", username: {self.username}" if self.username else ""
+        # Get role representation
+        try:
+            if self.role:
+                if self.is_staff:
+                    role_str = f", team: {self.role.english_name}"
                 else:
-                    optional_fields += ", staff"
+                    role_str = f", role: {self.role.english_name}"
             else:
-                if self.role:
-                    optional_fields += f", role: {self.role.english_name}"
-                regions = self.regions.all()
-                if len(regions) == 1:
-                    optional_fields += f", region: {regions[0].name}"
-        return f"<User (id: {self.id}, username: {self.username}{optional_fields})>"
+                role_str = ""
+        except SQLQueryTriggered:
+            role_str = ""
+        # Get region representation
+        try:
+            region_str = (
+                f", region: {self.distinct_region.slug}" if self.distinct_region else ""
+            )
+        except SQLQueryTriggered:
+            region_str = ""
+        # Get staff/superuser status representation
+        if self.is_superuser:
+            staff_str = ", superuser"
+        elif self.is_staff:
+            staff_str = ", staff"
+        else:
+            staff_str = ""
+        return f"<User (id: {self.id}{username_str}{role_str}{region_str}{staff_str})>"
 
     class Meta:
         #: The verbose name of the model

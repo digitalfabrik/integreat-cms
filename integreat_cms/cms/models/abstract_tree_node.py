@@ -323,10 +323,12 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         This overwrites the default Django ``__repr__()`` method which would return ``<AbstractTreeNode: AbstractTreeNode object (id)>``.
         It is used for logging.
 
-        :return: The canonical string representation of the language node
+        :return: The canonical string representation of the tree node
         :rtype: str
         """
-        return f"<AbstractTreeNode (id: {self.id}, parent: {self.parent.slug}, region: {self.region.slug})>"
+        parent_str = f", parent: {self.parent_id}" if self.parent_id else ""
+        region_str = f", region: {self.region.slug}" if self.region else ""
+        return f"<{type(self).__name__} (id: {self.id}{parent_str}{region_str})>"
 
     class Meta:
         #: Abstract model
