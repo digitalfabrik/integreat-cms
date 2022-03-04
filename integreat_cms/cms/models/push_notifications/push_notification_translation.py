@@ -83,7 +83,7 @@ class PushNotificationTranslation(AbstractBaseModel):
         #: The plural verbose name of the model
         verbose_name_plural = _("push notification translations")
         #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["push_notification", "language"]
+        ordering = ["push_notification__pk", "language__pk", "language"]
         #: The default permissions for this model
         default_permissions = ()
         #: Sets of field names that, taken together, must be unique

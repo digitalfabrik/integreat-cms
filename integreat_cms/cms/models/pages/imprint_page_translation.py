@@ -87,4 +87,4 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         #: The default permissions for this model
         default_permissions = ()
         #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["page", "-version"]
+        ordering = ["page__pk", "language__pk", "-version"]
