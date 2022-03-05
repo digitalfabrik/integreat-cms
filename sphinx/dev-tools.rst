@@ -82,13 +82,9 @@ Check whether your translations is up-to-date with :github-source:`dev-tools/che
 Testing
 =======
 
-Run unit tests with :github-source:`dev-tools/test.sh`::
+Run tests and generate coverage report with :github-source:`dev-tools/test.sh`::
 
     ./dev-tools/test.sh
-
-Calculate test coverage with :github-source:`dev-tools/test_cov.sh`::
-
-    ./dev-tools/test_cov.sh
 
 
 Code Quality
