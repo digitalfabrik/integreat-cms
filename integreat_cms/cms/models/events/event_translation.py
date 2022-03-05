@@ -86,4 +86,4 @@ class EventTranslation(AbstractContentTranslation):
         #: The default permissions for this model
         default_permissions = ()
         #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["event__pk", "-version"]
+        ordering = ["event__pk", "language__pk", "-version"]

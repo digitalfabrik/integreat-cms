@@ -32,8 +32,16 @@ class AbstractBaseModel(models.Model):
         try:
             return self.get_repr()
         # pylint: disable=broad-except
-        except Exception:
-            return f"<{type(self).__name__} (id: {self.id})>"
+        except Exception as e:
+            fallback_repr = f"<{type(self).__name__} (id: {self.id})>"
+            logger.debug(
+                "repr() for object %s failed because of %s: %s",
+                fallback_repr,
+                type(e),
+                e,
+                exc_info=e,
+            )
+            return fallback_repr
 
     class Meta:
         #: This model is an abstract base class

@@ -42,8 +42,9 @@ class RegionSelection(TemplateView):
         if user.is_superuser or user.is_staff:
             return redirect("admin_dashboard")
 
-        if regions.count() == 1:
-            return redirect("dashboard", region_slug=regions.first().slug)
+        # If user only has one region, redirect to the dashboard of that region
+        if user.distinct_region:
+            return redirect("dashboard", region_slug=user.distinct_region.slug)
 
         if not regions.exists():
             raise PermissionDenied(f"{user!r} is neither staff nor a region user")
