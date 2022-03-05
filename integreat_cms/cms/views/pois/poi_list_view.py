@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 
 from ...constants import status
 from ...decorators import permission_required
-from ...models import Language, POITranslation
+from ...models import POITranslation
 from ...forms import ObjectSearchForm
 from .poi_context_mixin import POIContextMixin
 
@@ -67,18 +67,17 @@ class POIListView(TemplateView, POIContextMixin):
         """
 
         # current region
-        region_slug = kwargs.get("region_slug")
         region = request.region
 
         # current language
         language_slug = kwargs.get("language_slug")
         if language_slug:
-            language = Language.objects.get(slug=language_slug)
+            language = region.get_language_or_404(language_slug, only_active=True)
         elif region.default_language:
             return redirect(
                 "pois",
                 **{
-                    "region_slug": region_slug,
+                    "region_slug": region.slug,
                     "language_slug": region.default_language.slug,
                 }
             )
@@ -92,7 +91,7 @@ class POIListView(TemplateView, POIContextMixin):
             return redirect(
                 "language_tree",
                 **{
-                    "region_slug": region_slug,
+                    "region_slug": region.slug,
                 }
             )
 
