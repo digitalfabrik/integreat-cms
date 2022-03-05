@@ -25,7 +25,6 @@ class CustomTreeNodeForm(MoveNodeForm):
 
         # Hide tree node inputs
         self.fields["_ref_node_id"].widget = forms.HiddenInput()
-        self.fields["_ref_node_id"]._coerce = int
         self.fields["_position"].widget = forms.HiddenInput()
 
     def _clean_cleaned_data(self):
@@ -64,14 +63,16 @@ class CustomTreeNodeForm(MoveNodeForm):
                 logger.debug(
                     "Node %r is now referenced left to node %r", instance, next_sibling
                 )
-                return {"_ref_node_id": next_sibling.id, "_position": "left"}
+                return {"_ref_node_id": str(next_sibling.id), "_position": "left"}
             # If the page is the only root page of this region, do not reference other nodes
             logger.debug(
                 "Node %r is the only root node of its region and now referenced to no other node",
                 instance,
             )
             return {"_ref_node_id": "", "_position": "first-child"}
-        return super()._get_position_ref_node(instance)
+        # Convert initial data to string to fix the change detection
+        initial_data = super()._get_position_ref_node(instance)
+        return {key: str(value) for key, value in initial_data.items()}
 
     @classmethod
     def mk_dropdown_tree(cls, model, for_node=None):
