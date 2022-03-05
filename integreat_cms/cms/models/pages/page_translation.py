@@ -48,7 +48,7 @@ class PageTranslation(AbstractBasePageTranslation):
             if translation:
                 slugs.append(translation.slug)
                 continue
-            slugs.append(ancestor.default_translation.slug)
+            slugs.append(ancestor.best_translation.slug)
         return "/".join(slugs)
 
     @cached_property
