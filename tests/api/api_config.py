@@ -64,4 +64,22 @@ API_ENDPOINTS = [
         "tests/api/expected-outputs/augsburg_de_page_1.json",
         200,
     ),
+    (
+        "/api/nurnberg/de/fcm/",
+        "/nurnberg/de/wp-json/extensions/v3/fcm/",
+        "tests/api/expected-outputs/nurnberg_de_fcm.json",
+        200,
+    ),
+    (
+        "/api/nurnberg/en/fcm/",
+        "/nurnberg/en/wp-json/extensions/v3/fcm/",
+        "tests/api/expected-outputs/nurnberg_en_fcm.json",
+        200,
+    ),
+    (
+        "/api/nurnberg/ar/fcm/",
+        "/nurnberg/ar/wp-json/extensions/v3/fcm/",
+        "tests/api/expected-outputs/nurnberg_ar_fcm.json",
+        200,
+    ),
 ]
