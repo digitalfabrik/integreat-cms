@@ -36,7 +36,7 @@ class TranslationCoverageView(TemplateView):
         pages = (
             region.pages.filter(explicitly_archived=False)
             .prefetch_major_public_translations()
-            .cache_tree(archived=False)[0]
+            .cache_tree(archived=False)
         )
         for language in region.active_languages:
             language_coverage_data = Counter()

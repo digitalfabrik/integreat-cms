@@ -97,7 +97,7 @@ class PageTreeView(TemplateView, PageContextMixin):
             page_queryset = region.pages.filter(lft=1)
         pages = page_queryset.prefetch_major_public_translations().cache_tree(
             archived=self.archived
-        )[0]
+        )
 
         if filter_data:
             # Set data for filter form rendering

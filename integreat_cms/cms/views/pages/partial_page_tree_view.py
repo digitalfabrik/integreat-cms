@@ -51,7 +51,7 @@ class PartialPageTreeView(TemplateView, PageContextMixin):
                 | Q(tree_id=tree_id, lft__lt=lft, rgt__gt=rgt)
             )
             .prefetch_major_public_translations()
-            .cache_tree(False)[0]
+            .cache_tree(False)
         )
         # If the depth is 1, the first element must be the direct parent, etc.
         parent = pages[depth - 1]

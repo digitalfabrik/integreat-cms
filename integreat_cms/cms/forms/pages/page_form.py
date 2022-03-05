@@ -133,14 +133,14 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         # Set choices of mirrored_page field manually to make use of cache_tree()
         logger.debug("Set choices for mirrored page field:")
         self.fields["mirrored_page"].choices = [
-            (page.id, str(page)) for page in mirrored_page_queryset.cache_tree()[0]
+            (page.id, str(page)) for page in mirrored_page_queryset.cache_tree()
         ]
 
         # Set choices of parent and _ref_node_id fields manually to make use of cache_tree()
         logger.debug("Set choices for parent field:")
         cached_parent_choices = [("", "---------")]
         cached_parent_choices.extend(
-            [(page.id, str(page)) for page in parent_queryset.cache_tree()[0]]
+            [(page.id, str(page)) for page in parent_queryset.cache_tree()]
         )
         self.fields["parent"].choices = cached_parent_choices
         self.fields["_ref_node_id"].choices = cached_parent_choices

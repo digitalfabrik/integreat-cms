@@ -96,7 +96,7 @@ def pages(request, region_slug, language_slug):
     # requested from the database
     for page in region.pages.filter(explicitly_archived=False).cache_tree(
         archived=False, language_slug=language_slug
-    )[0]:
+    ):
         page_translation = page.get_public_translation(language_slug)
         if page_translation:
             result.append(transform_page(page_translation))
@@ -234,8 +234,7 @@ def children(request, region_slug, language_slug):
         # like in wordpress depth = 0 will return no results in this case
         depth = depth - 1
     result = []
-    # pylint: disable=unused-variable
-    public_region_pages, skipped_pages = request.region.pages.filter(
+    public_region_pages = request.region.pages.filter(
         explicitly_archived=False, tree_id__in=[page.tree_id for page in root_pages]
     ).cache_tree(archived=False, language_slug=language_slug)
     for root in root_pages:
