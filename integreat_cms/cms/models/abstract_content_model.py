@@ -255,7 +255,8 @@ class AbstractContentModel(AbstractBaseModel):
         """
         This function returns the translation of this content object in the region's default language.
         Since a content object can only be created by creating a translation in the default language, this is guaranteed
-        to return a object translation.
+        to return a object translation (Exception: When the default language tree node is changed to another language
+        after the page has been created, the default translation might not exist).
 
         :return: The default translation of a content object
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
@@ -271,7 +272,11 @@ class AbstractContentModel(AbstractBaseModel):
         :return: The "best" translation of a content object for displaying in the backend
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
-        return self.backend_translation or self.default_translation
+        return (
+            self.backend_translation
+            or self.default_translation
+            or self.translations.first()
+        )
 
     def get_translation_state(self, language_slug):
         """

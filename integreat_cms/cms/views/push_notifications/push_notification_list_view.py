@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 
 from ...forms import ObjectSearchForm
 from ...decorators import permission_required
-from ...models import Language, PushNotificationTranslation
+from ...models import PushNotificationTranslation
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ class PushNotificationListView(TemplateView):
         # current language
         language_slug = kwargs.get("language_slug")
         if language_slug:
-            language = Language.objects.get(slug=language_slug)
+            language = region.get_language_or_404(language_slug, only_active=True)
         elif region.default_language:
             return redirect(
                 "push_notifications",

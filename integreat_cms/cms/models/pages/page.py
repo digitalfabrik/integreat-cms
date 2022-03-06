@@ -102,7 +102,7 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
                 skipped_pages.append(page)
         logger.debug("Cached result: %r", result)
         logger.debug("Skipped pages: %r", skipped_pages)
-        return list(result.values()), skipped_pages
+        return list(result.values())
 
 
 # pylint: disable=too-few-public-methods

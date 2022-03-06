@@ -1,14 +1,14 @@
 import logging
 
 from django import forms
-from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
 from cacheops import invalidate_obj
 
+from ...constants import position
+from ...models import Language, LanguageTreeNode
 from ..custom_model_form import CustomModelForm
 from ..custom_tree_node_form import CustomTreeNodeForm
-from ...models import Language, LanguageTreeNode
 
 
 logger = logging.getLogger(__name__)
@@ -19,12 +19,6 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
     Form for creating and modifying language tree node objects
     """
 
-    parent = forms.ModelChoiceField(
-        queryset=LanguageTreeNode.objects.all(),
-        required=False,
-        label=capfirst(LanguageTreeNode._meta.get_field("parent").verbose_name),
-    )
-
     class Meta:
         """
         This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
@@ -34,7 +28,7 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = LanguageTreeNode
         #: The fields of the model which should be handled by this form
-        fields = ["language", "visible", "active"]
+        fields = ["language", "visible", "active", "parent"]
 
     def __init__(self, **kwargs):
         r"""
@@ -44,17 +38,11 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         :type \**kwargs: dict
         """
 
-        if "data" in kwargs:
-            # Copy QueryDict because it is immutable
-            data = kwargs.pop("data").copy()
-            # Use the parent node as value for the ref node
-            data["_ref_node_id"] = data["parent"]
-            data["_position"] = "first-child"
-            # Set the kwargs to updated POST data again
-            kwargs["data"] = data
-
-        # Instantiate CustomModelForm
+        # Instantiate CustomModelForm and CustomTreeNodeForm
         super().__init__(**kwargs)
+
+        # Make position field optional because we're overriding that value anyway
+        self.fields["_position"].required = False
 
         parent_queryset = self.instance.region.language_tree_nodes
 
@@ -66,13 +54,13 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
                 )
             ]
             parent_queryset = parent_queryset.exclude(id__in=descendant_ids)
-            self.fields["parent"].initial = self.instance.parent_id
             excluded_languages = [
                 language.id
                 for language in self.instance.region.languages
                 if language != self.instance.language
             ]
         else:
+            # Make sure it's not possible to create multiple nodes for the same language
             excluded_languages = [
                 language.id for language in self.instance.region.languages
             ]
@@ -96,6 +84,12 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         :rtype: dict
         """
         cleaned_data = super().clean()
+
+        # Ignore the value that is submitted as ref node and just use the parent field
+        parent = cleaned_data.get("parent")
+        cleaned_data["_ref_node_id"] = str(parent.id) if parent else ""
+        cleaned_data["_position"] = position.FIRST_CHILD
+
         default_language = self.instance.region.default_language
         # There are two cases in which this error is thrown.
         # Both cases include that the parent field is None.
@@ -125,7 +119,7 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
     def save(self, commit=True):
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to flush
-        the cache after commiting.
+        the cache after committing.
 
         :param commit: Whether or not the changes should be written to the database
         :type commit: bool
@@ -133,9 +127,10 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         :return: The saved page translation object
         :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
-        # Save CustomModelForm and flush Cache
+        # Save CustomModelForm and CustomTreeNodeForm
         result = super().save(commit=commit)
 
+        # Flush cache of content objects
         for page in self.instance.region.pages.all():
             invalidate_obj(page)
         for poi in self.instance.region.pois.all():

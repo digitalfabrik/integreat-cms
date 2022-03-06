@@ -49,7 +49,7 @@ def transform_event_translation(event_translation):
     if event.location:
         location_translation = (
             event.location.get_public_translation(event_translation.language.slug)
-            or event.location.default_translation
+            or event.location.best_translation
         )
     else:
         location_translation = None
