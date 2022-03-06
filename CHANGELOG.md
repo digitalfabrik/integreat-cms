@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1269](https://github.com/digitalfabrik/integreat-cms/issues/1269) ] Fix fcm endpoint JSON format
+
 
 2022.3.1
 --------

@@ -48,8 +48,8 @@ def transform_notification(pnt):
     :rtype: dict
     """
     return {
+        "id": str(pnt.pk),
         "title": pnt.title,
-        "text": pnt.text,
-        "channel": pnt.push_notification.channel,
-        "sent_date": pnt.push_notification.sent_date,
+        "message": pnt.text,
+        "timestamp": pnt.push_notification.sent_date.strftime("%Y-%m-%d %H:%M:%S"),
     }
