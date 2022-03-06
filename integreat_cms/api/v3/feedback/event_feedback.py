@@ -1,8 +1,11 @@
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+import logging
 
-from ....cms.models import EventFeedback, EventTranslation
+from django.http import JsonResponse, Http404
+
+from ....cms.models import EventFeedback
 from ...decorators import json_response, feedback_handler
+
+logger = logging.getLogger(__name__)
 
 
 @feedback_handler
@@ -59,13 +62,29 @@ def event_feedback_internal(data, region, language, comment, rating, is_technica
     :param is_technical: is feedback on content or on tech
     :type is_technical: bool
 
+    :raises ~django.http.Http404: HTTP status 404 if no event with the given slug exists.
+
     :return: JSON object according to APIv3 single page feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
+    event_translation_slug = data.get("slug")
 
-    event_translation = get_object_or_404(
-        EventTranslation, event__region=region, language=language, slug=data.get("slug")
-    )
+    events = region.events.filter(
+        translations__slug=data.get("slug"),
+        translations__language=language,
+    ).distinct()
+
+    if len(events) > 1:
+        logger.error(
+            "Event translation slug %r is not unique per region and language, found multiple: %r",
+            event_translation_slug,
+            events,
+        )
+        return JsonResponse({"error": "Internal Server Error"}, status=500)
+    if len(events) == 0:
+        raise Http404("No matching event found for slug.")
+    event = events[0]
+    event_translation = event.get_translation(language.slug)
 
     EventFeedback.objects.create(
         event_translation=event_translation,
