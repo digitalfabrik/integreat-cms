@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.3.1
+--------
+
 * [ [#1267](https://github.com/digitalfabrik/integreat-cms/issues/1267) ] Fix push notifications attribute name in API
 
 
