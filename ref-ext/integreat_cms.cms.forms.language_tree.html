@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-04T19:21:46+00:00" />
+    <meta property="article:modified_time" content="2022-03-05T18:31:08+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Language Tree &mdash; integreat-cms 2022.2.4 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -779,13 +779,13 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">language</span></code>: Language (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">visible</span></code>: Visible (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">active</span></code>: Active (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parent</span></code>: Source language (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">_position</span></code>: Position (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">_ref_node_id</span></code>: Relative to (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">parent</span></code>: Source language (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/language_tree/language_tree_node_form.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/language_tree/language_tree_node_form.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize language tree node form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -868,7 +868,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/language_tree/language_tree_node_form.py#L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.clean" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/language_tree/language_tree_node_form.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.clean" title="Permalink to this definition"></a></dt>
 <dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a>:
 Don’t allow multiple root nodes for one region:
 If self is a root node and the region already has a default language, raise a
@@ -970,7 +970,7 @@ FileInput, or False otherwise.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.mk_dropdown_tree">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mk_dropdown_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_tree_node_form.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.mk_dropdown_tree" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mk_dropdown_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_tree_node_form.py#L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.mk_dropdown_tree" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a tree-like list of choices. Overwrites the parent method because the field is hidden anyway and
 additional queries to render the node titles should be avoided.</p>
 <dl class="field-list simple">
@@ -1021,9 +1021,9 @@ without redefining ordering.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/language_tree/language_tree_node_form.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/language_tree/language_tree_node_form.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.save" title="Permalink to this definition"></a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to flush
-the cache after commiting.</p>
+the cache after committing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>commit</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether or not the changes should be written to the database</p>
@@ -1076,7 +1076,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 04, 2022.
+      <span class="lastupdated">Last updated on Mar 05, 2022.
       </span></p>
   </div>
 

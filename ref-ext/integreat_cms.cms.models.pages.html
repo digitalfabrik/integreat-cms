@@ -883,7 +883,8 @@ of all validation errors if any occur.</p>
 <span class="sig-name descname"><span class="pre">default_translation</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/abstract_base_page.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.default_translation" title="Permalink to this definition"></a></dt>
 <dd><p>This function returns the translation of this content object in the region’s default language.
 Since a content object can only be created by creating a translation in the default language, this is guaranteed
-to return a object translation.</p>
+to return a object translation (Exception: When the default language tree node is changed to another language
+after the page has been created, the default translation might not exist).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The default translation of a content object</p>
@@ -972,7 +973,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.get_repr">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L315"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.get_repr" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.get_repr" title="Permalink to this definition"></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;AbstractContentModel:</span> <span class="pre">AbstractContentModel</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -1006,7 +1007,7 @@ and filters them to the requested <a class="reference internal" href="integreat_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.get_translation_state">
-<span class="sig-name descname"><span class="pre">get_translation_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.get_translation_state" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_translation_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.get_translation_state" title="Permalink to this definition"></a></dt>
 <dd><p>This function returns the current state of a translation in the given language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1983,7 +1984,8 @@ of all validation errors if any occur.</p>
 <span class="sig-name descname"><span class="pre">default_translation</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.imprint_page.ImprintPage.default_translation" title="Permalink to this definition"></a></dt>
 <dd><p>This function returns the translation of this content object in the region’s default language.
 Since a content object can only be created by creating a translation in the default language, this is guaranteed
-to return a object translation.</p>
+to return a object translation (Exception: When the default language tree node is changed to another language
+after the page has been created, the default translation might not exist).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The default translation of a content object</p>
@@ -2065,7 +2067,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.imprint_page.ImprintPage.get_repr">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L315"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.imprint_page.ImprintPage.get_repr" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.imprint_page.ImprintPage.get_repr" title="Permalink to this definition"></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;AbstractContentModel:</span> <span class="pre">AbstractContentModel</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -2113,7 +2115,7 @@ and filters them to the requested <a class="reference internal" href="integreat_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.imprint_page.ImprintPage.get_translation_state">
-<span class="sig-name descname"><span class="pre">get_translation_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.imprint_page.ImprintPage.get_translation_state" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_translation_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.imprint_page.ImprintPage.get_translation_state" title="Permalink to this definition"></a></dt>
 <dd><p>This function returns the current state of a translation in the given language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3155,7 +3157,7 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.add_child">
-<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.add_child" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.add_child" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a child to the node</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3178,7 +3180,7 @@ set self.__traceback__ to tb and return self.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.add_sibling">
-<span class="sig-name descname"><span class="pre">add_sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.add_sibling" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.add_sibling" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a new node as a sibling to the current node object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3314,7 +3316,8 @@ of all validation errors if any occur.</p>
 <span class="sig-name descname"><span class="pre">default_translation</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.default_translation" title="Permalink to this definition"></a></dt>
 <dd><p>This function returns the translation of this content object in the region’s default language.
 Since a content object can only be created by creating a translation in the default language, this is guaranteed
-to return a object translation.</p>
+to return a object translation (Exception: When the default language tree node is changed to another language
+after the page has been created, the default translation might not exist).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The default translation of a content object</p>
@@ -3374,7 +3377,7 @@ to return a object translation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.find_problems">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_problems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L302"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.find_problems" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_problems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.find_problems" title="Permalink to this definition"></a></dt>
 <dd><p>Checks for problems in the tree structure.</p>
 <p>This dummy method definition exists to silence pylint’s warning:
 Method ‘find_problems’ is abstract in class ‘Node’ but is not overridden (abstract-method)</p>
@@ -3382,7 +3385,7 @@ Method ‘find_problems’ is abstract in class ‘Node’ but is not overridden
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.fix_tree">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fix_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L311"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.fix_tree" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fix_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L305"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.fix_tree" title="Permalink to this definition"></a></dt>
 <dd><p>Solves problems that can appear when transactions are not used and
 a piece of code breaks, leaving the tree in an inconsistent state.</p>
 <p>This dummy method definition exists to silence pylint’s warning:
@@ -3436,7 +3439,7 @@ will be annotated.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.get_cached_ancestors">
-<span class="sig-name descname"><span class="pre">get_cached_ancestors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L181"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_cached_ancestors" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_cached_ancestors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L166"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_cached_ancestors" title="Permalink to this definition"></a></dt>
 <dd><p>Get the cached ancestors of a specific node</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3454,7 +3457,7 @@ the root node and descending to the parent.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.get_cached_descendants">
-<span class="sig-name descname"><span class="pre">get_cached_descendants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L212"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_cached_descendants" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_cached_descendants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L197"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_cached_descendants" title="Permalink to this definition"></a></dt>
 <dd><p>Get the cached descendants of a specific node</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3727,7 +3730,7 @@ sibling.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.get_region_root_nodes">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_region_root_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_region_root_nodes" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_region_root_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_region_root_nodes" title="Permalink to this definition"></a></dt>
 <dd><p>Get all root nodes of a specific region</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3744,7 +3747,7 @@ sibling.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.get_region_tree">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_region_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_region_tree" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_region_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_region_tree" title="Permalink to this definition"></a></dt>
 <dd><p>Get the tree of a specific region</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3871,7 +3874,7 @@ and filters them to the requested <a class="reference internal" href="integreat_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.get_translation_state">
-<span class="sig-name descname"><span class="pre">get_translation_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_translation_state" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_translation_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_translation_state" title="Permalink to this definition"></a></dt>
 <dd><p>This function returns the current state of a translation in the given language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3888,7 +3891,7 @@ and filters them to the requested <a class="reference internal" href="integreat_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.get_tree">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_tree" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L88"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_tree" title="Permalink to this definition"></a></dt>
 <dd><p>Get the tree of a specific parent node</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3906,7 +3909,7 @@ are returned.)</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.get_tree_max_depth">
-<span class="sig-name descname"><span class="pre">get_tree_max_depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L250"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_tree_max_depth" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_tree_max_depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.get_tree_max_depth" title="Permalink to this definition"></a></dt>
 <dd><p>Return all descendants with depth less or equal to max depth relative to this nodes depth</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4071,7 +4074,7 @@ which a translation exists.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.move">
-<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L264"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.move" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.move" title="Permalink to this definition"></a></dt>
 <dd><p>Moves the current node and all it’s descendants to a new position
 relative to another node.</p>
 <dl class="field-list simple">
@@ -4296,16 +4299,12 @@ should be displayed as root-pages if their parents are not archived.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pages.page.Page.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.save" title="Permalink to this definition"></a></dt>
-<dd><p>Update the parent field and save the model instance</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
-</dd>
-</dl>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_insert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/db/models/base.py#L685"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pages.page.Page.save" title="Permalink to this definition"></a></dt>
+<dd><p>Save the current instance. Override this in a subclass if you want to
+control the saving process.</p>
+<p>The ‘force_insert’ and ‘force_update’ parameters can be used to insist
+that the “save” must be an SQL insert or update (or equivalent for
+non-SQL backends), respectively. Normally, they should not be set.</p>
 </dd></dl>
 
 <dl class="py method">

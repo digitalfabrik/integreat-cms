@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-04T19:57:40+00:00" />
+    <meta property="article:modified_time" content="2022-03-05T19:08:04+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events &mdash; integreat-cms 2022.2.4 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -938,7 +938,8 @@ of all validation errors if any occur.</p>
 <span class="sig-name descname"><span class="pre">default_translation</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event.Event.default_translation" title="Permalink to this definition"></a></dt>
 <dd><p>This function returns the translation of this content object in the region’s default language.
 Since a content object can only be created by creating a translation in the default language, this is guaranteed
-to return a object translation.</p>
+to return a object translation (Exception: When the default language tree node is changed to another language
+after the page has been created, the default translation might not exist).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The default translation of a content object</p>
@@ -1097,7 +1098,7 @@ Expects <code class="docutils literal notranslate"><span class="pre">start</span
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.events.event.Event.get_repr">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L315"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event.Event.get_repr" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event.Event.get_repr" title="Permalink to this definition"></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;AbstractContentModel:</span> <span class="pre">AbstractContentModel</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -1145,7 +1146,7 @@ and filters them to the requested <a class="reference internal" href="integreat_
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.events.event.Event.get_translation_state">
-<span class="sig-name descname"><span class="pre">get_translation_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event.Event.get_translation_state" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_translation_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_model.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event.Event.get_translation_state" title="Permalink to this definition"></a></dt>
 <dd><p>This function returns the current state of a translation in the given language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1621,7 +1622,7 @@ set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.events.event.EventQuerySet.filter_completed">
-<span class="sig-name descname"><span class="pre">filter_completed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">3,</span> <span class="pre">5)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event.EventQuerySet.filter_completed" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filter_completed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">3,</span> <span class="pre">6)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event.EventQuerySet.filter_completed" title="Permalink to this definition"></a></dt>
 <dd><p>Filter all events that are not ongoing and don’t have any occurrences in the future. This is, per definition, if
 at least one of the following conditions is true:</p>
 <blockquote>
@@ -1645,7 +1646,7 @@ at least one of the following conditions is true:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.events.event.EventQuerySet.filter_upcoming">
-<span class="sig-name descname"><span class="pre">filter_upcoming</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">3,</span> <span class="pre">5)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event.EventQuerySet.filter_upcoming" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filter_upcoming</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">3,</span> <span class="pre">6)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event.EventQuerySet.filter_upcoming" title="Permalink to this definition"></a></dt>
 <dd><p>Filter all events that take place after the given date. This is, per definition, if at least one of the
 following conditions is true:</p>
 <blockquote>
@@ -2948,7 +2949,7 @@ failed.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 04, 2022.
+      <span class="lastupdated">Last updated on Mar 05, 2022.
       </span></p>
   </div>
 
