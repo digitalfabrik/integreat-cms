@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.3.0
+--------
+
 * [ [#1086](https://github.com/digitalfabrik/integreat-cms/issues/1086) ] Provide correct URL for POI
 * [ [#1247](https://github.com/digitalfabrik/integreat-cms/issues/1247) ] Update translation status on source status changes
 * [ [#1251](https://github.com/digitalfabrik/integreat-cms/issues/1251) ] Fix change detection in page form
