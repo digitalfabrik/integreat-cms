@@ -311,6 +311,21 @@
     }
   },
   {
+    "model": "cms.language",
+    "pk": 5,
+    "fields": {
+      "slug": "es",
+      "bcp47_tag": "es-es",
+      "english_name": "Spanish",
+      "native_name": "Español",
+      "text_direction": "RIGHT_TO_LEFT",
+      "primary_country_code": "es",
+      "table_of_contents": "Índice de contenidos",
+      "created_date": "2019-08-12T07:52:21.399Z",
+      "last_updated": "2019-08-12T07:52:21.400Z"
+    }
+  },
+  {
     "model": "cms.languagetreenode",
     "pk": 1,
     "fields": {
@@ -2459,6 +2474,63 @@
       "url": 4,
       "text": "Ignorierter Link",
       "ignore": true
+    }
+  },
+  {
+    "model": "cms.pushnotification",
+    "pk": 1,
+    "fields": {
+      "region": 2,
+      "channel": "news",
+      "draft": false,
+      "sent_date": "2022-03-05T10:32:33.118Z",
+      "created_date": "2022-03-05T10:31:33.118Z",
+      "mode": "ONLY_AVAILABLE"
+    }
+  },
+  {
+    "model": "cms.pushnotificationtranslation",
+    "pk": 1,
+    "fields": {
+      "title": "Test DE",
+      "text": "Test DE Inhalt",
+      "language": 1,
+      "push_notification": 1,
+      "last_updated": "2022-03-05T10:31:33.130Z"
+    }
+  },
+  {
+    "model": "cms.pushnotificationtranslation",
+    "pk": 2,
+    "fields": {
+      "title": "Test EN",
+      "text": "Test EN content",
+      "language": 2,
+      "push_notification": 1,
+      "last_updated": "2022-03-05T10:31:33.145Z"
+    }
+  },
+  {
+    "model": "cms.pushnotification",
+    "pk": 2,
+    "fields": {
+      "region": 2,
+      "channel": "news",
+      "draft": true,
+      "sent_date": null,
+      "created_date": "2022-03-05T10:35:33.118Z",
+      "mode": "ONLY_AVAILABLE"
+    }
+  },
+  {
+    "model": "cms.pushnotificationtranslation",
+    "pk": 3,
+    "fields": {
+      "title": "Nicht gesendet",
+      "text": "Nicht gesendeter Inhalt",
+      "language": 1,
+      "push_notification": 2,
+      "last_updated": "2022-03-05T10:35:33.130Z"
     }
   }
 ]

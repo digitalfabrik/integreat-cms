@@ -98,7 +98,11 @@ class PushNotification(AbstractBaseModel):
         :return: The "best" translation of a push notification for displaying in the backend
         :rtype: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
         """
-        return self.backend_translation or self.default_translation
+        return (
+            self.backend_translation
+            or self.default_translation
+            or self.translations.first()
+        )
 
     def __str__(self):
         """

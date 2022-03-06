@@ -99,7 +99,7 @@ def search_content_ajax(request, region_slug=None, language_slug=None):
 
     if user.has_perm("cms.view_page") and "page" in object_types:
         object_types.remove("page")
-        pages = region.pages.all().cache_tree(archived=archived_flag)[0]
+        pages = region.pages.all().cache_tree(archived=archived_flag)
         for page in pages:
             page_translation = page.get_translation(language_slug)
             if page_translation and (

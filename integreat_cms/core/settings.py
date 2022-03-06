@@ -39,9 +39,9 @@ MATOMO_TRACKING = bool(
 #: The slug for the legal notice (see e.g. :class:`~integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation`)
 IMPRINT_SLUG = "imprint"
 
-#: The ID of the region "Testumgebung" - prevent sending PNs to actual users in development in
+#: The slug of the region "Testumgebung" - prevent sending PNs to actual users in development in
 #: :func:`~integreat_cms.cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_pn`
-TEST_BLOG_ID = 154
+TEST_REGION_SLUG = "testumgebung"
 
 #: URL to the Integreat Website
 WEBSITE_URL = os.environ.get("INTEGREAT_CMS_WEBSITE_URL", "https://integreat-app.de")
@@ -699,7 +699,7 @@ LINKCHECK_DISABLE_LISTENERS = bool(
 #############################
 
 #: The available push notification channels
-CHANNELS = (("News", "News"),)
+CHANNELS = (("news", "News"),)
 
 
 #########################

@@ -35,21 +35,6 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         verbose_name=_("region"),
     )
 
-    def save(self, *args, **kwargs):
-        r"""
-        Update the parent field and save the model instance
-
-        :param \*args: The supplied arguments
-        :type \*args: list
-
-        :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-        """
-        # Update parent to fix inconsistencies between tree fields
-        if self.id:
-            self.parent = self.get_parent()
-        super().save(*args, **kwargs)
-
     @classmethod
     def get_region_root_nodes(cls, region_slug):
         """
@@ -275,6 +260,7 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
 
         :raises ~treebeard.exceptions.InvalidPosition: If the node is moved to another region
         """
+        logger.debug("Moving %r to position %r of %r", self, pos, target)
         # Do not allow to move a node outside its region
         if self.region != target.region:
             # Allow moving as siblings of root nodes (because it's a separate tree)
@@ -298,6 +284,14 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         invalidate_model(self.__class__)
         super().move(target=target, pos=pos)
         invalidate_model(self.__class__)
+
+        # Reload 'self' because lft/rgt may have changed
+        self.refresh_from_db()
+        # Update parent to fix inconsistencies between tree fields
+        new_parent = self.get_parent(update=True)
+        logger.debug("Updating parent field from %r to %r", self.parent, new_parent)
+        self.parent = new_parent
+        self.save()
 
     @classmethod
     def find_problems(cls):
@@ -323,10 +317,12 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         This overwrites the default Django ``__repr__()`` method which would return ``<AbstractTreeNode: AbstractTreeNode object (id)>``.
         It is used for logging.
 
-        :return: The canonical string representation of the language node
+        :return: The canonical string representation of the tree node
         :rtype: str
         """
-        return f"<AbstractTreeNode (id: {self.id}, parent: {self.parent.slug}, region: {self.region.slug})>"
+        parent_str = f", parent: {self.parent_id}" if self.parent_id else ""
+        region_str = f", region: {self.region.slug}" if self.region else ""
+        return f"<{type(self).__name__} (id: {self.id}{parent_str}{region_str})>"
 
     class Meta:
         #: Abstract model

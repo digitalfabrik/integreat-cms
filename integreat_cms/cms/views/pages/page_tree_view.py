@@ -9,7 +9,6 @@ from django.views.generic import TemplateView
 from ...constants import translation_status
 from ...decorators import permission_required
 from ...forms import PageFilterForm
-from ...models import Language
 from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
@@ -58,18 +57,17 @@ class PageTreeView(TemplateView, PageContextMixin):
         """
 
         # current region
-        region_slug = kwargs.get("region_slug")
         region = request.region
 
         # current language
         language_slug = kwargs.get("language_slug")
         if language_slug:
-            language = Language.objects.get(slug=language_slug)
+            language = region.get_language_or_404(language_slug, only_active=True)
         elif region.default_language:
             return redirect(
                 "pages",
                 **{
-                    "region_slug": region_slug,
+                    "region_slug": region.slug,
                     "language_slug": region.default_language.slug,
                 }
             )
@@ -81,7 +79,7 @@ class PageTreeView(TemplateView, PageContextMixin):
             return redirect(
                 "language_tree",
                 **{
-                    "region_slug": region_slug,
+                    "region_slug": region.slug,
                 }
             )
 
@@ -99,7 +97,7 @@ class PageTreeView(TemplateView, PageContextMixin):
             page_queryset = region.pages.filter(lft=1)
         pages = page_queryset.prefetch_major_public_translations().cache_tree(
             archived=self.archived
-        )[0]
+        )
 
         if filter_data:
             # Set data for filter form rendering

@@ -3,7 +3,6 @@ import logging
 from django import forms
 from django.contrib.auth import get_user_model
 from django.db.models import Q
-from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
 from ...constants import mirrored_page_first, position
@@ -21,12 +20,6 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
     Form for creating and modifying page objects
     """
 
-    parent = forms.ModelChoiceField(
-        queryset=Page.objects.all(),
-        required=False,
-        widget=ParentFieldWidget(),
-        label=capfirst(Page._meta.get_field("parent").verbose_name),
-    )
     editors = forms.ModelChoiceField(
         queryset=get_user_model().objects.all(),
         required=False,
@@ -56,11 +49,18 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = Page
         #: The fields of the model which should be handled by this form
-        fields = ["icon", "mirrored_page", "mirrored_page_first", "organization"]
+        fields = [
+            "icon",
+            "mirrored_page",
+            "mirrored_page_first",
+            "organization",
+            "parent",
+        ]
         #: The widgets for the fields if they differ from the standard widgets
         widgets = {
             "mirrored_page_first": forms.Select(choices=mirrored_page_first.CHOICES),
             "icon": IconWidget(),
+            "parent": ParentFieldWidget(),
         }
 
     def __init__(self, **kwargs):
@@ -71,7 +71,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         :type \**kwargs: dict
         """
 
-        # Instantiate CustomModelForm
+        # Instantiate CustomModelForm and CustomTreeNodeForm
         super().__init__(**kwargs)
 
         # Pass form object to ParentFieldWidget
@@ -117,8 +117,6 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
                 tree_id=self.instance.tree_id,
                 lft__range=(self.instance.lft, self.instance.rgt - 1),
             )
-            # Set initial value for parent field
-            self.fields["parent"].initial = self.instance.parent_id
             # Exclude the current page from the possible options for mirrored pages
             mirrored_page_queryset = mirrored_page_queryset.exclude(id=self.instance.id)
         else:
@@ -128,21 +126,21 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
                 self.fields["_ref_node_id"].initial = last_root_page.id
                 self.fields["_position"].initial = position.RIGHT
             else:
-                # If no page exists, treebeard expects the value "0" as reference node id
+                # If no page exists, treebeard expects the value "" as reference node id
                 self.fields["_ref_node_id"].initial = ""
                 self.fields["_position"].initial = position.FIRST_CHILD
 
         # Set choices of mirrored_page field manually to make use of cache_tree()
         logger.debug("Set choices for mirrored page field:")
         self.fields["mirrored_page"].choices = [
-            (page.id, str(page)) for page in mirrored_page_queryset.cache_tree()[0]
+            (page.id, str(page)) for page in mirrored_page_queryset.cache_tree()
         ]
 
         # Set choices of parent and _ref_node_id fields manually to make use of cache_tree()
         logger.debug("Set choices for parent field:")
         cached_parent_choices = [("", "---------")]
         cached_parent_choices.extend(
-            [(page.id, str(page)) for page in parent_queryset.cache_tree()[0]]
+            [(page.id, str(page)) for page in parent_queryset.cache_tree()]
         )
         self.fields["parent"].choices = cached_parent_choices
         self.fields["_ref_node_id"].choices = cached_parent_choices

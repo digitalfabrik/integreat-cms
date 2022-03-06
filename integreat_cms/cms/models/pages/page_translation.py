@@ -48,7 +48,7 @@ class PageTranslation(AbstractBasePageTranslation):
             if translation:
                 slugs.append(translation.slug)
                 continue
-            slugs.append(ancestor.default_translation.slug)
+            slugs.append(ancestor.best_translation.slug)
         return "/".join(slugs)
 
     @cached_property
@@ -253,4 +253,4 @@ class PageTranslation(AbstractBasePageTranslation):
         #: The default permissions for this model
         default_permissions = ()
         #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["page__pk", "-version"]
+        ordering = ["page__pk", "language__pk", "-version"]

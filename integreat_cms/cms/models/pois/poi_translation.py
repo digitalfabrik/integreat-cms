@@ -59,7 +59,7 @@ class POITranslation(AbstractContentTranslation):
         :return: The infix of the url
         :rtype: str
         """
-        return "pois"
+        return "locations"
 
     @cached_property
     def backend_edit_link(self):
@@ -88,4 +88,4 @@ class POITranslation(AbstractContentTranslation):
         #: The default permissions for this model
         default_permissions = ()
         #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["poi__pk", "-version"]
+        ordering = ["poi__pk", "language__pk", "-version"]

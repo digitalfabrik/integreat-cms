@@ -1,6 +1,12 @@
 UNRELEASED
 ----------
 
+* [ [#1086](https://github.com/digitalfabrik/integreat-cms/issues/1086) ] Provide correct URL for POI
+* [ [#1247](https://github.com/digitalfabrik/integreat-cms/issues/1247) ] Update translation status on source status changes
+* [ [#1251](https://github.com/digitalfabrik/integreat-cms/issues/1251) ] Fix change detection in page form
+* [ [#1260](https://github.com/digitalfabrik/integreat-cms/issues/1260) ] Fix Firebase messaging
+* [ [#1259](https://github.com/digitalfabrik/integreat-cms/issues/1259) ] Fix cloning of regions
+
 
 2022.2.4
 --------

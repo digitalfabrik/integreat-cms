@@ -62,6 +62,18 @@ VIEWS = [
             ("mediacenter_directory_path", ROLES),
             ("mediacenter_get_directory_content", ROLES),
             ("new_language_tree_node", STAFF_ROLES),
+            (
+                "new_language_tree_node",
+                PRIV_STAFF_ROLES,
+                {
+                    "language": 5,
+                    "parent": 1,
+                    "_ref_node_id": 1,
+                    "_position": "first-child",
+                    "visible": True,
+                    "active": True,
+                },
+            ),
             ("new_region_user", STAFF_ROLES + [MANAGEMENT]),
             (
                 "new_region_user",
@@ -87,6 +99,18 @@ VIEWS = [
             ("mediacenter_directory_path", STAFF_ROLES),
             ("mediacenter_get_directory_content", STAFF_ROLES),
             ("new_language_tree_node", STAFF_ROLES),
+            (
+                "new_language_tree_node",
+                PRIV_STAFF_ROLES,
+                {
+                    "language": 5,
+                    "parent": 5,
+                    "_ref_node_id": 5,
+                    "_position": "first-child",
+                    "visible": True,
+                    "active": True,
+                },
+            ),
             ("new_region_user", STAFF_ROLES),
             (
                 "new_region_user",
@@ -704,7 +728,16 @@ VIEWS = [
     (
         [
             ("edit_language_tree_node", STAFF_ROLES),
-            ("edit_language_tree_node", PRIV_STAFF_ROLES, {"language": 3, "parent": 2}),
+            (
+                "edit_language_tree_node",
+                PRIV_STAFF_ROLES,
+                {
+                    "language": 3,
+                    "parent": 2,
+                    "_ref_node_id": 2,
+                    "_position": "first-child",
+                },
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_tree_node_id": 3},

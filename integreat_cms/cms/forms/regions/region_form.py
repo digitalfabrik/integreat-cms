@@ -1,12 +1,14 @@
 import logging
 
+from copy import deepcopy
+
 from django import forms
 from django.conf import settings
 from django.utils.translation import override, ugettext_lazy as _
 from django.apps import apps
 
 from ....gvz_api.utils import GvzRegion
-from ...models import Region, PageTranslation, LanguageTreeNode
+from ...models import Region, Page, LanguageTreeNode
 from ...utils.matomo_api_manager import MatomoException
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -102,10 +104,11 @@ class RegionForm(CustomModelForm):
 
         if duplicate_region:
             source_region = self.cleaned_data["duplicated_region"]
-            logger.info("Duplicate content of %r to %r", source_region, region)
             # Duplicate language tree
+            logger.info("Duplicating language tree of %r to %r", source_region, region)
             duplicate_language_tree(source_region, region)
             # Duplicate pages
+            logger.info("Duplicating page tree of %r to %r", source_region, region)
             duplicate_pages(source_region, region)
             # Duplicate media content
             duplicate_media(source_region, region)
@@ -264,7 +267,11 @@ class RegionForm(CustomModelForm):
 
 
 def duplicate_language_tree(
-    source_region, target_region, source_parent_id=None, target_parent=None
+    source_region,
+    target_region,
+    source_parent=None,
+    target_parent=None,
+    logging_prefix="",
 ):
     """
     Function to duplicate the language tree of one region to another.
@@ -275,39 +282,85 @@ def duplicate_language_tree(
     The recursion is necessary because the new nodes need their correct (also duplicated) parent node.
 
     :param source_region: The region from which the language tree should be duplicated
-    :type source_region: cms.models.regions.region.Region
+    :type source_region: ~integreat_cms.cms.models.regions.region.Region
 
     :param target_region: The region to which the language tree should be added
-    :type target_region: cms.models.regions.region.Region
+    :type target_region: ~integreat_cms.cms.models.regions.region.Region
 
-    :param source_parent_id: The current parent node id of the recursion
-    :type source_parent_id: int
+    :param source_parent: The current parent node id of the recursion
+    :type source_parent: ~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode
 
     :param target_parent: The node of the target region which is the duplicate of the source parent node
-    :type target_parent: cms.models.pages.page.Page
+    :type target_parent: ~integreat_cms.cms.models.pages.page.Page
+
+    :param logging_prefix: recursion level to get a pretty log output
+    :type logging_prefix: str
     """
+    logger.debug(
+        "%s Duplicating child nodes",
+        logging_prefix + "└─",
+    )
+    logging_prefix += "  "
 
     # Iterate over all children of the current source parent, beginning with the root node
-    for node in LanguageTreeNode.objects.filter(
-        region=source_region, parent__id=source_parent_id
-    ).all():
-        # Store the source node id for the next iteration
-        source_node_id = node.pk
+    source_nodes = source_region.language_tree_nodes.filter(parent=source_parent)
+    num_source_nodes = len(source_nodes)
+    for i, source_node in enumerate(source_nodes):
+        logger.debug(
+            "%s Duplicating node %r",
+            logging_prefix + ("└─" if i == num_source_nodes - 1 else "├─"),
+            source_node,
+        )
+        row_logging_prefix = logging_prefix + (
+            "  " if i == num_source_nodes - 1 else "│  "
+        )
+        if target_parent:
+            # If the target parent already exist, we inherit its tree id for all its sub nodes
+            target_tree_id = target_parent.tree_id
+        else:
+            # If the language tree node is a root node, we need to assign a new tree id
+            last_root_node = LanguageTreeNode.get_last_root_node()
+            target_tree_id = last_root_node.tree_id + 1
+            logger.debug(
+                "%s Node is a root node, assigning new tree_id %r",
+                row_logging_prefix + "├─",
+                target_tree_id,
+            )
+        # Copy the target node to leave the source node unchanged for next iteration
+        target_node = deepcopy(source_node)
         # Change the region and parent to its new values
-        node.region = target_region
-        node.parent = target_parent
+        target_node.region = target_region
+        target_node.parent = target_parent
+        # Set new tree id
+        target_node.tree_id = target_tree_id
         # Delete the primary key to force an insert
-        node.pk = None
+        target_node.pk = None
         # Check if the resulting node is valid
-        node.full_clean()
+        target_node.full_clean()
         # Save the duplicated node
-        node.save()
-        # Call the function recursively for all children of the current node
-        duplicate_language_tree(source_region, target_region, source_node_id, node)
+        target_node.save()
+        logger.debug(
+            "%s Created target node %r",
+            row_logging_prefix + ("└─" if source_node.is_leaf() else "├─"),
+            target_node,
+        )
+        if not source_node.is_leaf():
+            # Call the function recursively for all children of the current node
+            duplicate_language_tree(
+                source_region,
+                target_region,
+                source_node,
+                target_node,
+                row_logging_prefix,
+            )
 
 
 def duplicate_pages(
-    source_region, target_region, source_parent_id=None, target_parent=None, level=0
+    source_region,
+    target_region,
+    source_parent=None,
+    target_parent=None,
+    logging_prefix="",
 ):
     """
     Function to duplicate all pages of one region to another.
@@ -318,78 +371,121 @@ def duplicate_pages(
     The recursion is necessary because the new pages need their correct (also duplicated) parent page.
 
     :param source_region: The region from which the pages should be duplicated
-    :type source_region: cms.models.regions.region.Region
+    :type source_region: ~integreat_cms.cms.models.regions.region.Region
 
     :param target_region: The region to which the pages should be added
-    :type target_region: cms.models.regions.region.Region
+    :type target_region: ~integreat_cms.cms.models.regions.region.Region
 
-    :param source_parent_id: The current parent page id of the recursion
-    :type source_parent_id: int
+    :param source_parent: The current parent page id of the recursion
+    :type source_parent: ~integreat_cms.cms.models.pages.page.Page
 
     :param target_parent: The page of the target region which is the duplicate of the source parent page
-    :type target_parent: cms.models.pages.page.Page
+    :type target_parent: ~integreat_cms.cms.models.pages.page.Page
 
-    :param level: recursion level to get a pretty log output
-    :type level: int
+    :param logging_prefix: recursion level to get a pretty log output
+    :type logging_prefix: str
     """
 
     logger.debug(
-        "%s Source parent %r started (target parent %r)",
-        "|  " * level + "├" + "─",
-        source_parent_id,
-        target_parent,
+        "%s Duplicating child nodes",
+        logging_prefix + "└─",
     )
+    logging_prefix += "  "
 
     # At first, get all pages from the source region with a specific parent page
     # As the parent will be None for the initial call, this returns all pages from the root level
-    for target_page in source_region.pages.filter(parent__id=source_parent_id):
+    source_pages = source_region.pages.filter(parent=source_parent)
+    num_source_pages = len(source_pages)
+    for i, source_page in enumerate(source_pages):
         logger.debug(
-            "%s Source page %r started", "|  " * (level + 1) + "├" + "─", target_page
+            "%s Duplicating page %r",
+            logging_prefix + ("└─" if i == num_source_pages - 1 else "├─"),
+            source_page,
         )
-        # Store the source page id into a buffer (if we store the whole object instance instead of only the id,
-        # it will also change when we change target_page, because both variables would reference the same object)
-        source_page_id = target_page.pk
+        row_logging_prefix = logging_prefix + (
+            "  " if i == num_source_pages - 1 else "│  "
+        )
+        if target_parent:
+            # If the target parent already exist, we inherit its tree id for all its subpages
+            target_tree_id = target_parent.tree_id
+        else:
+            # If the page is a root page, we need to assign a new tree id
+            last_root_page = Page.get_last_root_node()
+            target_tree_id = last_root_page.tree_id + 1
+            logger.debug(
+                "%s Page is a root page, assigning new tree_id %r",
+                row_logging_prefix + "├─",
+                target_tree_id,
+            )
+        # Copy the target node to leave the source node unchanged for next iteration
+        target_page = deepcopy(source_page)
         # Set the parent of the new page to the previously created target parent
         target_page.parent = target_parent
         # Set the region of the new page to the target region
         target_page.region = target_region
+        # Set new tree id
+        target_page.tree_id = target_tree_id
         # Delete the primary key to duplicate the object instance instead of updating it
         target_page.pk = None
         # Check if the page is valid
         target_page.full_clean()
         # Save duplicated page
         target_page.save()
-        # Clone all page translations of the source page
-        for page_translation in PageTranslation.objects.filter(page__id=source_page_id):
-            # Set the page of the source translation to the new page
-            page_translation.page = target_page
-            # Delete the primary key to duplicate the object instance instead of updating it
-            page_translation.pk = None
-            # Check if the page translation is valid
-            page_translation.full_clean()
-            # Save duplicated page translation
-            page_translation.save()
-            logger.debug(
-                "%s %r finished",
-                "|  " * (level + 3) + "├" + "─",
-                page_translation,
-            )
-        # Recursively call this function with the current pages as new parents
-        duplicate_pages(
-            source_region, target_region, source_page_id, target_page, level + 2
-        )
         logger.debug(
-            "%s Source page %r finished (target %r)",
-            "|  " * (level + 1) + "├" + "─",
-            source_page_id,
+            "%s Created %r",
+            row_logging_prefix + "├─",
             target_page,
         )
+        duplicate_page_translations(source_page, target_page, row_logging_prefix)
+        if not source_page.is_leaf():
+            # Recursively call this function with the current pages as new parents
+            duplicate_pages(
+                source_region,
+                target_region,
+                source_page,
+                target_page,
+                row_logging_prefix,
+            )
+
+
+def duplicate_page_translations(source_page, target_page, logging_prefix):
+    """
+    Duplicate all translations of a given source page to a given target page
+
+    :param source_page: The given source page
+    :type source_page: ~integreat_cms.cms.models.pages.page.Page
+
+    :param target_page: The desired target page
+    :type target_page: ~integreat_cms.cms.models.pages.page.Page
+
+    :param logging_prefix: The prefix to be used for logging
+    :type logging_prefix: str
+    """
     logger.debug(
-        "%s Source parent %r finished (target parent %r)",
-        "|  " * level + "├" + "─",
-        source_parent_id,
-        target_parent,
+        "%s Duplicating page translations",
+        logging_prefix + ("└─" if source_page.is_leaf() else "├─"),
     )
+    # Clone all page translations of the source page
+    source_page_translations = source_page.translations.all()
+    num_translations = len(source_page_translations)
+    translation_row_logging_prefix = logging_prefix + (
+        "  " if source_page.is_leaf() else "│  "
+    )
+    for i, page_translation in enumerate(source_page_translations):
+        # Set the page of the source translation to the new page
+        page_translation.page = target_page
+        # Delete the primary key to duplicate the object instance instead of updating it
+        page_translation.pk = None
+        # Check if the page translation is valid
+        page_translation.full_clean()
+        # Save duplicated page translation
+        page_translation.save()
+        logger.debug(
+            "%s Created %r",
+            translation_row_logging_prefix
+            + ("└─" if i == num_translations - 1 else "├─"),
+            page_translation,
+        )
 
 
 # pylint: disable=unused-argument

@@ -109,7 +109,12 @@ class LanguageTreeNode(AbstractTreeNode):
         :return: The canonical string representation of the language node
         :rtype: str
         """
-        return f"<LanguageTreeNode (id: {self.id}, language: {self.language.slug}, region: {self.region})>"
+        language_str = f", language: {self.language.slug}" if self.language else ""
+        parent_str = f", parent: {self.parent_id}" if self.parent_id else ""
+        region_str = f", region: {self.region.slug}" if self.region else ""
+        return (
+            f"<LanguageTreeNode (id: {self.id}{language_str}{parent_str}{region_str})>"
+        )
 
     class Meta:
         #: The verbose name of the model
