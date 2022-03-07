@@ -40,7 +40,7 @@ It passes the virtual environment ``.venv`` to the subsequent jobs.
 webpack
 -------
 
-This job executes ``npm install`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
+This job executes ``npm ci`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
 After that, it compiles all static files with webpack (``npm run prod``) and passes the output in
 ``integreat_cms/static/dist`` to the subsequent jobs.
 
