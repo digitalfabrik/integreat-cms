@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1271](https://github.com/digitalfabrik/integreat-cms/issues/1271) ] Fix feedback API endpoint
+
 
 2022.3.2
 --------

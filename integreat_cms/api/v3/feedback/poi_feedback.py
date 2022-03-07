@@ -1,8 +1,11 @@
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+import logging
 
-from ....cms.models import POIFeedback, POITranslation
+from django.http import JsonResponse, Http404
+
+from ....cms.models import POIFeedback
 from ...decorators import json_response, feedback_handler
+
+logger = logging.getLogger(__name__)
 
 
 @feedback_handler
@@ -29,12 +32,29 @@ def poi_feedback(data, region, language, comment, rating, is_technical):
     :param is_technical: is feedback on content or on tech
     :type is_technical: bool
 
+    :raises ~django.http.Http404: HTTP status 404 if no POI with the given slug exists.
+
     :return: decorated function that saves feedback in database
     :rtype: ~collections.abc.Callable
     """
-    poi_translation = get_object_or_404(
-        POITranslation, poi__region=region, language=language, slug=data.get("slug")
-    )
+    poi_translation_slug = data.get("slug")
+
+    pois = region.pois.filter(
+        translations__slug=data.get("slug"),
+        translations__language=language,
+    ).distinct()
+
+    if len(pois) > 1:
+        logger.error(
+            "POI translation slug %r is not unique per region and language, found multiple: %r",
+            poi_translation_slug,
+            pois,
+        )
+        return JsonResponse({"error": "Internal Server Error"}, status=500)
+    if len(pois) == 0:
+        raise Http404("No matching location found for slug.")
+    poi = pois[0]
+    poi_translation = poi.get_translation(language.slug)
 
     POIFeedback.objects.create(
         poi_translation=poi_translation,

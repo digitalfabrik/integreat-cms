@@ -1,11 +1,14 @@
 """
 APIv3 endpoint for feedback bout single pages
 """
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+import logging
 
-from ....cms.models import PageFeedback, PageTranslation
+from django.http import JsonResponse, Http404
+
+from ....cms.models import PageFeedback
 from ...decorators import json_response, feedback_handler
+
+logger = logging.getLogger(__name__)
 
 
 @feedback_handler
@@ -60,13 +63,29 @@ def page_feedback_internal(data, region, language, comment, rating, is_technical
     :param is_technical: is feedback on content or on tech
     :type is_technical: bool
 
+    :raises ~django.http.Http404: HTTP status 404 if no page with the given slug exists.
+
     :return: JSON object according to APIv3 single page feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
+    page_translation_slug = data.get("slug")
 
-    page_translation = get_object_or_404(
-        PageTranslation, page__region=region, language=language, slug=data.get("slug")
-    )
+    pages = region.pages.filter(
+        translations__slug=data.get("slug"),
+        translations__language=language,
+    ).distinct()
+
+    if len(pages) > 1:
+        logger.error(
+            "Page translation slug %r is not unique per region and language, found multiple: %r",
+            page_translation_slug,
+            pages,
+        )
+        return JsonResponse({"error": "Internal Server Error"}, status=500)
+    if len(pages) == 0:
+        raise Http404("No matching page found for slug.")
+    page = pages[0]
+    page_translation = page.get_translation(language.slug)
 
     PageFeedback.objects.create(
         page_translation=page_translation,
