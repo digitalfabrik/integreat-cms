@@ -126,6 +126,10 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
                 "region": region,
             },
         )
+
+        if not request.user.expert_mode:
+            del page_form.fields["api_token"]
+
         page_translation_form = PageTranslationForm(
             instance=page_translation, disabled=disabled
         )
@@ -216,6 +220,10 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
                 "region": region,
             },
         )
+
+        if not request.user.expert_mode:
+            del page_form.fields["api_token"]
+
         page_translation_form = PageTranslationForm(
             data=request.POST,
             instance=page_translation_instance,

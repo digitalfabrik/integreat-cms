@@ -20,7 +20,13 @@ from .v3.feedback import (
 from .v3.imprint import imprint
 from .v3.languages import languages
 from .v3.locations import locations
-from .v3.pages import pages, children, parents, single_page
+from .v3.pages import (
+    pages,
+    children,
+    parents,
+    single_page,
+    push_page_translation_content,
+)
 from .v3.pdf_export import pdf_export
 from .v3.push_notifications import sent_push_notifications
 from .v3.regions import regions, liveregions, hiddenregions
@@ -48,6 +54,9 @@ content_api_urlpatterns = [
     path("disclaimer/", imprint, name="imprint"),
     path("offers/", offers, name="offers"),
     path("extras/", offers, name="offers"),
+    path(
+        "pushpage/", push_page_translation_content, name="push_page_translation_content"
+    ),
     re_path(
         r"^feedback/?$",
         legacy_feedback_endpoint.legacy_feedback_endpoint,

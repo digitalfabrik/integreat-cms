@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-06 11:13+0000\n"
+"POT-Creation-Date: 2022-03-07 17:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1297,7 +1297,7 @@ msgstr "Aktiv"
 msgid "Hidden"
 msgstr "Versteckt"
 
-#: cms/constants/region_status.py:18 cms/models/pages/page.py:298
+#: cms/constants/region_status.py:18 cms/models/pages/page.py:304
 #: cms/models/regions/region.py:597 cms/templates/events/event_form.html:70
 #: cms/templates/pages/page_form.html:93
 #: cms/templates/pages/page_tree_archived_node.html:78
@@ -1682,6 +1682,10 @@ msgstr "Diese Benutzer können die Seite bearbeiten und veröffentlichen"
 #: cms/forms/pages/page_form.py:40
 msgid "Source region for live content"
 msgstr "Quell-Region für Live-Inhalte"
+
+#: cms/forms/pages/page_form.py:44
+msgid "Enable write access via API for this page"
+msgstr "Schreib-Zugriff via API-Zugriff für diese Seite aktivieren"
 
 #: cms/forms/regions/region_form.py:28
 msgid "Do no import initial content"
@@ -2569,11 +2573,19 @@ msgstr ""
 "Dies erlaubt allen Mitgliedern der Organisation diese Seite zu bearbeiten "
 "und veröffentlichen"
 
-#: cms/models/pages/page.py:319 cms/models/pages/page_translation.py:30
+#: cms/models/pages/page.py:194
+msgid "API access token"
+msgstr "API Zugangs-Token"
+
+#: cms/models/pages/page.py:195
+msgid "API token to allow writing content to translations."
+msgstr "Token um das Überschreiben der Übersetzungen via API zu erlauben."
+
+#: cms/models/pages/page.py:325 cms/models/pages/page_translation.py:30
 msgid "page"
 msgstr "Seite"
 
-#: cms/models/pages/page.py:321
+#: cms/models/pages/page.py:327
 msgid "pages"
 msgstr "Seiten"
 
@@ -3633,7 +3645,8 @@ msgstr "Bearbeiten"
 #: cms/templates/imprint/imprint_sbs.html:61
 #: cms/templates/imprint/imprint_sbs.html:125
 #: cms/templates/pages/page_form.html:113
-#: cms/templates/pages/page_form.html:132 cms/templates/pois/poi_form.html:78
+#: cms/templates/pages/page_form.html:132
+#: cms/templates/pages/page_form.html:219 cms/templates/pois/poi_form.html:78
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
 
@@ -3671,7 +3684,7 @@ msgstr "Auf Google Maps öffnen"
 
 #: cms/templates/events/event_form.html:301
 #: cms/templates/imprint/imprint_form.html:112
-#: cms/templates/pages/page_form.html:240 cms/templates/pois/poi_form.html:157
+#: cms/templates/pages/page_form.html:268 cms/templates/pois/poi_form.html:157
 #: cms/templates/regions/region_list.html:25
 #: cms/templates/settings/user_settings.html:93
 msgid "Actions"
@@ -4023,7 +4036,7 @@ msgid "Side-by-Side view"
 msgstr "Side-by-Side-Ansicht"
 
 #: cms/templates/imprint/imprint_form.html:137
-#: cms/templates/pages/page_form.html:339
+#: cms/templates/pages/page_form.html:367
 msgid "Direction of translation"
 msgstr "Übersetzungsrichtung"
 
@@ -4525,11 +4538,15 @@ msgstr "Reihenfolge"
 msgid "Embed live content"
 msgstr "Live-Inhalte einbinden"
 
-#: cms/templates/pages/page_form.html:209
+#: cms/templates/pages/page_form.html:224
+msgid "Access token was successfully copied to clipboard"
+msgstr "Zugangs-Token wurde erfolgreich in die Zwischenablage kopiert."
+
+#: cms/templates/pages/page_form.html:237
 msgid "Additional permissions for this page"
 msgstr "Zusätzliche Berechtigungen für diese Seite"
 
-#: cms/templates/pages/page_form.html:211
+#: cms/templates/pages/page_form.html:239
 msgid ""
 "This affects only users, who don't have the permission to change arbitrary "
 "pages anyway."
@@ -4537,18 +4554,18 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: cms/templates/pages/page_form.html:246
-#: cms/templates/pages/page_form.html:248
-#: cms/templates/pages/page_form.html:258
+#: cms/templates/pages/page_form.html:274
+#: cms/templates/pages/page_form.html:276
+#: cms/templates/pages/page_form.html:286
 #: cms/templates/pages/page_tree_archived_node.html:98
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html:254
+#: cms/templates/pages/page_form.html:282
 msgid "Restore this page"
 msgstr "Diese Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html:263
+#: cms/templates/pages/page_form.html:291
 msgid "To restore this page, you have to restore its parent page:"
 msgid_plural ""
 "To restore this page, you have to restore all its archived parent pages:"
@@ -4559,31 +4576,31 @@ msgstr[1] ""
 "Um diese Seite wiederherzustellen, müssen Sie alle ihre archivierten "
 "übergeordneten Seiten wiederherstellen:"
 
-#: cms/templates/pages/page_form.html:278
-#: cms/templates/pages/page_form.html:280
+#: cms/templates/pages/page_form.html:306
+#: cms/templates/pages/page_form.html:308
 #: cms/templates/pages/page_tree_node.html:129
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: cms/templates/pages/page_form.html:287
+#: cms/templates/pages/page_form.html:315
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
-#: cms/templates/pages/page_form.html:292
-#: cms/templates/pages/page_form.html:316
+#: cms/templates/pages/page_form.html:320
+#: cms/templates/pages/page_form.html:344
 #: cms/templates/pages/page_tree_archived_node.html:116
 #: cms/templates/pages/page_tree_node.html:142
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: cms/templates/pages/page_form.html:299
+#: cms/templates/pages/page_form.html:327
 #: cms/templates/pages/page_tree_archived_node.html:112
 #: cms/templates/pages/page_tree_node.html:138
 #: cms/views/pages/page_actions.py:215
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
-#: cms/templates/pages/page_form.html:301
+#: cms/templates/pages/page_form.html:329
 msgid "To delete this page, you have to delete or move its subpage first:"
 msgid_plural ""
 "To delete this page, you have to delete or move its subpages first:"
@@ -4594,15 +4611,15 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie zuerst ihre Unterseiten löschen oder "
 "verschieben:"
 
-#: cms/templates/pages/page_form.html:323
+#: cms/templates/pages/page_form.html:351
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
-#: cms/templates/pages/page_form.html:334
+#: cms/templates/pages/page_form.html:362
 msgid "Translator view"
 msgstr "Übersetzeransicht"
 
-#: cms/templates/pages/page_form.html:354
+#: cms/templates/pages/page_form.html:382
 msgid "Show translator view"
 msgstr "Übersetzeransicht anzeigen"
 
@@ -5705,7 +5722,7 @@ msgstr ""
 
 #: cms/views/events/event_form_view.py:192
 #: cms/views/imprint/imprint_form_view.py:198
-#: cms/views/pages/page_form_view.py:246 cms/views/pois/poi_form_view.py:156
+#: cms/views/pages/page_form_view.py:254 cms/views/pois/poi_form_view.py:156
 msgid "No changes detected, autosave skipped"
 msgstr "Keine Änderungen vorgenommen, automatisches Speichern übersprungen"
 
@@ -5714,7 +5731,7 @@ msgid "Event \"{}\" was successfully created"
 msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/events/event_form_view.py:223
-#: cms/views/pages/page_form_view.py:277 cms/views/pois/poi_form_view.py:170
+#: cms/views/pages/page_form_view.py:285 cms/views/pois/poi_form_view.py:170
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
@@ -5796,7 +5813,7 @@ msgid "Imprint was successfully created"
 msgstr "Impressum wurde erfolgreich erstellt"
 
 #: cms/views/imprint/imprint_form_view.py:268
-#: cms/views/pages/page_form_view.py:349
+#: cms/views/pages/page_form_view.py:357
 #, python-brace-format
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
@@ -6239,7 +6256,7 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu veröffentlichen, "
 "aber Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
 
-#: cms/views/pages/page_form_view.py:270
+#: cms/views/pages/page_form_view.py:278
 msgid "Page \"{}\" was successfully created"
 msgstr "Seite \"{}\" wurde erfolgreich erstellt"
 
@@ -6503,6 +6520,9 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Access token to update the page content"
+#~ msgstr "Zugangs-Token um Seiten-Inhalte zu aktualisieren"
 
 #~ msgid "Settings for all translations"
 #~ msgstr "Einstellungen für alle Übersetzungen"
