@@ -100,6 +100,18 @@
             </div>
             <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
                 <div>
+                    <!-- Options related to Timezones -->
+                    <label for="{{ form.timezone_area.id_for_label }}">{{ form.timezone_area.label }}</label>
+                    {% render_field form.timezone_area %}
+                    <div class="help-text">{{ form.timezone_area.help_text }}</div>
+                </div>
+                <div>
+                    <!-- Options related to Timezones -->
+                    <label for="{{ form.timezone.id_for_label }}">{{ form.timezone.label }}</label>
+                    {% render_field form.timezone %}
+                    <div class="help-text">{{ form.timezone.help_text }}</div>
+                </div>
+                <div>
                     <!-- Options related to Events -->
                     {% render_field form.events_enabled %}
                     <label for="{{ form.events_enabled.id_for_label }}">{{ form.events_enabled.label }}</label>

@@ -28,4 +28,31 @@ window.addEventListener('load', () => {
             }
         });
     }
+    // add conditional logic to display options within the second timezone dropdown
+    const timezoneAreaDropdown = document.getElementById("id_timezone_area") as HTMLSelectElement;
+    const timezoneDropdown = document.getElementById("id_timezone") as HTMLSelectElement;
+        
+    if(timezoneDropdown && timezoneAreaDropdown) {
+        updateTimezoneAreaDropdown();
+        timezoneAreaDropdown.addEventListener('change', updateTimezoneAreaDropdown)
+    }
 });
+
+function updateTimezoneAreaDropdown() {
+    const timezoneAreaDropdown = document.getElementById("id_timezone_area") as HTMLSelectElement;
+    const timezoneDropdown = document.getElementById("id_timezone") as HTMLSelectElement;
+    let otherOptions;
+    let selectedOptions;
+    timezoneDropdown.value = '';
+    if (timezoneAreaDropdown.value === '') {
+        selectedOptions = [];
+        otherOptions = timezoneDropdown.querySelectorAll('option');
+    } else {
+        otherOptions = timezoneDropdown.querySelectorAll('option:not([value*="' + timezoneAreaDropdown.value + '"])');
+        selectedOptions = timezoneDropdown.querySelectorAll('option[value*="' + timezoneAreaDropdown.value + '"]');
+    }
+    otherOptions.forEach((option) => option.classList.add('hidden'));
+    selectedOptions.forEach((option) => option.classList.remove('hidden'));
+
+    timezoneDropdown.querySelector('option[value=""]').classList.remove('hidden');
+}

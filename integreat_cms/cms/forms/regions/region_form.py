@@ -6,6 +6,7 @@ from django import forms
 from django.conf import settings
 from django.utils.translation import override, ugettext_lazy as _
 from django.apps import apps
+from zoneinfo import available_timezones
 
 from ....gvz_api.utils import GvzRegion
 from ...models import Region, Page, LanguageTreeNode
@@ -15,7 +16,22 @@ from ...utils.translation_utils import ugettext_many_lazy as __
 from ..icon_widget import IconWidget
 from ..custom_model_form import CustomModelForm
 
+
 logger = logging.getLogger(__name__)
+
+
+def get_timezone_area_choices():
+    timezone_regions = list(
+        {tz.split("/")[0] for tz in available_timezones() if "/" in tz}
+    )
+    timezone_regions.sort()
+    timezone_regions.remove("Etc")
+    timezone_regions.remove("SystemV")
+    return (
+        [("", "---------")]
+        + [(tzr, tzr) for tzr in timezone_regions]
+        + [("Etc", _("Other timezones"))]
+    )
 
 
 class RegionForm(CustomModelForm):
@@ -26,6 +42,12 @@ class RegionForm(CustomModelForm):
     duplicated_region = forms.ModelChoiceField(
         queryset=Region.objects.all(),
         empty_label=_("Do no import initial content"),
+        required=False,
+    )
+
+    timezone_area = forms.ChoiceField(
+        choices=get_timezone_area_choices,
+        label=_("Timezone area"),
         required=False,
     )
 
@@ -62,6 +84,7 @@ class RegionForm(CustomModelForm):
             "short_urls_enabled",
             "custom_prefix",
             "tunews_enabled",
+            "timezone",
         ]
         #: The widgets which are used in this form
         widgets = {
@@ -80,7 +103,8 @@ class RegionForm(CustomModelForm):
         :type \**kwargs: dict
         """
         super().__init__(*args, **kwargs)
-
+        if self.instance and "/" in self.instance.timezone:
+            self.fields["timezone_area"].initial = self.instance.timezone.split("/")[0]
         self.fields["slug"].required = False
 
     def save(self, commit=True):
