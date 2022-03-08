@@ -86,6 +86,7 @@ def test_xliff_export(login_role_user, settings, tmp_path):
         assert response.status_code == 403
 
 
+# pylint: disable=too-many-locals
 @pytest.mark.django_db
 def test_xliff_import(login_role_user, settings):
     """
@@ -129,26 +130,28 @@ def test_xliff_import(login_role_user, settings):
         assert file_1 in response.content.decode("utf-8")
         assert file_2 in response.content.decode("utf-8")
         # Check if XLIFF import is correctly confirmed
-        response = client.post(redirect_location)
-        print(response.headers)
-        assert response.status_code == 302
-        # If the import has been successfully confirmed, we get redirected to the page tree
-        assert response.headers.get("Location") == page_tree
-        # Check if xliff import view is correctly rendered
-        response = client.get(page_tree)
-        print(response.headers)
-        assert response.status_code == 200
-        # Check if existing translations are now updated
-        for page in Page.objects.filter(id__in=[1, 2]):
-            translation = page.get_translation("en")
-            if translation:
-                assert translation.title == "Updated title"
-                assert translation.content == "<p>Updated content</p>"
-                assert not translation.currently_in_translation
-                assert (
-                    f'Page "{translation.title}" was imported successfully.'
-                    in response.content.decode("utf-8")
-                )
+        # (perform test twice to check whether unchanged diffs can be imported as well)
+        for msg in ["successfully", "without changes"]:
+            response = client.post(redirect_location)
+            print(response.headers)
+            assert response.status_code == 302
+            # If the import has been successfully confirmed, we get redirected to the page tree
+            assert response.headers.get("Location") == page_tree
+            # Check if xliff import view is correctly rendered
+            response = client.get(page_tree)
+            print(response.headers)
+            assert response.status_code == 200
+            # Check if existing translations are now updated
+            for page in Page.objects.filter(id__in=[1, 2]):
+                translation = page.get_translation("en")
+                if translation:
+                    assert translation.title == "Updated title"
+                    assert translation.content == "<p>Updated content</p>"
+                    assert not translation.currently_in_translation
+                    assert (
+                        f'Page "{translation.title}" was imported {msg}.'
+                        in response.content.decode("utf-8")
+                    )
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
         assert response.status_code == 302
