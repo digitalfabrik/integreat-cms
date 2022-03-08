@@ -8,8 +8,6 @@ import glob
 import os
 import uuid
 
-from copy import deepcopy
-
 from django.conf import settings
 from django.contrib import messages
 from django.core import serializers
@@ -271,6 +269,12 @@ def get_xliff_import_diff(request, xliff_dir):
     for xliff_file, deserialized_objects in xliffs_to_pages(request, xliff_dir).items():
         for deserialized in deserialized_objects:
             page_translation = deserialized.object
+            # The prefetched translations now also contain the new deserialized object with id None, so we have to delete
+            # the cached property and query it from the database again.
+            try:
+                del page_translation.page.prefetched_translations_by_language_slug
+            except AttributeError:
+                pass
             existing_translation = page_translation.latest_version or PageTranslation(
                 page=page_translation.page,
                 language=page_translation.language,
@@ -402,8 +406,17 @@ def get_xliff_import_errors(request, page_translation):
             }
         )
     # Retrieve existing page translation in the target language
-    # (using model instances in forms may change them, so we need to copy it in order to not change the cached property)
-    existing_translation = deepcopy(page_translation.latest_version)
+    # The prefetched translations now also contain the new deserialized object with id None, so we have to delete
+    # the cached property and query it from the database again.
+    try:
+        del page_translation.latest_version
+    except AttributeError:
+        pass
+    try:
+        del page_translation.page.prefetched_translations_by_language_slug
+    except AttributeError:
+        pass
+    existing_translation = page_translation.latest_version
     # Validate page translation
     page_translation_form = PageTranslationForm(
         data=model_to_dict(page_translation),
