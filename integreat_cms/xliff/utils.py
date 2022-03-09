@@ -8,8 +8,6 @@ import glob
 import os
 import uuid
 
-from copy import deepcopy
-
 from django.conf import settings
 from django.contrib import messages
 from django.core import serializers
@@ -271,6 +269,12 @@ def get_xliff_import_diff(request, xliff_dir):
     for xliff_file, deserialized_objects in xliffs_to_pages(request, xliff_dir).items():
         for deserialized in deserialized_objects:
             page_translation = deserialized.object
+            # The prefetched translations now also contain the new deserialized object with id None, so we have to delete
+            # the cached property and query it from the database again.
+            try:
+                del page_translation.page.prefetched_translations_by_language_slug
+            except AttributeError:
+                pass
             existing_translation = page_translation.latest_version or PageTranslation(
                 page=page_translation.page,
                 language=page_translation.language,
@@ -302,7 +306,9 @@ def get_xliff_import_diff(request, xliff_dir):
                     },
                     "right_to_left": page_translation.language.text_direction
                     == text_directions.RIGHT_TO_LEFT,
-                    "errors": get_xliff_import_errors(request, page_translation),
+                    "errors": get_xliff_import_errors(
+                        request, page_translation, add_message_if_unchanged=True
+                    )[0],
                 }
             )
     return diff
@@ -328,7 +334,7 @@ def xliff_import_confirm(request, xliff_dir):
         # (typically, one xliff file contains exactly one page translation)
         for deserialized in deserialized_objects:
             page_translation = deserialized.object
-            errors = get_xliff_import_errors(request, page_translation)
+            errors, has_changed = get_xliff_import_errors(request, page_translation)
             if errors:
                 logger.warning(
                     "XLIFF import of %r not possible because validation of %r failed with the errors: %r",
@@ -347,6 +353,23 @@ def xliff_import_confirm(request, xliff_dir):
                     ).format(page_translation.readable_title, error_list),
                 )
                 success = False
+            elif not has_changed:
+                # Update existing translation
+                existing_translation = page_translation.latest_version
+                existing_translation.currently_in_translation = False
+                existing_translation.save()
+                logger.info(
+                    "%r of XLIFF file %r was imported without changes by %r",
+                    existing_translation,
+                    xliff_file,
+                    request.user,
+                )
+                messages.info(
+                    request,
+                    _("Page {} was imported without changes.").format(
+                        page_translation.readable_title
+                    ),
+                )
             else:
                 # Confirm import and write changes to the database
                 page_translation.save()
@@ -365,7 +388,7 @@ def xliff_import_confirm(request, xliff_dir):
     return success
 
 
-def get_xliff_import_errors(request, page_translation):
+def get_xliff_import_errors(request, page_translation, add_message_if_unchanged=False):
     """
     Validate an imported page translation and return all errors
 
@@ -374,6 +397,9 @@ def get_xliff_import_errors(request, page_translation):
 
     :param page_translation: The page translation which is being imported
     :type page_translation: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
+
+    :param add_message_if_unchanged: Whether a message should be added if no changes are detected
+    :type add_message_if_unchanged: bool
 
     :return: All errors of this XLIFF import
     :rtype: list [ dict ]
@@ -402,8 +428,17 @@ def get_xliff_import_errors(request, page_translation):
             }
         )
     # Retrieve existing page translation in the target language
-    # (using model instances in forms may change them, so we need to copy it in order to not change the cached property)
-    existing_translation = deepcopy(page_translation.latest_version)
+    # The prefetched translations now also contain the new deserialized object with id None, so we have to delete
+    # the cached property and query it from the database again.
+    try:
+        del page_translation.latest_version
+    except AttributeError:
+        pass
+    try:
+        del page_translation.page.prefetched_translations_by_language_slug
+    except AttributeError:
+        pass
+    existing_translation = page_translation.latest_version
     # Validate page translation
     page_translation_form = PageTranslationForm(
         data=model_to_dict(page_translation),
@@ -421,11 +456,12 @@ def get_xliff_import_errors(request, page_translation):
                 for message in page_translation_form.get_error_messages()
             ]
         )
-    if not page_translation_form.has_changed():
-        error_messages.append(
-            {
-                "level_tag": "info",
-                "message": _("No changes detected."),
-            }
-        )
-    return error_messages
+    if add_message_if_unchanged:
+        if not page_translation_form.has_changed():
+            error_messages.append(
+                {
+                    "level_tag": "info",
+                    "message": _("No changes detected."),
+                }
+            )
+    return error_messages, page_translation_form.has_changed()
