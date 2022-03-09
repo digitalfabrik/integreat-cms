@@ -23,7 +23,7 @@
                     {% if perms.cms.change_pushnotification %}
                         <button name="submit_save" class="btn btn-gray">{% trans 'Save' %}</button>
                     {% endif %}
-                    {% if perms.cms.send_push_notification %}
+                    {% if perms.cms.send_push_notification and not push_notification_form.instance.sent_date %}
                         <button name="submit_send" class="btn">{% trans 'Save & Send' %}</button>
                     {% endif %}
                 </div>
