@@ -493,6 +493,14 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.html#region-test">Region Test</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="tests.xliff.html">XLIFF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.xliff.dummy_django_app.html">Dummy Django App</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.xliff.dummy_django_app.html#static-urls">Static Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.xliff.html#xliff-test">XLIFF Test</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="tests.html#conftest">Conftest</a></li>
 </ul>
 </li>
@@ -725,6 +733,14 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.html#module-tests.cms.region_test">Region Test</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.xliff.html">XLIFF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.xliff.dummy_django_app.html">Dummy Django App</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.xliff.dummy_django_app.html#module-tests.xliff.dummy_django_app.static_urls">Static Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.xliff.html#module-tests.xliff.xliff_test">XLIFF Test</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.html#module-tests.conftest">Conftest</a></li>
@@ -1099,7 +1115,7 @@ Handled by either <a class="reference internal" href="../ref-ext/integreat_cms.x
 <p>Helper functions for the XLIFF serializer</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L257"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Show the XLIFF import diff</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1119,13 +1135,14 @@ Handled by either <a class="reference internal" href="../ref-ext/integreat_cms.x
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L368"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_message_if_unchanged</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L391"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate an imported page translation and return all errors</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request (used for error messages)</p></li>
 <li><p><strong>page_translation</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a>) – The page translation which is being imported</p></li>
+<li><p><strong>add_message_if_unchanged</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether a message should be added if no changes are detected</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1139,7 +1156,7 @@ Handled by either <a class="reference internal" href="../ref-ext/integreat_cms.x
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">page_to_xliff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">page_to_xliff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Export a page to an XLIFF file for a specified target language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1163,7 +1180,7 @@ Handled by either <a class="reference internal" href="../ref-ext/integreat_cms.x
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">pages_to_xliff_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">pages_to_xliff_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Export a list of page IDs to a ZIP archive containing XLIFF files for a specified target language (or just a single
 XLIFF file if only one page is converted)</p>
 <dl class="field-list simple">
@@ -1185,7 +1202,7 @@ XLIFF file if only one page is converted)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">xliff_import_confirm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L311"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">xliff_import_confirm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Confirm the XLIFF import and write changes to database</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1205,7 +1222,7 @@ XLIFF file if only one page is converted)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">xliffs_to_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L184"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">xliffs_to_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Export a page to an XLIFF file for a specified target language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
