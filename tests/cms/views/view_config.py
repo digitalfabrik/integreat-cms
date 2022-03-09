@@ -174,10 +174,8 @@ VIEWS = [
                     "submit_draft": True,
                 },
             ),
-            ("new_push_notification", STAFF_ROLES + [MANAGEMENT]),
             ("pages", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("pois", ROLES),
-            ("push_notifications", STAFF_ROLES + [MANAGEMENT]),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de"},
@@ -234,10 +232,8 @@ VIEWS = [
                     "submit_draft": True,
                 },
             ),
-            ("new_push_notification", STAFF_ROLES),
             ("pages", STAFF_ROLES),
             ("pois", STAFF_ROLES),
-            ("push_notifications", STAFF_ROLES),
         ],
         # The kwargs for these views
         {"region_slug": "nurnberg", "language_slug": "de"},
@@ -555,6 +551,26 @@ VIEWS = [
         {"region_slug": "augsburg", "language_slug": "en", "page_id": 1},
     ),
 ]
+
+if settings.FCM_ENABLED:
+    VIEWS += [
+        (
+            [
+                ("new_push_notification", STAFF_ROLES + [MANAGEMENT]),
+                ("push_notifications", STAFF_ROLES + [MANAGEMENT]),
+            ],
+            # The kwargs for these views
+            {"region_slug": "augsburg", "language_slug": "de"},
+        ),
+        (
+            [
+                ("new_push_notification", STAFF_ROLES),
+                ("push_notifications", STAFF_ROLES),
+            ],
+            # The kwargs for these views
+            {"region_slug": "nurnberg", "language_slug": "de"},
+        ),
+    ]
 
 #: In order for these views to be used as parameters, we have to flatten the nested structure
 PARAMETRIZED_VIEWS = [

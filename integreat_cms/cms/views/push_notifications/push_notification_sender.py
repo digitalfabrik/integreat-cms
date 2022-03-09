@@ -5,6 +5,7 @@ import logging
 import requests
 
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 from ...models import PushNotificationTranslation
 from ...models import Region
@@ -13,7 +14,6 @@ from ...constants import push_notifications as pnt_const
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-few-public-methods
 class PushNotificationSender:
     """
     Sends push notifications via FCM HTTP API.
@@ -28,6 +28,9 @@ class PushNotificationSender:
 
         :param push_notification: the push notification that should be sent
         :type push_notification: ~integreat_cms.cms.models.push_notifications.push_notification.PushNotification
+
+        :raises ~django.core.exceptions.ImproperlyConfigured: If the auth key is missing or the system runs in debug
+                                                              mode but the test region does not exist.
         """
         self.push_notification = push_notification
         self.prepared_pnts = []
@@ -35,13 +38,23 @@ class PushNotificationSender:
             push_notification=push_notification,
             language=push_notification.region.default_language,
         )
-        if len(self.primary_pnt.title) > 0:
+        if self.primary_pnt.title:
             self.prepared_pnts.append(self.primary_pnt)
         self.load_secondary_pnts()
 
+        if not settings.FCM_ENABLED:
+            raise ImproperlyConfigured("Push notifications are disabled")
         self.auth_key = settings.FCM_KEY
-        if not self.auth_key:
-            logger.warning("Could not get a proper fcm_auth_key")
+
+        if settings.DEBUG:
+            # Prevent sending PNs to actual users in development
+            test_region = Region.objects.filter(slug=settings.TEST_REGION_SLUG).first()
+            if not test_region:
+                raise ImproperlyConfigured(
+                    f"The system runs with DEBUG=True but the region with TEST_REGION_SLUG={settings.TEST_REGION_SLUG} does not exist."
+                )
+            self.region = test_region
+        self.region = push_notification.region
 
     def load_secondary_pnts(self):
         """
@@ -68,7 +81,10 @@ class PushNotificationSender:
         :return: all prepared push notification translations are valid
         :rtype: bool
         """
-        if not self.auth_key:
+        if not self.prepared_pnts:
+            logger.debug(
+                "%r does not have a default translation", self.push_notification
+            )
             return False
         for pnt in self.prepared_pnts:
             if not pnt.title:
@@ -86,19 +102,13 @@ class PushNotificationSender:
         :return: Response of the :mod:`requests` library
         :rtype: ~requests.Response
         """
-        if settings.DEBUG:
-            region = Region.objects.get(
-                slug=settings.TEST_REGION_SLUG
-            )  # Testumgebung - prevent sending PNs to actual users in development
-        else:
-            region = self.push_notification.region
         payload = {
-            "to": f"/topics/{region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
+            "to": f"/topics/{self.region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
             "notification": {"title": pnt.title, "body": pnt.text},
             "data": {
                 "lanCode": pnt.language.slug,
-                "city": region.slug,
-                "blog_id": region.id,
+                "city": self.region.slug,
+                "blog_id": self.region.id,
                 "group": self.push_notification.channel,
             },
             "apns": {
@@ -116,7 +126,6 @@ class PushNotificationSender:
         headers = {"Authorization": f"key={self.auth_key}"}
         return requests.post(self.fcm_url, json=payload, headers=headers)
 
-    # pylint: disable=too-many-arguments
     def send_all(self):
         """
         Send all prepared push notification translations
@@ -131,7 +140,7 @@ class PushNotificationSender:
                 logger.info("%r sent, FCM id: %r", pnt, res.json()["message_id"])
             else:
                 status = False
-                logger.warning(
+                logger.error(
                     "Received invalid response from FCM for %r, status: %r, body: %r",
                     pnt,
                     res.status_code,

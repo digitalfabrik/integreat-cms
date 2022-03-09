@@ -57,6 +57,15 @@ class PushNotificationTranslation(AbstractBaseModel):
             title__icontains=query,
         )
 
+    def get_absolute_url(self):
+        """
+        Generates the absolute url to a news object in the app
+
+        :return: The link to the news
+        :rtype: str
+        """
+        return f"/{self.push_notification.region.slug}/{self.language.slug}/{self.push_notification.channel}/local/{self.id}"
+
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``PushNotificationTranslation object (id)``.
