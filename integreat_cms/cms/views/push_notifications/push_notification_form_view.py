@@ -192,7 +192,7 @@ class PushNotificationFormView(TemplateView):
                     ),
                 )
 
-            if "submit_send" in request.POST:
+            if "submit_send" in request.POST and not pn_form.instance.sent_date:
                 if not request.user.has_perm("cms.send_push_notification"):
                     logger.warning(
                         "%r does not have the permission to send %r",
