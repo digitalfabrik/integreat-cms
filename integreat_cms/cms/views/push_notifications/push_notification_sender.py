@@ -106,9 +106,9 @@ class PushNotificationSender:
             "to": f"/topics/{self.region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
             "notification": {"title": pnt.title, "body": pnt.text},
             "data": {
-                "lanCode": pnt.language.slug,
-                "city": self.region.slug,
-                "blog_id": self.region.id,
+                "news_id": str(pnt.id),
+                "city_code": self.region.slug,
+                "language_code": pnt.language.slug,
                 "group": self.push_notification.channel,
             },
             "apns": {
