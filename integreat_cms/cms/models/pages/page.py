@@ -188,6 +188,12 @@ class Page(AbstractTreeNode, AbstractBasePage):
             "This allows all members of the organization to edit and publish this page."
         ),
     )
+    api_token = models.CharField(
+        blank=True,
+        max_length=36,
+        verbose_name=_("API access token"),
+        help_text=_("API token to allow writing content to translations."),
+    )
 
     #: Custom model manager to inherit methods from tree manager as well as the custom content queryset
     objects = PageManager()

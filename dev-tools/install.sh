@@ -96,7 +96,7 @@ fi
 
 # Install npm dependencies
 echo "Installing JavaScript dependencies..." | print_info
-npm install --no-fund
+npm ci --no-fund
 echo "✔ Installed JavaScript dependencies" | print_success
 
 # Check if working directory contains space (if so, pipenv in project won't work)
