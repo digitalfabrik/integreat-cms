@@ -2,7 +2,7 @@ import logging
 
 from django.core.serializers import base
 
-from ..cms.models import Language, Page, PageTranslation
+from ..cms.models import Page, PageTranslation
 from . import base_serializer
 
 
@@ -90,9 +90,9 @@ class Serializer(base_serializer.Serializer):
             {
                 "version": "2.0",
                 "xmlns": "urn:oasis:names:tc:xliff:document:2.0",
-                "srcLang": self.source_language.slug,
+                "srcLang": self.source_language.bcp47_tag,
                 "srcDir": self.source_language.text_direction,
-                "trgLang": self.target_language.slug,
+                "trgLang": self.target_language.bcp47_tag,
                 "trgDir": self.target_language.text_direction,
             },
         )
@@ -200,12 +200,12 @@ class Deserializer(base_serializer.Deserializer):
         for event, node in self.event_stream:
             if event == "START_ELEMENT" and node.nodeName == "xliff":
                 # Get source language stored in the xliff node
-                self.source_language = Language.objects.get(
-                    slug=self.require_attribute(node, "srcLang")
+                self.source_language = self.get_language(
+                    self.require_attribute(node, "srcLang")
                 )
                 # Get target language stored in the xliff node
-                self.target_language = Language.objects.get(
-                    slug=self.require_attribute(node, "trgLang")
+                self.target_language = self.get_language(
+                    self.require_attribute(node, "trgLang")
                 )
                 logger.debug(
                     "Starting XLIFF 2.0 deserialization for translation from %r to %r",

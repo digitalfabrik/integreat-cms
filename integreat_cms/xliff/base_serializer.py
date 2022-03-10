@@ -15,6 +15,8 @@ from django.core.serializers import xml_serializer
 from django.core.serializers.base import DeserializedObject, DeserializationError
 from django.utils.xmlutils import SimplerXMLGenerator
 
+from ..cms.models import Language
+
 
 logger = logging.getLogger(__name__)
 
@@ -311,6 +313,25 @@ class Deserializer(xml_serializer.Deserializer):
         :param attr: The name of the attribute which contains the model
         :type attr: str
         """
+
+    @staticmethod
+    def get_language(attribute):
+        """
+        Get the language object to a given ``bcp47_tag`` or ``slug``.
+
+        :param attribute: The ``bcp47_tag`` or ``slug`` of the requested language
+        :type attribute: str
+
+        :raises ~integreat_cms.cms.models.languages.language.Language.DoesNotExist: If no language exists with the given
+                                                                                    attribute
+
+        :return: The requested language
+        :rtype: ~integreat_cms.cms.models.languages.language.Language
+        """
+        try:
+            return Language.objects.get(bcp47_tag=attribute)
+        except Language.DoesNotExist:
+            return Language.objects.get(slug=attribute)
 
     @staticmethod
     def require_attribute(node, attribute):

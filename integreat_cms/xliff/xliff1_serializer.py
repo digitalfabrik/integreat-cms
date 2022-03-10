@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 from django.conf import settings
 from django.core.serializers import base
 
-from ..cms.models import Page, PageTranslation, Language
+from ..cms.models import Page, PageTranslation
 
 from . import base_serializer
 
@@ -51,8 +51,8 @@ class Serializer(base_serializer.Serializer):
             {
                 "original": str(obj.page.id),
                 "datatype": "plaintext",
-                "source-language": source_language.slug,
-                "target-language": obj.language.slug,
+                "source-language": source_language.bcp47_tag,
+                "target-language": obj.language.bcp47_tag,
             },
         )
         # This header is required to make sure the XLIFF file can be segmented with MemoQ's WPML filter to get the same
@@ -185,19 +185,23 @@ class Deserializer(base_serializer.Deserializer):
         )
 
         # Get target language of this file
-        target_language_slug = self.require_attribute(node, "target-language")
+        target_language = self.get_language(
+            self.require_attribute(node, "target-language")
+        )
 
         # Get existing target translation or create a new one
-        page_translation = page.get_translation(target_language_slug)
+        page_translation = page.get_translation(target_language.slug)
         if not page_translation:
             # Initial attributes passed to model constructor
             attrs = {
                 "page": page,
-                "language": Language.objects.get(slug=target_language_slug),
+                "language": target_language,
             }
             # Get source translation to inherit status field
-            source_language_slug = self.require_attribute(node, "source-language")
-            source_translation = page.get_translation(source_language_slug)
+            source_language = self.get_language(
+                self.require_attribute(node, "source-language")
+            )
+            source_translation = page.get_translation(source_language.slug)
             if source_translation:
                 attrs["status"] = source_translation.status
             page_translation = PageTranslation(**attrs)
