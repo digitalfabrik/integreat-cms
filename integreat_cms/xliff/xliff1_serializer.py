@@ -184,10 +184,17 @@ class Deserializer(base_serializer.Deserializer):
         target_language_slug = self.require_attribute(node, "target-language")
 
         # Get existing target translation or create a new one
-        page_translation = page.get_translation(
-            target_language_slug
-        ) or PageTranslation(
-            page=page,
-            language=Language.objects.get(slug=target_language_slug),
-        )
+        page_translation = page.get_translation(target_language_slug)
+        if not page_translation:
+            # Initial attributes passed to model constructor
+            attrs = {
+                "page": page,
+                "language": Language.objects.get(slug=target_language_slug),
+            }
+            # Get source translation to inherit status field
+            source_language_slug = self.require_attribute(node, "source-language")
+            source_translation = page.get_translation(source_language_slug)
+            if source_translation:
+                attrs["status"] = source_translation.status
+            page_translation = PageTranslation(**attrs)
         return page_translation

@@ -144,14 +144,22 @@ def test_xliff_import(login_role_user, settings):
             # Check if existing translations are now updated
             for page in Page.objects.filter(id__in=[1, 2]):
                 translation = page.get_translation("en")
-                if translation:
-                    assert translation.title == "Updated title"
-                    assert translation.content == "<p>Updated content</p>"
-                    assert not translation.currently_in_translation
-                    assert (
-                        f'Page "{translation.title}" was imported {msg}.'
-                        in response.content.decode("utf-8")
+                assert translation.title == "Updated title"
+                assert translation.content == "<p>Updated content</p>"
+                assert not translation.currently_in_translation
+                assert (
+                    f'Page "{translation.title}" was imported {msg}.'
+                    in response.content.decode("utf-8")
+                )
+                if translation.version > 1:
+                    # If a translation already exists for this version, asser that the status is inherited
+                    previous_translation = page.translations.get(
+                        language__slug="en", version=translation.version - 1
                     )
+                    assert previous_translation.status == translation.status
+                else:
+                    # Else, the status should be inherited from the source translation
+                    assert translation.source_translation.status == translation.status
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
         assert response.status_code == 302
