@@ -633,6 +633,12 @@ urlpatterns = [
                                                         name="download_xliff",
                                                     ),
                                                     path(
+                                                        "only-public/",
+                                                        pages.download_xliff,
+                                                        {"only_public": True},
+                                                        name="download_xliff_only_public",
+                                                    ),
+                                                    path(
                                                         "upload/",
                                                         pages.upload_xliff,
                                                         name="upload_xliff",

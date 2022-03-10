@@ -48,6 +48,8 @@ class Serializer(xml_serializer.Serializer):
 
     #: The XML generator of this serializer instance
     xml = None
+    #: Whether only public versions should be exported
+    only_public = False
 
     def serialize(self, queryset, *args, **kwargs):
         r"""
@@ -66,6 +68,7 @@ class Serializer(xml_serializer.Serializer):
         :return: The serialized XLIFF string
         :rtype: str
         """
+        self.only_public = kwargs.pop("only_public")
         kwargs.setdefault("fields", settings.XLIFF_DEFAULT_FIELDS)
         return super().serialize(queryset, *args, **kwargs)
 

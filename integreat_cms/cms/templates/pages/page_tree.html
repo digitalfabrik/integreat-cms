@@ -115,16 +115,22 @@
                 {% trans 'Export published pages as PDF' %}
             </option>
             {% if request.user.expert_mode %}
-                <option
+                {% with language_translated_name=language.translated_name %}
+                    {% blocktrans asvar xliff_export_all %}Export all pages for {{ language_translated_name }} translation{% endblocktrans %}
+                    {% blocktrans asvar xliff_export_public %}Export only published pages for {{ language_translated_name }} translation{% endblocktrans %}
                     {% if language == request.region.default_language %}
-                        disabled
-                        title="{% trans 'You cannot export XLIFF files for the default language' %}"
+                        {% blocktrans asvar xliff_export_disabled %}You cannot export XLIFF files for the default language{% endblocktrans %}
+                        <option disabled title="{{ xliff_export_disabled }}">{{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})</option>
+                        <option disabled title="{{ xliff_export_disabled }}">{{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})</option>
                     {% else %}
-                        data-bulk-action="{% url 'download_xliff' region_slug=request.region.slug language_slug=language.slug %}"
+                        <option data-bulk-action="{% url 'download_xliff' region_slug=request.region.slug language_slug=language.slug %}">
+                            {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                        </option>
+                        <option data-bulk-action="{% url 'download_xliff_only_public' region_slug=request.region.slug language_slug=language.slug %}">
+                            {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                        </option>
                     {% endif %}
-                >
-                    {% trans 'Export XLIFF for translation to' %} {{ language.translated_name }}
-                </option>
+                {% endwith %}
             {% endif %}
         </select>
         <button id="bulk-action-execute" class="btn">{% trans 'Execute' %}</button>

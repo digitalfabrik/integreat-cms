@@ -138,7 +138,11 @@ class Serializer(base_serializer.Serializer):
         self.xml.startElement("segment", {})
 
         self.xml.startElement("source", {})
-        source_translation = obj.source_translation
+        source_translation = (
+            obj.public_source_translation
+            if self.only_public
+            else obj.source_translation
+        )
         if not source_translation:
             raise base.SerializationError(
                 f"Page translation {obj!r} does not have a source translation in "

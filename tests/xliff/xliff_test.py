@@ -2,6 +2,9 @@ import filecmp
 import io
 import zipfile
 
+from os import listdir
+from os.path import isfile, join
+
 import pytest
 
 from lxml.html import fromstring
@@ -12,10 +15,18 @@ from integreat_cms.cms.models import Page
 from ..conftest import ANONYMOUS, STAFF_ROLES, PRIV_STAFF_ROLES, MANAGEMENT, EDITOR
 
 
+# pylint: disable=too-many-locals
 @pytest.mark.django_db
 # Override urls to serve XLIFF files
 @pytest.mark.urls("tests.xliff.dummy_django_app.static_urls")
-def test_xliff_export(login_role_user, settings, tmp_path):
+@pytest.mark.parametrize("xliff_version", ["xliff-1.2", "xliff-2.0"])
+@pytest.mark.parametrize(
+    "view,directory",
+    [("download_xliff", "latest"), ("download_xliff_only_public", "only_public")],
+)
+def test_xliff_export(
+    login_role_user, settings, tmp_path, xliff_version, view, directory
+):
     """
     This test checks whether the xliff export works as expected
 
@@ -27,12 +38,23 @@ def test_xliff_export(login_role_user, settings, tmp_path):
 
     :param tmp_path: The fixture providing the directory for temporary files for this test case
     :type tmp_path: :fixture:`tmp_path`
+
+    :param xliff_version: The XLIFF version to be tested
+    :type xliff_version: str
+
+    :param view: The name of the view for the export
+    :type view: str
+
+    :param directory: The directory that contains the expected XLIFF files
+    :type directory: str
     """
+    # Override used XLIFF version
+    settings.XLIFF_EXPORT_VERSION = xliff_version
     client, role = login_role_user
     export_xliff = reverse(
-        "download_xliff", kwargs={"region_slug": "augsburg", "language_slug": "en"}
+        view, kwargs={"region_slug": "augsburg", "language_slug": "en"}
     )
-    response = client.post(export_xliff, data={"selected_ids[]": [1, 2]})
+    response = client.post(export_xliff, data={"selected_ids[]": [1, 2, 3]})
     print(response.headers)
     if role in STAFF_ROLES + [MANAGEMENT, EDITOR]:
         # If the role should be allowed to access the view, we expect a successful result
@@ -58,16 +80,18 @@ def test_xliff_export(login_role_user, settings, tmp_path):
         assert response.status_code == 200
         # Check if zip can be unzipped and contains the correct xliff files
         file = io.BytesIO(response.getvalue())
+        expected_result_dir = f"tests/xliff/files/export/{xliff_version}/{directory}"
         with zipfile.ZipFile(file, "r") as zipped_file:
             assert zipped_file.testzip() is None
-            assert zipped_file.namelist() == [
-                "augsburg_de_en_1_2_willkommen.xliff",
-                "augsburg_de_en_2_1_willkommen-in-augsburg.xliff",
-            ]
+            assert set(zipped_file.namelist()) == {
+                filename
+                for filename in listdir(expected_result_dir)
+                if isfile(join(expected_result_dir, filename))
+            }
             zipped_file.extractall(path=tmp_path)
             for xliff_file in zipped_file.namelist():
                 assert filecmp.cmp(
-                    f"{tmp_path}/{xliff_file}", f"tests/xliff/files/export/{xliff_file}"
+                    f"{tmp_path}/{xliff_file}", f"{expected_result_dir}/{xliff_file}"
                 )
         # Check if existing translations are now "currently in translation"
         for page in Page.objects.filter(id__in=[1, 2]):

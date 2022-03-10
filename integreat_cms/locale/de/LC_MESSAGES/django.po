@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-08 15:27+0000\n"
+"POT-Creation-Date: 2022-03-14 12:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1851,69 +1851,69 @@ msgstr "Region"
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
-#: cms/models/abstract_content_translation.py:21
+#: cms/models/abstract_content_translation.py:22
 #: cms/models/push_notifications/push_notification_translation.py:17
 msgid "title"
 msgstr "Titel"
 
-#: cms/models/abstract_content_translation.py:25
+#: cms/models/abstract_content_translation.py:26
 msgid "link"
 msgstr "Link"
 
-#: cms/models/abstract_content_translation.py:27
+#: cms/models/abstract_content_translation.py:28
 #: cms/models/offers/offer_template.py:23
 msgid "String identifier without spaces and special characters."
 msgstr "Bezeichner ohne Leerzeichen und Sonderzeichen."
 
-#: cms/models/abstract_content_translation.py:28
+#: cms/models/abstract_content_translation.py:29
 #: cms/models/offers/offer_template.py:24
 msgid "Unique per region and language."
 msgstr "Eindeutig pro Region und Sprache."
 
-#: cms/models/abstract_content_translation.py:29
+#: cms/models/abstract_content_translation.py:30
 msgid "Leave blank to generate unique parameter from title."
 msgstr ""
 "Dieses Feld freilassen, um einen eindeutigen Alias aus dem Titel zu "
 "generieren."
 
-#: cms/models/abstract_content_translation.py:37
+#: cms/models/abstract_content_translation.py:38
 #: cms/models/regions/region.py:89
 msgid "status"
 msgstr "Status"
 
-#: cms/models/abstract_content_translation.py:39
+#: cms/models/abstract_content_translation.py:40
 #: cms/models/chat/chat_message.py:43
 #: cms/models/push_notifications/push_notification_translation.py:22
 msgid "content"
 msgstr "Inhalt"
 
-#: cms/models/abstract_content_translation.py:43
+#: cms/models/abstract_content_translation.py:44
 #: cms/models/feedback/feedback.py:32 cms/models/languages/language.py:135
 #: cms/models/languages/language_tree_node.py:23
 #: cms/models/push_notifications/push_notification_translation.py:28
 msgid "language"
 msgstr "Sprache"
 
-#: cms/models/abstract_content_translation.py:47
+#: cms/models/abstract_content_translation.py:48
 msgid "currently in translation"
 msgstr "wird derzeit übersetzt"
 
-#: cms/models/abstract_content_translation.py:49
+#: cms/models/abstract_content_translation.py:50
 msgid ""
 "Flag to indicate a translation is being updated by an external translator"
 msgstr ""
 "Feld, die anzeigt, dass eine Übersetzung von einem externen Übersetzer "
 "aktualisiert wird"
 
-#: cms/models/abstract_content_translation.py:52
+#: cms/models/abstract_content_translation.py:53
 msgid "revision"
 msgstr "Revision"
 
-#: cms/models/abstract_content_translation.py:55
+#: cms/models/abstract_content_translation.py:56
 msgid "minor edit"
 msgstr "geringfügige Änderung"
 
-#: cms/models/abstract_content_translation.py:57
+#: cms/models/abstract_content_translation.py:58
 msgid ""
 "Tick if this change does not require an update of translations in other "
 "languages."
@@ -1921,7 +1921,7 @@ msgstr ""
 "Kreuzen Sie an, wenn diese Änderung keine Aktualisierung der Übersetzungen "
 "in anderen Sprachen erfordert."
 
-#: cms/models/abstract_content_translation.py:62
+#: cms/models/abstract_content_translation.py:63
 #: cms/models/languages/language.py:89
 #: cms/models/languages/language_tree_node.py:41
 #: cms/models/offers/offer_template.py:60
@@ -1930,7 +1930,7 @@ msgstr ""
 msgid "modification date"
 msgstr "Änderungsdatum"
 
-#: cms/models/abstract_content_translation.py:69
+#: cms/models/abstract_content_translation.py:70
 msgid "creator"
 msgstr "Ersteller"
 
@@ -3518,7 +3518,7 @@ msgstr "Ein Serverfehler ist aufgetreten."
 
 #: cms/templates/chat/_chat_widget.html:30
 #: cms/templates/statistics/_statistics_widget.html:23
-#: cms/templates/statistics/statistics_overview.html:19 xliff/utils.py:229
+#: cms/templates/statistics/statistics_overview.html:19 xliff/utils.py:246
 msgid "Please contact the administrator."
 msgstr "Bitte kontaktieren Sie einen Administrator."
 
@@ -3797,7 +3797,7 @@ msgstr "Fehlende Übersetzungen automatisch erstellen"
 #: cms/templates/feedback/admin_feedback_list.html:135
 #: cms/templates/feedback/region_feedback_list.html:137
 #: cms/templates/linkcheck/links_by_filter.html:80
-#: cms/templates/pages/page_tree.html:130 cms/templates/pois/poi_list.html:95
+#: cms/templates/pages/page_tree.html:136 cms/templates/pois/poi_list.html:95
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -4492,7 +4492,7 @@ msgstr "Vorschau"
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: cms/templates/pages/_page_xliff_import_diff.html:80 xliff/utils.py:464
+#: cms/templates/pages/_page_xliff_import_diff.html:80 xliff/utils.py:481
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
@@ -4693,31 +4693,41 @@ msgstr "Seiten archivieren"
 msgid "Export published pages as PDF"
 msgstr "Veröffentlichte Seiten als PDF exportieren"
 
-#: cms/templates/pages/page_tree.html:121
+#: cms/templates/pages/page_tree.html:119
+#, python-format
+msgid "Export all pages for %(language_translated_name)s translation"
+msgstr ""
+"Alle Seiten für die %(language_translated_name)s-Übersetzung exportieren"
+
+#: cms/templates/pages/page_tree.html:120
+#, python-format
+msgid ""
+"Export only published pages for %(language_translated_name)s translation"
+msgstr ""
+"Nur veröffentlichte Seiten für die %(language_translated_name)s-Übersetzung "
+"exportieren"
+
+#: cms/templates/pages/page_tree.html:122
 msgid "You cannot export XLIFF files for the default language"
 msgstr "Sie können keine XLIFF-Dateien für die Standard-Sprache exportieren"
 
-#: cms/templates/pages/page_tree.html:126
-msgid "Export XLIFF for translation to"
-msgstr "Exportiere XLIFF für Übersetzung nach"
-
-#: cms/templates/pages/page_tree.html:135
+#: cms/templates/pages/page_tree.html:141
 msgid "Import XLIFF files"
 msgstr "XLIFF-Dateien importieren"
 
-#: cms/templates/pages/page_tree.html:136
+#: cms/templates/pages/page_tree.html:142
 msgid "Supported file extensions"
 msgstr "Unterstützte Dateiendungen"
 
-#: cms/templates/pages/page_tree.html:141
+#: cms/templates/pages/page_tree.html:147
 msgid "Select files"
 msgstr "Dateien auswählen"
 
-#: cms/templates/pages/page_tree.html:143
+#: cms/templates/pages/page_tree.html:149
 msgid "and {} other files"
 msgstr "und {} weitere Dateien"
 
-#: cms/templates/pages/page_tree.html:146
+#: cms/templates/pages/page_tree.html:152
 msgid "Import"
 msgstr "Importieren"
 
@@ -5785,7 +5795,7 @@ msgid "Imprint was successfully deleted"
 msgstr "Impressum wurde erfolgreich gelöscht"
 
 #: cms/views/imprint/imprint_form_view.py:73
-#: cms/views/pages/page_tree_view.py:77
+#: cms/views/pages/page_tree_view.py:78
 msgid "Please create at least one language node before creating pages."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
@@ -6098,62 +6108,62 @@ msgstr ""
 msgid "Page was successfully deleted"
 msgstr "Seite wurde erfolgreich gelöscht"
 
-#: cms/views/pages/page_actions.py:311
+#: cms/views/pages/page_actions.py:314
 msgid "No pages selected for XLIFF export."
 msgstr ""
 "Es wurden keine gültigen Seiten zur Erzeugung der XLIFF-Datei ausgewählt."
 
-#: cms/views/pages/page_actions.py:336
+#: cms/views/pages/page_actions.py:341
 msgid "XLIFF file for translation to {} successfully created."
 msgstr "XLIFF Datei für die Übersetzung nach {} wurde erfolgreich erstellt."
 
-#: cms/views/pages/page_actions.py:340
+#: cms/views/pages/page_actions.py:345
 msgid "If the download does not start automatically, please click {}here{}."
 msgstr ""
 "Wenn der Download nicht automatisch startet, klicken Sie bitte {}hier{}."
 
-#: cms/views/pages/page_actions.py:434
+#: cms/views/pages/page_actions.py:439
 msgid "File \"{}\" is neither a ZIP archive nor an XLIFF file."
 msgstr "Die Datei \"{}\" ist weder ein ZIP-Archiv noch eine XLIFF-Datei."
 
-#: cms/views/pages/page_actions.py:461
+#: cms/views/pages/page_actions.py:466
 msgid "The ZIP archive \"{}\" does not contain XLIFF files."
 msgstr "Das ZIP-Archiv \"{}\" enthält keine XLIFF-Dateien"
 
-#: cms/views/pages/page_actions.py:469
+#: cms/views/pages/page_actions.py:474
 msgid "The ZIP archive \"{}\" contains the following invalid files: \"{}\""
 msgstr "Das ZIP-Archiv \"{}\" enthält die folgenden ungültigen Dateien: \"{}\""
 
-#: cms/views/pages/page_actions.py:494
+#: cms/views/pages/page_actions.py:499
 msgid "No XLIFF file was selected for import."
 msgstr "Es wurde keine XLIFF-Datei für den Import ausgewählt."
 
-#: cms/views/pages/page_actions.py:554
+#: cms/views/pages/page_actions.py:559
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
-#: cms/views/pages/page_actions.py:634 cms/views/pages/page_actions.py:649
+#: cms/views/pages/page_actions.py:639 cms/views/pages/page_actions.py:654
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: cms/views/pages/page_actions.py:641
+#: cms/views/pages/page_actions.py:646
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: cms/views/pages/page_actions.py:657
+#: cms/views/pages/page_actions.py:662
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nun veröffentlichen"
 
-#: cms/views/pages/page_actions.py:666 cms/views/pages/page_actions.py:778
+#: cms/views/pages/page_actions.py:671 cms/views/pages/page_actions.py:783
 msgid "An error has occurred. Please contact an administrator."
 msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie einen Administrator."
 
-#: cms/views/pages/page_actions.py:746
+#: cms/views/pages/page_actions.py:751
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -6163,12 +6173,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin bearbeiten."
 
-#: cms/views/pages/page_actions.py:752
+#: cms/views/pages/page_actions.py:757
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: cms/views/pages/page_actions.py:763
+#: cms/views/pages/page_actions.py:768
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -6178,7 +6188,7 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen."
 
-#: cms/views/pages/page_actions.py:769
+#: cms/views/pages/page_actions.py:774
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
@@ -6271,7 +6281,7 @@ msgid "You cannot restore revisions of this page because it is archived."
 msgstr ""
 "Sie können Revisionen dieser Seite nicht bearbeiten, weil sie archiviert ist."
 
-#: cms/views/pages/page_tree_view.py:88
+#: cms/views/pages/page_tree_view.py:89
 msgid "You don't have the permission to edit or create pages."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Seiten zu bearbeiten oder zu "
@@ -6474,7 +6484,7 @@ msgid "Superuser permissions need to be set by another superuser."
 msgstr ""
 "Administratorrechte müssen von einem anderen Administrator vergeben werden."
 
-#: xliff/utils.py:137
+#: xliff/utils.py:152
 msgid ""
 "Page {} does not have a source translation in {} and therefore cannot be "
 "exported as XLIFF for translation to {}."
@@ -6482,48 +6492,51 @@ msgstr ""
 "Die Seite {} hat keine Quell-Übersetzung auf {} und kann deshalb nicht als "
 "XLIFF für die Übersetzung nach {} exportiert werden."
 
-#: xliff/utils.py:157
+#: xliff/utils.py:174
 msgid "An unexpected error has occurred while exporting page {}."
 msgstr ""
 "Es ist ein unerwarteter Fehler beim Exportieren der Seite {} aufgetreten."
 
-#: xliff/utils.py:160 xliff/utils.py:247
+#: xliff/utils.py:177 xliff/utils.py:264
 msgid "Please try again or contact the administrator."
 msgstr ""
 "Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator."
 
-#: xliff/utils.py:227
+#: xliff/utils.py:244
 msgid "The page referenced in XLIFF file \"{}\" could not be found."
 msgstr "Die Seite der XLIFF-Datei \"{}\" konnte nicht gefunden werden."
 
-#: xliff/utils.py:245
+#: xliff/utils.py:262
 msgid "An unexpected error has occurred while importing XLIFF file \"{}\"."
 msgstr ""
 "Es ist ein unerwarteter Fehler beim Importieren der XLIFF Datei \"{}\" "
 "aufgetreten."
 
-#: xliff/utils.py:352
+#: xliff/utils.py:369
 msgid "Page {} could not be imported successfully because of the errors: {}"
 msgstr "Die Seite {} konnte nicht importiert werden aufgrund der Fehler: {}"
 
-#: xliff/utils.py:369
+#: xliff/utils.py:386
 msgid "Page {} was imported without changes."
 msgstr "Seite {} wurde ohne Änderungen importiert."
 
-#: xliff/utils.py:384
+#: xliff/utils.py:401
 msgid "Page {} was imported successfully."
 msgstr "Seite {} wurde erfolgreich importiert."
 
-#: xliff/utils.py:416
+#: xliff/utils.py:433
 msgid "You don't have the permission to import this page."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu importieren."
 
-#: xliff/utils.py:425
+#: xliff/utils.py:442
 msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Export XLIFF for translation to"
+#~ msgstr "Exportiere XLIFF für Übersetzung nach"
 
 #~ msgid "Access token to update the page content"
 #~ msgstr "Zugangs-Token um Seiten-Inhalte zu aktualisieren"

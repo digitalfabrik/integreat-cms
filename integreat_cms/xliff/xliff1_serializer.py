@@ -98,7 +98,11 @@ class Serializer(base_serializer.Serializer):
         self.xml.startElement("trans-unit", attrs)
 
         self.xml.startElement("source", {})
-        source_translation = obj.source_translation
+        source_translation = (
+            obj.public_source_translation
+            if self.only_public
+            else obj.source_translation
+        )
         self.xml.cdata(field.value_to_string(source_translation))
         self.xml.endElement("source")
 
