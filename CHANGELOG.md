@@ -3,6 +3,7 @@ UNRELEASED
 
 * [ [#1301](https://github.com/digitalfabrik/integreat-cms/issues/1301) ] Fix order of push notifications
 * [ [#1296](https://github.com/digitalfabrik/integreat-cms/issues/1296) ] Fix page tree after resetting filters
+* [ [#1282](https://github.com/digitalfabrik/integreat-cms/issues/1282) ] Fix feedback cache invalidation
 
 
 2022.3.4
