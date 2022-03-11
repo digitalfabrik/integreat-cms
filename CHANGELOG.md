@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1108](https://github.com/digitalfabrik/integreat-cms/issues/1108) ] Support SVG images in PDF export
+
 
 2022.3.3
 --------
