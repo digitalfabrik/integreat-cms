@@ -1,5 +1,6 @@
 [![CircleCI](https://circleci.com/gh/digitalfabrik/integreat-cms.svg?style=shield)](https://circleci.com/gh/digitalfabrik/integreat-cms)
 [![Pylint](https://img.shields.io/badge/pylint-10.00-brightgreen)](https://www.pylint.org/)
+![Coverage](https://img.shields.io/codeclimate/coverage/digitalfabrik/integreat-cms)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
