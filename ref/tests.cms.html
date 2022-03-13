@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-04T19:57:40+00:00" />
+    <meta property="article:modified_time" content="2022-03-05T22:04:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CMS &mdash; integreat-cms 2022.3.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -482,16 +482,21 @@
 <li class="toctree-l1 current"><a class="reference internal" href="tests.html">Tests</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tests.api.html">API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#api-config">API Config</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tests.api.html#api-test">API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-feedback">Test API Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-push-page">Test API Push Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-result">Test API Result</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#test-public-view-status-code">Test Public View Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#test-view-redirect">Test View Redirect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#utils">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#view-config">View Config</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#view-test">View Test</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#region-test">Region Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-duplicate-regions">Test Duplicate Regions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.xliff.html">XLIFF</a><ul>
@@ -724,16 +729,21 @@
 <li class="toctree-l1"><a class="reference internal" href="../ref-ext/tests.html">Tests</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.api.html">API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.api_config">API Config</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.api_test">API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_feedback">Test API Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_push_page">Test API Push Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_result">Test API Result</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.test_public_view_status_code">Test Public View Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.test_view_redirect">Test View Redirect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.utils">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.view_config">View Config</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.view_test">View Test</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.html#module-tests.cms.region_test">Region Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.html#module-tests.cms.test_duplicate_regions">Test Duplicate Regions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.xliff.html">XLIFF</a><ul>
@@ -789,17 +799,38 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tests.cms.views.html">Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests.cms.views.status_code.html">Status Code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-1">Test View Status Code_1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-10">Test View Status Code_10</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-11">Test View Status Code_11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-12">Test View Status Code_12</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-13">Test View Status Code_13</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-14">Test View Status Code_14</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-15">Test View Status Code_15</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-16">Test View Status Code_16</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-2">Test View Status Code_2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-3">Test View Status Code_3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-4">Test View Status Code_4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-5">Test View Status Code_5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-6">Test View Status Code_6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-7">Test View Status Code_7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-8">Test View Status Code_8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.views.status_code.html#test-view-status-code-9">Test View Status Code_9</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.cms.views.html#test-public-view-status-code">Test Public View Status Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.cms.views.html#test-view-redirect">Test View Redirect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.cms.views.html#utils">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests.cms.views.html#view-config">View Config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tests.cms.views.html#view-test">View Test</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<section id="region-test">
-<h2>Region Test<a class="headerlink" href="#region-test" title="Permalink to this headline"></a></h2>
+<section id="test-duplicate-regions">
+<h2>Test Duplicate Regions<a class="headerlink" href="#test-duplicate-regions" title="Permalink to this headline"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.cms.region_test.</span></span><span class="sig-name descname"><span class="pre">test_duplicate_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_client</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/region_test.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.cms.test_duplicate_regions.</span></span><span class="sig-name descname"><span class="pre">test_duplicate_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_client</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/test_duplicate_regions.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Test whether duplicating regions works as expected</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -829,7 +860,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 04, 2022.
+      <span class="lastupdated">Last updated on Mar 05, 2022.
       </span></p>
   </div>
 

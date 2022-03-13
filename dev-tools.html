@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-09-13T20:46:16+00:00" />
+    <meta property="article:modified_time" content="2022-03-05T23:01:23+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Developer Tools &mdash; integreat-cms 2022.3.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -482,16 +482,21 @@
 <li class="toctree-l1"><a class="reference internal" href="ref/tests.html">Tests</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.api.html">API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#api-config">API Config</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#api-test">API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-api-feedback">Test API Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-api-push-page">Test API Push Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-api-result">Test API Result</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/tests.cms.views.html#test-public-view-status-code">Test Public View Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/tests.cms.views.html#test-view-redirect">Test View Redirect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/tests.cms.views.html#utils">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/tests.cms.views.html#view-config">View Config</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref/tests.cms.views.html#view-test">View Test</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="ref/tests.cms.html#region-test">Region Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.cms.html#test-duplicate-regions">Test Duplicate Regions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.xliff.html">XLIFF</a><ul>
@@ -724,16 +729,21 @@
 <li class="toctree-l1"><a class="reference internal" href="ref-ext/tests.html">Tests</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.api.html">API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.api_config">API Config</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.api_test">API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.test_api_feedback">Test API Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.test_api_push_page">Test API Push Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.test_api_result">Test API Result</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.cms.views.html#module-tests.cms.views.test_public_view_status_code">Test Public View Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.cms.views.html#module-tests.cms.views.test_view_redirect">Test View Redirect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.cms.views.html#module-tests.cms.views.utils">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.cms.views.html#module-tests.cms.views.view_config">View Config</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.cms.views.html#module-tests.cms.views.view_test">View Test</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.cms.html#module-tests.cms.region_test">Region Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.cms.html#module-tests.cms.test_duplicate_regions">Test Duplicate Regions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.xliff.html">XLIFF</a><ul>
@@ -853,12 +863,8 @@ failures for the <a class="reference internal" href="frontend-bundling.html"><sp
 </section>
 <section id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline"></a></h2>
-<p>Run unit tests with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/test.sh">dev-tools/test.sh</a>:</p>
+<p>Run tests and generate coverage report with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/test.sh">dev-tools/test.sh</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">test</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
-<p>Calculate test coverage with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/test_cov.sh">dev-tools/test_cov.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">test_cov</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 </section>
@@ -916,7 +922,7 @@ This will activate both the bash options <code class="docutils literal notransla
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 13, 2021.
+      <span class="lastupdated">Last updated on Mar 05, 2022.
       </span></p>
   </div>
 

@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Dummy Django App" href="tests.xliff.dummy_django_app.html" />
-    <link rel="prev" title="Views" href="tests.cms.views.html" /> 
+    <link rel="prev" title="Status Code" href="tests.cms.views.status_code.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -482,16 +482,21 @@
 <li class="toctree-l1"><a class="reference internal" href="../ref/tests.html">Tests</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.api.html">API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#api-config">API Config</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#api-test">API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-feedback">Test API Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-push-page">Test API Push Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.api.html#test-api-result">Test API Result</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#test-public-view-status-code">Test Public View Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#test-view-redirect">Test View Redirect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#utils">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#view-config">View Config</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#view-test">View Test</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.html#region-test">Region Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.html#test-duplicate-regions">Test Duplicate Regions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.xliff.html">XLIFF</a><ul>
@@ -724,16 +729,21 @@
 <li class="toctree-l1 current"><a class="reference internal" href="tests.html">Tests</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tests.api.html">API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.api_config">API Config</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.api_test">API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_feedback">Test API Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_push_page">Test API Push Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#module-tests.api.test_api_result">Test API Result</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.test_public_view_status_code">Test Public View Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.test_view_redirect">Test View Redirect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.utils">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.view_config">View Config</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.view_test">View Test</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="tests.cms.html#module-tests.cms.region_test">Region Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.html#module-tests.cms.test_duplicate_regions">Test Duplicate Regions</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">XLIFF</a><ul>
@@ -804,7 +814,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/helpers.html#std-fixture-settings" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">settings</span></code></a>) – The fixture providing the django settings</p></li>
-<li><p><strong>tmp_path</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-tmp_path" title="(in pytest v7.1.0.dev249+gd306ec0a7)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">tmp_path</span></code></a>) – The fixture providing the directory for temporary files for this test case</p></li>
+<li><p><strong>tmp_path</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-tmp_path" title="(in pytest v7.1.0.dev250+gf0bf4c968)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">tmp_path</span></code></a>) – The fixture providing the directory for temporary files for this test case</p></li>
 </ul>
 </dd>
 </dl>
@@ -831,7 +841,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="tests.cms.views.html" class="btn btn-neutral float-left" title="Views" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tests.cms.views.status_code.html" class="btn btn-neutral float-left" title="Status Code" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="tests.xliff.dummy_django_app.html" class="btn btn-neutral float-right" title="Dummy Django App" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

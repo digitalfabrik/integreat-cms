@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-02-23T14:58:11+00:00" />
+    <meta property="article:modified_time" content="2022-03-05T22:04:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API &mdash; integreat-cms 2022.3.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -482,16 +482,21 @@
 <li class="toctree-l1 current"><a class="reference internal" href="tests.html">Tests</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#api-config">API Config</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#api-test">API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-api-feedback">Test API Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-api-push-page">Test API Push Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-api-result">Test API Result</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#test-public-view-status-code">Test Public View Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#test-view-redirect">Test View Redirect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#utils">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#view-config">View Config</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#view-test">View Test</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="tests.cms.html#region-test">Region Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.html#test-duplicate-regions">Test Duplicate Regions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.xliff.html">XLIFF</a><ul>
@@ -724,16 +729,21 @@
 <li class="toctree-l1"><a class="reference internal" href="../ref-ext/tests.html">Tests</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.api.html">API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.api_config">API Config</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.api_test">API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_feedback">Test API Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_push_page">Test API Push Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_result">Test API Result</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.views.html">Views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.status_code.html">Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.test_public_view_status_code">Test Public View Status Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.test_view_redirect">Test View Redirect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.utils">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.view_config">View Config</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.views.html#module-tests.cms.views.view_test">View Test</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.html#module-tests.cms.region_test">Region Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.html#module-tests.cms.test_duplicate_regions">Test Duplicate Regions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.xliff.html">XLIFF</a><ul>
@@ -791,7 +801,7 @@
 <p>This modules contains the config for the API tests</p>
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.api.api_config.</span></span><span class="sig-name descname"><span class="pre">API_ENDPOINTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('/api/regions/',</span> <span class="pre">'/wp-json/extensions/v3/sites/',</span> <span class="pre">'tests/api/expected-outputs/regions.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/api/regions/live/',</span> <span class="pre">'/wp-json/extensions/v3/sites/live/',</span> <span class="pre">'tests/api/expected-outputs/regions_live.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/api/augsburg/de/pages/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/pages/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_pages.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/api/augsburg/de/locations/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/locations/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_locations.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/api/augsburg/de/children/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/children/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_children.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/api/augsburg/de/children/?depth=3&amp;url=/augsburg/de/behörden-und-beratung/behörden/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/children/?depth=3&amp;url=/augsburg/de/behörden-und-beratung/behörden/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_children_archived_descendants.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_page_archived.json',</span> <span class="pre">404,</span> <span class="pre">None),</span> <span class="pre">('/api/augsburg/de/children/?depth=2',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/children/?depth=2',</span> <span class="pre">'tests/api/expected-outputs/api_augsburg_de_children_depth_2.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/api/augsburg/de/events/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/events/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_events.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/api/augsburg/de/page/?id=1',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/page/?id=1',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_page_1.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/api/nurnberg/de/fcm/',</span> <span class="pre">'/nurnberg/de/wp-json/extensions/v3/fcm/',</span> <span class="pre">'tests/api/expected-outputs/nurnberg_de_fcm.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/api/nurnberg/en/fcm/',</span> <span class="pre">'/nurnberg/en/wp-json/extensions/v3/fcm/',</span> <span class="pre">'tests/api/expected-outputs/nurnberg_en_fcm.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/api/nurnberg/ar/fcm/',</span> <span class="pre">'/nurnberg/ar/wp-json/extensions/v3/fcm/',</span> <span class="pre">'tests/api/expected-outputs/nurnberg_ar_fcm.json',</span> <span class="pre">200,</span> <span class="pre">None),</span> <span class="pre">('/api/augsburg/de/pushpage/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/pushpage/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_pushpage_valid.json',</span> <span class="pre">200,</span> <span class="pre">{'content':</span> <span class="pre">'bar',</span> <span class="pre">'token':</span> <span class="pre">'valid-token'}),</span> <span class="pre">('/api/augsburg/de/pushpage/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/pushpage/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_pushpage_invalid.json',</span> <span class="pre">403,</span> <span class="pre">{'content':</span> <span class="pre">'bar',</span> <span class="pre">'token':</span> <span class="pre">'invalidtoken'})]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/api_config.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.api.api_config.</span></span><span class="sig-name descname"><span class="pre">API_ENDPOINTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('/api/regions/',</span> <span class="pre">'/wp-json/extensions/v3/sites/',</span> <span class="pre">'tests/api/expected-outputs/regions.json',</span> <span class="pre">200),</span> <span class="pre">('/api/regions/live/',</span> <span class="pre">'/wp-json/extensions/v3/sites/live/',</span> <span class="pre">'tests/api/expected-outputs/regions_live.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/pages/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/pages/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_pages.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/locations/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/locations/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_locations.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/children/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/children/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_children.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/children/?depth=3&amp;url=/augsburg/de/behörden-und-beratung/behörden/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/children/?depth=3&amp;url=/augsburg/de/behörden-und-beratung/behörden/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_children_archived_descendants.json',</span> <span class="pre">200),</span> <span class="pre">('/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_page_archived.json',</span> <span class="pre">404),</span> <span class="pre">('/api/augsburg/de/children/?depth=2',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/children/?depth=2',</span> <span class="pre">'tests/api/expected-outputs/api_augsburg_de_children_depth_2.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/events/',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/events/',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_events.json',</span> <span class="pre">200),</span> <span class="pre">('/api/augsburg/de/page/?id=1',</span> <span class="pre">'/augsburg/de/wp-json/extensions/v3/page/?id=1',</span> <span class="pre">'tests/api/expected-outputs/augsburg_de_page_1.json',</span> <span class="pre">200),</span> <span class="pre">('/api/nurnberg/de/fcm/',</span> <span class="pre">'/nurnberg/de/wp-json/extensions/v3/fcm/',</span> <span class="pre">'tests/api/expected-outputs/nurnberg_de_fcm.json',</span> <span class="pre">200),</span> <span class="pre">('/api/nurnberg/en/fcm/',</span> <span class="pre">'/nurnberg/en/wp-json/extensions/v3/fcm/',</span> <span class="pre">'tests/api/expected-outputs/nurnberg_en_fcm.json',</span> <span class="pre">200),</span> <span class="pre">('/api/nurnberg/ar/fcm/',</span> <span class="pre">'/nurnberg/ar/wp-json/extensions/v3/fcm/',</span> <span class="pre">'tests/api/expected-outputs/nurnberg_ar_fcm.json',</span> <span class="pre">200)]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/api_config.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The API endpoints</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">(</span>
@@ -799,105 +809,274 @@
         <span class="s1">&#39;/wp-json/extensions/v3/sites/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/regions.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/regions/live/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/wp-json/extensions/v3/sites/live/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/regions_live.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/pages/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/pages/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_pages.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/locations/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/locations/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_locations.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/children/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/children/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_children.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/children/?depth=3&amp;url=/augsburg/de/behörden-und-beratung/behörden/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/children/?depth=3&amp;url=/augsburg/de/behörden-und-beratung/behörden/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_children_archived_descendants.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_page_archived.json&#39;</span><span class="p">,</span>
         <span class="mf">404</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/children/?depth=2&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/children/?depth=2&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/api_augsburg_de_children_depth_2.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/events/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/events/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_events.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/augsburg/de/page/?id=1&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/page/?id=1&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_page_1.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/nurnberg/de/fcm/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/nurnberg/de/wp-json/extensions/v3/fcm/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/nurnberg_de_fcm.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/nurnberg/en/fcm/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/nurnberg/en/wp-json/extensions/v3/fcm/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/nurnberg_en_fcm.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="s1">&#39;/api/nurnberg/ar/fcm/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;/nurnberg/ar/wp-json/extensions/v3/fcm/&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tests/api/expected-outputs/nurnberg_ar_fcm.json&#39;</span><span class="p">,</span>
         <span class="mf">200</span><span class="p">,</span>
-        <span class="nx">None</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.api.api_config.</span></span><span class="sig-name descname"><span class="pre">API_FEEDBACK_VIEWS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('api:legacy_feedback_endpoint',</span> <span class="pre">{'permalink':</span> <span class="pre">'/augsburg/de/willkommen',</span> <span class="pre">'comment':</span> <span class="pre">'Cool</span> <span class="pre">page!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:legacy_feedback_endpoint',</span> <span class="pre">{'permalink':</span> <span class="pre">'/augsburg/de/willkommen',</span> <span class="pre">'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'}),</span> <span class="pre">('api:legacy_feedback_endpoint',</span> <span class="pre">{'permalink':</span> <span class="pre">'/augsburg/de/events/test-veranstaltung',</span> <span class="pre">'comment':</span> <span class="pre">'Cool</span> <span class="pre">event!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:legacy_feedback_endpoint',</span> <span class="pre">{'permalink':</span> <span class="pre">'/augsburg/de/events/test-veranstaltung',</span> <span class="pre">'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'}),</span> <span class="pre">('api:region_feedback',</span> <span class="pre">{'comment':</span> <span class="pre">'Cool</span> <span class="pre">region!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:region_feedback',</span> <span class="pre">{'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'}),</span> <span class="pre">('api:page_feedback',</span> <span class="pre">{'slug':</span> <span class="pre">'willkommen',</span> <span class="pre">'comment':</span> <span class="pre">'Cool</span> <span class="pre">page!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:page_feedback',</span> <span class="pre">{'slug':</span> <span class="pre">'willkommen',</span> <span class="pre">'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'}),</span> <span class="pre">('api:poi_feedback',</span> <span class="pre">{'slug':</span> <span class="pre">'test-ort',</span> <span class="pre">'comment':</span> <span class="pre">'Cool</span> <span class="pre">POI!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:poi_feedback',</span> <span class="pre">{'slug':</span> <span class="pre">'test-ort',</span> <span class="pre">'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'}),</span> <span class="pre">('api:event_feedback',</span> <span class="pre">{'slug':</span> <span class="pre">'test-veranstaltung',</span> <span class="pre">'comment':</span> <span class="pre">'Cool</span> <span class="pre">event!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:event_feedback',</span> <span class="pre">{'slug':</span> <span class="pre">'test-veranstaltung',</span> <span class="pre">'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'}),</span> <span class="pre">('api:event_list_feedback',</span> <span class="pre">{'comment':</span> <span class="pre">'Cool</span> <span class="pre">events!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:event_list_feedback',</span> <span class="pre">{'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'}),</span> <span class="pre">('api:imprint_page_feedbacks',</span> <span class="pre">{'comment':</span> <span class="pre">'Cool</span> <span class="pre">imprint!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:imprint_page_feedbacks',</span> <span class="pre">{'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'}),</span> <span class="pre">('api:map_feedback',</span> <span class="pre">{'comment':</span> <span class="pre">'Cool</span> <span class="pre">map!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:map_feedback',</span> <span class="pre">{'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'}),</span> <span class="pre">('api:search_result_feedback',</span> <span class="pre">{'query':</span> <span class="pre">'search</span> <span class="pre">query',</span> <span class="pre">'comment':</span> <span class="pre">'Cool</span> <span class="pre">search</span> <span class="pre">results!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:search_result_feedback',</span> <span class="pre">{'query':</span> <span class="pre">'search</span> <span class="pre">query',</span> <span class="pre">'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'}),</span> <span class="pre">('api:offer_list_feedback',</span> <span class="pre">{'comment':</span> <span class="pre">'Cool</span> <span class="pre">offers!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:offer_list_feedback',</span> <span class="pre">{'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'}),</span> <span class="pre">('api:offer_feedback',</span> <span class="pre">{'slug':</span> <span class="pre">'sprungbrett',</span> <span class="pre">'comment':</span> <span class="pre">'Cool</span> <span class="pre">offer!',</span> <span class="pre">'rating':</span> <span class="pre">'up',</span> <span class="pre">'category':</span> <span class="pre">'Inhalte'}),</span> <span class="pre">('api:offer_feedback',</span> <span class="pre">{'slug':</span> <span class="pre">'sprungbrett',</span> <span class="pre">'comment':</span> <span class="pre">'Strange</span> <span class="pre">bug!',</span> <span class="pre">'rating':</span> <span class="pre">'down',</span> <span class="pre">'category':</span> <span class="pre">'Technisches</span> <span class="pre">Feedback'})]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/api_config.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This list contains the config for all API feedback views</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:legacy_feedback_endpoint&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool page!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;permalink&#39;</span><span class="o">:</span> <span class="s1">&#39;/augsburg/de/willkommen&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
     <span class="p">),</span>
     <span class="p">(</span>
-        <span class="s1">&#39;/api/augsburg/de/pushpage/&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/pushpage/&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_pushpage_valid.json&#39;</span><span class="p">,</span>
-        <span class="mf">200</span><span class="p">,</span>
-        <span class="p">{</span><span class="s1">&#39;content&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;token&#39;</span><span class="o">:</span> <span class="s1">&#39;valid-token&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;api:legacy_feedback_endpoint&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;permalink&#39;</span><span class="o">:</span> <span class="s1">&#39;/augsburg/de/willkommen&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
     <span class="p">),</span>
     <span class="p">(</span>
-        <span class="s1">&#39;/api/augsburg/de/pushpage/&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;/augsburg/de/wp-json/extensions/v3/pushpage/&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;tests/api/expected-outputs/augsburg_de_pushpage_invalid.json&#39;</span><span class="p">,</span>
-        <span class="mf">403</span><span class="p">,</span>
-        <span class="p">{</span><span class="s1">&#39;content&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;token&#39;</span><span class="o">:</span> <span class="s1">&#39;invalidtoken&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;api:legacy_feedback_endpoint&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool event!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;permalink&#39;</span><span class="o">:</span> <span class="s1">&#39;/augsburg/de/events/test-veranstaltung&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:legacy_feedback_endpoint&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;permalink&#39;</span><span class="o">:</span> <span class="s1">&#39;/augsburg/de/events/test-veranstaltung&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:region_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool region!&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:region_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:page_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool page!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;slug&#39;</span><span class="o">:</span> <span class="s1">&#39;willkommen&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:page_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;slug&#39;</span><span class="o">:</span> <span class="s1">&#39;willkommen&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:poi_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool POI!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;slug&#39;</span><span class="o">:</span> <span class="s1">&#39;test-ort&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:poi_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;slug&#39;</span><span class="o">:</span> <span class="s1">&#39;test-ort&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:event_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool event!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;slug&#39;</span><span class="o">:</span> <span class="s1">&#39;test-veranstaltung&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:event_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;slug&#39;</span><span class="o">:</span> <span class="s1">&#39;test-veranstaltung&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:event_list_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool events!&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:event_list_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:imprint_page_feedbacks&#39;</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool imprint!&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:imprint_page_feedbacks&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:map_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool map!&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:map_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:search_result_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool search results!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;query&#39;</span><span class="o">:</span> <span class="s1">&#39;search query&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:search_result_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;query&#39;</span><span class="o">:</span> <span class="s1">&#39;search query&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:offer_list_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool offers!&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:offer_list_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:offer_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Inhalte&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Cool offer!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;slug&#39;</span><span class="o">:</span> <span class="s1">&#39;sprungbrett&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s1">&#39;api:offer_feedback&#39;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;category&#39;</span><span class="o">:</span> <span class="s1">&#39;Technisches Feedback&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;comment&#39;</span><span class="o">:</span> <span class="s1">&#39;Strange bug!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rating&#39;</span><span class="o">:</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;slug&#39;</span><span class="o">:</span> <span class="s1">&#39;sprungbrett&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
     <span class="p">),</span>
 <span class="p">]</span>
 </pre></div>
@@ -905,11 +1084,45 @@
 </dd></dl>
 
 </section>
-<section id="api-test">
-<h2>API Test<a class="headerlink" href="#api-test" title="Permalink to this headline"></a></h2>
+<section id="test-api-feedback">
+<h2>Test API Feedback<a class="headerlink" href="#test-api-feedback" title="Permalink to this headline"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.api.api_test.</span></span><span class="sig-name descname"><span class="pre">test_api_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_body</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/api_test.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_api_feedback.</span></span><span class="sig-name descname"><span class="pre">test_api_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">view_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_api_feedback.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This test checks whether the feedback submission returns the correct result</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>NoneType</em>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>view_name</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The identifier of the view</p></li>
+<li><p><strong>post_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The post data for this view</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="test-api-push-page">
+<h2>Test API Push Page<a class="headerlink" href="#test-api-push-page" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_api_push_page.</span></span><span class="sig-name descname"><span class="pre">test_api_push_page_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_api_push_page.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This test class checks all endpoints defined in <a class="reference internal" href="../ref-ext/tests.api.html#tests.api.api_config.API_ENDPOINTS" title="tests.api.api_config.API_ENDPOINTS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">API_ENDPOINTS</span></code></a>.
+It verifies that the content delivered by the endpoint is equivalent with the data
+provided in the corresponding json file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="test-api-result">
+<h2>Test API Result<a class="headerlink" href="#test-api-result" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.api.test_api_result.</span></span><span class="sig-name descname"><span class="pre">test_api_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wp_endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_code</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/api/test_api_result.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This test class checks all endpoints defined in <a class="reference internal" href="../ref-ext/tests.api.html#tests.api.api_config.API_ENDPOINTS" title="tests.api.api_config.API_ENDPOINTS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">API_ENDPOINTS</span></code></a>.
 It verifies that the content delivered by the endpoint is equivalent with the data
 provided in the corresponding json file.</p>
@@ -920,7 +1133,6 @@ provided in the corresponding json file.</p>
 <li><p><strong>endpoint</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The url of the new Django pattern</p></li>
 <li><p><strong>wp_endpoint</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The legacy url of the wordpress endpoint pattern</p></li>
 <li><p><strong>expected_result</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The path to the json file that contains the expected result</p></li>
-<li><p><strong>request_body</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – request body data</p></li>
 <li><p><strong>expected_code</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The expected HTTP status code</p></li>
 </ul>
 </dd>
@@ -945,7 +1157,7 @@ provided in the corresponding json file.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 23, 2022.
+      <span class="lastupdated">Last updated on Mar 05, 2022.
       </span></p>
   </div>
 
