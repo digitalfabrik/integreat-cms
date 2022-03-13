@@ -126,7 +126,7 @@ jobs:
   check-migrations:
     docker:
       - image: cimg/python:3.9
-      - image: circleci/postgres:alpine
+      - image: cimg/postgres:14.1
         environment:
           POSTGRES_USER: integreat
           POSTGRES_DB: integreat
@@ -159,7 +159,7 @@ jobs:
   test:
     docker:
       - image: cimg/python:3.9
-      - image: circleci/postgres:alpine
+      - image: cimg/postgres:14.1
         environment:
           POSTGRES_USER: integreat
           POSTGRES_DB: integreat
