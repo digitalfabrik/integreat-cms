@@ -2,6 +2,9 @@ UNRELEASED
 ----------
 
 * [ [#1108](https://github.com/digitalfabrik/integreat-cms/issues/1108) ] Support SVG images in PDF export
+* [ [#1284](https://github.com/digitalfabrik/integreat-cms/issues/1284) ] Inherit status of new translations from source language on XLIFF import
+* [ [#1047](https://github.com/digitalfabrik/integreat-cms/issues/1047) ] Provide option to only export public versions as XLIFF
+* [ [#973](https://github.com/digitalfabrik/integreat-cms/issues/973) ] Support BCP tags for XLIFF import/export
 
 
 2022.3.3

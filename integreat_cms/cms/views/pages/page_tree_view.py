@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -116,6 +117,7 @@ class PageTreeView(TemplateView, PageContextMixin):
                 "language": language,
                 "languages": region.active_languages,
                 "filter_form": filter_form,
+                "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
             },
         )
         # Disable browser cache of page tree to prevent subpages from being expanded after using "back"-button
