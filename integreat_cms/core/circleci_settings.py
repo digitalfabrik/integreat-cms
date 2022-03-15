@@ -11,6 +11,12 @@ from .settings import *
 
 #: Set a dummy secret key for CircleCI build even if it's not in debug mode
 SECRET_KEY = "dummy"
+#: Set dummy key to test push notifications
+FCM_KEY = "dummy"
+#: Enable manually because existing setting derives from the unset env var
+FCM_ENABLED = True
+#: Use debug logging on CircleCI
+LOG_LEVEL = "DEBUG"
 
 # Use simple non-colored logging in circleci
 for logger in LOGGING["loggers"].values():

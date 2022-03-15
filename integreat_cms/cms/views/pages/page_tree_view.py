@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -100,6 +101,7 @@ class PageTreeView(TemplateView, PageContextMixin):
         )
 
         if filter_data:
+            logger.debug("Page tree filtered with data %r", filter_data)
             # Set data for filter form rendering
             filter_form = PageFilterForm(data=filter_data)
             pages = self.filter_pages(pages, language_slug, filter_form)
@@ -116,6 +118,7 @@ class PageTreeView(TemplateView, PageContextMixin):
                 "language": language,
                 "languages": region.active_languages,
                 "filter_form": filter_form,
+                "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
             },
         )
         # Disable browser cache of page tree to prevent subpages from being expanded after using "back"-button
@@ -181,4 +184,6 @@ class PageTreeView(TemplateView, PageContextMixin):
                     if translation_state and translation_state[1] in selected_status:
                         filtered_pages.append(page)
                 pages = filtered_pages
+        else:
+            filter_form.changed_data.clear()
         return pages

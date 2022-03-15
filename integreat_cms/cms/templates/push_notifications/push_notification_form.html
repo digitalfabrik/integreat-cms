@@ -1,10 +1,9 @@
 {% extends "_base.html" %}
+
 {% load i18n %}
-{% load static %}
 {% load widget_tweaks %}
 {% load push_notification_filters %}
-{% load page_filters %}
-{% load rules %}
+
 {% block content %}
     <form method="post" data-unsaved-warning>
         {% csrf_token %}
@@ -13,7 +12,7 @@
                 <h1 class="heading">
                     {% if push_notification_form.instance.id %}
                         {% with push_notification_form.instance as push_notification_title %}
-                            {% blocktrans %}Edit push notification "{{ push_notification_title }}"{% endblocktrans %}
+                            {% blocktrans %}Edit news message "{{ push_notification_title }}"{% endblocktrans %}
                         {% endwith %}
                     {% else %}
                         {% trans 'Create news message' %}
@@ -23,7 +22,7 @@
                     {% if perms.cms.change_pushnotification %}
                         <button name="submit_save" class="btn btn-gray">{% trans 'Save' %}</button>
                     {% endif %}
-                    {% if perms.cms.send_push_notification %}
+                    {% if perms.cms.send_push_notification and not push_notification_form.instance.sent_date %}
                         <button name="submit_send" class="btn">{% trans 'Save & Send' %}</button>
                     {% endif %}
                 </div>
@@ -48,28 +47,47 @@
                 </ul>
                 <figure>
                     {{ pnt_formset.management_form }}
-                    {% for form in pnt_formset %}
-                        <div id="tab-{{ form.language.value }}"
-                             class="language-tab-content w-full mb-4 rounded border border-blue-500 bg-white flex-auto {% if form.language.value|add:0 != language.id|add:0 %}hidden{% endif %}">
-                            <div class="w-full p-4">
-                                {{ push_notification_translation_form.errors }}
-                                <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
-                                {% render_field form.title %}
-                                <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
-                                {% render_field form.text %}
-                                <p>
-                                    <span class="input-length-counter"></span>/{{ form.fields.text.max_length }}
-                                </p>
+                    {% for push_notification_translation_form in pnt_formset %}
+                        <div id="tab-{{ push_notification_translation_form.language.value }}"
+                             class="language-tab-content w-full mb-4 rounded border border-blue-500 bg-white flex-auto {% if push_notification_translation_form.language.value|add:0 != language.id|add:0 %}hidden{% endif %}">
+                            <div class="w-full px-4 pb-4">
+                                <div class="flex justify-between mr-2">
+                                    <label for="{{ push_notification_translation_form.title.id_for_label }}">
+                                        {{ push_notification_translation_form.title.label }}
+                                    </label>
+                                    {% if push_notification_form.instance.sent_date and push_notification_translation_form.instance.id %}
+                                        <div class="text-right py-2">
+                                            <span class="text-lg font-bold">{% trans 'Link' %}:</span>
+                                            <a href="{{ WEBAPP_URL }}{{ push_notification_translation_form.instance.get_absolute_url }}"
+                                               class="text-blue-500 hover:underline"
+                                               target="_blank"
+                                               rel="noopener noreferrer">
+                                                {{ WEBAPP_URL }}{{ push_notification_translation_form.instance.get_absolute_url }}
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                {% render_field push_notification_translation_form.title %}
+                                <label for="{{ push_notification_translation_form.text.id_for_label }}">
+                                    {{ push_notification_translation_form.text.label }}
+                                </label>
+                                {% render_field push_notification_translation_form.text %}
+                                {% spaceless %}
+                                    <p>
+                                        <span class="input-length-counter"></span>
+                                        <span>/{{ push_notification_translation_form.fields.text.max_length }}</span>
+                                    </p>
+                                {% endspaceless %}
                                 <div class="hidden">
-                                    {% render_field form.id %}
-                                    {% render_field form.language %}
+                                    {% render_field push_notification_translation_form.id %}
+                                    {% render_field push_notification_translation_form.language %}
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 </figure>
             </div>
-            <div class="w-[400px] flex flex-wrap flex-col">
+            <div class="w-[400px] flex flex-wrap flex-col gap-4">
                 <div class="rounded border border-blue-500 shadow-2xl bg-white">
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
@@ -77,13 +95,33 @@
                             {% trans "Settings" %}
                         </h3>
                     </div>
-                    <div class="p-4 rounded bg-white">
+                    <div class="px-4 pb-4 rounded bg-white">
                         <label for="{{ push_notification_form.channel.id_for_label }}">{{ push_notification_form.channel.label }}</label>
                         {% render_field push_notification_form.channel %}
                         <label for="{{ push_notification_form.mode.id_for_label }}">{{ push_notification_form.mode.label }}</label>
                         {% render_field push_notification_form.mode %}
                     </div>
                 </div>
+                {% if push_notification_form.instance.id %}
+                    <div class="rounded border border-blue-500 shadow-2xl bg-white">
+                        <div class="rounded p-4 bg-water-500">
+                            <h3 class="heading font-bold text-black">
+                                <i data-feather="settings" class="pb-1"></i>
+                                {% trans "Status" %}
+                            </h3>
+                        </div>
+                        <div class="px-4 pb-4 rounded bg-white">
+                            <label>{% trans 'Sent' %}</label>
+                            {% if push_notification_form.instance.sent_date %}
+                                <i data-feather="check" class="text-green-500 align-text-top"></i>
+                                {{ push_notification_form.instance.sent_date }}
+                            {% else %}
+                                <i data-feather="x" class="text-red-500 align-text-top"></i>
+                                {% trans 'Message not sent yet' %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </form>

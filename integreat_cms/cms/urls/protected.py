@@ -468,10 +468,9 @@ urlpatterns = [
                                             ),
                                         ),
                                         path(
-                                            "partial-page-tree/<slug:language_slug>/tree-<int:tree_id>/"
-                                            "lft-<int:lft>/rgt-<int:rgt>/depth-<int:depth>/",
+                                            "partial-page-tree/<slug:language_slug>/tree-<int:tree_id>/",
                                             pages.PartialPageTreeView.as_view(),
-                                            name="get_page_children_ajax",
+                                            name="get_page_tree_ajax",
                                         ),
                                     ]
                                 ),
@@ -631,6 +630,12 @@ urlpatterns = [
                                                         "download/",
                                                         pages.download_xliff,
                                                         name="download_xliff",
+                                                    ),
+                                                    path(
+                                                        "only-public/",
+                                                        pages.download_xliff,
+                                                        {"only_public": True},
+                                                        name="download_xliff_only_public",
                                                     ),
                                                     path(
                                                         "upload/",

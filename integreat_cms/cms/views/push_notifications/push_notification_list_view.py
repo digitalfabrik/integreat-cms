@@ -47,6 +47,20 @@ class PushNotificationListView(TemplateView):
         # current region
         region = request.region
 
+        if not settings.FCM_ENABLED:
+            messages.error(
+                request,
+                _("Push notifications are disabled."),
+            )
+            return redirect("dashboard", **{"region_slug": region.slug})
+
+        if not region.push_notifications_enabled:
+            messages.error(
+                request,
+                _("Push notifications are disabled in this region."),
+            )
+            return redirect("dashboard", **{"region_slug": region.slug})
+
         # current language
         language_slug = kwargs.get("language_slug")
         if language_slug:

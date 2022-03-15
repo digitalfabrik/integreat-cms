@@ -6,12 +6,19 @@
 import { off, on } from "./utils/wrapped-events";
 
 window.addEventListener("load", () => {
-  addDragAndDropListeners();
+  // On the page tree, the event listeners are set after all subpages have been loaded
+  if (!document.querySelector("[data-delay-event-handlers]")) {
+    addDragAndDropListeners();
+  }
 });
 
+/**
+ * Set event listener
+ */
 export function addDragAndDropListeners() {
   // Only activate event listeners if explicitly enabled
   if (!document.querySelector("[data-activate-tree-drag-drop]")) return;
+  console.debug("Set event handlers for tree drag & drop functionality");
   
   // event handler for starting drag events
   document.querySelectorAll(".drag").forEach((node) => {
@@ -37,7 +44,7 @@ export function addDragAndDropListeners() {
   });
 }
 
-/*
+/**
  * This function handles the start of a dragging event
  *
  * Manipulating the dom during dragstart event fires immediately a dragend event (chrome browser),
@@ -72,8 +79,11 @@ function dragstart(event: DragEvent) {
   });
 }
 
-/* manipulating the dom during dragstart event fires immediately a dragend event (chrome browser)
-so the changes to the dom must be delayed */
+/**
+ *  manipulating the dom during dragstart event fires immediately a dragend event (chrome browser)
+ * so the changes to the dom must be delayed
+ *
+ */
 function changeDom(target: HTMLElement) {
   // change appearance of dragged item
   target.classList.remove("text-gray-800");

@@ -17,7 +17,7 @@
           ...mediaConfigData,
           cancel: () => el.remove(),
           selectMedia: (file) => {
-            console.debug("File inserted into content:", file)
+            console.debug("File inserted into content:", file);
             el.remove();
             if (file.type.startsWith("image/")) {
               const linkEl = document.createElement("a");

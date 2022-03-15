@@ -2,7 +2,7 @@ import logging
 
 from django.core.serializers import base
 
-from ..cms.models import Language, Page, PageTranslation
+from ..cms.models import Page, PageTranslation
 from . import base_serializer
 
 
@@ -90,9 +90,9 @@ class Serializer(base_serializer.Serializer):
             {
                 "version": "2.0",
                 "xmlns": "urn:oasis:names:tc:xliff:document:2.0",
-                "srcLang": self.source_language.slug,
+                "srcLang": self.source_language.bcp47_tag,
                 "srcDir": self.source_language.text_direction,
-                "trgLang": self.target_language.slug,
+                "trgLang": self.target_language.bcp47_tag,
                 "trgDir": self.target_language.text_direction,
             },
         )
@@ -138,7 +138,11 @@ class Serializer(base_serializer.Serializer):
         self.xml.startElement("segment", {})
 
         self.xml.startElement("source", {})
-        source_translation = obj.source_translation
+        source_translation = (
+            obj.public_source_translation
+            if self.only_public
+            else obj.source_translation
+        )
         if not source_translation:
             raise base.SerializationError(
                 f"Page translation {obj!r} does not have a source translation in "
@@ -196,12 +200,12 @@ class Deserializer(base_serializer.Deserializer):
         for event, node in self.event_stream:
             if event == "START_ELEMENT" and node.nodeName == "xliff":
                 # Get source language stored in the xliff node
-                self.source_language = Language.objects.get(
-                    slug=self.require_attribute(node, "srcLang")
+                self.source_language = self.get_language(
+                    self.require_attribute(node, "srcLang")
                 )
                 # Get target language stored in the xliff node
-                self.target_language = Language.objects.get(
-                    slug=self.require_attribute(node, "trgLang")
+                self.target_language = self.get_language(
+                    self.require_attribute(node, "trgLang")
                 )
                 logger.debug(
                     "Starting XLIFF 2.0 deserialization for translation from %r to %r",
@@ -233,10 +237,16 @@ class Deserializer(base_serializer.Deserializer):
         )
 
         # Retrieve a existing target translation or create a new one
-        page_translation = page.get_translation(
-            self.target_language.slug
-        ) or PageTranslation(
-            page=page,
-            language=self.target_language,
-        )
+        page_translation = page.get_translation(self.target_language.slug)
+        if not page_translation:
+            # Initial attributes passed to model constructor
+            attrs = {
+                "page": page,
+                "language": self.target_language,
+            }
+            # Get source translation to inherit status field
+            source_translation = page.get_translation(self.source_language.slug)
+            if source_translation:
+                attrs["status"] = source_translation.status
+            page_translation = PageTranslation(**attrs)
         return page_translation

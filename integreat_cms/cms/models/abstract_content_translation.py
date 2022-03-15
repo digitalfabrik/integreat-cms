@@ -13,6 +13,7 @@ from ..constants import status, translation_status
 from ..utils.translation_utils import ugettext_many_lazy as __
 
 
+# pylint: disable=too-many-public-methods
 class AbstractContentTranslation(AbstractBaseModel):
     """
     Data model representing a translation of some kind of content (e.g. pages or events)
@@ -265,6 +266,21 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         if self.source_language:
             return self.foreign_object.get_translation(self.source_language.slug)
+        return None
+
+    @cached_property
+    def public_source_translation(self):
+        """
+        This property returns the public translation which was used to create the ``self`` translation.
+        It derives this information from the :class:`~integreat_cms.cms.models.regions.region.Region`'s root
+        :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode`.
+
+        :return: The content translation in the source :class:`~integreat_cms.cms.models.languages.language.Language`
+                 (:obj:`None` if no public source translation exists)
+        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+        """
+        if self.source_language:
+            return self.foreign_object.get_public_translation(self.source_language.slug)
         return None
 
     @cached_property

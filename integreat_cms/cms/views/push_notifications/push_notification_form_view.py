@@ -2,8 +2,9 @@ import logging
 
 from datetime import datetime
 
+from django.conf import settings
 from django.contrib import messages
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ImproperlyConfigured
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -17,6 +18,7 @@ from ...forms import (
     PushNotificationTranslationForm,
 )
 from ...models import Language, PushNotification, PushNotificationTranslation
+from ...utils.translation_utils import ugettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +35,7 @@ class PushNotificationFormView(TemplateView):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "push_notifications_form"}
 
+    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         r"""
         Open form for creating or editing a push notification
@@ -51,6 +54,21 @@ class PushNotificationFormView(TemplateView):
         """
 
         region = request.region
+
+        if not settings.FCM_ENABLED:
+            messages.error(
+                request,
+                _("Push notifications are disabled."),
+            )
+            return redirect("dashboard", **{"region_slug": region.slug})
+
+        if not region.push_notifications_enabled:
+            messages.error(
+                request,
+                _("Push notifications are disabled in this region."),
+            )
+            return redirect("dashboard", **{"region_slug": region.slug})
+
         language = region.get_language_or_404(
             kwargs.get("language_slug"), only_active=True
         )
@@ -61,6 +79,19 @@ class PushNotificationFormView(TemplateView):
         push_notification_translations = PushNotificationTranslation.objects.filter(
             push_notification=push_notification
         )
+
+        if push_notification and push_notification.sent_date:
+            messages.info(
+                request,
+                __(
+                    _(
+                        "This news message has already been sent as push notification to mobile devices."
+                    ),
+                    _(
+                        'Subsequent changes are displayed in the "News" area of the app, but have no effect on the push notification sent.'
+                    ),
+                ),
+            )
 
         push_notification_form = PushNotificationForm(instance=push_notification)
 
@@ -92,10 +123,11 @@ class PushNotificationFormView(TemplateView):
                 "pnt_formset": pnt_formset,
                 "language": language,
                 "languages": region.active_languages,
+                "WEBAPP_URL": settings.WEBAPP_URL,
             },
         )
 
-    # pylint: disable=too-many-branches,unused-argument
+    # pylint: disable=too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Save and show form for creating or editing a push notification. Send push notification
@@ -192,7 +224,7 @@ class PushNotificationFormView(TemplateView):
                     ),
                 )
 
-            if "submit_send" in request.POST:
+            if "submit_send" in request.POST and not pn_form.instance.sent_date:
                 if not request.user.has_perm("cms.send_push_notification"):
                     logger.warning(
                         "%r does not have the permission to send %r",
@@ -200,23 +232,35 @@ class PushNotificationFormView(TemplateView):
                         push_notification_instance,
                     )
                     raise PermissionDenied
-                push_sender = PushNotificationSender(pn_form.instance)
-                if not push_sender.is_valid():
-                    messages.warning(
+                try:
+                    push_sender = PushNotificationSender(pn_form.instance)
+                    if not push_sender.is_valid():
+                        messages.error(
+                            request,
+                            _(
+                                "News message cannot be sent because required texts are missing"
+                            ),
+                        )
+                    else:
+                        if push_sender.send_all():
+                            messages.success(
+                                request, _("News message was successfully sent")
+                            )
+                            pn_form.instance.sent_date = datetime.now()
+                            pn_form.instance.save()
+                        else:
+                            messages.error(request, _("News message could not be sent"))
+                except ImproperlyConfigured as e:
+                    logger.error(
+                        "News message could not be sent due to a configuration error: %s",
+                        e,
+                    )
+                    messages.error(
                         request,
                         _(
-                            "News message cannot be sent because required texts are missing"
+                            "News message could not be sent due to a configuration error."
                         ),
                     )
-                else:
-                    if push_sender.send_all():
-                        messages.success(
-                            request, _("News message was successfully sent")
-                        )
-                        pn_form.instance.sent_date = datetime.now()
-                        pn_form.instance.save()
-                    else:
-                        messages.error(request, _("News message could not be sent"))
 
             # Redirect to the edit page
             return redirect(
@@ -237,5 +281,6 @@ class PushNotificationFormView(TemplateView):
                 "pnt_formset": pnt_formset,
                 "language": language,
                 "languages": region.active_languages,
+                "WEBAPP_URL": settings.WEBAPP_URL,
             },
         )

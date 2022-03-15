@@ -28,60 +28,96 @@
  *
  */
 
-function isInputElement(el: Element): el is HTMLInputElement {
-  return el instanceof HTMLInputElement;
-}
-
 window.addEventListener("load", () => {
-  const selectAllCheckbox = document.getElementById("bulk-select-all");
-  const bulkActionForm = document.getElementById("bulk-action-form");
-  const selectItems = Array.from(document.getElementsByClassName("bulk-select-item"));
-  const bulkAction = document.getElementById("bulk-action") as HTMLSelectElement;
-
-  if (selectAllCheckbox && isInputElement(selectAllCheckbox)) {
-    selectAllCheckbox.addEventListener("click", () => {
-      const value = selectAllCheckbox.checked;
-      // get all currently rendered page checkboxes
-      Array.from(document.getElementsByClassName("bulk-select-item"))
-        .filter(isInputElement)
-        .forEach((checkbox) => (checkbox.checked = value));
-      toggleBulkActionButton();
-    });
+  // On the page tree, the event listeners are set after all subpages have been loaded
+  if (!document.querySelector("[data-delay-event-handlers]")) {
+    setBulkActionEventListeners();
   }
-
-  if (bulkAction) {
-    bulkAction.addEventListener("change", toggleBulkActionButton);
-    toggleBulkActionButton();
-  }
-  if (bulkActionForm) {
-    bulkActionForm.addEventListener("submit", bulkActionExecute);
-  }
-
-  selectItems.forEach((el) => {
-    el.addEventListener("change", toggleBulkActionButton);
-  });
-
-  function bulkActionExecute(event: Event) {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const selectedAction = bulkAction.options[bulkAction.selectedIndex];
-    // Set form action to url of the bulk action
-    form.action = selectedAction.getAttribute("data-bulk-action");
-    // Set form target in case action is to be opened in a new tab
-    const target = selectedAction.getAttribute("data-target");
-    if (target !== null) {
-      form.target = target;
-    }
-    // Submit form and execute bulk action
-    form.submit();
-  }
-
 });
 
+/**
+ * Set all event handlers
+ */
+export function setBulkActionEventListeners(){
+  const bulkAction = document.getElementById("bulk-action") as HTMLSelectElement;
+  if (!bulkAction) return;
+  console.debug("Set event handlers for bulk actions");
+  const selectAllCheckbox = document.getElementById("bulk-select-all") as HTMLInputElement;
+  const bulkActionForm = document.getElementById("bulk-action-form");
+  const selectItems = <HTMLInputElement[]>Array.from(document.getElementsByClassName("bulk-select-item"));
+  // Set event listener for select all checkbox
+  selectAllCheckbox.classList.remove("cursor-wait");
+  selectAllCheckbox.addEventListener("click", () => {
+    // Set all checkboxes to the same value as the "select all" checkbox
+    selectItems.forEach((checkbox) => checkbox.checked = selectAllCheckbox.checked);
+    toggleBulkActionButton();
+  });
+  // Set all checkboxes initially in case the page tree was reloaded
+  selectItems.forEach((checkbox) => checkbox.checked = selectAllCheckbox.checked);
+  // Set event listener for bulk action button
+  bulkAction.addEventListener("change", toggleBulkActionButton);
+  toggleBulkActionButton();
+  // Set event listener for bulk action form
+  bulkActionForm.addEventListener("submit", bulkActionExecute);
+  // Set event listener for bulk action checkboxes
+  selectItems.forEach((selectItem) => {
+    selectItem.classList.remove("cursor-wait");
+    selectItem.addEventListener("change", () => {
+      toggleBulkActionButton();
+      // Check if checkbox belongs to a page with subpages
+      let pageId = selectItem.getAttribute("value");
+      let collapsiblePage = document.querySelector(`.toggle-subpages[data-page-id="${pageId}"]`)
+      if (collapsiblePage) {
+        let childrenIds : number[] = JSON.parse(collapsiblePage.getAttribute("data-page-children"));
+        childrenIds.forEach(childId => {
+          setCheckboxRecursively(childId, selectItem.checked);
+        });
+      }
+    });
+  });
+}
+
+/*
+ * Check/uncheck the bulk checkboxes ot the subpages of the given page recursively
+ */
+function setCheckboxRecursively(pageId: number, checked: boolean) {
+  let page = document.getElementById("page-" + pageId);
+  let checkbox = page.querySelector(".bulk-select-item") as HTMLInputElement;
+  checkbox.checked = checked;
+  const toggleButton = page.querySelector(".toggle-subpages")
+  if (toggleButton){
+    let childrenIds: number[] = JSON.parse(toggleButton.getAttribute("data-page-children"));
+    childrenIds.forEach((childId) => setCheckboxRecursively(childId, checked));
+  }
+}
+
+/*
+ * Execute the selected bulk action
+ */
+function bulkActionExecute(event: Event) {
+  event.preventDefault();
+  const bulkAction = document.getElementById("bulk-action") as HTMLSelectElement;
+  const form = event.target as HTMLFormElement;
+  const selectedAction = bulkAction.options[bulkAction.selectedIndex];
+  // Set form action to url of the bulk action
+  form.action = selectedAction.getAttribute("data-bulk-action");
+  // Set form target in case action is to be opened in a new tab
+  const target = selectedAction.getAttribute("data-target");
+  if (target !== null) {
+    form.target = target;
+  }
+  // Submit form and execute bulk action
+  form.submit();
+}
+
+
+/*
+ * Enable/disable the bulk action button
+ */
 export function toggleBulkActionButton() {
   // Only activate button if at least one item and the action is selected
   // also check if at least one page translation exists for PDF export before activation
-  const selectItems = Array.from(document.getElementsByClassName("bulk-select-item"));
+  const selectItems = <HTMLInputElement[]>Array.from(document.getElementsByClassName("bulk-select-item"));
   const bulkAction = document.getElementById("bulk-action") as HTMLSelectElement;
   const bulkActionButton = document.getElementById(
     "bulk-action-execute"
@@ -89,7 +125,6 @@ export function toggleBulkActionButton() {
   let selectedAction = bulkAction.options[bulkAction.selectedIndex];
   if (
     !selectItems
-      .filter(isInputElement)
       .some((el) => el.checked) ||
     bulkAction.selectedIndex === 0 ||
     (selectedAction.id === "pdf-export-option" && !hasTranslation(selectItems))
@@ -100,11 +135,13 @@ export function toggleBulkActionButton() {
   }
 }
 
-function hasTranslation(selectItems: Element[]): boolean {
+/*
+ * Check whether a page does have a translation
+ */
+function hasTranslation(selectItems: HTMLInputElement[]): boolean {
   // checks if at least one of the selected pages has a translation for the current language
   let languageSlug = document.getElementById("pdf-export-option").dataset.languageSlug;
   return selectItems
-    .filter(isInputElement)
     .filter(inputElement => inputElement.checked)
     .some(inputElement => {
       return inputElement

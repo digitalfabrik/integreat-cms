@@ -32,7 +32,7 @@ download_storage = FileSystemStorage(
 logger = logging.getLogger(__name__)
 
 
-def pages_to_xliff_file(request, pages, target_language):
+def pages_to_xliff_file(request, pages, target_language, only_public=False):
     """
     Export a list of page IDs to a ZIP archive containing XLIFF files for a specified target language (or just a single
     XLIFF file if only one page is converted)
@@ -45,6 +45,9 @@ def pages_to_xliff_file(request, pages, target_language):
 
     :param target_language: The target language (should not be the region's default language)
     :type target_language: :class:`~integreat_cms.cms.models.languages.language.Language`
+
+    :param only_public: Whether only public versions should be exported
+    :type only_public: bool
 
     :return: The path of the generated zip file
     :rtype: str
@@ -61,7 +64,9 @@ def pages_to_xliff_file(request, pages, target_language):
     xliff_paths = {}
     for page in pages:
         try:
-            xliff_paths[page] = page_to_xliff(page, target_language, dir_name)
+            xliff_paths[page] = page_to_xliff(
+                page, target_language, dir_name, only_public=only_public
+            )
         except RuntimeError as e:
             messages.error(request, e)
     # Check how many XLIFF files were created
@@ -99,7 +104,7 @@ def pages_to_xliff_file(request, pages, target_language):
     return xliff_file_url
 
 
-def page_to_xliff(page, target_language, dir_name):
+def page_to_xliff(page, target_language, dir_name, only_public=False):
     """
     Export a page to an XLIFF file for a specified target language
 
@@ -112,19 +117,29 @@ def page_to_xliff(page, target_language, dir_name):
     :param dir_name: The directory in which the xliff files should be created
     :type dir_name: uuid.UUID
 
+    :param only_public: Whether only public versions should be exported
+    :type only_public: bool
+
     :raises RuntimeError: If the selected page translation does not have a source translation
 
     :return: The path of the generated XLIFF file
     :rtype: str
     """
-    target_page_translation = page.get_translation(target_language.slug)
+    if only_public:
+        target_page_translation = page.get_public_translation(target_language.slug)
+    else:
+        target_page_translation = page.get_translation(target_language.slug)
     if not target_page_translation:
         # Create temporary target translation
         target_page_translation = PageTranslation(
             page=page,
             language=target_language,
         )
-    source_translation = target_page_translation.source_translation
+    source_translation = (
+        target_page_translation.public_source_translation
+        if only_public
+        else target_page_translation.source_translation
+    )
     if not source_translation:
         source_language = page.region.get_source_language(target_language.slug)
         logger.warning(
@@ -143,7 +158,9 @@ def page_to_xliff(page, target_language, dir_name):
 
     try:
         xliff_content = serializers.serialize(
-            settings.XLIFF_EXPORT_VERSION, [target_page_translation]
+            settings.XLIFF_EXPORT_VERSION,
+            [target_page_translation],
+            only_public=only_public,
         )
     except Exception as e:
         # All these error should already have been prevented

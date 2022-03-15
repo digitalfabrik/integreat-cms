@@ -50,6 +50,7 @@ jobs:
   pylint:
     docker:
       - image: cimg/python:3.9
+    resource_class: xlarge
     steps:
       - checkout
       - attach_workspace:
@@ -122,10 +123,10 @@ jobs:
           paths:
             - integreat_cms/static/dist
             - integreat_cms/webpack-stats.json
-  test:
+  check-migrations:
     docker:
       - image: cimg/python:3.9
-      - image: circleci/postgres:alpine
+      - image: cimg/postgres:14.1
         environment:
           POSTGRES_USER: integreat
           POSTGRES_DB: integreat
@@ -137,14 +138,71 @@ jobs:
       - run:
           name: Check for missing migrations
           command: pipenv run integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
+  setup-test-reporter:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install CodeClimate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: Notify CodeClimate of a pending report
+          command: ./cc-test-reporter before-build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - cc-test-reporter
+  test:
+    docker:
+      - image: cimg/python:3.9
+      - image: cimg/postgres:14.1
+        environment:
+          POSTGRES_USER: integreat
+          POSTGRES_DB: integreat
+          POSTGRES_PASSWORD: password
+    parallelism: 16
+    resource_class: large
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Migrate database
           command: pipenv run integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
       - run:
           name: Run tests
-          command: pipenv run pytest --disable-warnings --cov=integreat_cms --cov-report html --ds=integreat_cms.core.circleci_settings
+          command: pipenv run pytest --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings
+      - run:
+          name: Format test coverage
+          command: ./cc-test-reporter format-coverage -t coverage.py -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+      - store_test_results:
+          path: test-results
       - store_artifacts:
-          path: htmlcov
+          path: test-results
+      - persist_to_workspace:
+          root: .
+          paths:
+            - cc-test-reporter
+            - coverage
+  upload-test-coverage:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install CodeClimate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: Sum coverage data and upload to CodeClimate
+          command: |
+            ./cc-test-reporter sum-coverage -o - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
   build-package:
     docker:
       - image: cimg/python:3.9
@@ -178,6 +236,7 @@ jobs:
   build-documentation:
     docker:
       - image: cimg/python:3.9
+    resource_class: large
     steps:
       - checkout
       - attach_workspace:
@@ -367,11 +426,21 @@ workflows:
           filters:
             branches:
               ignore: main
+      - check-migrations:
+          requires:
+            - pipenv-install
+      - setup-test-reporter:
+          context: codeclimate
       - test:
           requires:
             - pipenv-install
             - webpack
             - compile-translations
+            - setup-test-reporter
+      - upload-test-coverage:
+          context: codeclimate
+          requires:
+            - test
       - check-translations:
           requires:
             - pipenv-install

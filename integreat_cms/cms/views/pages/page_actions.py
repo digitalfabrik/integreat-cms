@@ -285,7 +285,7 @@ def expand_page_translation_id(request, short_url_id):
 
 
 @permission_required("cms.view_page")
-def download_xliff(request, region_slug, language_slug):
+def download_xliff(request, region_slug, language_slug, only_public=False):
     """
     Download a zip file of XLIFF files.
     The target languages and pages are selected and the source languages automatically determined.
@@ -298,6 +298,9 @@ def download_xliff(request, region_slug, language_slug):
 
     :param language_slug: The slug of the target language
     :type language_slug: str
+
+    :param only_public: Whether only public versions should be exported
+    :type only_public: bool
 
     :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
@@ -327,7 +330,9 @@ def download_xliff(request, region_slug, language_slug):
         parent__isnull=False,
     ).language
 
-    xliff_file_url = pages_to_xliff_file(request, pages, target_language)
+    xliff_file_url = pages_to_xliff_file(
+        request, pages, target_language, only_public=only_public
+    )
     if xliff_file_url:
         # Insert link with automatic download into success message
         messages.success(

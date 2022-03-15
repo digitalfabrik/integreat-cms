@@ -25,7 +25,7 @@ import {
   Edit3,
   ExternalLink,
   Info,
-  RefreshCw
+  RefreshCw,
 } from "preact-feather";
 import cn from "classnames";
 
@@ -122,9 +122,7 @@ export default function EditSidebar({
               "cursor-auto": !isEditingAllowed,
             })}
             onClick={() =>
-              isEditingAllowed &&
-              !isLoading &&
-              setFileNameEditable(!isFileNameEditable)
+              isEditingAllowed && !isLoading && setFileNameEditable(!isFileNameEditable)
             }
           >
             {mediaTranslations.label_file_name}
@@ -168,9 +166,7 @@ export default function EditSidebar({
               "cursor-auto": !isEditingAllowed,
             })}
             onClick={() =>
-              isEditingAllowed &&
-              !isLoading &&
-              setAltTextEditable(!isAltTextEditable)
+              isEditingAllowed && !isLoading && setAltTextEditable(!isAltTextEditable)
             }
           >
             {mediaTranslations.label_alt_text}
@@ -207,15 +203,11 @@ export default function EditSidebar({
           />
         </div>
         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
-          <label class="secondary my-0">
-            {mediaTranslations.label_data_type}
-          </label>
+          <label class="secondary my-0">{mediaTranslations.label_data_type}</label>
           <p>{file.typeDisplay}</p>
         </div>
         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
-          <label class="secondary my-0">
-            {mediaTranslations.label_file_uploaded}
-          </label>
+          <label class="secondary my-0">{mediaTranslations.label_file_uploaded}</label>
           <p>{file.uploadedDate}</p>
         </div>
         {expertMode && (
@@ -233,82 +225,81 @@ export default function EditSidebar({
           </div>
         )}
         <div className="flex flex-col p-4 gap-4">
-        {isEditingAllowed ? (
-          <>
-            {(isFileNameEditable || isAltTextEditable) && (
+          {isEditingAllowed ? (
+            <>
+              {(isFileNameEditable || isAltTextEditable) && (
+                <button
+                  title={mediaTranslations.btn_save_file}
+                  class="btn"
+                  disabled={isLoading}
+                >
+                  <Save class="inline-block" />
+                  {mediaTranslations.btn_save_file}
+                </button>
+              )}
+              {!selectionMode && (
+                <label
+                  for="replace-file-input"
+                  title={mediaTranslations.btn_replace_file}
+                  className={cn(
+                    "w-full text-white text-center font-bold py-3 px-4 m-0 rounded",
+                    { "cursor-not-allowed bg-gray-500": isLoading },
+                    { "bg-blue-500 hover:bg-blue-600": !isLoading }
+                  )}
+                  disabled={isLoading}
+                >
+                  <RefreshCw class="mr-1 inline-block h-5" />
+                  {mediaTranslations.btn_replace_file}
+                </label>
+              )}
               <button
-                title={mediaTranslations.btn_save_file}
+                title={mediaTranslations.btn_delete_file}
+                className={cn("btn", { "btn-red": !isLoading })}
+                data-confirmation-title={mediaTranslations.text_file_delete_confirm}
+                data-confirmation-subject={file.name}
+                disabled={isLoading}
+                onClick={(event) => showConfirmationPopupAjax(event)}
+                onAction-confirmed={() =>
+                  document.getElementById("delete-file").click()
+                }
+              >
+                <Trash2 class="inline-block" />
+                {mediaTranslations.btn_delete_file}
+              </button>
+            </>
+          ) : (
+            <p class="italic">
+              <Lock class="mr-1 inline-block h-5" />
+              {mediaTranslations.text_file_readonly}
+            </p>
+          )}
+          {selectionMode &&
+            (!(onlyImage && !file.type.startsWith("image/")) ? (
+              <button
+                title={mediaTranslations.btn_select}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (selectMedia) {
+                    selectMedia(file);
+                  }
+                }}
                 class="btn"
                 disabled={isLoading}
               >
-                <Save class="inline-block"/>
-                {mediaTranslations.btn_save_file}
+                <CheckCircle class="inline-block" />
+                {mediaTranslations.btn_select}
               </button>
-            )}
-            <label
-              for="replace-file-input"
-              title={mediaTranslations.btn_replace_file}
-              className={cn(
-                "w-full text-white text-center font-bold py-3 px-4 m-0 rounded",
-                {"cursor-not-allowed bg-gray-500": isLoading},
-                {"bg-blue-500 hover:bg-blue-600": !isLoading}
-              )}
-              disabled={isLoading}
-            >
-              <RefreshCw class="mr-1 inline-block h-5"/>
-              {mediaTranslations.btn_replace_file}
-            </label>
-            <button
-              title={mediaTranslations.btn_delete_file}
-              className={cn("btn", { "btn-red": !isLoading})}
-              data-confirmation-title={mediaTranslations.text_file_delete_confirm}
-              data-confirmation-subject={file.name}
-              disabled={isLoading}
-              onClick={(event) => showConfirmationPopupAjax(event)}
-              onaction-confirmed={() => document.getElementById("delete-file").click()}
-            >
-              <Trash2 class="inline-block"/>
-              {mediaTranslations.btn_delete_file}
-            </button>
-          </>
-        ) : (
-          <p class="italic">
-            <Lock class="mr-1 inline-block h-5" />
-            {mediaTranslations.text_file_readonly}
-          </p>
-        )}
-        {selectionMode && (
-          !(onlyImage && !file.type.startsWith("image/")) ? (
-            <button
-              title={mediaTranslations.btn_select}
-              onClick={(e) => {
-                e.preventDefault();
-                if (selectMedia) {
-                  selectMedia(file);
-                }
-              }}
-              class="btn"
-              disabled={isLoading}
-            >
-              <CheckCircle class="inline-block" />
-              {mediaTranslations.btn_select}
-            </button>
-          ) : (
-            <p class="italic">
-              <Info class="mr-1 inline-block h-5" />
-              {mediaTranslations.text_only_image}
-            </p>
-          )
-        )}
+            ) : (
+              <p class="italic">
+                <Info class="mr-1 inline-block h-5" />
+                {mediaTranslations.text_only_image}
+              </p>
+            ))}
         </div>
       </form>
 
       {/* Hidden form for file replacement */}
-      <form
-        onSubmit={submitForm}
-        action={apiEndpoints.replaceFile}
-        class="hidden"
-      >
+      <form onSubmit={submitForm} action={apiEndpoints.replaceFile} class="hidden">
         <input name="id" type="hidden" value={file.id} />
         <input
           id="replace-file-input"
@@ -317,21 +308,15 @@ export default function EditSidebar({
           maxLength={255}
           accept={file.type}
           disabled={isLoading}
-          onChange={
-            () => {
-              document.getElementById("replace-file").click();
-            }
-          }
+          onChange={() => {
+            document.getElementById("replace-file").click();
+          }}
         />
         <button id="replace-file" type="submit"></button>
       </form>
 
       {/* Hidden form for file deletion (on success, close sidebar) */}
-      <form
-        onSubmit={submitForm}
-        action={apiEndpoints.deleteFile}
-        class="hidden"
-      >
+      <form onSubmit={submitForm} action={apiEndpoints.deleteFile} class="hidden">
         <input name="id" type="hidden" value={file.id} />
         <button id="delete-file" />
       </form>

@@ -174,7 +174,7 @@
                         {% trans 'Feedback' %}
                     </a>
                 {% endif %}
-                {% if perms.cms.view_pushnotification %}
+                {% if FCM_ENABLED and request.region.push_notifications_enabled and perms.cms.view_pushnotification %}
                     <div class="{% if current_menu_item|in_list:'push_notifications,push_notifications_form' %} active {% endif %}">
                         <a href="{% url 'push_notifications' region_slug=request.region.slug %}">
                             <i data-feather="send"></i>
