@@ -453,7 +453,9 @@ workflows:
       - bump-dev-version:
           filters:
             branches:
-              only: develop
+              only:
+                - develop
+                - /.*-publish-dev-package/
           requires:
             - pipenv-install
       - build-package:
@@ -467,7 +469,9 @@ workflows:
           context: pypi-test
           filters:
             branches:
-              only: develop
+              only:
+                - develop
+                - /.*-publish-dev-package/
           requires:
             - build-dev-package
       - black:
