@@ -431,6 +431,9 @@ workflows:
             - pipenv-install
       - setup-test-reporter:
           context: codeclimate
+          filters:
+            branches:
+              ignore: main
       - test:
           requires:
             - pipenv-install
@@ -476,6 +479,9 @@ workflows:
       - shellcheck/check:
           dir: ./dev-tools
           external_sources: true
+          filters:
+            branches:
+              ignore: main
       - build-documentation:
           requires:
             - pipenv-install
