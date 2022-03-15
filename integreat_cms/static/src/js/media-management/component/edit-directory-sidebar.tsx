@@ -64,7 +64,9 @@ export default function EditDirectorySidebar({
               for="directory-name-input"
               className={cn("secondary my-0", { "cursor-auto": !isEditingAllowed })}
               onClick={() =>
-                isEditingAllowed && !isLoading && setDirectoryNameEditable(!isDirectoryNameEditable)
+                isEditingAllowed &&
+                !isLoading &&
+                setDirectoryNameEditable(!isDirectoryNameEditable)
               }
             >
               {mediaTranslations.label_directory_name}
@@ -102,7 +104,9 @@ export default function EditDirectorySidebar({
             />
           </div>
           <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
-            <label class="secondary my-0">{mediaTranslations.label_directory_created}</label>
+            <label class="secondary my-0">
+              {mediaTranslations.label_directory_created}
+            </label>
             <p>{directory.CreatedDate}</p>
           </div>
           <div class="p-4">
@@ -120,16 +124,21 @@ export default function EditDirectorySidebar({
                   </button>
                 )}
                 <button
-                  title={`${directory.numberOfEntries === 0
+                  title={`${
+                    directory.numberOfEntries === 0
                       ? mediaTranslations.btn_delete_directory
                       : mediaTranslations.btn_delete_empty_directory
-                    }`}
-                  className={cn("btn", { "btn-red": !isLoading && directory.numberOfEntries === 0 })}
+                  }`}
+                  className={cn("btn", {
+                    "btn-red": !isLoading && directory.numberOfEntries === 0,
+                  })}
                   data-confirmation-title={mediaTranslations.text_dir_delete_confirm}
                   data-confirmation-subject={directory.name}
                   disabled={isLoading || directory.numberOfEntries !== 0}
                   onClick={(event) => showConfirmationPopupAjax(event)}
-                  onaction-confirmed={() => document.getElementById("delete-directory").click()}
+                  onAction-confirmed={() =>
+                    document.getElementById("delete-directory").click()
+                  }
                 >
                   <Trash2 class="mr-2 inline-block h-5" />
                   {mediaTranslations.btn_delete_directory}
@@ -146,7 +155,9 @@ export default function EditDirectorySidebar({
         {/* Hidden form for directory deletion (on success, redirect to parent directory) */}
         <form
           onSubmit={(event: Event) =>
-            submitForm(event, () => route(`${directory.parentId && "/"}${directory.parentId}/`))
+            submitForm(event, () =>
+              route(`${directory.parentId && "/"}${directory.parentId}/`)
+            )
           }
           action={apiEndpoints.deleteDirectory}
           class="hidden"
