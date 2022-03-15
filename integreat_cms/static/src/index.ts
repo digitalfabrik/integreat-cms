@@ -38,7 +38,7 @@ import "./js/events/conditional-fields.ts";
 import "./js/events/auto-complete.ts";
 
 import "./js/pages/fetch-subpages.ts";
-import "./js/pages/collapse-subpages.ts";
+import "./js/pages/toggle-subpages.ts";
 import "./js/pages/page-api-token.ts";
 import "./js/pages/page-mirroring.ts";
 import "./js/pages/page-order.ts";
