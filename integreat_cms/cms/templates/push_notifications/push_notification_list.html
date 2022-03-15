@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load static %}
+{% load push_notification_filters %}
 
 {% block content %}
 <div class="table-header">
@@ -40,6 +41,7 @@
                         {% endspaceless %}
                     </div>
                 </th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Last updated' %}</th>
                 <th class="text-sm text-left uppercase py-3 px-2 min">
                     {% trans 'Sent' %}
                 </th>
@@ -47,6 +49,7 @@
         </thead>
         <tbody>
         {% for push_notification in push_notifications %}
+            {% get_translation push_notification language.slug as push_notification_translation %}
             {% include "push_notifications/push_notification_list_row.html" %}
         {% empty %}
             <tr>

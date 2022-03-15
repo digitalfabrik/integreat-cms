@@ -80,6 +80,10 @@ API_EVENTS_MAX_TIME_SPAN_DAYS = 31
 #: Authentication token for the Firebase API. This needs to be set for a correct usage of the messages feature.
 FCM_KEY = os.environ.get("INTEGREAT_CMS_FCM_KEY")
 
+#: Whether push notifications via Firebase are enabled.
+#: This is ``True`` if :attr:`~integreat_cms.core.settings.FCM_KEY` is set, ``False`` otherwise.
+FCM_ENABLED = bool(FCM_KEY)
+
 
 ###########
 # GVZ API #
@@ -197,6 +201,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "integreat_cms.core.context_processors.version_processor",
+                "integreat_cms.core.context_processors.push_notification_processor",
             ],
             "debug": DEBUG,
         },

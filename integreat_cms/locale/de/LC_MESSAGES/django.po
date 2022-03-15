@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-14 12:49+0000\n"
+"POT-Creation-Date: 2022-03-15 14:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1273,7 +1273,7 @@ msgstr "Nur verfügbare Übersetzungen senden"
 
 #: cms/constants/push_notifications.py:15
 msgid "Use main language if no translation is available"
-msgstr "Benutze Haupt-Sprache, wenn keine Übersetzung verfügbar"
+msgstr "Benutze Standard-Sprache, wenn keine Übersetzung verfügbar"
 
 #: cms/constants/recurrence.py:21
 #: cms/templates/events/_event_filter_form.html:52
@@ -1594,6 +1594,7 @@ msgstr "Kategorie"
 #: cms/templates/pages/page_tree_archived.html:61
 #: cms/templates/pois/poi_form.html:57 cms/templates/pois/poi_list.html:59
 #: cms/templates/pois/poi_list_archived.html:23
+#: cms/templates/push_notifications/push_notification_form.html:110
 #: cms/templates/regions/region_list.html:24
 msgid "Status"
 msgstr "Status"
@@ -2712,11 +2713,11 @@ msgstr "Push-Benachrichtigung"
 msgid "push notifications"
 msgstr "Push-Benachrichtigungen"
 
-#: cms/models/push_notifications/push_notification_translation.py:82
+#: cms/models/push_notifications/push_notification_translation.py:91
 msgid "push notification translation"
 msgstr "Push-Benachrichtigungs-Übersetzung"
 
-#: cms/models/push_notifications/push_notification_translation.py:84
+#: cms/models/push_notifications/push_notification_translation.py:93
 msgid "push notification translations"
 msgstr "Push-Benachrichtigungs-Übersetzungen"
 
@@ -3100,12 +3101,12 @@ msgid "Feedback"
 msgstr "Feedback"
 
 #: cms/templates/_base.html:181
-#: cms/templates/push_notifications/push_notification_list.html:8
+#: cms/templates/push_notifications/push_notification_list.html:9
 msgid "News"
 msgstr "Nachrichten"
 
 #: cms/templates/_base.html:196
-#: cms/templates/push_notifications/push_notification_form.html:77
+#: cms/templates/push_notifications/push_notification_form.html:95
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -3188,6 +3189,7 @@ msgid "Location"
 msgstr "Ort"
 
 #: cms/templates/_tinymce_config.html:27
+#: cms/templates/push_notifications/push_notification_form.html:60
 msgid "Link"
 msgstr "Link"
 
@@ -4088,7 +4090,7 @@ msgstr "Permalink"
 #: cms/templates/pages/_page_xliff_import_diff.html:81
 #: cms/templates/pages/page_revisions.html:67
 #: cms/templates/pages/page_revisions.html:80
-#: cms/templates/push_notifications/push_notification_list.html:27
+#: cms/templates/push_notifications/push_notification_list.html:28
 msgid "Title"
 msgstr "Titel"
 
@@ -4204,7 +4206,7 @@ msgstr "Sprache hinzufügen"
 #: cms/templates/languages/language_form.html:19
 #: cms/templates/offertemplates/offertemplate_form.html:20
 #: cms/templates/organizations/organization_form.html:19
-#: cms/templates/push_notifications/push_notification_form.html:24
+#: cms/templates/push_notifications/push_notification_form.html:23
 #: cms/templates/regions/region_form.html:21
 #: cms/templates/roles/role_form.html:19
 #: cms/templates/users/region_user_form.html:22
@@ -4297,6 +4299,7 @@ msgstr "Erstellt"
 #: cms/templates/pages/_page_xliff_import_diff.html:36
 #: cms/templates/pages/page_tree.html:82
 #: cms/templates/pages/page_tree_archived.html:62
+#: cms/templates/push_notifications/push_notification_list.html:44
 #: cms/templates/regions/region_list.html:23
 msgid "Last updated"
 msgstr "Zuletzt aktualisiert"
@@ -4951,39 +4954,45 @@ msgstr ""
 "Dieser Ort kann nicht in der Web-App geöffnet werden, weil er nicht "
 "veröffentlicht ist."
 
-#: cms/templates/push_notifications/push_notification_form.html:16
+#: cms/templates/push_notifications/push_notification_form.html:15
 #, python-format
-msgid "Edit push notification \"%(push_notification_title)s\""
-msgstr "Push Benachrichtigung \"%(push_notification_title)s\" bearbeiten"
+msgid "Edit news message \"%(push_notification_title)s\""
+msgstr "Nachricht \"%(push_notification_title)s\" bearbeiten"
 
-#: cms/templates/push_notifications/push_notification_form.html:19
-#: cms/templates/push_notifications/push_notification_list.html:16
+#: cms/templates/push_notifications/push_notification_form.html:18
+#: cms/templates/push_notifications/push_notification_list.html:17
 msgid "Create news message"
 msgstr "Neue Nachricht verfassen"
 
-#: cms/templates/push_notifications/push_notification_form.html:27
+#: cms/templates/push_notifications/push_notification_form.html:26
 msgid "Save & Send"
 msgstr "Speichern & Senden"
 
-#: cms/templates/push_notifications/push_notification_list.html:30
-msgid "Channel"
-msgstr "Kanal"
-
-#: cms/templates/push_notifications/push_notification_list.html:44
+#: cms/templates/push_notifications/push_notification_form.html:114
+#: cms/templates/push_notifications/push_notification_list.html:46
 msgid "Sent"
 msgstr "Gesendet"
 
-#: cms/templates/push_notifications/push_notification_list.html:55
+#: cms/templates/push_notifications/push_notification_form.html:120
+#: cms/templates/push_notifications/push_notification_list_row.html:39
+msgid "Message not sent yet"
+msgstr "Nachricht noch nicht gesendet"
+
+#: cms/templates/push_notifications/push_notification_list.html:31
+msgid "Channel"
+msgstr "Kanal"
+
+#: cms/templates/push_notifications/push_notification_list.html:58
 msgid "No push notifications found with these filters."
 msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
 
-#: cms/templates/push_notifications/push_notification_list.html:57
+#: cms/templates/push_notifications/push_notification_list.html:60
 msgid "No push notifications available yet."
 msgstr "Noch keine Push-Benachrichtigungen vorhanden."
 
-#: cms/templates/push_notifications/push_notification_list_row.html:32
-msgid "Message not sent yet"
-msgstr "Nachricht noch nicht gesendet"
+#: cms/templates/push_notifications/push_notification_list_row.html:10
+msgid "Title not available"
+msgstr "Titel nicht verfügbar"
 
 #: cms/templates/regions/region_form.html:14
 #, python-format
@@ -6345,27 +6354,59 @@ msgstr ""
 msgid "You can only create locations in the default language (%(language)s)."
 msgstr "Sie können Orte nur in der Standard-Sprache (%(language)s) anlegen"
 
-#: cms/views/push_notifications/push_notification_form_view.py:183
+#: cms/views/push_notifications/push_notification_form_view.py:61
+#: cms/views/push_notifications/push_notification_list_view.py:53
+msgid "Push notifications are disabled."
+msgstr "Push-Benachrichtigungen sind deaktiviert."
+
+#: cms/views/push_notifications/push_notification_form_view.py:68
+#: cms/views/push_notifications/push_notification_list_view.py:60
+msgid "Push notifications are disabled in this region."
+msgstr "Push-Benachrichtigungen sind in dieser Region deaktiviert."
+
+#: cms/views/push_notifications/push_notification_form_view.py:88
+msgid ""
+"This news message has already been sent as push notification to mobile "
+"devices."
+msgstr ""
+"Diese Nachricht wurde bereits als Push-Benachrichtigung an mobile Geräte "
+"gesendet."
+
+#: cms/views/push_notifications/push_notification_form_view.py:91
+msgid ""
+"Subsequent changes are displayed in the \"News\" area of the app, but have "
+"no effect on the push notification sent."
+msgstr ""
+"Nachträgliche Änderungen werden im \"Nachrichten\"-Bereich der App "
+"angezeigt, haben allerdings keine Auswirkung auf die gesendete Push-"
+"Benachrichtigung."
+
+#: cms/views/push_notifications/push_notification_form_view.py:215
 msgid "News message \"{}\" was successfully created"
 msgstr "Nachricht \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/push_notifications/push_notification_form_view.py:190
+#: cms/views/push_notifications/push_notification_form_view.py:222
 msgid "News message \"{}\" was successfully saved"
 msgstr "Nachricht \"{}\" wurde erfolgreich gespeichert"
 
-#: cms/views/push_notifications/push_notification_form_view.py:208
+#: cms/views/push_notifications/push_notification_form_view.py:241
 msgid "News message cannot be sent because required texts are missing"
 msgstr "Nachricht konnte nicht gesendet werden, da erforderliche Texte fehlen"
 
-#: cms/views/push_notifications/push_notification_form_view.py:214
+#: cms/views/push_notifications/push_notification_form_view.py:247
 msgid "News message was successfully sent"
 msgstr "Nachricht wurde erfolgreich gesendet"
 
-#: cms/views/push_notifications/push_notification_form_view.py:219
+#: cms/views/push_notifications/push_notification_form_view.py:252
 msgid "News message could not be sent"
 msgstr "Nachricht konnte nicht gesendet werden"
 
-#: cms/views/push_notifications/push_notification_list_view.py:66
+#: cms/views/push_notifications/push_notification_form_view.py:261
+msgid "News message could not be sent due to a configuration error."
+msgstr ""
+"Nachricht konnte aufgrund eines Konfugurationsproblems nicht gesendet werden."
+
+#: cms/views/push_notifications/push_notification_list_view.py:80
 msgid ""
 "Please create at least one language node before creating push notifications."
 msgstr ""
@@ -7033,9 +7074,6 @@ msgstr ""
 #~ msgid "value"
 #~ msgstr "Wert"
 
-#~ msgid "configuration"
-#~ msgstr "Einstellung"
-
 #~ msgid "configurations"
 #~ msgstr "Einstellungen"
 
@@ -7098,9 +7136,6 @@ msgstr ""
 
 #~ msgid "Show Versions"
 #~ msgstr "Versionen anzeigen"
-
-#~ msgid "Push Notification saved"
-#~ msgstr "Push-Benachrichtigung gespeichert"
 
 #~ msgid "imprint was successfully created and published"
 #~ msgstr "Impressum wurde erfolgreich erstellt und veröffentlicht"

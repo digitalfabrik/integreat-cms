@@ -136,6 +136,11 @@ function require_installed {
             # Set debug mode for
             INTEGREAT_CMS_DEBUG=1
             export INTEGREAT_CMS_DEBUG
+            # Set dummy FCM key to test functionality
+            if [[ -z "${INTEGREAT_CMS_FCM_KEY}" ]]; then
+                INTEGREAT_CMS_FCM_KEY="dummy"
+                export INTEGREAT_CMS_FCM_KEY
+            fi
         fi
     fi
 }
