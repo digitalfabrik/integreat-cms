@@ -8,6 +8,7 @@ UNRELEASED
 * [ [#1281](https://github.com/digitalfabrik/integreat-cms/issues/1281) ] Prevent the same push notification from being sent multiple times
 * [ [#760](https://github.com/digitalfabrik/integreat-cms/issues/760) ] Enable linking of push notifications to local news in native apps
 * [ [#1158](https://github.com/digitalfabrik/integreat-cms/issues/1158) ] Prefetch subpages in advance
+* [ [#1052](https://github.com/digitalfabrik/integreat-cms/issues/1052) ] Select all subpages when checking parent page
 
 
 2022.3.3
