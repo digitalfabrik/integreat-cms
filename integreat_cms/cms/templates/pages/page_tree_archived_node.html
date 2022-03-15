@@ -9,8 +9,8 @@
             <span class="cursor-move text-gray-800 inline-block pl-4 align-middle" title="{% trans 'Drag & drop is disabled for archived pages.' %}">
                 <i data-feather="move"></i>
             </span>
-            {% if not page.is_leaf %}
-                <span class="collapse-subpages cursor-pointer inline-block align-middle"
+            {% if page.cached_children|length > 0 %}
+                <span class="toggle-subpages cursor-pointer inline-block align-middle"
                   title="{% trans 'Expand all subpages' %}"
                   data-alt-title="{% trans 'Collapse all subpages' %}"
                   data-page-id="{{ page.id }}"

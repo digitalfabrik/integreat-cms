@@ -101,6 +101,7 @@ class PageTreeView(TemplateView, PageContextMixin):
         )
 
         if filter_data:
+            logger.debug("Page tree filtered with data %r", filter_data)
             # Set data for filter form rendering
             filter_form = PageFilterForm(data=filter_data)
             pages = self.filter_pages(pages, language_slug, filter_form)
@@ -183,4 +184,6 @@ class PageTreeView(TemplateView, PageContextMixin):
                     if translation_state and translation_state[1] in selected_status:
                         filtered_pages.append(page)
                 pages = filtered_pages
+        else:
+            filter_form.changed_data.clear()
         return pages

@@ -364,27 +364,21 @@ VIEWS = [
         {"region_slug": "nurnberg", "page_id": 8},
     ),
     (
-        [("get_page_children_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        [("get_page_tree_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
         # The kwargs for these views
         {
             "region_slug": "augsburg",
             "language_slug": "de",
             "tree_id": 2,
-            "lft": 1,
-            "rgt": 12,
-            "depth": 1,
         },
     ),
     (
-        [("get_page_children_ajax", STAFF_ROLES)],
+        [("get_page_tree_ajax", STAFF_ROLES)],
         # The kwargs for these views
         {
             "region_slug": "nurnberg",
             "language_slug": "de",
             "tree_id": 1,
-            "lft": 1,
-            "rgt": 14,
-            "depth": 1,
         },
     ),
     (

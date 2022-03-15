@@ -7,10 +7,15 @@ type EventHandler = (event: Event) => any;
 const handlers = new Map<HTMLElement, EventHandler>();
 
 window.addEventListener("load", () => {
-  addConfirmationDialogListeners();
+  // On the page tree, the event listeners are set after all subpages have been loaded
+  if (!document.querySelector("[data-delay-event-handlers]")) {
+    addConfirmationDialogListeners();
+  }
 });
 
 export function addConfirmationDialogListeners () {
+  if (!document.querySelector(".confirmation-button")) return;
+  console.debug("Set event handlers for confirmation popups");
   // event handler for showing confirmation popups
   document
     .querySelectorAll(".confirmation-button")
