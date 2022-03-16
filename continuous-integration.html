@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-07T17:22:10+00:00" />
+    <meta property="article:modified_time" content="2022-03-15T23:07:39+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Continuous Integration (CircleCI) &mdash; integreat-cms 2022.3.3 documentation</title>
+  <title>Continuous Integration (CircleCI) &mdash; integreat-cms 2022.3.4 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/integreat-icon.png"/>
@@ -140,7 +140,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#webpack">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pylint">pylint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#black">black</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-migrations">check-migrations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-test-reporter">setup-test-reporter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tests">tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upload-test-coverage">upload-test-coverage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#check-translations">check-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#compile-translations">compile-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bump-dev-version">bump-dev-version</a></li>
@@ -190,17 +193,18 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#unreleased">UNRELEASED</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">2022.3.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2022.3.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2022.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2022.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2022.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2022.2.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2022.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2022.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">2022.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2022.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2022.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2022.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2022.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2022.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2022.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2022.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2022.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#beta">2022.2.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2021.12.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2021.11.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2021.12.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">2021.11.0-beta</a></li>
 </ul>
 </li>
 </ul>
@@ -828,11 +832,22 @@ After that, it compiles all static files with webpack (<code class="docutils lit
 <h3>black<a class="headerlink" href="#black" title="Permalink to this headline"></a></h3>
 <p>This job executes <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">black</span> <span class="pre">--check</span> <span class="pre">.</span></code>, which checks whether the code matches the <a class="reference internal" href="code-style.html#black-code-style"><span class="std std-ref">Black</span></a> code style.</p>
 </section>
+<section id="check-migrations">
+<h3>check-migrations<a class="headerlink" href="#check-migrations" title="Permalink to this headline"></a></h3>
+<p>This job checks whether there are any changes to the models that need a database migration</p>
+</section>
+<section id="setup-test-reporter">
+<h3>setup-test-reporter<a class="headerlink" href="#setup-test-reporter" title="Permalink to this headline"></a></h3>
+<p>This job sets up the test coverage reporter for CodeClimate.</p>
+</section>
 <section id="tests">
 <h3>tests<a class="headerlink" href="#tests" title="Permalink to this headline"></a></h3>
-<p>This job runs the unit tests. It sets up a temporary postgres database and runs the migrations before testing.
-It uses the command <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">integreat-cms-cli</span> <span class="pre">test</span> <span class="pre">cms</span> <span class="pre">--set=COVERAGE</span></code> and
-passes the coverage in the <code class="docutils literal notranslate"><span class="pre">htmlcov</span></code> directory to the build artifacts.</p>
+<p>This job runs the tests in 16 parallel containers. It sets up a temporary postgres database and runs the migrations
+before testing. It runs pytest and passes the coverage in the <code class="docutils literal notranslate"><span class="pre">test-results</span></code> directory to the build artifacts.</p>
+</section>
+<section id="upload-test-coverage">
+<h3>upload-test-coverage<a class="headerlink" href="#upload-test-coverage" title="Permalink to this headline"></a></h3>
+<p>This job joins all separate coverage data files generated from the previous steps and uploads it to CodeClimate.</p>
 </section>
 <section id="check-translations">
 <h3>check-translations<a class="headerlink" href="#check-translations" title="Permalink to this headline"></a></h3>
@@ -847,7 +862,8 @@ does not contain any empty or fuzzy entries.</p>
 <h3>bump-dev-version<a class="headerlink" href="#bump-dev-version" title="Permalink to this headline"></a></h3>
 <p>This job modifies the <code class="docutils literal notranslate"><span class="pre">bumpver</span></code> config to make sure the changes are only temporary and not committed, then it bumps
 the version to the next alpha version which is not yet published on
-<a class="reference external" href="https://test.pypi.org/project/integreat-cms/#history">TestPyPI</a>.</p>
+<a class="reference external" href="https://test.pypi.org/project/integreat-cms/#history">TestPyPI</a>.
+This is only executed on develop (usually after PRs have been merged) or on branches that end with <code class="docutils literal notranslate"><span class="pre">-publish-dev-package</span></code>.</p>
 </section>
 <section id="build-package">
 <span id="circleci-build-package"></span><h3>build-package<a class="headerlink" href="#build-package" title="Permalink to this headline"></a></h3>
@@ -856,7 +872,8 @@ See <a class="reference internal" href="packaging.html"><span class="doc">Packag
 </section>
 <section id="publish-package">
 <span id="circleci-publish-package"></span><h3>publish-package<a class="headerlink" href="#publish-package" title="Permalink to this headline"></a></h3>
-<p>This job publishes the built package to <a class="reference external" href="https://test.pypi.org/project/integreat-cms/">TestPyPI</a> via <a class="reference external" href="https://twine.readthedocs.io/en/latest/index.html" title="(in twine v3.8)"><span>Twine</span></a>.</p>
+<p>This job publishes the built package to <a class="reference external" href="https://test.pypi.org/project/integreat-cms/">TestPyPI</a> via <a class="reference external" href="https://twine.readthedocs.io/en/latest/index.html" title="(in twine v3.8)"><span>Twine</span></a>.
+This is only executed on develop (usually after PRs have been merged) or on branches that end with <code class="docutils literal notranslate"><span class="pre">-publish-dev-package</span></code>.</p>
 </section>
 <section id="build-documentation">
 <h3>build-documentation<a class="headerlink" href="#build-documentation" title="Permalink to this headline"></a></h3>
@@ -911,7 +928,7 @@ changes to the main branch. Additionally, it merges the version bump commit into
 </section>
 <section id="id6">
 <h3>publish-package<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
-<p>See <a class="reference internal" href="#circleci-build-package"><span class="std std-ref">build-package</span></a>. The only difference is that PyPI is used as repository instead of TestPyPI.</p>
+<p>See <a class="reference internal" href="#circleci-publish-package"><span class="std std-ref">publish-package</span></a>. The only difference is that PyPI is used as repository instead of TestPyPI.</p>
 </section>
 <section id="create-release">
 <h3>create-release<a class="headerlink" href="#create-release" title="Permalink to this headline"></a></h3>
@@ -955,7 +972,7 @@ See <a class="reference internal" href="troubleshooting.html#troubleshooting-una
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 07, 2022.
+      <span class="lastupdated">Last updated on Mar 15, 2022.
       </span></p>
   </div>
 
