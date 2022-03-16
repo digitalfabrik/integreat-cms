@@ -2,6 +2,8 @@
 This module includes functions related to the push notification that are sent via firebase.
 """
 from django.http import JsonResponse
+from django.utils.formats import date_format
+from django.utils.timezone import localtime
 
 from ...cms.models import PushNotificationTranslation
 from ..decorators import json_response
@@ -52,5 +54,6 @@ def transform_notification(pnt):
         "id": str(pnt.pk),
         "title": pnt.title,
         "message": pnt.text,
-        "timestamp": pnt.push_notification.sent_date.strftime("%Y-%m-%d %H:%M:%S"),
+        "timestamp": date_format(localtime(pnt.last_updated), "Y-m-d H:i:s"),
+        "channel": pnt.push_notification.channel,
     }
