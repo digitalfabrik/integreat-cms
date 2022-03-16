@@ -12,6 +12,8 @@ import os
 from distutils.util import strtobool
 from urllib.parse import urlparse
 
+from django.utils.translation import ugettext_lazy as _
+
 from .logging_formatter import ColorFormatter
 
 
@@ -704,7 +706,7 @@ LINKCHECK_DISABLE_LISTENERS = bool(
 #############################
 
 #: The available push notification channels
-CHANNELS = (("news", "News"),)
+CHANNELS = (("news", _("News")),)
 
 
 #########################
