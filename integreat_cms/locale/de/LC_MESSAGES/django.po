@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-15 16:48+0000\n"
+"POT-Creation-Date: 2022-03-16 10:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: cms/constants/administrative_division.py:38
-#: cms/templates/pois/poi_list.html:62
+#: cms/templates/pois/poi_list.html:69
 #: cms/templates/pois/poi_list_archived.html:30
 msgid "City"
 msgstr "Stadt"
@@ -1579,7 +1579,7 @@ msgstr "Kategorie"
 
 #: cms/forms/feedback/region_feedback_filter_form.py:30
 #: cms/templates/events/event_form.html:67
-#: cms/templates/events/event_list.html:69
+#: cms/templates/events/event_list.html:76
 #: cms/templates/events/event_list_archived.html:46
 #: cms/templates/imprint/imprint_form.html:49
 #: cms/templates/imprint/imprint_revisions.html:46
@@ -1590,9 +1590,9 @@ msgstr "Kategorie"
 #: cms/templates/pages/page_form.html:90
 #: cms/templates/pages/page_revisions.html:50
 #: cms/templates/pages/page_sbs.html:59 cms/templates/pages/page_sbs.html:115
-#: cms/templates/pages/page_sbs.html:121 cms/templates/pages/page_tree.html:78
+#: cms/templates/pages/page_sbs.html:121 cms/templates/pages/page_tree.html:81
 #: cms/templates/pages/page_tree_archived.html:61
-#: cms/templates/pois/poi_form.html:57 cms/templates/pois/poi_list.html:59
+#: cms/templates/pois/poi_form.html:57 cms/templates/pois/poi_list.html:66
 #: cms/templates/pois/poi_list_archived.html:23
 #: cms/templates/push_notifications/push_notification_form.html:110
 #: cms/templates/regions/region_list.html:24
@@ -1686,7 +1686,7 @@ msgstr "Quell-Region für Live-Inhalte"
 
 #: cms/forms/pages/page_form.py:44
 msgid "Enable write access via API for this page"
-msgstr "Schreib-Zugriff via API-Zugriff für diese Seite aktivieren"
+msgstr "Schreib-Zugriff via API für diese Seite aktivieren"
 
 #: cms/forms/regions/region_form.py:28
 msgid "Do no import initial content"
@@ -2459,16 +2459,16 @@ msgstr "Ob die Seite explizit archiviert ist oder nicht"
 
 #: cms/models/pages/abstract_base_page_translation.py:71
 #: cms/templates/events/event_form.html:27
-#: cms/templates/events/event_list.html:52
-#: cms/templates/events/event_list.html:56
+#: cms/templates/events/event_list.html:59
+#: cms/templates/events/event_list.html:63
 #: cms/templates/events/event_list_archived.html:29
 #: cms/templates/events/event_list_archived.html:33
-#: cms/templates/pages/page_form.html:29 cms/templates/pages/page_tree.html:60
-#: cms/templates/pages/page_tree.html:64
+#: cms/templates/pages/page_form.html:29 cms/templates/pages/page_tree.html:63
+#: cms/templates/pages/page_tree.html:67
 #: cms/templates/pages/page_tree_archived.html:44
 #: cms/templates/pages/page_tree_archived.html:48
-#: cms/templates/pois/poi_form.html:27 cms/templates/pois/poi_list.html:43
-#: cms/templates/pois/poi_list.html:45
+#: cms/templates/pois/poi_form.html:27 cms/templates/pois/poi_list.html:50
+#: cms/templates/pois/poi_list.html:52
 #: cms/templates/pois/poi_list_archived.html:24
 #: cms/templates/pois/poi_list_archived.html:26
 msgid "Title in"
@@ -3566,7 +3566,7 @@ msgid "Time range"
 msgstr "Zeitraum"
 
 #: cms/templates/events/_event_filter_form.html:32
-#: cms/templates/events/event_list.html:70
+#: cms/templates/events/event_list.html:77
 #: cms/templates/events/event_list_archived.html:47
 msgid "Event location"
 msgstr "Veranstaltungsort"
@@ -3744,62 +3744,71 @@ msgid "Hide filters"
 msgstr "Filter ausblenden"
 
 #: cms/templates/events/event_list.html:32
+#: cms/templates/events/event_list.html:39
 msgid "Create event"
 msgstr "Veranstaltung erstellen"
 
-#: cms/templates/events/event_list.html:71
+#: cms/templates/events/event_list.html:35
+#, python-format
+msgid ""
+"You can only create events in the default language (%(default_language)s)."
+msgstr ""
+"Sie können Veranstaltungen nur in der Standard-Sprache "
+"(%(default_language)s) anlegen."
+
+#: cms/templates/events/event_list.html:78
 #: cms/templates/events/event_list_archived.html:48
 msgid "Start"
 msgstr "Beginn"
 
-#: cms/templates/events/event_list.html:72
+#: cms/templates/events/event_list.html:79
 #: cms/templates/events/event_list_archived.html:49
 msgid "End"
 msgstr "Ende"
 
-#: cms/templates/events/event_list.html:73
+#: cms/templates/events/event_list.html:80
 #: cms/templates/events/event_list_archived.html:50
 msgid "Recurrence"
 msgstr "Wiederholung"
 
-#: cms/templates/events/event_list.html:74
+#: cms/templates/events/event_list.html:81
 #: cms/templates/events/event_list_archived.html:51
 #: cms/templates/languages/language_list.html:30
 #: cms/templates/offertemplates/offertemplate_list.html:26
 #: cms/templates/organizations/organization_list.html:23
-#: cms/templates/pages/page_tree.html:80
+#: cms/templates/pages/page_tree.html:83
 #: cms/templates/pages/page_tree_archived.html:63
-#: cms/templates/pois/poi_list.html:64
+#: cms/templates/pois/poi_list.html:71
 #: cms/templates/pois/poi_list_archived.html:32
 #: cms/templates/roles/role_list.html:20
 msgid "Options"
 msgstr "Optionen"
 
-#: cms/templates/events/event_list.html:87
+#: cms/templates/events/event_list.html:94
 msgid "No events found with these filters."
 msgstr "Keine Veranstaltungen mit diesen Filtern gefunden."
 
-#: cms/templates/events/event_list.html:89
+#: cms/templates/events/event_list.html:96
 msgid "No upcoming events available."
 msgstr "Keine zukünftigen Veranstaltungen vorhanden."
 
-#: cms/templates/events/event_list.html:98
+#: cms/templates/events/event_list.html:105
 #: cms/templates/feedback/admin_feedback_list.html:128
 #: cms/templates/feedback/region_feedback_list.html:123
 #: cms/templates/linkcheck/links_by_filter.html:72
-#: cms/templates/pages/page_tree.html:120 cms/templates/pois/poi_list.html:87
+#: cms/templates/pages/page_tree.html:123 cms/templates/pois/poi_list.html:94
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
-#: cms/templates/events/event_list.html:100 cms/templates/pois/poi_list.html:91
+#: cms/templates/events/event_list.html:107 cms/templates/pois/poi_list.html:98
 msgid "Create missing translations automatically"
 msgstr "Fehlende Übersetzungen automatisch erstellen"
 
-#: cms/templates/events/event_list.html:103
+#: cms/templates/events/event_list.html:110
 #: cms/templates/feedback/admin_feedback_list.html:135
 #: cms/templates/feedback/region_feedback_list.html:137
 #: cms/templates/linkcheck/links_by_filter.html:80
-#: cms/templates/pages/page_tree.html:147 cms/templates/pois/poi_list.html:95
+#: cms/templates/pages/page_tree.html:150 cms/templates/pois/poi_list.html:102
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -4156,7 +4165,7 @@ msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
 #: cms/templates/language_tree/language_tree.html:21
-#: cms/templates/pages/page_tree.html:58
+#: cms/templates/pages/page_tree.html:61
 #: cms/templates/pages/page_tree_archived.html:42
 msgid "Hierarchy"
 msgstr "Hierarchie"
@@ -4297,7 +4306,7 @@ msgstr "Erstellt"
 #: cms/templates/languages/language_list.html:28
 #: cms/templates/offertemplates/offertemplate_list.html:23
 #: cms/templates/pages/_page_xliff_import_diff.html:36
-#: cms/templates/pages/page_tree.html:79
+#: cms/templates/pages/page_tree.html:82
 #: cms/templates/pages/page_tree_archived.html:62
 #: cms/templates/push_notifications/push_notification_list.html:44
 #: cms/templates/regions/region_list.html:23
@@ -4664,49 +4673,52 @@ msgstr "Seiten-Baum"
 msgid "Archived pages"
 msgstr "Archivierte Seiten"
 
-#: cms/templates/pages/page_tree.html:34 cms/templates/pages/page_tree.html:38
+#: cms/templates/pages/page_tree.html:34 cms/templates/pages/page_tree.html:41
 msgid "Create page"
 msgstr "Seite erstellen"
 
 #: cms/templates/pages/page_tree.html:37
-msgid "You can only create pages in the default language"
-msgstr "Sie können Seiten nur in der Standard-Sprache anlegen"
+#, python-format
+msgid ""
+"You can only create pages in the default language (%(default_language)s)."
+msgstr ""
+"Sie können Seiten nur in der Standard-Sprache (%(default_language)s) anlegen."
 
-#: cms/templates/pages/page_tree.html:66
+#: cms/templates/pages/page_tree.html:69
 msgid "Tags"
 msgstr "Tags"
 
-#: cms/templates/pages/page_tree.html:94
+#: cms/templates/pages/page_tree.html:97
 msgid "No pages found with these filters."
 msgstr "Keine Seiten mit diesen Filtern gefunden."
 
-#: cms/templates/pages/page_tree.html:96
+#: cms/templates/pages/page_tree.html:99
 msgid "No pages available yet."
 msgstr "Noch keine Seiten vorhanden."
 
-#: cms/templates/pages/page_tree.html:109
+#: cms/templates/pages/page_tree.html:112
 msgid "Expand all"
 msgstr "Alle ausklappen"
 
-#: cms/templates/pages/page_tree.html:113
+#: cms/templates/pages/page_tree.html:116
 msgid "Collapse all"
 msgstr "Alle einklappen"
 
-#: cms/templates/pages/page_tree.html:121
+#: cms/templates/pages/page_tree.html:124
 msgid "Archive pages"
 msgstr "Seiten archivieren"
 
-#: cms/templates/pages/page_tree.html:126
+#: cms/templates/pages/page_tree.html:129
 msgid "Export published pages as PDF"
 msgstr "Veröffentlichte Seiten als PDF exportieren"
 
-#: cms/templates/pages/page_tree.html:130
+#: cms/templates/pages/page_tree.html:133
 #, python-format
 msgid "Export all pages for %(language_translated_name)s translation"
 msgstr ""
 "Alle Seiten für die %(language_translated_name)s-Übersetzung exportieren"
 
-#: cms/templates/pages/page_tree.html:131
+#: cms/templates/pages/page_tree.html:134
 #, python-format
 msgid ""
 "Export only published pages for %(language_translated_name)s translation"
@@ -4714,27 +4726,27 @@ msgstr ""
 "Nur veröffentlichte Seiten für die %(language_translated_name)s-Übersetzung "
 "exportieren"
 
-#: cms/templates/pages/page_tree.html:133
+#: cms/templates/pages/page_tree.html:136
 msgid "You cannot export XLIFF files for the default language"
 msgstr "Sie können keine XLIFF-Dateien für die Standard-Sprache exportieren"
 
-#: cms/templates/pages/page_tree.html:152
+#: cms/templates/pages/page_tree.html:155
 msgid "Import XLIFF files"
 msgstr "XLIFF-Dateien importieren"
 
-#: cms/templates/pages/page_tree.html:153
+#: cms/templates/pages/page_tree.html:156
 msgid "Supported file extensions"
 msgstr "Unterstützte Dateiendungen"
 
-#: cms/templates/pages/page_tree.html:158
+#: cms/templates/pages/page_tree.html:161
 msgid "Select files"
 msgstr "Dateien auswählen"
 
-#: cms/templates/pages/page_tree.html:160
+#: cms/templates/pages/page_tree.html:163
 msgid "and {} other files"
 msgstr "und {} weitere Dateien"
 
-#: cms/templates/pages/page_tree.html:163
+#: cms/templates/pages/page_tree.html:166
 msgid "Import"
 msgstr "Importieren"
 
@@ -4904,30 +4916,37 @@ msgstr "Diesen Ort löschen"
 msgid "Archived locations"
 msgstr "Archivierte Orte"
 
-#: cms/templates/pois/poi_list.html:28
+#: cms/templates/pois/poi_list.html:28 cms/templates/pois/poi_list.html:35
 msgid "Create location"
 msgstr "Ort erstellen"
 
-#: cms/templates/pois/poi_list.html:60
+#: cms/templates/pois/poi_list.html:31
+#, python-format
+msgid ""
+"You can only create locations in the default language (%(default_language)s)."
+msgstr ""
+"Sie können Orte nur in der Standard-Sprache (%(default_language)s) anlegen."
+
+#: cms/templates/pois/poi_list.html:67
 #: cms/templates/pois/poi_list_archived.html:28
 msgid "Street"
 msgstr "Straße"
 
-#: cms/templates/pois/poi_list.html:61
+#: cms/templates/pois/poi_list.html:68
 #: cms/templates/pois/poi_list_archived.html:29
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
-#: cms/templates/pois/poi_list.html:63
+#: cms/templates/pois/poi_list.html:70
 #: cms/templates/pois/poi_list_archived.html:31
 msgid "Country"
 msgstr "Land"
 
-#: cms/templates/pois/poi_list.html:75
+#: cms/templates/pois/poi_list.html:82
 msgid "No locations found with these filters."
 msgstr "Keine Orte mit diesen Filtern gefunden."
 
-#: cms/templates/pois/poi_list.html:77
+#: cms/templates/pois/poi_list.html:84
 msgid "No locations available yet."
 msgstr "Noch keine Orte vorhanden."
 
@@ -6352,11 +6371,6 @@ msgstr "Ort \"{}\" wurde erfolgreich erstellt"
 msgid "Please create at least one language node before creating locations."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Orte verwalten."
-
-#: cms/views/pois/poi_list_view.py:102
-#, python-format
-msgid "You can only create locations in the default language (%(language)s)."
-msgstr "Sie können Orte nur in der Standard-Sprache (%(language)s) anlegen"
 
 #: cms/views/push_notifications/push_notification_form_view.py:61
 #: cms/views/push_notifications/push_notification_list_view.py:53
