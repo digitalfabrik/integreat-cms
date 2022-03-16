@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1301](https://github.com/digitalfabrik/integreat-cms/issues/1301) ] Fix order of push notifications
+
 
 2022.3.4
 --------

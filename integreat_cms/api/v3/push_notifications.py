@@ -30,6 +30,7 @@ def sent_push_notifications(request, region_slug, language_slug):
         )
         .filter(push_notification__sent_date__isnull=False)
         .filter(language__slug=language_slug)
+        .order_by("-last_updated")
     )
     if channel != "all":
         query_result = query_result.filter(push_notification__channel=channel)

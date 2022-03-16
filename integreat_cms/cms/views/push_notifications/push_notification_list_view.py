@@ -103,7 +103,7 @@ class PushNotificationListView(TemplateView):
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(push_notifications.order_by("created_date"), chunk_size)
+        paginator = Paginator(push_notifications, chunk_size)
         chunk = request.GET.get("page")
         push_notifications_chunk = paginator.get_page(chunk)
         return render(
