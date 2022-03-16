@@ -27,6 +27,13 @@
                    class="btn">
                     {% trans 'Create location' %}
                 </a>
+            {% else %}
+                {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
+                    You can only create locations in the default language ({{ default_language }}).
+                {% endblocktrans %}
+                <button title="{{ disabled_button_title }}" class="btn" disabled>
+                    {% trans 'Create location' %}
+                </button>
             {% endif %}
         </div>
     </div>

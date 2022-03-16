@@ -34,7 +34,10 @@
                         {% trans 'Create page' %}
                     </a>
                 {% else %}
-                    <button title="{% trans 'You can only create pages in the default language' %} {{ request.region.default_language.translated_name }}." class="btn" disabled>
+                    {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
+                        You can only create pages in the default language ({{ default_language }}).
+                    {% endblocktrans %}
+                    <button title="{{ disabled_button_title }}" class="btn" disabled>
                         {% trans 'Create page' %}
                     </button>
                 {% endif %}
