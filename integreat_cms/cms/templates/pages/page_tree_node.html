@@ -9,7 +9,7 @@
     <td class="pl-4">
         <input type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item cursor-wait">
     </td>
-    {% if not filter_form.has_changed %}
+    {% if not filter_form.is_enabled %}
         <td class="hierarchy single_icon whitespace-nowrap">
             <span data-drag-id="{{ page.id }}"
                   data-node-descendants="{{ page|get_descendant_ids }}"
