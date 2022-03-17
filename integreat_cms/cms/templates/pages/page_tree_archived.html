@@ -38,7 +38,7 @@
         <table data-activate-tree-drag-drop class="w-full mt-4 rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
-                    {% if not filter_form.has_changed %}
+                    {% if not filter_form.is_enabled %}
                         <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'Hierarchy' %}</th>
                     {% endif %}
                     <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
@@ -70,7 +70,7 @@
                 {% empty %}
                     <tr>
                         <td colspan="7" class="px-4 py-3">
-                            {% if filter_form.has_changed %}
+                            {% if filter_form.is_enabled %}
                                 {% trans 'No archived pages found with these filters.' %}
                             {% else %}
                                 {% trans 'No pages archived yet.' %}
