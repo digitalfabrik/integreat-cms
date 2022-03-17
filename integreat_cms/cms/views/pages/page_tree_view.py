@@ -106,7 +106,7 @@ class PageTreeView(TemplateView, PageContextMixin):
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
 
-        response = render(
+        return render(
             request,
             self.template_name,
             {
@@ -118,6 +118,3 @@ class PageTreeView(TemplateView, PageContextMixin):
                 "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
             },
         )
-        # Disable browser cache of page tree to prevent subpages from being expanded after using "back"-button
-        response["Cache-Control"] = "no-store, must-revalidate"
-        return response
