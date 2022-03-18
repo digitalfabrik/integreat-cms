@@ -43,7 +43,7 @@ export default function EditDirectorySidebar({
 
   {
     return (
-      <div className="absolute w-full h-full flex flex-col rounded border border-blue-500 bg-white border-solid shadow-2xl">
+      <div className="2xl:absolute w-full h-full flex flex-col rounded border border-blue-500 bg-white border-solid shadow-2xl">
         <div class="rounded w-full p-4 bg-water-500 font-bold">
           <Sliders class="mr-1 inline-block h-5" />
           {mediaTranslations.heading_directory_properties}
@@ -134,10 +134,9 @@ export default function EditDirectorySidebar({
                     data-confirmation-title={mediaTranslations.text_dir_delete_confirm}
                     data-confirmation-subject={directory.name}
                     disabled={isLoading || directory.numberOfEntries !== 0}
-                    onClick={(event) =>
-                      showConfirmationPopupAjax(event, () =>
+                    onClick={showConfirmationPopupAjax}
+                    onaction-confirmed={() =>
                         document.getElementById("delete-directory").click()
-                      )
                     }
                   >
                     <Trash2 class="mr-2 inline-block h-5" />

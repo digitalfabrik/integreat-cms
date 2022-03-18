@@ -86,7 +86,7 @@ export default function EditSidebar({
   }, [file]);
 
   return (
-    <div className="absolute w-full h-full flex flex-col rounded border border-blue-500 shadow-2xl bg-white">
+    <div className="2xl:absolute w-full h-full flex flex-col rounded border border-blue-500 shadow-2xl bg-white">
       <div class="rounded w-full p-4 bg-water-500 font-bold">
         <div class="flex flex-row justify-between">
           <span>
@@ -208,6 +208,10 @@ export default function EditSidebar({
             <p>{file.typeDisplay}</p>
           </div>
           <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
+            <label class="secondary my-0">{mediaTranslations.label_file_size}</label>
+            <p>{file.fileSize}</p>
+          </div>
+          <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
             <label class="secondary my-0">{mediaTranslations.label_file_uploaded}</label>
             <p>{file.uploadedDate}</p>
           </div>
@@ -255,10 +259,9 @@ export default function EditSidebar({
                   data-confirmation-title={mediaTranslations.text_file_delete_confirm}
                   data-confirmation-subject={file.name}
                   disabled={isLoading}
-                  onClick={(event) =>
-                    showConfirmationPopupAjax(event, () =>
+                  onClick={showConfirmationPopupAjax}
+                  onaction-confirmed={() =>
                       document.getElementById("delete-file").click()
-                    )
                   }
                 >
                   <Trash2 class="inline-block" />

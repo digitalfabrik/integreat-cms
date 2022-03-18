@@ -251,7 +251,7 @@ export default function Library({
       <div className="flex flex-1 flex-col-reverse relative lg:flex-row gap-4 mt-4">
         <div className="relative flex-1">
           <div
-            className="absolute w-full h-full flex flex-col bg-white border border-blue-500 shadow-2xl rounded"
+            className="2xl:absolute w-full h-full flex flex-col bg-white border border-blue-500 shadow-2xl rounded"
             onClick={() => setFileIndex(null)}
           >
             <div class="rounded w-full bg-water-500 font-bold">
