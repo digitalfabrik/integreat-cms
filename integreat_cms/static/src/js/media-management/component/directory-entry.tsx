@@ -4,7 +4,6 @@
 import { Folder, Lock } from "preact-feather";
 
 import { Directory } from "../index";
-import cn from "classnames";
 
 interface Props {
   directory: Directory;
@@ -22,7 +21,9 @@ export default function DirectoryEntry({
   return (
     <div
       title={mediaTranslations.btn_enter_directory}
-      className={"cursor-pointer hover:text-blue-500 flex flex-col justify-between h-full p-2"}
+      className={
+        "relative cursor-pointer hover:text-blue-500 flex flex-col justify-between h-full p-2"
+      }
       onClick={onClick}
     >
       <Folder className={"w-full h-24 flex-none"} />

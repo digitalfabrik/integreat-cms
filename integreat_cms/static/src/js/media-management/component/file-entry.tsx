@@ -14,18 +14,12 @@ interface Props {
   globalEdit?: boolean;
 }
 
-export default function FileEntry({
-  file,
-  active,
-  onClick,
-  mediaTranslations,
-  globalEdit,
-}: Props) {
+export default function FileEntry({ file, active, onClick, mediaTranslations, globalEdit }: Props) {
   return (
     <div
       title={mediaTranslations.btn_show_file}
       className={cn(
-        "w-full flex flex-col justify-between cursor-pointer border-2 rounded border-white p-2 overflow-hidden",
+        "relative w-full flex flex-col justify-between cursor-pointer border-2 rounded border-white p-2 overflow-hidden",
         { "border-blue-500": active },
         { "hover:border-blue-200": !active }
       )}
