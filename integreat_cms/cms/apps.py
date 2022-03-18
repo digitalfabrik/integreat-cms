@@ -23,6 +23,11 @@ class CmsConfig(AppConfig):
 
     name = "integreat_cms.cms"
 
+    # pylint: disable=unused-import,import-outside-toplevel
+    def ready(self):
+        # Implicitly connect a signal handlers decorated with @receiver.
+        from .signals import feedback_signals
+
 
 authlog = logging.getLogger("auth")
 

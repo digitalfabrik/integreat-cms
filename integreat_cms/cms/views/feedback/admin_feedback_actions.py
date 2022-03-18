@@ -8,6 +8,8 @@ from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
+from cacheops import invalidate_obj
+
 from ...decorators import permission_required
 from ...models import Feedback
 
@@ -28,9 +30,12 @@ def mark_admin_feedback_as_read(request):
     """
 
     selected_ids = request.POST.getlist("selected_ids[]")
-    Feedback.objects.filter(id__in=selected_ids, is_technical=True).update(
-        read_by=request.user
-    )
+    selected_feedback = Feedback.objects.filter(id__in=selected_ids, is_technical=True)
+    for feedback in selected_feedback:
+        invalidate_obj(feedback)
+        if hasattr(feedback, "feedback_ptr"):
+            invalidate_obj(feedback.feedback_ptr)
+    selected_feedback.update(read_by=request.user)
 
     logger.debug("Feedback objects %r marked as read by %r", selected_ids, request.user)
     messages.success(request, _("Feedback was successfully marked as read"))
@@ -52,7 +57,12 @@ def mark_admin_feedback_as_unread(request):
     """
 
     selected_ids = request.POST.getlist("selected_ids[]")
-    Feedback.objects.filter(id__in=selected_ids, is_technical=True).update(read_by=None)
+    selected_feedback = Feedback.objects.filter(id__in=selected_ids, is_technical=True)
+    for feedback in selected_feedback:
+        invalidate_obj(feedback)
+        if hasattr(feedback, "feedback_ptr"):
+            invalidate_obj(feedback.feedback_ptr)
+    selected_feedback.update(read_by=None)
 
     logger.debug(
         "Feedback objects %r marked as unread by %r", selected_ids, request.user
