@@ -43,128 +43,127 @@ export default function EditDirectorySidebar({
 
   {
     return (
-      <div className="w-full lg:w-96 2xl:w-120 rounded border border-blue-500 bg-white border-solid shadow-2xl">
+      <div className="absolute w-full h-full flex flex-col rounded border border-blue-500 bg-white border-solid shadow-2xl">
         <div class="rounded w-full p-4 bg-water-500 font-bold">
           <Sliders class="mr-1 inline-block h-5" />
           {mediaTranslations.heading_directory_properties}
         </div>
-        <div class="items-center align-middle w-full">
-          <div class="flex items-center">
-            <Folder className="w-full h-36 align-middle mt-4" />
+        <div className="flex-1 overflow-auto">
+          <div class="items-center align-middle w-full">
+            <div class="flex items-center">
+              <Folder className="w-full h-36 align-middle mt-4" />
+            </div>
           </div>
+          <form
+            onSubmit={submitForm}
+            action={apiEndpoints.editDirectory}
+            encType="multipart/form-data"
+          >
+            <input name="id" type="hidden" value={directory.id} />
+            <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-t border-b">
+              <label
+                for="directory-name-input"
+                className={cn("secondary my-0", { "cursor-auto": !isEditingAllowed })}
+                onClick={() =>
+                  isEditingAllowed &&
+                  !isLoading &&
+                  setDirectoryNameEditable(!isDirectoryNameEditable)
+                }
+              >
+                {mediaTranslations.label_directory_name}
+              </label>
+              {!isDirectoryNameEditable && (
+                <p class="break-all">
+                  {directory.name}
+                  {isEditingAllowed && (
+                    <button
+                      class="hover:text-blue-500 ml-1 h-5"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setDirectoryNameEditable(true);
+                      }}
+                      disabled={isLoading}
+                    >
+                      <Edit3 class="inline-block" />
+                    </button>
+                  )}
+                </p>
+              )}
+              <input
+                id="directory-name-input"
+                name="name"
+                type={isDirectoryNameEditable ? "text" : "hidden"}
+                value={changedDirectory.name}
+                onInput={({ target }) =>
+                  setChangedDirectory({
+                    ...changedDirectory,
+                    name: (target as HTMLInputElement).value,
+                  })
+                }
+                disabled={isLoading}
+                required
+              />
+            </div>
+            <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
+              <label class="secondary my-0">{mediaTranslations.label_directory_created}</label>
+              <p>{directory.CreatedDate}</p>
+            </div>
+            <div class="p-4">
+              {isEditingAllowed ? (
+                <div class="flex flex-col gap-4">
+                  {isDirectoryNameEditable && (
+                    <button
+                      title={mediaTranslations.btn_rename_directory}
+                      class="btn"
+                      type="submit"
+                      disabled={isLoading}
+                    >
+                      <Save class="mr-1 inline-block h-5" />
+                      {mediaTranslations.btn_rename_directory}
+                    </button>
+                  )}
+                  <button
+                    title={`${
+                      directory.numberOfEntries === 0
+                        ? mediaTranslations.btn_delete_directory
+                        : mediaTranslations.btn_delete_empty_directory
+                    }`}
+                    className={cn("btn", {
+                      "btn-red": !isLoading && directory.numberOfEntries === 0,
+                    })}
+                    data-confirmation-title={mediaTranslations.text_dir_delete_confirm}
+                    data-confirmation-subject={directory.name}
+                    disabled={isLoading || directory.numberOfEntries !== 0}
+                    onClick={(event) =>
+                      showConfirmationPopupAjax(event, () =>
+                        document.getElementById("delete-directory").click()
+                      )
+                    }
+                  >
+                    <Trash2 class="mr-2 inline-block h-5" />
+                    {mediaTranslations.btn_delete_directory}
+                  </button>
+                </div>
+              ) : (
+                <p class="italic">
+                  <Lock class="mr-1 inline-block h-5" />
+                  {mediaTranslations.text_dir_readonly}
+                </p>
+              )}
+            </div>
+          </form>
+          {/* Hidden form for directory deletion (on success, redirect to parent directory) */}
+          <form
+            onSubmit={(event: Event) =>
+              submitForm(event, () => route(`${directory.parentId && "/"}${directory.parentId}/`))
+            }
+            action={apiEndpoints.deleteDirectory}
+            class="hidden"
+          >
+            <input name="id" type="hidden" value={directory.id} />
+            <button id="delete-directory" />
+          </form>
         </div>
-        <form
-          onSubmit={submitForm}
-          action={apiEndpoints.editDirectory}
-          encType="multipart/form-data"
-        >
-          <input name="id" type="hidden" value={directory.id} />
-          <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-t border-b">
-            <label
-              for="directory-name-input"
-              className={cn("secondary my-0", { "cursor-auto": !isEditingAllowed })}
-              onClick={() =>
-                isEditingAllowed &&
-                !isLoading &&
-                setDirectoryNameEditable(!isDirectoryNameEditable)
-              }
-            >
-              {mediaTranslations.label_directory_name}
-            </label>
-            {!isDirectoryNameEditable && (
-              <p class="break-all">
-                {directory.name}
-                {isEditingAllowed && (
-                  <button
-                    class="hover:text-blue-500 ml-1 h-5"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setDirectoryNameEditable(true);
-                    }}
-                    disabled={isLoading}
-                  >
-                    <Edit3 class="inline-block" />
-                  </button>
-                )}
-              </p>
-            )}
-            <input
-              id="directory-name-input"
-              name="name"
-              type={isDirectoryNameEditable ? "text" : "hidden"}
-              value={changedDirectory.name}
-              onInput={({ target }) =>
-                setChangedDirectory({
-                  ...changedDirectory,
-                  name: (target as HTMLInputElement).value,
-                })
-              }
-              disabled={isLoading}
-              required
-            />
-          </div>
-          <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
-            <label class="secondary my-0">
-              {mediaTranslations.label_directory_created}
-            </label>
-            <p>{directory.CreatedDate}</p>
-          </div>
-          <div class="p-4">
-            {isEditingAllowed ? (
-              <div class="flex flex-col gap-4">
-                {isDirectoryNameEditable && (
-                  <button
-                    title={mediaTranslations.btn_rename_directory}
-                    class="btn"
-                    type="submit"
-                    disabled={isLoading}
-                  >
-                    <Save class="mr-1 inline-block h-5" />
-                    {mediaTranslations.btn_rename_directory}
-                  </button>
-                )}
-                <button
-                  title={`${
-                    directory.numberOfEntries === 0
-                      ? mediaTranslations.btn_delete_directory
-                      : mediaTranslations.btn_delete_empty_directory
-                  }`}
-                  className={cn("btn", {
-                    "btn-red": !isLoading && directory.numberOfEntries === 0,
-                  })}
-                  data-confirmation-title={mediaTranslations.text_dir_delete_confirm}
-                  data-confirmation-subject={directory.name}
-                  disabled={isLoading || directory.numberOfEntries !== 0}
-                  onClick={(event) => showConfirmationPopupAjax(event)}
-                  onAction-confirmed={() =>
-                    document.getElementById("delete-directory").click()
-                  }
-                >
-                  <Trash2 class="mr-2 inline-block h-5" />
-                  {mediaTranslations.btn_delete_directory}
-                </button>
-              </div>
-            ) : (
-              <p class="italic">
-                <Lock class="mr-1 inline-block h-5" />
-                {mediaTranslations.text_dir_readonly}
-              </p>
-            )}
-          </div>
-        </form>
-        {/* Hidden form for directory deletion (on success, redirect to parent directory) */}
-        <form
-          onSubmit={(event: Event) =>
-            submitForm(event, () =>
-              route(`${directory.parentId && "/"}${directory.parentId}/`)
-            )
-          }
-          action={apiEndpoints.deleteDirectory}
-          class="hidden"
-        >
-          <input name="id" type="hidden" value={directory.id} />
-          <button id="delete-directory" />
-        </form>
       </div>
     );
   }

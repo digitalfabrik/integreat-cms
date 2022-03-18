@@ -13,21 +13,24 @@ window.addEventListener("load", () => {
   }
 });
 
-export function addConfirmationDialogListeners () {
+export function addConfirmationDialogListeners() {
   if (!document.querySelector(".confirmation-button")) return;
   console.debug("Set event handlers for confirmation popups");
   // event handler for showing confirmation popups
   document
     .querySelectorAll(".confirmation-button")
-    .forEach((button) =>
-      on(button, "click", showConfirmationPopup)
-    );
-  document.getElementById("close-confirmation-popup")?.addEventListener("click", closeConfirmationPopup);
+    .forEach((button) => on(button, "click", showConfirmationPopup));
+  document
+    .getElementById("close-confirmation-popup")
+    ?.addEventListener("click", closeConfirmationPopup);
 }
 
 // Configures all objects that match `selector` to show a confirmation dialog on click.
 // On confirm `handler` gets invoked.
-export function refreshAjaxConfirmationHandlers(selector: string, handler: (e: Event) => Promise<any> | void) {
+export function refreshAjaxConfirmationHandlers(
+  selector: string,
+  handler: (e: Event) => Promise<any> | void
+) {
   const elements = document.querySelectorAll(selector);
 
   elements.forEach((button) => {
@@ -35,24 +38,21 @@ export function refreshAjaxConfirmationHandlers(selector: string, handler: (e: E
     on(button, "click", showConfirmationPopupAjax);
 
     off(button, "action-confirmed");
-    on(button, "action-confirmed", handler)
+    on(button, "action-confirmed", handler);
   });
-
 }
 
 export function showConfirmationPopup(event: Event): HTMLElement {
   event.preventDefault();
   const button = (event.target as HTMLElement).closest("button");
   // Set confirmation data
-  document.getElementById(
-    "confirmation-subject"
-  ).textContent = button.getAttribute("data-confirmation-subject");
-  document.getElementById("confirmation-title").textContent = button.getAttribute(
-    "data-confirmation-title"
+  document.getElementById("confirmation-subject").textContent = button.getAttribute(
+    "data-confirmation-subject"
   );
-  document.getElementById("confirmation-text").textContent = button.getAttribute(
-    "data-confirmation-text"
-  );
+  document.getElementById("confirmation-title").textContent =
+    button.getAttribute("data-confirmation-title");
+  document.getElementById("confirmation-text").textContent =
+    button.getAttribute("data-confirmation-text");
   const confirmationPopup = document.getElementById("confirmation-dialog");
   confirmationPopup
     .querySelector("form")
@@ -65,18 +65,19 @@ export function showConfirmationPopup(event: Event): HTMLElement {
 }
 
 // If ajax mode is enabled, trigger custom event instead of submitting the form
-export function showConfirmationPopupAjax(event: Event) {
+export function showConfirmationPopupAjax(event: Event, onConfirm = () => {}) {
   const confirmationPopup = showConfirmationPopup(event);
 
   const button = (event.target as HTMLElement).closest("button");
-  const handler = (event: Event) => handleSubmit(event, button);
+  const handler = (event: Event) => handleSubmit(event, button, onConfirm);
   handlers.set(confirmationPopup, handler);
   confirmationPopup.querySelector("form").addEventListener("submit", handler);
 }
 
-function handleSubmit(event: Event, button: HTMLButtonElement) {
+function handleSubmit(event: Event, button: HTMLButtonElement, onConfirm: () => any) {
   // Trigger the custom "action-confirmed" event of the source button
   button.dispatchEvent(new Event("action-confirmed"));
+  onConfirm();
   // Close conformation popup
   closeConfirmationPopupAjax(event);
 }
