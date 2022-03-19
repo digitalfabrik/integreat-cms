@@ -8,6 +8,7 @@ UNRELEASED
 * [ [#1195](https://github.com/digitalfabrik/integreat-cms/issues/1195) ] Insert full images into content instead of thumbnails
 * [ [#1181](https://github.com/digitalfabrik/integreat-cms/issues/1181) ] Scroll media library and sidebar independently of each other
 * [ [#1279](https://github.com/digitalfabrik/integreat-cms/issues/1279) ] Fix error in news form when submitted without data
+* [ [#1055](https://github.com/digitalfabrik/integreat-cms/issues/1055) ] Add bulk actions for archiving/restoring pages, events and locations
 
 
 2022.3.4

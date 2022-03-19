@@ -17,7 +17,10 @@ from .page_actions import (
     render_mirrored_page_field,
     cancel_translation_process_ajax,
 )
-from .page_bulk_actions import GeneratePdfView, ExportXliffView
+from .page_bulk_actions import (
+    GeneratePdfView,
+    ExportXliffView,
+)
 from .page_sbs_view import PageSideBySideView
 from .page_revision_view import PageRevisionView
 from .page_xliff_import_view import PageXliffImportView

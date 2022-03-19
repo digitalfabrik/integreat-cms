@@ -12,6 +12,8 @@ from django.utils.translation import ugettext as _
 from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
+from cacheops import invalidate_model
+
 logger = logging.getLogger(__name__)
 
 
@@ -123,5 +125,84 @@ class BulkAutoTranslateView(BulkActionView):
         else:
             messages.error(request, _("Automatic translations are disabled"))
 
+        # Let the base view handle the redirect
+        return super().post(request, *args, **kwargs)
+
+
+class BulkArchiveView(BulkActionView):
+    """
+    Bulk action for archiving multiple objects at once
+    """
+
+    #: The name of the archived-field
+    archived_field = "archived"
+
+    def post(self, request, *args, **kwargs):
+        r"""
+        Archive the selected objects and redirect
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The redirect
+        :rtype: ~django.http.HttpResponseRedirect
+        """
+
+        # Archive objects
+        self.get_queryset().update(**{self.archived_field: True})
+        # Invalidate cache
+        invalidate_model(self.model)
+        logger.debug("%r archived by %r", self.get_queryset(), request.user)
+        messages.success(
+            request,
+            _("The selected {} were successfully archived").format(
+                self.model._meta.verbose_name_plural
+            ),
+        )
+        # Let the base view handle the redirect
+        return super().post(request, *args, **kwargs)
+
+
+class BulkRestoreView(BulkActionView):
+    """
+    Bulk action for restoring multiple objects at once
+    """
+
+    #: The name of the archived-field
+    archived_field = "archived"
+
+    def post(self, request, *args, **kwargs):
+        r"""
+        Restore the selected objects and redirect
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The redirect
+        :rtype: ~django.http.HttpResponseRedirect
+        """
+        # Restore objects
+        self.get_queryset().update(**{self.archived_field: False})
+        # Invalidate cache
+        invalidate_model(self.model)
+        logger.debug("%r restored by %r", self.get_queryset(), request.user)
+        messages.success(
+            request,
+            _("The selected {} were successfully restored").format(
+                self.model._meta.verbose_name_plural
+            ),
+        )
         # Let the base view handle the redirect
         return super().post(request, *args, **kwargs)

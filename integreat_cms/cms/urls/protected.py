@@ -6,7 +6,7 @@ Views which should not have login protection go into :mod:`~integreat_cms.cms.ur
 from django.urls import include, path
 
 from ..forms import LanguageForm, OfferTemplateForm, OrganizationForm, RegionForm
-from ..models import Event, Language, OfferTemplate, Organization, POI, Role
+from ..models import Event, Language, OfferTemplate, Organization, Page, POI, Role
 
 from ..views import (
     analytics,
@@ -661,6 +661,22 @@ urlpatterns = [
                                             name="export_pdf",
                                         ),
                                         path(
+                                            "bulk-archive/",
+                                            bulk_action_views.BulkArchiveView.as_view(
+                                                model=Page,
+                                                archived_field="explicitly_archived",
+                                            ),
+                                            name="bulk_archive_pages",
+                                        ),
+                                        path(
+                                            "bulk-restore/",
+                                            bulk_action_views.BulkRestoreView.as_view(
+                                                model=Page,
+                                                archived_field="explicitly_archived",
+                                            ),
+                                            name="bulk_restore_pages",
+                                        ),
+                                        path(
                                             "<int:page_id>/",
                                             include(
                                                 [
@@ -824,6 +840,20 @@ urlpatterns = [
                                             name="automatic_translation_events",
                                         ),
                                         path(
+                                            "bulk-archive/",
+                                            bulk_action_views.BulkArchiveView.as_view(
+                                                model=Event
+                                            ),
+                                            name="bulk_archive_events",
+                                        ),
+                                        path(
+                                            "bulk-restore/",
+                                            bulk_action_views.BulkRestoreView.as_view(
+                                                model=Event
+                                            ),
+                                            name="bulk_restore_events",
+                                        ),
+                                        path(
                                             "<int:event_id>/",
                                             include(
                                                 [
@@ -891,6 +921,20 @@ urlpatterns = [
                                                 model=POI
                                             ),
                                             name="automatic_translation_pois",
+                                        ),
+                                        path(
+                                            "bulk-archive/",
+                                            bulk_action_views.BulkArchiveView.as_view(
+                                                model=POI
+                                            ),
+                                            name="bulk_archive_pois",
+                                        ),
+                                        path(
+                                            "bulk-restore/",
+                                            bulk_action_views.BulkRestoreView.as_view(
+                                                model=POI
+                                            ),
+                                            name="bulk_restore_pois",
                                         ),
                                         path(
                                             "<int:poi_id>/",
