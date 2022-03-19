@@ -67,11 +67,11 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                {% render_field push_notification_translation_form.title %}
+                                {% render_field push_notification_translation_form.title|add_error_class:"border-red-500" %}
                                 <label for="{{ push_notification_translation_form.text.id_for_label }}">
                                     {{ push_notification_translation_form.text.label }}
                                 </label>
-                                {% render_field push_notification_translation_form.text %}
+                                {% render_field push_notification_translation_form.text|add_error_class:"border-red-500" %}
                                 {% spaceless %}
                                     <p>
                                         <span class="input-length-counter"></span>
@@ -97,9 +97,9 @@
                     </div>
                     <div class="px-4 pb-4 rounded bg-white">
                         <label for="{{ push_notification_form.channel.id_for_label }}">{{ push_notification_form.channel.label }}</label>
-                        {% render_field push_notification_form.channel %}
+                        {% render_field push_notification_form.channel|add_error_class:"border-red-500" %}
                         <label for="{{ push_notification_form.mode.id_for_label }}">{{ push_notification_form.mode.label }}</label>
-                        {% render_field push_notification_form.mode %}
+                        {% render_field push_notification_form.mode|add_error_class:"border-red-500" %}
                     </div>
                 </div>
                 {% if push_notification_form.instance.id %}

@@ -551,6 +551,24 @@ if settings.FCM_ENABLED:
         (
             [
                 ("new_push_notification", STAFF_ROLES + [MANAGEMENT]),
+                (
+                    "new_push_notification",
+                    PRIV_STAFF_ROLES + [MANAGEMENT],
+                    {
+                        "form-TOTAL_FORMS": 2,
+                        "form-INITIAL_FORMS": 0,
+                        "form-MIN_NUM_FORMS": 1,
+                        "form-MAX_NUM_FORMS": 2,
+                        "form-0-title": "Test title",
+                        "form-0-text": "Test content",
+                        "form-0-language": 1,
+                        "form-1-title": "",
+                        "form-1-text": "",
+                        "form-1-language": 2,
+                        "channel": "news",
+                        "mode": "ONLY_AVAILABLE",
+                    },
+                ),
                 ("push_notifications", STAFF_ROLES + [MANAGEMENT]),
             ],
             # The kwargs for these views
