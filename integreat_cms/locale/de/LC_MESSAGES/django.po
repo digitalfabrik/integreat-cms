@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-20 18:38+0000\n"
+"POT-Creation-Date: 2022-03-20 18:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -4628,7 +4628,7 @@ msgstr "Seite löschen"
 #: cms/templates/pages/page_form.html:327
 #: cms/templates/pages/page_tree_archived_node.html:112
 #: cms/templates/pages/page_tree_node.html:137
-#: cms/views/pages/page_actions.py:215
+#: cms/views/pages/page_actions.py:212
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
@@ -5670,6 +5670,14 @@ msgstr ""
 "Adresse eingegeben haben, mit der Sie sich registriert haben, und überprüfen "
 "Sie Ihren Spam-Ordner."
 
+#: cms/views/bulk_action_views.py:121
+msgid "Automatic translations are not fully implemented yet"
+msgstr "Automatische Übersetzungen sind noch nicht vollständig implementiert"
+
+#: cms/views/bulk_action_views.py:124
+msgid "Automatic translations are disabled"
+msgstr "Automatische Übersetzungen sind deaktiviert"
+
 #: cms/views/delete_views.py:80
 msgid "{} \"{}\" was successfully deleted"
 msgstr "{} \"{}\" wurde erfolgreich gelöscht"
@@ -5714,29 +5722,21 @@ msgstr "CSRF Fehler"
 msgid "Please try to reload the page."
 msgstr "Bitte versuchen Sie, die Seite neu zu laden."
 
-#: cms/views/events/event_actions.py:49
+#: cms/views/events/event_actions.py:48
 msgid "Event was successfully archived"
 msgstr "Veranstaltung wurde erfolgreich archiviert"
 
-#: cms/views/events/event_actions.py:87
+#: cms/views/events/event_actions.py:86
 msgid "Event was successfully duplicated"
 msgstr "Veranstaltung wurde erfolgreich dupliziert"
 
-#: cms/views/events/event_actions.py:122
+#: cms/views/events/event_actions.py:121
 msgid "Event was successfully restored"
 msgstr "Veranstaltung wurde erfolgreich wiederhergestellt"
 
-#: cms/views/events/event_actions.py:162
+#: cms/views/events/event_actions.py:161
 msgid "Event was successfully deleted"
 msgstr "Veranstaltung wurde erfolgreich gelöscht"
-
-#: cms/views/events/event_actions.py:256 cms/views/pois/poi_actions.py:194
-msgid "Automatic translations are not fully implemented yet"
-msgstr "Automatische Übersetzungen sind noch nicht vollständig implementiert"
-
-#: cms/views/events/event_actions.py:259 cms/views/pois/poi_actions.py:197
-msgid "Automatic translations are disabled"
-msgstr "Automatische Übersetzungen sind deaktiviert"
 
 #: cms/views/events/event_context_mixin.py:30
 msgid "Please confirm that you really want to archive this event"
@@ -6145,81 +6145,67 @@ msgstr "Es ist ein Fehler aufgetreten."
 msgid "Please confirm that you really want to delete this {}"
 msgstr "Bitte bestätigen Sie, dass diese {} gelöscht werden soll"
 
-#: cms/views/pages/page_actions.py:68
+#: cms/views/pages/page_actions.py:65
 msgid "Page was successfully archived"
 msgstr "Seite wurde erfolgreich archiviert"
 
-#: cms/views/pages/page_actions.py:121 cms/views/pages/page_actions.py:135
+#: cms/views/pages/page_actions.py:118 cms/views/pages/page_actions.py:132
 msgid "Page was successfully restored."
 msgstr "Seite wurde erfolgreich wiederhergestellt."
 
-#: cms/views/pages/page_actions.py:124
+#: cms/views/pages/page_actions.py:121
 msgid ""
 "However, it is still archived because one of its parent pages is archived."
 msgstr ""
 "Sie ist jedoch immer noch archiviert, weil eine ihrer übergeordneten Seiten "
 "archiviert ist."
 
-#: cms/views/pages/page_actions.py:219
+#: cms/views/pages/page_actions.py:216
 msgid "Page was successfully deleted"
 msgstr "Seite wurde erfolgreich gelöscht"
 
-#: cms/views/pages/page_actions.py:314
-msgid "No pages selected for XLIFF export."
-msgstr ""
-"Es wurden keine gültigen Seiten zur Erzeugung der XLIFF-Datei ausgewählt."
-
-#: cms/views/pages/page_actions.py:341
-msgid "XLIFF file for translation to {} successfully created."
-msgstr "XLIFF Datei für die Übersetzung nach {} wurde erfolgreich erstellt."
-
-#: cms/views/pages/page_actions.py:345
-msgid "If the download does not start automatically, please click {}here{}."
-msgstr ""
-"Wenn der Download nicht automatisch startet, klicken Sie bitte {}hier{}."
-
-#: cms/views/pages/page_actions.py:439
+#: cms/views/pages/page_actions.py:325
 msgid "File \"{}\" is neither a ZIP archive nor an XLIFF file."
 msgstr "Die Datei \"{}\" ist weder ein ZIP-Archiv noch eine XLIFF-Datei."
 
-#: cms/views/pages/page_actions.py:466
+#: cms/views/pages/page_actions.py:352
 msgid "The ZIP archive \"{}\" does not contain XLIFF files."
 msgstr "Das ZIP-Archiv \"{}\" enthält keine XLIFF-Dateien"
 
-#: cms/views/pages/page_actions.py:474
+#: cms/views/pages/page_actions.py:360
 msgid "The ZIP archive \"{}\" contains the following invalid files: \"{}\""
 msgstr "Das ZIP-Archiv \"{}\" enthält die folgenden ungültigen Dateien: \"{}\""
 
-#: cms/views/pages/page_actions.py:499
+#: cms/views/pages/page_actions.py:385
 msgid "No XLIFF file was selected for import."
 msgstr "Es wurde keine XLIFF-Datei für den Import ausgewählt."
 
-#: cms/views/pages/page_actions.py:559
+#: cms/views/pages/page_actions.py:445
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
-#: cms/views/pages/page_actions.py:639 cms/views/pages/page_actions.py:654
+#: cms/views/pages/page_actions.py:525 cms/views/pages/page_actions.py:540
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: cms/views/pages/page_actions.py:646
+#: cms/views/pages/page_actions.py:532
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: cms/views/pages/page_actions.py:662
+#: cms/views/pages/page_actions.py:548
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nun veröffentlichen"
 
-#: cms/views/pages/page_actions.py:671 cms/views/pages/page_actions.py:783
+#: cms/views/pages/page_actions.py:557 cms/views/pages/page_actions.py:669
 msgid "An error has occurred. Please contact an administrator."
 msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie einen Administrator."
 
-#: cms/views/pages/page_actions.py:751
+#: cms/views/pages/page_actions.py:637
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -6229,12 +6215,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin bearbeiten."
 
-#: cms/views/pages/page_actions.py:757
+#: cms/views/pages/page_actions.py:643
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: cms/views/pages/page_actions.py:768
+#: cms/views/pages/page_actions.py:654
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -6244,10 +6230,19 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen."
 
-#: cms/views/pages/page_actions.py:774
+#: cms/views/pages/page_actions.py:660
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
+
+#: cms/views/pages/page_bulk_actions.py:109
+msgid "XLIFF file for translation to {} successfully created."
+msgstr "XLIFF Datei für die Übersetzung nach {} wurde erfolgreich erstellt."
+
+#: cms/views/pages/page_bulk_actions.py:113
+msgid "If the download does not start automatically, please click {}here{}."
+msgstr ""
+"Wenn der Download nicht automatisch startet, klicken Sie bitte {}hier{}."
 
 #: cms/views/pages/page_context_mixin.py:38
 msgid "Please confirm that you really want to archive this page"
@@ -6347,15 +6342,15 @@ msgstr ""
 msgid "This XLIFF import is no longer available."
 msgstr "Dieser XLIFF Import ist nicht länger verfügbar."
 
-#: cms/views/pois/poi_actions.py:46
+#: cms/views/pois/poi_actions.py:45
 msgid "Location was successfully archived"
 msgstr "Ort wurde erfolgreich archiviert"
 
-#: cms/views/pois/poi_actions.py:84
+#: cms/views/pois/poi_actions.py:83
 msgid "Location was successfully restored"
 msgstr "Ort wurde erfolgreich wiederhergestellt"
 
-#: cms/views/pois/poi_actions.py:120
+#: cms/views/pois/poi_actions.py:119
 msgid "Location was successfully deleted"
 msgstr "Ort wurde erfolgreich gelöscht"
 
@@ -6620,6 +6615,10 @@ msgstr ""
 
 #~ msgid "Filetype:"
 #~ msgstr "Dateityp:"
+
+#~ msgid "No pages selected for XLIFF export."
+#~ msgstr ""
+#~ "Es wurden keine gültigen Seiten zur Erzeugung der XLIFF-Datei ausgewählt."
 
 #~ msgid "All subpages of this page are archived"
 #~ msgstr "Alle Unterseiten dieser Seite sind archiviert"

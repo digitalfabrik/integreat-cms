@@ -6,10 +6,11 @@ Views which should not have login protection go into :mod:`~integreat_cms.cms.ur
 from django.urls import include, path
 
 from ..forms import LanguageForm, OfferTemplateForm, OrganizationForm, RegionForm
-from ..models import Language, OfferTemplate, Organization, Role
+from ..models import Event, Language, OfferTemplate, Organization, POI, Role
 
 from ..views import (
     analytics,
+    bulk_action_views,
     chat,
     dashboard,
     delete_views,
@@ -628,13 +629,17 @@ urlpatterns = [
                                                 [
                                                     path(
                                                         "download/",
-                                                        pages.download_xliff,
+                                                        pages.ExportXliffView.as_view(
+                                                            prefetch_translations=True
+                                                        ),
                                                         name="download_xliff",
                                                     ),
                                                     path(
                                                         "only-public/",
-                                                        pages.download_xliff,
-                                                        {"only_public": True},
+                                                        pages.ExportXliffView.as_view(
+                                                            only_public=True,
+                                                            prefetch_public_translations=True,
+                                                        ),
                                                         name="download_xliff_only_public",
                                                     ),
                                                     path(
@@ -652,7 +657,7 @@ urlpatterns = [
                                         ),
                                         path(
                                             "export/",
-                                            pages.export_pdf,
+                                            pages.GeneratePdfView.as_view(),
                                             name="export_pdf",
                                         ),
                                         path(
@@ -813,7 +818,9 @@ urlpatterns = [
                                         ),
                                         path(
                                             "auto-translate/",
-                                            events.automatic_translation,
+                                            bulk_action_views.BulkAutoTranslateView.as_view(
+                                                model=Event
+                                            ),
                                             name="automatic_translation_events",
                                         ),
                                         path(
@@ -880,7 +887,9 @@ urlpatterns = [
                                         ),
                                         path(
                                             "auto-translate/",
-                                            pois.automatic_translation,
+                                            bulk_action_views.BulkAutoTranslateView.as_view(
+                                                model=POI
+                                            ),
                                             name="automatic_translation_pois",
                                         ),
                                         path(

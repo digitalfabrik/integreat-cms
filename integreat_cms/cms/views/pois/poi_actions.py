@@ -3,7 +3,6 @@ This module contains view actions for objects related to POIs.
 """
 import logging
 
-from django.conf import settings
 from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import render, redirect
@@ -161,45 +160,3 @@ def view_poi(request, poi_id, region_slug, language_slug):
         raise Http404
 
     return render(request, template_name, {"poi_translation": poi_translation})
-
-
-@require_POST
-@permission_required("cms.change_poi")
-def automatic_translation(request, region_slug, language_slug):
-    """
-    Automatic translation for POIs
-
-    :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
-    :param region_slug: slug of the region which the event belongs to
-    :type region_slug: str
-
-    :param language_slug: current GUI language slug
-    :type language_slug: str
-
-    :return: The rendered template response
-    :rtype: ~django.template.response.TemplateResponse
-    """
-    # Get current region
-    region = request.region
-    # Retrieve the selected POI ids
-    poi_ids = request.POST.getlist("selected_ids[]")
-    # Collect the corresponding POI objects
-    pois = region.pois.filter(id__in=poi_ids).prefetch_translations()
-    logger.debug("Automatic translation for POIs: %r", pois)
-
-    if settings.DEEPL_ENABLED:
-        messages.warning(
-            request, _("Automatic translations are not fully implemented yet")
-        )
-    else:
-        messages.error(request, _("Automatic translations are disabled"))
-
-    return redirect(
-        "pois",
-        **{
-            "region_slug": region_slug,
-            "language_slug": language_slug,
-        }
-    )
