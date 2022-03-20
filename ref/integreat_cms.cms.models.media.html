@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-04T19:21:46+00:00" />
+    <meta property="article:modified_time" content="2022-03-18T12:15:27+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Media &mdash; integreat-cms 2022.3.4 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -920,7 +920,7 @@ It is used for logging.</p>
 are used to determine the file system path to which the files should be uploaded.</p>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.media.media_file.</span></span><span class="sig-name descname"><span class="pre">MediaFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.media.media_file.</span></span><span class="sig-name descname"><span class="pre">MediaFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel" title="integreat_cms.cms.models.abstract_base_model.AbstractBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.abstract_base_model.AbstractBaseModel</span></code></a></p>
 <p>The MediaFile model is used to store basic information about files which are uploaded to the CMS. This is only a
 virtual document and does not necessarily exist on the actual file system. Each document is tied to a region via its
@@ -931,10 +931,12 @@ directory.</p>
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
 <li><p><strong>file</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.FileField" title="(in Django v3.2)"><em>FileField</em></a>) – File</p></li>
 <li><p><strong>thumbnail</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.FileField" title="(in Django v3.2)"><em>FileField</em></a>) – Thumbnail file</p></li>
+<li><p><strong>file_size</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.IntegerField" title="(in Django v3.2)"><em>IntegerField</em></a>) – File size</p></li>
 <li><p><strong>type</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – File type</p></li>
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Name</p></li>
 <li><p><strong>alt_text</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Description</p></li>
 <li><p><strong>uploaded_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Uploaded date. The date and time when the media file was uploaded</p></li>
+<li><p><strong>last_modified</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Last modified. The date and time when the physical media file was last modified</p></li>
 </ul>
 </dd>
 </dl>
@@ -961,19 +963,19 @@ directory.</p>
 </dl>
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L232"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;MediaFile:</span> <span class="pre">MediaFile</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -988,7 +990,7 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L201"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Searches for all media files which match the given <cite>query</cite> in their name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1008,7 +1010,7 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This methods creates a serialized string of that document. This can later be used in the AJAX calls.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1022,7 +1024,7 @@ It is used for logging.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">thumbnail_url</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">thumbnail_url</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Return the path of the image that should be used as the thumbnail.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1036,7 +1038,7 @@ It is used for logging.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">url</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">url</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the path of the physical file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1052,7 +1054,7 @@ It is used for logging.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.media.media_file.</span></span><span class="sig-name descname"><span class="pre">upload_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.media.media_file.</span></span><span class="sig-name descname"><span class="pre">upload_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function calculates the path for a file which is uploaded to the media library.
 It contains the region id, the current year and month as subdirectories and the filename.
 It is just the provisionally requested path for the media storage.
@@ -1075,7 +1077,7 @@ If it already exists, Django will automatically append a random string to make s
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.media.media_file.</span></span><span class="sig-name descname"><span class="pre">upload_path_thumbnail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.media.media_file.</span></span><span class="sig-name descname"><span class="pre">upload_path_thumbnail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/media/media_file.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function derives the upload path of a thumbnail file from it’s original file.
 This makes it a bit easier to determine which thumbnail belongs to which file if there are multiple files with the
 same file name (in which case Django automatically appends a random string to the original’s file name).</p>
@@ -1116,7 +1118,7 @@ will be stored as <code class="docutils literal notranslate"><span class="pre">A
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 04, 2022.
+      <span class="lastupdated">Last updated on Mar 18, 2022.
       </span></p>
   </div>
 
