@@ -99,6 +99,7 @@ class PushNotificationFormView(TemplateView):
         PNTFormset = modelformset_factory(
             PushNotificationTranslation,
             form=PushNotificationTranslationForm,
+            min_num=1,  # Require at least the first form to be valid
             max_num=num_languages,
             extra=num_languages - push_notification_translations.count(),
         )
@@ -178,6 +179,7 @@ class PushNotificationFormView(TemplateView):
         PNTFormset = modelformset_factory(
             PushNotificationTranslation,
             form=PushNotificationTranslationForm,
+            min_num=1,  # Require at least the first form to be valid
             max_num=num_languages,
             extra=num_languages - push_notification_translations.count(),
         )
@@ -195,12 +197,20 @@ class PushNotificationFormView(TemplateView):
                 if language not in existing_languages
             ],
         )
-
-        if not pn_form.is_valid() or not pnt_formset.is_valid():
+        if not pn_form.is_valid():
             # Add error messages
             pn_form.add_error_messages(request)
+        elif not pnt_formset.is_valid():
+            # Add non-form errors
+            for error in pnt_formset.non_form_errors():
+                messages.error(request, _(error))
+                logger.debug(
+                    "Error when validating push notification formset: %r", error
+                )
+            # Add form error messages
             for form in pnt_formset:
-                form.add_error_messages(request)
+                if not form.is_valid():
+                    form.add_error_messages(request)
         else:
             # Save forms
             pn_form.save()

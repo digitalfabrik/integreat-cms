@@ -7,6 +7,7 @@ UNRELEASED
 * [ [#1305](https://github.com/digitalfabrik/integreat-cms/issues/1305) ] Fix deletion of media files and directories
 * [ [#1195](https://github.com/digitalfabrik/integreat-cms/issues/1195) ] Insert full images into content instead of thumbnails
 * [ [#1181](https://github.com/digitalfabrik/integreat-cms/issues/1181) ] Scroll media library and sidebar independently of each other
+* [ [#1279](https://github.com/digitalfabrik/integreat-cms/issues/1279) ] Fix error in news form when submitted without data
 
 
 2022.3.4
