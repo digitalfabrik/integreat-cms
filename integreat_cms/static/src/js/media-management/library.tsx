@@ -4,7 +4,7 @@
  */
 import { FilePlus, FolderPlus, Search, Loader } from "preact-feather";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
-import { route } from 'preact-router';
+import { route } from "preact-router";
 
 import { Directory, MediaApiPaths, MediaLibraryEntry, File } from ".";
 import Breadcrumbs from "./component/breadcrumbs";
@@ -37,10 +37,10 @@ export interface LibraryProps {
   onlyImage?: boolean;
   selectMedia?: (file: File) => any;
   ajaxRequest: (
-      url: string,
-      urlParams: URLSearchParams,
-      successCallback: (data: any) => void,
-      errorCallback?: (data: any) => void
+    url: string,
+    urlParams: URLSearchParams,
+    successCallback: (data: any) => void,
+    errorCallback?: (data: any) => void
   ) => void;
 }
 
@@ -135,7 +135,9 @@ export default function Library({
     // Search for the sidebar file in the media library content
     if (sidebarFile) {
       console.debug("Changed file:", sidebarFile);
-      let index = mediaLibraryContent.findIndex((x) => x.id === sidebarFile.id && x.type !== "directory");
+      let index = mediaLibraryContent.findIndex(
+        (x) => x.id === sidebarFile.id && x.type !== "directory"
+      );
       if (index !== -1) {
         console.debug(`Open changed file at index ${index} in the sidebar again after reload...`);
         // Open file in the sidebar
@@ -155,18 +157,18 @@ export default function Library({
   useEffect(setSearchQueryEventListeners, [mediaLibraryContent]);
 
   return (
-    <div className={`flex flex-col flex-grow`}>
+    <div className={`flex flex-col flex-grow h-full overflow-hidden`}>
       <h1 className="w-full heading p-2">{mediaTranslations.heading_media_library}</h1>
       <div className="flex flex-wrap justify-between gap-x-2 gap-y-4">
         <div id="table-search" class="flex">
           <form
             id="media-search-form"
             class="relative"
-            onSubmit={event => {
+            onSubmit={(event) => {
               event.preventDefault();
               const searchInput = document.getElementById("table-search-input") as HTMLInputElement;
               console.debug(`Search form submitted with query "${searchInput.value}"...`);
-              if (!searchInput.value)  {
+              if (!searchInput.value) {
                 console.debug(`Search query empty, returning to the home directory...`);
                 route("/");
               } else {
@@ -186,8 +188,10 @@ export default function Library({
               data-archived="false"
               value={searchQuery}
             ></input>
-            <div id="table-search-suggestions" class="absolute hidden shadow rounded-b top-full bg-graz-200 w-full z-10 max-h-60 overflow-y-auto cursor-pointer">
-            </div>
+            <div
+              id="table-search-suggestions"
+              class="absolute hidden shadow rounded-b top-full bg-graz-200 w-full z-10 max-h-60 overflow-y-auto cursor-pointer"
+            ></div>
           </form>
           <button
             id="search-submit-btn"
@@ -244,56 +248,63 @@ export default function Library({
           )}
         </div>
       )}
-      <div className="flex flex-1 flex-col-reverse lg:flex-row gap-4 mt-4">
-        <div
-          className="relative flex-1 bg-white border border-blue-500 shadow-2xl rounded"
-          onClick={() => setFileIndex(null)}
-        >
-          <div class="rounded w-full bg-water-500 font-bold">
-            <Breadcrumbs
-              breadCrumbs={directoryPath}
-              searchQuery={searchQuery}
-              mediaTranslations={mediaTranslations}
-            />
-          </div>
-          {isLoading ? (
-            <Loader class="absolute w-32 h-32 -mt-9 -ml-16 inset-1/2 text-gray-600 animate-spin" />
-          ) : (
-            <div class="p-4">
-              <DirectoryContent
-                fileIndexState={[fileIndex, setFileIndex]}
-                mediaLibraryContent={mediaLibraryContent}
+      <div className="flex flex-1 flex-col-reverse relative lg:flex-row gap-4 mt-4">
+        <div className="relative flex-1">
+          <div
+            className="2xl:absolute w-full h-full flex flex-col bg-white border border-blue-500 shadow-2xl rounded"
+            onClick={() => setFileIndex(null)}
+          >
+            <div class="rounded w-full bg-water-500 font-bold">
+              <Breadcrumbs
+                breadCrumbs={directoryPath}
+                searchQuery={searchQuery}
                 mediaTranslations={mediaTranslations}
-                globalEdit={globalEdit}
               />
             </div>
-          )}
+            {isLoading ? (
+              <Loader class="absolute w-32 h-32 -mt-9 -ml-16 inset-1/2 text-gray-600 animate-spin" />
+            ) : (
+              <div class="flex-1 p-4 overflow-auto">
+                <DirectoryContent
+                  fileIndexState={[fileIndex, setFileIndex]}
+                  mediaLibraryContent={mediaLibraryContent}
+                  mediaTranslations={mediaTranslations}
+                  globalEdit={globalEdit}
+                />
+              </div>
+            )}
+          </div>
         </div>
+
         {fileIndex !== null ? (
-          <EditSidebar
-            directory={directory}
-            fileIndexState={[fileIndex, setFileIndex]}
-            mediaLibraryContent={mediaLibraryContent}
-            apiEndpoints={apiEndpoints}
-            mediaTranslations={mediaTranslations}
-            submitForm={submitForm}
-            selectionMode={selectionMode}
-            selectMedia={selectMedia}
-            onlyImage={onlyImage}
-            globalEdit={globalEdit}
-            expertMode={expertMode}
-            isLoading={isLoading}
-          />
-        ) : (
-          directory && (
-            <EditDirectorySidebar
+          <div className="relative w-full lg:w-96 2xl:w-120 ">
+            <EditSidebar
               directory={directory}
+              fileIndexState={[fileIndex, setFileIndex]}
+              mediaLibraryContent={mediaLibraryContent}
               apiEndpoints={apiEndpoints}
               mediaTranslations={mediaTranslations}
               submitForm={submitForm}
+              selectionMode={selectionMode}
+              selectMedia={selectMedia}
+              onlyImage={onlyImage}
               globalEdit={globalEdit}
+              expertMode={expertMode}
               isLoading={isLoading}
             />
+          </div>
+        ) : (
+          directory && (
+            <div className="relative w-full lg:w-96 2xl:w-120 ">
+              <EditDirectorySidebar
+                directory={directory}
+                apiEndpoints={apiEndpoints}
+                mediaTranslations={mediaTranslations}
+                submitForm={submitForm}
+                globalEdit={globalEdit}
+                isLoading={isLoading}
+              />
+            </div>
           )
         )}
       </div>

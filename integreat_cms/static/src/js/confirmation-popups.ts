@@ -13,8 +13,7 @@ window.addEventListener("load", () => {
   }
 });
 
-export function addConfirmationDialogListeners () {
-  if (!document.querySelector(".confirmation-button")) return;
+export function addConfirmationDialogListeners() {
   console.debug("Set event handlers for confirmation popups");
   // event handler for showing confirmation popups
   document
@@ -35,9 +34,8 @@ export function refreshAjaxConfirmationHandlers(selector: string, handler: (e: E
     on(button, "click", showConfirmationPopupAjax);
 
     off(button, "action-confirmed");
-    on(button, "action-confirmed", handler)
+    on(button, "action-confirmed", handler);
   });
-
 }
 
 export function showConfirmationPopup(event: Event): HTMLElement {

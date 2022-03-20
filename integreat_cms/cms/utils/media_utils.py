@@ -56,14 +56,15 @@ def generate_thumbnail(
             image.thumbnail((size, size), resample=Image.ANTIALIAS)
         # Write PIL image to BytesIO buffer
         buffer = BytesIO()
-        image.save(buffer, format=image_format)
+        # Use optimize option to reduce the image size. Higher quality parameter reduces compression
+        image.save(buffer, format=image_format, optimize=True, quality=65)
         # Construct InMemoryUploadedFile from buffer
         thumbnail = InMemoryUploadedFile(
             file=buffer,
             field_name="thumbnail",
             name=original_image.name,
             content_type=Image.MIME[image_format],
-            size=buffer.tell,
+            size=buffer.tell(),
             charset=None,
         )
         logger.debug("Successfully generated thumbnail %r", thumbnail)

@@ -1,10 +1,12 @@
 import logging
 import os
+from datetime import datetime
 
 
 import magic
 
 from django import forms
+from django.conf import settings
 from django.utils.translation import ugettext as _
 
 from ...constants import allowed_media
@@ -29,11 +31,7 @@ class ReplaceMediaFileForm(CustomModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = MediaFile
         #: The fields of the model which should be handled by this form
-        fields = (
-            "file",
-            "name",
-            "thumbnail",
-        )
+        fields = ("file", "name", "thumbnail", "file_size", "last_modified")
 
     def __init__(self, data=None, files=None, instance=None):
         """
@@ -55,6 +53,8 @@ class ReplaceMediaFileForm(CustomModelForm):
         # Make fields not required because they're filled automatically
         self.fields["name"].required = False
         self.fields["thumbnail"].required = False
+        self.fields["file_size"].required = False
+        self.fields["last_modified"].required = False
 
         self.original_file_path = instance.file.path
         self.original_thumbnail_path = (
@@ -93,9 +93,26 @@ class ReplaceMediaFileForm(CustomModelForm):
             # Set the visible name in the database to the filename of the new file
             cleaned_data["name"] = file.name
 
-        # If everything looks good until now, generate a thumbnail for the file
-        if not self.errors:
-            cleaned_data["thumbnail"] = generate_thumbnail(file)
+        # If everything looks good until now, generate a thumbnail and an optimized image
+        if not self.errors and self.instance.type.startswith("image"):
+            optimized_image = generate_thumbnail(
+                file, settings.MEDIA_OPTIMIZED_SIZE, False
+            )
+            if not optimized_image:
+                self.add_error(
+                    "file",
+                    forms.ValidationError(
+                        _("This image file is corrupt."), code="invalid"
+                    ),
+                )
+            else:
+                cleaned_data["file"] = optimized_image
+                cleaned_data["thumbnail"] = generate_thumbnail(file)
+
+        # Add the calculated file_size to the form data
+        if cleaned_data.get("file"):
+            cleaned_data["file_size"] = cleaned_data.get("file").size
+        cleaned_data["last_modified"] = datetime.now()
 
         logger.debug(
             "ReplaceMediaFileForm validated [2] with cleaned data %r", cleaned_data

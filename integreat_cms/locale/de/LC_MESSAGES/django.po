@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 08:27+0000\n"
+"POT-Creation-Date: 2022-03-20 18:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1645,15 +1645,20 @@ msgid ""
 msgstr ""
 "Der Dateityp {} stimmt nicht mit dem Typ der Originaldatei ({}) überein."
 
-#: cms/forms/media/upload_media_file_form.py:86
+#: cms/forms/media/replace_media_file_form.py:105
+#: cms/forms/media/upload_media_file_form.py:134
+msgid "This image file is corrupt."
+msgstr "Diese Bilddatei ist fehlerhaft."
+
+#: cms/forms/media/upload_media_file_form.py:92
 msgid "The file type {} is not allowed."
 msgstr "Der Dateityp {} ist nicht erlaubt."
 
-#: cms/forms/media/upload_media_file_form.py:90
+#: cms/forms/media/upload_media_file_form.py:96
 msgid "Allowed file types"
 msgstr "Erlaubte Dateitypen"
 
-#: cms/forms/media/upload_media_file_form.py:113
+#: cms/forms/media/upload_media_file_form.py:119
 msgid "The file cannot be uploaded to a directory of another region."
 msgstr ""
 "Die Datei kann nicht in einem Verzeichnis einer anderen Region hochgeladen "
@@ -1836,7 +1841,7 @@ msgstr "Die Passwörter stimmen nicht überein."
 
 #: cms/models/abstract_content_model.py:96 cms/models/abstract_tree_node.py:35
 #: cms/models/feedback/feedback.py:26 cms/models/media/directory.py:24
-#: cms/models/media/media_file.py:136
+#: cms/models/media/media_file.py:138
 #: cms/models/push_notifications/push_notification.py:21
 #: cms/models/regions/region.py:613
 msgid "region"
@@ -2015,7 +2020,7 @@ msgstr "Veranstaltungslink"
 msgid "title of the event"
 msgstr "Titel der Veranstaltung"
 
-#: cms/models/events/event_translation.py:13 cms/models/media/media_file.py:139
+#: cms/models/events/event_translation.py:13 cms/models/media/media_file.py:141
 #: cms/models/pois/poi_translation.py:13
 msgid "description"
 msgstr "Beschreibung"
@@ -2342,13 +2347,13 @@ msgstr "Sprach-Knoten"
 msgid "language tree nodes"
 msgstr "Sprach-Knoten"
 
-#: cms/models/media/directory.py:17 cms/models/media/media_file.py:121
+#: cms/models/media/directory.py:17 cms/models/media/media_file.py:123
 #: cms/models/offers/offer_template.py:17 cms/models/regions/region.py:63
 #: cms/models/users/organization.py:14 cms/models/users/role.py:20
 msgid "name"
 msgstr "Name"
 
-#: cms/models/media/directory.py:32 cms/models/media/media_file.py:128
+#: cms/models/media/directory.py:32 cms/models/media/media_file.py:130
 msgid "parent directory"
 msgstr "Elternverzeichnis"
 
@@ -2364,31 +2369,45 @@ msgstr "Medien-Verzeichnis"
 msgid "media directories"
 msgstr "Medien-Verzeichnisse"
 
-#: cms/models/media/media_file.py:108
+#: cms/models/media/media_file.py:109
 msgid "file"
 msgstr "Datei"
 
-#: cms/models/media/media_file.py:113
+#: cms/models/media/media_file.py:114
 msgid "thumbnail file"
 msgstr "Vorschaubild-Datei"
 
-#: cms/models/media/media_file.py:119
+#: cms/models/media/media_file.py:117
+msgid "file size"
+msgstr "Dateigröße"
+
+#: cms/models/media/media_file.py:121
 msgid "file type"
 msgstr "Dateityp"
 
-#: cms/models/media/media_file.py:143
+#: cms/models/media/media_file.py:145
 msgid "uploaded date"
 msgstr "Upload-Datum"
 
-#: cms/models/media/media_file.py:144
+#: cms/models/media/media_file.py:146
 msgid "The date and time when the media file was uploaded"
 msgstr "Das Datum und die Uhrzeit, zu der die Medien-Datei hochgeladen wurde"
 
-#: cms/models/media/media_file.py:248
+#: cms/models/media/media_file.py:149
+msgid "last modified"
+msgstr "Zuletzt geändert"
+
+#: cms/models/media/media_file.py:150
+msgid "The date and time when the physical media file was last modified"
+msgstr ""
+"Das Datum und die Uhrzeit, zu der die physische Medien-Datei zuletzt "
+"geändert wurde"
+
+#: cms/models/media/media_file.py:247
 msgid "media file"
 msgstr "Medien-Datei"
 
-#: cms/models/media/media_file.py:250
+#: cms/models/media/media_file.py:249
 msgid "media files"
 msgstr "Medien-Dateien"
 
@@ -3009,7 +3028,7 @@ msgstr "öffentlicher Multi-Faktor-Authentifizierungsschlüssel"
 
 #: cms/models/users/user_mfa_key.py:30
 msgid "sign count"
-msgstr "Anzahl an Signier-Vorgängen"
+msgstr "Anzahl an Signierungs-Vorgängen"
 
 #: cms/models/users/user_mfa_key.py:31
 msgid "Token to prevent replay attacks."
@@ -3102,7 +3121,7 @@ msgstr "Feedback"
 
 #: cms/templates/_base.html:181
 #: cms/templates/push_notifications/push_notification_list.html:9
-#: core/settings.py:709
+#: core/settings.py:712
 msgid "News"
 msgstr "Nachrichten"
 
@@ -3501,15 +3520,15 @@ msgstr "Nachricht abschicken"
 #: cms/templates/chat/_chat_widget.html:29
 #: cms/templates/statistics/_statistics_widget.html:22
 #: cms/templates/statistics/statistics_overview.html:18
-#: cms/views/media/media_context_mixin.py:79
+#: cms/views/media/media_context_mixin.py:80
 msgid "A network error has occurred."
 msgstr "Ein Netzwerkfehler ist aufgetreten."
 
 #: cms/templates/chat/_chat_widget.html:29
 #: cms/templates/statistics/_statistics_widget.html:22
 #: cms/templates/statistics/statistics_overview.html:18
-#: cms/views/media/media_context_mixin.py:76
-#: cms/views/media/media_context_mixin.py:81
+#: cms/views/media/media_context_mixin.py:77
+#: cms/views/media/media_context_mixin.py:82
 msgid "Please try again later."
 msgstr "Bitte versuchen Sie es später erneut."
 
@@ -6074,47 +6093,51 @@ msgid "Directory name:"
 msgstr "Verzeichnisname:"
 
 #: cms/views/media/media_context_mixin.py:59
-msgid "Filetype:"
-msgstr "Dateityp:"
+msgid "File format:"
+msgstr "Dateiformat:"
 
 #: cms/views/media/media_context_mixin.py:60
+msgid "File size:"
+msgstr "Dateigröße:"
+
+#: cms/views/media/media_context_mixin.py:61
 msgid "File uploaded on:"
 msgstr "Datei hochgeladen am:"
 
-#: cms/views/media/media_context_mixin.py:61
+#: cms/views/media/media_context_mixin.py:62
 msgid "Directory created on:"
 msgstr "Verzeichnis erstellt am:"
 
-#: cms/views/media/media_context_mixin.py:62
+#: cms/views/media/media_context_mixin.py:63
 msgid "Alternative text:"
 msgstr "Alternativer Text:"
 
-#: cms/views/media/media_context_mixin.py:63
+#: cms/views/media/media_context_mixin.py:64
 msgid "Enter directory name here"
 msgstr "Verzeichnisname hier eingeben"
 
-#: cms/views/media/media_context_mixin.py:64
+#: cms/views/media/media_context_mixin.py:65
 msgid "This file is read-only and cannot be edited."
 msgstr "Diese Datei ist schreibgeschützt und kann nicht bearbeitet werden."
 
-#: cms/views/media/media_context_mixin.py:66
+#: cms/views/media/media_context_mixin.py:67
 msgid "This directory is read-only and cannot be edited."
 msgstr ""
 "Dieses Verzeichnis ist schreibgeschützt und kann nicht bearbeitet werden."
 
-#: cms/views/media/media_context_mixin.py:68
+#: cms/views/media/media_context_mixin.py:69
 msgid "Only images can be selected as an icon."
 msgstr "Es können nur Bilder als Icon ausgewählt werden."
 
-#: cms/views/media/media_context_mixin.py:70
+#: cms/views/media/media_context_mixin.py:71
 msgid "Please confirm that you really want to delete this file"
 msgstr "Bitte bestätigen Sie, dass diese Datei gelöscht werden soll"
 
-#: cms/views/media/media_context_mixin.py:73
+#: cms/views/media/media_context_mixin.py:74
 msgid "Please confirm that you really want to delete this directory"
 msgstr "Bitte bestätigen Sie, dass dieses Verzeichnis gelöscht werden soll"
 
-#: cms/views/media/media_context_mixin.py:76
+#: cms/views/media/media_context_mixin.py:77
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
@@ -6423,7 +6446,7 @@ msgstr "Nachricht konnte nicht gesendet werden"
 #: cms/views/push_notifications/push_notification_form_view.py:261
 msgid "News message could not be sent due to a configuration error."
 msgstr ""
-"Nachricht konnte aufgrund eines Konfugurationsproblems nicht gesendet werden."
+"Nachricht konnte aufgrund eines Konfigurationsproblems nicht gesendet werden."
 
 #: cms/views/push_notifications/push_notification_list_view.py:80
 msgid ""
@@ -6594,6 +6617,9 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Filetype:"
+#~ msgstr "Dateityp:"
 
 #~ msgid "All subpages of this page are archived"
 #~ msgstr "Alle Unterseiten dieser Seite sind archiviert"

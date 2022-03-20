@@ -1,10 +1,12 @@
 import logging
 import mimetypes
-import os
+from os.path import splitext
+from datetime import datetime
 
 import magic
 
 from django import forms
+from django.conf import settings
 from django.utils.translation import ugettext as _
 
 from ...constants import allowed_media
@@ -35,6 +37,8 @@ class UploadMediaFileForm(CustomModelForm):
             "type",
             "parent_directory",
             "thumbnail",
+            "file_size",
+            "last_modified",
         )
 
     def __init__(self, data=None, files=None, instance=None):
@@ -61,6 +65,8 @@ class UploadMediaFileForm(CustomModelForm):
         self.fields["name"].required = False
         self.fields["type"].required = False
         self.fields["thumbnail"].required = False
+        self.fields["file_size"].required = False
+        self.fields["last_modified"].required = False
 
     def clean(self):
         """
@@ -96,7 +102,7 @@ class UploadMediaFileForm(CustomModelForm):
                     ),
                 )
             cleaned_data["name"] = file.name
-            name, extension = os.path.splitext(file.name)
+            name, extension = splitext(file.name)
             # Replace file extension if it doesn't match it's mime type
             valid_extensions = mimetypes.guess_all_extensions(
                 cleaned_data.get("type", "")
@@ -116,9 +122,26 @@ class UploadMediaFileForm(CustomModelForm):
                     ),
                 )
 
-        # If everything looks good until now, generate a thumbnail for the file
+        # If everything looks good until now, generate a thumbnail and an optimized image
         if not self.errors and cleaned_data.get("type").startswith("image"):
-            cleaned_data["thumbnail"] = generate_thumbnail(file)
+            optimized_image = generate_thumbnail(
+                file, settings.MEDIA_OPTIMIZED_SIZE, False
+            )
+            if not optimized_image:
+                self.add_error(
+                    "file",
+                    forms.ValidationError(
+                        _("This image file is corrupt."), code="invalid"
+                    ),
+                )
+            else:
+                cleaned_data["file"] = optimized_image
+                cleaned_data["thumbnail"] = generate_thumbnail(file)
+
+        # Add the calculated file_size and the modification date to the form data
+        if cleaned_data.get("file"):
+            cleaned_data["file_size"] = cleaned_data.get("file").size
+        cleaned_data["last_modified"] = datetime.now()
 
         logger.debug(
             "UploadMediaFileForm validated [2] with cleaned data %r", cleaned_data
