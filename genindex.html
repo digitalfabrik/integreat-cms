@@ -425,6 +425,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.utils.html">Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.html#bulk-action-views">Bulk Action Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.html#delete-views">Delete Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.html#form-views">Form Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.html#list-views">List Views</a></li>
@@ -677,6 +678,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.utils.html">Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.bulk_action_views">Bulk Action Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.delete_views">Delete Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.form_views">Form Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.list_views">List Views</a></li>
@@ -1182,6 +1184,14 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.__init__">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.__init__">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.__init__">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.__init__">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.__init__">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.chat.html#integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin.__init__">(integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.__init__">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView method)</a>
@@ -1239,6 +1249,12 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ModelTemplateResponseMixin.__init__">(integreat_cms.cms.views.mixins.ModelTemplateResponseMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.__init__">(integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.__init__">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.__init__">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.__init__">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin.__init__">(integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin method)</a>
 </li>
@@ -1871,12 +1887,26 @@
 </li>
       <li><a href="ref-ext/tests.html#tests.conftest.ALL_ROLES">ALL_ROLES (in module tests.conftest)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.allow_empty">allow_empty (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.allow_empty">allow_empty (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.allow_empty">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.allow_empty">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.allow_empty">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.allow_empty">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.allow_empty">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.allow_empty">(integreat_cms.cms.views.list_views.ModelListView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.allow_empty">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.allow_empty">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.allow_empty">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.parent_field_widget.ParentFieldWidget.allow_multiple_selected">allow_multiple_selected (integreat_cms.cms.forms.pages.parent_field_widget.ParentFieldWidget attribute)</a>
@@ -1979,12 +2009,18 @@
         <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_list_view.POIListView.archived">(integreat_cms.cms.views.pois.poi_list_view.POIListView attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.archived_field">archived_field (integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.archived_field">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.archived_pages">archived_pages (integreat_cms.cms.models.regions.region.Region attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.administrative_division.AREA_STATE">AREA_STATE (in module integreat_cms.cms.constants.administrative_division)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist.args">args (integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist attribute)</a>
 
       <ul>
@@ -2382,6 +2418,14 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.as_view">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView class method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.as_view">(integreat_cms.cms.views.bulk_action_views.BulkActionView class method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.as_view">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView class method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.as_view">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView class method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.as_view">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView class method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.as_view">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.dashboard_view.DashboardView.as_view">(integreat_cms.cms.views.dashboard.dashboard_view.DashboardView class method)</a>
@@ -2421,6 +2465,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.AdminMediaListView.as_view">(integreat_cms.cms.views.media.media_list_view.AdminMediaListView class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.MediaListView.as_view">(integreat_cms.cms.views.media.media_list_view.MediaListView class method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.as_view">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView class method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.as_view">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_form_view.PageFormView.as_view">(integreat_cms.cms.views.pages.page_form_view.PageFormView class method)</a>
 </li>
@@ -2507,12 +2555,6 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.status.AUTO_SAVE">AUTO_SAVE (in module integreat_cms.cms.constants.status)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_actions.automatic_translation">automatic_translation() (in module integreat_cms.cms.views.events.event_actions)</a>
-
-      <ul>
-        <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_actions.automatic_translation">(in module integreat_cms.cms.views.pois.poi_actions)</a>
-</li>
-      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.available_languages">available_languages (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
 
       <ul>
@@ -2591,8 +2633,6 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.poi_feedback.POIFeedback.best_poi_translation">best_poi_translation (integreat_cms.cms.models.feedback.poi_feedback.POIFeedback attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.best_translation">best_translation (integreat_cms.cms.models.abstract_content_model.AbstractContentModel attribute)</a>
 
       <ul>
@@ -2609,6 +2649,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.best_translation">(integreat_cms.cms.models.push_notifications.push_notification.PushNotification property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.BLOG_URLS">BLOG_URLS (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.icon_widget.IconWidget.build_attrs">build_attrs() (integreat_cms.cms.forms.icon_widget.IconWidget method)</a>
@@ -2653,6 +2695,14 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.bulk_update">(integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView">BulkActionView (class in integreat_cms.cms.views.bulk_action_views)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView">BulkArchiveView (class in integreat_cms.cms.views.bulk_action_views)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView">BulkAutoTranslateView (class in integreat_cms.cms.views.bulk_action_views)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView">BulkRestoreView (class in integreat_cms.cms.views.bulk_action_views)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -3450,9 +3500,17 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet">ContentQuerySet (class in integreat_cms.cms.models.abstract_content_model)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.context_object_name">context_object_name (integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.context_object_name">context_object_name (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.context_object_name">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.context_object_name">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.context_object_name">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.context_object_name">(integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.context_object_name">(integreat_cms.cms.views.form_views.CustomCreateView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomModelFormMixin.context_object_name">(integreat_cms.cms.views.form_views.CustomModelFormMixin attribute)</a>
@@ -3464,6 +3522,12 @@
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.context_object_name">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.context_object_name">(integreat_cms.cms.views.list_views.ModelListView property)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.context_object_name">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.context_object_name">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.context_object_name">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.mfa.html#integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.context_object_name">(integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView attribute)</a>
 </li>
@@ -4085,11 +4149,23 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_mfa_key.UserMfaKey.delete">(integreat_cms.cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.delete">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.delete">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.delete">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.delete">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.delete">(integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.delete">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.delete">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.delete">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.delete">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -4193,6 +4269,14 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.dispatch">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.dispatch">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.dispatch">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.dispatch">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.dispatch">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.dispatch">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.dashboard_view.DashboardView.dispatch">(integreat_cms.cms.views.dashboard.dashboard_view.DashboardView method)</a>
@@ -4238,6 +4322,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.MediaListView.dispatch">(integreat_cms.cms.views.media.media_list_view.MediaListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.dispatch">(integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.dispatch">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.dispatch">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_form_view.PageFormView.dispatch">(integreat_cms.cms.views.pages.page_form_view.PageFormView method)</a>
 </li>
@@ -4319,8 +4407,6 @@
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.allowed_media.DOCUMENTS">DOCUMENTS (in module integreat_cms.cms.constants.allowed_media)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.allowed_media.DOCX">DOCX (in module integreat_cms.cms.constants.allowed_media)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_actions.download_xliff">download_xliff() (in module integreat_cms.cms.views.pages.page_actions)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.status.DRAFT">DRAFT (in module integreat_cms.cms.constants.status)</a>
 </li>
@@ -4712,7 +4798,7 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.explicitly_archived_ancestors">explicitly_archived_ancestors (integreat_cms.cms.models.pages.page.Page attribute)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_actions.export_pdf">export_pdf() (in module integreat_cms.cms.views.pages.page_actions)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView">ExportXliffView (class in integreat_cms.cms.views.pages.page_bulk_actions)</a>
 </li>
       <li><a href="documentation.html#conf.extensions">extensions (in module conf)</a>
 </li>
@@ -4752,6 +4838,14 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView.extra_context">(integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.extra_context">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.extra_context">(integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.extra_context">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.extra_context">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.extra_context">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.chat.html#integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin.extra_context">(integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin attribute)</a>
 </li>
@@ -4802,6 +4896,12 @@
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.MediaListView.extra_context">(integreat_cms.cms.views.media.media_list_view.MediaListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ModelConfirmationContextMixin.extra_context">(integreat_cms.cms.views.mixins.ModelConfirmationContextMixin attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.extra_context">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.extra_context">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.extra_context">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin.extra_context">(integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin attribute)</a>
 </li>
@@ -5524,6 +5624,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper">generate_unique_slug_helper() (in module integreat_cms.cms.utils.slug_utils)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView">GeneratePdfView (class in integreat_cms.cms.views.pages.page_bulk_actions)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.postal_code.GET">GET (in module integreat_cms.cms.constants.postal_code)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.get">get() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
@@ -5560,6 +5662,14 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView.get">(integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.get">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.get">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView method)</a>
 </li>
@@ -5600,6 +5710,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.AdminMediaListView.get">(integreat_cms.cms.views.media.media_list_view.AdminMediaListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.MediaListView.get">(integreat_cms.cms.views.media.media_list_view.MediaListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_form_view.PageFormView.get">(integreat_cms.cms.views.pages.page_form_view.PageFormView method)</a>
 </li>
@@ -5670,12 +5784,26 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_all_permissions">get_all_permissions() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.get_allow_empty">get_allow_empty() (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_allow_empty">get_allow_empty() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_allow_empty">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_allow_empty">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_allow_empty">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.get_allow_empty">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.get_allow_empty">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.get_allow_empty">(integreat_cms.cms.views.list_views.ModelListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_allow_empty">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_allow_empty">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.get_allow_empty">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_ancestors">get_ancestors() (integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
@@ -5777,6 +5905,14 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.get_context_data">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_context_data">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_context_data">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_context_data">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_context_data">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.chat.html#integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin.get_context_data">(integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.get_context_data">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView method)</a>
@@ -5827,6 +5963,12 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ModelConfirmationContextMixin.get_context_data">(integreat_cms.cms.views.mixins.ModelConfirmationContextMixin method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_context_data">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_context_data">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.get_context_data">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin.get_context_data">(integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_form_view.PageFormView.get_context_data">(integreat_cms.cms.views.pages.page_form_view.PageFormView method)</a>
@@ -5874,9 +6016,17 @@
         <li><a href="ref-ext/integreat_cms.cms.views.users.html#integreat_cms.cms.views.users.user_list_view.UserListView.get_context_data">(integreat_cms.cms.views.users.user_list_view.UserListView method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.get_context_object_name">get_context_object_name() (integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_context_object_name">get_context_object_name() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_context_object_name">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_context_object_name">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_context_object_name">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.get_context_object_name">(integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.get_context_object_name">(integreat_cms.cms.views.form_views.CustomCreateView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomModelFormMixin.get_context_object_name">(integreat_cms.cms.views.form_views.CustomModelFormMixin method)</a>
@@ -5888,6 +6038,12 @@
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.get_context_object_name">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.get_context_object_name">(integreat_cms.cms.views.list_views.ModelListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_context_object_name">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_context_object_name">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.get_context_object_name">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.mfa.html#integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_context_object_name">(integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView method)</a>
 </li>
@@ -6354,9 +6510,17 @@
         <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.POITranslationLinklist.get_linklist">(integreat_cms.cms.linklists.POITranslationLinklist method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.get_login_url">get_login_url() (integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_login_url">get_login_url() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_login_url">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_login_url">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_login_url">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.get_login_url">(integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.get_login_url">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.get_login_url">(integreat_cms.cms.views.form_views.CustomCreateView method)</a>
@@ -6370,6 +6534,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.get_login_url">(integreat_cms.cms.views.list_views.ModelListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.get_login_url">(integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_login_url">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_login_url">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.get_major_public_translation">get_major_public_translation() (integreat_cms.cms.models.abstract_content_model.AbstractContentModel method)</a>
@@ -6486,8 +6654,6 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.get_next_by_last_modified">get_next_by_last_modified() (integreat_cms.cms.models.media.media_file.MediaFile method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.get_next_by_last_updated">get_next_by_last_updated() (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation method)</a>
 
       <ul>
@@ -6514,6 +6680,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.get_next_by_last_updated">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.get_next_by_sent_datetime">get_next_by_sent_datetime() (integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.get_next_by_start_date">get_next_by_start_date() (integreat_cms.cms.models.events.event.Event method)</a>
@@ -6568,12 +6736,26 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.get_or_create">(integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.get_ordering">get_ordering() (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_ordering">get_ordering() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_ordering">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_ordering">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_ordering">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.get_ordering">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.get_ordering">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.get_ordering">(integreat_cms.cms.views.list_views.ModelListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_ordering">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_ordering">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.get_ordering">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.get_outdated_translations">get_outdated_translations() (integreat_cms.cms.models.pages.page_translation.PageTranslation class method)</a>
@@ -6582,28 +6764,70 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_pages">get_pages() (integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.get_paginate_by">get_paginate_by() (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_paginate_by">get_paginate_by() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_paginate_by">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_paginate_by">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_paginate_by">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.get_paginate_by">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.get_paginate_by">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.get_paginate_by">(integreat_cms.cms.views.list_views.ModelListView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_paginate_by">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_paginate_by">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.get_paginate_by">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin method)</a>
+</li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.get_paginate_orphans">get_paginate_orphans() (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_paginate_orphans">get_paginate_orphans() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_paginate_orphans">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_paginate_orphans">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_paginate_orphans">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.get_paginate_orphans">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.get_paginate_orphans">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.get_paginate_orphans">(integreat_cms.cms.views.list_views.ModelListView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_paginate_orphans">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_paginate_orphans">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.get_paginate_orphans">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin method)</a>
+</li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.get_paginator">get_paginator() (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_paginator">get_paginator() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_paginator">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_paginator">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_paginator">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.get_paginator">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.get_paginator">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.get_paginator">(integreat_cms.cms.views.list_views.ModelListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_paginator">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_paginator">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.get_paginator">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_parent">get_parent() (integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
@@ -6614,9 +6838,17 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.get_parent">(integreat_cms.cms.models.pages.page.Page method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.get_permission_denied_message">get_permission_denied_message() (integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_permission_denied_message">get_permission_denied_message() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_permission_denied_message">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_permission_denied_message">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_permission_denied_message">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.get_permission_denied_message">(integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.get_permission_denied_message">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.get_permission_denied_message">(integreat_cms.cms.views.form_views.CustomCreateView method)</a>
@@ -6631,10 +6863,22 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.get_permission_denied_message">(integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_permission_denied_message">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_permission_denied_message">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.get_permission_required">get_permission_required() (integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_permission_required">get_permission_required() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_permission_required">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_permission_required">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_permission_required">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.get_permission_required">(integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.get_permission_required">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.get_permission_required">(integreat_cms.cms.views.form_views.CustomCreateView method)</a>
@@ -6646,6 +6890,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.get_permission_required">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.get_permission_required">(integreat_cms.cms.views.list_views.ModelListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_permission_required">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_permission_required">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.offers.get_post_data">get_post_data() (in module integreat_cms.api.v3.offers)</a>
@@ -6819,6 +7067,14 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.get_queryset">(integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_queryset">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_queryset">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_queryset">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_queryset">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.get_queryset">(integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.get_queryset">(integreat_cms.cms.views.form_views.CustomCreateView method)</a>
@@ -6832,6 +7088,12 @@
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.get_queryset">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.get_queryset">(integreat_cms.cms.views.list_views.ModelListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_queryset">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_queryset">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.get_queryset">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.mfa.html#integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.get_queryset">(integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView method)</a>
 </li>
@@ -6956,9 +7218,17 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.get_real_instance_class">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.get_redirect_field_name">get_redirect_field_name() (integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_redirect_field_name">get_redirect_field_name() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_redirect_field_name">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_redirect_field_name">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_redirect_field_name">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.get_redirect_field_name">(integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.get_redirect_field_name">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.get_redirect_field_name">(integreat_cms.cms.views.form_views.CustomCreateView method)</a>
@@ -6973,13 +7243,29 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.get_redirect_field_name">(integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_redirect_field_name">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_redirect_field_name">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.login_view.LoginView.get_redirect_url">get_redirect_url() (integreat_cms.cms.views.authentication.login_view.LoginView method)</a>
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.mfa.html#integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView.get_redirect_url">(integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_redirect_url">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_redirect_url">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_redirect_url">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_redirect_url">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.get_redirect_url">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.get_redirect_url">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.get_redirect_url">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_region_root_nodes">get_region_root_nodes() (integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode class method)</a>
@@ -7510,9 +7796,17 @@
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff2_serializer.Serializer.handle_m2m_field">(integreat_cms.xliff.xliff2_serializer.Serializer method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.handle_no_permission">handle_no_permission() (integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.handle_no_permission">handle_no_permission() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.handle_no_permission">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.handle_no_permission">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.handle_no_permission">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.handle_no_permission">(integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.handle_no_permission">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.handle_no_permission">(integreat_cms.cms.views.form_views.CustomCreateView method)</a>
@@ -7526,6 +7820,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.handle_no_permission">(integreat_cms.cms.views.list_views.ModelListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.handle_no_permission">(integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.handle_no_permission">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.handle_no_permission">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.base_serializer.Deserializer.handle_object">handle_object() (integreat_cms.xliff.base_serializer.Deserializer method)</a>
@@ -7706,9 +8004,17 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.has_perm">has_perm() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.has_permission">has_permission() (integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.has_permission">has_permission() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.has_permission">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.has_permission">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.has_permission">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.has_permission">(integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.has_permission">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.has_permission">(integreat_cms.cms.views.form_views.CustomCreateView method)</a>
@@ -7721,13 +8027,31 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.has_permission">(integreat_cms.cms.views.list_views.ModelListView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.has_permission">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.has_permission">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.has_perms">has_perms() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.has_usable_password">has_usable_password() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.head">head() (integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.head">head() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.head">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.head">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.head">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.head">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.head">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.head">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.region_status.HIDDEN">HIDDEN (in module integreat_cms.cms.constants.region_status)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.chat.html#integreat_cms.cms.forms.chat.chat_message_form.ChatMessageForm.hidden_fields">hidden_fields() (integreat_cms.cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
@@ -7863,6 +8187,14 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.http_method_names">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.http_method_names">(integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.http_method_names">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.http_method_names">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.http_method_names">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.http_method_names">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.dashboard_view.DashboardView.http_method_names">(integreat_cms.cms.views.dashboard.dashboard_view.DashboardView attribute)</a>
@@ -7902,6 +8234,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.AdminMediaListView.http_method_names">(integreat_cms.cms.views.media.media_list_view.AdminMediaListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.MediaListView.http_method_names">(integreat_cms.cms.views.media.media_list_view.MediaListView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.http_method_names">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.http_method_names">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_form_view.PageFormView.http_method_names">(integreat_cms.cms.views.pages.page_form_view.PageFormView attribute)</a>
 </li>
@@ -7977,6 +8313,14 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.http_method_not_allowed">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.http_method_not_allowed">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.http_method_not_allowed">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.http_method_not_allowed">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.http_method_not_allowed">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.http_method_not_allowed">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.dashboard_view.DashboardView.http_method_not_allowed">(integreat_cms.cms.views.dashboard.dashboard_view.DashboardView method)</a>
@@ -8016,6 +8360,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.AdminMediaListView.http_method_not_allowed">(integreat_cms.cms.views.media.media_list_view.AdminMediaListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.MediaListView.http_method_not_allowed">(integreat_cms.cms.views.media.media_list_view.MediaListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.http_method_not_allowed">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.http_method_not_allowed">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_form_view.PageFormView.http_method_not_allowed">(integreat_cms.cms.views.pages.page_form_view.PageFormView method)</a>
 </li>
@@ -9572,8 +9920,6 @@
         <li><a href="ref-ext/integreat_cms.cms.signals.html#module-integreat_cms.cms.signals.feedback_signals">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.templatetags
 
@@ -9581,6 +9927,8 @@
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.templatetags.arithmetic
 
@@ -9890,6 +10238,13 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.cms.views.bulk_action_views
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.bulk_action_views">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.cms.views.chat
 
       <ul>
@@ -10174,6 +10529,13 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#module-integreat_cms.cms.views.pages.page_actions">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.views.pages.page_bulk_actions
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#module-integreat_cms.cms.views.pages.page_bulk_actions">module</a>
 </li>
       </ul></li>
       <li>
@@ -11444,9 +11806,17 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOGIN_URL">LOGIN_URL (in module integreat_cms.core.settings)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.login_url">login_url (integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.login_url">login_url (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.login_url">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.login_url">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.login_url">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.login_url">(integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.login_url">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.login_url">(integreat_cms.cms.views.form_views.CustomCreateView attribute)</a>
@@ -11460,6 +11830,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.login_url">(integreat_cms.cms.views.list_views.ModelListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.login_url">(integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.login_url">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.login_url">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.login_view.LoginView">LoginView (class in integreat_cms.cms.views.authentication.login_view)</a>
@@ -11753,6 +12127,14 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.POITranslationLinklist.model">(integreat_cms.cms.linklists.POITranslationLinklist attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.model">(integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.model">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.model">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.model">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.model">(integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.model">(integreat_cms.cms.views.form_views.CustomCreateView property)</a>
@@ -11766,6 +12148,12 @@
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.model">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.model">(integreat_cms.cms.views.list_views.ModelListView property)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.model">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.model">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.model">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.mfa.html#integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.model">(integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView attribute)</a>
 </li>
@@ -12224,6 +12612,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.password_reset_view">integreat_cms.cms.views.authentication.password_reset_view</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.bulk_action_views">integreat_cms.cms.views.bulk_action_views</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.chat.html#module-integreat_cms.cms.views.chat">integreat_cms.cms.views.chat</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.chat.html#module-integreat_cms.cms.views.chat.chat_actions">integreat_cms.cms.views.chat.chat_actions</a>
@@ -12305,6 +12695,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#module-integreat_cms.cms.views.pages">integreat_cms.cms.views.pages</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#module-integreat_cms.cms.views.pages.page_actions">integreat_cms.cms.views.pages.page_actions</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#module-integreat_cms.cms.views.pages.page_bulk_actions">integreat_cms.cms.views.pages.page_bulk_actions</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#module-integreat_cms.cms.views.pages.page_context_mixin">integreat_cms.cms.views.pages.page_context_mixin</a>
 </li>
@@ -12987,9 +13379,11 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.push_notifications.ONLY_AVAILABLE">ONLY_AVAILABLE (in module integreat_cms.cms.constants.push_notifications)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.base_serializer.Serializer.only_public">only_public (integreat_cms.xliff.base_serializer.Serializer attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.only_public">only_public (integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.base_serializer.Serializer.only_public">(integreat_cms.xliff.base_serializer.Serializer attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.generic_serializer.Serializer.only_public">(integreat_cms.xliff.generic_serializer.Serializer attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff1_serializer.Serializer.only_public">(integreat_cms.xliff.xliff1_serializer.Serializer attribute)</a>
@@ -12997,8 +13391,6 @@
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff2_serializer.Serializer.only_public">(integreat_cms.xliff.xliff2_serializer.Serializer attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.parent_field_widget.ParentFieldWidget.optgroups">optgroups() (integreat_cms.cms.forms.pages.parent_field_widget.ParentFieldWidget method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.parent_field_widget.ParentFieldWidget.option_inherits_attrs">option_inherits_attrs (integreat_cms.cms.forms.pages.parent_field_widget.ParentFieldWidget attribute)</a>
@@ -13029,6 +13421,14 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView.options">(integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.options">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.options">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.options">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.options">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.options">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.options">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView method)</a>
 </li>
@@ -13069,6 +13469,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.AdminMediaListView.options">(integreat_cms.cms.views.media.media_list_view.AdminMediaListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.MediaListView.options">(integreat_cms.cms.views.media.media_list_view.MediaListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.options">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.options">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_form_view.PageFormView.options">(integreat_cms.cms.views.pages.page_form_view.PageFormView method)</a>
 </li>
@@ -13121,6 +13525,8 @@
         <li><a href="ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.views.SitemapView.options">(integreat_cms.sitemap.views.SitemapView method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.order_by">order_by() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
 
       <ul>
@@ -13221,12 +13627,26 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.PageQuerySet.ordered">(integreat_cms.cms.models.pages.page.PageQuerySet property)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.ordering">ordering (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.ordering">ordering (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.ordering">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.ordering">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.ordering">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.ordering">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.ordering">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.ordering">(integreat_cms.cms.views.list_views.ModelListView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.ordering">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.ordering">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.ordering">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization">Organization (class in integreat_cms.cms.models.users.organization)</a>
@@ -13281,12 +13701,26 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.page_id">(integreat_cms.cms.models.pages.page_translation.PageTranslation attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.page_kwarg">page_kwarg (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.page_kwarg">page_kwarg (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.page_kwarg">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.page_kwarg">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.page_kwarg">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.page_kwarg">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.page_kwarg">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.page_kwarg">(integreat_cms.cms.views.list_views.ModelListView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.page_kwarg">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.page_kwarg">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.page_kwarg">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.urls.html#integreat_cms.cms.urls.protected.page_order_table_urlpatterns">page_order_table_urlpatterns (in module integreat_cms.cms.urls.protected)</a>
@@ -13306,6 +13740,8 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.page_tree_tutorial_seen">page_tree_tutorial_seen (integreat_cms.cms.models.users.user.User attribute)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin">PageBulkActionMixin (class in integreat_cms.cms.views.pages.page_bulk_actions)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin">PageContextMixin (class in integreat_cms.cms.views.pages.page_context_mixin)</a>
 </li>
@@ -13381,28 +13817,70 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_xliff_import_view.PageXliffImportView">PageXliffImportView (class in integreat_cms.cms.views.pages.page_xliff_import_view)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.paginate_by">paginate_by (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.paginate_by">paginate_by (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginate_by">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginate_by">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginate_by">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.paginate_by">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.paginate_by">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.paginate_by">(integreat_cms.cms.views.list_views.ModelListView property)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.paginate_by">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.paginate_by">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.paginate_by">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin attribute)</a>
+</li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.paginate_orphans">paginate_orphans (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.paginate_orphans">paginate_orphans (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginate_orphans">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginate_orphans">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginate_orphans">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.paginate_orphans">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.paginate_orphans">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.paginate_orphans">(integreat_cms.cms.views.list_views.ModelListView attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.paginate_orphans">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.paginate_orphans">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.paginate_orphans">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin attribute)</a>
+</li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.paginate_queryset">paginate_queryset() (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.paginate_queryset">paginate_queryset() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginate_queryset">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginate_queryset">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginate_queryset">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.paginate_queryset">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.paginate_queryset">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.paginate_queryset">(integreat_cms.cms.views.list_views.ModelListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.paginate_queryset">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.paginate_queryset">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.paginate_queryset">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.EventSitemap.paginator">paginator (integreat_cms.sitemap.sitemaps.EventSitemap property)</a>
@@ -13417,12 +13895,26 @@
         <li><a href="ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap.paginator">(integreat_cms.sitemap.sitemaps.WebappSitemap property)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.paginator_class">paginator_class (integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.paginator_class">paginator_class (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginator_class">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginator_class">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginator_class">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.paginator_class">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.paginator_class">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.paginator_class">(integreat_cms.cms.views.list_views.ModelListView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.paginator_class">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.paginator_class">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.paginator_class">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/tests.cms.views.html#tests.cms.views.view_config.PARAMETRIZED_PUBLIC_VIEWS">PARAMETRIZED_PUBLIC_VIEWS (in module tests.cms.views.view_config)</a>
@@ -13471,23 +13963,73 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.events_time_range.PAST">PAST (in module integreat_cms.cms.constants.events_time_range)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.patch">patch() (integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView method)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.patch">patch() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.patch">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.patch">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.patch">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.patch">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.patch">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.patch">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
+</li>
+      </ul></li>
       <li><a href="documentation.html#conf.patch_django_for_autodoc">patch_django_for_autodoc() (in module conf)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.pattern_name">pattern_name (integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.pattern_name">pattern_name (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.pattern_name">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.pattern_name">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.pattern_name">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.pattern_name">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.pattern_name">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.pattern_name">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.allowed_media.PDF">PDF (in module integreat_cms.cms.constants.allowed_media)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.pdf_export.pdf_export">pdf_export() (in module integreat_cms.api.v3.pdf_export)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PER_PAGE">PER_PAGE (in module integreat_cms.core.settings)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.permanent">permanent (integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView attribute)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.permission_denied_message">permission_denied_message (integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.permanent">permanent (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permanent">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permanent">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permanent">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.permanent">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.permanent">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.permanent">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.permission_denied_message">permission_denied_message (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permission_denied_message">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permission_denied_message">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permission_denied_message">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.permission_denied_message">(integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.permission_denied_message">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.permission_denied_message">(integreat_cms.cms.views.form_views.CustomCreateView attribute)</a>
@@ -13502,10 +14044,22 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.permission_denied_message">(integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.permission_denied_message">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.permission_denied_message">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.permission_required">permission_required (integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.permission_required">permission_required (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permission_required">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permission_required">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permission_required">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.permission_required">(integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.permission_required">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.permission_required">(integreat_cms.cms.views.form_views.CustomCreateView attribute)</a>
@@ -13517,6 +14071,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView.permission_required">(integreat_cms.cms.views.language_tree.language_tree_view.LanguageTreeView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.permission_required">(integreat_cms.cms.views.list_views.ModelListView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.permission_required">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.permission_required">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.decorators.permission_required">permission_required() (in module integreat_cms.cms.decorators)</a>
@@ -13793,6 +14351,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.polymorphic_model_marker">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.event_feedback.EventFeedback.polymorphic_query_multiline_output">polymorphic_query_multiline_output (integreat_cms.cms.models.feedback.event_feedback.EventFeedback attribute)</a>
 
       <ul>
@@ -13817,8 +14377,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.polymorphic_query_multiline_output">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.feedback_ratings.POSITIVE">POSITIVE (in module integreat_cms.cms.constants.feedback_ratings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.postal_code.POST">POST (in module integreat_cms.cms.constants.postal_code)</a>
@@ -13837,6 +14395,14 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView.post">(integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.post">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.post">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.post">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.post">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.post">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.post">(integreat_cms.cms.views.delete_views.CustomDeleteView method)</a>
 </li>
@@ -13863,6 +14429,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.post">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.post">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.post">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.post">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_form_view.PageFormView.post">(integreat_cms.cms.views.pages.page_form_view.PageFormView method)</a>
 </li>
@@ -13957,6 +14527,20 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.PageQuerySet.prefetch_major_public_translations">(integreat_cms.cms.models.pages.page.PageQuerySet method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.prefetch_public_translations">prefetch_public_translations (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.prefetch_public_translations">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.prefetch_public_translations">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.prefetch_public_translations">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.prefetch_public_translations">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.prefetch_public_translations">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.prefetch_public_translations">prefetch_public_translations() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
 
       <ul>
@@ -13979,6 +14563,20 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.RegionManager.prefetch_related">(integreat_cms.cms.models.regions.region.RegionManager method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.prefetch_related">(integreat_cms.cms.models.users.user.CustomUserManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.prefetch_translations">prefetch_translations (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.prefetch_translations">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.prefetch_translations">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.prefetch_translations">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.prefetch_translations">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.prefetch_translations">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.prefetch_translations">prefetch_translations() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
@@ -14362,11 +14960,23 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.put">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.put">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.put">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.put">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.put">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.put">(integreat_cms.cms.views.form_views.CustomCreateView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomUpdateView.put">(integreat_cms.cms.views.form_views.CustomUpdateView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.put">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.put">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.put">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.mfa.html#integreat_cms.cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView.put">(integreat_cms.cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView method)</a>
 </li>
@@ -14399,11 +15009,33 @@
         <li><a href="ref-ext/integreat_cms.cms.views.settings.mfa.html#integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.query_pk_and_slug">(integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.query_string">query_string (integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView attribute)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.queryset">queryset (integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.query_string">query_string (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.query_string">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.query_string">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.query_string">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.query_string">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.query_string">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.query_string">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.queryset">queryset (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.queryset">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.queryset">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.queryset">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.queryset">(integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.queryset">(integreat_cms.cms.views.form_views.CustomCreateView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomModelFormMixin.queryset">(integreat_cms.cms.views.form_views.CustomModelFormMixin attribute)</a>
@@ -14415,6 +15047,12 @@
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListView.queryset">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.queryset">(integreat_cms.cms.views.list_views.ModelListView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.queryset">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.queryset">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.queryset">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.settings.mfa.html#integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView.queryset">(integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView attribute)</a>
 </li>
@@ -14435,9 +15073,17 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.raise_exception">raise_exception (integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.raise_exception">raise_exception (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.raise_exception">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.raise_exception">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.raise_exception">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.raise_exception">(integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.raise_exception">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView.raise_exception">(integreat_cms.cms.views.form_views.CustomCreateView attribute)</a>
@@ -14451,6 +15097,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.raise_exception">(integreat_cms.cms.views.list_views.ModelListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.raise_exception">(integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.raise_exception">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.raise_exception">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.event_feedback.EventFeedback.rating">rating (integreat_cms.cms.models.feedback.event_feedback.EventFeedback attribute)</a>
@@ -14666,6 +15316,14 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.mfa.html#integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView.redirect_field_name">(integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.redirect_field_name">(integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.redirect_field_name">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.redirect_field_name">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.redirect_field_name">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomDeleteView.redirect_field_name">(integreat_cms.cms.views.delete_views.CustomDeleteView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin.redirect_field_name">(integreat_cms.cms.views.delete_views.CustomModelDeleteMixin attribute)</a>
@@ -14681,6 +15339,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.list_views.ModelListView.redirect_field_name">(integreat_cms.cms.views.list_views.ModelListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.redirect_field_name">(integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.redirect_field_name">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.redirect_field_name">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/tests.cms.views.html#tests.cms.views.view_config.REDIRECT_VIEWS">REDIRECT_VIEWS (in module tests.cms.views.view_config)</a>
@@ -15105,6 +15767,20 @@
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff1_serializer.Deserializer.require_attribute">(integreat_cms.xliff.xliff1_serializer.Deserializer static method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff2_serializer.Deserializer.require_attribute">(integreat_cms.xliff.xliff2_serializer.Deserializer static method)</a>
+</li>
+      </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.require_change_permission">require_change_permission (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.require_change_permission">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.require_change_permission">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.require_change_permission">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.require_change_permission">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.require_change_permission">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.REQUIRED_FIELDS">REQUIRED_FIELDS (integreat_cms.cms.models.users.user.User attribute)</a>
@@ -15771,8 +16447,6 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SERIALIZATION_MODULES">SERIALIZATION_MODULES (in module integreat_cms.core.settings)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.directory.Directory.serialize">serialize() (integreat_cms.cms.models.media.directory.Directory method)</a>
 
       <ul>
@@ -15787,6 +16461,8 @@
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff2_serializer.Serializer.serialize">(integreat_cms.xliff.xliff2_serializer.Serializer method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.base_serializer.Serializer">Serializer (class in integreat_cms.xliff.base_serializer)</a>
 
       <ul>
@@ -15830,6 +16506,14 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.setup">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.setup">(integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.setup">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.setup">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.setup">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.setup">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.dashboard_view.DashboardView.setup">(integreat_cms.cms.views.dashboard.dashboard_view.DashboardView method)</a>
@@ -15869,6 +16553,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.AdminMediaListView.setup">(integreat_cms.cms.views.media.media_list_view.AdminMediaListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.MediaListView.setup">(integreat_cms.cms.views.media.media_list_view.MediaListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.setup">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.setup">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_form_view.PageFormView.setup">(integreat_cms.cms.views.pages.page_form_view.PageFormView method)</a>
 </li>
@@ -17198,7 +17886,19 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.models.offers.html#integreat_cms.cms.models.offers.offer_template.OfferTemplate.url">(integreat_cms.cms.models.offers.offer_template.OfferTemplate attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.url">(integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.url">(integreat_cms.cms.views.bulk_action_views.BulkArchiveView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.url">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.url">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView.url">(integreat_cms.cms.views.linkcheck.linkcheck.LinkListRedirectView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.url">(integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.url">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.EventTranslationLinklist.url_fields">url_fields (integreat_cms.cms.linklists.EventTranslationLinklist attribute)</a>
@@ -17223,6 +17923,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.url_infix">(integreat_cms.cms.models.pois.poi_translation.POITranslation attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.url_prefix">url_prefix (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
 
       <ul>
@@ -17237,8 +17939,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.url_prefix">(integreat_cms.cms.models.pois.poi_translation.POITranslation attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.api.html#integreat_cms.api.urls.urlpatterns">urlpatterns (in module integreat_cms.api.urls)</a>
 
       <ul>

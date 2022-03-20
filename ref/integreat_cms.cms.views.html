@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-18T12:15:27+00:00" />
+    <meta property="article:modified_time" content="2022-03-19T21:19:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Views &mdash; integreat-cms 2022.3.4 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -429,6 +429,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.utils.html">Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bulk-action-views">Bulk Action Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#delete-views">Delete Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#form-views">Form Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#list-views">List Views</a></li>
@@ -681,6 +682,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.utils.html">Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.bulk_action_views">Bulk Action Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.delete_views">Delete Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.form_views">Form Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.list_views">List Views</a></li>
@@ -891,6 +893,7 @@ anything meets your requirements.</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.views.pages.html">Pages</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-actions">Page Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-bulk-actions">Page Bulk Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-context-mixin">Page Context Mixin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-form-view">Page Form View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.pages.html#page-revision-view">Page Revision View</a></li>
@@ -955,6 +958,195 @@ anything meets your requirements.</p>
 </li>
 </ul>
 </div>
+<section id="bulk-action-views">
+<h2>Bulk Action Views<a class="headerlink" href="#bulk-action-views" title="Permalink to this headline"></a></h2>
+<p>This module contains the base view for bulk actions</p>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkActionView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-multiple-object/#django.views.generic.list.MultipleObjectMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.list.MultipleObjectMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
+<p>View for executing a bulk action and redirect to a given location</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Override this method to override the permission_required attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The permissions that are required for views inheriting from this Mixin</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.9)"><em>Iterable</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get the queryset of selected items for this bulk action</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – HTTP status 404 if no objects with the given ids exist</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The QuerySet of the filtered links</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Retrieve url for redirection</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>url to redirect to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['post']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The list of HTTP method names that this view will accept.
+The bulk action form uses only POST as submission method.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">prefetch_public_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Whether the public translation objects should be prefetched</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">prefetch_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Whether the translation objects should be prefetched</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">require_change_permission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Whether the view requires change permissions</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkArchiveView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.bulk_action_views.BulkActionView</span></code></a></p>
+<p>Bulk action for archiving multiple objects at once</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">archived_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'archived'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The name of the archived-field</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L140"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Archive the selected objects and redirect</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The redirect</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkAutoTranslateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.bulk_action_views.BulkActionView</span></code></a></p>
+<p>Bulk action for automatically translating multiple objects</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Translate multiple objects automatically</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The redirect</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">prefetch_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Whether the public translation objects should be prefetched</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkRestoreView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.bulk_action_views.BulkActionView</span></code></a></p>
+<p>Bulk action for restoring multiple objects at once</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">archived_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'archived'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The name of the archived-field</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Restore the selected objects and redirect</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The redirect</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="delete-views">
 <h2>Delete Views<a class="headerlink" href="#delete-views" title="Permalink to this headline"></a></h2>
 <p>This module contains deletion views for our models that don’t need custom handling.</p>
@@ -1346,7 +1538,7 @@ This either returns the current <code class="docutils literal notranslate"><span
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 18, 2022.
+      <span class="lastupdated">Last updated on Mar 19, 2022.
       </span></p>
   </div>
 

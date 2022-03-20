@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-19T13:32:10+00:00" />
+    <meta property="article:modified_time" content="2022-03-20T19:27:34+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Models &mdash; integreat-cms 2022.3.4 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -429,6 +429,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.utils.html">Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#bulk-action-views">Bulk Action Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#delete-views">Delete Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#form-views">Form Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#list-views">List Views</a></li>
@@ -681,6 +682,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.utils.html">Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.bulk_action_views">Bulk Action Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.delete_views">Delete Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.form_views">Form Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.list_views">List Views</a></li>
@@ -888,12 +890,12 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <h2>Abstract Base Model<a class="headerlink" href="#abstract-base-model" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.abstract_base_model.</span></span><span class="sig-name descname"><span class="pre">AbstractBaseModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_base_model.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.abstract_base_model.</span></span><span class="sig-name descname"><span class="pre">AbstractBaseModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_base_model.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.Model</span></code></a></p>
 <p>Abstract base class for all models</p>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_base_model.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_base_model.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the canonical string representation of the content object</p>
 <p>To be implemented in the inheriting model</p>
 </dd></dl>
@@ -1915,7 +1917,7 @@ relative to another node.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 19, 2022.
+      <span class="lastupdated">Last updated on Mar 20, 2022.
       </span></p>
   </div>
 
