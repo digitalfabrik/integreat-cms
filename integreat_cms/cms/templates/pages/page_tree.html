@@ -34,7 +34,10 @@
                         {% trans 'Create page' %}
                     </a>
                 {% else %}
-                    <button title="{% trans 'You can only create pages in the default language' %} {{ request.region.default_language.translated_name }}." class="btn" disabled>
+                    {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
+                        You can only create pages in the default language ({{ default_language }}).
+                    {% endblocktrans %}
+                    <button title="{{ disabled_button_title }}" class="btn" disabled>
                         {% trans 'Create page' %}
                     </button>
                 {% endif %}
@@ -50,11 +53,11 @@
 <form method="POST" id="bulk-action-form" class="table-listing">
     {% csrf_token %}
     <div class="overflow-x-auto">
-        <table {% if not filter_form.has_changed %} data-delay-event-handlers data-activate-tree-drag-drop {% endif %} class="w-full mt-4 rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
+        <table {% if not filter_form.is_enabled %} data-delay-event-handlers data-activate-tree-drag-drop {% endif %} class="w-full mt-4 rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
                     <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min"><input type="checkbox" id="bulk-select-all" class="cursor-wait"></th>
-                    {% if not filter_form.has_changed %}
+                    {% if not filter_form.is_enabled %}
                         <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min">{% trans 'Hierarchy' %}</th>
                     {% endif %}
                     <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
@@ -90,7 +93,7 @@
                 <tr>
                     <td></td>
                     <td colspan="8" class="px-2 py-3">
-                        {% if filter_form.has_changed %}
+                        {% if filter_form.is_enabled %}
                             {% trans 'No pages found with these filters.' %}
                         {% else %}
                             {% trans 'No pages available yet.' %}
@@ -103,7 +106,7 @@
     </div>
     {% if pages %}
         <div class="pt-2 px-2">
-            {% if not filter_form.has_changed %}
+            {% if not filter_form.is_enabled %}
                 <a id="expand-all-pages" class="text-blue-500 !cursor-wait">{% spaceless %}
                     <i data-feather="chevron-down" class="align-sub h-5 rounded-full group-hover:bg-blue-500 group-hover:text-white"></i>
                     {% trans 'Expand all' %}
@@ -118,7 +121,9 @@
     <div class="flex flex-wrap gap-2 mt-2">
         <select id="bulk-action" class="w-auto max-w-full">
             <option>{% trans 'Select bulk action' %}</option>
-            <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
+            <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                {% trans 'Archive pages' %}
+            </option>
             <option
                 id="pdf-export-option"
                 data-bulk-action="{% url 'export_pdf' region_slug=request.region.slug language_slug=language.slug %}"

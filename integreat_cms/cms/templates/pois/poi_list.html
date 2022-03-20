@@ -27,6 +27,13 @@
                    class="btn">
                     {% trans 'Create location' %}
                 </a>
+            {% else %}
+                {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
+                    You can only create locations in the default language ({{ default_language }}).
+                {% endblocktrans %}
+                <button title="{{ disabled_button_title }}" class="btn" disabled>
+                    {% trans 'Create location' %}
+                </button>
             {% endif %}
         </div>
     </div>
@@ -37,10 +44,10 @@
         <table class="w-full mt-4 rounded border border-gray-200 shadow bg-white table-fixed">
             <thead>
                 <tr class="border-b border-gray-200">
-                    <th class="py-3 pl-4 min">
+                    <th class="py-3 pl-4 pr-2 min">
                         <input form="bulk-action-form" type="checkbox" id="bulk-select-all"/>
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                     {% if backend_language and backend_language != language %}
                         <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
                     {% endif %}
@@ -85,6 +92,9 @@
             <select id="bulk-action" class="w-auto max-w-full">
                 <option>
                     {% trans 'Select bulk action' %}
+                </option>
+                <option data-bulk-action="{% url 'bulk_archive_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                    {% trans 'Archive locations' %}
                 </option>
                 {% if DEEPL_ENABLED %}
                     <option data-bulk-action="{% url 'automatic_translation_pois' region_slug=request.region.slug language_slug=language.slug %}">

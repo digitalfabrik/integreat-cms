@@ -4,7 +4,7 @@ This module contains the :class:`~integreat_cms.cms.models.media.media_file.Medi
 are used to determine the file system path to which the files should be uploaded.
 """
 import logging
-from os.path import splitext, getmtime
+from os.path import splitext
 from time import strftime
 
 from django.conf import settings
@@ -13,6 +13,7 @@ from django.db.models import Q
 from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.translation import ugettext_lazy as _
+from django.template.defaultfilters import filesizeformat
 
 
 from ...constants import allowed_media
@@ -113,6 +114,7 @@ class MediaFile(AbstractBaseModel):
         verbose_name=_("thumbnail file"),
         max_length=512,
     )
+    file_size = models.IntegerField(verbose_name=_("file size"))
     type = models.CharField(
         choices=allowed_media.CHOICES,
         max_length=128,
@@ -143,6 +145,10 @@ class MediaFile(AbstractBaseModel):
         verbose_name=_("uploaded date"),
         help_text=_("The date and time when the media file was uploaded"),
     )
+    last_modified = models.DateTimeField(
+        verbose_name=_("last modified"),
+        help_text=_("The date and time when the physical media file was last modified"),
+    )
 
     @property
     def url(self):
@@ -167,7 +173,9 @@ class MediaFile(AbstractBaseModel):
                 #: Returns the path to the file itself
                 return self.url
             return None
-        return settings.BASE_URL + self.thumbnail.url
+        return (
+            f"{settings.BASE_URL}{self.thumbnail.url}?{self.last_modified.timestamp()}"
+        )
 
     def serialize(self):
         """
@@ -177,24 +185,15 @@ class MediaFile(AbstractBaseModel):
         :rtype: str
         """
 
-        thumbnail_url = self.thumbnail_url
-        if thumbnail_url:
-            # Make sure replaced images are not cached
-            try:
-                thumbnail_url += f"?{getmtime(self.file.path)}"
-            except OSError as e:
-                logger.error(
-                    "The physical file of %r could not be accessed: %r", self, e
-                )
-
         return {
             "id": self.id,
             "name": self.name,
             "altText": self.alt_text,
             "type": self.type,
             "typeDisplay": self.get_type_display(),
-            "thumbnailUrl": thumbnail_url,
+            "thumbnailUrl": self.thumbnail_url,
             "url": self.url,
+            "fileSize": filesizeformat(self.file_size),
             "uploadedDate": localize(timezone.localtime(self.uploaded_date)),
             "isGlobal": not self.region,
         }

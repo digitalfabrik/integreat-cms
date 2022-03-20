@@ -9,9 +9,7 @@
     const openMediacenter = () => {
       const el = document.createElement("div");
       document.body.append(el);
-      const mediaConfigData = JSON.parse(
-        document.getElementById("media_config_data").textContent
-      );
+      const mediaConfigData = JSON.parse(document.getElementById("media_config_data").textContent);
       window.preactRender(
         window.preactJSX(window.IntegreatSelectMediaDialog, {
           ...mediaConfigData,
@@ -23,7 +21,7 @@
               const linkEl = document.createElement("a");
               linkEl.href = file.url;
               const imageEl = document.createElement("img");
-              imageEl.src = file.thumbnailUrl;
+              imageEl.src = file.url;
               imageEl.alt = file.altText;
               linkEl.append(imageEl);
               editor.insertContent(linkEl.outerHTML);

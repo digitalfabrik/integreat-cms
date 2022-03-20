@@ -35,11 +35,17 @@
 
 <div class="table-listing">
     <div class="overflow-x-auto">
+        <form id="bulk-action-form" method="post">
+            {% csrf_token %}
+        </form>
         <table data-activate-tree-drag-drop class="w-full mt-4 rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
-                    {% if not filter_form.has_changed %}
-                        <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% trans 'Hierarchy' %}</th>
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">
+                        <input form="bulk-action-form" type="checkbox" id="bulk-select-all">
+                    </th>
+                    {% if not filter_form.is_enabled %}
+                        <th class="text-sm text-left uppercase py-3 pr-2 min">{% trans 'Hierarchy' %}</th>
                     {% endif %}
                     <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                     {% get_current_language as LANGUAGE_CODE %}
@@ -70,7 +76,7 @@
                 {% empty %}
                     <tr>
                         <td colspan="7" class="px-4 py-3">
-                            {% if filter_form.has_changed %}
+                            {% if filter_form.is_enabled %}
                                 {% trans 'No archived pages found with these filters.' %}
                             {% else %}
                                 {% trans 'No pages archived yet.' %}
@@ -80,6 +86,17 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div class="flex flex-wrap gap-2 mt-4">
+            <select id="bulk-action" class="w-auto max-w-full">
+                <option>
+                    {% trans 'Select bulk action' %}
+                </option>
+                <option data-bulk-action="{% url 'bulk_restore_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                    {% trans 'Restore pages' %}
+                </option>
+            </select>
+            <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
+        </div>
     </div>
 </div>
 {% include "../generic_confirmation_dialog.html" %}

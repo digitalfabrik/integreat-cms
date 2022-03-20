@@ -9,5 +9,4 @@ from .event_actions import (
     delete,
     search_poi_ajax,
     duplicate,
-    automatic_translation,
 )

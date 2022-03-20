@@ -54,12 +54,26 @@ black
 
 This job executes ``pipenv run black --check .``, which checks whether the code matches the :ref:`black-code-style` code style.
 
+check-migrations
+----------------
+
+This job checks whether there are any changes to the models that need a database migration
+
+setup-test-reporter
+-------------------
+
+This job sets up the test coverage reporter for CodeClimate.
+
 tests
 -----
 
-This job runs the unit tests. It sets up a temporary postgres database and runs the migrations before testing.
-It uses the command ``pipenv run integreat-cms-cli test cms --set=COVERAGE`` and
-passes the coverage in the ``htmlcov`` directory to the build artifacts.
+This job runs the tests in 16 parallel containers. It sets up a temporary postgres database and runs the migrations
+before testing. It runs pytest and passes the coverage in the ``test-results`` directory to the build artifacts.
+
+upload-test-coverage
+--------------------
+
+This job joins all separate coverage data files generated from the previous steps and uploads it to CodeClimate.
 
 check-translations
 ------------------
@@ -80,6 +94,7 @@ bump-dev-version
 This job modifies the ``bumpver`` config to make sure the changes are only temporary and not committed, then it bumps
 the version to the next alpha version which is not yet published on
 `TestPyPI <https://test.pypi.org/project/integreat-cms/#history>`__.
+This is only executed on develop (usually after PRs have been merged) or on branches that end with ``-publish-dev-package``.
 
 .. _circleci-build-package:
 
@@ -95,6 +110,7 @@ publish-package
 ---------------
 
 This job publishes the built package to `TestPyPI <https://test.pypi.org/project/integreat-cms/>`__ via :doc:`twine:index`.
+This is only executed on develop (usually after PRs have been merged) or on branches that end with ``-publish-dev-package``.
 
 build-documentation
 -------------------
@@ -167,7 +183,7 @@ See :ref:`circleci-build-package`.
 publish-package
 ---------------
 
-See :ref:`circleci-build-package`. The only difference is that PyPI is used as repository instead of TestPyPI.
+See :ref:`circleci-publish-package`. The only difference is that PyPI is used as repository instead of TestPyPI.
 
 create-release
 --------------

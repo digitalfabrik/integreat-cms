@@ -2,6 +2,8 @@ import logging
 
 from django.db import models
 
+from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
+
 
 logger = logging.getLogger(__name__)
 
@@ -34,13 +36,14 @@ class AbstractBaseModel(models.Model):
         # pylint: disable=broad-except
         except Exception as e:
             fallback_repr = f"<{type(self).__name__} (id: {self.id})>"
-            logger.debug(
-                "repr() for object %s failed because of %s: %s",
-                fallback_repr,
-                type(e),
-                e,
-                exc_info=e,
-            )
+            if not isinstance(e, SQLQueryTriggered):
+                logger.debug(
+                    "repr() for object %s failed because of %s: %s",
+                    fallback_repr,
+                    type(e),
+                    e,
+                    exc_info=e,
+                )
             return fallback_repr
 
     class Meta:

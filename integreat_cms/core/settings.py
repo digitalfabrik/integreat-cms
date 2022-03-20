@@ -12,6 +12,8 @@ import os
 from distutils.util import strtobool
 from urllib.parse import urlparse
 
+from django.utils.translation import ugettext_lazy as _
+
 from .logging_formatter import ColorFormatter
 
 
@@ -614,6 +616,9 @@ MEDIA_URL = "/media/"
 #: Absolute filesystem path to the directory that will hold user-uploaded files (see :setting:`django:MEDIA_ROOT`)
 MEDIA_ROOT = os.environ.get("INTEGREAT_CMS_MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
 
+#: The maximum size of media images in pixels (larger images will automatically be resized)
+MEDIA_OPTIMIZED_SIZE = 3000
+
 #: The maximum size of media thumbnails in pixels
 MEDIA_THUMBNAIL_SIZE = 300
 
@@ -704,7 +709,7 @@ LINKCHECK_DISABLE_LISTENERS = bool(
 #############################
 
 #: The available push notification channels
-CHANNELS = (("news", "News"),)
+CHANNELS = (("news", _("News")),)
 
 
 #########################

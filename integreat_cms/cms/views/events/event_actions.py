@@ -4,7 +4,6 @@ This module contains action methods for events (archive, restore, ...)
 import json
 import logging
 
-from django.conf import settings
 from django.contrib import messages
 from django.db.models import Subquery, OuterRef
 from django.shortcuts import render, redirect, get_object_or_404
@@ -222,46 +221,4 @@ def search_poi_ajax(request, region_slug):
             "create_poi_option": create_poi_option,
             "region": region,
         },
-    )
-
-
-@require_POST
-@permission_required("cms.change_event")
-def automatic_translation(request, region_slug, language_slug):
-    """
-    Automatic translation for events
-
-    :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
-    :param region_slug: slug of the region which the event belongs to
-    :type region_slug: str
-
-    :param language_slug: current GUI language slug
-    :type language_slug: str
-
-    :return: The rendered template response
-    :rtype: ~django.template.response.TemplateResponse
-    """
-    # Get current region
-    region = request.region
-    # Retrieve the selected event ids
-    event_ids = request.POST.getlist("selected_ids[]")
-    # Collect the corresponding event objects
-    events = region.events.filter(id__in=event_ids).prefetch_translations()
-    logger.debug("Automatic translation for events: %r", events)
-
-    if settings.DEEPL_ENABLED:
-        messages.warning(
-            request, _("Automatic translations are not fully implemented yet")
-        )
-    else:
-        messages.error(request, _("Automatic translations are disabled"))
-
-    return redirect(
-        "events",
-        **{
-            "region_slug": region_slug,
-            "language_slug": language_slug,
-        }
     )

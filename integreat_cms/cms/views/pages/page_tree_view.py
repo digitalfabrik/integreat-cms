@@ -7,7 +7,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import translation_status
 from ...decorators import permission_required
 from ...forms import PageFilterForm
 from .page_context_mixin import PageContextMixin
@@ -89,27 +88,25 @@ class PageTreeView(TemplateView, PageContextMixin):
                 request, _("You don't have the permission to edit or create pages.")
             )
 
-        # Filter pages according to given filters, if any
-        filter_data = kwargs.get("filter_data")
+        # Initialize page filter form
+        filter_form = PageFilterForm(data=request.GET)
 
-        if filter_data or self.archived:
+        if filter_form.is_enabled or self.archived:
+            # If filters are applied or only archived pages are requested, fetch all elements from the database
             page_queryset = region.pages.all()
         else:
+            # Else, only fetch the root pages and load the subpages dynamically via ajax
             page_queryset = region.pages.filter(lft=1)
+
+        # Cache tree structure to reduce database queries
         pages = page_queryset.prefetch_major_public_translations().cache_tree(
             archived=self.archived
         )
 
-        if filter_data:
-            logger.debug("Page tree filtered with data %r", filter_data)
-            # Set data for filter form rendering
-            filter_form = PageFilterForm(data=filter_data)
-            pages = self.filter_pages(pages, language_slug, filter_form)
-        else:
-            filter_form = PageFilterForm()
-            filter_form.changed_data.clear()
+        # Filter pages according to given filters, if any
+        pages = filter_form.apply(pages, language_slug)
 
-        response = render(
+        return render(
             request,
             self.template_name,
             {
@@ -121,69 +118,3 @@ class PageTreeView(TemplateView, PageContextMixin):
                 "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
             },
         )
-        # Disable browser cache of page tree to prevent subpages from being expanded after using "back"-button
-        response["Cache-Control"] = "no-store, must-revalidate"
-        return response
-
-    def post(self, request, *args, **kwargs):
-        r"""
-        Apply page filters and render page tree
-
-        :param request: The current request
-        :type request: ~django.http.HttpResponse
-
-        :param \*args: The supplied arguments
-        :type \*args: list
-
-        :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
-        :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
-        """
-        return self.get(request, *args, **kwargs, filter_data=request.POST)
-
-    @staticmethod
-    def filter_pages(pages, language_slug, filter_form):
-        """
-        Filter the pages list according to the given filter data
-
-        :param pages: The list of pages
-        :type pages: list
-
-        :param language_slug: The slug of the current language
-        :type language_slug: str
-
-        :param filter_form: The filter form
-        :type filter_form: integreat_cms.cms.forms.pages.page_filter_form.PageFilterForm
-
-        :return: The filtered page list
-        :rtype: list
-        """
-        if filter_form.is_valid():
-            query = filter_form.cleaned_data["query"]
-            if query:
-                # Buffer variable because the pages list should not be modified during iteration
-                filtered_pages = []
-                for page in pages:
-                    translation = page.get_translation(language_slug)
-                    if translation and (
-                        query.lower() in translation.slug
-                        or query.lower() in translation.title.lower()
-                    ):
-                        filtered_pages.append(page)
-                pages = filtered_pages
-
-            selected_status = filter_form.cleaned_data["translation_status"]
-            # Only filter if at least one checkbox but not all are checked
-            if 0 < len(selected_status) < len(translation_status.CHOICES):
-                # Buffer variable because the pages list should not be modified during iteration
-                filtered_pages = []
-                for page in pages:
-                    translation_state = page.translation_states.get(language_slug)
-                    if translation_state and translation_state[1] in selected_status:
-                        filtered_pages.append(page)
-                pages = filtered_pages
-        else:
-            filter_form.changed_data.clear()
-        return pages

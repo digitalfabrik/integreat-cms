@@ -23,6 +23,7 @@ class PushNotification(AbstractBaseModel):
     channel = models.CharField(
         max_length=60,
         choices=settings.CHANNELS,
+        default=settings.CHANNELS[0][0],
         verbose_name=_("channel"),
     )
     draft = models.BooleanField(

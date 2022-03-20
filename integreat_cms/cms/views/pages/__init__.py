@@ -9,8 +9,6 @@ from .page_actions import (
     view_page,
     delete_page,
     expand_page_translation_id,
-    export_pdf,
-    download_xliff,
     upload_xliff,
     move_page,
     grant_page_permission_ajax,
@@ -18,6 +16,10 @@ from .page_actions import (
     get_page_order_table_ajax,
     render_mirrored_page_field,
     cancel_translation_process_ajax,
+)
+from .page_bulk_actions import (
+    GeneratePdfView,
+    ExportXliffView,
 )
 from .page_sbs_view import PageSideBySideView
 from .page_revision_view import PageRevisionView

@@ -37,6 +37,7 @@ export interface File {
   path: string | null;
   altText: string;
   type: string;
+  fileSize: string;
   typeDisplay: string;
   thumbnailUrl: string | null;
   uploadedDate: Date;

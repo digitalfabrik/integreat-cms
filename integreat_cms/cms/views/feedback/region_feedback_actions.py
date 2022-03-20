@@ -8,6 +8,8 @@ from django.shortcuts import redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
+from cacheops import invalidate_obj
+
 from ...decorators import permission_required
 from ...models import Feedback
 
@@ -33,9 +35,14 @@ def mark_region_feedback_as_read(request, region_slug):
     region = request.region
 
     selected_ids = request.POST.getlist("selected_ids[]")
-    Feedback.objects.filter(
+    selected_feedback = Feedback.objects.filter(
         id__in=selected_ids, region=region, is_technical=False
-    ).update(read_by=request.user)
+    )
+    for feedback in selected_feedback:
+        invalidate_obj(feedback)
+        if hasattr(feedback, "feedback_ptr"):
+            invalidate_obj(feedback.feedback_ptr)
+    selected_feedback.update(read_by=request.user)
 
     logger.debug(
         "Feedback objects %r marked as read by %r",
@@ -66,9 +73,14 @@ def mark_region_feedback_as_unread(request, region_slug):
     region = request.region
 
     selected_ids = request.POST.getlist("selected_ids[]")
-    Feedback.objects.filter(
+    selected_feedback = Feedback.objects.filter(
         id__in=selected_ids, region=region, is_technical=False
-    ).update(read_by=None)
+    )
+    for feedback in selected_feedback:
+        invalidate_obj(feedback)
+        if hasattr(feedback, "feedback_ptr"):
+            invalidate_obj(feedback.feedback_ptr)
+    selected_feedback.update(read_by=None)
 
     logger.debug(
         "Feedback objects %r marked as unread by %r",

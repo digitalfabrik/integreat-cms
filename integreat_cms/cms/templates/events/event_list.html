@@ -31,6 +31,13 @@
                        class="btn">
                         {% trans 'Create event' %}
                     </a>
+                {% else %}
+                    {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
+                        You can only create events in the default language ({{ default_language }}).
+                    {% endblocktrans %}
+                    <button title="{{ disabled_button_title }}" class="btn" disabled>
+                        {% trans 'Create event' %}
+                    </button>
                 {% endif %}
             </div>
         </div>
@@ -96,6 +103,9 @@
         <div class="flex flex-wrap gap-2 mt-4">
             <select id="bulk-action" class="w-auto max-w-full">
                 <option>{% trans 'Select bulk action' %}</option>
+                <option data-bulk-action="{% url 'bulk_archive_events' region_slug=request.region.slug language_slug=language.slug %}">
+                    {% trans 'Archive events' %}
+                </option>
                 {% if DEEPL_ENABLED %}
                     <option data-bulk-action="{% url 'automatic_translation_events' region_slug=request.region.slug language_slug=language.slug %}">{% trans 'Create missing translations automatically' %}</option>
                 {% endif %}

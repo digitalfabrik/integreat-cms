@@ -95,15 +95,6 @@ class POIListView(TemplateView, POIContextMixin):
                 }
             )
 
-        if language != region.default_language:
-            messages.warning(
-                request,
-                _(
-                    "You can only create locations in the default language (%(language)s)."
-                )
-                % {"language": region.default_language.translated_name},
-            )
-
         pois = region.pois.filter(archived=self.archived)
         query = None
 

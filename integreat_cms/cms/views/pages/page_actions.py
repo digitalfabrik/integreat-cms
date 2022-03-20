@@ -11,21 +11,18 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseNotFound, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
 from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
 from ....api.decorators import json_response
-from ....xliff.utils import pages_to_xliff_file
 from ...constants import text_directions
 from ...decorators import permission_required
 from ...forms import PageForm
 from ...models import Page, Region, PageTranslation
 from ...utils.file_utils import extract_zip_archive
-from ...utils.pdf_utils import generate_pdf
-from ...utils.translation_utils import ugettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 
@@ -227,42 +224,6 @@ def delete_page(request, page_id, region_slug, language_slug):
     )
 
 
-@permission_required("cms.view_page")
-# pylint: disable=unused-argument
-def export_pdf(request, region_slug, language_slug):
-    """
-    Function for handling a pdf export request for pages.
-    The pages get extracted from request.GET attribute and the request is forwarded to :func:`~integreat_cms.cms.utils.pdf_utils.generate_pdf`
-
-    :param request: Request submitted for rendering pdf document
-    :type request: ~django.http.HttpRequest
-
-    :param region_slug: unique region slug
-    :type region_slug: str
-
-    :param language_slug: bcp47 slug of the current language
-    :type language_slug: str
-
-    :return: PDF document offered for download
-    :rtype: ~django.http.HttpResponse
-    """
-    region = request.region
-    # retrieve the selected page ids
-    page_ids = request.POST.getlist("selected_ids[]")
-    # collect the corresponding page objects
-    pages = region.pages.filter(
-        explicitly_archived=False, id__in=page_ids
-    ).prefetch_public_translations()
-    # generate PDF document wrapped in a HtmlResponse object
-    response = generate_pdf(region, language_slug, pages)
-    if response.status_code == 200:
-        # offer PDF document for download
-        response["Content-Disposition"] = (
-            response["Content-Disposition"] + "; attachment"
-        )
-    return response
-
-
 def expand_page_translation_id(request, short_url_id):
     """
     Searches for a page translation with corresponding ID and redirects browser to web app
@@ -282,81 +243,6 @@ def expand_page_translation_id(request, short_url_id):
     if page_translation and not page_translation.page.archived:
         return redirect(settings.WEBAPP_URL + page_translation.get_absolute_url())
     return HttpResponseNotFound("<h1>Page not found</h1>")
-
-
-@permission_required("cms.view_page")
-def download_xliff(request, region_slug, language_slug, only_public=False):
-    """
-    Download a zip file of XLIFF files.
-    The target languages and pages are selected and the source languages automatically determined.
-
-    :param request: The current request
-    :type request: ~django.http.HttpRequest
-
-    :param region_slug: The slug of the current region
-    :type region_slug: str
-
-    :param language_slug: The slug of the target language
-    :type language_slug: str
-
-    :param only_public: Whether only public versions should be exported
-    :type only_public: bool
-
-    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
-    :rtype: ~django.http.HttpResponseRedirect
-    """
-
-    page_ids = request.POST.getlist("selected_ids[]")
-
-    if not page_ids:
-        messages.error(
-            request,
-            _("No pages selected for XLIFF export."),
-        )
-        return redirect(
-            "pages",
-            **{
-                "region_slug": region_slug,
-                "language_slug": language_slug,
-            },
-        )
-
-    region = request.region
-    pages = get_list_or_404(region.pages, id__in=page_ids)
-
-    target_language = get_object_or_404(
-        region.language_tree_nodes,
-        language__slug=language_slug,
-        parent__isnull=False,
-    ).language
-
-    xliff_file_url = pages_to_xliff_file(
-        request, pages, target_language, only_public=only_public
-    )
-    if xliff_file_url:
-        # Insert link with automatic download into success message
-        messages.success(
-            request,
-            __(
-                _("XLIFF file for translation to {} successfully created.").format(
-                    target_language
-                ),
-                _(
-                    "If the download does not start automatically, please click {}here{}."
-                ).format(
-                    f"<a data-auto-download href='{xliff_file_url}' class='font-bold underline hover:no-underline' download>",
-                    "</a>",
-                ),
-            ),
-        )
-
-    return redirect(
-        "pages",
-        **{
-            "region_slug": region_slug,
-            "language_slug": language_slug,
-        },
-    )
 
 
 @require_POST
