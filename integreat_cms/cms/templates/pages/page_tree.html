@@ -121,7 +121,9 @@
     <div class="flex flex-wrap gap-2 mt-2">
         <select id="bulk-action" class="w-auto max-w-full">
             <option>{% trans 'Select bulk action' %}</option>
-            <!-- TODO: <option data-bulk-action="">{% trans 'Archive pages' %}</option> -->
+            <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                {% trans 'Archive pages' %}
+            </option>
             <option
                 id="pdf-export-option"
                 data-bulk-action="{% url 'export_pdf' region_slug=request.region.slug language_slug=language.slug %}"

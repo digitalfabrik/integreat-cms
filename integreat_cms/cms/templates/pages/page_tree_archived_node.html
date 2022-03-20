@@ -4,9 +4,12 @@
 {% load tree_filters %}
 
 <tr id="page-{{ page.id }}" class="border-t border-b border-solid border-gray-200 hover:bg-gray-100 {% if page.relative_depth > 1 %} level-{{page.relative_depth}} {% if not filter_form.is_enabled and page.parent.archived %} hidden {% endif %} {% endif %}">
+    <td class="pl-4">
+        <input form="bulk-action-form" type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item">
+    </td>
     {% if not filter_form.is_enabled %}
         <td class="hierarchy single_icon whitespace-nowrap">
-            <span class="cursor-move text-gray-800 inline-block pl-4 align-middle" title="{% trans 'Drag & drop is disabled for archived pages.' %}">
+            <span class="cursor-move text-gray-800 inline-block align-middle" title="{% trans 'Drag & drop is disabled for archived pages.' %}">
                 <i data-feather="move"></i>
             </span>
             {% if page.cached_children|length > 0 %}

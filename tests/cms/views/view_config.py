@@ -176,6 +176,36 @@ VIEWS = [
             ),
             ("pages", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("pois", ROLES),
+            (
+                "bulk_archive_pages",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"selected_ids[]": [1, 2, 3]},
+            ),
+            (
+                "bulk_restore_pages",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"selected_ids[]": [1, 2, 3]},
+            ),
+            (
+                "bulk_archive_events",
+                PRIV_STAFF_ROLES + REGION_ROLES,
+                {"selected_ids[]": [1]},
+            ),
+            (
+                "bulk_restore_events",
+                PRIV_STAFF_ROLES + REGION_ROLES,
+                {"selected_ids[]": [1]},
+            ),
+            (
+                "bulk_archive_pois",
+                PRIV_STAFF_ROLES + REGION_ROLES,
+                {"selected_ids[]": [4]},
+            ),
+            (
+                "bulk_restore_pois",
+                PRIV_STAFF_ROLES + REGION_ROLES,
+                {"selected_ids[]": [4]},
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de"},
@@ -366,20 +396,12 @@ VIEWS = [
     (
         [("get_page_tree_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
         # The kwargs for these views
-        {
-            "region_slug": "augsburg",
-            "language_slug": "de",
-            "tree_id": 2,
-        },
+        {"region_slug": "augsburg", "language_slug": "de", "tree_id": 2},
     ),
     (
         [("get_page_tree_ajax", STAFF_ROLES)],
         # The kwargs for these views
-        {
-            "region_slug": "nurnberg",
-            "language_slug": "de",
-            "tree_id": 1,
-        },
+        {"region_slug": "nurnberg", "language_slug": "de", "tree_id": 1},
     ),
     (
         [

@@ -4,9 +4,7 @@
 
 <tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4 pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
-            {{ poi_translation.get_status_display }}
-        </a>
+        <input type="checkbox" name="selected_ids[]" value="{{ poi.id }}" form="bulk-action-form" class="bulk-select-item">
     </td>
 	<td class="pr-2">
 		<a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
@@ -28,6 +26,11 @@
             </a>
         </td>
     {% endif %}
+    <td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
+            {{ poi_translation.get_status_display }}
+        </a>
+    </td>
 	<td class="pr-2">
         <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
             {{ poi.address }}
