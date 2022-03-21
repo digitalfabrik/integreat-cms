@@ -1,5 +1,5 @@
 """
-This module contains action methods for feedack items (archive, restore, ...)
+This module contains action methods for feedback items (archive, restore, ...)
 """
 import logging
 

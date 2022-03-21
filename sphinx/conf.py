@@ -161,6 +161,8 @@ nitpick_ignore = [
     ("py:attr", "linkcheck.models.Link.event_translations"),
     ("py:attr", "linkcheck.models.Link.page_translations"),
     ("py:attr", "linkcheck.models.Link.poi_translations"),
+    ("py:class", "polymorphic.query.PolymorphicQuerySet"),
+    ("py:class", "PolymorphicQuerySet"),
     ("py:class", "realms.magic.unicorn"),
     ("py:class", "webauthn.WebAuthnUser"),
     ("py:class", "xml.dom.minidom.Element"),
