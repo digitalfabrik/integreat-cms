@@ -86,7 +86,7 @@ export default function EditSidebar({
   }, [file]);
 
   return (
-    <div className="2xl:absolute w-full h-full flex flex-col rounded border border-blue-500 shadow-2xl bg-white">
+    <div className="absolute w-full h-full flex flex-col rounded border border-blue-500 shadow-2xl bg-white">
       <div class="rounded w-full p-4 bg-water-500 font-bold">
         <div class="flex flex-row justify-between">
           <span>

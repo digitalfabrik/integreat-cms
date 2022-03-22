@@ -248,10 +248,10 @@ export default function Library({
           )}
         </div>
       )}
-      <div className="flex flex-1 flex-col-reverse relative lg:flex-row gap-4 mt-4">
+      <div className="flex flex-1 relative flex-row gap-4 mt-4">
         <div className="relative flex-1">
           <div
-            className="2xl:absolute w-full h-full flex flex-col bg-white border border-blue-500 shadow-2xl rounded"
+            className="absolute w-full h-full flex flex-col bg-white border border-blue-500 shadow-2xl rounded"
             onClick={() => setFileIndex(null)}
           >
             <div class="rounded w-full bg-water-500 font-bold">
@@ -277,7 +277,7 @@ export default function Library({
         </div>
 
         {fileIndex !== null ? (
-          <div className="relative w-full lg:w-96 2xl:w-120 ">
+          <div className="relative w-56 md:w-72 lg:w-96 2xl:w-120">
             <EditSidebar
               directory={directory}
               fileIndexState={[fileIndex, setFileIndex]}
@@ -295,7 +295,7 @@ export default function Library({
           </div>
         ) : (
           directory && (
-            <div className="relative w-full lg:w-96 2xl:w-120 ">
+            <div className="relative w-56 md:w-72 lg:w-96 2xl:w-120">
               <EditDirectorySidebar
                 directory={directory}
                 apiEndpoints={apiEndpoints}
