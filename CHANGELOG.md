@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1314](https://github.com/digitalfabrik/integreat-cms/issues/1314) ] Fix layout of media library on small screens
+
 
 2022.3.5
 --------
