@@ -1,10 +1,14 @@
 """
 This module includes functions related to the imprint API endpoint.
 """
+import logging
+
 from django.conf import settings
 from django.http import JsonResponse
 
 from ..decorators import json_response
+
+logger = logging.getLogger(__name__)
 
 
 def transform_imprint(imprint_translation):
@@ -52,7 +56,8 @@ def imprint(request, region_slug, language_slug):
     :rtype: ~django.http.JsonResponse
     """
     region = request.region
-    if hasattr(region, "imprint"):
+    # Check if an imprint is available for that region
+    if region.imprint:
         imprint_translation = region.imprint.get_public_translation(language_slug)
         if imprint_translation:
             return JsonResponse(transform_imprint(imprint_translation))
@@ -63,4 +68,9 @@ def imprint(request, region_slug, language_slug):
             if imprint_default_translation:
                 return JsonResponse(transform_imprint(imprint_default_translation))
     # If imprint does not exist, return an empty response. Turn off Safe-Mode to allow serializing arrays
+    logger.info(
+        "The imprint for region %r in the language %s does not exist",
+        region,
+        language_slug,
+    )
     return JsonResponse([], safe=False)
