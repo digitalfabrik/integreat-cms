@@ -5,6 +5,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from polymorphic.models import PolymorphicModel
+from polymorphic.managers import PolymorphicQuerySet, PolymorphicManager
 
 from ...constants import feedback_ratings
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -13,11 +14,44 @@ from ..languages.language import Language
 from ..regions.region import Region
 
 
+class CascadeDeletePolymorphicQuerySet(PolymorphicQuerySet):
+    """
+    Patch the QuerySet to call delete on the non_polymorphic QuerySet, avoiding models.deletion.Collector typing problem
+
+    Based on workarounds proposed in: https://github.com/django-polymorphic/django-polymorphic/issues/229
+    See also: https://github.com/django-polymorphic/django-polymorphic/issues/34, https://github.com/django-polymorphic/django-polymorphic/issues/84
+    Related Django ticket: https://code.djangoproject.com/ticket/23076
+    """
+
+    def delete(self):
+        """
+        This method deletes all objects in this QuerySet.
+
+        :return: A tuple of the number of objects delete and the delete objects grouped by their type
+        :rtype: tuple
+        """
+        if not self.polymorphic_disabled:
+            return self.non_polymorphic().delete()
+
+        return super().delete()
+
+
+class CascadeDeletePolymorphicManager(PolymorphicManager):
+    """
+    This class is used as a workaround for a bug in django-polymorphic.
+    For more information, see :class:`~integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet`.
+    """
+
+    queryset_class = CascadeDeletePolymorphicQuerySet
+
+
 class Feedback(PolymorphicModel, AbstractBaseModel):
     """
     Database model representing feedback from app-users.
     Do not directly create instances of this base model, but of the submodels (e.g. PageFeedback) instead.
     """
+
+    objects = CascadeDeletePolymorphicManager()
 
     region = models.ForeignKey(
         Region,
