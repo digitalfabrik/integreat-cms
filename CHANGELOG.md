@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1319](https://github.com/digitalfabrik/integreat-cms/issues/1319) ] Fix error on Imprint API
+* [ [#1103](https://github.com/digitalfabrik/integreat-cms/issues/1103) ] Add automatic translations via DeepL API
 
 
 2022.3.6

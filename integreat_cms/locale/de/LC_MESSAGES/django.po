@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-20 18:58+0000\n"
+"POT-Creation-Date: 2022-03-23 12:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -3121,7 +3121,7 @@ msgstr "Feedback"
 
 #: cms/templates/_base.html:181
 #: cms/templates/push_notifications/push_notification_list.html:9
-#: core/settings.py:712
+#: core/settings.py:716
 msgid "News"
 msgstr "Nachrichten"
 
@@ -5699,19 +5699,21 @@ msgstr ""
 "Adresse eingegeben haben, mit der Sie sich registriert haben, und überprüfen "
 "Sie Ihren Spam-Ordner."
 
-#: cms/views/bulk_action_views.py:123
-msgid "Automatic translations are not fully implemented yet"
-msgstr "Automatische Übersetzungen sind noch nicht vollständig implementiert"
-
-#: cms/views/bulk_action_views.py:126
+#: cms/views/bulk_action_views.py:124
 msgid "Automatic translations are disabled"
 msgstr "Automatische Übersetzungen sind deaktiviert"
 
-#: cms/views/bulk_action_views.py:164
+#: cms/views/bulk_action_views.py:137
+msgid "This language is not supported by DeepL. Please try another language"
+msgstr ""
+"Diese Sprache wird von DeepL nicht unterstützt. Bitte versuchen Sie eine "
+"andere Sprache"
+
+#: cms/views/bulk_action_views.py:177
 msgid "The selected {} were successfully archived"
 msgstr "Die ausgewählten {} wurden erfolgreich archiviert"
 
-#: cms/views/bulk_action_views.py:203
+#: cms/views/bulk_action_views.py:216
 msgid "The selected {} were successfully restored"
 msgstr "Die ausgewählten {} wurden erfolgreich wiederhergestellt"
 
@@ -6599,6 +6601,18 @@ msgid "Superuser permissions need to be set by another superuser."
 msgstr ""
 "Administratorrechte müssen von einem anderen Administrator vergeben werden."
 
+#: deepl_api/utils.py:74
+msgid "No source translation could be found for {} \"{}\"."
+msgstr "Es konnte kein Quelltext für {} \"{}\" gefunden werden."
+
+#: deepl_api/utils.py:129
+msgid "{} \"{}\" has been successfully translated."
+msgstr "{} \"{}\" wurde erfolgreich übersetzt"
+
+#: deepl_api/utils.py:142
+msgid "{} \"{}\" could not be automatically translated."
+msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
+
 #: xliff/utils.py:152
 msgid ""
 "Page {} does not have a source translation in {} and therefore cannot be "
@@ -6650,6 +6664,10 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Automatic translations are not fully implemented yet"
+#~ msgstr ""
+#~ "Automatische Übersetzungen sind noch nicht vollständig implementiert"
+
 #~ msgid "Filetype:"
 #~ msgstr "Dateityp:"
 
@@ -6662,6 +6680,9 @@ msgstr ""
 
 #~ msgid "Export XLIFF for translation to"
 #~ msgstr "Exportiere XLIFF für Übersetzung nach"
+
+#~ msgid "POI has been successfully translated"
+#~ msgstr "POI wurde erfolgreich übersetzt."
 
 #~ msgid "Access token to update the page content"
 #~ msgstr "Zugangs-Token um Seiten-Inhalte zu aktualisieren"
@@ -6929,9 +6950,6 @@ msgstr ""
 
 #~ msgid "Event was successfully created and published"
 #~ msgstr "Veranstaltung wurde erfolgreich erstellt und veröffentlicht"
-
-#~ msgid "Event was successfully created"
-#~ msgstr "Veranstaltung wurde erfolgreich erstellt"
 
 #~ msgid "Event translation was successfully created and published"
 #~ msgstr ""
@@ -7999,9 +8017,6 @@ msgstr ""
 
 #~ msgid "POI was successfully created and published."
 #~ msgstr "POI wurde erfolgreich erstellt und veröffentlicht."
-
-#~ msgid "POI was successfully created."
-#~ msgstr "POI wurde erfolgreich erstellt."
 
 #~ msgid "POI was successfully published."
 #~ msgstr "POI wurde erfolgreich veröffentlicht."
