@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-19T21:19:09+00:00" />
+    <meta property="article:modified_time" content="2022-03-18T12:15:27+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Views &mdash; integreat-cms 2022.3.6 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -462,6 +462,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#wsgi">Wsgi</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.deepl_api.html">Deepl API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.deepl_api.html#utils">Utils</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.gvz_api.html">Gvz API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.gvz_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.gvz_api.html#utils">Utils</a></li>
@@ -715,6 +719,10 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.wsgi">Wsgi</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.deepl_api.html">Deepl API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.deepl_api.html#module-integreat_cms.deepl_api.utils">Utils</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.gvz_api.html">Gvz API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.utils">Utils</a></li>
@@ -964,7 +972,7 @@ anything meets your requirements.</p>
 <p>This module contains the base view for bulk actions</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkActionView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkActionView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-multiple-object/#django.views.generic.list.MultipleObjectMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.list.MultipleObjectMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
 <p>View for executing a bulk action and redirect to a given location</p>
 <dl class="py method">
@@ -976,7 +984,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.allow_empty">
-<span class="sig-name descname"><span class="pre">allow_empty</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.allow_empty" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">allow_empty</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.allow_empty" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -987,7 +995,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.context_object_name">
-<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.context_object_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.context_object_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1002,7 +1010,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.extra_context" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.extra_context" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1068,7 +1076,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.get_permission_required">
-<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_permission_required" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_permission_required" title="Permalink to this definition"></a></dt>
 <dd><p>Override this method to override the permission_required attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1082,7 +1090,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.get_queryset">
-<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_queryset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_queryset" title="Permalink to this definition"></a></dt>
 <dd><p>Get the queryset of selected items for this bulk action</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
@@ -1105,7 +1113,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.get_redirect_url">
-<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_redirect_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_redirect_url" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieve url for redirection</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1141,7 +1149,7 @@ paginating.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['post']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.http_method_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['post']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.http_method_names" title="Permalink to this definition"></a></dt>
 <dd><p>The list of HTTP method names that this view will accept.
 The bulk action form uses only POST as submission method.</p>
 </dd></dl>
@@ -1153,12 +1161,12 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.login_url">
-<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.login_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.login_url" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.model">
-<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.model" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1169,22 +1177,22 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.ordering">
-<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.ordering" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.ordering" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.page_kwarg">
-<span class="sig-name descname"><span class="pre">page_kwarg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.page_kwarg" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_kwarg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.page_kwarg" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.paginate_by">
-<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.paginate_by" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.paginate_by" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.paginate_orphans">
-<span class="sig-name descname"><span class="pre">paginate_orphans</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.paginate_orphans" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">paginate_orphans</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.paginate_orphans" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1206,22 +1214,22 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.pattern_name">
-<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.pattern_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.pattern_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.permanent">
-<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.permanent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.permanent" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.permission_denied_message">
-<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.permission_denied_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.permission_denied_message" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.permission_required">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.permission_required" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.permission_required" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1231,13 +1239,13 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.prefetch_public_translations">
-<span class="sig-name descname"><span class="pre">prefetch_public_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.prefetch_public_translations" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prefetch_public_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.prefetch_public_translations" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the public translation objects should be prefetched</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.prefetch_translations">
-<span class="sig-name descname"><span class="pre">prefetch_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.prefetch_translations" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prefetch_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.prefetch_translations" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the translation objects should be prefetched</p>
 </dd></dl>
 
@@ -1248,27 +1256,27 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.query_string">
-<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.query_string" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.query_string" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.queryset">
-<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.queryset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.queryset" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.raise_exception">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.raise_exception" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.raise_exception" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.redirect_field_name">
-<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'next'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.redirect_field_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'next'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.redirect_field_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.require_change_permission">
-<span class="sig-name descname"><span class="pre">require_change_permission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.require_change_permission" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">require_change_permission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.require_change_permission" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the view requires change permissions</p>
 </dd></dl>
 
@@ -1280,14 +1288,14 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.url">
-<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.url" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkArchiveView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkArchiveView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.bulk_action_views.BulkActionView</span></code></a></p>
 <p>Bulk action for archiving multiple objects at once</p>
 <dl class="py method">
@@ -1299,12 +1307,12 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.allow_empty">
-<span class="sig-name descname"><span class="pre">allow_empty</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.allow_empty" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">allow_empty</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.allow_empty" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.archived_field">
-<span class="sig-name descname"><span class="pre">archived_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'archived'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.archived_field" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">archived_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'archived'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.archived_field" title="Permalink to this definition"></a></dt>
 <dd><p>The name of the archived-field</p>
 </dd></dl>
 
@@ -1316,7 +1324,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.context_object_name">
-<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.context_object_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.context_object_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1331,7 +1339,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.extra_context" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.extra_context" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1397,7 +1405,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_permission_required">
-<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_permission_required" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_permission_required" title="Permalink to this definition"></a></dt>
 <dd><p>Override this method to override the permission_required attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1411,7 +1419,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_queryset">
-<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_queryset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_queryset" title="Permalink to this definition"></a></dt>
 <dd><p>Get the queryset of selected items for this bulk action</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
@@ -1434,7 +1442,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_redirect_url">
-<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_redirect_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.get_redirect_url" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieve url for redirection</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1470,7 +1478,7 @@ paginating.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['post']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.http_method_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['post']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.http_method_names" title="Permalink to this definition"></a></dt>
 <dd><p>The list of HTTP method names that this view will accept.
 The bulk action form uses only POST as submission method.</p>
 </dd></dl>
@@ -1482,12 +1490,12 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.login_url">
-<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.login_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.login_url" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.model">
-<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.model" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1498,22 +1506,22 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.ordering">
-<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.ordering" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.ordering" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.page_kwarg">
-<span class="sig-name descname"><span class="pre">page_kwarg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.page_kwarg" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_kwarg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.page_kwarg" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginate_by">
-<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginate_by" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginate_by" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginate_orphans">
-<span class="sig-name descname"><span class="pre">paginate_orphans</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginate_orphans" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">paginate_orphans</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginate_orphans" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1535,27 +1543,27 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.pattern_name">
-<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.pattern_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.pattern_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permanent">
-<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permanent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permanent" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permission_denied_message">
-<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permission_denied_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permission_denied_message" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permission_required">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permission_required" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.permission_required" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.post">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L140"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.post" title="Permalink to this definition"></a></dt>
 <dd><p>Archive the selected objects and redirect</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1576,13 +1584,13 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.prefetch_public_translations">
-<span class="sig-name descname"><span class="pre">prefetch_public_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.prefetch_public_translations" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prefetch_public_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.prefetch_public_translations" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the public translation objects should be prefetched</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.prefetch_translations">
-<span class="sig-name descname"><span class="pre">prefetch_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.prefetch_translations" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prefetch_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.prefetch_translations" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the translation objects should be prefetched</p>
 </dd></dl>
 
@@ -1593,27 +1601,27 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.query_string">
-<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.query_string" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.query_string" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.queryset">
-<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.queryset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.queryset" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.raise_exception">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.raise_exception" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.raise_exception" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.redirect_field_name">
-<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'next'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.redirect_field_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'next'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.redirect_field_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.require_change_permission">
-<span class="sig-name descname"><span class="pre">require_change_permission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.require_change_permission" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">require_change_permission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.require_change_permission" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the view requires change permissions</p>
 </dd></dl>
 
@@ -1625,14 +1633,14 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.url">
-<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.url" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkAutoTranslateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkAutoTranslateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.bulk_action_views.BulkActionView</span></code></a></p>
 <p>Bulk action for automatically translating multiple objects</p>
 <dl class="py method">
@@ -1644,7 +1652,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.allow_empty">
-<span class="sig-name descname"><span class="pre">allow_empty</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.allow_empty" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">allow_empty</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.allow_empty" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1655,7 +1663,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.context_object_name">
-<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.context_object_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.context_object_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1670,8 +1678,14 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.extra_context" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.extra_context" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.form">
+<span class="sig-name descname"><span class="pre">form</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.form" title="Permalink to this definition"></a></dt>
+<dd><p>the form of this bulk action</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get">
@@ -1736,7 +1750,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_permission_required">
-<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_permission_required" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_permission_required" title="Permalink to this definition"></a></dt>
 <dd><p>Override this method to override the permission_required attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1750,7 +1764,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_queryset">
-<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_queryset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_queryset" title="Permalink to this definition"></a></dt>
 <dd><p>Get the queryset of selected items for this bulk action</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
@@ -1773,7 +1787,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_redirect_url">
-<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_redirect_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.get_redirect_url" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieve url for redirection</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1809,7 +1823,7 @@ paginating.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['post']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.http_method_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['post']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.http_method_names" title="Permalink to this definition"></a></dt>
 <dd><p>The list of HTTP method names that this view will accept.
 The bulk action form uses only POST as submission method.</p>
 </dd></dl>
@@ -1821,12 +1835,12 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.login_url">
-<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.login_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.login_url" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.model">
-<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.model" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1837,22 +1851,22 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.ordering">
-<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.ordering" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.ordering" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.page_kwarg">
-<span class="sig-name descname"><span class="pre">page_kwarg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.page_kwarg" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_kwarg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.page_kwarg" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginate_by">
-<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginate_by" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginate_by" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginate_orphans">
-<span class="sig-name descname"><span class="pre">paginate_orphans</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginate_orphans" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">paginate_orphans</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginate_orphans" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1874,27 +1888,27 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.pattern_name">
-<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.pattern_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.pattern_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permanent">
-<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permanent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permanent" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permission_denied_message">
-<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permission_denied_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permission_denied_message" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permission_required">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permission_required" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.permission_required" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.post">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.post" title="Permalink to this definition"></a></dt>
 <dd><p>Translate multiple objects automatically</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1915,13 +1929,13 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.prefetch_public_translations">
-<span class="sig-name descname"><span class="pre">prefetch_public_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.prefetch_public_translations" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prefetch_public_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.prefetch_public_translations" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the public translation objects should be prefetched</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.prefetch_translations">
-<span class="sig-name descname"><span class="pre">prefetch_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.prefetch_translations" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prefetch_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.prefetch_translations" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the public translation objects should be prefetched</p>
 </dd></dl>
 
@@ -1932,27 +1946,27 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.query_string">
-<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.query_string" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.query_string" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.queryset">
-<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.queryset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.queryset" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.raise_exception">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.raise_exception" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.raise_exception" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.redirect_field_name">
-<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'next'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.redirect_field_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'next'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.redirect_field_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.require_change_permission">
-<span class="sig-name descname"><span class="pre">require_change_permission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.require_change_permission" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">require_change_permission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.require_change_permission" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the view requires change permissions</p>
 </dd></dl>
 
@@ -1964,14 +1978,14 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.url">
-<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.url" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkRestoreView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkRestoreView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.bulk_action_views.BulkActionView</span></code></a></p>
 <p>Bulk action for restoring multiple objects at once</p>
 <dl class="py method">
@@ -1983,12 +1997,12 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.allow_empty">
-<span class="sig-name descname"><span class="pre">allow_empty</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.allow_empty" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">allow_empty</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.allow_empty" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.archived_field">
-<span class="sig-name descname"><span class="pre">archived_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'archived'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.archived_field" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">archived_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'archived'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.archived_field" title="Permalink to this definition"></a></dt>
 <dd><p>The name of the archived-field</p>
 </dd></dl>
 
@@ -2000,7 +2014,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.context_object_name">
-<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.context_object_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.context_object_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2015,7 +2029,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.extra_context" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.extra_context" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2081,7 +2095,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_permission_required">
-<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_permission_required" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_permission_required" title="Permalink to this definition"></a></dt>
 <dd><p>Override this method to override the permission_required attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -2095,7 +2109,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_queryset">
-<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_queryset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_queryset" title="Permalink to this definition"></a></dt>
 <dd><p>Get the queryset of selected items for this bulk action</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
@@ -2118,7 +2132,7 @@ paginating.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_redirect_url">
-<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_redirect_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.get_redirect_url" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieve url for redirection</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2154,7 +2168,7 @@ paginating.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['post']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.http_method_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['post']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.http_method_names" title="Permalink to this definition"></a></dt>
 <dd><p>The list of HTTP method names that this view will accept.
 The bulk action form uses only POST as submission method.</p>
 </dd></dl>
@@ -2166,12 +2180,12 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.login_url">
-<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.login_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.login_url" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.model">
-<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.model" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2182,22 +2196,22 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.ordering">
-<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.ordering" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.ordering" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.page_kwarg">
-<span class="sig-name descname"><span class="pre">page_kwarg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.page_kwarg" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_kwarg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.page_kwarg" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginate_by">
-<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginate_by" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginate_by" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginate_orphans">
-<span class="sig-name descname"><span class="pre">paginate_orphans</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginate_orphans" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">paginate_orphans</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginate_orphans" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2219,27 +2233,27 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.pattern_name">
-<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.pattern_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.pattern_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permanent">
-<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permanent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permanent" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permission_denied_message">
-<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permission_denied_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permission_denied_message" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permission_required">
-<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permission_required" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.permission_required" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.post">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L193"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.post" title="Permalink to this definition"></a></dt>
 <dd><p>Restore the selected objects and redirect</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2260,13 +2274,13 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.prefetch_public_translations">
-<span class="sig-name descname"><span class="pre">prefetch_public_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.prefetch_public_translations" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prefetch_public_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.prefetch_public_translations" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the public translation objects should be prefetched</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.prefetch_translations">
-<span class="sig-name descname"><span class="pre">prefetch_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.prefetch_translations" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prefetch_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.prefetch_translations" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the translation objects should be prefetched</p>
 </dd></dl>
 
@@ -2277,27 +2291,27 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.query_string">
-<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.query_string" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.query_string" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.queryset">
-<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.queryset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.queryset" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.raise_exception">
-<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.raise_exception" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.raise_exception" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.redirect_field_name">
-<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'next'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.redirect_field_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'next'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.redirect_field_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.require_change_permission">
-<span class="sig-name descname"><span class="pre">require_change_permission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.require_change_permission" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">require_change_permission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.require_change_permission" title="Permalink to this definition"></a></dt>
 <dd><p>Whether the view requires change permissions</p>
 </dd></dl>
 
@@ -2309,7 +2323,7 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.url">
-<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.url" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -4378,7 +4392,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 19, 2022.
+      <span class="lastupdated">Last updated on Mar 18, 2022.
       </span></p>
   </div>
 

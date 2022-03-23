@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-10T16:19:12+00:00" />
+    <meta property="article:modified_time" content="2022-01-19T13:28:23+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Signals &mdash; integreat-cms 2022.3.6 documentation</title>
+  <title>Deepl API &mdash; integreat-cms 2022.3.6 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/integreat-icon.png"/>
-    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref/integreat_cms.cms.signals.html" />
+    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref/integreat_cms.deepl_api.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Templatetags" href="integreat_cms.cms.templatetags.html" />
-    <link rel="prev" title="Users" href="integreat_cms.cms.models.users.html" /> 
+    <link rel="next" title="Gvz API" href="integreat_cms.gvz_api.html" />
+    <link rel="prev" title="Middleware" href="integreat_cms.core.middleware.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -296,7 +296,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#urls">Urls</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.constants.html">Constants</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#all-day">All Day</a></li>
@@ -370,8 +370,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.html#decorators">Decorators</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Signals</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#feedback-signals">Feedback Signals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.signals.html">Signals</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.signals.html#feedback-signals">Feedback Signals</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.templatetags.html">Templatetags</a><ul>
@@ -462,8 +462,8 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#wsgi">Wsgi</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.deepl_api.html">Deepl API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.deepl_api.html#utils">Utils</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Deepl API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.gvz_api.html">Gvz API</a><ul>
@@ -808,10 +808,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="integreat_cms.html">Integreat CMS</a> &raquo;</li>
-          <li><a href="integreat_cms.cms.html">CMS</a> &raquo;</li>
-      <li>Signals</li>
+      <li>Deepl API</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../ref-ext/integreat_cms.cms.signals.html" class="fa fa-search-plus"> Open extended view</a>
+            <a href="../ref-ext/integreat_cms.deepl_api.html" class="fa fa-search-plus"> Open extended view</a>
           
       </li>
   </ul>
@@ -820,36 +819,57 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="signals">
-<h1>Signals<a class="headerlink" href="#signals" title="Permalink to this headline"></a></h1>
-<section id="feedback-signals">
-<h2>Feedback Signals<a class="headerlink" href="#feedback-signals" title="Permalink to this headline"></a></h2>
-<dl class="py function">
+  <section id="deepl-api">
+<h1>Deepl API<a class="headerlink" href="#deepl-api" title="Permalink to this headline"></a></h1>
+<section id="utils">
+<h2>Utils<a class="headerlink" href="#utils" title="Permalink to this headline"></a></h2>
+<dl class="py class">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.signals.feedback_signals.</span></span><span class="sig-name descname"><span class="pre">feedback_create_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/signals/feedback_signals.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Invalidate feedback cache after feedback creation</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.deepl_api.utils.</span></span><span class="sig-name descname"><span class="pre">DeepLApi</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>DeepL API to auto translate selected posts.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Initialize the DeepL client</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">check_availability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function checks, if the selected language is supported by DeepL</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sender</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#type" title="(in Python v3.9)"><em>type</em></a>) – The class of the feedback that was deleted</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – request that was sent to the server</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – current language slug</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true or false</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">deepl_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_objects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This functions gets the translation from DeepL</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – passed request</p></li>
+<li><p><strong>content_objects</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a><em> [ </em><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel" title="integreat_cms.cms.models.abstract_content_model.AbstractContentModel"><em>AbstractContentModel</em></a><em> ]</em>) – passed content objects</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – current GUI language slug</p></li>
+<li><p><strong>form_class</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm" title="integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm"><em>CustomContentModelForm</em></a>) – passed Form class of content type</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.signals.feedback_signals.</span></span><span class="sig-name descname"><span class="pre">feedback_delete_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/signals/feedback_signals.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Invalidate feedback cache after feedback deletion</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>sender</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#type" title="(in Python v3.9)"><em>type</em></a>) – The class of the feedback that was deleted</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -859,8 +879,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="integreat_cms.cms.models.users.html" class="btn btn-neutral float-left" title="Users" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="integreat_cms.cms.templatetags.html" class="btn btn-neutral float-right" title="Templatetags" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="integreat_cms.core.middleware.html" class="btn btn-neutral float-left" title="Middleware" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integreat_cms.gvz_api.html" class="btn btn-neutral float-right" title="Gvz API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -870,7 +890,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 10, 2022.
+      <span class="lastupdated">Last updated on Jan 19, 2022.
       </span></p>
   </div>
 

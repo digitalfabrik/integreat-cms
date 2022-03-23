@@ -458,6 +458,10 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#wsgi">Wsgi</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.deepl_api.html">Deepl API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.deepl_api.html#utils">Utils</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.gvz_api.html">Gvz API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.gvz_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.gvz_api.html#utils">Utils</a></li>
@@ -709,6 +713,10 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.sphinx_settings">Sphinx Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.urls">Urls</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.wsgi">Wsgi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ref-ext/integreat_cms.deepl_api.html">Deepl API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.deepl_api.html#module-integreat_cms.deepl_api.utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html">Gvz API</a><ul>
@@ -1315,6 +1323,8 @@
         <li><a href="ref-ext/integreat_cms.core.middleware.html#integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware.__init__">(integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.middleware.html#integreat_cms.core.middleware.region_middleware.RegionMiddleware.__init__">(integreat_cms.core.middleware.region_middleware.RegionMiddleware method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.utils.DeepLApi.__init__">(integreat_cms.deepl_api.utils.DeepLApi method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.apps.GvzApiConfig.__init__">(integreat_cms.gvz_api.apps.GvzApiConfig method)</a>
 </li>
@@ -2971,6 +2981,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_mfa_key.UserMfaKey.check">(integreat_cms.cms.models.users.user_mfa_key.UserMfaKey class method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.utils.DeepLApi.check_availability">check_availability() (integreat_cms.deepl_api.utils.DeepLApi method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.check_password">check_password() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator.check_token">check_token() (integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator method)</a>
@@ -3927,6 +3939,10 @@
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_AUTH_KEY">DEEPL_AUTH_KEY (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_ENABLED">DEEPL_ENABLED (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.utils.DeepLApi.deepl_translation">deepl_translation() (integreat_cms.deepl_api.utils.DeepLApi method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.utils.DeepLApi">DeepLApi (class in integreat_cms.deepl_api.utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.colors.DEFAULT">DEFAULT (in module integreat_cms.cms.constants.colors)</a>
 </li>
@@ -5265,7 +5281,11 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.parent_field_widget.ParentFieldWidget.form">form (integreat_cms.cms.forms.pages.parent_field_widget.ParentFieldWidget attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.form">(integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView attribute)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView.form_class">form_class (integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView attribute)</a>
 
       <ul>
@@ -9929,8 +9949,6 @@
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.templatetags.arithmetic
 
@@ -9938,6 +9956,8 @@
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.arithmetic">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.templatetags.base_filters
 
@@ -10916,6 +10936,20 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.wsgi">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.deepl_api
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#module-integreat_cms.deepl_api">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.deepl_api.utils
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#module-integreat_cms.deepl_api.utils">module</a>
 </li>
       </ul></li>
       <li>
@@ -12807,6 +12841,10 @@
         <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.urls">integreat_cms.core.urls</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.wsgi">integreat_cms.core.wsgi</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#module-integreat_cms.deepl_api">integreat_cms.deepl_api</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.deepl_api.html#module-integreat_cms.deepl_api.utils">integreat_cms.deepl_api.utils</a>
 </li>
         <li><a href="ref-ext/integreat_cms.gvz_api.html#module-integreat_cms.gvz_api">integreat_cms.gvz_api</a>
 </li>
