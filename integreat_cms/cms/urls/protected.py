@@ -597,8 +597,20 @@ urlpatterns = [
                                         ),
                                         path(
                                             "<slug:link_filter>/",
-                                            linkcheck.LinkListView.as_view(),
-                                            name="linkcheck",
+                                            include(
+                                                [
+                                                    path(
+                                                        "",
+                                                        linkcheck.LinkListView.as_view(),
+                                                        name="linkcheck",
+                                                    ),
+                                                    path(
+                                                        "<int:link_id>/",
+                                                        linkcheck.LinkListView.as_view(),
+                                                        name="edit_link",
+                                                    ),
+                                                ]
+                                            ),
                                         ),
                                     ]
                                 ),

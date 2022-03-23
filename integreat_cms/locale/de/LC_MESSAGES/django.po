@@ -1586,7 +1586,7 @@ msgstr "Kategorie"
 #: cms/templates/imprint/imprint_sbs.html:51
 #: cms/templates/imprint/imprint_sbs.html:115
 #: cms/templates/imprint/imprint_sbs.html:134
-#: cms/templates/linkcheck/links_by_filter.html:52
+#: cms/templates/linkcheck/links_by_filter.html:55
 #: cms/templates/pages/page_form.html:90
 #: cms/templates/pages/page_revisions.html:50
 #: cms/templates/pages/page_sbs.html:59 cms/templates/pages/page_sbs.html:115
@@ -2426,7 +2426,7 @@ msgid "thumbnail URL"
 msgstr "Vorschaubild-URL"
 
 #: cms/models/offers/offer_template.py:31 cms/templates/_tinymce_config.html:46
-#: cms/templates/linkcheck/links_by_filter.html:51
+#: cms/templates/linkcheck/links_by_filter.html:54
 #: cms/templates/offertemplates/offertemplate_list.html:22
 #: cms/views/media/media_context_mixin.py:57
 msgid "URL"
@@ -3794,6 +3794,7 @@ msgstr "Wiederholung"
 #: cms/templates/events/event_list.html:81
 #: cms/templates/events/event_list_archived.html:57
 #: cms/templates/languages/language_list.html:30
+#: cms/templates/linkcheck/links_by_filter.html:59
 #: cms/templates/offertemplates/offertemplate_list.html:26
 #: cms/templates/organizations/organization_list.html:23
 #: cms/templates/pages/page_tree.html:83
@@ -3816,7 +3817,7 @@ msgstr "Keine zukünftigen Veranstaltungen vorhanden."
 #: cms/templates/events/event_list_archived.html:81
 #: cms/templates/feedback/admin_feedback_list.html:128
 #: cms/templates/feedback/region_feedback_list.html:123
-#: cms/templates/linkcheck/links_by_filter.html:72
+#: cms/templates/linkcheck/links_by_filter.html:76
 #: cms/templates/pages/page_tree.html:123
 #: cms/templates/pages/page_tree_archived.html:92
 #: cms/templates/pois/poi_list.html:94
@@ -3837,7 +3838,7 @@ msgstr "Fehlende Übersetzungen automatisch erstellen"
 #: cms/templates/events/event_list_archived.html:86
 #: cms/templates/feedback/admin_feedback_list.html:135
 #: cms/templates/feedback/region_feedback_list.html:137
-#: cms/templates/linkcheck/links_by_filter.html:80
+#: cms/templates/linkcheck/links_by_filter.html:84
 #: cms/templates/pages/page_tree.html:152
 #: cms/templates/pages/page_tree_archived.html:98
 #: cms/templates/pois/poi_list.html:105
@@ -4363,9 +4364,13 @@ msgstr "Anzahl an Regionen"
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
-#: cms/templates/linkcheck/link_list_row.html:24
+#: cms/templates/linkcheck/link_list_row.html:25
 msgid "Go to source"
 msgstr "Inhalt aufrufen"
+
+#: cms/templates/linkcheck/link_list_row.html:35
+msgid "Replace URL globally"
+msgstr "URL zentral ersetzen"
 
 #: cms/templates/linkcheck/links_by_filter.html:19
 msgid "Valid"
@@ -4383,31 +4388,31 @@ msgstr "Nicht geprüft"
 msgid "Ignored"
 msgstr "Ignoriert"
 
-#: cms/templates/linkcheck/links_by_filter.html:53
+#: cms/templates/linkcheck/links_by_filter.html:56
 msgid "Link text"
 msgstr "Link Text"
 
-#: cms/templates/linkcheck/links_by_filter.html:54
+#: cms/templates/linkcheck/links_by_filter.html:57
 msgid "Source"
 msgstr "Quelle"
 
-#: cms/templates/linkcheck/links_by_filter.html:55
+#: cms/templates/linkcheck/links_by_filter.html:58
 msgid "Content type"
 msgstr "Inhaltstyp"
 
-#: cms/templates/linkcheck/links_by_filter.html:64
+#: cms/templates/linkcheck/links_by_filter.html:68
 msgid "No links detected yet."
 msgstr "Es konnten keine Links gefunden werden."
 
-#: cms/templates/linkcheck/links_by_filter.html:74
+#: cms/templates/linkcheck/links_by_filter.html:78
 msgid "Unignore"
 msgstr "Nicht ignorieren"
 
-#: cms/templates/linkcheck/links_by_filter.html:76
+#: cms/templates/linkcheck/links_by_filter.html:80
 msgid "Recheck"
 msgstr "Erneut prüfen"
 
-#: cms/templates/linkcheck/links_by_filter.html:77
+#: cms/templates/linkcheck/links_by_filter.html:81
 msgid "Ignore"
 msgstr "Ignorieren"
 
@@ -5995,15 +6000,19 @@ msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich gespeichert"
 msgid "Language tree node for \"{}\" was successfully created"
 msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/linkcheck/linkcheck.py:67
+#: cms/views/linkcheck/linkcheck.py:110
+msgid "URL was successfully replaced"
+msgstr "URL wurde erfolgreich ersetzt"
+
+#: cms/views/linkcheck/linkcheck.py:126
 msgid "Links were successfully ignored"
 msgstr "Links wurden erfolgreich ignoriert"
 
-#: cms/views/linkcheck/linkcheck.py:70
+#: cms/views/linkcheck/linkcheck.py:129
 msgid "Links were successfully unignored"
 msgstr "Links werden nicht mehr ignoriert"
 
-#: cms/views/linkcheck/linkcheck.py:74
+#: cms/views/linkcheck/linkcheck.py:133
 msgid "Links were successfully checked"
 msgstr "Links wurden erfolgreich geprüft"
 
@@ -6690,6 +6699,9 @@ msgstr ""
 #~ msgid "Expand/collapse Pages"
 #~ msgstr "Seiten klappen"
 
+#~ msgid "URL could not be replaced"
+#~ msgstr "URL konnte nicht ersetzt werden"
+
 #~ msgid "Settings for all translations"
 #~ msgstr "Einstellungen für alle Übersetzungen"
 
@@ -6973,9 +6985,6 @@ msgstr ""
 #~ msgid "User was successfully saved"
 #~ msgstr "Benutzer wurde erfolgreich gespeichert"
 
-#~ msgid "User was successfully created"
-#~ msgstr "Benutzer wurde erfolgreich erstellt"
-
 #~ msgid "Activation link was successfully sent to user {}."
 #~ msgstr "Aktivierungslink wurde erfolgreich an den Nutzer {} gesendet."
 
@@ -7235,9 +7244,6 @@ msgstr ""
 
 #~ msgid "Settings for"
 #~ msgstr "Einstellungen für"
-
-#~ msgid "Content type could not be recognized"
-#~ msgstr "Quelle des Links konnte nicht zugeordnet werden"
 
 #~ msgid "Show Versions"
 #~ msgstr "Versionen anzeigen"
