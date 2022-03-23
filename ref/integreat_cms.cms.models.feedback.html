@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-20T19:27:34+00:00" />
+    <meta property="article:modified_time" content="2022-03-21T13:20:11+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feedback &mdash; integreat-cms 2022.3.6 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1029,7 +1029,45 @@ The base model <a class="reference internal" href="../ref-ext/integreat_cms.cms.
 <h2>Feedback<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.feedback.feedback.</span></span><span class="sig-name descname"><span class="pre">Feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.feedback.feedback.</span></span><span class="sig-name descname"><span class="pre">CascadeDeletePolymorphicManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://django-polymorphic.readthedocs.io/en/latest/api/polymorphic.managers.html#polymorphic.managers.PolymorphicManager" title="(in django-polymorphic v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">polymorphic.managers.PolymorphicManager</span></code></a></p>
+<p>This class is used as a workaround for a bug in django-polymorphic.
+For more information, see <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet" title="integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet"><code class="xref py py-class docutils literal notranslate"><span class="pre">CascadeDeletePolymorphicQuerySet</span></code></a>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">queryset_class</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet" title="integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.feedback.feedback.</span></span><span class="sig-name descname"><span class="pre">CascadeDeletePolymorphicQuerySet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">polymorphic.query.PolymorphicQuerySet</span></code></p>
+<p>Patch the QuerySet to call delete on the non_polymorphic QuerySet, avoiding models.deletion.Collector typing problem</p>
+<p>Based on workarounds proposed in: <a class="reference external" href="https://github.com/django-polymorphic/django-polymorphic/issues/229">https://github.com/django-polymorphic/django-polymorphic/issues/229</a>
+See also: <a class="reference external" href="https://github.com/django-polymorphic/django-polymorphic/issues/34">https://github.com/django-polymorphic/django-polymorphic/issues/34</a>, <a class="reference external" href="https://github.com/django-polymorphic/django-polymorphic/issues/84">https://github.com/django-polymorphic/django-polymorphic/issues/84</a>
+Related Django ticket: <a class="reference external" href="https://code.djangoproject.com/ticket/23076">https://code.djangoproject.com/ticket/23076</a></p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This method deletes all objects in this QuerySet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A tuple of the number of objects delete and the delete objects grouped by their type</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.feedback.feedback.</span></span><span class="sig-name descname"><span class="pre">Feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://django-polymorphic.readthedocs.io/en/latest/api/polymorphic.models.html#polymorphic.models.PolymorphicModel" title="(in django-polymorphic v3.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">polymorphic.models.PolymorphicModel</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel" title="integreat_cms.cms.models.abstract_base_model.AbstractBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.abstract_base_model.AbstractBaseModel</span></code></a></p>
 <p>Database model representing feedback from app-users.
 Do not directly create instances of this base model, but of the submodels (e.g. PageFeedback) instead.</p>
@@ -1074,19 +1112,19 @@ Do not directly create instances of this base model, but of the submodels (e.g. 
 </dl>
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">category</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property returns the category (verbose name of the submodel) of this feedback object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1100,7 +1138,7 @@ Do not directly create instances of this base model, but of the submodels (e.g. 
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L137"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L171"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;Feedback:</span> <span class="pre">Feedback</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -1115,7 +1153,7 @@ It is used for logging.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">rating</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">rating</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
 <p>Rating. Whether the feedback is positive or negative</p>
 <p>Choices:</p>
@@ -1129,7 +1167,7 @@ It is used for logging.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">rating_sum_negative</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">rating_sum_negative</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property returns the sum of the down-ratings of this object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1143,7 +1181,7 @@ It is used for logging.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">rating_sum_positive</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">rating_sum_positive</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property returns the sum of the up-ratings of this object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1157,7 +1195,7 @@ It is used for logging.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property returns whether or not the feedback is marked as read or not.
 It is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.Feedback.read_by" title="integreat_cms.cms.models.feedback.feedback.Feedback.read_by"><code class="xref py py-attr docutils literal notranslate"><span class="pre">read_by</span></code></a> is set and <code class="docutils literal notranslate"><span class="pre">False</span></code>
 otherwise.</p>
@@ -1173,7 +1211,7 @@ otherwise.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/feedback/feedback.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Searches for all feedbacks which match the given <cite>query</cite> in their comment.
 :param region: The current region or None for non-regional feedback
 :type region: ~integreat_cms.cms.models.regions.region.Region
@@ -1931,7 +1969,7 @@ otherwise.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 20, 2022.
+      <span class="lastupdated">Last updated on Mar 21, 2022.
       </span></p>
   </div>
 
