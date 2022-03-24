@@ -393,6 +393,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#account-activation-token-generator">Account Activation Token Generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#content-edit-lock">Content Edit Lock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
@@ -650,6 +651,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.account_activation_token_generator">Account Activation Token Generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_edit_lock">Content Edit Lock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.matomo_api_manager">Matomo API Manager</a></li>
@@ -1257,6 +1259,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.AdminMediaListView.__init__">(integreat_cms.cms.views.media.media_list_view.AdminMediaListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.MediaListView.__init__">(integreat_cms.cms.views.media.media_list_view.MediaListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ContentEditLockMixin.__init__">(integreat_cms.cms.views.mixins.ContentEditLockMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ModelConfirmationContextMixin.__init__">(integreat_cms.cms.views.mixins.ModelConfirmationContextMixin method)</a>
 </li>
@@ -2611,6 +2615,16 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_form_view.EventFormView.back_url_name">back_url_name (integreat_cms.cms.views.events.event_form_view.EventFormView attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ContentEditLockMixin.back_url_name">(integreat_cms.cms.views.mixins.ContentEditLockMixin attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_form_view.PageFormView.back_url_name">(integreat_cms.cms.views.pages.page_form_view.PageFormView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_form_view.POIFormView.back_url_name">(integreat_cms.cms.views.pois.poi_form_view.POIFormView attribute)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.backend_edit_link">backend_edit_link (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
 
       <ul>
@@ -3438,6 +3452,10 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.content">(integreat_cms.cms.models.pois.poi_translation.POITranslation attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.views.utils.html#integreat_cms.cms.views.utils.content_edit_lock.content_edit_lock_heartbeat">content_edit_lock_heartbeat() (in module integreat_cms.cms.views.utils.content_edit_lock)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.views.utils.html#integreat_cms.cms.views.utils.content_edit_lock.content_edit_lock_release">content_edit_lock_release() (in module integreat_cms.cms.views.utils.content_edit_lock)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.analytics.html#integreat_cms.cms.views.analytics.analytics_overview.AnalyticsView.content_type">content_type (integreat_cms.cms.views.analytics.analytics_overview.AnalyticsView attribute)</a>
 
       <ul>
@@ -3554,6 +3572,8 @@
         <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.POITranslationLinklist.content_type">(integreat_cms.cms.linklists.POITranslationLinklist class method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ContentEditLockMixin">ContentEditLockMixin (class in integreat_cms.cms.views.mixins)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet">ContentQuerySet (class in integreat_cms.cms.models.abstract_content_model)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.context_object_name">context_object_name (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
@@ -4566,6 +4586,20 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_actions.edit_file_ajax">edit_file_ajax() (in module integreat_cms.cms.views.media.media_actions)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.edit_lock_key">edit_lock_key (integreat_cms.cms.models.abstract_content_model.AbstractContentModel property)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.edit_lock_key">(integreat_cms.cms.models.events.event.Event property)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.edit_lock_key">(integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage property)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page.ImprintPage.edit_lock_key">(integreat_cms.cms.models.pages.imprint_page.ImprintPage property)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.edit_lock_key">(integreat_cms.cms.models.pages.page.Page property)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.edit_lock_key">(integreat_cms.cms.models.pois.poi.POI property)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.editable_pages">editable_pages (integreat_cms.cms.models.users.user.User attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.role_names.EDITOR">EDITOR (in module integreat_cms.cms.constants.role_names)</a>
@@ -4808,12 +4842,12 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.eventlistfeedback">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.event_list_feedback.EventListFeedback.DoesNotExist">EventListFeedback.DoesNotExist</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.event_list_feedback.EventListFeedback.MultipleObjectsReturned">EventListFeedback.MultipleObjectsReturned</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_list_view.EventListView">EventListView (class in integreat_cms.cms.views.events.event_list_view)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.EventQuerySet">EventQuerySet (class in integreat_cms.cms.models.events.event)</a>
@@ -5016,6 +5050,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.AdminMediaListView.extra_context">(integreat_cms.cms.views.media.media_list_view.AdminMediaListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.MediaListView.extra_context">(integreat_cms.cms.views.media.media_list_view.MediaListView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ContentEditLockMixin.extra_context">(integreat_cms.cms.views.mixins.ContentEditLockMixin attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ModelConfirmationContextMixin.extra_context">(integreat_cms.cms.views.mixins.ModelConfirmationContextMixin attribute)</a>
 </li>
@@ -5976,6 +6012,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.get_by_natural_key">get_by_natural_key() (integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.content_edit_lock.get_cache_key">get_cache_key() (in module integreat_cms.cms.utils.content_edit_lock)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_cached_ancestors">get_cached_ancestors() (integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode method)</a>
 
       <ul>
@@ -6102,6 +6140,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.AdminMediaListView.get_context_data">(integreat_cms.cms.views.media.media_list_view.AdminMediaListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_list_view.MediaListView.get_context_data">(integreat_cms.cms.views.media.media_list_view.MediaListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ContentEditLockMixin.get_context_data">(integreat_cms.cms.views.mixins.ContentEditLockMixin method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ModelConfirmationContextMixin.get_context_data">(integreat_cms.cms.views.mixins.ModelConfirmationContextMixin method)</a>
 </li>
@@ -6652,6 +6692,22 @@
         <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.POITranslationLinklist.get_linklist">(integreat_cms.cms.linklists.POITranslationLinklist method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.content_edit_lock.get_locking_user">get_locking_user() (in module integreat_cms.cms.utils.content_edit_lock)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.get_locking_user">(integreat_cms.cms.models.abstract_content_model.AbstractContentModel method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.get_locking_user">(integreat_cms.cms.models.events.event.Event method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.get_locking_user">(integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page.ImprintPage.get_locking_user">(integreat_cms.cms.models.pages.imprint_page.ImprintPage method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.get_locking_user">(integreat_cms.cms.models.pages.page.Page method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.get_locking_user">(integreat_cms.cms.models.pois.poi.POI method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_login_url">get_login_url() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
@@ -6822,12 +6878,12 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.get_next_by_last_updated">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.get_next_by_sent_datetime">get_next_by_sent_datetime() (integreat_cms.cms.models.chat.chat_message.ChatMessage method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.get_next_by_start_date">get_next_by_start_date() (integreat_cms.cms.models.events.event.Event method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.get_next_by_uploaded_date">get_next_by_uploaded_date() (integreat_cms.cms.models.media.media_file.MediaFile method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.logout_view.LogoutView.get_next_page">get_next_page() (integreat_cms.cms.views.authentication.logout_view.LogoutView method)</a>
@@ -10098,8 +10154,6 @@
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.arithmetic">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.templatetags.base_filters
 
@@ -10107,6 +10161,8 @@
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.base_filters">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.templatetags.content_filters
 
@@ -10217,6 +10273,13 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.account_activation_token_generator">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.utils.content_edit_lock
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_edit_lock">module</a>
 </li>
       </ul></li>
       <li>
@@ -10980,6 +11043,13 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.views.utils.content_edit_lock
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.content_edit_lock">module</a>
 </li>
       </ul></li>
       <li>
@@ -11984,6 +12054,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.locations.locations">locations() (in module integreat_cms.api.v3.locations)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.content_edit_lock.lock_content">lock_content() (in module integreat_cms.cms.utils.content_edit_lock)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.LOG_LEVEL">LOG_LEVEL (in module integreat_cms.core.circleci_settings)</a>
 
       <ul>
@@ -12754,6 +12826,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.account_activation_token_generator">integreat_cms.cms.utils.account_activation_token_generator</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_edit_lock">integreat_cms.cms.utils.content_edit_lock</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">integreat_cms.cms.utils.file_utils</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.filter_links">integreat_cms.cms.utils.filter_links</a>
@@ -12971,6 +13045,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.users.html#module-integreat_cms.cms.views.users.user_list_view">integreat_cms.cms.views.users.user_list_view</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils">integreat_cms.cms.views.utils</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.content_edit_lock">integreat_cms.cms.views.utils.content_edit_lock</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.utils.html#module-integreat_cms.cms.views.utils.search_content_ajax">integreat_cms.cms.views.utils.search_content_ajax</a>
 </li>
@@ -17525,10 +17601,10 @@
 </li>
       <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_4.test_view_status_code_4">test_view_status_code_4() (in module tests.cms.views.status_code.test_view_status_code_4)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_5.test_view_status_code_5">test_view_status_code_5() (in module tests.cms.views.status_code.test_view_status_code_5)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_6.test_view_status_code_6">test_view_status_code_6() (in module tests.cms.views.status_code.test_view_status_code_6)</a>
 </li>
       <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_7.test_view_status_code_7">test_view_status_code_7() (in module tests.cms.views.status_code.test_view_status_code_7)</a>
@@ -17843,6 +17919,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.title">(integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.text_filters.to_json">to_json() (in module integreat_cms.cms.templatetags.text_filters)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView.token_generator">token_generator (integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView attribute)</a>
 
       <ul>
@@ -18079,6 +18157,8 @@
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff2_serializer.Deserializer.unit_node">(integreat_cms.xliff.xliff2_serializer.Deserializer attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.content_edit_lock.unlock_content">unlock_content() (in module integreat_cms.cms.utils.content_edit_lock)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.feedback_read_status.UNREAD">UNREAD (in module integreat_cms.cms.constants.feedback_read_status)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.unread_chat_messages">unread_chat_messages (integreat_cms.cms.models.users.user.User property)</a>
