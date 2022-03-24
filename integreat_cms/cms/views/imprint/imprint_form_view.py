@@ -14,6 +14,7 @@ from ...decorators import permission_required
 from ...forms import ImprintTranslationForm
 from ...models import ImprintPageTranslation, ImprintPage
 from ...constants import status
+from ...utils.content_edit_lock import get_locking_user
 
 logger = logging.getLogger(__name__)
 
@@ -129,11 +130,17 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             region, language, imprint
         )
 
+        # If the imprint does not exist yet, create the key manually
+        edit_lock_key = (
+            imprint.edit_lock_key if imprint else (region.slug, ImprintPage.__name__)
+        )
+
         return render(
             request,
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
+                "back_url": reverse("dashboard", kwargs={"region_slug": region.slug}),
                 "imprint_translation_form": imprint_translation_form,
                 "imprint": imprint,
                 "language": language,
@@ -141,6 +148,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
                 "languages": region.active_languages if imprint else [language],
                 "side_by_side_language_options": side_by_side_language_options,
                 "translation_states": imprint.translation_states if imprint else [],
+                "lock_key": edit_lock_key,
             },
         )
 
@@ -179,6 +187,14 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             language=language,
         ).first()
 
+        # Since imprints have a special rule for the lock key, compute it here and just pass it to the form
+        lock_key = (
+            imprint_instance.edit_lock_key
+            if imprint_instance
+            else (region.slug, ImprintPage.__name__)
+        )
+        locked_by_user = get_locking_user(*lock_key)
+
         imprint_translation_form = ImprintTranslationForm(
             data=request.POST,
             instance=imprint_translation_instance,
@@ -186,6 +202,8 @@ class ImprintFormView(TemplateView, MediaContextMixin):
                 "creator": request.user,
                 "language": language,
             },
+            changed_by_user=request.user,
+            locked_by_user=locked_by_user,
         )
 
         if not imprint_translation_form.is_valid():
@@ -222,6 +240,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
+                "back_url": reverse("dashboard", kwargs={"region_slug": region.slug}),
                 "imprint_translation_form": imprint_translation_form,
                 "imprint": imprint_instance,
                 "language": language,
@@ -235,6 +254,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
                 "translation_states": imprint_instance.translation_states
                 if imprint_instance
                 else [],
+                "lock_key": lock_key,
             },
         )
 

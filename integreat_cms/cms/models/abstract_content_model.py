@@ -6,6 +6,7 @@ from django.utils.translation import get_language, ugettext_lazy as _
 from django.utils import timezone
 
 from ..constants import status, translation_status
+from ..utils.content_edit_lock import get_locking_user
 from .regions.region import Region
 from .abstract_base_model import AbstractBaseModel
 
@@ -306,6 +307,25 @@ class AbstractContentModel(AbstractBaseModel):
             for node in self.region.language_tree
             if node.active
         }
+
+    @property
+    def edit_lock_key(self):
+        """
+        This property returns the key that is used to lock this specific content object
+
+        :return: A tuple of the id of this object and the classname
+        :rtype: tuple
+        """
+        return (self.id, type(self).__name__)
+
+    def get_locking_user(self):
+        """
+        This method returns the user that is currently locking this content object.
+
+        :return: The user
+        :rtype: ~django.contrib.auth.models.User
+        """
+        return get_locking_user(*self.edit_lock_key)
 
     def __str__(self):
         """

@@ -540,6 +540,23 @@ urlpatterns = [
                                 name="cancel_translation_process_ajax",
                             ),
                             path(
+                                "content-edit-lock/",
+                                include(
+                                    [
+                                        path(
+                                            "heartbeat/",
+                                            utils.content_edit_lock_heartbeat,
+                                            name="content_edit_lock_heartbeat",
+                                        ),
+                                        path(
+                                            "release/",
+                                            utils.content_edit_lock_release,
+                                            name="content_edit_lock_release",
+                                        ),
+                                    ]
+                                ),
+                            ),
+                            path(
                                 "search-poi/",
                                 events.search_poi_ajax,
                                 name="search_poi_ajax",

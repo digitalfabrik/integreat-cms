@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 14:12+0000\n"
+"POT-Creation-Date: 2022-03-24 11:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1459,15 +1459,23 @@ msgstr "Dritte Woche"
 msgid "Fourth week"
 msgstr "Vierte Woche"
 
-#: cms/forms/custom_content_model_form.py:90
+#: cms/forms/custom_content_model_form.py:58
+msgid ""
+"Could not update because this content because it is already being edited by "
+"another user"
+msgstr ""
+"Sie können diese Seite nicht aktualisieren, weil sie bereits von jemand "
+"anderem bearbeitet wird."
+
+#: cms/forms/custom_content_model_form.py:131
 msgid "{} \"{}\" was successfully saved as draft"
 msgstr "{} \"{}\" wurde erfolgreich als Entwurf gespeichert"
 
-#: cms/forms/custom_content_model_form.py:97
+#: cms/forms/custom_content_model_form.py:138
 msgid "{} \"{}\" was successfully updated"
 msgstr "{} \"{}\" wurde erfolgreich aktualisiert"
 
-#: cms/forms/custom_content_model_form.py:104
+#: cms/forms/custom_content_model_form.py:145
 msgid "{} \"{}\" was successfully published"
 msgstr "{} \"{}\" wurde erfolgreich veröffentlicht"
 
@@ -1839,7 +1847,7 @@ msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
 msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
-#: cms/models/abstract_content_model.py:96 cms/models/abstract_tree_node.py:35
+#: cms/models/abstract_content_model.py:97 cms/models/abstract_tree_node.py:35
 #: cms/models/feedback/feedback.py:60 cms/models/media/directory.py:24
 #: cms/models/media/media_file.py:138
 #: cms/models/push_notifications/push_notification.py:21
@@ -1847,7 +1855,7 @@ msgstr "Die Passwörter stimmen nicht überein."
 msgid "region"
 msgstr "Region"
 
-#: cms/models/abstract_content_model.py:99 cms/models/feedback/feedback.py:96
+#: cms/models/abstract_content_model.py:100 cms/models/feedback/feedback.py:96
 #: cms/models/languages/language.py:85
 #: cms/models/languages/language_tree_node.py:37
 #: cms/models/media/directory.py:36 cms/models/offers/offer_template.py:56
@@ -2502,12 +2510,12 @@ msgstr "mit dem Titel auf"
 msgid "page translations"
 msgstr "Seiten-Übersetzungen"
 
-#: cms/models/pages/imprint_page.py:28
+#: cms/models/pages/imprint_page.py:39
 #: cms/models/pages/imprint_page_translation.py:24
 msgid "imprint"
 msgstr "Impressum"
 
-#: cms/models/pages/imprint_page.py:30
+#: cms/models/pages/imprint_page.py:41
 msgid "imprints"
 msgstr "Impressen"
 
@@ -3177,6 +3185,24 @@ msgstr "Angebots-Vorlagen"
 msgid "Version"
 msgstr "Version"
 
+#: cms/templates/_content_edit_lock.html:10
+msgid "{} is already editing this content"
+msgstr "Dieser Inhalt wird bereits von {} bearbeitet"
+
+#: cms/templates/_content_edit_lock.html:11
+msgid "This content got locked by {}"
+msgstr "{} hat die Bearbeitung von diesem Inhalt übernommen"
+
+#: cms/templates/_content_edit_lock.html:12
+msgid "Do you want to take over this site?"
+msgstr "Wollen Sie die Bearbeitung von diesem Inhalt übernehmen?"
+
+#: cms/templates/_content_edit_lock.html:13
+msgid "Continuing will prevent the current editor from working on it."
+msgstr ""
+"Wenn Sie fortfahren, werden andere Benutzer an der gleichzeitigen "
+"Bearbeitung gehindert."
+
 #: cms/templates/_form_language_tabs.html:61
 msgid "Other Languages"
 msgstr "Weitere Sprachen"
@@ -3571,7 +3597,7 @@ msgid "Select region"
 msgstr "Region auswählen"
 
 #: cms/templates/error_handler/http_error.html:10
-#: cms/templatetags/text_filters.py:38
+#: cms/templatetags/text_filters.py:40
 msgid "Error"
 msgstr "Fehler"
 
@@ -5408,7 +5434,7 @@ msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
 
 #: cms/templates/users/region_user_form.html:107
-#: cms/templates/users/user_form.html:131 cms/views/mixins.py:69
+#: cms/templates/users/user_form.html:131 cms/views/mixins.py:70
 msgid "This cannot be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
@@ -5582,7 +5608,7 @@ msgstr ""
 "verändern soll und keine Aktualisierung der Übersetzungen in anderen "
 "Sprachen erfordert."
 
-#: cms/templatetags/text_filters.py:36
+#: cms/templatetags/text_filters.py:38
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -5807,17 +5833,17 @@ msgstr "Bitte bestätigen Sie, dass dieses Event gelöscht werden soll"
 msgid "All translations of this event will also be deleted."
 msgstr "Alle Übersetzungen dieses Events werden gelöscht."
 
-#: cms/views/events/event_form_view.py:77
+#: cms/views/events/event_form_view.py:82
 msgid "You cannot edit this event because it is archived."
 msgstr ""
 "Sie können diese Veranstaltung nicht bearbeiten, weil sie archiviert ist."
 
-#: cms/views/events/event_form_view.py:82
+#: cms/views/events/event_form_view.py:87
 msgid "You don't have the permission to edit events."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten."
 
-#: cms/views/events/event_form_view.py:91
+#: cms/views/events/event_form_view.py:96
 msgid ""
 "You don't have the permission to publish events, but you can propose changes "
 "and submit them for review instead."
@@ -5826,18 +5852,18 @@ msgstr ""
 "veröffentlichen, aber Sie können Änderungen vornehmen und diese zur "
 "Überprüfung vorlegen."
 
-#: cms/views/events/event_form_view.py:192
-#: cms/views/imprint/imprint_form_view.py:198
-#: cms/views/pages/page_form_view.py:254 cms/views/pois/poi_form_view.py:156
+#: cms/views/events/event_form_view.py:198
+#: cms/views/imprint/imprint_form_view.py:216
+#: cms/views/pages/page_form_view.py:260 cms/views/pois/poi_form_view.py:162
 msgid "No changes detected, autosave skipped"
 msgstr "Keine Änderungen vorgenommen, automatisches Speichern übersprungen"
 
-#: cms/views/events/event_form_view.py:214
+#: cms/views/events/event_form_view.py:220
 msgid "Event \"{}\" was successfully created"
 msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/events/event_form_view.py:223
-#: cms/views/pages/page_form_view.py:285 cms/views/pois/poi_form_view.py:170
+#: cms/views/events/event_form_view.py:229
+#: cms/views/pages/page_form_view.py:291 cms/views/pois/poi_form_view.py:176
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
@@ -5890,14 +5916,14 @@ msgstr "{} \"{}\" wurde erfolgreich erstellt"
 msgid "Imprint was successfully deleted"
 msgstr "Impressum wurde erfolgreich gelöscht"
 
-#: cms/views/imprint/imprint_form_view.py:73
+#: cms/views/imprint/imprint_form_view.py:74
 #: cms/views/pages/page_tree_view.py:77
 msgid "Please create at least one language node before creating pages."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
 "verwalten."
 
-#: cms/views/imprint/imprint_form_view.py:101
+#: cms/views/imprint/imprint_form_view.py:102
 #, python-format
 msgid ""
 "This is <b>not</b> the most recent public revision of this translation. "
@@ -5908,18 +5934,18 @@ msgstr ""
 "Stattdessen wird die <a href='%(revision_url)s' class='underline hover:no-"
 "underline'>Revision %(revision)s</a> in den Apps angezeigt."
 
-#: cms/views/imprint/imprint_form_view.py:120
+#: cms/views/imprint/imprint_form_view.py:121
 #: cms/views/imprint/imprint_sbs_view.py:65
 msgid "You don't have the permission to edit the imprint."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um das Impressum zu bearbeiten."
 
-#: cms/views/imprint/imprint_form_view.py:208
+#: cms/views/imprint/imprint_form_view.py:226
 msgid "Imprint was successfully created"
 msgstr "Impressum wurde erfolgreich erstellt"
 
-#: cms/views/imprint/imprint_form_view.py:268
-#: cms/views/pages/page_form_view.py:357
+#: cms/views/imprint/imprint_form_view.py:288
+#: cms/views/pages/page_form_view.py:363
 #, python-brace-format
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
@@ -6189,7 +6215,7 @@ msgstr "Bitte bestätigen Sie, dass dieses Verzeichnis gelöscht werden soll"
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
-#: cms/views/mixins.py:67
+#: cms/views/mixins.py:68
 msgid "Please confirm that you really want to delete this {}"
 msgstr "Bitte bestätigen Sie, dass diese {} gelöscht werden soll"
 
@@ -6330,11 +6356,11 @@ msgstr "Bitte bestätigen Sie, dass diese Seite gelöscht werden soll"
 msgid "All translations of this page will also be deleted."
 msgstr "Alle Übersetzungen dieser Seite werden gelöscht."
 
-#: cms/views/pages/page_form_view.py:74
+#: cms/views/pages/page_form_view.py:79
 msgid "You cannot edit this page because it is archived."
 msgstr "Sie können diese Seite nicht bearbeiten, weil sie archiviert ist."
 
-#: cms/views/pages/page_form_view.py:81
+#: cms/views/pages/page_form_view.py:86
 msgid ""
 "You cannot edit this page, because one of its parent pages is archived and "
 "therefore, this page is archived as well."
@@ -6342,7 +6368,7 @@ msgstr ""
 "Sie können diese Seite nicht bearbeiten, weil eine ihrer übergeordneten "
 "Seiten archiviert ist, und sie dadurch ebenfalls archiviert ist."
 
-#: cms/views/pages/page_form_view.py:90
+#: cms/views/pages/page_form_view.py:95
 #, python-format
 msgid ""
 "The latest changes have only been saved as a draft. Currently, <a "
@@ -6353,11 +6379,11 @@ msgstr ""
 "Version <a href='%(revision_url)s' class='underline hover:no-"
 "underline'>Version %(revision)s</a> dieser Seite in der App angezeigt."
 
-#: cms/views/pages/page_form_view.py:111
+#: cms/views/pages/page_form_view.py:116
 msgid "You don't have the permission to edit this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
 
-#: cms/views/pages/page_form_view.py:118
+#: cms/views/pages/page_form_view.py:123
 msgid ""
 "You don't have the permission to publish this page, but you can propose "
 "changes and submit them for review instead."
@@ -6365,7 +6391,7 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu veröffentlichen, "
 "aber Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
 
-#: cms/views/pages/page_form_view.py:278
+#: cms/views/pages/page_form_view.py:284
 msgid "Page \"{}\" was successfully created"
 msgstr "Seite \"{}\" wurde erfolgreich erstellt"
 
@@ -6426,11 +6452,11 @@ msgstr "Bitte bestätigen Sie, dass dieser Ort gelöscht werden soll"
 msgid "All translations of this location will also be deleted."
 msgstr "Alle Übersetzungen dieses Ortes werden gelöscht."
 
-#: cms/views/pois/poi_form_view.py:65
+#: cms/views/pois/poi_form_view.py:70
 msgid "You cannot edit this location because it is archived."
 msgstr "Sie können diesen Ort nicht bearbeiten, da er archiviert ist."
 
-#: cms/views/pois/poi_form_view.py:165
+#: cms/views/pois/poi_form_view.py:171
 msgid "Location \"{}\" was successfully created"
 msgstr "Ort \"{}\" wurde erfolgreich erstellt"
 
@@ -6701,6 +6727,13 @@ msgstr ""
 
 #~ msgid "URL could not be replaced"
 #~ msgstr "URL konnte nicht ersetzt werden"
+
+#~ msgid ""
+#~ "You cannot edit this page because it is already being edited by someone "
+#~ "else."
+#~ msgstr ""
+#~ "Sie können diese Seite nicht bearbeiten, weil sie bereits von jemand "
+#~ "anderem bearbeitet wird."
 
 #~ msgid "Settings for all translations"
 #~ msgstr "Einstellungen für alle Übersetzungen"

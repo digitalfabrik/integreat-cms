@@ -4,6 +4,7 @@ UNRELEASED
 * [ [#1319](https://github.com/digitalfabrik/integreat-cms/issues/1319) ] Fix error on Imprint API
 * [ [#1103](https://github.com/digitalfabrik/integreat-cms/issues/1103) ] Add automatic translations via DeepL API
 * [ [#1024](https://github.com/digitalfabrik/integreat-cms/issues/1024) ] Add URL search-replace for linkchecker
+* [ [#1177](https://github.com/digitalfabrik/integreat-cms/issues/1177) ] Add content locking mechanism
 
 
 2022.3.6
