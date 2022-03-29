@@ -14,6 +14,8 @@ from ...models import POITranslation
 from ...forms import ObjectSearchForm
 from .poi_context_mixin import POIContextMixin
 
+from ....deepl_api.utils import DeepLApi
+
 logger = logging.getLogger(__name__)
 
 
@@ -114,6 +116,14 @@ class POIListView(TemplateView, POIContextMixin):
         )
         chunk = request.GET.get("page")
         poi_chunk = paginator.get_page(chunk)
+
+        # DeepL available
+        if settings.DEEPL_ENABLED:
+            deepl = DeepLApi()
+            DEEPL_AVAILABLE = deepl.check_availability(request, language_slug)
+        else:
+            DEEPL_AVAILABLE = False
+
         return render(
             request,
             self.template_name,
@@ -124,6 +134,7 @@ class POIListView(TemplateView, POIContextMixin):
                 "language": language,
                 "languages": region.active_languages,
                 "search_query": query,
+                "DEEPL_AVAILABLE": DEEPL_AVAILABLE,
             },
         )
 

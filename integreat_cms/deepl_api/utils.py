@@ -4,6 +4,7 @@ import deepl
 from django.conf import settings
 from django.contrib import messages
 from django.utils.translation import ugettext as _
+from django.apps import apps
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +20,8 @@ class DeepLApi:
         """
         self.translator = deepl.Translator(settings.DEEPL_AUTH_KEY)
 
-    def check_availability(self, request, language_slug):
+    @staticmethod
+    def check_availability(request, language_slug):
         """
         This function checks, if the selected language is supported by DeepL
 
@@ -32,19 +34,12 @@ class DeepLApi:
         :return: true or false
         :rtype: bool
         """
-        supported_source_languages = [
-            source_language.code.lower()
-            for source_language in self.translator.get_source_languages()
-        ]
-        supported_target_languages = [
-            target_languages.code.lower()[:2]
-            for target_languages in self.translator.get_target_languages()
-        ]
+        deepl_config = apps.get_app_config("deepl_api")
         source_language = request.region.get_source_language(language_slug)
         return (
             source_language
-            and source_language.slug in supported_source_languages
-            and language_slug in supported_target_languages
+            and source_language.slug in deepl_config.supported_source_languages
+            and language_slug in deepl_config.supported_target_languages
         )
 
     def deepl_translation(self, request, content_objects, language_slug, form_class):

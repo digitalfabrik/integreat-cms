@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-01 14:49+0000\n"
+"POT-Creation-Date: 2022-04-01 16:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -3161,7 +3161,7 @@ msgstr "Feedback"
 
 #: cms/templates/_base.html:181
 #: cms/templates/push_notifications/push_notification_list.html:9
-#: core/settings.py:716
+#: core/settings.py:717
 msgid "News"
 msgstr "Nachrichten"
 
@@ -3887,19 +3887,32 @@ msgstr "Mehrfachaktion auswählen"
 msgid "Archive events"
 msgstr "Veranstaltungen archivieren"
 
-#: cms/templates/events/event_list.html:110
+#: cms/templates/events/event_list.html:111
 #: cms/templates/pois/poi_list.html:101
+msgid "You cannot translate into the default language"
+msgstr "Sie können nicht in die Standard-Sprache übersetzen"
+
+#: cms/templates/events/event_list.html:112
+#: cms/templates/events/event_list.html:116
+#: cms/templates/events/event_list.html:120
+#: cms/templates/pois/poi_list.html:102 cms/templates/pois/poi_list.html:106
+#: cms/templates/pois/poi_list.html:110
 msgid "Create missing translations automatically"
 msgstr "Fehlende Übersetzungen automatisch erstellen"
 
-#: cms/templates/events/event_list.html:113
+#: cms/templates/events/event_list.html:119
+#: cms/templates/pois/poi_list.html:109
+msgid "This language is not supported by DeepL"
+msgstr "Diese Sprache wird von DeepL nicht unterstützt"
+
+#: cms/templates/events/event_list.html:125
 #: cms/templates/events/event_list_archived.html:86
 #: cms/templates/feedback/admin_feedback_list.html:135
 #: cms/templates/feedback/region_feedback_list.html:137
 #: cms/templates/linkcheck/links_by_filter.html:84
 #: cms/templates/pages/page_tree.html:152
 #: cms/templates/pages/page_tree_archived.html:98
-#: cms/templates/pois/poi_list.html:105
+#: cms/templates/pois/poi_list.html:115
 #: cms/templates/pois/poi_list_archived.html:61
 msgid "Execute"
 msgstr "Ausführen"
@@ -5903,13 +5916,13 @@ msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
-#: cms/views/events/event_list_view.py:96
+#: cms/views/events/event_list_view.py:98
 msgid "Please create at least one language node before creating events."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie "
 "Veranstaltungen verwalten."
 
-#: cms/views/events/event_list_view.py:102
+#: cms/views/events/event_list_view.py:104
 msgid "You don't have the permission to edit or create events."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten "
@@ -6496,7 +6509,7 @@ msgstr "Sie können diesen Ort nicht bearbeiten, da er archiviert ist."
 msgid "Location \"{}\" was successfully created"
 msgstr "Ort \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/pois/poi_list_view.py:88
+#: cms/views/pois/poi_list_view.py:90
 msgid "Please create at least one language node before creating locations."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Orte verwalten."
@@ -6672,15 +6685,15 @@ msgid "Superuser permissions need to be set by another superuser."
 msgstr ""
 "Administratorrechte müssen von einem anderen Administrator vergeben werden."
 
-#: deepl_api/utils.py:74
+#: deepl_api/utils.py:69
 msgid "No source translation could be found for {} \"{}\"."
 msgstr "Es konnte kein Quelltext für {} \"{}\" gefunden werden."
 
-#: deepl_api/utils.py:129
+#: deepl_api/utils.py:124
 msgid "{} \"{}\" has been successfully translated."
 msgstr "{} \"{}\" wurde erfolgreich übersetzt"
 
-#: deepl_api/utils.py:142
+#: deepl_api/utils.py:137
 msgid "{} \"{}\" could not be automatically translated."
 msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
 
