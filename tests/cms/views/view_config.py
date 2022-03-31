@@ -302,6 +302,8 @@ VIEWS = [
                     "text_direction": "LEFT_TO_RIGHT",
                     "table_of_contents": "Inhaltsverzeichnis",
                     "primary_country_code": "de",
+                    "message_live_content_not_available": "Foo1",
+                    "message_partial_live_content_not_available": "Foo2",
                 },
             ),
         ],

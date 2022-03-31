@@ -168,14 +168,12 @@ def view_page(request, page_id, region_slug, language_slug):
     template_name = "pages/page_view.html"
 
     page_translation = page.get_translation(language_slug)
-    mirrored_translation = page.get_mirrored_page_translation(language_slug)
-
     return render(
         request,
         template_name,
         {
             "page_translation": page_translation,
-            "mirrored_translation": mirrored_translation,
+            "is_mirrored": bool(page.mirrored_page),
             "mirrored_page_first": page.mirrored_page_first,
             "right_to_left": page_translation.language.text_direction
             == text_directions.RIGHT_TO_LEFT,

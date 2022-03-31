@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-24 11:52+0000\n"
+"POT-Creation-Date: 2022-04-01 14:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1902,7 +1902,7 @@ msgid "content"
 msgstr "Inhalt"
 
 #: cms/models/abstract_content_translation.py:44
-#: cms/models/feedback/feedback.py:66 cms/models/languages/language.py:135
+#: cms/models/feedback/feedback.py:66 cms/models/languages/language.py:157
 #: cms/models/languages/language_tree_node.py:23
 #: cms/models/push_notifications/push_notification_translation.py:27
 msgid "language"
@@ -2202,7 +2202,7 @@ msgstr "Angebotslisten-Feedback"
 
 #: cms/models/feedback/page_feedback.py:19
 #: cms/models/pages/abstract_base_page_translation.py:79
-#: cms/models/pages/page_translation.py:248
+#: cms/models/pages/page_translation.py:282
 msgid "page translation"
 msgstr "Seiten-Übersetzung"
 
@@ -2322,7 +2322,39 @@ msgstr "Der native Name für \"Inhaltsverzeichnis\" in dieser Sprache."
 msgid "This is used in exported PDFs."
 msgstr "Dies wird in exportierten PDFs verwendet."
 
-#: cms/models/languages/language.py:137
+#: cms/models/languages/language.py:105
+msgid ""
+"\"This page does not exist in the selected language. It is however available "
+"in these languages:\" in this language"
+msgstr ""
+"\"Die Seite existiert nicht in der ausgewählten Sprache. Sie ist aber in "
+"diesen Sprachen verfügbar:\" in dieser Sprache"
+
+#: cms/models/languages/language.py:108
+msgid ""
+"This is shown to the user when a mirrored page is not available in their "
+"language."
+msgstr ""
+"Wird Benutzern angezeigt, wenn eine gespiegelte Seite nicht in ihrer Sprache "
+"verfügbar ist."
+
+#: cms/models/languages/language.py:116
+msgid ""
+"\"Part of the page does not exist in the selected language. It is however "
+"available in these languages:\" in this language"
+msgstr ""
+"\"Ein Teil der Seite existiert nicht in der ausgewählten Sprache. Er ist "
+"aber in diesen Sprachen verfügbar:\" in dieser Sprache"
+
+#: cms/models/languages/language.py:119
+msgid ""
+"This is shown to the user when the mirrored part of a page is not available "
+"in their language."
+msgstr ""
+"Wird Benutzern angezeigt, wenn der gespiegelte Teil einer Seite nicht in "
+"ihrer Sprache verfügbar ist."
+
+#: cms/models/languages/language.py:159
 msgid "languages"
 msgstr "Sprachen"
 
@@ -2506,7 +2538,7 @@ msgid "with the title in"
 msgstr "mit dem Titel auf"
 
 #: cms/models/pages/abstract_base_page_translation.py:81
-#: cms/models/pages/page_translation.py:250
+#: cms/models/pages/page_translation.py:284
 msgid "page translations"
 msgstr "Seiten-Übersetzungen"
 
@@ -2629,11 +2661,11 @@ msgstr "Titel der Seite"
 msgid "content of the page"
 msgstr "Inhalt der Seite"
 
-#: cms/models/pages/page_translation.py:151
+#: cms/models/pages/page_translation.py:185
 msgid "Live content"
 msgstr "Live-Inhalt"
 
-#: cms/models/pages/page_translation.py:154
+#: cms/models/pages/page_translation.py:188
 msgid "Empty"
 msgstr "Leer"
 
@@ -4321,25 +4353,29 @@ msgid "or"
 msgstr "oder"
 
 #: cms/templates/languages/language_form.html:55
+msgid "Translations"
+msgstr "Übersetzungen"
+
+#: cms/templates/languages/language_form.html:74
 #: cms/templates/offertemplates/offertemplate_form.html:57
 #: cms/templates/organizations/organization_form.html:38
 #: cms/templates/regions/region_form.html:99
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
 
-#: cms/templates/languages/language_form.html:85
+#: cms/templates/languages/language_form.html:102
 #: cms/templates/languages/language_list_row.html:37
 msgid "You cannot delete a language that is used in at least one region."
 msgstr ""
 "Diese Sprache kann nicht gelöscht werden, da sie in mindestens einer Region "
 "verwendet wird."
 
-#: cms/templates/languages/language_form.html:87
-#: cms/templates/languages/language_form.html:96
+#: cms/templates/languages/language_form.html:104
+#: cms/templates/languages/language_form.html:113
 msgid "Delete this language"
 msgstr "Diese Sprache löschen"
 
-#: cms/templates/languages/language_form.html:90
+#: cms/templates/languages/language_form.html:107
 #: cms/templates/languages/language_list_row.html:41
 #: cms/templates/offertemplates/offertemplate_form.html:84
 msgid "Delete language"
@@ -4676,7 +4712,7 @@ msgstr "Seite löschen"
 #: cms/templates/pages/page_form.html:327
 #: cms/templates/pages/page_tree_archived_node.html:115
 #: cms/templates/pages/page_tree_node.html:137
-#: cms/views/pages/page_actions.py:212
+#: cms/views/pages/page_actions.py:210
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
@@ -6234,52 +6270,52 @@ msgstr ""
 "Sie ist jedoch immer noch archiviert, weil eine ihrer übergeordneten Seiten "
 "archiviert ist."
 
-#: cms/views/pages/page_actions.py:216
+#: cms/views/pages/page_actions.py:214
 msgid "Page was successfully deleted"
 msgstr "Seite wurde erfolgreich gelöscht"
 
-#: cms/views/pages/page_actions.py:325
+#: cms/views/pages/page_actions.py:323
 msgid "File \"{}\" is neither a ZIP archive nor an XLIFF file."
 msgstr "Die Datei \"{}\" ist weder ein ZIP-Archiv noch eine XLIFF-Datei."
 
-#: cms/views/pages/page_actions.py:352
+#: cms/views/pages/page_actions.py:350
 msgid "The ZIP archive \"{}\" does not contain XLIFF files."
 msgstr "Das ZIP-Archiv \"{}\" enthält keine XLIFF-Dateien"
 
-#: cms/views/pages/page_actions.py:360
+#: cms/views/pages/page_actions.py:358
 msgid "The ZIP archive \"{}\" contains the following invalid files: \"{}\""
 msgstr "Das ZIP-Archiv \"{}\" enthält die folgenden ungültigen Dateien: \"{}\""
 
-#: cms/views/pages/page_actions.py:385
+#: cms/views/pages/page_actions.py:383
 msgid "No XLIFF file was selected for import."
 msgstr "Es wurde keine XLIFF-Datei für den Import ausgewählt."
 
-#: cms/views/pages/page_actions.py:445
+#: cms/views/pages/page_actions.py:443
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
-#: cms/views/pages/page_actions.py:525 cms/views/pages/page_actions.py:540
+#: cms/views/pages/page_actions.py:523 cms/views/pages/page_actions.py:538
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: cms/views/pages/page_actions.py:532
+#: cms/views/pages/page_actions.py:530
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: cms/views/pages/page_actions.py:548
+#: cms/views/pages/page_actions.py:546
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nun veröffentlichen"
 
-#: cms/views/pages/page_actions.py:557 cms/views/pages/page_actions.py:669
+#: cms/views/pages/page_actions.py:555 cms/views/pages/page_actions.py:667
 msgid "An error has occurred. Please contact an administrator."
 msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie einen Administrator."
 
-#: cms/views/pages/page_actions.py:637
+#: cms/views/pages/page_actions.py:635
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -6289,12 +6325,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin bearbeiten."
 
-#: cms/views/pages/page_actions.py:643
+#: cms/views/pages/page_actions.py:641
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: cms/views/pages/page_actions.py:654
+#: cms/views/pages/page_actions.py:652
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -6304,7 +6340,7 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen."
 
-#: cms/views/pages/page_actions.py:660
+#: cms/views/pages/page_actions.py:658
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
@@ -6858,9 +6894,6 @@ msgstr ""
 
 #~ msgid "translation"
 #~ msgstr "Übersetzung"
-
-#~ msgid "translations"
-#~ msgstr "Übersetzungen"
 
 #~ msgid "All locations"
 #~ msgstr "Alle Orte"
