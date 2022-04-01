@@ -304,8 +304,9 @@ AUTH_USER_MODEL = "cms.User"
 #: A list of authentication backend classes (as strings) to use when attempting to authenticate a user
 #: (see :setting:`django:AUTHENTICATION_BACKENDS` and :ref:`django:authentication-backends`)
 AUTHENTICATION_BACKENDS = (
-    "rules.permissions.ObjectPermissionBackend",
-    "django.contrib.auth.backends.ModelBackend",  # this is default
+    "rules.permissions.ObjectPermissionBackend",  # Object-based permission checks
+    "django.contrib.auth.backends.ModelBackend",  # Login via username
+    "integreat_cms.core.authentication_backends.EmailAuthenticationBackend",  # Login via email
 )
 
 PASSWORD_HASHERS = [
@@ -327,13 +328,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 #: The URL where requests are redirected for login (see :setting:`django:LOGIN_URL`)
-LOGIN_URL = "/login"
+LOGIN_URL = "/login/"
 
 #: The URL where requests are redirected after login (see :setting:`django:LOGIN_REDIRECT_URL`)
 LOGIN_REDIRECT_URL = "/"
 
 #: The URL where requests are redirected after logout (see :setting:`django:LOGOUT_REDIRECT_URL`)
-LOGOUT_REDIRECT_URL = "/login"
+LOGOUT_REDIRECT_URL = "/login/"
 
 
 ###########

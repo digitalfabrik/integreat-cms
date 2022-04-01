@@ -18,15 +18,17 @@
         {% endif %}
         <div class="mb-4">
             <label for="{{ form.username.id_for_label }}">
-                {{ form.username.label }}
+                {% trans 'Username or email address' %}
             </label>
-            {% render_field form.username placeholder=form.username.label %}
+            {% blocktrans asvar username_placeholder %}Enter your username or email address here{% endblocktrans %}
+            {% render_field form.username placeholder=username_placeholder %}
         </div>
         <div class="mb-4">
             <label for="{{ form.password.id_for_label }}">
                 {{ form.password.label }}
             </label>
-            {% render_field form.password placeholder=form.password.label %}
+            {% blocktrans asvar password_placeholder %}Enter your password here{% endblocktrans %}
+            {% render_field form.password placeholder=password_placeholder %}
         </div>
         <button class="btn">
             {% trans 'Log in' %}
