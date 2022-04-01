@@ -21,6 +21,8 @@ from ...models import EventTranslation
 from ...forms import EventFilterForm
 from .event_context_mixin import EventContextMixin
 
+from ....deepl_api.utils import DeepLApi
+
 logger = logging.getLogger(__name__)
 
 
@@ -202,6 +204,15 @@ class EventListView(TemplateView, EventContextMixin):
         )
         chunk = request.GET.get("page")
         event_chunk = paginator.get_page(chunk)
+
+        # DeepL available
+
+        if settings.DEEPL_ENABLED:
+            deepl = DeepLApi()
+            DEEPL_AVAILABLE = deepl.check_availability(request, language_slug)
+        else:
+            DEEPL_AVAILABLE = False
+
         return render(
             request,
             self.template_name,
@@ -215,6 +226,7 @@ class EventListView(TemplateView, EventContextMixin):
                 "filter_poi": poi,
                 "translation_status": translation_status,
                 "search_query": query,
+                "DEEPL_AVAILABLE": DEEPL_AVAILABLE,
             },
         )
 

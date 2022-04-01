@@ -138,6 +138,7 @@ INSTALLED_APPS = [
     # Installed custom apps
     "integreat_cms.cms",
     "integreat_cms.gvz_api",
+    "integreat_cms.deepl_api",
     "integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig",
     # Installed Django apps
     "django.contrib.auth",

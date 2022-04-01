@@ -7,6 +7,7 @@ UNRELEASED
 * [ [#1177](https://github.com/digitalfabrik/integreat-cms/issues/1177) ] Add content locking mechanism
 * [ [#1255](https://github.com/digitalfabrik/integreat-cms/issues/1255) ] Check only the latest versions of translations for broken links
 * [ [#1054](https://github.com/digitalfabrik/integreat-cms/issues/1054) ] Provide fallback translations for mirrored pages
+* [ [#1198](https://github.com/digitalfabrik/integreat-cms/issues/1198) ] Check availability for DeepL bulk actions 
 
 
 2022.3.6
