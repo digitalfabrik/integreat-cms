@@ -97,6 +97,28 @@ class Language(AbstractBaseModel):
             _("This is used in exported PDFs."),
         ),
     )
+    message_live_content_not_available = models.CharField(
+        max_length=250,
+        blank=False,
+        default="This page does not exist in the selected language. It is however available in these languages:",
+        verbose_name=_(
+            '"This page does not exist in the selected language. It is however available in these languages:" in this language'
+        ),
+        help_text=_(
+            "This is shown to the user when a mirrored page is not available in their language."
+        ),
+    )
+    message_partial_live_content_not_available = models.CharField(
+        max_length=250,
+        blank=False,
+        default="Part of the page does not exist in the selected language. It is however available in these languages:",
+        verbose_name=_(
+            '"Part of the page does not exist in the selected language. It is however available in these languages:" in this language'
+        ),
+        help_text=_(
+            "This is shown to the user when the mirrored part of a page is not available in their language."
+        ),
+    )
 
     @cached_property
     def translated_name(self):
