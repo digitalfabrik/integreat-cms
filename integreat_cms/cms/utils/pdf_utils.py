@@ -1,11 +1,12 @@
 import hashlib
 import logging
+import os
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.core.cache import caches
 from django.db.models import Min
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpResponse
 from django.template.loader import get_template
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
@@ -90,7 +91,6 @@ def generate_pdf(region, language_slug, pages):
         "language": language,
         "amount_pages": amount_pages,
         "prevent_italics": ["ar", "fa"],
-        "request": HttpRequest(),
     }
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = f'filename="{filename}"'
@@ -130,15 +130,22 @@ def link_callback(uri, rel):
     :rtype: str
     """
     if uri.startswith(settings.MEDIA_URL):
-        # Remove the MEDIA_URL from the start of the uri
-        uri = uri[len(settings.MEDIA_URL) :]
-    elif uri.startswith(settings.STATIC_URL):
+        # Get absolute path for media files
+        path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+        # make sure that file exists
+        if not os.path.isfile(path):
+            logger.exception(
+                "The file %r was not found in the media directories.", path
+            )
+            return None
+        return path
+    if uri.startswith(settings.STATIC_URL):
         # Remove the STATIC_URL from the start of the uri
         uri = uri[len(settings.STATIC_URL) :]
     elif uri.startswith("../"):
         # Remove ../ from the start of the uri
         uri = uri[3:]
-    else:
+    elif not uri.startswith("assets/"):
         logger.warning(
             "The file %r is not inside the static directories %r and %r.",
             uri,
