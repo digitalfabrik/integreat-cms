@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-29T15:25:16+00:00" />
+    <meta property="article:modified_time" content="2022-04-01T20:22:26+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2022.3.6 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -453,6 +453,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.middleware.html#region-middleware">Region Middleware</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#authentication-backends">Authentication Backends</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#docker-settings">Docker Settings</a></li>
@@ -514,6 +515,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.html#test-duplicate-regions">Test Duplicate Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.html#test-login">Test Login</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.html#test-page-filters">Test Page Filters</a></li>
 </ul>
 </li>
@@ -712,6 +714,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">Region Middleware</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.core.authentication_backends">Authentication Backends</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.core.circleci_settings">Circleci Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.core.context_processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.core.docker_settings">Docker Settings</a></li>
@@ -773,6 +776,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.html#module-tests.cms.test_duplicate_regions">Test Duplicate Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.html#module-tests.cms.test_login">Test Login</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.html#module-tests.cms.test_page_filters">Test Page Filters</a></li>
 </ul>
 </li>
@@ -834,6 +838,80 @@
 </li>
 </ul>
 </div>
+<section id="module-integreat_cms.core.authentication_backends">
+<span id="authentication-backends"></span><h2>Authentication Backends<a class="headerlink" href="#module-integreat_cms.core.authentication_backends" title="Permalink to this headline"></a></h2>
+<p>This file contains custom authentication backends, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#module-django.contrib.auth.backends" title="(in Django v3.2)"><span>Authentication backends</span></a> and
+<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#authentication-backends" title="(in Django v3.2)"><span>Other authentication sources</span></a>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.core.authentication_backends.EmailAuthenticationBackend">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.core.authentication_backends.</span></span><span class="sig-name descname"><span class="pre">EmailAuthenticationBackend</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/authentication_backends.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.authentication_backends.EmailAuthenticationBackend" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.backends.BaseBackend" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.backends.BaseBackend</span></code></a></p>
+<p>This authentication backend allows users to login with their email address instead of their username</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.authentication_backends.EmailAuthenticationBackend.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/authentication_backends.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.authentication_backends.EmailAuthenticationBackend.authenticate">
+<span class="sig-name descname"><span class="pre">authenticate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/authentication_backends.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.authenticate" title="Permalink to this definition"></a></dt>
+<dd><p>Try to authenticate a user with the given email and password</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Either the authenticated user or <code class="docutils literal notranslate"><span class="pre">None</span></code> is the credentials were not valid</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><em>User</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_all_permissions">
+<span class="sig-name descname"><span class="pre">get_all_permissions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/backends.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_all_permissions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_group_permissions">
+<span class="sig-name descname"><span class="pre">get_group_permissions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/backends.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_group_permissions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_user">
+<span class="sig-name descname"><span class="pre">get_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/authentication_backends.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_user" title="Permalink to this definition"></a></dt>
+<dd><p>Get the user by its primary key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>user_id</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The id of the user</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Either the user or <code class="docutils literal notranslate"><span class="pre">None</span></code> if no user with this id exists</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><em>User</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_user_permissions">
+<span class="sig-name descname"><span class="pre">get_user_permissions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/backends.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_user_permissions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.core.authentication_backends.EmailAuthenticationBackend.has_perm">
+<span class="sig-name descname"><span class="pre">has_perm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/backends.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.has_perm" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-integreat_cms.core.circleci_settings">
 <span id="circleci-settings"></span><h2>Circleci Settings<a class="headerlink" href="#module-integreat_cms.core.circleci_settings" title="Permalink to this headline"></a></h2>
 <p>Django settings for our CircleCI workflow.
@@ -1085,12 +1163,13 @@ web server configurations (see <a class="reference external" href="https://docs.
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.AUTHENTICATION_BACKENDS">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">AUTHENTICATION_BACKENDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('rules.permissions.ObjectPermissionBackend',</span> <span class="pre">'django.contrib.auth.backends.ModelBackend')</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.AUTHENTICATION_BACKENDS" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">AUTHENTICATION_BACKENDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('rules.permissions.ObjectPermissionBackend',</span> <span class="pre">'django.contrib.auth.backends.ModelBackend',</span> <span class="pre">'integreat_cms.core.authentication_backends.EmailAuthenticationBackend')</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.AUTHENTICATION_BACKENDS" title="Permalink to this definition"></a></dt>
 <dd><p>A list of authentication backend classes (as strings) to use when attempting to authenticate a user
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-AUTHENTICATION_BACKENDS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">AUTHENTICATION_BACKENDS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#authentication-backends" title="(in Django v3.2)"><span>Other authentication sources</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
     <span class="s1">&#39;rules.permissions.ObjectPermissionBackend&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.auth.backends.ModelBackend&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;integreat_cms.core.authentication_backends.EmailAuthenticationBackend&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1629,13 +1708,13 @@ processor to add some variables to the template context.</p>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.LOGIN_URL">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LOGIN_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/login'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.LOGIN_URL" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LOGIN_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/login/'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.LOGIN_URL" title="Permalink to this definition"></a></dt>
 <dd><p>The URL where requests are redirected for login (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOGIN_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOGIN_URL</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.LOGOUT_REDIRECT_URL">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LOGOUT_REDIRECT_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/login'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.LOGOUT_REDIRECT_URL" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LOGOUT_REDIRECT_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/login/'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.LOGOUT_REDIRECT_URL" title="Permalink to this definition"></a></dt>
 <dd><p>The URL where requests are redirected after logout (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-LOGOUT_REDIRECT_URL" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOGOUT_REDIRECT_URL</span></code></a>)</p>
 </dd></dl>
 
@@ -2064,7 +2143,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 29, 2022.
+      <span class="lastupdated">Last updated on Apr 01, 2022.
       </span></p>
   </div>
 

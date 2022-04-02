@@ -449,6 +449,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.core.middleware.html#region-middleware">Region Middleware</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#authentication-backends">Authentication Backends</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#context-processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.core.html#docker-settings">Docker Settings</a></li>
@@ -510,6 +511,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.cms.html#test-duplicate-regions">Test Duplicate Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.cms.html#test-login">Test Login</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.cms.html#test-page-filters">Test Page Filters</a></li>
 </ul>
 </li>
@@ -708,6 +710,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.middleware.html#module-integreat_cms.core.middleware.region_middleware">Region Middleware</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.authentication_backends">Authentication Backends</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.context_processors">Context Processors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.docker_settings">Docker Settings</a></li>
@@ -769,6 +772,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.cms.html#module-tests.cms.test_duplicate_regions">Test Duplicate Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.cms.html#module-tests.cms.test_login">Test Login</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.cms.html#module-tests.cms.test_page_filters">Test Page Filters</a></li>
 </ul>
 </li>
@@ -1329,6 +1333,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.users.html#integreat_cms.cms.views.users.user_form_view.UserFormView.__init__">(integreat_cms.cms.views.users.user_form_view.UserFormView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.users.html#integreat_cms.cms.views.users.user_list_view.UserListView.__init__">(integreat_cms.cms.views.users.user_list_view.UserListView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.__init__">(integreat_cms.core.authentication_backends.EmailAuthenticationBackend method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.logging_formatter.ColorFormatter.__init__">(integreat_cms.core.logging_formatter.ColorFormatter method)</a>
 </li>
@@ -2571,6 +2577,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTH_USER_MODEL">AUTH_USER_MODEL (in module integreat_cms.core.settings)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.authenticate">authenticate() (integreat_cms.core.authentication_backends.EmailAuthenticationBackend method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.settings.mfa.html#integreat_cms.cms.views.settings.mfa.authenticate_modify_mfa_view.AuthenticateModifyMfaView">AuthenticateModifyMfaView (class in integreat_cms.cms.views.settings.mfa.authenticate_modify_mfa_view)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTHENTICATION_BACKENDS">AUTHENTICATION_BACKENDS (in module integreat_cms.core.settings)</a>
@@ -3277,6 +3285,12 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.clean_custom_prefix">clean_custom_prefix() (integreat_cms.cms.forms.regions.region_form.RegionForm method)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.region_user_form.RegionUserForm.clean_email">clean_email() (integreat_cms.cms.forms.users.region_user_form.RegionUserForm method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.user_form.UserForm.clean_email">(integreat_cms.cms.forms.users.user_form.UserForm method)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel.clean_fields">clean_fields() (integreat_cms.cms.models.abstract_base_model.AbstractBaseModel method)</a>
 
       <ul>
@@ -4644,6 +4658,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.email_user">email_user() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend">EmailAuthenticationBackend (class in integreat_cms.core.authentication_backends)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.auth.WPBCryptPasswordHasher.encode">encode() (integreat_cms.cms.auth.WPBCryptPasswordHasher method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.end_date">end_date (integreat_cms.cms.models.events.event.Event attribute)</a>
@@ -5989,7 +6005,11 @@
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_administrative_division_display">get_administrative_division_display() (integreat_cms.cms.models.regions.region.Region method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_all_permissions">get_all_permissions() (integreat_cms.cms.models.users.user.User method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_all_permissions">(integreat_cms.core.authentication_backends.EmailAuthenticationBackend method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.get_allow_empty">get_allow_empty() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
@@ -6571,7 +6591,11 @@
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_full_name">get_full_name() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_group_permissions">get_group_permissions() (integreat_cms.cms.models.users.user.User method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_group_permissions">(integreat_cms.core.authentication_backends.EmailAuthenticationBackend method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.page_filters.get_highest_anscentor_in">get_highest_anscentor_in() (in module integreat_cms.cms.templatetags.page_filters)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView.get_initial">get_initial() (integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView method)</a>
@@ -7941,9 +7965,15 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView.get_user">(integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_user">(integreat_cms.core.authentication_backends.EmailAuthenticationBackend method)</a>
+</li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_user_permissions">get_user_permissions() (integreat_cms.cms.models.users.user.User method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.get_user_permissions">(integreat_cms.core.authentication_backends.EmailAuthenticationBackend method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_username">get_username() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_visits_per_language">get_visits_per_language() (integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager method)</a>
@@ -8249,7 +8279,11 @@
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.has_module_perms">has_module_perms() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.has_perm">has_perm() (integreat_cms.cms.models.users.user.User method)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.authentication_backends.EmailAuthenticationBackend.has_perm">(integreat_cms.core.authentication_backends.EmailAuthenticationBackend method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.has_permission">has_permission() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
       <ul>
@@ -11120,6 +11154,13 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.core.authentication_backends
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.authentication_backends">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.core.circleci_settings
 
       <ul>
@@ -13113,6 +13154,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core">integreat_cms.core</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.authentication_backends">integreat_cms.core.authentication_backends</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">integreat_cms.core.circleci_settings</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.context_processors">integreat_cms.core.context_processors</a>
@@ -13192,6 +13235,8 @@
         <li><a href="ref-ext/tests.cms.html#module-tests.cms">tests.cms</a>
 </li>
         <li><a href="ref-ext/tests.cms.html#module-tests.cms.test_duplicate_regions">tests.cms.test_duplicate_regions</a>
+</li>
+        <li><a href="ref-ext/tests.cms.html#module-tests.cms.test_login">tests.cms.test_login</a>
 </li>
         <li><a href="ref-ext/tests.cms.html#module-tests.cms.test_page_filters">tests.cms.test_page_filters</a>
 </li>
@@ -17646,6 +17691,10 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.test_func">test_func() (integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing method)</a>
 </li>
+      <li><a href="ref-ext/tests.cms.html#tests.cms.test_login.test_login_failure">test_login_failure() (in module tests.cms.test_login)</a>
+</li>
+      <li><a href="ref-ext/tests.cms.html#tests.cms.test_login.test_login_success">test_login_success() (in module tests.cms.test_login)</a>
+</li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_page_filters.test_page_filters">test_page_filters() (in module tests.cms.test_page_filters)</a>
 </li>
       <li><a href="ref-ext/tests.cms.views.html#tests.cms.views.test_public_view_status_code.test_public_view_status_code">test_public_view_status_code() (in module tests.cms.views.test_public_view_status_code)</a>
@@ -17746,6 +17795,13 @@
 
       <ul>
         <li><a href="ref-ext/tests.cms.html#module-tests.cms.test_duplicate_regions">module</a>
+</li>
+      </ul></li>
+      <li>
+    tests.cms.test_login
+
+      <ul>
+        <li><a href="ref-ext/tests.cms.html#module-tests.cms.test_login">module</a>
 </li>
       </ul></li>
       <li>
