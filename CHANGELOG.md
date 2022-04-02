@@ -11,6 +11,7 @@ UNRELEASED
 * [ [#1293](https://github.com/digitalfabrik/integreat-cms/issues/1293) ] Enable login via email address
 * [ [#1327](https://github.com/digitalfabrik/integreat-cms/issues/1327) ] Fix page PDF export
 * [ [#1226](https://github.com/digitalfabrik/integreat-cms/issues/1226) ] Fix page tree fields cache invalidation
+* [ [#1325](https://github.com/digitalfabrik/integreat-cms/issues/1325) ] Fix error when deleting a page which was embedded as live content
 
 
 2022.3.6

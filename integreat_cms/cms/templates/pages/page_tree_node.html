@@ -137,6 +137,10 @@
                 <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}" class="btn-icon" disabled>
                     <i data-feather="trash-2"></i>
                 </button>
+            {% elif page.mirroring_pages.exists %}
+                <button title="{% trans 'This page cannot be deleted because it was embedded as live content from another page.' %}&#013;{% trans 'You can however archive this page.' %}" class="btn-icon" disabled>
+                    <i data-feather="trash-2"></i>
+                </button>
             {% else %}
                 <button title="{% trans 'Delete page' %}" class="confirmation-button btn-icon"
                         data-confirmation-title="{{ delete_dialog_title }}"

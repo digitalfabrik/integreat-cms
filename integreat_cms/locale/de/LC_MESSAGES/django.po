@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-05 15:23+0000\n"
+"POT-Creation-Date: 2022-04-06 12:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -4169,7 +4169,7 @@ msgid "Side-by-Side view"
 msgstr "Side-by-Side-Ansicht"
 
 #: cms/templates/imprint/imprint_form.html:137
-#: cms/templates/pages/page_form.html:367
+#: cms/templates/pages/page_form.html:407
 msgid "Direction of translation"
 msgstr "Übersetzungsrichtung"
 
@@ -4729,9 +4729,9 @@ msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
 #: cms/templates/pages/page_form.html:320
-#: cms/templates/pages/page_form.html:344
-#: cms/templates/pages/page_tree_archived_node.html:119
-#: cms/templates/pages/page_tree_node.html:141
+#: cms/templates/pages/page_form.html:384
+#: cms/templates/pages/page_tree_archived_node.html:123
+#: cms/templates/pages/page_tree_node.html:145
 msgid "Delete page"
 msgstr "Seite löschen"
 
@@ -4753,15 +4753,40 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie zuerst ihre Unterseiten löschen oder "
 "verschieben:"
 
-#: cms/templates/pages/page_form.html:351
+#: cms/templates/pages/page_form.html:348
+#: cms/templates/pages/page_tree_archived_node.html:119
+#: cms/templates/pages/page_tree_node.html:141
+#: cms/views/pages/page_actions.py:217
+msgid ""
+"This page cannot be deleted because it was embedded as live content from "
+"another page."
+msgstr ""
+"Diese Seite kann nicht gelöscht werden, da sie von einer anderen Seite als "
+"Live-Inhalt eingebunden wurde."
+
+#: cms/templates/pages/page_form.html:352
+msgid ""
+"To delete this page, you have to remove the embedded live content from this "
+"page first:"
+msgid_plural ""
+"To delete this page, you have to remove the embedded live content from these "
+"pages first:"
+msgstr[0] ""
+"Um diese Seite zu löschen, müssen Sie den eingebetteten Live-Inhalt von "
+"dieser Seite entfernen:"
+msgstr[1] ""
+"Um diese Seite zu löschen, müssen Sie den eingebetteten Live-Inhalt von "
+"dieser Seiten entfernen:"
+
+#: cms/templates/pages/page_form.html:391
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
-#: cms/templates/pages/page_form.html:362
+#: cms/templates/pages/page_form.html:402
 msgid "Translator view"
 msgstr "Übersetzeransicht"
 
-#: cms/templates/pages/page_form.html:382
+#: cms/templates/pages/page_form.html:422
 msgid "Show translator view"
 msgstr "Übersetzeransicht anzeigen"
 
@@ -4961,11 +4986,15 @@ msgstr "Seite bearbeiten"
 msgid "This also involves archived subpages."
 msgstr "Dies betrifft auch archivierte Unterseiten."
 
-#: cms/templates/pages/page_tree_node.html:152
+#: cms/templates/pages/page_tree_node.html:141
+msgid "You can however archive this page."
+msgstr "Sie können diese Seite jedoch archivieren."
+
+#: cms/templates/pages/page_tree_node.html:156
 msgid "Copy short link"
 msgstr "Kurz-URL kopieren"
 
-#: cms/templates/pages/page_tree_node.html:156
+#: cms/templates/pages/page_tree_node.html:160
 msgid "You cannot copy a short link of a page which has no translation."
 msgstr "Sie können keine Kurz-URL zu einer fehlenden Übersetzung kopieren."
 
@@ -6292,52 +6321,52 @@ msgstr ""
 "Sie ist jedoch immer noch archiviert, weil eine ihrer übergeordneten Seiten "
 "archiviert ist."
 
-#: cms/views/pages/page_actions.py:216
+#: cms/views/pages/page_actions.py:223
 msgid "Page was successfully deleted"
 msgstr "Seite wurde erfolgreich gelöscht"
 
-#: cms/views/pages/page_actions.py:325
+#: cms/views/pages/page_actions.py:332
 msgid "File \"{}\" is neither a ZIP archive nor an XLIFF file."
 msgstr "Die Datei \"{}\" ist weder ein ZIP-Archiv noch eine XLIFF-Datei."
 
-#: cms/views/pages/page_actions.py:352
+#: cms/views/pages/page_actions.py:359
 msgid "The ZIP archive \"{}\" does not contain XLIFF files."
 msgstr "Das ZIP-Archiv \"{}\" enthält keine XLIFF-Dateien"
 
-#: cms/views/pages/page_actions.py:360
+#: cms/views/pages/page_actions.py:367
 msgid "The ZIP archive \"{}\" contains the following invalid files: \"{}\""
 msgstr "Das ZIP-Archiv \"{}\" enthält die folgenden ungültigen Dateien: \"{}\""
 
-#: cms/views/pages/page_actions.py:385
+#: cms/views/pages/page_actions.py:392
 msgid "No XLIFF file was selected for import."
 msgstr "Es wurde keine XLIFF-Datei für den Import ausgewählt."
 
-#: cms/views/pages/page_actions.py:446
+#: cms/views/pages/page_actions.py:453
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
-#: cms/views/pages/page_actions.py:526 cms/views/pages/page_actions.py:541
+#: cms/views/pages/page_actions.py:533 cms/views/pages/page_actions.py:548
 #, python-brace-format
 msgid "Information: The user {user} has this permission already."
 msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
 
-#: cms/views/pages/page_actions.py:533
+#: cms/views/pages/page_actions.py:540
 #, python-brace-format
 msgid "Success: The user {user} can now edit this page."
 msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
 
-#: cms/views/pages/page_actions.py:549
+#: cms/views/pages/page_actions.py:556
 #, python-brace-format
 msgid "Success: The user {user} can now publish this page."
 msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nun veröffentlichen"
 
-#: cms/views/pages/page_actions.py:558 cms/views/pages/page_actions.py:670
+#: cms/views/pages/page_actions.py:565 cms/views/pages/page_actions.py:677
 msgid "An error has occurred. Please contact an administrator."
 msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie einen Administrator."
 
-#: cms/views/pages/page_actions.py:638
+#: cms/views/pages/page_actions.py:645
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the editors of this page, "
@@ -6347,12 +6376,12 @@ msgstr ""
 "bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin bearbeiten."
 
-#: cms/views/pages/page_actions.py:644
+#: cms/views/pages/page_actions.py:651
 #, python-brace-format
 msgid "Success: The user {user} cannot edit this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
 
-#: cms/views/pages/page_actions.py:655
+#: cms/views/pages/page_actions.py:662
 #, python-brace-format
 msgid ""
 "Information: The user {user} has been removed from the publishers of this "
@@ -6362,7 +6391,7 @@ msgstr ""
 "veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen."
 
-#: cms/views/pages/page_actions.py:661
+#: cms/views/pages/page_actions.py:668
 #, python-brace-format
 msgid "Success: The user {user} cannot publish this page anymore."
 msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
@@ -7946,9 +7975,6 @@ msgstr ""
 
 #~ msgid "All translations of this page will also be restored."
 #~ msgstr "Alle Übersetzungen dieser Seite werden wiederhergestellt."
-
-#~ msgid "Yes, archive this page now."
-#~ msgstr "Ja, diese Seite jetzt archivieren"
 
 #~ msgid "Yes, delete this page now."
 #~ msgstr "Ja, die Seite jetzt löschen."

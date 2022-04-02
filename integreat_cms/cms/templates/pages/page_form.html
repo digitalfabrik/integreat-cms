@@ -340,6 +340,46 @@
                                                 </a>
                                             {% endfor %}
                                         {% endwith %}
+                                    {% elif page.mirroring_pages.exists %}
+                                        {% with page.mirroring_pages.all.prefetch_translations as mirroring_pages %}
+                                            <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-2"
+                                                 role="alert">
+                                                <p>
+                                                    {% trans 'This page cannot be deleted because it was embedded as live content from another page.' %}
+                                                </p>
+                                            </div>
+                                            <p>
+                                                {% blocktrans count counter=mirroring_pages|length trimmed %}
+                                                To delete this page, you have to remove the embedded live content from this page first:
+                                                {% plural %}
+                                                To delete this page, you have to remove the embedded live content from these pages first:
+                                                {% endblocktrans %}
+                                            </p>
+                                            {% for mirroring_page in mirroring_pages %}
+                                                {% has_perm 'cms.change_page_object' request.user mirroring_page as can_change_page_object %}
+                                                {% if can_change_page_object %}
+                                                    <a href="{% url 'edit_page' page_id=mirroring_page.id region_slug=mirroring_page.region.slug language_slug=language.slug %}"
+                                                       class="block pt-2 hover:underline">
+                                                        <i data-feather="edit" class="mr-2"></i>
+                                                        {{ mirroring_page.best_translation.title }}
+                                                        {% if mirroring_page.region != request.region %}
+                                                            ({{ mirroring_page.region }})
+                                                        {% endif %}
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ WEBAPP_URL }}{{ mirroring_page.best_translation.get_absolute_url }}"
+                                                       class="block pt-2 hover:underline"
+                                                       target="_blank"
+                                                       rel="noopener noreferrer">
+                                                        <i data-feather="external-link" class="mr-2"></i>
+                                                        {{ mirroring_page.best_translation.title }}
+                                                        {% if mirroring_page.region != request.region %}
+                                                            ({{ mirroring_page.region }})
+                                                        {% endif %}
+                                                    </a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endwith %}
                                     {% else %}
                                         <button title="{% trans 'Delete page' %}"
                                                 class="btn confirmation-button btn-red w-full"
