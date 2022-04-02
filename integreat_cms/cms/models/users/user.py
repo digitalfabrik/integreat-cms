@@ -208,6 +208,8 @@ class User(AbstractUser, AbstractBaseModel):
         return f"<User (id: {self.id}{username_str}{role_str}{region_str}{staff_str})>"
 
     class Meta:
+        #: Make sure the email field is unique (without having to re-define the whole user model):
+        unique_together = ("email",)
         #: The verbose name of the model
         verbose_name = _("user")
         #: The plural verbose name of the model

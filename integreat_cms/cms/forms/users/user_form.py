@@ -150,6 +150,18 @@ class UserForm(CustomModelForm):
 
         return user
 
+    def clean_email(self):
+        """
+        Make the email lower case (see :ref:`overriding-modelform-clean-method`)
+
+        :return: The email in lower case
+        :rtype: str
+        """
+        email = self.cleaned_data.get("email")
+        if email:
+            email = email.lower()
+        return email
+
     def clean(self):
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
