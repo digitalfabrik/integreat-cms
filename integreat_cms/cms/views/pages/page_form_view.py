@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
+from django.db import transaction
 
 from ...constants import status, text_directions
 from ...decorators import permission_required
@@ -176,6 +177,7 @@ class PageFormView(
             },
         )
 
+    @transaction.atomic
     # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
         r"""

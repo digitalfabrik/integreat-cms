@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
+from django.db import transaction
 
 from ...decorators import permission_required
 from ...forms import LanguageTreeNodeForm
@@ -65,6 +66,7 @@ class LanguageTreeNodeFormView(TemplateView):
         )
 
     # pylint: disable=unused-argument
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
         r"""
         Save and show form for editing a single language (HTTP POST) in the language tree

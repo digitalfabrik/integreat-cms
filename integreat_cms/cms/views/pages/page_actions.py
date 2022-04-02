@@ -14,6 +14,7 @@ from django.http import HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
+from django.db import transaction
 
 from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
@@ -183,6 +184,7 @@ def view_page(request, page_id, region_slug, language_slug):
 
 @require_POST
 @permission_required("cms.delete_page")
+@transaction.atomic
 def delete_page(request, page_id, region_slug, language_slug):
     """
     Delete page object
@@ -394,6 +396,7 @@ def upload_xliff(request, region_slug, language_slug):
 
 @require_POST
 @permission_required("cms.change_page")
+@transaction.atomic
 # pylint: disable=too-many-arguments
 def move_page(request, region_slug, language_slug, page_id, target_id, position):
     """
