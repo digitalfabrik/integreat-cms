@@ -11,6 +11,7 @@ UNRELEASED
 * [ [#1384](https://github.com/digitalfabrik/integreat-cms/issues/1384) ] Phone numbers and emails addresses marked as invalid links
 * [ [#1350](https://github.com/digitalfabrik/integreat-cms/issues/1350) ] Fix legacy media urls in PDF export
 * [ [#1388](https://github.com/digitalfabrik/integreat-cms/issues/1388) ] Remove additional event handlers for selection count
+* [ [#1038](https://github.com/digitalfabrik/integreat-cms/issues/1038) ] Rename location not on map attribute
 
 
 2022.4.2

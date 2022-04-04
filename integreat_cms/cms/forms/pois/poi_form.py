@@ -42,7 +42,7 @@ class POIForm(CustomModelForm):
             "country",
             "latitude",
             "longitude",
-            "location_not_on_map",
+            "location_on_map",
             "icon",
             "website",
             "email",
@@ -96,7 +96,7 @@ class POIForm(CustomModelForm):
                 logger.exception(e)
                 logger.error("Nominatim API call failed")
 
-        if not cleaned_data.get("location_not_on_map"):
+        if cleaned_data.get("location_on_map"):
             # If the location should be shown on the map, require the coordinates
             if not cleaned_data.get("latitude"):
                 self.add_error(
