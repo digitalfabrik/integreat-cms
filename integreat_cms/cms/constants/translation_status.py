@@ -9,6 +9,8 @@ UP_TO_DATE = "UP_TO_DATE"
 IN_TRANSLATION = "IN_TRANSLATION"
 #: Outdated
 OUTDATED = "OUTDATED"
+#: Fallback
+FALLBACK = "FALLBACK"
 #: Missing
 MISSING = "MISSING"
 
@@ -17,6 +19,8 @@ CHOICES = (
     (UP_TO_DATE, _("Translation up-to-date")),
     (IN_TRANSLATION, _("Currently in translation")),
     (OUTDATED, _("Translation outdated")),
+    # Do not show fallback translations in translation coverage
+    # (FALLBACK, _("Default language is duplicated")),
     (MISSING, _("Translation missing")),
 )
 
@@ -25,5 +29,7 @@ COLORS = {
     UP_TO_DATE: "#4ade80",
     IN_TRANSLATION: "#60a5fa",
     OUTDATED: "#facc15",
+    # Do not show fallback translations in translation coverage
+    # FALLBACK: "#60a5fa",
     MISSING: "#f87171",
 }

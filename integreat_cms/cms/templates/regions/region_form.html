@@ -128,6 +128,12 @@
                         <label for="{{ form.locations_enabled.id_for_label }}">{{ form.locations_enabled.label }}</label>
                         <div class="help-text">{{ form.locations_enabled.help_text }}</div>
                     </div>
+                    <div class="pt-2">
+                        <!-- Options related to Fallback language -->
+                        {% render_field form.fallback_translations_enabled class+='inline-block' %}
+                        <label for="{{ form.fallback_translations_enabled.id_for_label }}" class="!inline">{{ form.fallback_translations_enabled.label }}</label>
+                        <div class="help-text">{{ form.fallback_translations_enabled.help_text }}</div>
+                    </div>
                     <div>
                         <!-- Options related to tunews -->
                         {% render_field form.tunews_enabled %}
@@ -146,10 +152,10 @@
                         <label for="{{ form.push_notifications_enabled.id_for_label }}">{{ form.push_notifications_enabled.label }}</label>
                         <div class="help-text">{{ form.push_notifications_enabled.help_text }}</div>
                     </div>
-                    <div>
+                    <div class="pt-2">
                         <!-- Options related to page-instance-specific permissions -->
-                        {% render_field form.page_permissions_enabled %}
-                        <label for="{{ form.page_permissions_enabled.id_for_label }}">{{ form.page_permissions_enabled.label }}</label>
+                        {% render_field form.page_permissions_enabled class+='inline-block' %}
+                        <label for="{{ form.page_permissions_enabled.id_for_label }}" class="!inline">{{ form.page_permissions_enabled.label }}</label>
                         <div class="help-text">{{ form.page_permissions_enabled.help_text }}</div>
                     </div>
                     <div>

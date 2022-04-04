@@ -62,16 +62,6 @@ def imprint(request, region_slug, language_slug):
         imprint_translation = region.imprint.get_public_translation(language_slug)
         if imprint_translation:
             return JsonResponse(transform_imprint(imprint_translation))
-        if region.default_language:
-            imprint_default_translation = region.imprint.get_public_translation(
-                region.default_language.slug
-            )
-            if imprint_default_translation:
-                return JsonResponse(transform_imprint(imprint_default_translation))
     # If imprint does not exist, return an empty response. Turn off Safe-Mode to allow serializing arrays
-    logger.info(
-        "The imprint for region %r in the language %s does not exist",
-        region,
-        language_slug,
-    )
+    logger.warning("The imprint for region %r does not exist", region)
     return JsonResponse([], safe=False)

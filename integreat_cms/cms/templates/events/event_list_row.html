@@ -47,6 +47,10 @@
                             <span title="{% trans 'Translation up-to-date' %}">
                                 <i data-feather="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
+                        {% elif other_status == translation_status.FALLBACK %}
+                            <span title="{% trans 'Default language is duplicated' %}">
+                                <i data-feather="copy" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                            </span>
                         {% elif other_status == translation_status.MISSING %}
                             <span title="{% trans 'Translation missing' %}" class="no-trans">
                                 <i data-feather="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
@@ -88,7 +92,7 @@
     </td>
     <td class="pr-4 py-3 flex flex-nowrap justify-end gap-2">
         {% if event_translation.status == PUBLIC %}
-            <a href="{{ WEBAPP_URL }}{{ event_translation.get_absolute_url }}" 
+            <a href="{{ WEBAPP_URL }}{{ event_translation.get_absolute_url }}"
             rel="noopener noreferrer" target="_blank" title="{% trans 'Open event in web app' %}" class="btn-icon">
                 <i data-feather="external-link"></i>
             </a>
@@ -99,16 +103,16 @@
         {% endif %}
         {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if can_edit_event %}
-            <form action="{% url 'duplicate_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" method="post">
+            <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" method="post">
                 {% csrf_token %}
-                <button class="btn-icon" title="{% trans 'Duplicate event' %}">
+                <button class="btn-icon" title="{% trans 'Copy event' %}">
                     <i data-feather="copy"></i>
                 </button>
             </form>
             <button title="{% trans 'Archive event' %}" class="confirmation-button btn-icon"
                 data-confirmation-title="{{ archive_dialog_title }}"
                 data-confirmation-text="{{ archive_dialog_text }}"
-                data-confirmation-subject="{{ event_translation.title }}" 
+                data-confirmation-subject="{{ event_translation.title }}"
                 data-action="{% url 'archive_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
                 <i data-feather="archive"></i>
             </button>

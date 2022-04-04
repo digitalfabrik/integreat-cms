@@ -35,6 +35,10 @@
                             <span title="{% trans 'Translation up-to-date' %}">
                                 <i data-feather="check"></i>
                             </span>
+                        {% elif other_status == translation_status.FALLBACK %}
+                            <span title="{% trans 'Default language is duplicated' %}">
+                                <i data-feather="copy"></i>
+                            </span>
                         {% elif other_status == translation_status.MISSING  %}
                             <span title="{% trans 'Translation missing' %}" class="no-trans">
                                 <i data-feather="x"></i>

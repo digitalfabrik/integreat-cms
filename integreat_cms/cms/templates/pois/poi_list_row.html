@@ -44,6 +44,10 @@
                             <span title="{% trans 'Translation up-to-date' %}">
                                 <i data-feather="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
+                        {% elif other_status == translation_status.FALLBACK %}
+                            <span title="{% trans 'Default language is duplicated' %}">
+                                <i data-feather="copy" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                            </span>
                         {% elif other_status == translation_status.MISSING %}
                             <span title="{% trans 'Translation missing' %}" class="no-trans">
                                 <i data-feather="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
@@ -86,7 +90,7 @@
     </td>
     <td class="pl-2 pr-4 py-3 min text-right flex flex-nowrap gap-2">
         {% if poi_translation.status == PUBLIC %}
-            <a href="{{ WEBAPP_URL }}{{ poi_translation.get_absolute_url }}" 
+            <a href="{{ WEBAPP_URL }}{{ poi_translation.get_absolute_url }}"
             rel="noopener noreferrer" target="_blank" title="{% trans 'Open location in web app' %}" class="btn-icon">
                 <i data-feather="external-link"></i>
             </a>
