@@ -9,6 +9,7 @@ UNRELEASED
 * [ [#1054](https://github.com/digitalfabrik/integreat-cms/issues/1054) ] Provide fallback translations for mirrored pages
 * [ [#1198](https://github.com/digitalfabrik/integreat-cms/issues/1198) ] Check availability for DeepL bulk actions
 * [ [#1293](https://github.com/digitalfabrik/integreat-cms/issues/1293) ] Enable login via email address
+* [ [#1327](https://github.com/digitalfabrik/integreat-cms/issues/1327) ] Fix page PDF export
 
 
 2022.3.6
