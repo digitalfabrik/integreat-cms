@@ -5,3 +5,4 @@
 
 import './js/forms/tinymce-init.ts';
 import './js/pages/sbs-copy-content.ts';
+import "./js/content-edit-lock.ts";
