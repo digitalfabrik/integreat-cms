@@ -25,6 +25,8 @@ class LanguageForm(CustomModelForm):
             "table_of_contents",
             "primary_country_code",
             "secondary_country_code",
+            "message_live_content_not_available",
+            "message_partial_live_content_not_available",
         ]
 
     def __init__(self, *args, **kwargs):

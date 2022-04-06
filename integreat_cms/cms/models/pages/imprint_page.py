@@ -23,6 +23,17 @@ class ImprintPage(AbstractContentModel):
         """
         return ImprintPageTranslation
 
+    @property
+    def edit_lock_key(self):
+        """
+        This property returns the key that is used to lock this specific content object
+        This overwrites :meth:`~integreat_cms.cms.models.abstract_content_model.AbstractContentModel.edit_lock_key`
+
+        :return: A tuple of the region slug and the classname
+        :rtype: tuple
+        """
+        return (self.region.slug, type(self).__name__)
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("imprint")

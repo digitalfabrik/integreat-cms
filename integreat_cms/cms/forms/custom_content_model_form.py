@@ -5,7 +5,9 @@ from urllib.parse import urlparse
 from lxml.etree import LxmlError
 from lxml.html import fromstring, tostring
 
+from django import forms
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
@@ -21,6 +23,45 @@ class CustomContentModelForm(CustomModelForm):
     """
     Form for the content model forms for pages, events and POIs.
     """
+
+    def __init__(self, **kwargs):
+        self.changed_by_user = kwargs.pop("changed_by_user", None)
+        self.locked_by_user = kwargs.pop("locked_by_user", None)
+
+        super().__init__(**kwargs)
+
+        if not self.locked_by_user:
+            try:
+                self.locked_by_user = self.instance.foreign_object.get_locking_user()
+            except ObjectDoesNotExist:
+                # If the foreign object does not exist yet, there ist also no lock so nothing must be done
+                pass
+
+    def clean(self):
+        """
+        This method extends the ``clean()``-method to verify that a user can modify this content model
+
+        :return: The cleaned data (see :ref:`overriding-modelform-clean-method`)
+        :rtype: dict
+        """
+        force_update = self.cleaned_data["status"] == status.AUTO_SAVE
+        if (
+            not force_update
+            and self.changed_by_user
+            and self.locked_by_user
+            and self.changed_by_user != self.locked_by_user
+        ):
+            self.add_error(
+                None,
+                forms.ValidationError(
+                    _(
+                        "Could not update because this content because it is already being edited by another user"
+                    ),
+                    code="invalid",
+                ),
+            )
+
+        return super().clean()
 
     def clean_content(self):
         """

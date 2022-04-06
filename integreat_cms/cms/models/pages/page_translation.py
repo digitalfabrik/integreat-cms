@@ -95,23 +95,57 @@ class PageTranslation(AbstractBasePageTranslation):
         )
 
     @cached_property
+    def mirrored_translation_text(self):
+        """
+        This method returns the text of the mirrored translation.
+        If there is no mirrored translation, it returns an empty string.
+        If there is a mirrored page but no translation, a html error message will be returned with languages that are translated as options.
+
+        :return: The text, as specified
+        :rtype: str
+        """
+        if not self.page.mirrored_page:
+            return ""
+
+        translation = self.page.get_mirrored_page_translation(self.language.slug)
+        if translation and translation.content:
+            return translation.content
+
+        error_message = (
+            self.language.message_partial_live_content_not_available
+            if self.content
+            else self.language.message_live_content_not_available
+        )
+
+        # Get all translations of this page which have a corresponding translation of the mirrored page
+        translations = filter(
+            None,
+            [
+                self.page.get_public_translation(language_slug)
+                for language_slug in self.page.mirrored_page.prefetched_major_public_translations_by_language_slug.keys()
+            ],
+        )
+        # Create bullet points for each available translation
+        choices = "</li><li>".join(
+            f"<a href={settings.WEBAPP_URL + translation.get_absolute_url()}>{translation.language.native_name}</a>"
+            for translation in translations
+        )
+        return f"<p>{error_message}</p><ul><li>{choices}</li></ul>"
+
+    @cached_property
     def combined_text(self):
         """
         This function combines the text from this PageTranslation with the text from the mirrored page.
         Mirrored content always includes the live content from another page. This content needs to be added when
         delivering content to end users.
+        If the mirrored page is not available in the current language, an error message for the user will be used instead.
 
         :return: The combined content of this page and the mirrored page
         :rtype: str
         """
-        mirrored_page_translation = self.page.get_mirrored_page_translation(
-            self.language.slug
-        )
-        if not mirrored_page_translation or not mirrored_page_translation.content:
-            return self.content
         if self.page.mirrored_page_first:
-            return mirrored_page_translation.content + self.content
-        return self.content + mirrored_page_translation.content
+            return self.mirrored_translation_text + self.content
+        return self.content + self.mirrored_translation_text
 
     @cached_property
     def combined_last_updated(self):

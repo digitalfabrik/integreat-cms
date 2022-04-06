@@ -42,6 +42,9 @@
           ({{ number_ignored_links }})
         </span>
     </a>
+    {% if view.kwargs.link_id %}
+        <form method="POST" id="edit-url-form">{% csrf_token %}</form>
+    {% endif %}
     <form method="POST" id="bulk-action-form" class="table-listing">
         {% csrf_token %}
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
@@ -53,6 +56,7 @@
                     <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Link text' %}</th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Source' %}</th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Content type' %}</th>
+                    <th class="text-sm text-right uppercase py-3 pr-4">{% trans 'Options' %}</th>
                 </tr>
             </thead>
             <tbody>

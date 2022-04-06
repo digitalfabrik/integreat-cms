@@ -5,7 +5,14 @@ Views which should not have login protection go into :mod:`~integreat_cms.cms.ur
 """
 from django.urls import include, path
 
-from ..forms import LanguageForm, OfferTemplateForm, OrganizationForm, RegionForm
+from ..forms import (
+    LanguageForm,
+    OfferTemplateForm,
+    OrganizationForm,
+    RegionForm,
+    EventTranslationForm,
+    POITranslationForm,
+)
 from ..models import Event, Language, OfferTemplate, Organization, Page, POI, Role
 
 from ..views import (
@@ -533,6 +540,23 @@ urlpatterns = [
                                 name="cancel_translation_process_ajax",
                             ),
                             path(
+                                "content-edit-lock/",
+                                include(
+                                    [
+                                        path(
+                                            "heartbeat/",
+                                            utils.content_edit_lock_heartbeat,
+                                            name="content_edit_lock_heartbeat",
+                                        ),
+                                        path(
+                                            "release/",
+                                            utils.content_edit_lock_release,
+                                            name="content_edit_lock_release",
+                                        ),
+                                    ]
+                                ),
+                            ),
+                            path(
                                 "search-poi/",
                                 events.search_poi_ajax,
                                 name="search_poi_ajax",
@@ -590,8 +614,20 @@ urlpatterns = [
                                         ),
                                         path(
                                             "<slug:link_filter>/",
-                                            linkcheck.LinkListView.as_view(),
-                                            name="linkcheck",
+                                            include(
+                                                [
+                                                    path(
+                                                        "",
+                                                        linkcheck.LinkListView.as_view(),
+                                                        name="linkcheck",
+                                                    ),
+                                                    path(
+                                                        "<int:link_id>/",
+                                                        linkcheck.LinkListView.as_view(),
+                                                        name="edit_link",
+                                                    ),
+                                                ]
+                                            ),
                                         ),
                                     ]
                                 ),
@@ -835,7 +871,7 @@ urlpatterns = [
                                         path(
                                             "auto-translate/",
                                             bulk_action_views.BulkAutoTranslateView.as_view(
-                                                model=Event
+                                                model=Event, form=EventTranslationForm
                                             ),
                                             name="automatic_translation_events",
                                         ),
@@ -918,7 +954,7 @@ urlpatterns = [
                                         path(
                                             "auto-translate/",
                                             bulk_action_views.BulkAutoTranslateView.as_view(
-                                                model=POI
+                                                model=POI, form=POITranslationForm
                                             ),
                                             name="automatic_translation_pois",
                                         ),

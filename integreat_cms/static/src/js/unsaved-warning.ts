@@ -28,3 +28,10 @@ window.addEventListener("load", () => {
     console.debug("form submitted, disabled beforeunload warning");
   });
 });
+
+/**
+ * This function marks the form as submitted, so no unsaved warning will be shown
+ */
+export function markContentSaved() {
+  confirmed = true;
+}

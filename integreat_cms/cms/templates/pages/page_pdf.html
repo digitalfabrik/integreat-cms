@@ -40,8 +40,8 @@
         <div id="header">
             <!-- make sure that image size fits in static frame to avoid problems -->
             <!-- only applicable if icon is present -->
-            {% if request.region.icon %}
-                <img src="{{ request.region.icon.path }}" height="32">
+            {% if region.icon and region.icon.file %}
+                <img src="{% get_media_prefix %}{{ region.icon.file.name }}" height="32" alt="{{ region.icon.alt_text }}">
             {% endif %}
         </div>
         <div id="footer">
@@ -51,7 +51,7 @@
                         <pdf:pagenumber>
                     </td>
                     <td id="second-footer">
-                        {{ request.region.full_name }}
+                        {{ region.full_name }}
                     </td>
                     <td id="third-footer">
                         <img src="{% static 'images/integreat-logo.jpg' %}" height="40">

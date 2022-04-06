@@ -97,9 +97,19 @@
                     {% trans 'Archive locations' %}
                 </option>
                 {% if DEEPL_ENABLED %}
-                    <option data-bulk-action="{% url 'automatic_translation_pois' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% trans 'Create missing translations automatically' %}
-                    </option>
+                    {% if language == request.region.default_language %}
+                        <option disabled title="{% trans 'You cannot translate into the default language' %}">
+                            {% trans 'Create missing translations automatically' %}
+                        </option>
+                    {% elif DEEPL_AVAILABLE %}
+                        <option data-bulk-action="{% url 'automatic_translation_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                            {% trans 'Create missing translations automatically' %}
+                        </option>
+                    {% else %}
+                        <option disabled title="{% trans 'This language is not supported by DeepL' %}">
+                            {% trans 'Create missing translations automatically' %}
+                        </option>
+                    {% endif %}
                 {% endif %}
             </select>
             <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>

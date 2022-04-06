@@ -14,6 +14,7 @@ from django.http import HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
+from django.db import transaction
 
 from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
@@ -168,14 +169,12 @@ def view_page(request, page_id, region_slug, language_slug):
     template_name = "pages/page_view.html"
 
     page_translation = page.get_translation(language_slug)
-    mirrored_translation = page.get_mirrored_page_translation(language_slug)
-
     return render(
         request,
         template_name,
         {
             "page_translation": page_translation,
-            "mirrored_translation": mirrored_translation,
+            "is_mirrored": bool(page.mirrored_page),
             "mirrored_page_first": page.mirrored_page_first,
             "right_to_left": page_translation.language.text_direction
             == text_directions.RIGHT_TO_LEFT,
@@ -185,6 +184,7 @@ def view_page(request, page_id, region_slug, language_slug):
 
 @require_POST
 @permission_required("cms.delete_page")
+@transaction.atomic
 def delete_page(request, page_id, region_slug, language_slug):
     """
     Delete page object
@@ -210,6 +210,13 @@ def delete_page(request, page_id, region_slug, language_slug):
 
     if page.children.exists():
         messages.error(request, _("You cannot delete a page which has subpages."))
+    elif page.mirroring_pages.exists():
+        messages.error(
+            request,
+            _(
+                "This page cannot be deleted because it was embedded as live content from another page."
+            ),
+        )
     else:
         logger.info("%r deleted by %r", page, request.user)
         page.delete()
@@ -396,6 +403,7 @@ def upload_xliff(request, region_slug, language_slug):
 
 @require_POST
 @permission_required("cms.change_page")
+@transaction.atomic
 # pylint: disable=too-many-arguments
 def move_page(request, region_slug, language_slug, page_id, target_id, position):
     """

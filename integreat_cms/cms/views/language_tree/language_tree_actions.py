@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
+from django.db import transaction
 
 from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
@@ -20,6 +21,7 @@ logger = logging.getLogger(__name__)
 
 @require_POST
 @permission_required("cms.change_languagetreenode")
+@transaction.atomic
 def move_language_tree_node(
     request, region_slug, language_tree_node_id, target_id, target_position
 ):
@@ -81,6 +83,7 @@ def move_language_tree_node(
 
 @require_POST
 @permission_required("cms.delete_languagetreenode")
+@transaction.atomic
 def delete_language_tree_node(request, region_slug, language_tree_node_id):
     """
     Deletes the language node of distinct region

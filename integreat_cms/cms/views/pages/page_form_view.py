@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
+from django.db import transaction
 
 from ...constants import status, text_directions
 from ...decorators import permission_required
@@ -14,12 +15,15 @@ from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation
 from .page_context_mixin import PageContextMixin
 from ..media.media_context_mixin import MediaContextMixin
+from ..mixins import ContentEditLockMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
-class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
+class PageFormView(
+    TemplateView, PageContextMixin, MediaContextMixin, ContentEditLockMixin
+):
     """
     View for the page form and page translation form
     """
@@ -30,6 +34,8 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
     extra_context = {
         "current_menu_item": "new_page",
     }
+    #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`)
+    back_url_name = "pages"
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
@@ -171,6 +177,7 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
             },
         )
 
+    @transaction.atomic
     # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
         r"""
@@ -232,6 +239,7 @@ class PageFormView(TemplateView, PageContextMixin, MediaContextMixin):
                 "language": language,
                 "page": page_form.instance,
             },
+            changed_by_user=request.user,
         )
 
         if not page_form.is_valid() or not page_translation_form.is_valid():

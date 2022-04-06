@@ -52,30 +52,47 @@
     <div class="w-full xl:w-1/2 xl:pl-4">
         <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="font-bold text-black"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
+                <h3 class="font-bold text-black"><i data-feather="globe" class="mr-2"></i> {% trans 'Translations' %}</h3>
             </div>
             <div class="w-full p-4">
-                <label for="{{ form.text_direction.id_for_label }}" class="block mb-2">{{ form.text_direction.label }}</label>
-                {% render_field form.text_direction|add_error_class:"border-red-500" %}
                 <label for="{{ form.table_of_contents.id_for_label }}" class="font-bold block mt-4 mb-2 cursor-pointer">{{ form.table_of_contents.label }}</label>
                 {% render_field form.table_of_contents|add_error_class:"border-red-500" %}
                 <div class="mb-2 text-s text-gray-600">{{ form.table_of_contents.help_text }}</div>
-                <label for="{{ form.primary_country_code.label }}" class="font-bold block mb-1 cursor-pointer">{{ form.primary_country_code.label }}</label>
-                <div class="flex my-2">
-                    <span class="country-flag fp fp-{{ form.instance.primary_country_code }} w-16 rounded-l {% if not form.instance.primary_country_code %} hidden {% endif %}" title="{{ form.instance.translated_name }}"></span>
-                    <div class="relative flex-grow">
-                        {% render_field form.primary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
-                   </div>
+
+                <label for="{{ form.message_live_content_not_available.id_for_label }}" class="font-bold block mt-4 mb-2 cursor-pointer">{{ form.message_live_content_not_available.label }}</label>
+                {% render_field form.message_live_content_not_available|add_error_class:"border-red-500" %}
+                <div class="mb-2 text-s text-gray-600">{{ form.message_live_content_not_available.help_text }}</div>
+
+                <label for="{{ form.message_partial_live_content_not_available.id_for_label }}" class="font-bold block mt-4 mb-2 cursor-pointer">{{ form.message_partial_live_content_not_available.label }}</label>
+                {% render_field form.message_partial_live_content_not_available|add_error_class:"border-red-500" %}
+                <div class="mb-2 text-s text-gray-600">{{ form.message_partial_live_content_not_available.help_text }}</div>
+            </div>
+        </div>
+        <div class="w-full">
+            <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                <div class="w-full p-4 rounded bg-water-500">
+                    <h3 class="font-bold text-black"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
                 </div>
-                <div class="mb-2 text-s text-gray-600">{{ form.primary_country_code.help_text }}</div>
-                <label for="{{ form.secondary_country_code.label }}" class="font-bold block mb-1 cursor-pointer">{{ form.secondary_country_code.label }}</label>
-                <div class="flex my-2">
-                    <span class="country-flag fp fp-{{ form.instance.secondary_country_code }} w-16 rounded-l {% if not form.instance.secondary_country_code %} hidden {% endif %}" title="{{ form.instance.translated_name }}"></span>
-                    <div class="flex-grow">
-                        {% render_field form.secondary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
+                <div class="w-full p-4">
+                    <label for="{{ form.text_direction.id_for_label }}" class="block mb-2">{{ form.text_direction.label }}</label>
+                    {% render_field form.text_direction|add_error_class:"border-red-500" %}                
+                    <label for="{{ form.primary_country_code.label }}" class="font-bold block mb-1 cursor-pointer">{{ form.primary_country_code.label }}</label>
+                    <div class="flex my-2">
+                        <span class="country-flag fp fp-{{ form.instance.primary_country_code }} w-16 rounded-l {% if not form.instance.primary_country_code %} hidden {% endif %}" title="{{ form.instance.translated_name }}"></span>
+                        <div class="relative flex-grow">
+                            {% render_field form.primary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
+                       </div>
                     </div>
+                    <div class="mb-2 text-s text-gray-600">{{ form.primary_country_code.help_text }}</div>
+                    <label for="{{ form.secondary_country_code.label }}" class="font-bold block mb-1 cursor-pointer">{{ form.secondary_country_code.label }}</label>
+                    <div class="flex my-2">
+                        <span class="country-flag fp fp-{{ form.instance.secondary_country_code }} w-16 rounded-l {% if not form.instance.secondary_country_code %} hidden {% endif %}" title="{{ form.instance.translated_name }}"></span>
+                        <div class="flex-grow">
+                            {% render_field form.secondary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
+                        </div>
+                    </div>
+                    <div class="mb-2 text-s text-gray-600">{{ form.secondary_country_code.help_text }}</div>
                 </div>
-                <div class="mb-2 text-s text-gray-600">{{ form.secondary_country_code.help_text }}</div>
             </div>
         </div>
     </div>
