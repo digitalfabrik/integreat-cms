@@ -8,6 +8,8 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from cacheops import invalidate_model
+
 from treebeard.ns_tree import NS_NodeQuerySet
 
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -283,6 +285,23 @@ class Page(AbstractTreeNode, AbstractBasePage):
         if hasattr(self, "_relative_depth"):
             return self._relative_depth
         return self.depth
+
+    def move(self, target, pos=None):
+        """
+        Moving tree nodes potentially causes changes to the fields tree_id, lft and rgt in :class:`~treebeard.ns_tree.NS_Node`
+        so the cache of page translations has to be cleared, because of it's relation to :class:`~integreat_cms.cms.models.pages.page.Page`
+
+        :param target: The target node which determines the new position
+        :type target: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
+
+        :param pos: The new position of the page relative to the target
+                    (choices: :mod:`~integreat_cms.cms.constants.position`)
+        :type pos: str
+
+        :raises ~treebeard.exceptions.InvalidPosition: If the node is moved to another region
+        """
+        super().move(target, pos)
+        invalidate_model(PageTranslation)
 
     def __str__(self):
         """
