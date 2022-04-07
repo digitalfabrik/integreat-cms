@@ -47,6 +47,7 @@ import "./js/pages/page-side-by-side.ts";
 import "./js/pages/unset-translation-state.ts";
 import "./js/pages/xliff-file-upload.ts";
 import "./js/pages/xliff-import.ts";
+import "./js/pages/page-preview.ts";
 
 import "./js/mfa/add-key.ts";
 import "./js/mfa/login.ts";

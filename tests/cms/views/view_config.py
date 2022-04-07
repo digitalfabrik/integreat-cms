@@ -408,7 +408,6 @@ VIEWS = [
     ),
     (
         [
-            ("view_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             (
@@ -441,7 +440,6 @@ VIEWS = [
     ),
     (
         [
-            ("view_page", STAFF_ROLES),
             ("edit_page", STAFF_ROLES),
             ("sbs_edit_page", STAFF_ROLES),
             ("page_revisions", STAFF_ROLES),

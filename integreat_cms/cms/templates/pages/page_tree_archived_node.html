@@ -92,11 +92,22 @@
         </div>
     </td>
     <td class="pl-2 pr-4 py-2 flex flex-nowrap justify-end gap-2">
-        <!-- TODO: add link to view page in web app -->
-        <a href="{% url 'view_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-           target="_blank" rel="noopener noreferrer" title="{% trans 'View page' %}" class="btn-icon">
-            <i data-feather="eye"></i>
-        </a>
+        {% if page_translation.content or page.mirrored_page %}
+            <button
+                type="button"
+                data-preview-page="{% url 'preview_page_ajax' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+                title="{% trans 'View page as preview' %}"
+                class="btn-icon">
+                <i data-feather="eye"></i>
+            </button>
+        {% else %}
+            <button
+                type="button"
+                title="{% trans 'You cannot preview an empty page.' %}"
+                class="btn-icon"
+                disabled>
+                <i data-feather="eye"></i>
+        {% endif %}
         {% if page.explicitly_archived %}
             <button title="{% trans 'Restore page' %}" class="confirmation-button btn-icon"
                     data-confirmation-title="{{ restore_dialog_title }}"

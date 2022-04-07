@@ -8,6 +8,7 @@ import { setBulkActionEventListeners } from "../bulk-actions";
 import { setToggleSubpagesEventListeners } from "./toggle-subpages";
 import { addDragAndDropListeners } from "../tree-drag-and-drop";
 import { addConfirmationDialogListeners } from "../confirmation-popups";
+import { addPreviewWindowListeners, openPreviewWindowInPageTree } from "./page-preview";
 
 window.addEventListener("load", () => {
   // Load subpages initially
@@ -23,14 +24,15 @@ window.addEventListener("load", () => {
       setBulkActionEventListeners();
       addDragAndDropListeners();
       addConfirmationDialogListeners();
+      addPreviewWindowListeners(openPreviewWindowInPageTree);
     })
   }
 });
 
 /**
- * Ajax call to fetch children of selected page 
+ * Ajax call to fetch children of selected page
  * and insert them into DOM at right position
- * 
+ *
  * @param collapseSpan The page to expand its children
  */
 export async function fetchSubpages(collapseSpan: HTMLElement): Promise<number[]> {

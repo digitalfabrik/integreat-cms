@@ -6,7 +6,6 @@ from .page_form_view import PageFormView
 from .page_actions import (
     archive_page,
     restore_page,
-    view_page,
     delete_page,
     expand_page_translation_id,
     upload_xliff,
@@ -16,6 +15,8 @@ from .page_actions import (
     get_page_order_table_ajax,
     render_mirrored_page_field,
     cancel_translation_process_ajax,
+    preview_page_ajax,
+    get_page_content_ajax,
 )
 from .page_bulk_actions import (
     GeneratePdfView,

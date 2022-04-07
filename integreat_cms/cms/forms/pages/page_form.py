@@ -11,6 +11,7 @@ from ..custom_model_form import CustomModelForm
 from ..custom_tree_node_form import CustomTreeNodeForm
 from ..icon_widget import IconWidget
 from .parent_field_widget import ParentFieldWidget
+from .mirrored_page_field_widget import MirroredPageFieldWidget
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +65,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         #: The widgets for the fields if they differ from the standard widgets
         widgets = {
             "mirrored_page_first": forms.Select(choices=mirrored_page_first.CHOICES),
+            "mirrored_page": MirroredPageFieldWidget(),
             "icon": IconWidget(),
             "parent": ParentFieldWidget(),
         }
@@ -81,6 +83,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
 
         # Pass form object to ParentFieldWidget
         self.fields["parent"].widget.form = self
+        self.fields["mirrored_page"].widget.form = self
 
         # The api token field should not be edited manually
         self.fields["api_token"].widget.attrs["readonly"] = True

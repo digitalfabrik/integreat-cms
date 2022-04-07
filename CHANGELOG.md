@@ -14,6 +14,8 @@ UNRELEASED
 * [ [#1038](https://github.com/digitalfabrik/integreat-cms/issues/1038) ] Rename location not on map attribute
 * [ [#1389](https://github.com/digitalfabrik/integreat-cms/issues/1389) ] Change media library upload paths
 * [ [#1371](https://github.com/digitalfabrik/integreat-cms/issues/1371) ] Show fallback text for empty pages
+* [ [#1056](https://github.com/digitalfabrik/integreat-cms/issues/1056) ] Enhance page preview feature
+* [ [#1387](https://github.com/digitalfabrik/integreat-cms/issues/1387) ] Fix error when previewing a non-existing page translation
 
 
 2022.4.2

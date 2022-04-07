@@ -66,6 +66,10 @@ function toggleNoTranslate(editor: Editor) {
   }
 }
 
+export function getContent(): string {
+  return tinymce.activeEditor.getContent();
+}
+
 /**
  * This file initializes the tinymce editor.
  */

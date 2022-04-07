@@ -448,13 +448,64 @@ urlpatterns = [
                         [
                             path("", include(media_ajax_urlpatterns)),
                             path(
+                                "<slug:language_slug>/",
+                                include(
+                                    [
+                                        path(
+                                            "<int:page_id>/",
+                                            include(
+                                                [
+                                                    path(
+                                                        "cancel-translation-process/",
+                                                        pages.cancel_translation_process_ajax,
+                                                        name="cancel_translation_process_ajax",
+                                                    ),
+                                                    path(
+                                                        "preview/",
+                                                        pages.preview_page_ajax,
+                                                        name="preview_page_ajax",
+                                                    ),
+                                                    path(
+                                                        "content/",
+                                                        pages.get_page_content_ajax,
+                                                        name="get_page_content_ajax",
+                                                    ),
+                                                ]
+                                            ),
+                                        ),
+                                        path(
+                                            "search/",
+                                            utils.search_content_ajax,
+                                            name="search_content_ajax",
+                                        ),
+                                        path(
+                                            "<model_type>/slugify/",
+                                            utils.slugify_ajax,
+                                            name="slugify_ajax",
+                                        ),
+                                    ]
+                                ),
+                            ),
+                            path(
                                 "render/",
                                 include(
                                     [
                                         path(
-                                            "mirrored-page-field/",
-                                            pages.render_mirrored_page_field,
-                                            name="render_mirrored_page_field",
+                                            "<slug:language_slug>/",
+                                            include(
+                                                [
+                                                    path(
+                                                        "mirrored-page-field/",
+                                                        pages.render_mirrored_page_field,
+                                                        name="render_mirrored_page_field",
+                                                    ),
+                                                    path(
+                                                        "partial-page-tree/tree-<int:tree_id>/",
+                                                        pages.PartialPageTreeView.as_view(),
+                                                        name="get_page_tree_ajax",
+                                                    ),
+                                                ]
+                                            ),
                                         ),
                                         path(
                                             "page-order-table/",
@@ -474,11 +525,6 @@ urlpatterns = [
                                                     ),
                                                 ]
                                             ),
-                                        ),
-                                        path(
-                                            "partial-page-tree/<slug:language_slug>/tree-<int:tree_id>/",
-                                            pages.PartialPageTreeView.as_view(),
-                                            name="get_page_tree_ajax",
                                         ),
                                     ]
                                 ),
@@ -535,11 +581,6 @@ urlpatterns = [
                                 ),
                             ),
                             path(
-                                "cancel-translation-process/<slug:language_slug>/<int:page_id>/",
-                                pages.cancel_translation_process_ajax,
-                                name="cancel_translation_process_ajax",
-                            ),
-                            path(
                                 "content-edit-lock/",
                                 include(
                                     [
@@ -562,19 +603,9 @@ urlpatterns = [
                                 name="search_poi_ajax",
                             ),
                             path(
-                                "<slug:language_slug>/search/",
-                                utils.search_content_ajax,
-                                name="search_content_ajax",
-                            ),
-                            path(
                                 "search/",
                                 utils.search_content_ajax,
                                 name="search_content_ajax",
-                            ),
-                            path(
-                                "<slug:language_slug>/<model_type>/slugify/",
-                                utils.slugify_ajax,
-                                name="slugify_ajax",
                             ),
                             path(
                                 "dismiss-tutorial/<slug:slug>/",
@@ -716,11 +747,6 @@ urlpatterns = [
                                             "<int:page_id>/",
                                             include(
                                                 [
-                                                    path(
-                                                        "view/",
-                                                        pages.view_page,
-                                                        name="view_page",
-                                                    ),
                                                     path(
                                                         "edit/",
                                                         include(
