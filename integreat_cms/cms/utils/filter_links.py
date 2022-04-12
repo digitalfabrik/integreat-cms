@@ -18,19 +18,19 @@ def filter_links(region_slug, link_filter=None):
     # Get all translation objects of this region and prefetch its links
     page_translations = list(
         PageTranslation.objects.filter(page__region__slug=region_slug)
-        .distinct("page")
+        .distinct("page", "language")
         .select_related("language")
         .prefetch_related("links__url")
     )
     event_translations = list(
         EventTranslation.objects.filter(event__region__slug=region_slug)
-        .distinct("event")
+        .distinct("event", "language")
         .select_related("language")
         .prefetch_related("links__url")
     )
     poi_translations = list(
         POITranslation.objects.filter(poi__region__slug=region_slug)
-        .distinct("poi")
+        .distinct("poi", "language")
         .select_related("language")
         .prefetch_related("links__url")
     )
