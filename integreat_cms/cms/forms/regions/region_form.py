@@ -61,6 +61,7 @@ class RegionForm(CustomModelForm):
             "offers",
             "short_urls_enabled",
             "custom_prefix",
+            "tunews_enabled",
         ]
         #: The widgets which are used in this form
         widgets = {

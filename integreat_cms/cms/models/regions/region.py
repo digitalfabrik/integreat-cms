@@ -237,6 +237,12 @@ class Region(AbstractBaseModel):
         help_text=_("Please check the box if you want to use short urls."),
     )
 
+    tunews_enabled = models.BooleanField(
+        default=False,
+        verbose_name=_("Enable tunews"),
+        help_text=_("Enable to show a feed of tunews articles to users."),
+    )
+
     #: Custom model manager :class:`~integreat_cms.cms.models.regions.region.RegionManager` for region objects
     objects = RegionManager()
 
