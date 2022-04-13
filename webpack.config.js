@@ -114,7 +114,9 @@ module.exports = {
   ],
   optimization: {
     minimize: process.env.NODE_ENV === "production",
-    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin({
+      exclude: "pdf.css",
+    })],
   },
   devtool: process.env.NODE_ENV !== "production" ? "inline-source-map" : false,
 };
