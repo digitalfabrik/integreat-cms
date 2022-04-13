@@ -298,7 +298,7 @@ def get_public_ancestor_translations(current_page, language_slug):
     :rtype: ~django.http.JsonResponse
     """
     result = []
-    for ancestor in current_page.get_ancestors():
+    for ancestor in current_page.get_cached_ancestors():
         public_translation = ancestor.get_public_translation(language_slug)
         if not public_translation or ancestor.explicitly_archived:
             raise Http404("No Page matches the given url or id.")
