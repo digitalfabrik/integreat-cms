@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1354](https://github.com/digitalfabrik/integreat-cms/issues/1354) ] Fix order of root pages
+* [ [#1353](https://github.com/digitalfabrik/integreat-cms/issues/1353) ] Add tunews setting to region model
 
 
 2022.4.0

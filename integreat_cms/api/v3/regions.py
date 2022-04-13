@@ -32,6 +32,7 @@ def transform_region(region):
         "longitude": region.longitude,
         "latitude": region.latitude,
         "aliases": region.aliases,
+        "tunews": region.tunews_enabled,
     }
 
 
