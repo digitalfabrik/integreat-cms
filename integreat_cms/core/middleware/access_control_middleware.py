@@ -17,7 +17,15 @@ class AccessControlMiddleware:
     """
 
     #: The namespaces that are whitelisted and don't require access control
-    whitelist = ["api", "public", "sitemap", "i18n", "media_files", "xliff_files"]
+    whitelist = [
+        "api",
+        "public",
+        "sitemap",
+        "i18n",
+        "media_files",
+        "pdf_files",
+        "xliff_files",
+    ]
 
     def __init__(self, get_response):
         """

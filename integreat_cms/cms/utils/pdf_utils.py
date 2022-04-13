@@ -4,9 +4,11 @@ import os
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
-from django.core.cache import caches
 from django.db.models import Min
+from django.core.files.base import ContentFile
+from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
@@ -17,6 +19,8 @@ from ..constants import text_directions
 from ..models import Language, Page
 
 logger = logging.getLogger(__name__)
+
+pdf_storage = FileSystemStorage(location=settings.PDF_ROOT, base_url=settings.PDF_URL)
 
 
 @never_cache
@@ -36,8 +40,8 @@ def generate_pdf(region, language_slug, pages):
     :param pages: at least on page to render as PDF document
     :type pages: ~treebeard.ns_tree.NS_NodeQuerySet
 
-    :return: PDF document wrapped in a HtmlResponse
-    :rtype: ~django.http.HttpResponse
+    :return: Redirection to PDF document
+    :rtype: ~django.http.HttpResponseRedirect
     """
     # first all necessary data for hashing are collected, starting at region slug
     # region last_updated field taking into account, to keep track of maybe edited region icons
@@ -55,12 +59,7 @@ def generate_pdf(region, language_slug, pages):
     # finally combine all list entries to a single hash key
     pdf_key_string = "_".join(map(str, pdf_key_list))
     # compute the hash value based on the hash key
-    pdf_hash = hashlib.sha256(bytes(pdf_key_string, "utf-8")).hexdigest()
-    cache = caches["pdf"]
-    cached_response = cache.get(pdf_hash, "has_expired")
-    if cached_response != "has_expired":
-        # if django cache already contains a response object
-        return cached_response
+    pdf_hash = hashlib.sha256(bytes(pdf_key_string, "utf-8")).hexdigest()[:10]
     amount_pages = pages.count()
     if amount_pages == 0:
         return HttpResponse(
@@ -81,36 +80,39 @@ def generate_pdf(region, language_slug, pages):
             # In any other case, take the region name
             title = region.name
     language = Language.objects.get(slug=language_slug)
-    filename = f"Integreat - {language.translated_name} - {title}.pdf"
-    # Convert queryset to annotated list which can be rendered better
-    annotated_pages = Page.get_annotated_list_qs(pages)
-    context = {
-        "right_to_left": language.text_direction == text_directions.RIGHT_TO_LEFT,
-        "region": region,
-        "annotated_pages": annotated_pages,
-        "language": language,
-        "amount_pages": amount_pages,
-        "prevent_italics": ["ar", "fa"],
-    }
-    response = HttpResponse(content_type="application/pdf")
-    response["Content-Disposition"] = f'filename="{filename}"'
-    html = get_template("pages/page_pdf.html").render(context)
-    pisa_status = pisa.CreatePDF(
-        html, dest=response, link_callback=link_callback, encoding="UTF-8"
-    )
-    # pylint: disable=no-member
-    if pisa_status.err:
-        logger.error(
-            "The following PDF could not be rendered: %r, %r, %r",
-            region,
-            language,
-            pages,
-        )
-        return HttpResponse(
-            _("The PDF could not be successfully generated."), status=500
-        )
-    cache.set(pdf_hash, response, 60 * 60 * 24)
-    return response
+    filename = f"{pdf_hash}/Integreat - {language.translated_name} - {title}.pdf"
+    # Only generate new pdf if not already exists
+    if not pdf_storage.exists(filename):
+        # Convert queryset to annotated list which can be rendered better
+        annotated_pages = Page.get_annotated_list_qs(pages)
+        context = {
+            "right_to_left": language.text_direction == text_directions.RIGHT_TO_LEFT,
+            "region": region,
+            "annotated_pages": annotated_pages,
+            "language": language,
+            "amount_pages": amount_pages,
+            "prevent_italics": ["ar", "fa"],
+        }
+        html = get_template("pages/page_pdf.html").render(context)
+        # Save empty file
+        pdf_storage.save(filename, ContentFile(""))
+        # Write PDF content into file
+        with pdf_storage.open(filename, "w+b") as pdf_file:
+            pisa_status = pisa.CreatePDF(
+                html, dest=pdf_file, link_callback=link_callback, encoding="UTF-8"
+            )
+        # pylint: disable=no-member
+        if pisa_status.err:
+            logger.error(
+                "The following PDF could not be rendered: %r, %r, %r",
+                region,
+                language,
+                pages,
+            )
+            return HttpResponse(
+                _("The PDF could not be successfully generated."), status=500
+            )
+    return redirect(pdf_storage.url(filename))
 
 
 # pylint: disable=unused-argument

@@ -643,17 +643,9 @@ LEGACY_FILE_UPLOAD = bool(
 
 #: Configuration for caches (see :setting:`django:CACHES` and :doc:`django:topics/cache`).
 #: Use a ``LocMemCache`` for development and a ``RedisCache`` whenever available.
-#: Additionally, a ``FileBasedCache`` is used for PDF caching.
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-    },
-    "pdf": {
-        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": os.path.join(
-            os.environ.get("INTEGREAT_CMS_FILE_CACHE", os.path.join(BASE_DIR, "cache")),
-            "pdf",
-        ),
     },
 }
 
@@ -752,6 +744,17 @@ DEBUG_TOOLBAR_PANELS = [
     "debug_toolbar.panels.history.HistoryPanel",
     "debug_toolbar.panels.settings.SettingsPanel",
 ]
+
+
+##############
+# PDF EXPORT #
+##############
+
+#: The directory where PDF files are stored
+PDF_ROOT = os.environ.get("INTEGREAT_CMS_PDF_ROOT", os.path.join(BASE_DIR, "pdf"))
+
+#: The URL path where PDF files are served for download
+PDF_URL = "/pdf/"
 
 
 #######################

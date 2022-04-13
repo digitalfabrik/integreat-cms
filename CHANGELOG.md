@@ -7,6 +7,7 @@ UNRELEASED
 * [ [#1289](https://github.com/digitalfabrik/integreat-cms/issues/1289) ] Prevent submitting feedback for a non-existent imprint
 * [ [#1359](https://github.com/digitalfabrik/integreat-cms/issues/1359) ] Cascade delete imprint feedback when imprint is deleted
 * [ [#1350](https://github.com/digitalfabrik/integreat-cms/issues/1350) ] Fix font support of PDF export
+* [ [#1349](https://github.com/digitalfabrik/integreat-cms/issues/1349) ] Fix network error when downloading PDF files
 
 
 2022.4.0
