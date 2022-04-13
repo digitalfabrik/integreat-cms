@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1354](https://github.com/digitalfabrik/integreat-cms/issues/1354) ] Fix order of root pages
+
 
 2022.4.0
 --------
