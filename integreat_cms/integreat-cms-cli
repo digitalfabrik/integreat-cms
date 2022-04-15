@@ -7,6 +7,9 @@ import sys
 
 
 def read_config():
+    """
+    Reads and parses the corresponding configurations.
+    """
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
 
     # Read config from config file
@@ -18,7 +21,12 @@ def read_config():
 
 
 def main():
-    """" Application entry point """
+    """
+    Application entry point
+
+    :raises ImportError: If the Django framework is not installed or not in the path, an import error is risen.
+
+    """
     read_config()
 
     try:
@@ -31,12 +39,12 @@ def main():
         try:
             # pylint: disable=import-outside-toplevel,unused-import
             import django
-        except ImportError:
+        except ImportError as e:
             raise ImportError(
                 "Couldn't import Django. Are you sure it's installed and "
                 "available on your PYTHONPATH environment variable? Did you "
                 "forget to activate a virtual environment?"
-            )
+            ) from e
         raise
     execute_from_command_line(sys.argv)
 
