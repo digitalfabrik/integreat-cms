@@ -4,6 +4,8 @@ UNRELEASED
 * [ [#1354](https://github.com/digitalfabrik/integreat-cms/issues/1354) ] Fix order of root pages
 * [ [#1353](https://github.com/digitalfabrik/integreat-cms/issues/1353) ] Add tunews setting to region model
 * [ [#1328](https://github.com/digitalfabrik/integreat-cms/issues/1328) ] Fix missing entries in broken link checker
+* [ [#1289](https://github.com/digitalfabrik/integreat-cms/issues/1289) ] Prevent submitting feedback for a non-existent imprint
+* [ [#1359](https://github.com/digitalfabrik/integreat-cms/issues/1359) ] Cascade delete imprint feedback when imprint is deleted
 
 
 2022.4.0

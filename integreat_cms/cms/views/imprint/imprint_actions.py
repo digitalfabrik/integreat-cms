@@ -12,7 +12,7 @@ from django.http import HttpResponseNotFound
 from django.views.decorators.http import require_POST
 
 from ...decorators import permission_required
-from ...models import ImprintPage, ImprintPageTranslation
+from ...models import ImprintPage, ImprintPageTranslation, ImprintPageFeedback
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +45,7 @@ def delete_imprint(request, region_slug):
     logger.debug("%r deleted by %r", imprint, request.user)
 
     imprint.delete()
+    ImprintPageFeedback.objects.filter(region=region).delete()
     messages.success(request, _("Imprint was successfully deleted"))
 
     return redirect(

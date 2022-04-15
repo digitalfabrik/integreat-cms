@@ -1,10 +1,14 @@
 """
 APIv3 endpoint for feedback about the imprint
 """
-from django.http import JsonResponse
+import logging
+
+from django.http import JsonResponse, Http404
 
 from ....cms.models.feedback.imprint_page_feedback import ImprintPageFeedback
 from ...decorators import json_response, feedback_handler
+
+logger = logging.getLogger(__name__)
 
 
 @feedback_handler
@@ -64,14 +68,24 @@ def imprint_page_feedback_internal(
     :param is_technical: is feedback on content or on tech
     :type is_technical: bool
 
+    :raises ~django.http.Http404: HTTP status 404 if the region has no imprint
+
     :return: JSON object according to APIv3 imprint feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    ImprintPageFeedback.objects.create(
-        region=region,
-        language=language,
-        rating=rating,
-        comment=comment,
-        is_technical=is_technical,
+    if region.imprint:
+        ImprintPageFeedback.objects.create(
+            region=region,
+            language=language,
+            rating=rating,
+            comment=comment,
+            is_technical=is_technical,
+        )
+        return JsonResponse({"success": "Feedback successfully submitted"}, status=201)
+    # If the corresponding imprint does not exist, return a 404 error
+    logger.info(
+        "The imprint for region %r in the language %s does not exist and no feedback can be given.",
+        region,
+        language,
     )
-    return JsonResponse({"success": "Feedback successfully submitted"}, status=201)
+    raise Http404("The imprint does not exist in this region")
