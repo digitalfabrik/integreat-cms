@@ -520,6 +520,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.html#test-page-filters">Test Page Filters</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/tests.pdf.html">PDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.pdf.dummy_django_app.html">Dummy Django App</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.pdf.dummy_django_app.html#static-urls">Static Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.pdf.html#test-pdf-export">Test PDF Export</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.xliff.html">XLIFF</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.xliff.dummy_django_app.html">Dummy Django App</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.xliff.dummy_django_app.html#static-urls">Static Urls</a></li>
@@ -781,6 +789,14 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.html#module-tests.cms.test_page_filters">Test Page Filters</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="tests.pdf.html">PDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.pdf.dummy_django_app.html">Dummy Django App</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.pdf.dummy_django_app.html#module-tests.pdf.dummy_django_app.static_urls">Static Urls</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.pdf.html#module-tests.pdf.test_pdf_export">Test PDF Export</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="tests.xliff.html">XLIFF</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.xliff.dummy_django_app.html">Dummy Django App</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.xliff.dummy_django_app.html#module-tests.xliff.dummy_django_app.static_urls">Static Urls</a></li>
@@ -843,7 +859,7 @@ rules are enforced.
 For all other urls, the user has to be either superuser or staff, or needs access to the current region.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_response</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/middleware/access_control_middleware.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_response</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/middleware/access_control_middleware.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the middleware for the current view</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -854,7 +870,7 @@ For all other urls, the user has to be either superuser or staff, or needs acces
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['api',</span> <span class="pre">'public',</span> <span class="pre">'sitemap',</span> <span class="pre">'i18n',</span> <span class="pre">'media_files',</span> <span class="pre">'xliff_files']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/middleware/access_control_middleware.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware.whitelist" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['api',</span> <span class="pre">'public',</span> <span class="pre">'sitemap',</span> <span class="pre">'i18n',</span> <span class="pre">'media_files',</span> <span class="pre">'pdf_files',</span> <span class="pre">'xliff_files']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/middleware/access_control_middleware.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware.whitelist" title="Permalink to this definition"></a></dt>
 <dd><p>The namespaces that are whitelisted and don’t require access control</p>
 </dd></dl>
 
