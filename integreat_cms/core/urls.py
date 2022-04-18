@@ -60,6 +60,15 @@ urlpatterns += [
         "",
         include(
             (
+                static(settings.PDF_URL, document_root=settings.PDF_ROOT),
+                "pdf_files",
+            )
+        ),
+    ),
+    path(
+        "",
+        include(
+            (
                 static(settings.XLIFF_URL, document_root=settings.XLIFF_DOWNLOAD_DIR),
                 "xliff_files",
             )

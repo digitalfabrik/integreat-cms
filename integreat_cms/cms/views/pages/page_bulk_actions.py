@@ -50,18 +50,12 @@ class GeneratePdfView(PageBulkActionMixin, BulkActionView):
         :return: The redirect
         :rtype: ~django.http.HttpResponseRedirect
         """
-        # Generate PDF document wrapped in a HtmlResponse object
-        response = generate_pdf(
+        # Generate PDF document and redirect to it
+        return generate_pdf(
             request.region,
             kwargs.get("language_slug"),
             self.get_queryset(),
         )
-        if response.status_code == 200:
-            # Offer PDF document for download
-            response["Content-Disposition"] = (
-                response["Content-Disposition"] + "; attachment"
-            )
-        return response
 
 
 # pylint: disable=too-many-ancestors
