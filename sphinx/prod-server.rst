@@ -82,10 +82,10 @@ Static Files
 ============
 
     1. Create root directories for all static files. It's usually good practise to separate code and data, so e.g.
-       create the directory ``/var/www/integreat-cms/`` with the sub-directories ``static``, ``media``, ``xliff/upload`` and
-       ``xliff/download``::
+       create the directory ``/var/www/integreat-cms/`` with the sub-directories ``static``, ``media``, ``pdf``,
+       ``xliff/upload`` and ``xliff/download``::
 
-        sudo mkdir -p /var/www/integreat-cms/{static,media,xliff/{upload,download}}
+        sudo mkdir -p /var/www/integreat-cms/{static,media,pdf,xliff/{upload,download}}
 
     2. Make the Apache user ``www-data`` owner of these directories::
 
@@ -95,6 +95,7 @@ Static Files
 
         STATIC_ROOT = /var/www/integreat-cms/static
         MEDIA_ROOT = /var/www/integreat-cms/media
+        PDF_ROOT = /var/www/integreat-cms/pdf
         XLIFF_ROOT = /var/www/integreat-cms/xliff
 
     4. Collect static files::
@@ -105,6 +106,13 @@ Static Files
         integreat-cms-cli collectstatic
         exit
 
+    5. Set up cronjobs to regularly delete outdated PDF and XLIFF files::
+
+        crontab -e
+
+       ::
+
+        0 0 * * * /usr/bin/find /var/www/integreat-cms/{pdf/*,xliff/{download,upload}/*} -mtime +7 -delete
 
 Webserver
 =========

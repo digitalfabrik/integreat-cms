@@ -33,8 +33,8 @@ def pdf_export(request, region_slug, language_slug):
 
     :raises ~django.http.Http404: HTTP status 404 if the requested page translation cannot be found.
 
-    :return: The requested pages as PDF document (inline)
-    :rtype: ~django.http.HttpResponse
+    :return: The redirect to the generated PDF document
+    :rtype: ~django.http.HttpResponseRedirect
     """
     region = request.region
     # Request unrestricted queryset because pdf generator performs further operations (e.g. aggregation) on the queryset

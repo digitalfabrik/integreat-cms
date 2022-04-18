@@ -46,6 +46,8 @@ def transform_page(page_translation):
                 "url": settings.BASE_URL + parent_absolute_url,
                 "path": parent_absolute_url,
             }
+            # use left edge indicator of mptt model for ordering of child pages
+            order = page_translation.page.lft
         else:
             logger.info(
                 "The parent %r of %r does not have a public translation in %r",
@@ -56,6 +58,8 @@ def transform_page(page_translation):
             raise Http404("No Page matches the given url or id.")
     else:
         parent = fallback_parent
+        # use tree id of mptt model for ordering of root pages
+        order = page_translation.page.tree_id
 
     absolute_url = page_translation.get_absolute_url()
     return {
@@ -67,7 +71,7 @@ def transform_page(page_translation):
         "excerpt": page_translation.content,
         "content": page_translation.combined_text,
         "parent": parent,
-        "order": page_translation.page.lft,  # use left edge indicator of mptt model for order
+        "order": order,
         "available_languages": page_translation.available_languages,
         "thumbnail": page_translation.page.icon.url
         if page_translation.page.icon
@@ -298,7 +302,7 @@ def get_public_ancestor_translations(current_page, language_slug):
     :rtype: ~django.http.JsonResponse
     """
     result = []
-    for ancestor in current_page.get_ancestors():
+    for ancestor in current_page.get_cached_ancestors():
         public_translation = ancestor.get_public_translation(language_slug)
         if not public_translation or ancestor.explicitly_archived:
             raise Http404("No Page matches the given url or id.")
