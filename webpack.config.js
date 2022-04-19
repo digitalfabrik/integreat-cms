@@ -108,6 +108,7 @@ module.exports = {
         },
         { from: "integreat_cms/static/src/svg", to: "svg" },
         { from: "integreat_cms/static/src/images", to: "images" },
+        { from: "integreat_cms/static/src/logos", to: "logos" },
       ],
     }),
     new BundleTracker({filename: 'integreat_cms/webpack-stats.json'}),

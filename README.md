@@ -48,3 +48,10 @@ cd integreat-cms
 For detailed instructions, tutorials and the source code reference have a look at our great documentation:
 
 <p align="center">:notebook: https://digitalfabrik.github.io/integreat-cms/</p>
+
+
+## License
+
+This project is licensed under the Apache 2.0 License, see [LICENSE.txt](./LICENSE.txt)
+
+All files in [./integreat_cms/static/src/logos/](./integreat_cms/static/src/logos/) are not covered by this license and may only be used with specific permission of the copyright holder.

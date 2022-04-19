@@ -9,6 +9,7 @@ from django.core.mail import BadHeaderError, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
 from .account_activation_token_generator import account_activation_token_generator
@@ -33,19 +34,21 @@ def send_welcome_mail(request, user, activation):
     :param activation: Activation link should be generated
     :type activation: bool
     """
-    subject = _("Welcome to your Integreat account")
+    subject = _("Welcome to your {} account").format(capfirst(settings.BRANDING))
     debug_mail_type = _("welcome mail")
     context = {
         "user": user,
         "base_url": settings.BASE_URL,
         "region": request.region,
+        "COMPANY": settings.COMPANY,
+        "BRANDING": settings.BRANDING,
     }
 
     if activation:
         token = account_activation_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
 
-        subject = _("Activate your Integreat account")
+        subject = _("Activate your {} account").format(capfirst(settings.BRANDING))
         debug_mail_type = _("activation mail")
         context.update(
             {
@@ -65,10 +68,10 @@ def send_welcome_mail(request, user, activation):
     email.attach_alternative(html_message, "text/html")
 
     # Attach logo
-    image_path = finders.find("images/integreat-logo.png")
+    image_path = finders.find(f"logos/{settings.BRANDING}/{settings.BRANDING}-logo.png")
     if image_path:
         with open(image_path, mode="rb") as f:
-            image = MIMEImage(f.read())
+            image = MIMEImage(f.read(), _subtype="svg+xml")
             email.attach(image)
             image.add_header("Content-ID", "<logo>")
     else:

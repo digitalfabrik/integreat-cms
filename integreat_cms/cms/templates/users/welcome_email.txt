@@ -4,7 +4,9 @@
  
     {% trans 'Welcome' %} {{ user.full_user_name }},
 
-    {% trans 'You are receiving this e-mail, because an Integreat-account was created for you.' %}
+    {% blocktrans trimmed with BRANDING=BRANDING|title %}
+    You are receiving this e-mail, because an account for {{ BRANDING }} was created for you.
+    {% endblocktrans %}
     {% if uid and token %}
     {% trans 'Please click the link below to set a password and activate your account.' %}
 
@@ -19,6 +21,8 @@
     {% trans 'Your username is:' %} {{ user.get_username }}
 
     {% trans 'Best regards' %},
-    {% trans 'Your Integreat team' %}{% if region %} {{ region.name }}{% endif %}
+    {% blocktrans trimmed with BRANDING=BRANDING|title %}
+    Your {{ BRANDING }} team of {{ COMPANY }}
+    {% endblocktrans %}
 
 {% endautoescape %}

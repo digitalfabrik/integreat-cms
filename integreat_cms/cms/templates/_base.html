@@ -25,7 +25,7 @@
                  fill="none"
                  width="21"
                  height="21"
-                 src="{% static 'images/integreat-icon-contur-only.png' %}"/>
+                 src="{% static 'logos/integreat/integreat-icon-flat.svg' %}"/>
             {% trans 'Documentation (Wiki)' %}
         </a>
         <div id="region-selector"
@@ -93,10 +93,10 @@
          class="w-56 h-full fixed left-0 inset-y-0 text-gray-200 bg-gray-700 z-50">
         <div class="w-full p-1 h-14 bg-gray-800">
             <a href="/">
-                <div class="h-full w-full bg-logo-white hover:bg-logo-yellow bg-contain bg-center bg-no-repeat"></div>
+                <div class="h-full w-full bg-{{ BRANDING }}-logo-white hover:bg-{{ BRANDING }}-logo-hover bg-contain bg-center bg-no-repeat"></div>
             </a>
         </div>
-        <div id="menu" class="pb-2 overflow-y-auto">
+        <div id="menu" class="pb-2 overflow-y-auto {{ BRANDING }}-branding">
             {% if request.region %}
                 <a href="{% url 'dashboard' region_slug=request.region.slug %}"
                    class="{% if current_menu_item == 'region_dashboard' %} active{% endif %}">

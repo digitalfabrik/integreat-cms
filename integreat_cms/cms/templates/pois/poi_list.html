@@ -11,9 +11,10 @@
             <h1 class="heading">{% trans 'Locations on map' %}</h1>
             <a href="{% url 'archived_pois' region_slug=request.region.slug language_slug=language.slug %}"
                class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
-                <span>{% trans 'Archived locations' %}</span>
-                <span class="inline-block rounded-full bg-integreat-500 text-gray-800 px-2 py-1 text-xs font-bold">
-                    {{ archived_count }}
+                <span>
+                    <i data-feather="archive" class="align-top h-5"></i>
+                    {% trans 'Archived locations' %}
+                    ({{ archived_count }})
                 </span>
             </a>
         </div>
