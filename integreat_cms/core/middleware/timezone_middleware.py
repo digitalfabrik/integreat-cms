@@ -27,5 +27,8 @@ class TimezoneMiddleware:
         :return: The response after the local timezone has been activated
         :rtype: ~django.http.HttpResponse
         """
-        timezone.activate(settings.CURRENT_TIME_ZONE)
+        if request.region:
+            timezone.activate(request.region.timezone)
+        else:
+            timezone.activate(settings.CURRENT_TIME_ZONE)
         return self.get_response(request)

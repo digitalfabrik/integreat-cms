@@ -38,21 +38,19 @@ window.addEventListener('load', () => {
     }
 });
 
-function updateTimezoneAreaDropdown() {
+function updateTimezoneAreaDropdown(event?: Event) {
     const timezoneAreaDropdown = document.getElementById("id_timezone_area") as HTMLSelectElement;
     const timezoneDropdown = document.getElementById("id_timezone") as HTMLSelectElement;
-    let otherOptions;
-    let selectedOptions;
-    timezoneDropdown.value = '';
-    if (timezoneAreaDropdown.value === '') {
-        selectedOptions = [];
-        otherOptions = timezoneDropdown.querySelectorAll('option');
-    } else {
-        otherOptions = timezoneDropdown.querySelectorAll('option:not([value*="' + timezoneAreaDropdown.value + '"])');
-        selectedOptions = timezoneDropdown.querySelectorAll('option[value*="' + timezoneAreaDropdown.value + '"]');
+    // Reset timezone value when timezone region is changed
+    if (event !== undefined) {
+        timezoneDropdown.value = "";
     }
-    otherOptions.forEach((option) => option.classList.add('hidden'));
-    selectedOptions.forEach((option) => option.classList.remove('hidden'));
-
-    timezoneDropdown.querySelector('option[value=""]').classList.remove('hidden');
+    // Hide all sub-timzones of other areas
+    timezoneDropdown
+        .querySelectorAll('option:not([value*="' + timezoneAreaDropdown.value + '"],[value=""])')
+        .forEach((option) => option.classList.add("hidden"));
+    // Show all sub-timezones of the selected area
+    timezoneDropdown
+        .querySelectorAll('option[value*="' + timezoneAreaDropdown.value + '"]')
+        .forEach((option) => option.classList.remove("hidden"));
 }

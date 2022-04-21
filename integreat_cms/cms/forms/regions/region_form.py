@@ -2,11 +2,11 @@ import logging
 
 from copy import deepcopy
 
+from zoneinfo import available_timezones
 from django import forms
 from django.conf import settings
 from django.utils.translation import override, ugettext_lazy as _
 from django.apps import apps
-from zoneinfo import available_timezones
 
 from ....gvz_api.utils import GvzRegion
 from ...models import Region, Page, LanguageTreeNode
@@ -20,13 +20,37 @@ from ..custom_model_form import CustomModelForm
 logger = logging.getLogger(__name__)
 
 
+def get_timezone_choices():
+    """
+    This method generates the options for the second timezone dropdown
+
+    :return: A list of all available timezones
+    :rtype: list
+    """
+    timezones = list(available_timezones())
+    timezones.sort()
+    return [("", "---------")] + [
+        (tz, tz.split("/", 1)[1].replace("_", " ")) for tz in timezones if "/" in tz
+    ]
+
+
 def get_timezone_area_choices():
+    """
+    This method generates the options for the first timezone dropdown.
+    It displays the general area of a country or city. Often the continent.
+
+    :return: A list of the general areas of the timezones
+    :rtype: list
+
+    """
     timezone_regions = list(
-        {tz.split("/")[0] for tz in available_timezones() if "/" in tz}
+        {
+            tz.split("/")[0]
+            for tz in available_timezones()
+            if "/" in tz and "Etc" not in tz and "SystemV" not in tz
+        }
     )
     timezone_regions.sort()
-    timezone_regions.remove("Etc")
-    timezone_regions.remove("SystemV")
     return (
         [("", "---------")]
         + [(tzr, tzr) for tzr in timezone_regions]
@@ -88,6 +112,7 @@ class RegionForm(CustomModelForm):
         ]
         #: The widgets which are used in this form
         widgets = {
+            "timezone": forms.Select(choices=get_timezone_choices()),
             "icon": IconWidget(),
             "offers": forms.CheckboxSelectMultiple(),
         }
