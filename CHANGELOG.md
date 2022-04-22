@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1366](https://github.com/digitalfabrik/integreat-cms/issues/1366) ] Fix monthly recurring events on mondays
+
 
 2022.4.1
 --------
