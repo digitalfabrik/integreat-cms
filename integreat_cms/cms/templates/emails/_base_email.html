@@ -1,0 +1,47 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <style>
+        #content {
+            font-family:sans-serif;
+            text-align:justify;
+            background-color: #f1f5f9;
+            padding: 1rem;
+            border-radius: 1rem;
+            line-height:1.5;
+        }
+        a {
+            color: #0074CC;
+        }
+        a:hover {
+            color: #1F9EFF;
+        }
+        #logo {
+            padding-top: 1rem;
+        }
+        #logo img {
+            height:75px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        {% block content %}{% endblock content %}
+        <br>
+        <br>
+        {% trans 'Best regards' %},
+        <br>
+        {% blocktrans trimmed %}
+        Your {{ BRANDING }} team of {{ COMPANY }}
+        {% endblocktrans %}
+        <br>
+        <div id="logo">
+            <a href="{{ base_url }}">
+                <img src='cid:logo' alt="">
+            </a>
+        </div>
+    </div>
+</body>

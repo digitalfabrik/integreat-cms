@@ -36,8 +36,9 @@ urlpatterns = [
     ),
 ]
 
-# The admin/endpoint is only activated if the system is in debug mode.
+# Add url patterns of debug views
 if settings.DEBUG:
+    # Admin endpoint is only visible in debug mode
     urlpatterns.append(path("admin/", admin.site.urls))
     # The Django debug toolbar urlpatterns will only be activated if the debug_toolbar app is installed
     if "debug_toolbar" in settings.INSTALLED_APPS:

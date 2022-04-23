@@ -31,3 +31,17 @@ def push_notification_processor(request):
     :rtype: dict
     """
     return {"FCM_ENABLED": settings.FCM_ENABLED}
+
+
+# pylint: disable=unused-variable
+def branding_processor(request):
+    """
+    This context processor injects the setting :attr:`~integreat_cms.core.settings.BRANDING` into the template context.
+
+    :param request: The current http request
+    :type request: ~django.http.HttpRequest
+
+    :return: The currently installed version of this package
+    :rtype: dict
+    """
+    return {"BRANDING": settings.BRANDING}

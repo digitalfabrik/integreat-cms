@@ -10,6 +10,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template.loader import get_template
+from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 
@@ -80,7 +81,7 @@ def generate_pdf(region, language_slug, pages):
             # In any other case, take the region name
             title = region.name
     language = Language.objects.get(slug=language_slug)
-    filename = f"{pdf_hash}/Integreat - {language.translated_name} - {title}.pdf"
+    filename = f"{pdf_hash}/{capfirst(settings.BRANDING)} - {language.translated_name} - {title}.pdf"
     # Only generate new pdf if not already exists
     if not pdf_storage.exists(filename):
         # Convert queryset to annotated list which can be rendered better
@@ -92,6 +93,7 @@ def generate_pdf(region, language_slug, pages):
             "language": language,
             "amount_pages": amount_pages,
             "prevent_italics": ["ar", "fa"],
+            "BRANDING": settings.BRANDING,
         }
         html = get_template("pages/page_pdf.html").render(context)
         # Save empty file

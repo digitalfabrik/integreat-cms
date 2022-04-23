@@ -12,7 +12,12 @@ import sys
 import inspect
 import importlib
 
+from datetime import date
+
 from django import VERSION as django_version
+
+from integreat_cms.core import settings
+
 
 # Append project source directory to path environment variable
 sys.path.append(os.path.abspath(".."))
@@ -29,9 +34,9 @@ django_version = f"{django_version[0]}.{django_version[1]}"
 project = "integreat-cms"
 # pylint: disable=redefined-builtin
 #: The copyright notice
-copyright = "2020, Integreat"
+copyright = f"{date.today().year} {settings.COMPANY}"
 #: The project author
-author = "Integreat"
+author = settings.COMPANY
 #: GitHub username
 github_username = "digitalfabrik"
 #: GitHub repository name
@@ -180,9 +185,9 @@ html_theme_options = {
     "collapse_navigation": False,
 }
 #: The logo shown in the menu bar
-html_logo = "../integreat_cms/static/src/images/integreat-logo-white.png"
+html_logo = "../integreat_cms/static/src/logos/integreat/integreat-logo-white.svg"
 #: The favicon of the html doc files
-html_favicon = "../integreat_cms/static/src/images/integreat-icon.png"
+html_favicon = "../integreat_cms/static/src/logos/integreat/integreat-icon.svg"
 #: The url where the docs should be published (via gh-pages)
 html_baseurl = github_pages_url
 #: Do not include links to the documentation source (.rst files) in build
