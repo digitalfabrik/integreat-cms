@@ -1,0 +1,31 @@
+{% extends "emails/_base_email.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    {% trans 'Welcome' %} {{ user.full_user_name }},
+    <br>
+    <br>
+    {% blocktrans trimmed %}
+        You are receiving this e-mail, because an account for {{ BRANDING }} was created for you.
+    {% endblocktrans %}
+    <br>
+    {% if uid and token %}
+        {% trans 'Please click the link below to set a password and activate your account.' %}
+        <br>
+        <br>
+        <a href="{{ base_url }}{% url 'public:activate_account' uidb64=uid token=token %}">
+            {{ base_url }}{% url 'public:activate_account' uidb64=uid token=token %}
+        </a>
+    {% else %}
+        {% trans 'Please click the link below to log in with your password and to your account.' %}
+        <br>
+        <br>
+        <a href="{{ base_url }}"> {{ base_url }} </a>
+    {% endif %}
+    <br>
+    <br>
+    {% trans 'If clicking on the link above does not work, please copy the URL and paste it into the address bar of your browser.' %}
+    <br>
+    {% trans 'Your username is:' %} <b>{{ user.get_username }}</b>
+{% endblock content %}

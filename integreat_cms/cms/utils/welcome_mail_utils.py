@@ -1,18 +1,16 @@
 import logging
 
-from email.mime.image import MIMEImage
-
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.staticfiles import finders
-from django.core.mail import BadHeaderError, EmailMultiAlternatives
-from django.template.loader import render_to_string
+from django.core.mail import BadHeaderError
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
 from .account_activation_token_generator import account_activation_token_generator
+
+from .email_utils import send_mail
 
 logger = logging.getLogger(__name__)
 
@@ -34,21 +32,16 @@ def send_welcome_mail(request, user, activation):
     :param activation: Activation link should be generated
     :type activation: bool
     """
-    subject = _("Welcome to your {} account").format(capfirst(settings.BRANDING))
-    debug_mail_type = _("welcome mail")
     context = {
         "user": user,
-        "base_url": settings.BASE_URL,
-        "region": request.region,
-        "COMPANY": settings.COMPANY,
-        "BRANDING": settings.BRANDING,
     }
+    subject = f"{capfirst(settings.BRANDING)} - "
 
     if activation:
         token = account_activation_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
 
-        subject = _("Activate your {} account").format(capfirst(settings.BRANDING))
+        subject += _("Activate your account")
         debug_mail_type = _("activation mail")
         context.update(
             {
@@ -56,35 +49,22 @@ def send_welcome_mail(request, user, activation):
                 "token": token,
             }
         )
-
-    text_message = render_to_string(
-        "users/welcome_email.txt",
-        context,
-    )
-    html_message = render_to_string("users/welcome_email.html", context)
-
-    email = EmailMultiAlternatives(subject, text_message, None, [user.email])
-    email.mixed_subtype = "related"
-    email.attach_alternative(html_message, "text/html")
-
-    # Attach logo
-    image_path = finders.find(f"logos/{settings.BRANDING}/{settings.BRANDING}-logo.png")
-    if image_path:
-        with open(image_path, mode="rb") as f:
-            image = MIMEImage(f.read(), _subtype="svg+xml")
-            email.attach(image)
-            image.add_header("Content-ID", "<logo>")
     else:
-        logger.debug(
-            "Logo not found at %s, will proceed without attaching.",
-            finders.searched_locations,
-        )
+        subject += _("Welcome")
+        debug_mail_type = _("welcome mail")
 
     try:
-        email.send()
+        send_mail(
+            subject,
+            "emails/welcome_email.txt",
+            "emails/welcome_email.html",
+            context,
+            user.email,
+        )
         logger.debug(
-            "%r sent an welcome mail to %r. Activation link attached: %s",
+            "%r sent a %r to %r. Activation link attached: %s",
             request.user,
+            debug_mail_type,
             user,
             activation,
         )

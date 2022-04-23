@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-23 15:38+0000\n"
+"POT-Creation-Date: 2022-04-23 15:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1764,6 +1764,11 @@ msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 msgid "Password"
 msgstr "Passwort"
 
+#: cms/forms/users/password_reset_form.py:21
+#: cms/templates/_tinymce_config.html:29
+msgid "Email"
+msgstr "Email"
+
 #: cms/forms/users/user_form.py:26 cms/templates/users/region_user_list.html:26
 #: cms/templates/users/user_list.html:26
 msgid "Role"
@@ -3291,10 +3296,6 @@ msgstr "Ort"
 msgid "Link"
 msgstr "Link"
 
-#: cms/templates/_tinymce_config.html:29
-msgid "Email"
-msgstr "Email"
-
 #: cms/templates/_tinymce_config.html:31
 msgid "Phone"
 msgstr "Telefon"
@@ -3455,6 +3456,7 @@ msgid "Total"
 msgstr "Summe"
 
 #: cms/templates/authentication/account_activation_form.html:6
+#: cms/utils/welcome_mail_utils.py:44
 msgid "Activate your account"
 msgstr "Benutzerkonto aktivieren"
 
@@ -3531,57 +3533,6 @@ msgstr "Neues Passwort setzen"
 #: cms/templates/authentication/password_reset_form.html:31
 msgid "Back to log in"
 msgstr "Zurück zur Anmeldung"
-
-#: cms/templates/authentication/password_reset_email.html:3
-#: cms/templates/users/welcome_email.html:11
-#: cms/templates/users/welcome_email.txt:5
-msgid "Welcome"
-msgstr "Willkommen"
-
-#: cms/templates/authentication/password_reset_email.html:5
-#, python-format
-msgid ""
-"You are receiving this e-mail, because you have requested a password reset "
-"for your %(BRANDING)s account."
-msgstr ""
-"Sie erhalten diese E-Mail, weil Sie das Zurücksetzen des Passworts für Ihr "
-"%(BRANDING)s-Benutzerkonto angefordert haben."
-
-#: cms/templates/authentication/password_reset_email.html:8
-msgid "Please use the following link to set a new password:"
-msgstr ""
-"Bitte nutzen Sie den folgenden Link, um ein neues Passwort festzulegen:"
-
-#: cms/templates/authentication/password_reset_email.html:12
-#: cms/templates/users/welcome_email.html:32
-#: cms/templates/users/welcome_email.txt:19
-msgid ""
-"If clicking on the link above does not work, please copy the URL and paste "
-"it into the address bar of your browser."
-msgstr ""
-"Wenn das Anklicken des obigen Links nicht funktioniert, kopieren Sie bitte "
-"die URL und fügen Sie sie in die Adresszeile Ihres Browsers ein."
-
-#: cms/templates/authentication/password_reset_email.html:14
-msgid "Your username, in case you've forgotten:"
-msgstr "Ihr Benutzername, falls vergessen:"
-
-#: cms/templates/authentication/password_reset_email.html:16
-#: cms/templates/users/welcome_email.html:37
-#: cms/templates/users/welcome_email.txt:23
-msgid "Best regards"
-msgstr "Viele Grüße"
-
-#: cms/templates/authentication/password_reset_email.html:17
-#: cms/templates/users/welcome_email.html:39
-#: cms/templates/users/welcome_email.txt:24
-#, python-format
-msgid "Your %(BRANDING)s team of %(COMPANY)s"
-msgstr "Ihr %(BRANDING)s-Team der %(COMPANY)s"
-
-#: cms/templates/authentication/password_reset_email_subject.html:4
-msgid "password reset"
-msgstr "Passwort zurücksetzen"
 
 #: cms/templates/authentication/password_reset_form.html:22
 msgid "Enter your e-mail address here"
@@ -3663,6 +3614,89 @@ msgstr "Weiterlesen"
 #: cms/templates/dashboard/region_selection.html:7
 msgid "Select region"
 msgstr "Region auswählen"
+
+#: cms/templates/emails/_base_email.html:35
+#: cms/templates/emails/password_reset_email.txt:17
+#: cms/templates/emails/welcome_email.txt:20
+msgid "Best regards"
+msgstr "Viele Grüße"
+
+#: cms/templates/emails/_base_email.html:37
+#: cms/templates/emails/password_reset_email.txt:18
+#: cms/templates/emails/welcome_email.txt:21
+#, python-format
+msgid "Your %(BRANDING)s team of %(COMPANY)s"
+msgstr "Ihr %(BRANDING)s-Team der %(COMPANY)s"
+
+#: cms/templates/emails/password_reset_email.html:6
+#: cms/templates/emails/password_reset_email.txt:4
+#: cms/templates/emails/welcome_email.html:6
+#: cms/templates/emails/welcome_email.txt:3 cms/utils/welcome_mail_utils.py:53
+msgid "Welcome"
+msgstr "Willkommen"
+
+#: cms/templates/emails/password_reset_email.html:9
+#: cms/templates/emails/password_reset_email.txt:6
+#, python-format
+msgid ""
+"You are receiving this e-mail, because you have requested a password reset "
+"for your %(BRANDING)s account."
+msgstr ""
+"Sie erhalten diese E-Mail, weil Sie das Zurücksetzen des Passworts für Ihr "
+"%(BRANDING)s-Benutzerkonto angefordert haben."
+
+#: cms/templates/emails/password_reset_email.html:13
+#: cms/templates/emails/password_reset_email.txt:9
+msgid "Please use the following link to set a new password:"
+msgstr ""
+"Bitte nutzen Sie den folgenden Link, um ein neues Passwort festzulegen:"
+
+#: cms/templates/emails/password_reset_email.html:21
+#: cms/templates/emails/password_reset_email.txt:13
+#: cms/templates/emails/welcome_email.html:28
+#: cms/templates/emails/welcome_email.txt:16
+msgid ""
+"If clicking on the link above does not work, please copy the URL and paste "
+"it into the address bar of your browser."
+msgstr ""
+"Wenn das Anklicken des obigen Links nicht funktioniert, kopieren Sie bitte "
+"die URL und fügen Sie sie in die Adresszeile Ihres Browsers ein."
+
+#: cms/templates/emails/password_reset_email.html:24
+#: cms/templates/emails/password_reset_email.txt:15
+msgid "Your username, in case you've forgotten:"
+msgstr "Ihr Benutzername, falls vergessen:"
+
+#: cms/templates/emails/welcome_email.html:9
+#: cms/templates/emails/welcome_email.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail, because an account for %(BRANDING)s was "
+"created for you."
+msgstr ""
+"Sie erhalten diese E-Mail, weil für Sie ein %(BRANDING)s-Benutzerkonto "
+"erstellt wurde."
+
+#: cms/templates/emails/welcome_email.html:14
+#: cms/templates/emails/welcome_email.txt:8
+msgid ""
+"Please click the link below to set a password and activate your account."
+msgstr ""
+"Bitte klicken Sie auf folgenden Link, um ein Passwort auszuwählen und Ihr "
+"Konto zu aktivieren."
+
+#: cms/templates/emails/welcome_email.html:21
+#: cms/templates/emails/welcome_email.txt:12
+msgid ""
+"Please click the link below to log in with your password and to your account."
+msgstr ""
+"Bitte klicken Sie auf den folgenden Link, um sich mit ihrem Benutzernamen "
+"und Passwort einzuloggen."
+
+#: cms/templates/emails/welcome_email.html:30
+#: cms/templates/emails/welcome_email.txt:18
+msgid "Your username is:"
+msgstr "Ihr Benutzername lautet:"
 
 #: cms/templates/error_handler/http_error.html:10
 #: cms/templatetags/text_filters.py:40
@@ -5673,37 +5707,6 @@ msgstr "Kein Mitarbeiter"
 msgid "No administrator"
 msgstr "Kein Administrator"
 
-#: cms/templates/users/welcome_email.html:14
-#: cms/templates/users/welcome_email.txt:7
-#, python-format
-msgid ""
-"You are receiving this e-mail, because an account for %(BRANDING)s was "
-"created for you."
-msgstr ""
-"Sie erhalten diese E-Mail, weil für Sie ein %(BRANDING)s-Benutzerkonto "
-"erstellt wurde."
-
-#: cms/templates/users/welcome_email.html:18
-#: cms/templates/users/welcome_email.txt:11
-msgid ""
-"Please click the link below to set a password and activate your account."
-msgstr ""
-"Bitte klicken Sie auf folgenden Link, um ein Passwort auszuwählen und Ihr "
-"Konto zu aktivieren."
-
-#: cms/templates/users/welcome_email.html:25
-#: cms/templates/users/welcome_email.txt:15
-msgid ""
-"Please click the link below to log in with your password and to your account."
-msgstr ""
-"Bitte klicken Sie auf den folgenden Link, um sich mit ihrem Benutzernamen "
-"und Passwort einzuloggen."
-
-#: cms/templates/users/welcome_email.html:34
-#: cms/templates/users/welcome_email.txt:21
-msgid "Your username is:"
-msgstr "Ihr Benutzername lautet:"
-
 #: cms/templatetags/content_filters.py:105
 msgid "Tick if this edit should not change the status of this translation."
 msgstr ""
@@ -5741,34 +5744,26 @@ msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 msgid "Cannot generate slug from %(fallback)s."
 msgstr "Slug kann nicht aus dem %(fallback)s abgeleitet werden."
 
-#: cms/utils/welcome_mail_utils.py:37
-msgid "Welcome to your {} account"
-msgstr "Willkommen zu Ihrem {}-Account"
-
-#: cms/utils/welcome_mail_utils.py:38
-msgid "welcome mail"
-msgstr "Willkommensmail"
-
-#: cms/utils/welcome_mail_utils.py:51
-msgid "Activate your {} account"
-msgstr "{}-Benutzerkonto aktivieren"
-
-#: cms/utils/welcome_mail_utils.py:52
+#: cms/utils/welcome_mail_utils.py:45
 msgid "activation mail"
 msgstr "Aktivierungsmail"
 
-#: cms/utils/welcome_mail_utils.py:93
+#: cms/utils/welcome_mail_utils.py:54
+msgid "welcome mail"
+msgstr "Willkommensmail"
+
+#: cms/utils/welcome_mail_utils.py:73
 msgid "{} was successfully sent to user {}."
 msgstr "{} wurde erfolgreich an den Nutzer {} gesendet."
 
-#: cms/utils/welcome_mail_utils.py:101
+#: cms/utils/welcome_mail_utils.py:81
 msgid "An error occurred! Could not send {}."
 msgstr "Es ist ein Fehler aufgetreten! Die {} konnte nicht versendet werden."
 
 #: cms/views/authentication/account_activation_view.py:47
 #: cms/views/authentication/mfa/mfa_assert_view.py:42
 #: cms/views/authentication/password_reset_confirm_view.py:39
-#: cms/views/authentication/password_reset_view.py:43
+#: cms/views/authentication/password_reset_view.py:47
 msgid "You are already logged in."
 msgstr "Sie sind bereits eingeloggt."
 
@@ -5820,7 +5815,7 @@ msgstr ""
 msgid "Your password has been successfully changed."
 msgstr "Passwort wurde erfolgreich geändert"
 
-#: cms/views/authentication/password_reset_view.py:65
+#: cms/views/authentication/password_reset_view.py:69
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered."
@@ -5828,11 +5823,11 @@ msgstr ""
 "Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres Passworts wurde an die "
 "angegebene E-Mail Adresse geschickt."
 
-#: cms/views/authentication/password_reset_view.py:67
+#: cms/views/authentication/password_reset_view.py:71
 msgid "You should receive them shortly."
 msgstr "Sie sollten diese in Kürze erhalten."
 
-#: cms/views/authentication/password_reset_view.py:69
+#: cms/views/authentication/password_reset_view.py:73
 msgid ""
 "If you don’t receive an email, please make sure you’ve entered the address "
 "you registered with, and check your spam folder."
@@ -6809,6 +6804,15 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "password reset"
+#~ msgstr "Passwort zurücksetzen"
+
+#~ msgid "Welcome to your {} account"
+#~ msgstr "Willkommen zu Ihrem {}-Account"
+
+#~ msgid "Activate your {} account"
+#~ msgstr "{}-Benutzerkonto aktivieren"
 
 #~ msgid ""
 #~ "You are receiving this e-mail, because an Integreat-account was created "

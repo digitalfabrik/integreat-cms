@@ -6,6 +6,8 @@ from django.utils.translation import ugettext as _
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
+from ...forms import CustomPasswordResetForm
+
 logger = logging.getLogger(__name__)
 
 
@@ -18,11 +20,13 @@ class PasswordResetView(auth_views.PasswordResetView):
     #: The template which should be rendered
     template_name = "authentication/password_reset_form.html"
     #: The full name of a template to use for generating the email with the reset password link.
-    email_template_name = "authentication/password_reset_email.html"
-    #: The full name of a template to use for the subject of the email with the reset password link.
-    subject_template_name = "authentication/password_reset_email_subject.html"
+    email_template_name = "emails/password_reset_email.txt"
+    #: The full name of a template to use for generating the html email with the reset password link.
+    html_email_template_name = "emails/password_reset_email.html"
     #: If the password reset process was successfully initialized, stay on the password reset page
     success_url = reverse_lazy("public:password_reset")
+    #: The form for the password reset
+    form_class = CustomPasswordResetForm
 
     def dispatch(self, *args, **kwargs):
         r"""
