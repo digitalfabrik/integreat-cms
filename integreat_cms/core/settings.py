@@ -179,7 +179,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "integreat_cms.core.middleware.RegionMiddleware",
     "integreat_cms.core.middleware.AccessControlMiddleware",
-    "integreat_cms.cms.middleware.TimezoneMiddleware",
+    "integreat_cms.core.middleware.TimezoneMiddleware",
 ]
 
 # The Django debug toolbar middleware will only be activated if the debug_toolbar app is installed

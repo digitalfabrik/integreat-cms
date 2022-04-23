@@ -282,6 +282,7 @@ VIEWS = [
                     "status": "ACTIVE",
                     "longitude": 1,
                     "latitude": 1,
+                    "timezone": "Europe/Berlin",
                 },
             ),
         ],
