@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-04-21T15:33:54+00:00" />
+    <meta property="article:modified_time" content="2022-04-19T19:20:53+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2022.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-    <link rel="shortcut icon" href="../_static/integreat-icon.png"/>
+    <link rel="shortcut icon" href="../_static/integreat-icon.svg"/>
     <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref-ext/integreat_cms.core.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -31,7 +31,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
     
-        <a href="../index.html"><img src="../_static/integreat-logo-white.png" class="logo" alt="Logo"/></a>
+        <a href="../index.html"><img src="../_static/integreat-logo-white.svg" class="logo" alt="Logo"/></a>
     
     
         <a href="../index.html" class="icon icon-home"> integreat-cms</a>
@@ -396,6 +396,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#account-activation-token-generator">Account Activation Token Generator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#content-edit-lock">Content Edit Lock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#email-utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#filter-links">Filter Links</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
@@ -662,6 +663,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.account_activation_token_generator">Account Activation Token Generator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_edit_lock">Content Edit Lock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.email_utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.filter_links">Filter Links</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.matomo_api_manager">Matomo API Manager</a></li>
@@ -960,6 +962,23 @@ For the full list of settings and their values, see <a class="reference external
 <span id="context-processors"></span><h2>Context Processors<a class="headerlink" href="#module-integreat_cms.core.context_processors" title="Permalink to this headline"></a></h2>
 <p>Context processors pass additional variables to templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/templates/api/#context-processors" title="(in Django v3.2)"><span>Built-in template context processors</span></a>).</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.core.context_processors.branding_processor">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.context_processors.</span></span><span class="sig-name descname"><span class="pre">branding_processor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/context_processors.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.context_processors.branding_processor" title="Permalink to this definition"></a></dt>
+<dd><p>This context processor injects the setting <a class="reference internal" href="#integreat_cms.core.settings.BRANDING" title="integreat_cms.core.settings.BRANDING"><code class="xref py py-attr docutils literal notranslate"><span class="pre">BRANDING</span></code></a> into the template context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current http request</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The currently installed version of this package</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.core.context_processors.push_notification_processor">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.context_processors.</span></span><span class="sig-name descname"><span class="pre">push_notification_processor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/context_processors.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.context_processors.push_notification_processor" title="Permalink to this definition"></a></dt>
 <dd><p>This context processor injects the setting <a class="reference internal" href="#integreat_cms.core.settings.FCM_ENABLED" title="integreat_cms.core.settings.FCM_ENABLED"><code class="xref py py-attr docutils literal notranslate"><span class="pre">FCM_ENABLED</span></code></a> into the template context.</p>
@@ -1222,6 +1241,15 @@ web server configurations (see <a class="reference external" href="https://docs.
 </dd></dl>
 
 <dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.core.settings.AVAILABLE_BRANDINGS">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">AVAILABLE_BRANDINGS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['integreat',</span> <span class="pre">'malte',</span> <span class="pre">'aschaffenburg']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.AVAILABLE_BRANDINGS" title="Permalink to this definition"></a></dt>
+<dd><p>The available inbuilt brandings of the CMS</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;integreat&#39;</span><span class="p">,</span> <span class="s1">&#39;malte&#39;</span><span class="p">,</span> <span class="s1">&#39;aschaffenburg&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.BASE_DIR">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">BASE_DIR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/circleci/project/integreat_cms'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.BASE_DIR" title="Permalink to this definition"></a></dt>
 <dd><p>Build paths inside the project like this: <code class="docutils literal notranslate"><span class="pre">os.path.join(BASE_DIR,</span> <span class="pre">...)</span></code></p>
@@ -1249,6 +1277,12 @@ Used in the following views:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.core.settings.BRANDING">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">BRANDING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'integreat'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.BRANDING" title="Permalink to this definition"></a></dt>
+<dd><p>The branding of the CMS</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1297,6 +1331,18 @@ Use a <code class="docutils literal notranslate"><span class="pre">LocMemCache</
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">((</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="s1">&#39;News&#39;</span><span class="p">),</span> <span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.core.settings.COMPANY">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">COMPANY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Tür</span> <span class="pre">an</span> <span class="pre">Tür</span> <span class="pre">–</span> <span class="pre">Digitalfabrik</span> <span class="pre">gGmbH'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.COMPANY" title="Permalink to this definition"></a></dt>
+<dd><p>The company operating this CMS</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.core.settings.COMPANY_URL">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">COMPANY_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://tuerantuer.de/digitalfabrik/'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.COMPANY_URL" title="Permalink to this definition"></a></dt>
+<dd><p>The URL to the company’s website</p>
 </dd></dl>
 
 <dl class="py data">
@@ -1917,7 +1963,7 @@ In debug mode, this is not required since <a class="reference external" href="ht
 
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.TEMPLATES">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">TEMPLATES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[{'BACKEND':</span> <span class="pre">'django.template.backends.django.DjangoTemplates',</span> <span class="pre">'DIRS':</span> <span class="pre">[],</span> <span class="pre">'APP_DIRS':</span> <span class="pre">True,</span> <span class="pre">'OPTIONS':</span> <span class="pre">{'context_processors':</span> <span class="pre">['django.template.context_processors.debug',</span> <span class="pre">'django.template.context_processors.request',</span> <span class="pre">'django.contrib.auth.context_processors.auth',</span> <span class="pre">'django.contrib.messages.context_processors.messages',</span> <span class="pre">'integreat_cms.core.context_processors.version_processor',</span> <span class="pre">'integreat_cms.core.context_processors.push_notification_processor'],</span> <span class="pre">'debug':</span> <span class="pre">False}}]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.TEMPLATES" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">TEMPLATES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[{'BACKEND':</span> <span class="pre">'django.template.backends.django.DjangoTemplates',</span> <span class="pre">'DIRS':</span> <span class="pre">[],</span> <span class="pre">'APP_DIRS':</span> <span class="pre">True,</span> <span class="pre">'OPTIONS':</span> <span class="pre">{'context_processors':</span> <span class="pre">['django.template.context_processors.debug',</span> <span class="pre">'django.template.context_processors.request',</span> <span class="pre">'django.contrib.auth.context_processors.auth',</span> <span class="pre">'django.contrib.messages.context_processors.messages',</span> <span class="pre">'integreat_cms.core.context_processors.version_processor',</span> <span class="pre">'integreat_cms.core.context_processors.push_notification_processor',</span> <span class="pre">'integreat_cms.core.context_processors.branding_processor'],</span> <span class="pre">'debug':</span> <span class="pre">False}}]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.TEMPLATES" title="Permalink to this definition"></a></dt>
 <dd><p>Config for HTML templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-TEMPLATES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
@@ -1932,6 +1978,7 @@ In debug mode, this is not required since <a class="reference external" href="ht
                 <span class="s1">&#39;django.contrib.messages.context_processors.messages&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;integreat_cms.core.context_processors.version_processor&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;integreat_cms.core.context_processors.push_notification_processor&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;integreat_cms.core.context_processors.branding_processor&#39;</span><span class="p">,</span>
             <span class="p">],</span>
             <span class="s1">&#39;debug&#39;</span><span class="o">:</span> <span class="nx">False</span><span class="p">,</span>
         <span class="p">},</span>
@@ -2158,11 +2205,11 @@ python frameworks (in our case Django).</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Integreat.
+    <p>&#169; Copyright 2022 Tür an Tür – Digitalfabrik gGmbH.
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Apr 21, 2022.
+      <span class="lastupdated">Last updated on Apr 19, 2022.
       </span></p>
   </div>
 
