@@ -90,7 +90,7 @@ class RecurrenceRuleForm(CustomModelForm):
                 ),
             )
         elif cleaned_data.get("frequency") == frequency.MONTHLY:
-            if not cleaned_data.get("weekday_for_monthly"):
+            if cleaned_data.get("weekday_for_monthly") is None:
                 self.add_error(
                     "weekday_for_monthly",
                     forms.ValidationError(

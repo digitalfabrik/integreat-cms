@@ -54,10 +54,7 @@ nav#primary-navigation {
   #menu {
     max-height: calc(100vh - 50px);
     a {
-      @apply relative block p-3 pl-6 hover:text-gray-600 hover:bg-integreat-500;
-    }
-    a.active, .active > a {
-      @apply text-gray-600 bg-integreat-500;
+      @apply relative block p-3 pl-6;
     }
     .dropdown-container {
       @apply flex-col hidden bg-gray-500;
@@ -66,10 +63,43 @@ nav#primary-navigation {
       @apply flex;
     }
     .dropdown-container > .active {
-      @apply text-gray-600 bg-gray-400 hover:text-gray-600 hover:bg-integreat-500;
+      @apply text-gray-600 bg-gray-400;
     }
     svg {
       @apply pr-1;
+    }
+    &.integreat-branding {
+      a {
+        @apply hover:text-gray-600 hover:bg-[#fbda16];
+      }
+      a.active, .active > a {
+        @apply text-gray-600 bg-[#fbda16];
+      }
+      .dropdown-container > .active {
+        @apply hover:text-gray-600 hover:bg-[#fbda16];
+      }
+    }
+    &.malte-branding {
+      a {
+        @apply hover:text-white hover:bg-[#f73429];
+      }
+      a.active, .active > a {
+        @apply text-white bg-[#f73429];
+      }
+      .dropdown-container > .active {
+        @apply hover:text-white hover:bg-[#f73429];
+      }
+    }
+    &.aschaffenburg-branding {
+      a {
+        @apply hover:text-white hover:bg-[#4d7679];
+      }
+      a.active, .active > a {
+        @apply text-white bg-[#4d7679];
+      }
+      .dropdown-container > .active {
+        @apply hover:text-white hover:bg-[#4d7679];
+      }
     }
   }
 }

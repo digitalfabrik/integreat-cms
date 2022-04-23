@@ -12,6 +12,7 @@ import os
 from distutils.util import strtobool
 from urllib.parse import urlparse
 
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy as _
 
 from .logging_formatter import ColorFormatter
@@ -74,6 +75,24 @@ AUTHOR_CHAT_HISTORY_DAYS = 30
 #: The time span up to which recurrent events should be returned by the api
 API_EVENTS_MAX_TIME_SPAN_DAYS = 31
 
+#: The company operating this CMS
+COMPANY = os.environ.get("INTEGREAT_CMS_COMPANY", "Tür an Tür – Digitalfabrik gGmbH")
+
+#: The URL to the company's website
+COMPANY_URL = os.environ.get(
+    "INTEGREAT_CMS_COMPANY_URL", "https://tuerantuer.de/digitalfabrik/"
+)
+
+#: The available inbuilt brandings of the CMS
+AVAILABLE_BRANDINGS = ["integreat", "malte", "aschaffenburg"]
+
+#: The branding of the CMS
+BRANDING = os.environ.get("INTEGREAT_CMS_BRANDING", "integreat")
+
+if BRANDING not in AVAILABLE_BRANDINGS:
+    raise ImproperlyConfigured(
+        f"The branding {BRANDING!r} is not supported, must be one of {AVAILABLE_BRANDINGS}."
+    )
 
 ###############################
 # Firebase Push Notifications #
@@ -179,7 +198,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "integreat_cms.core.middleware.RegionMiddleware",
     "integreat_cms.core.middleware.AccessControlMiddleware",
-    "integreat_cms.cms.middleware.TimezoneMiddleware",
+    "integreat_cms.core.middleware.TimezoneMiddleware",
 ]
 
 # The Django debug toolbar middleware will only be activated if the debug_toolbar app is installed
@@ -205,6 +224,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "integreat_cms.core.context_processors.version_processor",
                 "integreat_cms.core.context_processors.push_notification_processor",
+                "integreat_cms.core.context_processors.branding_processor",
             ],
             "debug": DEBUG,
         },

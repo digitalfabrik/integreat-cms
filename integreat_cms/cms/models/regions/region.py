@@ -5,10 +5,12 @@ from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.http import Http404
-from django.utils import timezone
+from django.utils import timezone as django_timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import override, ugettext, ugettext_lazy as _
+from django.conf import settings
+
 
 from ...constants import region_status, administrative_division
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -128,7 +130,6 @@ class Region(AbstractBaseModel):
         verbose_name=_("activate push notifications"),
         help_text=_("Whether or not push notifications are enabled in the region"),
     )
-
     latitude = models.FloatField(
         null=True,
         verbose_name=_("latitude"),
@@ -145,8 +146,13 @@ class Region(AbstractBaseModel):
         verbose_name=_("email address of the administrator"),
     )
 
+    timezone = models.CharField(
+        max_length=150,
+        default=settings.CURRENT_TIME_ZONE,
+        verbose_name=_("timezone"),
+    )
     created_date = models.DateTimeField(
-        default=timezone.now,
+        default=django_timezone.now,
         verbose_name=_("creation date"),
     )
     last_updated = models.DateTimeField(

@@ -5,6 +5,12 @@ module.exports = {
     './integreat_cms/cms/templates/**/*.html',
     './integreat_cms/static/src/js/**/*.{js,ts,tsx}',
   ],
+  safelist: [
+    {
+      pattern: /(integreat|malte|aschaffenburg)/,
+      variants: ['hover'],
+    },
+  ],
   theme: {
     colors: {
       transparent: 'transparent',
@@ -20,19 +26,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        // generated from #fbda16 with https://javisperez.github.io/tailwindcolorshades/
-        'integreat': {
-          '50': '#fffdf3',
-          '100': '#fffbe8',
-          '200': '#fef6c5',
-          '300': '#fdf0a2',
-          '400': '#fce55c',
-          '500': '#fbda16',
-          '600': '#e2c414',
-          '700': '#bca411',
-          '800': '#97830d',
-          '900': '#7b6b0b'
-        },
         'water': {
           '50': '#fefeff', 
           '100': '#fcfdff', 
@@ -47,10 +40,18 @@ module.exports = {
         }
       },
       backgroundImage: {
-        'icon': "url('../images/integreat-icon.png')",
-        'logo': "url('../images/integreat-logo.png')",
-        'logo-white': "url('../images/integreat-logo-white.png')",
-        'logo-yellow': "url('../images/integreat-logo-yellow.png')",
+        'integreat-icon': "url('../logos/integreat/integreat-icon.svg')",
+        'integreat-logo': "url('../logos/integreat/integreat-logo-black.svg')",
+        'integreat-logo-white': "url('../logos/integreat/integreat-logo-white.svg')",
+        'integreat-logo-hover': "url('../logos/integreat/integreat-logo-yellow.svg')",
+        'malte-icon': "url('../logos/malte/malte-icon.svg')",
+        'malte-logo': "url('../logos/malte/malte-logo-black.svg')",
+        'malte-logo-white': "url('../logos/malte/malte-logo-white.svg')",
+        'malte-logo-hover': "url('../logos/malte/malte-logo-red.svg')",
+        'aschaffenburg-icon': "url('../logos/aschaffenburg/aschaffenburg-icon.svg')",
+        'aschaffenburg-logo': "url('../logos/aschaffenburg/aschaffenburg-logo-slate.svg')",
+        'aschaffenburg-logo-white': "url('../logos/aschaffenburg/aschaffenburg-logo-white.svg')",
+        'aschaffenburg-logo-hover': "url('../logos/aschaffenburg/aschaffenburg-logo-cyan.svg')",
         'border-left': 'linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-from) 4px, var(--tw-gradient-to, rgba(0, 0, 0, 0)) 4px)',
       },
       fontFamily: {

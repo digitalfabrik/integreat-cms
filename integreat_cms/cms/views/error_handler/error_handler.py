@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.http import (
     HttpResponseBadRequest,
     HttpResponseForbidden,
@@ -22,6 +23,13 @@ def render_error_template(context):
     :return: The rendered template response
     :rtype: ~django.template.response.TemplateResponse
     """
+    context.update(
+        {
+            "COMPANY": settings.COMPANY,
+            "COMPANY_URL": settings.COMPANY_URL,
+            "BRANDING": settings.BRANDING,
+        }
+    )
     return render_to_string("error_handler/http_error.html", context)
 
 

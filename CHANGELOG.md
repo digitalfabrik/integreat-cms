@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+* [ [#1366](https://github.com/digitalfabrik/integreat-cms/issues/1366) ] Fix monthly recurring events on mondays
+* [ [#1365](https://github.com/digitalfabrik/integreat-cms/issues/1365) ] Add timezone setting to region model
+* [ [#1093](https://github.com/digitalfabrik/integreat-cms/issues/1093) ] Add Malte and Aschaffenburg brandings
+
 
 2022.4.1
 --------

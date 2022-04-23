@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-15 20:11+0000\n"
+"POT-Creation-Date: 2022-04-23 15:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: cms/constants/administrative_division.py:38
-#: cms/templates/pois/poi_list.html:69
+#: cms/templates/pois/poi_list.html:70
 #: cms/templates/pois/poi_list_archived.html:36
 msgid "City"
 msgstr "Stadt"
@@ -1293,12 +1293,12 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: cms/constants/region_status.py:17 cms/models/regions/region.py:600
+#: cms/constants/region_status.py:17 cms/models/regions/region.py:606
 msgid "Hidden"
 msgstr "Versteckt"
 
 #: cms/constants/region_status.py:18 cms/models/pages/page.py:323
-#: cms/models/regions/region.py:603 cms/templates/events/event_form.html:70
+#: cms/models/regions/region.py:609 cms/templates/events/event_form.html:70
 #: cms/templates/pages/page_form.html:93
 #: cms/templates/pages/page_tree_archived_node.html:81
 #: cms/templates/pois/poi_form.html:60
@@ -1587,7 +1587,7 @@ msgstr "Kategorie"
 
 #: cms/forms/feedback/region_feedback_filter_form.py:30
 #: cms/templates/events/event_form.html:67
-#: cms/templates/events/event_list.html:76
+#: cms/templates/events/event_list.html:77
 #: cms/templates/events/event_list_archived.html:52
 #: cms/templates/imprint/imprint_form.html:49
 #: cms/templates/imprint/imprint_revisions.html:46
@@ -1600,7 +1600,7 @@ msgstr "Kategorie"
 #: cms/templates/pages/page_sbs.html:59 cms/templates/pages/page_sbs.html:115
 #: cms/templates/pages/page_sbs.html:121 cms/templates/pages/page_tree.html:81
 #: cms/templates/pages/page_tree_archived.html:67
-#: cms/templates/pois/poi_form.html:57 cms/templates/pois/poi_list.html:66
+#: cms/templates/pois/poi_form.html:57 cms/templates/pois/poi_list.html:67
 #: cms/templates/pois/poi_list_archived.html:33
 #: cms/templates/push_notifications/push_notification_form.html:110
 #: cms/templates/regions/region_list.html:24
@@ -1701,37 +1701,45 @@ msgstr "Quell-Region für Live-Inhalte"
 msgid "Enable write access via API for this page"
 msgstr "Schreib-Zugriff via API für diese Seite aktivieren"
 
-#: cms/forms/regions/region_form.py:28
+#: cms/forms/regions/region_form.py:57
+msgid "Other timezones"
+msgstr "Sonstige Zeitzonen"
+
+#: cms/forms/regions/region_form.py:68
 msgid "Do no import initial content"
 msgstr "Keine Inhalte übernehmen"
 
-#: cms/forms/regions/region_form.py:132
+#: cms/forms/regions/region_form.py:74
+msgid "Timezone area"
+msgstr "Region der Zeitzone"
+
+#: cms/forms/regions/region_form.py:181
 msgid "Statistics can only be enabled when a valid access token is supplied."
 msgstr ""
 "Statistiken können nur aktiviert werden, wenn ein gültiges Zugangstoken "
 "eingegeben wurde."
 
-#: cms/forms/regions/region_form.py:144
+#: cms/forms/regions/region_form.py:193
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
 
-#: cms/forms/regions/region_form.py:227
+#: cms/forms/regions/region_form.py:276
 msgid "'{}' is already selected as administrative division."
 msgstr "'{}' ist bereits als Verwaltungseinheit ausgewählt."
 
-#: cms/forms/regions/region_form.py:232
+#: cms/forms/regions/region_form.py:281
 msgid "Please select '{}' as administrative division."
 msgstr "Bitte wählen Sie '{}' als Verwaltungseinheit."
 
-#: cms/forms/regions/region_form.py:243
+#: cms/forms/regions/region_form.py:292
 msgid "Please set {} as default language for this region."
 msgstr "Bitte setzen Sie '{}' als Standard-Sprache für diese Region."
 
-#: cms/forms/regions/region_form.py:249
+#: cms/forms/regions/region_form.py:298
 msgid "Please enable '{}'."
 msgstr "Bitte aktivieren Sie '{}'."
 
-#: cms/forms/regions/region_form.py:264
+#: cms/forms/regions/region_form.py:313
 msgid ""
 "You cannot include the administrative division into the name and use a "
 "custom prefix at the same time."
@@ -1755,6 +1763,11 @@ msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 #: cms/templates/authentication/password_reset_confirm.html:25
 msgid "Password"
 msgstr "Passwort"
+
+#: cms/forms/users/password_reset_form.py:21
+#: cms/templates/_tinymce_config.html:29
+msgid "Email"
+msgstr "Email"
 
 #: cms/forms/users/user_form.py:26 cms/templates/users/region_user_list.html:26
 #: cms/templates/users/user_list.html:26
@@ -1851,7 +1864,7 @@ msgstr "Die Passwörter stimmen nicht überein."
 #: cms/models/feedback/feedback.py:60 cms/models/media/directory.py:24
 #: cms/models/media/media_file.py:138
 #: cms/models/push_notifications/push_notification.py:21
-#: cms/models/regions/region.py:619
+#: cms/models/regions/region.py:625
 msgid "region"
 msgstr "Region"
 
@@ -1860,7 +1873,7 @@ msgstr "Region"
 #: cms/models/languages/language_tree_node.py:37
 #: cms/models/media/directory.py:36 cms/models/offers/offer_template.py:56
 #: cms/models/push_notifications/push_notification.py:45
-#: cms/models/regions/region.py:150 cms/models/users/organization.py:34
+#: cms/models/regions/region.py:156 cms/models/users/organization.py:34
 #: cms/models/users/user_mfa_key.py:39
 msgid "creation date"
 msgstr "Erstellungsdatum"
@@ -1891,7 +1904,7 @@ msgstr ""
 "generieren."
 
 #: cms/models/abstract_content_translation.py:38
-#: cms/models/regions/region.py:89
+#: cms/models/regions/region.py:91
 msgid "status"
 msgstr "Status"
 
@@ -1940,7 +1953,7 @@ msgstr ""
 #: cms/models/languages/language_tree_node.py:41
 #: cms/models/offers/offer_template.py:60
 #: cms/models/push_notifications/push_notification_translation.py:37
-#: cms/models/regions/region.py:154 cms/models/users/organization.py:38
+#: cms/models/regions/region.py:160 cms/models/users/organization.py:38
 msgid "modification date"
 msgstr "Änderungsdatum"
 
@@ -2388,7 +2401,7 @@ msgid "language tree nodes"
 msgstr "Sprach-Knoten"
 
 #: cms/models/media/directory.py:17 cms/models/media/media_file.py:123
-#: cms/models/offers/offer_template.py:17 cms/models/regions/region.py:63
+#: cms/models/offers/offer_template.py:17 cms/models/regions/region.py:65
 #: cms/models/users/organization.py:14 cms/models/users/role.py:20
 msgid "name"
 msgstr "Name"
@@ -2455,7 +2468,7 @@ msgstr "Medien-Dateien"
 msgid "slug"
 msgstr "URL-Parameter"
 
-#: cms/models/offers/offer_template.py:25 cms/models/regions/region.py:81
+#: cms/models/offers/offer_template.py:25 cms/models/regions/region.py:83
 msgid "Leave blank to generate unique parameter from name"
 msgstr ""
 "Dieses Feld freilassen, um einen eindeutigen Alias aus dem Namen zu "
@@ -2484,7 +2497,7 @@ msgstr "POST-Parameter"
 msgid "Additional POST data for retrieving the URL."
 msgstr "Zusätzliche POST-Daten zum Abrufen der URL."
 
-#: cms/models/offers/offer_template.py:40 cms/models/regions/region.py:106
+#: cms/models/offers/offer_template.py:40 cms/models/regions/region.py:108
 msgid "Specify as JSON."
 msgstr "Als JSON angeben."
 
@@ -2518,16 +2531,16 @@ msgstr "Ob die Seite explizit archiviert ist oder nicht"
 
 #: cms/models/pages/abstract_base_page_translation.py:71
 #: cms/templates/events/event_form.html:27
-#: cms/templates/events/event_list.html:59
-#: cms/templates/events/event_list.html:63
+#: cms/templates/events/event_list.html:60
+#: cms/templates/events/event_list.html:64
 #: cms/templates/events/event_list_archived.html:35
 #: cms/templates/events/event_list_archived.html:39
 #: cms/templates/pages/page_form.html:29 cms/templates/pages/page_tree.html:63
 #: cms/templates/pages/page_tree.html:67
 #: cms/templates/pages/page_tree_archived.html:50
 #: cms/templates/pages/page_tree_archived.html:54
-#: cms/templates/pois/poi_form.html:27 cms/templates/pois/poi_list.html:50
-#: cms/templates/pois/poi_list.html:52
+#: cms/templates/pois/poi_form.html:27 cms/templates/pois/poi_list.html:51
+#: cms/templates/pois/poi_list.html:53
 #: cms/templates/pois/poi_list_archived.html:29
 #: cms/templates/pois/poi_list_archived.html:31
 msgid "Title in"
@@ -2673,7 +2686,7 @@ msgstr "Leer"
 msgid "street and house number"
 msgstr "Straße und Hausnummer"
 
-#: cms/models/pois/poi.py:18 cms/models/regions/region.py:142
+#: cms/models/pois/poi.py:18 cms/models/regions/region.py:143
 msgid "postal code"
 msgstr "Postleitzahl"
 
@@ -2685,7 +2698,7 @@ msgstr "Stadt"
 msgid "country"
 msgstr "Land"
 
-#: cms/models/pois/poi.py:22 cms/models/regions/region.py:134
+#: cms/models/pois/poi.py:22 cms/models/regions/region.py:135
 msgid "latitude"
 msgstr "Geographische Breite"
 
@@ -2693,7 +2706,7 @@ msgstr "Geographische Breite"
 msgid "The latitude coordinate"
 msgstr "Die Breitengrad-Koordinate"
 
-#: cms/models/pois/poi.py:25 cms/models/regions/region.py:139
+#: cms/models/pois/poi.py:25 cms/models/regions/region.py:140
 msgid "longitude"
 msgstr "Geographische Länge"
 
@@ -2780,50 +2793,50 @@ msgstr "Push-Benachrichtigungs-Übersetzung"
 msgid "push notification translations"
 msgstr "Push-Benachrichtigungs-Übersetzungen"
 
-#: cms/models/regions/region.py:69
+#: cms/models/regions/region.py:71
 msgid "community identification number"
 msgstr "Amtlicher Gemeindeschlüssel"
 
-#: cms/models/regions/region.py:71
+#: cms/models/regions/region.py:73
 msgid ""
 "Number sequence for identifying politically independent administrative units"
 msgstr ""
 "Ziffernfolge zur Identifizierung politisch selbständiger Verwaltungseinheiten"
 
-#: cms/models/regions/region.py:78
+#: cms/models/regions/region.py:80
 msgid "URL parameter"
 msgstr "URL-Parameter"
 
-#: cms/models/regions/region.py:80 cms/models/users/organization.py:20
+#: cms/models/regions/region.py:82 cms/models/users/organization.py:20
 msgid "Unique string identifier without spaces and special characters."
 msgstr "Eindeutiger Bezeichner ohne Leerzeichen und Sonderzeichen."
 
-#: cms/models/regions/region.py:98
+#: cms/models/regions/region.py:100
 msgid "administrative division"
 msgstr "Verwaltungseinheit"
 
-#: cms/models/regions/region.py:102
+#: cms/models/regions/region.py:104
 msgid "aliases"
 msgstr "Aliasnamen"
 
-#: cms/models/regions/region.py:104
+#: cms/models/regions/region.py:106
 msgid "E.g. smaller municipalities in that area."
 msgstr "Z.B. kleinere Gemeinden in der Region."
 
-#: cms/models/regions/region.py:105
+#: cms/models/regions/region.py:107
 msgid "If empty, the CMS will try to fill this automatically."
 msgstr "Wird, wenn leer, automatisch vom CMS befüllt."
 
-#: cms/models/regions/region.py:112
+#: cms/models/regions/region.py:114
 msgid "custom prefix"
 msgstr "Benutzerdefiniertes Präfix"
 
-#: cms/models/regions/region.py:114
+#: cms/models/regions/region.py:116
 msgid "Enter parts of the name that should not affect sorting."
 msgstr ""
 "Geben Sie Teile des Namens ein, die die Sortierung nicht beeinflussen sollen."
 
-#: cms/models/regions/region.py:116
+#: cms/models/regions/region.py:118
 msgid ""
 "Use this field only if the prefix is not an available choice in the list of "
 "administrative divisions above."
@@ -2831,59 +2844,63 @@ msgstr ""
 "Verwenden Sie dieses Feld nur, wenn das Präfix in der obigen Liste der "
 "Verwaltungseinheiten nicht zur Auswahl steht."
 
-#: cms/models/regions/region.py:123
+#: cms/models/regions/region.py:125
 msgid "activate events"
 msgstr "Veranstaltungen aktivieren"
 
-#: cms/models/regions/region.py:124
+#: cms/models/regions/region.py:126
 msgid "Whether or not events are enabled in the region"
 msgstr "Ob Veranstaltungen in der Region aktiviert sind oder nicht"
 
-#: cms/models/regions/region.py:128
+#: cms/models/regions/region.py:130
 msgid "activate push notifications"
 msgstr "Push-Benachrichtigungen aktivieren"
 
-#: cms/models/regions/region.py:129
+#: cms/models/regions/region.py:131
 msgid "Whether or not push notifications are enabled in the region"
 msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
 
-#: cms/models/regions/region.py:135
+#: cms/models/regions/region.py:136
 msgid "The latitude coordinate of an approximate center of the region"
 msgstr "Die Breitengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: cms/models/regions/region.py:140
+#: cms/models/regions/region.py:141
 msgid "The longitude coordinate of an approximate center of the region"
 msgstr "Die Längengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: cms/models/regions/region.py:145
+#: cms/models/regions/region.py:146
 msgid "email address of the administrator"
 msgstr "E-Mail-Adresse des Administrators"
 
-#: cms/models/regions/region.py:159
+#: cms/models/regions/region.py:152
+msgid "timezone"
+msgstr "Zeitzone"
+
+#: cms/models/regions/region.py:165
 msgid "activate statistics"
 msgstr "Statistiken aktivieren"
 
-#: cms/models/regions/region.py:160
+#: cms/models/regions/region.py:166
 msgid "Whether or not statistics are enabled for the region"
 msgstr "Ob Statistiken für die Region aktiviert sind oder nicht"
 
-#: cms/models/regions/region.py:165
+#: cms/models/regions/region.py:171
 msgid "Matomo ID"
 msgstr "Matomo ID"
 
-#: cms/models/regions/region.py:167
+#: cms/models/regions/region.py:173
 msgid "The Matomo ID of this region."
 msgstr "Die Matomo ID dieser region."
 
-#: cms/models/regions/region.py:168
+#: cms/models/regions/region.py:174
 msgid "Will be automatically derived from the Matomo access token."
 msgstr "Wird automatisch vom Matomo Zugangstoken abgeleitet."
 
-#: cms/models/regions/region.py:175
+#: cms/models/regions/region.py:181
 msgid "Matomo authentication token"
 msgstr "Matomo Authentifizierungs-Token"
 
-#: cms/models/regions/region.py:177
+#: cms/models/regions/region.py:183
 msgid ""
 "The secret Matomo access token of the region is used to authenticate in API "
 "requests"
@@ -2891,11 +2908,11 @@ msgstr ""
 "Das geheime Matomo-Zugangs-Token der Region wird zur Authentifizierung bei "
 "API-Anfragen verwendet"
 
-#: cms/models/regions/region.py:183
+#: cms/models/regions/region.py:189
 msgid "activate page-specific permissions"
 msgstr "Seiten-spezifische-Berechtigungen aktivieren"
 
-#: cms/models/regions/region.py:185
+#: cms/models/regions/region.py:191
 msgid ""
 "This allows individual users to be granted the right to edit or publish a "
 "specific page."
@@ -2903,26 +2920,26 @@ msgstr ""
 "Damit kann einzelnen Benutzern das Recht zum Bearbeiten oder Veröffentlichen "
 "einer bestimmten Seite eingeräumt werden."
 
-#: cms/models/regions/region.py:191 cms/models/users/organization.py:25
+#: cms/models/regions/region.py:197 cms/models/users/organization.py:25
 msgid "logo"
 msgstr "Logo"
 
-#: cms/models/regions/region.py:200
+#: cms/models/regions/region.py:206
 msgid "activate author chat"
 msgstr "Autoren-Chat aktivieren"
 
-#: cms/models/regions/region.py:202
+#: cms/models/regions/region.py:208
 msgid ""
 "This gives all users of this region access to the cross-regional author chat."
 msgstr ""
 "Dies gewährt allen Benutzern dieser Region Zugang zum überregionalen Autoren-"
 "Chat."
 
-#: cms/models/regions/region.py:208
+#: cms/models/regions/region.py:214
 msgid "include administrative division into name"
 msgstr "Verwaltungseinheit dem Namen hinzufügen"
 
-#: cms/models/regions/region.py:211
+#: cms/models/regions/region.py:217
 msgid ""
 "Determines whether the administrative division is displayed next to the "
 "region name."
@@ -2930,7 +2947,7 @@ msgstr ""
 "Legt fest, ob die Verwaltungseinheit neben dem Namen der Region angezeigt "
 "wird."
 
-#: cms/models/regions/region.py:214
+#: cms/models/regions/region.py:220
 msgid ""
 "Sorting is always based on the name, independently from the administrative "
 "division."
@@ -2938,11 +2955,11 @@ msgstr ""
 "Sortierungen werden immer auf Grundlage der Namen vorgenommen, unabhängig "
 "von der Verwaltungseinheit."
 
-#: cms/models/regions/region.py:223
+#: cms/models/regions/region.py:229
 msgid "offers"
 msgstr "Angebote"
 
-#: cms/models/regions/region.py:226
+#: cms/models/regions/region.py:232
 msgid ""
 "Integreat offers are extended features apart from pages and events and are "
 "usually offered by a third party."
@@ -2950,7 +2967,7 @@ msgstr ""
 "Integreat Angebote sind erweiterte Funktionen jenseits von Seiten und "
 "Ereignissen und werden in der Regel von Drittanbietern bereitgestellt."
 
-#: cms/models/regions/region.py:229
+#: cms/models/regions/region.py:235
 msgid ""
 "In most cases, the url is an external API endpoint which the frontend apps "
 "can query and render the results inside the Integreat app."
@@ -2959,23 +2976,23 @@ msgstr ""
 "Frontend Anfragen gesendet werden, um die Ergebnisse in der Integreat App "
 "einzubetten."
 
-#: cms/models/regions/region.py:236
+#: cms/models/regions/region.py:242
 msgid "Activate short urls"
 msgstr "Kurz-URLs aktivieren"
 
-#: cms/models/regions/region.py:237
+#: cms/models/regions/region.py:243
 msgid "Please check the box if you want to use short urls."
 msgstr "Kreuzen Sie an, wenn Sie Kurz-URLs benutzen wollen."
 
-#: cms/models/regions/region.py:242
+#: cms/models/regions/region.py:248
 msgid "Enable tunews"
 msgstr "tünews aktivieren"
 
-#: cms/models/regions/region.py:243
+#: cms/models/regions/region.py:249
 msgid "Enable to show a feed of tunews articles to users."
 msgstr "Auswählen, um Benutzern einen tünews-Feed anzuzeigen."
 
-#: cms/models/regions/region.py:621 cms/models/users/user.py:56
+#: cms/models/regions/region.py:627 cms/models/users/user.py:56
 msgid "regions"
 msgstr "Regionen"
 
@@ -3123,7 +3140,7 @@ msgstr "Mein Dashboard"
 msgid "Analytics"
 msgstr "Analyse"
 
-#: cms/templates/_base.html:118 cms/templates/regions/region_form.html:128
+#: cms/templates/_base.html:118 cms/templates/regions/region_form.html:137
 #: cms/templates/statistics/_statistics_widget.html:11
 #: cms/templates/statistics/statistics_overview.html:10
 #: cms/templates/statistics/statistics_overview.html:49
@@ -3169,7 +3186,7 @@ msgstr "Feedback"
 
 #: cms/templates/_base.html:181
 #: cms/templates/push_notifications/push_notification_list.html:9
-#: core/settings.py:710
+#: core/settings.py:730
 msgid "News"
 msgstr "Nachrichten"
 
@@ -3248,8 +3265,8 @@ msgid "Other Languages"
 msgstr "Weitere Sprachen"
 
 #: cms/templates/_raw.html:10
-msgid "Integreat Editorial System"
-msgstr "Integreat Redaktionssystem"
+msgid "Editorial System"
+msgstr "Redaktionssystem"
 
 #: cms/templates/_search_input.html:13 cms/templates/_search_input.html:33
 #: cms/templates/events/_event_filter_form.html:34
@@ -3278,10 +3295,6 @@ msgstr "Ort"
 #: cms/templates/push_notifications/push_notification_form.html:60
 msgid "Link"
 msgstr "Link"
-
-#: cms/templates/_tinymce_config.html:29
-msgid "Email"
-msgstr "Email"
 
 #: cms/templates/_tinymce_config.html:31
 msgid "Phone"
@@ -3347,7 +3360,7 @@ msgstr "Hier können Sie eine Übersicht über fehlerhafte Links sehen."
 
 #: cms/templates/analytics/_broken_links_widget.html:19
 #: cms/templates/analytics/_translation_overview_widget.html:18
-#: cms/templates/analytics/_website_size_widget.html:18
+#: cms/templates/analytics/_website_size_widget.html:21
 #: cms/templates/statistics/_statistics_widget.html:18
 msgid "Details"
 msgstr "Detailansicht"
@@ -3388,9 +3401,10 @@ msgstr "Hier können Sie den Status der Übersetzungen sehen."
 msgid "Size of the App"
 msgstr "Größe der App"
 
-#: cms/templates/analytics/_website_size_widget.html:16
-msgid "The chart below shows the current size of the Integreat app."
-msgstr "Hier sehen Sie die aktuelle Größe Ihrer Integreat App."
+#: cms/templates/analytics/_website_size_widget.html:17
+#, python-format
+msgid "The chart below shows the current size of the %(BRANDING)s app."
+msgstr "Hier sehen Sie die aktuelle Größe Ihrer %(BRANDING)s App."
 
 #: cms/templates/analytics/analytics_overview.html:7
 msgid ""
@@ -3442,6 +3456,7 @@ msgid "Total"
 msgstr "Summe"
 
 #: cms/templates/authentication/account_activation_form.html:6
+#: cms/utils/welcome_mail_utils.py:44
 msgid "Activate your account"
 msgstr "Benutzerkonto aktivieren"
 
@@ -3518,55 +3533,6 @@ msgstr "Neues Passwort setzen"
 #: cms/templates/authentication/password_reset_form.html:31
 msgid "Back to log in"
 msgstr "Zurück zur Anmeldung"
-
-#: cms/templates/authentication/password_reset_email.html:3
-#: cms/templates/users/welcome_email.html:13
-#: cms/templates/users/welcome_email.txt:5
-msgid "Welcome"
-msgstr "Willkommen"
-
-#: cms/templates/authentication/password_reset_email.html:5
-msgid ""
-"You are receiving this e-mail, because you have requested a password reset "
-"for your Integreat account."
-msgstr ""
-"Sie erhalten diese E-Mail, weil Sie das Zurücksetzen des Passworts für Ihr "
-"Integreat-Benutzerkonto angefordert haben."
-
-#: cms/templates/authentication/password_reset_email.html:6
-msgid "Please use the following link to set a new password:"
-msgstr ""
-"Bitte nutzen Sie den folgenden Link, um ein neues Passwort festzulegen:"
-
-#: cms/templates/authentication/password_reset_email.html:10
-#: cms/templates/users/welcome_email.html:31
-#: cms/templates/users/welcome_email.txt:17
-msgid ""
-"If clicking on the link above does not work, please copy the URL and paste "
-"it into the address bar of your browser."
-msgstr ""
-"Wenn das Anklicken des obigen Links nicht funktioniert, kopieren Sie bitte "
-"die URL und fügen Sie sie in die Adresszeile Ihres Browsers ein."
-
-#: cms/templates/authentication/password_reset_email.html:12
-msgid "Your username, in case you’ve forgotten:"
-msgstr "Ihr Benutzername, falls vergessen:"
-
-#: cms/templates/authentication/password_reset_email.html:14
-#: cms/templates/users/welcome_email.html:36
-#: cms/templates/users/welcome_email.txt:21
-msgid "Best regards"
-msgstr "Viele Grüße"
-
-#: cms/templates/authentication/password_reset_email.html:15
-#: cms/templates/users/welcome_email.html:38
-#: cms/templates/users/welcome_email.txt:22
-msgid "Your Integreat team"
-msgstr "Ihr Integreat-Team"
-
-#: cms/templates/authentication/password_reset_email_subject.html:4
-msgid "password reset"
-msgstr "Passwort zurücksetzen"
 
 #: cms/templates/authentication/password_reset_form.html:22
 msgid "Enter your e-mail address here"
@@ -3649,6 +3615,89 @@ msgstr "Weiterlesen"
 msgid "Select region"
 msgstr "Region auswählen"
 
+#: cms/templates/emails/_base_email.html:35
+#: cms/templates/emails/password_reset_email.txt:17
+#: cms/templates/emails/welcome_email.txt:20
+msgid "Best regards"
+msgstr "Viele Grüße"
+
+#: cms/templates/emails/_base_email.html:37
+#: cms/templates/emails/password_reset_email.txt:18
+#: cms/templates/emails/welcome_email.txt:21
+#, python-format
+msgid "Your %(BRANDING)s team of %(COMPANY)s"
+msgstr "Ihr %(BRANDING)s-Team der %(COMPANY)s"
+
+#: cms/templates/emails/password_reset_email.html:6
+#: cms/templates/emails/password_reset_email.txt:4
+#: cms/templates/emails/welcome_email.html:6
+#: cms/templates/emails/welcome_email.txt:3 cms/utils/welcome_mail_utils.py:53
+msgid "Welcome"
+msgstr "Willkommen"
+
+#: cms/templates/emails/password_reset_email.html:9
+#: cms/templates/emails/password_reset_email.txt:6
+#, python-format
+msgid ""
+"You are receiving this e-mail, because you have requested a password reset "
+"for your %(BRANDING)s account."
+msgstr ""
+"Sie erhalten diese E-Mail, weil Sie das Zurücksetzen des Passworts für Ihr "
+"%(BRANDING)s-Benutzerkonto angefordert haben."
+
+#: cms/templates/emails/password_reset_email.html:13
+#: cms/templates/emails/password_reset_email.txt:9
+msgid "Please use the following link to set a new password:"
+msgstr ""
+"Bitte nutzen Sie den folgenden Link, um ein neues Passwort festzulegen:"
+
+#: cms/templates/emails/password_reset_email.html:21
+#: cms/templates/emails/password_reset_email.txt:13
+#: cms/templates/emails/welcome_email.html:28
+#: cms/templates/emails/welcome_email.txt:16
+msgid ""
+"If clicking on the link above does not work, please copy the URL and paste "
+"it into the address bar of your browser."
+msgstr ""
+"Wenn das Anklicken des obigen Links nicht funktioniert, kopieren Sie bitte "
+"die URL und fügen Sie sie in die Adresszeile Ihres Browsers ein."
+
+#: cms/templates/emails/password_reset_email.html:24
+#: cms/templates/emails/password_reset_email.txt:15
+msgid "Your username, in case you've forgotten:"
+msgstr "Ihr Benutzername, falls vergessen:"
+
+#: cms/templates/emails/welcome_email.html:9
+#: cms/templates/emails/welcome_email.txt:4
+#, python-format
+msgid ""
+"You are receiving this e-mail, because an account for %(BRANDING)s was "
+"created for you."
+msgstr ""
+"Sie erhalten diese E-Mail, weil für Sie ein %(BRANDING)s-Benutzerkonto "
+"erstellt wurde."
+
+#: cms/templates/emails/welcome_email.html:14
+#: cms/templates/emails/welcome_email.txt:8
+msgid ""
+"Please click the link below to set a password and activate your account."
+msgstr ""
+"Bitte klicken Sie auf folgenden Link, um ein Passwort auszuwählen und Ihr "
+"Konto zu aktivieren."
+
+#: cms/templates/emails/welcome_email.html:21
+#: cms/templates/emails/welcome_email.txt:12
+msgid ""
+"Please click the link below to log in with your password and to your account."
+msgstr ""
+"Bitte klicken Sie auf den folgenden Link, um sich mit ihrem Benutzernamen "
+"und Passwort einzuloggen."
+
+#: cms/templates/emails/welcome_email.html:30
+#: cms/templates/emails/welcome_email.txt:18
+msgid "Your username is:"
+msgstr "Ihr Benutzername lautet:"
+
 #: cms/templates/error_handler/http_error.html:10
 #: cms/templatetags/text_filters.py:40
 msgid "Error"
@@ -3665,7 +3714,7 @@ msgid "Time range"
 msgstr "Zeitraum"
 
 #: cms/templates/events/_event_filter_form.html:32
-#: cms/templates/events/event_list.html:77
+#: cms/templates/events/event_list.html:78
 #: cms/templates/events/event_list_archived.html:53
 msgid "Event location"
 msgstr "Veranstaltungsort"
@@ -3819,12 +3868,12 @@ msgstr "Veranstaltung löschen"
 msgid "Delete this event"
 msgstr "Diese Veranstaltung löschen"
 
-#: cms/templates/events/event_list.html:13
+#: cms/templates/events/event_list.html:15
 #: cms/templates/events/event_list_archived.html:9
 msgid "Archived events"
 msgstr "Archivierte Veranstaltungen"
 
-#: cms/templates/events/event_list.html:26
+#: cms/templates/events/event_list.html:27
 #: cms/templates/events/event_list_archived.html:16
 #: cms/templates/feedback/admin_feedback_list.html:15
 #: cms/templates/feedback/region_feedback_list.html:13
@@ -3833,7 +3882,7 @@ msgstr "Archivierte Veranstaltungen"
 msgid "Show filters"
 msgstr "Filter einblenden"
 
-#: cms/templates/events/event_list.html:27
+#: cms/templates/events/event_list.html:28
 #: cms/templates/events/event_list_archived.html:17
 #: cms/templates/feedback/admin_feedback_list.html:16
 #: cms/templates/feedback/region_feedback_list.html:14
@@ -3842,12 +3891,12 @@ msgstr "Filter einblenden"
 msgid "Hide filters"
 msgstr "Filter ausblenden"
 
-#: cms/templates/events/event_list.html:32
-#: cms/templates/events/event_list.html:39
+#: cms/templates/events/event_list.html:33
+#: cms/templates/events/event_list.html:40
 msgid "Create event"
 msgstr "Veranstaltung erstellen"
 
-#: cms/templates/events/event_list.html:35
+#: cms/templates/events/event_list.html:36
 #, python-format
 msgid ""
 "You can only create events in the default language (%(default_language)s)."
@@ -3855,22 +3904,22 @@ msgstr ""
 "Sie können Veranstaltungen nur in der Standard-Sprache "
 "(%(default_language)s) anlegen."
 
-#: cms/templates/events/event_list.html:78
+#: cms/templates/events/event_list.html:79
 #: cms/templates/events/event_list_archived.html:54
 msgid "Start"
 msgstr "Beginn"
 
-#: cms/templates/events/event_list.html:79
+#: cms/templates/events/event_list.html:80
 #: cms/templates/events/event_list_archived.html:55
 msgid "End"
 msgstr "Ende"
 
-#: cms/templates/events/event_list.html:80
+#: cms/templates/events/event_list.html:81
 #: cms/templates/events/event_list_archived.html:56
 msgid "Recurrence"
 msgstr "Wiederholung"
 
-#: cms/templates/events/event_list.html:81
+#: cms/templates/events/event_list.html:82
 #: cms/templates/events/event_list_archived.html:57
 #: cms/templates/languages/language_list.html:30
 #: cms/templates/linkcheck/links_by_filter.html:59
@@ -3878,62 +3927,62 @@ msgstr "Wiederholung"
 #: cms/templates/organizations/organization_list.html:23
 #: cms/templates/pages/page_tree.html:83
 #: cms/templates/pages/page_tree_archived.html:69
-#: cms/templates/pois/poi_list.html:71
+#: cms/templates/pois/poi_list.html:72
 #: cms/templates/pois/poi_list_archived.html:38
 #: cms/templates/roles/role_list.html:20
 msgid "Options"
 msgstr "Optionen"
 
-#: cms/templates/events/event_list.html:94
+#: cms/templates/events/event_list.html:95
 msgid "No events found with these filters."
 msgstr "Keine Veranstaltungen mit diesen Filtern gefunden."
 
-#: cms/templates/events/event_list.html:96
+#: cms/templates/events/event_list.html:97
 msgid "No upcoming events available."
 msgstr "Keine zukünftigen Veranstaltungen vorhanden."
 
-#: cms/templates/events/event_list.html:105
+#: cms/templates/events/event_list.html:106
 #: cms/templates/events/event_list_archived.html:81
 #: cms/templates/feedback/admin_feedback_list.html:128
 #: cms/templates/feedback/region_feedback_list.html:123
 #: cms/templates/linkcheck/links_by_filter.html:76
 #: cms/templates/pages/page_tree.html:123
 #: cms/templates/pages/page_tree_archived.html:92
-#: cms/templates/pois/poi_list.html:94
+#: cms/templates/pois/poi_list.html:95
 #: cms/templates/pois/poi_list_archived.html:56
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
-#: cms/templates/events/event_list.html:107
+#: cms/templates/events/event_list.html:108
 msgid "Archive events"
 msgstr "Veranstaltungen archivieren"
 
-#: cms/templates/events/event_list.html:111
-#: cms/templates/pois/poi_list.html:101
+#: cms/templates/events/event_list.html:112
+#: cms/templates/pois/poi_list.html:102
 msgid "You cannot translate into the default language"
 msgstr "Sie können nicht in die Standard-Sprache übersetzen"
 
-#: cms/templates/events/event_list.html:112
-#: cms/templates/events/event_list.html:116
-#: cms/templates/events/event_list.html:120
-#: cms/templates/pois/poi_list.html:102 cms/templates/pois/poi_list.html:106
-#: cms/templates/pois/poi_list.html:110
+#: cms/templates/events/event_list.html:113
+#: cms/templates/events/event_list.html:117
+#: cms/templates/events/event_list.html:121
+#: cms/templates/pois/poi_list.html:103 cms/templates/pois/poi_list.html:107
+#: cms/templates/pois/poi_list.html:111
 msgid "Create missing translations automatically"
 msgstr "Fehlende Übersetzungen automatisch erstellen"
 
-#: cms/templates/events/event_list.html:119
-#: cms/templates/pois/poi_list.html:109
+#: cms/templates/events/event_list.html:120
+#: cms/templates/pois/poi_list.html:110
 msgid "This language is not supported by DeepL"
 msgstr "Diese Sprache wird von DeepL nicht unterstützt"
 
-#: cms/templates/events/event_list.html:125
+#: cms/templates/events/event_list.html:126
 #: cms/templates/events/event_list_archived.html:86
 #: cms/templates/feedback/admin_feedback_list.html:135
 #: cms/templates/feedback/region_feedback_list.html:137
 #: cms/templates/linkcheck/links_by_filter.html:84
 #: cms/templates/pages/page_tree.html:152
 #: cms/templates/pages/page_tree_archived.html:98
-#: cms/templates/pois/poi_list.html:115
+#: cms/templates/pois/poi_list.html:116
 #: cms/templates/pois/poi_list_archived.html:61
 msgid "Execute"
 msgstr "Ausführen"
@@ -5082,46 +5131,46 @@ msgstr[1] "Löschen Sie zuerst diese Veranstaltungen, um den Ort zu löschen:"
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
 
-#: cms/templates/pois/poi_list.html:14
+#: cms/templates/pois/poi_list.html:16
 #: cms/templates/pois/poi_list_archived.html:12
 msgid "Archived locations"
 msgstr "Archivierte Orte"
 
-#: cms/templates/pois/poi_list.html:28 cms/templates/pois/poi_list.html:35
+#: cms/templates/pois/poi_list.html:29 cms/templates/pois/poi_list.html:36
 msgid "Create location"
 msgstr "Ort erstellen"
 
-#: cms/templates/pois/poi_list.html:31
+#: cms/templates/pois/poi_list.html:32
 #, python-format
 msgid ""
 "You can only create locations in the default language (%(default_language)s)."
 msgstr ""
 "Sie können Orte nur in der Standard-Sprache (%(default_language)s) anlegen."
 
-#: cms/templates/pois/poi_list.html:67
+#: cms/templates/pois/poi_list.html:68
 #: cms/templates/pois/poi_list_archived.html:34
 msgid "Street"
 msgstr "Straße"
 
-#: cms/templates/pois/poi_list.html:68
+#: cms/templates/pois/poi_list.html:69
 #: cms/templates/pois/poi_list_archived.html:35
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
-#: cms/templates/pois/poi_list.html:70
+#: cms/templates/pois/poi_list.html:71
 #: cms/templates/pois/poi_list_archived.html:37
 msgid "Country"
 msgstr "Land"
 
-#: cms/templates/pois/poi_list.html:82
+#: cms/templates/pois/poi_list.html:83
 msgid "No locations found with these filters."
 msgstr "Keine Orte mit diesen Filtern gefunden."
 
-#: cms/templates/pois/poi_list.html:84
+#: cms/templates/pois/poi_list.html:85
 msgid "No locations available yet."
 msgstr "Noch keine Orte vorhanden."
 
-#: cms/templates/pois/poi_list.html:97
+#: cms/templates/pois/poi_list.html:98
 msgid "Archive locations"
 msgstr "Orte archivieren"
 
@@ -5209,38 +5258,38 @@ msgstr "Neue Region erstellen"
 msgid "Center of the region"
 msgstr "Mittelpunkt der Region"
 
-#: cms/templates/regions/region_form.html:165
+#: cms/templates/regions/region_form.html:174
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: cms/templates/regions/region_form.html:168
+#: cms/templates/regions/region_form.html:177
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: cms/templates/regions/region_form.html:177
+#: cms/templates/regions/region_form.html:186
 msgid "Delete region"
 msgstr "Region löschen"
 
-#: cms/templates/regions/region_form.html:178
+#: cms/templates/regions/region_form.html:187
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: cms/templates/regions/region_form.html:179
+#: cms/templates/regions/region_form.html:188
 msgid "This can not be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: cms/templates/regions/region_form.html:179
+#: cms/templates/regions/region_form.html:188
 msgid "All pages, events and locations of this region will also be deleted."
 msgstr ""
 "Alle Seiten, Veranstaltungen und Orte dieser Region werden ebenfalls "
 "gelöscht."
 
-#: cms/templates/regions/region_form.html:179
+#: cms/templates/regions/region_form.html:188
 msgid "Users, who only have access to this region, will be removed as well."
 msgstr ""
 "Benutzer, die nur Zugriff auf diese Region besitzen, werden auch entfernt."
 
-#: cms/templates/regions/region_form.html:183
+#: cms/templates/regions/region_form.html:192
 msgid "Delete this region"
 msgstr "Diese Region löschen"
 
@@ -5658,36 +5707,6 @@ msgstr "Kein Mitarbeiter"
 msgid "No administrator"
 msgstr "Kein Administrator"
 
-#: cms/templates/users/welcome_email.html:16
-#: cms/templates/users/welcome_email.txt:7
-msgid ""
-"You are receiving this e-mail, because an Integreat-account was created for "
-"you."
-msgstr ""
-"Sie erhalten diese E-Mail, weil für Sie ein Integreat-Benutzerkonto erstellt "
-"wurde."
-
-#: cms/templates/users/welcome_email.html:18
-#: cms/templates/users/welcome_email.txt:9
-msgid ""
-"Please click the link below to set a password and activate your account."
-msgstr ""
-"Bitte klicken Sie auf folgenden Link, um ein Passwort auszuwählen und Ihr "
-"Konto zu aktivieren."
-
-#: cms/templates/users/welcome_email.html:24
-#: cms/templates/users/welcome_email.txt:13
-msgid ""
-"Please click the link below to log in with your password and to your account."
-msgstr ""
-"Bitte klicken Sie auf den folgenden Link, um sich mit ihrem Benutzernamen "
-"und Passwort einzuloggen."
-
-#: cms/templates/users/welcome_email.html:33
-#: cms/templates/users/welcome_email.txt:19
-msgid "Your username is:"
-msgstr "Ihr Benutzername lautet:"
-
 #: cms/templatetags/content_filters.py:105
 msgid "Tick if this edit should not change the status of this translation."
 msgstr ""
@@ -5711,12 +5730,12 @@ msgstr "Unbekannt"
 msgid "CW"
 msgstr "KW"
 
-#: cms/utils/pdf_utils.py:66
+#: cms/utils/pdf_utils.py:67
 msgid "No valid pages selected for PDF generation."
 msgstr ""
 "Es wurden keine gültigen Seiten zur Erzeugung der PDF-Datei ausgewählt."
 
-#: cms/utils/pdf_utils.py:113
+#: cms/utils/pdf_utils.py:115
 msgid "The PDF could not be successfully generated."
 msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 
@@ -5725,34 +5744,26 @@ msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 msgid "Cannot generate slug from %(fallback)s."
 msgstr "Slug kann nicht aus dem %(fallback)s abgeleitet werden."
 
-#: cms/utils/welcome_mail_utils.py:36
-msgid "Welcome to your Integreat account"
-msgstr "Willkommen zu Ihrem Integreat Account"
-
-#: cms/utils/welcome_mail_utils.py:37
-msgid "welcome mail"
-msgstr "Willkommensmail"
-
-#: cms/utils/welcome_mail_utils.py:48
-msgid "Activate your Integreat account"
-msgstr "Aktivieren Sie Ihr Integreat-Benutzerkonto"
-
-#: cms/utils/welcome_mail_utils.py:49
+#: cms/utils/welcome_mail_utils.py:45
 msgid "activation mail"
 msgstr "Aktivierungsmail"
 
-#: cms/utils/welcome_mail_utils.py:90
+#: cms/utils/welcome_mail_utils.py:54
+msgid "welcome mail"
+msgstr "Willkommensmail"
+
+#: cms/utils/welcome_mail_utils.py:73
 msgid "{} was successfully sent to user {}."
 msgstr "{} wurde erfolgreich an den Nutzer {} gesendet."
 
-#: cms/utils/welcome_mail_utils.py:98
+#: cms/utils/welcome_mail_utils.py:81
 msgid "An error occurred! Could not send {}."
 msgstr "Es ist ein Fehler aufgetreten! Die {} konnte nicht versendet werden."
 
 #: cms/views/authentication/account_activation_view.py:47
 #: cms/views/authentication/mfa/mfa_assert_view.py:42
 #: cms/views/authentication/password_reset_confirm_view.py:39
-#: cms/views/authentication/password_reset_view.py:43
+#: cms/views/authentication/password_reset_view.py:47
 msgid "You are already logged in."
 msgstr "Sie sind bereits eingeloggt."
 
@@ -5804,7 +5815,7 @@ msgstr ""
 msgid "Your password has been successfully changed."
 msgstr "Passwort wurde erfolgreich geändert"
 
-#: cms/views/authentication/password_reset_view.py:65
+#: cms/views/authentication/password_reset_view.py:69
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered."
@@ -5812,11 +5823,11 @@ msgstr ""
 "Eine Nachricht mit Anweisungen zum Zurücksetzen Ihres Passworts wurde an die "
 "angegebene E-Mail Adresse geschickt."
 
-#: cms/views/authentication/password_reset_view.py:67
+#: cms/views/authentication/password_reset_view.py:71
 msgid "You should receive them shortly."
 msgstr "Sie sollten diese in Kürze erhalten."
 
-#: cms/views/authentication/password_reset_view.py:69
+#: cms/views/authentication/password_reset_view.py:73
 msgid ""
 "If you don’t receive an email, please make sure you’ve entered the address "
 "you registered with, and check your spam folder."
@@ -5847,43 +5858,43 @@ msgstr "Die ausgewählten {} wurden erfolgreich wiederhergestellt"
 msgid "{} \"{}\" was successfully deleted"
 msgstr "{} \"{}\" wurde erfolgreich gelöscht"
 
-#: cms/views/error_handler/error_handler.py:44
+#: cms/views/error_handler/error_handler.py:52
 msgid "Bad request"
 msgstr "Inkorrekte Anfrage"
 
-#: cms/views/error_handler/error_handler.py:45
+#: cms/views/error_handler/error_handler.py:53
 msgid "There was an error in your request."
 msgstr "Die Anfrage war fehlerhaft aufgebaut."
 
-#: cms/views/error_handler/error_handler.py:67
+#: cms/views/error_handler/error_handler.py:75
 msgid "Forbidden"
 msgstr "Zugriff verweigert"
 
-#: cms/views/error_handler/error_handler.py:68
+#: cms/views/error_handler/error_handler.py:76
 msgid "You don't have the permission to access this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite aufzurufen."
 
-#: cms/views/error_handler/error_handler.py:90
+#: cms/views/error_handler/error_handler.py:98
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: cms/views/error_handler/error_handler.py:91
+#: cms/views/error_handler/error_handler.py:99
 msgid "The page you requested could not be found."
 msgstr "Die von Ihnen angeforderte Seite konnte leider nicht gefunden werden."
 
-#: cms/views/error_handler/error_handler.py:110
+#: cms/views/error_handler/error_handler.py:118
 msgid "Internal Server Error"
 msgstr "Interner Server-Fehler"
 
-#: cms/views/error_handler/error_handler.py:111
+#: cms/views/error_handler/error_handler.py:119
 msgid "An unexpected error has occurred."
 msgstr "Es ist ein unerwarteter Fehler aufgetreten."
 
-#: cms/views/error_handler/error_handler.py:132
+#: cms/views/error_handler/error_handler.py:140
 msgid "CSRF Error"
 msgstr "CSRF Fehler"
 
-#: cms/views/error_handler/error_handler.py:133
+#: cms/views/error_handler/error_handler.py:141
 msgid "Please try to reload the page."
 msgstr "Bitte versuchen Sie, die Seite neu zu laden."
 
@@ -6794,6 +6805,31 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "password reset"
+#~ msgstr "Passwort zurücksetzen"
+
+#~ msgid "Welcome to your {} account"
+#~ msgstr "Willkommen zu Ihrem {}-Account"
+
+#~ msgid "Activate your {} account"
+#~ msgstr "{}-Benutzerkonto aktivieren"
+
+#~ msgid ""
+#~ "You are receiving this e-mail, because an Integreat-account was created "
+#~ "for you."
+#~ msgstr ""
+#~ "Sie erhalten diese E-Mail, weil für Sie ein Integreat-Benutzerkonto "
+#~ "erstellt wurde."
+
+#~ msgid "Your Integreat team"
+#~ msgstr "Ihr Integreat-Team"
+
+#~ msgid "Activate your Integreat account"
+#~ msgstr "Aktivieren Sie Ihr Integreat-Benutzerkonto"
+
+#~ msgid "Your team of"
+#~ msgstr "Ihr Team von der"
+
 #~ msgid "Automatic translations are not fully implemented yet"
 #~ msgstr ""
 #~ "Automatische Übersetzungen sind noch nicht vollständig implementiert"
@@ -7637,12 +7673,6 @@ msgstr ""
 #~ msgid "Time"
 #~ msgstr "Uhrzeit"
 
-#~ msgid "timezone"
-#~ msgstr "Zeitzone"
-
-#~ msgid "Timezone"
-#~ msgstr "Zeitzone"
-
 #~ msgid "Bulk actions"
 #~ msgstr "Mehrfachaktionen"
 
@@ -7965,9 +7995,6 @@ msgstr ""
 
 #~ msgid "Activate permissions for specific pages"
 #~ msgstr "Zusätzliche Berechtigungen für bestimmte Seiten aktivieren"
-
-#~ msgid "Other settings"
-#~ msgstr "Andere Einstellungen"
 
 #~ msgid "First child of"
 #~ msgstr "Erstes Unterelement von"
