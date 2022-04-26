@@ -21,7 +21,8 @@ from ..conftest import (
     AUTHOR,
     OBSERVER,
 )
-
+from .xliff_config import XLIFF_IMPORTS
+from .utils import upload_files, validate_xliff_import_response
 
 # pylint: disable=too-many-locals
 @pytest.mark.django_db
@@ -105,8 +106,7 @@ def test_xliff_export(
                 )
         # Check if existing translations are now "currently in translation"
         for page in Page.objects.filter(id__in=[1, 2]):
-            translation = page.get_translation("en")
-            if translation:
+            if translation := page.get_translation("en"):
                 assert translation.currently_in_translation
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
@@ -122,7 +122,11 @@ def test_xliff_export(
 
 # pylint: disable=too-many-locals
 @pytest.mark.django_db
-def test_xliff_import(login_role_user, settings):
+@pytest.mark.parametrize(
+    "import_1,import_2",
+    XLIFF_IMPORTS,
+)
+def test_xliff_import(login_role_user, settings, import_1, import_2):
     """
     This test checks whether the xliff import works as expected
 
@@ -131,6 +135,12 @@ def test_xliff_import(login_role_user, settings):
 
     :param settings: The fixture providing the django settings
     :type settings: :fixture:`settings`
+
+    :param import_1: A dict of import information
+    :type import_1: dict
+
+    :param import_2: A list of import information
+    :type import_2: dict
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -138,82 +148,22 @@ def test_xliff_import(login_role_user, settings):
     upload_xliff = reverse(
         "upload_xliff", kwargs={"region_slug": "augsburg", "language_slug": "en"}
     )
-    import_path = "tests/xliff/files/import"
-    file_1 = "augsburg_de_en_1_2_willkommen.xliff"
-    file_2 = "augsburg_de_en_2_1_willkommen-in-augsburg.xliff"
-    # Upload once for successful import
-    with open(f"{import_path}/{file_1}", encoding="utf-8") as f1:
-        with open(f"{import_path}/{file_2}", encoding="utf-8") as f2:
-            response1 = client.post(
-                upload_xliff, data={"xliff_file": [f1, f2]}, format="multipart"
-            )
-            print(response1.headers)
-    # Upload second time to test unchanged import
-    with open(f"{import_path}/{file_1}", encoding="utf-8") as f1:
-        with open(f"{import_path}/{file_2}", encoding="utf-8") as f2:
-            response2 = client.post(
-                upload_xliff, data={"xliff_file": [f1, f2]}, format="multipart"
-            )
-            print(response2.headers)
-
+    response = upload_files(client, upload_xliff, import_1["file"], import_2["file"])
+    # Check which role uploaded the files
     if role in PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]:
-        # Perform test twice to check whether unchanged diffs can be imported as well
-        for response, msg in [
-            (response1, "successfully"),
-            (response2, "without changes"),
-        ]:
-            # If the role should be allowed to access the view, we expect a successful result
-            assert response.status_code == 302
-            page_tree = reverse(
-                "pages", kwargs={"region_slug": "augsburg", "language_slug": "en"}
-            )
-            redirect_location = response.headers.get("Location")
-            # If errors occur, we get redirected to the page tree
-            assert redirect_location != page_tree
-            # Check if xliff import view is correctly rendered
-            response = client.get(redirect_location)
-            print(response.headers)
-            assert response.status_code == 200
-            assert file_1 in response.content.decode("utf-8")
-            assert file_2 in response.content.decode("utf-8")
-            # Check if XLIFF import is correctly confirmed
-            response = client.post(redirect_location)
-            print(response.headers)
-            assert response.status_code == 302
-            # If the import has been successfully confirmed, we get redirected to the page tree
-            assert response.headers.get("Location") == page_tree
-            # Check if xliff import view is correctly rendered
-            response = client.get(page_tree)
-            print(response.headers)
-            assert response.status_code == 200
-            # Check if existing translations are now updated
-            for page in Page.objects.filter(id__in=[1, 2]):
-                translation = page.get_translation("en")
-                assert translation.title == "Updated title"
-                assert translation.content == "<p>Updated content</p>"
-                assert not translation.currently_in_translation
-                assert (
-                    f"Page &quot;{translation.title}&quot; was imported {msg}."
-                    in response.content.decode("utf-8")
-                )
-                if translation.version > 1:
-                    # If a translation already exists for this version, assert that the status is inherited
-                    previous_translation = page.translations.get(
-                        language__slug="en", version=translation.version - 1
-                    )
-                    assert previous_translation.status == translation.status
-                else:
-                    # Else, the status should be inherited from the source translation
-                    assert translation.source_translation.status == translation.status
+        validate_xliff_import_response(
+            client,
+            response,
+            import_1,
+            import_2,
+        )
     elif role == ANONYMOUS:
-        for response in [response1, response2]:
-            # For anonymous users, we want to redirect to the login form instead of showing an error
-            assert response.status_code == 302
-            assert (
-                response.headers.get("location")
-                == f"{settings.LOGIN_URL}?next={upload_xliff}"
-            )
+        # For anonymous users, we want to redirect to the login form instead of showing an error
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location")
+            == f"{settings.LOGIN_URL}?next={upload_xliff}"
+        )
     else:
-        for response in [response1, response2]:
-            # For logged in users, we want to show an error if they get a permission denied
-            assert response.status_code == 403
+        # For logged in users, we want to show an error if they get a permission denied
+        assert response.status_code == 403
