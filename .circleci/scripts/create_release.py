@@ -48,6 +48,7 @@ def main():
             "prerelease": args.prerelease,
         },
         headers={"Authorization": f"token {args.token}"},
+        timeout=60,
     )
     release = response.json()
     print(f"Created a new release {release['name']}")
@@ -69,6 +70,7 @@ def main():
                         mimetypes.guess_type(filename)[0] or "application/octet-stream"
                     ),
                 },
+                timeout=60,
             )
         print(f"Uploaded asset {filename}")
 
