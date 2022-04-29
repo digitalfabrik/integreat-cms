@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1454](https://github.com/digitalfabrik/integreat-cms/issues/1454) ] Enable recurring events for non-expert users
+
 
 2022.5.3
 --------
