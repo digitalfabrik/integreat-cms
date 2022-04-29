@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1369](https://github.com/digitalfabrik/integreat-cms/issues/1369) ] Add contenthash to CSS files for correct cache handling
+* [ [#1046](https://github.com/digitalfabrik/integreat-cms/issues/1046) ] Show number of selected items in lists and page tree
 
 
 2022.4.2

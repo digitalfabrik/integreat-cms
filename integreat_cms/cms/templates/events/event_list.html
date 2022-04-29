@@ -55,7 +55,7 @@
             <thead>
             <tr class="border-b border-solid border-gray-200">
                 <th class="py-3 pl-4 min">
-                    <input form="bulk-action-form" type="checkbox" id="bulk-select-all">
+                    <input form="bulk-action-form" type="checkbox" id="bulk-select-all"/>
                 </th>
                 <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
                 {% get_current_language as LANGUAGE_CODE %}
@@ -101,6 +101,13 @@
             {% endif %}
             </tbody>
         </table>
+        {% if events %}
+        <div class="pt-2 px-2">
+            <div class="inline">
+                <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% trans "Events selected" %}</span>
+            </div>
+        </div>
+        {% endif %}
         <div class="flex flex-wrap gap-2 mt-4">
             <select id="bulk-action" class="w-auto max-w-full">
                 <option>{% trans 'Select bulk action' %}</option>
