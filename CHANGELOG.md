@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1369](https://github.com/digitalfabrik/integreat-cms/issues/1369) ] Add contenthash to CSS files for correct cache handling
+
 
 2022.4.2
 --------
