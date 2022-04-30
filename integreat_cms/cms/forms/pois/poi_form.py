@@ -93,27 +93,29 @@ class POIForm(CustomModelForm):
                 logger.exception(e)
                 logger.error("Nominatim API call failed")
 
-        if not cleaned_data.get("latitude"):
-            self.add_error(
-                "latitude",
-                forms.ValidationError(
-                    _(
-                        "Could not derive the coordinates from the address, please fill "
-                        "the field manually if the location is to be displayed on the map."
+        if not cleaned_data.get("location_not_on_map"):
+            # If the location should be shown on the map, require the coordinates
+            if not cleaned_data.get("latitude"):
+                self.add_error(
+                    "latitude",
+                    forms.ValidationError(
+                        _(
+                            "Could not derive the coordinates from the address, please fill "
+                            "the field manually if the location is to be displayed on the map."
+                        ),
+                        code="required",
                     ),
-                    code="required",
-                ),
-            )
-        if not cleaned_data.get("longitude"):
-            self.add_error(
-                "longitude",
-                forms.ValidationError(
-                    _(
-                        "Could not derive the coordinates from the address, please fill "
-                        "the field manually if the location is to be displayed on the map."
+                )
+            if not cleaned_data.get("longitude"):
+                self.add_error(
+                    "longitude",
+                    forms.ValidationError(
+                        _(
+                            "Could not derive the coordinates from the address, please fill "
+                            "the field manually if the location is to be displayed on the map."
+                        ),
+                        code="required",
                     ),
-                    code="required",
-                ),
-            )
+                )
 
         return cleaned_data

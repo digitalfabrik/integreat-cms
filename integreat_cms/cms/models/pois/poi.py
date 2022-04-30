@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import ugettext_lazy as _
 
 from ..abstract_content_model import AbstractContentModel
@@ -19,14 +20,18 @@ class POI(AbstractContentModel):
     city = models.CharField(max_length=250, verbose_name=_("city"))
     country = models.CharField(max_length=250, verbose_name=_("country"))
     latitude = models.FloatField(
+        null=True,
         blank=True,
         verbose_name=_("latitude"),
         help_text=_("The latitude coordinate"),
+        validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)],
     )
     longitude = models.FloatField(
+        null=True,
         blank=True,
         verbose_name=_("longitude"),
         help_text=_("The longitude coordinate"),
+        validators=[MinValueValidator(-180.0), MaxValueValidator(180.0)],
     )
     location_not_on_map = models.BooleanField(
         default=False,
