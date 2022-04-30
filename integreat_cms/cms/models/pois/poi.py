@@ -19,10 +19,14 @@ class POI(AbstractContentModel):
     city = models.CharField(max_length=250, verbose_name=_("city"))
     country = models.CharField(max_length=250, verbose_name=_("country"))
     latitude = models.FloatField(
-        verbose_name=_("latitude"), help_text=_("The latitude coordinate")
+        blank=True,
+        verbose_name=_("latitude"),
+        help_text=_("The latitude coordinate"),
     )
     longitude = models.FloatField(
-        verbose_name=_("longitude"), help_text=_("The longitude coordinate")
+        blank=True,
+        verbose_name=_("longitude"),
+        help_text=_("The longitude coordinate"),
     )
     location_not_on_map = models.BooleanField(
         default=False,
