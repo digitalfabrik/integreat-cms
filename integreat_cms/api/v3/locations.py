@@ -70,7 +70,11 @@ def transform_poi_translation(poi_translation):
         "excerpt": poi_translation.short_description,
         "content": poi_translation.content,
         "available_languages": poi_translation.available_languages,
-        "thumbnail": poi.icon.url if poi.icon else None,
+        "icon": poi.icon.url if poi.icon else None,
+        "thumbnail": poi.icon.thumbnail_url if poi.icon else None,
+        "website": poi.website if poi.website else None,
+        "email": poi.email if poi.email else None,
+        "phone_number": poi.phone_number if poi.phone_number else None,
         "location": transform_poi(poi, poi_translation),
         "hash": None,
     }

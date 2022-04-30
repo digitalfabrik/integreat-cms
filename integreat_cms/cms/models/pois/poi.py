@@ -50,6 +50,14 @@ class POI(AbstractContentModel):
         verbose_name=_("archived"),
         help_text=_("Whether or not the location is read-only and hidden in the API."),
     )
+    website = models.URLField(max_length=250, blank=True, verbose_name=_("website"))
+    email = models.EmailField(
+        blank=True,
+        verbose_name=_("email address"),
+    )
+    phone_number = models.CharField(
+        max_length=250, blank=True, verbose_name=_("phone number")
+    )
 
     @staticmethod
     def get_translation_model():

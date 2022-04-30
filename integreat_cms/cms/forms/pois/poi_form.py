@@ -44,6 +44,9 @@ class POIForm(CustomModelForm):
             "longitude",
             "location_not_on_map",
             "icon",
+            "website",
+            "email",
+            "phone_number",
         ]
         #: The widgets which are used in this form
         widgets = {

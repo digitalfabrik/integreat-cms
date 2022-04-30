@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-03 11:18+0000\n"
+"POT-Creation-Date: 2022-05-04 08:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1701,7 +1701,7 @@ msgstr "Quell-Region für Live-Inhalte"
 msgid "Enable write access via API for this page"
 msgstr "Schreib-Zugriff via API für diese Seite aktivieren"
 
-#: cms/forms/pois/poi_form.py:103 cms/forms/pois/poi_form.py:114
+#: cms/forms/pois/poi_form.py:106 cms/forms/pois/poi_form.py:117
 msgid ""
 "Could not derive the coordinates from the address, please fill the field "
 "manually if the location is to be displayed on the map."
@@ -1996,7 +1996,7 @@ msgstr "Chat-Nachricht"
 msgid "chat messages"
 msgstr "Chat-Nachrichten"
 
-#: cms/models/events/event.py:84 cms/models/pois/poi.py:66
+#: cms/models/events/event.py:84 cms/models/pois/poi.py:74
 #: cms/models/pois/poi_translation.py:24
 msgid "location"
 msgstr "Ort"
@@ -2736,7 +2736,19 @@ msgstr ""
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
-#: cms/models/pois/poi.py:68
+#: cms/models/pois/poi.py:53
+msgid "website"
+msgstr "Website"
+
+#: cms/models/pois/poi.py:56
+msgid "email address"
+msgstr "E-Mail Adresse"
+
+#: cms/models/pois/poi.py:59
+msgid "phone number"
+msgstr "Telefonnummer"
+
+#: cms/models/pois/poi.py:76
 msgid "locations"
 msgstr "Orte"
 
@@ -3843,7 +3855,7 @@ msgstr "Auf Google Maps öffnen"
 
 #: cms/templates/events/event_form.html:301
 #: cms/templates/imprint/imprint_form.html:112
-#: cms/templates/pages/page_form.html:268 cms/templates/pois/poi_form.html:158
+#: cms/templates/pages/page_form.html:268 cms/templates/pois/poi_form.html:180
 #: cms/templates/regions/region_list.html:25
 #: cms/templates/settings/user_settings.html:93
 msgid "Actions"
@@ -5127,42 +5139,46 @@ msgstr ""
 "Wenn Sie diese Felder leer lassen, werden sie automatisch aus der Adresse "
 "abgeleitet."
 
-#: cms/templates/pois/poi_form.html:164 cms/templates/pois/poi_form.html:165
+#: cms/templates/pois/poi_form.html:145
+msgid "Contact"
+msgstr "Kontakt"
+
+#: cms/templates/pois/poi_form.html:186 cms/templates/pois/poi_form.html:187
 #: cms/templates/pois/poi_list_archived_row.html:55
 msgid "Restore location"
 msgstr "Ort wiederherstellen"
 
-#: cms/templates/pois/poi_form.html:171
+#: cms/templates/pois/poi_form.html:193
 msgid "Restore this location"
 msgstr "Diesen Ort wiederherstellen"
 
-#: cms/templates/pois/poi_form.html:174 cms/templates/pois/poi_form.html:175
+#: cms/templates/pois/poi_form.html:196 cms/templates/pois/poi_form.html:197
 #: cms/templates/pois/poi_list_row.html:98
 msgid "Archive location"
 msgstr "Ort archivieren"
 
-#: cms/templates/pois/poi_form.html:181
+#: cms/templates/pois/poi_form.html:203
 msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
-#: cms/templates/pois/poi_form.html:187 cms/templates/pois/poi_form.html:208
+#: cms/templates/pois/poi_form.html:209 cms/templates/pois/poi_form.html:230
 #: cms/templates/pois/poi_list_archived_row.html:68
 #: cms/templates/pois/poi_list_row.html:111
 msgid "Delete location"
 msgstr "Ort löschen"
 
-#: cms/templates/pois/poi_form.html:192
+#: cms/templates/pois/poi_form.html:214
 msgid "You cannot delete a location which is referenced by an event."
 msgstr ""
 "Der Ort kann nicht gelöscht werden, da er von einem Event verwendet wird."
 
-#: cms/templates/pois/poi_form.html:194
+#: cms/templates/pois/poi_form.html:216
 msgid "To delete this location, you have to delete this event first:"
 msgid_plural "To delete this location, you have to delete these events first:"
 msgstr[0] "Löschen Sie zuerst diese Veranstaltung, um den Ort zu löschen:"
 msgstr[1] "Löschen Sie zuerst diese Veranstaltungen, um den Ort zu löschen:"
 
-#: cms/templates/pois/poi_form.html:214
+#: cms/templates/pois/poi_form.html:236
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
 
@@ -7505,9 +7521,6 @@ msgstr ""
 #~ msgid "This e-mail address may not be available in the system."
 #~ msgstr "Womöglich ist diese E-Mail Adresse nicht im System vorhanden."
 
-#~ msgid "E-mail address"
-#~ msgstr "E-Mail Adresse"
-
 #~ msgid "Superuser"
 #~ msgstr "Administrator"
 
@@ -7619,9 +7632,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Erlaube keine ungültigen SSL-Zertifikate bei der Interaktion mit der "
 #~ "Matomo API"
-
-#~ msgid "Website Hits"
-#~ msgstr "Aufrufe der App"
 
 #~ msgid "Calendar week"
 #~ msgstr "Kalenderwoche"

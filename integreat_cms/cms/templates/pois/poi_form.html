@@ -99,15 +99,15 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-wrap flex-col gap-4">
-                <div class="rounded border border-blue-500 shadow-2xl bg-white">
+            <div class="flex flex-wrap flex-col flex-auto gap-4">
+                <div class="flex flex-col flex-auto rounded border border-blue-500 shadow-2xl bg-white">
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
                             <i data-feather="map-pin" class="h-5"></i>
                             {% trans 'Position' %}
                         </h3>
                     </div>
-                    <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
+                    <div class="flex flex-col flex-auto px-4 pb-4 divide-y divide-gray-200 space-y-2">
                         <div>
                             <label>{% trans 'Address' %}</label>
                             <label for="{{ poi_form.address.id_for_label }}" class="secondary">{{ poi_form.address.label }}</label>
@@ -138,6 +138,28 @@
                 </div>
             </div>
             <div class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col gap-4">
+                <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                    <div class="rounded p-4 bg-water-500">
+                        <h3 class="heading font-bold text-black">
+                            <i data-feather="phone" class="pb-1"></i>
+                            {% trans 'Contact' %}
+                        </h3>
+                    </div>
+                    <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
+                        <div>
+                            <label for="{{ poi_form.website.id_for_label }}">{{ poi_form.website.label }}</label>
+                            {% render_field poi_form.website|add_error_class:"border-red-500" %}
+                        </div>
+                        <div>
+                            <label for="{{ poi_form.email.id_for_label }}">{{ poi_form.email.label }}</label>
+                            {% render_field poi_form.email|add_error_class:"border-red-500" %}
+                        </div>
+                        <div>
+                            <label for="{{ poi_form.phone_number.id_for_label }}">{{ poi_form.phone_number.label }}</label>
+                            {% render_field poi_form.phone_number|add_error_class:"border-red-500" %}
+                        </div>
+                    </div>
+                </div>
                 <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
