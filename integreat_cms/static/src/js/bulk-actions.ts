@@ -28,6 +28,9 @@
  *
  */
 
+ import { addCheckboxCountListeners } from "./checkbox-count"
+
+
 window.addEventListener("load", () => {
   // On the page tree, the event listeners are set after all subpages have been loaded
   if (!document.querySelector("[data-delay-event-handlers]")) {
@@ -49,11 +52,11 @@ export function setBulkActionEventListeners(){
   selectAllCheckbox.classList.remove("cursor-wait");
   selectAllCheckbox.addEventListener("click", () => {
     // Set all checkboxes to the same value as the "select all" checkbox
-    selectItems.forEach((checkbox) => checkbox.checked = selectAllCheckbox.checked);
+    selectItems.forEach((checkbox) => setCheckboxChecked(checkbox, selectAllCheckbox.checked)); 
     toggleBulkActionButton();
   });
   // Set all checkboxes initially in case the page tree was reloaded
-  selectItems.forEach((checkbox) => checkbox.checked = selectAllCheckbox.checked);
+  selectItems.forEach((checkbox) => setCheckboxChecked(checkbox, selectAllCheckbox.checked));
   // Set event listener for bulk action button
   bulkAction.addEventListener("change", toggleBulkActionButton);
   toggleBulkActionButton();
@@ -75,6 +78,8 @@ export function setBulkActionEventListeners(){
       }
     });
   });
+  // Activate Selection Count for events, feedback and pois
+  addCheckboxCountListeners();
 }
 
 /*
@@ -83,7 +88,7 @@ export function setBulkActionEventListeners(){
 function setCheckboxRecursively(pageId: number, checked: boolean) {
   let page = document.getElementById("page-" + pageId);
   let checkbox = page.querySelector(".bulk-select-item") as HTMLInputElement;
-  checkbox.checked = checked;
+  setCheckboxChecked(checkbox, checked);
   const toggleButton = page.querySelector(".toggle-subpages")
   if (toggleButton){
     let childrenIds: number[] = JSON.parse(toggleButton.getAttribute("data-page-children"));
@@ -109,7 +114,6 @@ function bulkActionExecute(event: Event) {
   // Submit form and execute bulk action
   form.submit();
 }
-
 
 /*
  * Enable/disable the bulk action button
@@ -149,3 +153,11 @@ function hasTranslation(selectItems: HTMLInputElement[]): boolean {
         .querySelector(`.lang-grid .${languageSlug} .no-trans`) === null;
     });
 }
+
+/*
+ * Trigger a custom event for correct calculation of the change triggers.
+ */
+function setCheckboxChecked(checkbox: HTMLInputElement, checked: boolean) {
+  checkbox.checked = checked;
+  checkbox.dispatchEvent(new InputEvent("change"));
+} 

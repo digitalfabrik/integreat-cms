@@ -5,10 +5,10 @@
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4">
-        <input type="checkbox" name="selected_ids[]" value="{{ event.id }}" form="bulk-action-form" class="bulk-select-item">
+        <input type="checkbox" name="selected_ids[]" value="{{ event.id }}" form="bulk-action-form" class="bulk-select-item" />
     </td>
     <td>
-        <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug%}" class="py-3 pl-2 pr-2 text-gray-800">
+        <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" class="py-3 pl-2 pr-2 text-gray-800">
             {% if event_translation %}
                 {{ event_translation.title }}
             {% else %}
@@ -43,11 +43,11 @@
                             <span title="{% trans 'Translation outdated' %}">
                                 <i data-feather="alert-triangle" class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
-                        {% elif other_status == translation_status.UP_TO_DATE  %}
+                        {% elif other_status == translation_status.UP_TO_DATE %}
                             <span title="{% trans 'Translation up-to-date' %}">
                                 <i data-feather="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
-                        {% elif other_status == translation_status.MISSING  %}
+                        {% elif other_status == translation_status.MISSING %}
                             <span title="{% trans 'Translation missing' %}" class="no-trans">
                                 <i data-feather="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
@@ -74,10 +74,10 @@
         {% endif %}
     </td>
     <td class="py-3 pr-2">
-        <i data-feather="calendar"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
+        <i data-feather="calendar"></i> {{ event.start_date|date:'d.m.Y' }}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
     </td>
     <td class="py-3 pr-2">
-        <i data-feather="calendar"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
+        <i data-feather="calendar"></i> {{ event.end_date|date:'d.m.Y' }}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
     </td>
     <td class="py-3 pr-2">
         {% if event.recurrence_rule %}
@@ -99,7 +99,7 @@
         {% endif %}
         {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if can_edit_event %}
-            <form action="{% url 'duplicate_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" method="POST">
+            <form action="{% url 'duplicate_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" method="post">
                 {% csrf_token %}
                 <button class="btn-icon" title="{% trans 'Duplicate event' %}">
                     <i data-feather="copy"></i>

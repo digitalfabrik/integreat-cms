@@ -1,7 +1,6 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load i18n %}
 {% load static %}
-
 {% block content %}
     <h1 class="heading">
         {% if view.kwargs.link_filter == 'valid' %}
@@ -18,39 +17,43 @@
        class="pr-2 {% if view.kwargs.link_filter == 'valid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
         {% trans 'Valid' %}
         <span class="{% if view.kwargs.link_filter == 'valid' %}text-gray-500 font-normal{% endif %}">
-          ({{ number_valid_links }})
+            ({{ number_valid_links }})
         </span>
     </a> |
     <a href="{% if view.kwargs.link_filter == 'invalid' %}#{% else %}{% url 'linkcheck' region_slug=request.region.slug link_filter='invalid' %}{% endif %}"
        class="pr-2 border-r-1 {% if view.kwargs.link_filter == 'invalid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
         {% trans 'Invalid' %}
         <span class="{% if view.kwargs.link_filter == 'invalid' %}text-gray-500 font-normal{% endif %}">
-          ({{ number_invalid_links }})
+            ({{ number_invalid_links }})
         </span>
     </a> |
     <a href="{% if view.kwargs.link_filter == 'unchecked' %}#{% else %}{% url 'linkcheck' region_slug=request.region.slug link_filter='unchecked' %}{% endif %}"
        class="pr-2 border-r-1 {% if view.kwargs.link_filter == 'unchecked' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
         {% trans 'Unchecked' %}
         <span class="{% if view.kwargs.link_filter == 'unchecked' %}text-gray-500 font-normal{% endif %}">
-          ({{ number_unchecked_links }})
+            ({{ number_unchecked_links }})
         </span>
     </a> |
     <a href="{% if view.kwargs.link_filter == 'ignored' %}#{% else %}{% url 'linkcheck' region_slug=request.region.slug link_filter='ignored' %}{% endif %}"
        class="{% if view.kwargs.link_filter == 'ignored' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
         {% trans 'Ignored' %}
         <span class="{% if view.kwargs.link_filter == 'ignored' %}text-gray-500 font-normal{% endif %}">
-          ({{ number_ignored_links }})
+            ({{ number_ignored_links }})
         </span>
     </a>
     {% if view.kwargs.link_id %}
-        <form method="POST" id="edit-url-form">{% csrf_token %}</form>
+        <form method="post" id="edit-url-form">
+            {% csrf_token %}
+        </form>
     {% endif %}
-    <form method="POST" id="bulk-action-form" class="table-listing">
+    <form method="post" id="bulk-action-form" class="table-listing">
         {% csrf_token %}
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
-                    <th class="text-sm text-left uppercase py-3 pl-4 min"><input type="checkbox" id="bulk-select-all"></th>
+                    <th class="text-sm text-left uppercase py-3 pl-4 min">
+                        <input type="checkbox" id="bulk-select-all"/>
+                    </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'URL' %}</th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Link text' %}</th>
@@ -64,27 +67,43 @@
                     {% include 'linkcheck/link_list_row.html' %}
                 {% empty %}
                     <tr>
-                        <td colspan="6" class="px-4 py-3">
-                            {% trans 'No links detected yet.' %}
-                        </td>
+                        <td colspan="6" class="px-4 py-3">{% trans 'No links detected yet.' %}</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        {% if filtered_links %}
+            <div class="pt-2 px-2">
+                <div class="inline">
+                    <span class="text-gray-800 font-bold"
+                    data-list-selection-count>0</span> <span class="text-gray-600">{% trans "Links selected" %}</span>
+                </div>
+            </div>
+        {% endif %}
         <div class="flex flex-wrap relative w-1/2 mt-5 items-stretch gap-2">
             <select id="bulk-action" name="action" class="w-auto max-w-full">
-                <option>{% trans 'Select bulk action' %}</option>
+                <option>
+                    {% trans 'Select bulk action' %}
+                </option>
                 {% if view.kwargs.link_filter == 'ignored' %}
-                    <option value="unignore" data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}">{% trans 'Unignore' %}</option>
+                    <option value="unignore"
+                            data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}">
+                        {% trans 'Unignore' %}
+                    </option>
                 {% else %}
-                    <option value="recheck" data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}">{% trans 'Recheck' %}</option>
-                    <option value="ignore" data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}">{% trans 'Ignore' %}</option>
+                    <option value="recheck"
+                            data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}">
+                        {% trans 'Recheck' %}
+                    </option>
+                    <option value="ignore"
+                            data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}">
+                        {% trans 'Ignore' %}
+                    </option>
                 {% endif %}
             </select>
             <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
         </div>
     </form>
-
     {% url 'linkcheck' as url %}
     {% include 'pagination.html' with url=url chunk=page_obj %}
-{% endblock %}
+{% endblock content %}

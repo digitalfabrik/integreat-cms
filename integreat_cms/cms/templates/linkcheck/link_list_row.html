@@ -3,34 +3,38 @@
 {% load content_filters %}
 {% load model_tags %}
 {% load widget_tweaks %}
-
 {% object_translation_has_view_perm request.user item.translation as show_source_link %}
-
 <tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4">
-      <input type="checkbox" name="selected_ids[]" value="{{ item.link.id }}" class="bulk-select-item">
+        <input type="checkbox"
+               name="selected_ids[]"
+               value="{{ item.link.id }}"
+               class="bulk-select-item"/>
     </td>
-    <td class="pr-2 whitespace-nowrap max-w-lg overflow-hidden text-ellipsis" title="{{ item.link.display_url }}">
-        <a href="{{ item.link.display_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ item.link.display_url }}</a>
+    <td class="pr-2 whitespace-nowrap max-w-lg overflow-hidden text-ellipsis"
+        title="{{ item.link.display_url }}">
+        <a href="{{ item.link.display_url }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="text-blue-500 hover:underline">{{ item.link.display_url }}</a>
     </td>
     <td class="pr-2 {% if view.kwargs.link_filter == 'invalid' %} text-red-500 {% elif view.kwargs.link_filter == 'valid' %} text-green-500 {% endif %} whitespace-nowrap max-w-lg overflow-hidden text-ellipsis"
         title="{{ item.link.url.message }}">
         {{ item.link.url.message|linkcheck_status_filter }}
     </td>
-    <td class="pr-2 whitespace-nowrap max-w-lg overflow-hidden text-ellipsis" title="{{ item.link.text }}">
+    <td class="pr-2 whitespace-nowrap max-w-lg overflow-hidden text-ellipsis"
+        title="{{ item.link.text }}">
         {{ item.link.text }}
     </td>
     <td class="pr-2">
         {% if show_source_link %}
-            <a href="{{ item.translation.backend_edit_link }}" title="{% trans 'Go to source' %}">
-               {{ item.translation.title }}
-            </a>
+            <a href="{{ item.translation.backend_edit_link }}"
+               title="{% trans 'Go to source' %}">{{ item.translation.title }}</a>
         {% else %}
             {{ item.translation.title }}
         {% endif %}
     </td>
     <td class="pr-2">{% get_model_verbose_name item.translation %}</td>
-
     <td class="text-right pr-4">
         <a title="{% trans 'Replace URL globally' %}"
            href="{% url 'edit_link' link_id=item.link.id link_filter=view.kwargs.link_filter region_slug=request.region.slug %}"
@@ -51,4 +55,3 @@
         </td>
     </tr>
 {% endif %}
-
