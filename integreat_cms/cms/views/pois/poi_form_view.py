@@ -10,13 +10,14 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
+from ...constants import status
 from ...decorators import permission_required
 from ...forms import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Language
-from .poi_context_mixin import POIContextMixin
+from ...utils.translation_utils import ugettext_many_lazy as __
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
-from ...constants import status
+from .poi_context_mixin import POIContextMixin
 
 logger = logging.getLogger(__name__)
 
@@ -177,6 +178,17 @@ class POIFormView(
             else:
                 # Add the success message
                 poi_translation_form.add_success_message(request)
+            # Show warning if nominatim result is more than 10km away from manually entered coordinates
+            if poi_form.nominatim_distance_delta > 10:
+                messages.warning(
+                    request,
+                    __(
+                        _(
+                            "The distance between the manually entered coordinates and the coordinates of the address is {}km."
+                        ).format(poi_form.nominatim_distance_delta),
+                        _("Please make sure the entered values are correct."),
+                    ),
+                )
             return redirect(
                 "edit_poi",
                 **{

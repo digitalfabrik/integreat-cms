@@ -119,6 +119,23 @@ GVZ_API_ENABLED = True
 GVZ_API_URL = "https://gvz.integreat-app.de"
 
 
+#################
+# Nominatim API #
+#################
+
+#: Whether or not the Nominatim API for OpenStreetMap queries is enabled.
+#: This is used to automatically derive coordinates from addresses.
+NOMINATIM_API_ENABLED = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_NOMINATIM_API_ENABLED", "True"))
+)
+
+#: The URL to our Nominatim API.
+#: This is used to automatically derive coordinates from addresses.
+NOMINATIM_API_URL = os.environ.get(
+    "INTEGREAT_CMS_NOMINATIM_API_URL", "http://nominatim.maps.tuerantuer.org/nominatim/"
+)
+
+
 ############
 # WEBAUTHN #
 ############

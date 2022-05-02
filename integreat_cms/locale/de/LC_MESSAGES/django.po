@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-02 11:12+0000\n"
+"POT-Creation-Date: 2022-05-02 18:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1701,6 +1701,15 @@ msgstr "Quell-Region für Live-Inhalte"
 msgid "Enable write access via API for this page"
 msgstr "Schreib-Zugriff via API für diese Seite aktivieren"
 
+#: cms/forms/pois/poi_form.py:103 cms/forms/pois/poi_form.py:114
+msgid ""
+"Could not derive the coordinates from the address, please fill the field "
+"manually if the location is to be displayed on the map."
+msgstr ""
+"Die Koordinaten konnten nicht aus der Adresse abgeleitet werden, bitte "
+"füllen Sie das Feld manuell aus, wenn der Ort auf der Karte angezeigt werden "
+"soll."
+
 #: cms/forms/regions/region_form.py:57
 msgid "Other timezones"
 msgstr "Sonstige Zeitzonen"
@@ -1987,7 +1996,7 @@ msgstr "Chat-Nachricht"
 msgid "chat messages"
 msgstr "Chat-Nachrichten"
 
-#: cms/models/events/event.py:84 cms/models/pois/poi.py:57
+#: cms/models/events/event.py:84 cms/models/pois/poi.py:66
 #: cms/models/pois/poi_translation.py:24
 msgid "location"
 msgstr "Ort"
@@ -2013,11 +2022,11 @@ msgid "recurrence rule"
 msgstr "Wiederholungs-Regel"
 
 #: cms/models/events/event.py:101 cms/models/pages/page.py:134
-#: cms/models/pois/poi.py:34
+#: cms/models/pois/poi.py:43
 msgid "icon"
 msgstr "Icon"
 
-#: cms/models/events/event.py:106 cms/models/pois/poi.py:41
+#: cms/models/events/event.py:106 cms/models/pois/poi.py:50
 msgid "archived"
 msgstr "archiviert"
 
@@ -2682,52 +2691,52 @@ msgstr "Live-Inhalt"
 msgid "Empty"
 msgstr "Leer"
 
-#: cms/models/pois/poi.py:16
+#: cms/models/pois/poi.py:17
 msgid "street and house number"
 msgstr "Straße und Hausnummer"
 
-#: cms/models/pois/poi.py:18 cms/models/regions/region.py:143
+#: cms/models/pois/poi.py:19 cms/models/regions/region.py:143
 msgid "postal code"
 msgstr "Postleitzahl"
 
-#: cms/models/pois/poi.py:19
+#: cms/models/pois/poi.py:20
 msgid "city"
 msgstr "Stadt"
 
-#: cms/models/pois/poi.py:20
+#: cms/models/pois/poi.py:21
 msgid "country"
 msgstr "Land"
 
-#: cms/models/pois/poi.py:22 cms/models/regions/region.py:135
+#: cms/models/pois/poi.py:25 cms/models/regions/region.py:135
 msgid "latitude"
 msgstr "Geographische Breite"
 
-#: cms/models/pois/poi.py:22
+#: cms/models/pois/poi.py:26
 msgid "The latitude coordinate"
 msgstr "Die Breitengrad-Koordinate"
 
-#: cms/models/pois/poi.py:25 cms/models/regions/region.py:140
+#: cms/models/pois/poi.py:32 cms/models/regions/region.py:140
 msgid "longitude"
 msgstr "Geographische Länge"
 
-#: cms/models/pois/poi.py:25
+#: cms/models/pois/poi.py:33
 msgid "The longitude coordinate"
 msgstr "Die Längengrad-Koordinate"
 
-#: cms/models/pois/poi.py:29
+#: cms/models/pois/poi.py:38
 msgid "Do not show this location on map"
 msgstr "Diesen Ort nicht auf Karte zeigen"
 
-#: cms/models/pois/poi.py:30
+#: cms/models/pois/poi.py:39
 msgid "Tick if you do not show this location on map"
 msgstr ""
 "Kreuzen Sie an, wenn dieser Ort nicht auf der Karte gezeigt werden soll."
 
-#: cms/models/pois/poi.py:42
+#: cms/models/pois/poi.py:51
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
-#: cms/models/pois/poi.py:59
+#: cms/models/pois/poi.py:68
 msgid "locations"
 msgstr "Orte"
 
@@ -3186,7 +3195,7 @@ msgstr "Feedback"
 
 #: cms/templates/_base.html:181
 #: cms/templates/push_notifications/push_notification_list.html:7
-#: core/settings.py:730
+#: core/settings.py:747
 msgid "News"
 msgstr "Nachrichten"
 
@@ -3834,7 +3843,7 @@ msgstr "Auf Google Maps öffnen"
 
 #: cms/templates/events/event_form.html:301
 #: cms/templates/imprint/imprint_form.html:112
-#: cms/templates/pages/page_form.html:268 cms/templates/pois/poi_form.html:157
+#: cms/templates/pages/page_form.html:268 cms/templates/pois/poi_form.html:158
 #: cms/templates/regions/region_list.html:25
 #: cms/templates/settings/user_settings.html:93
 msgid "Actions"
@@ -5109,42 +5118,50 @@ msgstr "Neuen Ort erstellen"
 msgid "Position"
 msgstr "Position"
 
-#: cms/templates/pois/poi_form.html:163 cms/templates/pois/poi_form.html:164
+#: cms/templates/pois/poi_form.html:129
+msgid ""
+"If you leave these fields blank, they are automatically derived from the "
+"address."
+msgstr ""
+"Wenn Sie diese Felder leer lassen, werden sie automatisch aus der Adresse "
+"abgeleitet."
+
+#: cms/templates/pois/poi_form.html:164 cms/templates/pois/poi_form.html:165
 #: cms/templates/pois/poi_list_archived_row.html:55
 msgid "Restore location"
 msgstr "Ort wiederherstellen"
 
-#: cms/templates/pois/poi_form.html:170
+#: cms/templates/pois/poi_form.html:171
 msgid "Restore this location"
 msgstr "Diesen Ort wiederherstellen"
 
-#: cms/templates/pois/poi_form.html:173 cms/templates/pois/poi_form.html:174
+#: cms/templates/pois/poi_form.html:174 cms/templates/pois/poi_form.html:175
 #: cms/templates/pois/poi_list_row.html:98
 msgid "Archive location"
 msgstr "Ort archivieren"
 
-#: cms/templates/pois/poi_form.html:180
+#: cms/templates/pois/poi_form.html:181
 msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
-#: cms/templates/pois/poi_form.html:186 cms/templates/pois/poi_form.html:207
+#: cms/templates/pois/poi_form.html:187 cms/templates/pois/poi_form.html:208
 #: cms/templates/pois/poi_list_archived_row.html:68
 #: cms/templates/pois/poi_list_row.html:111
 msgid "Delete location"
 msgstr "Ort löschen"
 
-#: cms/templates/pois/poi_form.html:191
+#: cms/templates/pois/poi_form.html:192
 msgid "You cannot delete a location which is referenced by an event."
 msgstr ""
 "Der Ort kann nicht gelöscht werden, da er von einem Event verwendet wird."
 
-#: cms/templates/pois/poi_form.html:193
+#: cms/templates/pois/poi_form.html:194
 msgid "To delete this location, you have to delete this event first:"
 msgid_plural "To delete this location, you have to delete these events first:"
 msgstr[0] "Löschen Sie zuerst diese Veranstaltung, um den Ort zu löschen:"
 msgstr[1] "Löschen Sie zuerst diese Veranstaltungen, um den Ort zu löschen:"
 
-#: cms/templates/pois/poi_form.html:213
+#: cms/templates/pois/poi_form.html:214
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
 
@@ -5981,7 +5998,7 @@ msgstr ""
 
 #: cms/views/events/event_form_view.py:198
 #: cms/views/imprint/imprint_form_view.py:216
-#: cms/views/pages/page_form_view.py:262 cms/views/pois/poi_form_view.py:162
+#: cms/views/pages/page_form_view.py:262 cms/views/pois/poi_form_view.py:163
 msgid "No changes detected, autosave skipped"
 msgstr "Keine Änderungen vorgenommen, automatisches Speichern übersprungen"
 
@@ -5990,7 +6007,7 @@ msgid "Event \"{}\" was successfully created"
 msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/events/event_form_view.py:229
-#: cms/views/pages/page_form_view.py:293 cms/views/pois/poi_form_view.py:176
+#: cms/views/pages/page_form_view.py:293 cms/views/pois/poi_form_view.py:177
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
@@ -6579,13 +6596,25 @@ msgstr "Bitte bestätigen Sie, dass dieser Ort gelöscht werden soll"
 msgid "All translations of this location will also be deleted."
 msgstr "Alle Übersetzungen dieses Ortes werden gelöscht."
 
-#: cms/views/pois/poi_form_view.py:70
+#: cms/views/pois/poi_form_view.py:71
 msgid "You cannot edit this location because it is archived."
 msgstr "Sie können diesen Ort nicht bearbeiten, da er archiviert ist."
 
-#: cms/views/pois/poi_form_view.py:171
+#: cms/views/pois/poi_form_view.py:172
 msgid "Location \"{}\" was successfully created"
 msgstr "Ort \"{}\" wurde erfolgreich erstellt"
+
+#: cms/views/pois/poi_form_view.py:187
+msgid ""
+"The distance between the manually entered coordinates and the coordinates of "
+"the address is {}km."
+msgstr ""
+"Der Abstand zwischen den manuell eingegebenen Koordinaten und den "
+"Koordinaten der Adresse beträgt {}km."
+
+#: cms/views/pois/poi_form_view.py:189
+msgid "Please make sure the entered values are correct."
+msgstr "Bitte vergewissern Sie sich, dass die eingegebenen Werte korrekt sind."
 
 #: cms/views/pois/poi_list_view.py:90
 msgid "Please create at least one language node before creating locations."
