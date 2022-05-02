@@ -8,6 +8,7 @@ import { setToggleSubpagesEventListeners } from "./toggle-subpages";
 import { addDragAndDropListeners } from "../tree-drag-and-drop";
 import { addConfirmationDialogListeners } from "../confirmation-popups";
 import { addPreviewWindowListeners, openPreviewWindowInPageTree } from "./page-preview";
+import { restorePageLayout } from "./persistent_page_tree";
 
 /**
  * Ajax call to fetch children of selected page
