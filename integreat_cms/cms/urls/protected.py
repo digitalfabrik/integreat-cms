@@ -186,7 +186,7 @@ urlpatterns = [
                     name="new_region",
                 ),
                 path(
-                    "<slug:slug>/",
+                    "<slug>/",
                     include(
                         [
                             path(
@@ -316,7 +316,7 @@ urlpatterns = [
                     name="new_organization",
                 ),
                 path(
-                    "<slug:slug>/",
+                    "<slug>/",
                     include(
                         [
                             path(
@@ -438,7 +438,7 @@ urlpatterns = [
         ),
     ),
     path(
-        "<slug:region_slug>/",
+        "<region_slug>/",
         include(
             [
                 path("", dashboard.DashboardView.as_view(), name="dashboard"),
