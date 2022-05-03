@@ -92,8 +92,11 @@ def generate_unique_slug(**kwargs):
                 code="invalid",
                 params={"fallback": _(fallback)},
             )
+        # Check whether slug field supports unicode
+        # pylint: disable=protected-access
+        allow_unicode = object_instance._meta.get_field("slug").allow_unicode
         # slugify to make sure slug doesn't contain special chars etc.
-        slug = slugify(cleaned_data[fallback], allow_unicode=True)
+        slug = slugify(cleaned_data[fallback], allow_unicode=allow_unicode)
         # If the title/name field didn't contain valid characters for a slug, we use a hardcoded fallback slug
         if not slug:
             slug = foreign_model
