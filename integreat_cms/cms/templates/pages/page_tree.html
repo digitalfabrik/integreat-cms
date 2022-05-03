@@ -160,7 +160,7 @@
                     </option>
                     {% if request.user.expert_mode %}
                         {% with language_translated_name=language.translated_name %}
-                            {% blocktrans asvar xliff_export_all %}Export all pages for {{ language_translated_name }} translation{% endblocktrans %}
+                            {% blocktrans asvar xliff_export_all %}Export selected pages for {{ language_translated_name }} translation{% endblocktrans %}
                             {% blocktrans asvar xliff_export_public %}Export only published pages for {{ language_translated_name }} translation{% endblocktrans %}
                             {% if language == request.region.default_language %}
                                 {% blocktrans asvar xliff_export_disabled %}You cannot export XLIFF files for the default language{% endblocktrans %}
