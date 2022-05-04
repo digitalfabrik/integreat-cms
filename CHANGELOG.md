@@ -6,6 +6,7 @@ UNRELEASED
 * [ [#1000](https://github.com/digitalfabrik/integreat-cms/issues/1000) ] Automatically derive location coordinates from address
 * [ [#1180](https://github.com/digitalfabrik/integreat-cms/issues/1180) ] Make coordinates optional for locations not on map
 * [ [#1380](https://github.com/digitalfabrik/integreat-cms/issues/1380) ] Fix url resolving for regions with non-ascii slugs
+* [ [#726](https://github.com/digitalfabrik/integreat-cms/issues/726) ] Add additional fields to location model
 
 
 2022.4.2
