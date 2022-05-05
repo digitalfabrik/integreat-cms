@@ -5,6 +5,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
+from django.template.loader import render_to_string
 
 from ..decorators import modify_fields
 from .abstract_base_page_translation import AbstractBasePageTranslation
@@ -113,8 +114,8 @@ class PageTranslation(AbstractBasePageTranslation):
 
         error_message = (
             self.language.message_partial_live_content_not_available
-            if self.content
-            else self.language.message_live_content_not_available
+            if self.content and not self.content.isspace()
+            else self.language.message_content_not_available
         )
 
         # Get all translations of this page which have a corresponding translation of the mirrored page
@@ -125,12 +126,36 @@ class PageTranslation(AbstractBasePageTranslation):
                 for language_slug in self.page.mirrored_page.prefetched_major_public_translations_by_language_slug.keys()
             ],
         )
-        # Create bullet points for each available translation
-        choices = "</li><li>".join(
-            f"<a href={settings.WEBAPP_URL + translation.get_absolute_url()}>{translation.language.native_name}</a>"
-            for translation in translations
+        return render_to_string(
+            "pages/_page_content_alternatives.html",
+            {"error_message": error_message, "translations": translations},
         )
-        return f"<p>{error_message}</p><ul><li>{choices}</li></ul>"
+
+    @cached_property
+    def display_content(self):
+        """
+        This property returns the content that can be displayed to the user.
+        This is just the normal content unless this translation is empty. Then a message will be returned
+        which prompts the user to view the page in another language instead.
+
+        :return: Html text for the content of this translation
+        :rtype: str
+        """
+        if self.content and not self.content.isspace() or self.page.mirrored_page:
+            return self.content
+
+        fallback_translations = [
+            translation
+            for translation in self.page.prefetched_public_translations_by_language_slug.values()
+            if translation.content and not translation.content.isspace()
+        ]
+        return render_to_string(
+            "pages/_page_content_alternatives.html",
+            {
+                "error_message": self.language.message_content_not_available,
+                "translations": fallback_translations,
+            },
+        )
 
     @cached_property
     def combined_text(self):
@@ -138,14 +163,15 @@ class PageTranslation(AbstractBasePageTranslation):
         This function combines the text from this PageTranslation with the text from the mirrored page.
         Mirrored content always includes the live content from another page. This content needs to be added when
         delivering content to end users.
-        If the mirrored page is not available in the current language, an error message for the user will be used instead.
+        If the mirrored page is not available in the current language, or if the content is empty,
+        an error message for the user will be used instead.
 
         :return: The combined content of this page and the mirrored page
         :rtype: str
         """
         if self.page.mirrored_page_first:
-            return self.mirrored_translation_text + self.content
-        return self.content + self.mirrored_translation_text
+            return self.mirrored_translation_text + self.display_content
+        return self.display_content + self.mirrored_translation_text
 
     @cached_property
     def combined_last_updated(self):
@@ -169,6 +195,21 @@ class PageTranslation(AbstractBasePageTranslation):
         return self.last_updated
 
     @cached_property
+    def is_empty(self):
+        """
+        This property returns whether the content of this translation is empty
+
+        :return: Whether the content of this translation is empty
+        :rtype: bool
+        """
+        if self.content:
+            return False
+
+        # The translation is considered empty when its mirrored translation is empty or does not exist
+        translation = self.page.get_mirrored_page_translation(self.language.slug)
+        return not translation or not translation.content
+
+    @cached_property
     def tags(self):
         """
         This functions returns a list of translated tags which apply to this function.
@@ -184,7 +225,7 @@ class PageTranslation(AbstractBasePageTranslation):
         if self.page.mirrored_page:
             tags.append(_("Live content"))
 
-        if not self.combined_text.strip() and self.page.is_leaf():
+        if self.is_empty and self.page.is_leaf():
             tags.append(_("Empty"))
 
         return tags

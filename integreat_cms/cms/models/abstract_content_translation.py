@@ -151,6 +151,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         Here is an example for demonstrating the components of a page url::
 
             https://integreat.app/augsburg/en/welcome/city-map/attractions/
+            |-------------------------------------------------------------|    full_url
                                  |----------------------------------------|    get_absolute_url()
             |-------------------------------------------------|                base_link
                                  |----------------------------|                url_prefix
@@ -160,6 +161,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         Here is an example for demonstrating the components of an event url::
 
             https://integreat.app/augsburg/en/events/test-event/
+            |--------------------------------------------------|    full_url
                                  |-----------------------------|    get_absolute_url()
             |---------------------------------------|               base_link
                                  |------------------|               url_prefix
@@ -170,6 +172,16 @@ class AbstractContentTranslation(AbstractBaseModel):
         :rtype: str
         """
         return self.url_prefix + self.slug + "/"
+
+    @cached_property
+    def full_url(self):
+        """
+        This property returns the full url of this content translation object
+
+        :return: The full url
+        :rtype: str
+        """
+        return settings.WEBAPP_URL + self.get_absolute_url()
 
     @cached_property
     def backend_edit_link(self):

@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load settings_tags %}
+
+<p>{{ error_message }}</p>
+<ul>
+    {% for translation in translations %}
+    <li>
+        <a href="{{ translation.full_url }}">{{ translation.language.native_name }}</a>
+    </li>
+    {% endfor %}
+</ul>
