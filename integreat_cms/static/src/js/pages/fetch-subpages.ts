@@ -8,7 +8,6 @@ import { setBulkActionEventListeners } from "../bulk-actions";
 import { setToggleSubpagesEventListeners } from "./toggle-subpages";
 import { addDragAndDropListeners } from "../tree-drag-and-drop";
 import { addConfirmationDialogListeners } from "../confirmation-popups";
-import { addCheckboxCountListeners } from "../checkbox-count";
 
 window.addEventListener("load", () => {
   // Load subpages initially
@@ -21,7 +20,6 @@ window.addEventListener("load", () => {
       feather.replace({ class: 'inline-block' });
       // Set event handlers
       setToggleSubpagesEventListeners();
-      addCheckboxCountListeners();
       setBulkActionEventListeners();
       addDragAndDropListeners();
       addConfirmationDialogListeners();

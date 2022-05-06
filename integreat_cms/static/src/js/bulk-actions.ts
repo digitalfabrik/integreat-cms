@@ -28,9 +28,6 @@
  *
  */
 
- import { addCheckboxCountListeners } from "./checkbox-count"
-
-
 window.addEventListener("load", () => {
   // On the page tree, the event listeners are set after all subpages have been loaded
   if (!document.querySelector("[data-delay-event-handlers]")) {
@@ -48,6 +45,7 @@ export function setBulkActionEventListeners(){
   const selectAllCheckbox = document.getElementById("bulk-select-all") as HTMLInputElement;
   const bulkActionForm = document.getElementById("bulk-action-form");
   const selectItems = <HTMLInputElement[]>Array.from(document.getElementsByClassName("bulk-select-item"));
+  const selectCount = (document.querySelector("[data-list-selection-count]") as HTMLElement)
   // Set event listener for select all checkbox
   selectAllCheckbox.classList.remove("cursor-wait");
   selectAllCheckbox.addEventListener("click", () => {
@@ -76,10 +74,9 @@ export function setBulkActionEventListeners(){
           setCheckboxRecursively(childId, selectItem.checked);
         });
       }
+      selectCount.innerText = document.querySelectorAll(".bulk-select-item:checked").length.toString();
     });
   });
-  // Activate Selection Count for events, feedback and pois
-  addCheckboxCountListeners();
 }
 
 /*
