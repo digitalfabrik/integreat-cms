@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Q
+from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
@@ -59,7 +60,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         ),
     )
     last_updated = models.DateTimeField(
-        auto_now=True,
+        default=timezone.now,
         verbose_name=_("modification date"),
     )
     creator = models.ForeignKey(
@@ -446,6 +447,21 @@ class AbstractContentTranslation(AbstractBaseModel):
             f"language: {self.language.slug}, "
             f"slug: {self.slug})>"
         )
+
+    def save(self, *args, **kwargs):
+        r"""
+        This overwrites the default Django :meth:`~django.db.models.Model.save` method,
+        to update the last_updated field on changes.
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied kwargs
+        :type \**kwargs: dict
+        """
+        if kwargs.pop("update_timestamp", True):
+            self.last_updated = timezone.now()
+        super().save(*args, **kwargs)
 
     class Meta:
         #: This model is an abstract base class

@@ -7,6 +7,7 @@ UNRELEASED
 * [ [#1180](https://github.com/digitalfabrik/integreat-cms/issues/1180) ] Make coordinates optional for locations not on map
 * [ [#1380](https://github.com/digitalfabrik/integreat-cms/issues/1380) ] Fix url resolving for regions with non-ascii slugs
 * [ [#726](https://github.com/digitalfabrik/integreat-cms/issues/726) ] Add additional fields to location model
+* [ [#1311](https://github.com/digitalfabrik/integreat-cms/issues/1311) ] Fix last_updated field when cloning regions
 
 
 2022.4.2
