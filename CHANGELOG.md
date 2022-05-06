@@ -9,6 +9,7 @@ UNRELEASED
 * [ [#726](https://github.com/digitalfabrik/integreat-cms/issues/726) ] Add additional fields to location model
 * [ [#1311](https://github.com/digitalfabrik/integreat-cms/issues/1311) ] Fix last_updated field when cloning regions
 * [ [#1384](https://github.com/digitalfabrik/integreat-cms/issues/1384) ] Phone numbers and emails addresses marked as invalid links
+* [ [#1350](https://github.com/digitalfabrik/integreat-cms/issues/1350) ] Fix legacy media urls in PDF export
 
 
 2022.4.2
