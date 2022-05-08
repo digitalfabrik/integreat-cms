@@ -33,10 +33,10 @@ class POI(AbstractContentModel):
         help_text=_("The longitude coordinate"),
         validators=[MinValueValidator(-180.0), MaxValueValidator(180.0)],
     )
-    location_not_on_map = models.BooleanField(
-        default=False,
-        verbose_name=_("Do not show this location on map"),
-        help_text=_("Tick if you do not show this location on map"),
+    location_on_map = models.BooleanField(
+        default=True,
+        verbose_name=_("Show this location on map"),
+        help_text=_("Tick if you want to show this location on map"),
     )
     icon = models.ForeignKey(
         MediaFile,
