@@ -1743,12 +1743,27 @@ for all content types</p>
 Raise a ValidationError for any errors that occur.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.pois.poi_translation.POITranslation.full_url">
+<span class="sig-name descname"><span class="pre">full_url</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pois/poi_translation.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pois.poi_translation.POITranslation.full_url" title="Permalink to this definition"></a></dt>
+<dd><p>This property returns the full url of this content translation object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The full url</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pois.poi_translation.POITranslation.get_absolute_url">
 <span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L147"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pois.poi_translation.POITranslation.get_absolute_url" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the absolute url of the content translation object</p>
 <p>Here is an example for demonstrating the components of a page url:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">integreat</span><span class="o">.</span><span class="n">app</span><span class="o">/</span><span class="n">augsburg</span><span class="o">/</span><span class="n">en</span><span class="o">/</span><span class="n">welcome</span><span class="o">/</span><span class="n">city</span><span class="o">-</span><span class="nb">map</span><span class="o">/</span><span class="n">attractions</span><span class="o">/</span>
+<span class="o">|-------------------------------------------------------------|</span>    <span class="n">full_url</span>
                      <span class="o">|----------------------------------------|</span>    <span class="n">get_absolute_url</span><span class="p">()</span>
 <span class="o">|-------------------------------------------------|</span>                <span class="n">base_link</span>
                      <span class="o">|----------------------------|</span>                <span class="n">url_prefix</span>
@@ -1758,6 +1773,7 @@ Raise a ValidationError for any errors that occur.</p>
 </div>
 <p>Here is an example for demonstrating the components of an event url:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">integreat</span><span class="o">.</span><span class="n">app</span><span class="o">/</span><span class="n">augsburg</span><span class="o">/</span><span class="n">en</span><span class="o">/</span><span class="n">events</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">event</span><span class="o">/</span>
+<span class="o">|--------------------------------------------------|</span>    <span class="n">full_url</span>
                      <span class="o">|-----------------------------|</span>    <span class="n">get_absolute_url</span><span class="p">()</span>
 <span class="o">|---------------------------------------|</span>               <span class="n">base_link</span>
                      <span class="o">|------------------|</span>               <span class="n">url_prefix</span>
@@ -1795,7 +1811,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pois.poi_translation.POITranslation.get_repr">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L435"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pois.poi_translation.POITranslation.get_repr" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L447"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pois.poi_translation.POITranslation.get_repr" title="Permalink to this definition"></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -2019,7 +2035,7 @@ of the field will call this method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pois.poi_translation.POITranslation.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pois.poi_translation.POITranslation.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L463"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pois.poi_translation.POITranslation.save" title="Permalink to this definition"></a></dt>
 <dd><p>This overwrites the default Django <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.save" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a> method,
 to update the last_updated field on changes.</p>
 <dl class="field-list simple">
@@ -2045,7 +2061,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.pois.poi_translation.POITranslation.search">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L403"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pois.poi_translation.POITranslation.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L415"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.pois.poi_translation.POITranslation.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all content translations which match the given <cite>query</cite> in their title or slug.
 :param region: The current region
 :type region: ~integreat_cms.cms.models.regions.region.Region
