@@ -7,6 +7,7 @@ UNRELEASED
 * [ [#1180](https://github.com/digitalfabrik/integreat-cms/issues/1180) ] Make coordinates optional for locations not on map
 * [ [#1380](https://github.com/digitalfabrik/integreat-cms/issues/1380) ] Fix url resolving for regions with non-ascii slugs
 * [ [#726](https://github.com/digitalfabrik/integreat-cms/issues/726) ] Add additional fields to location model
+* [ [#1351](https://github.com/digitalfabrik/integreat-cms/issues/1351) ] Fix empty slugs when new translations are imported via XLIFF
 * [ [#1311](https://github.com/digitalfabrik/integreat-cms/issues/1311) ] Fix last_updated field when cloning regions
 * [ [#1384](https://github.com/digitalfabrik/integreat-cms/issues/1384) ] Remove phone numbers and email addresses from invalid links
 * [ [#1350](https://github.com/digitalfabrik/integreat-cms/issues/1350) ] Fix legacy media urls in PDF export
@@ -24,7 +25,6 @@ UNRELEASED
 * [ [#1366](https://github.com/digitalfabrik/integreat-cms/issues/1366) ] Fix monthly recurring events on mondays
 * [ [#1365](https://github.com/digitalfabrik/integreat-cms/issues/1365) ] Add timezone setting to region model
 * [ [#1093](https://github.com/digitalfabrik/integreat-cms/issues/1093) ] Add Malte and Aschaffenburg brandings
-* [ [#1351](https://github.com/digitalfabrik/integreat-cms/issues/1351) ] Modify slug in translation import via xliff
 
 
 2022.4.1
