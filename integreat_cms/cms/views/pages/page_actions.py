@@ -10,7 +10,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseNotFound, JsonResponse
+from django.http import Http404, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
@@ -141,10 +141,11 @@ def restore_page(request, page_id, region_slug, language_slug):
 
 
 @permission_required("cms.view_page")
+@json_response
 # pylint: disable=unused-argument
-def view_page(request, page_id, region_slug, language_slug):
+def preview_page_ajax(request, page_id, region_slug, language_slug):
     """
-    View page object
+    Preview page object
 
     :param request: The current request
     :type request: ~django.http.HttpResponse
@@ -158,28 +159,65 @@ def view_page(request, page_id, region_slug, language_slug):
     :param language_slug: The slug of the current language
     :type language_slug: str
 
-    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
-    :rtype: ~django.http.HttpResponseRedirect
-    """
+    :raises ~django.http.Http404: HTTP status 404 if page translation does not exist
 
+    :return: Significant page data as a JSON.
+    :rtype: ~django.http.JsonResponse
+    """
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
-    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "pages/page_view.html"
-
     page_translation = page.get_translation(language_slug)
-    return render(
-        request,
-        template_name,
-        {
-            "page_translation": page_translation,
-            "is_mirrored": bool(page.mirrored_page),
+    if not page_translation:
+        raise Http404("Translation of the given page could not be found")
+    mirrored_translation = page.get_mirrored_page_translation(language_slug)
+
+    return JsonResponse(
+        data={
+            "title": page_translation.title,
+            "page_translation": page_translation.content,
+            "mirrored_translation": mirrored_translation.content
+            if mirrored_translation
+            else "",
             "mirrored_page_first": page.mirrored_page_first,
             "right_to_left": page_translation.language.text_direction
-            == text_directions.RIGHT_TO_LEFT,
-        },
+            == text_directions.RIGHT_TO_LEFT
+            if page_translation
+            else False,
+        }
     )
+
+
+@permission_required("cms.view_page")
+@json_response
+# pylint: disable=unused-argument
+def get_page_content_ajax(request, region_slug, language_slug, page_id):
+    """
+    Get content of a page translation based on language slug
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_slug: The slug of the current language
+    :type language_slug: str
+
+    :param page_id: The id of the page which should be viewed
+    :type page_id: int
+
+    :raises ~django.http.Http404: HTTP status 404 if page translation does not exist
+
+    :return: Page translation content as a JSON.
+    :rtype: ~django.http.JsonResponse
+    """
+    region = request.region
+    page = get_object_or_404(region.pages, id=page_id)
+    page_translation = page.get_translation(language_slug)
+    if not page_translation:
+        raise Http404("Translation of the given page could not be found")
+    return JsonResponse(data={"content": page_translation.content})
 
 
 @require_POST
@@ -749,7 +787,7 @@ def get_page_order_table_ajax(request, region_slug, parent_id=None, page_id=None
 
 @permission_required("cms.view_page")
 # pylint: disable=unused-argument
-def render_mirrored_page_field(request, region_slug):
+def render_mirrored_page_field(request, region_slug, language_slug):
     """
     Retrieve the rendered mirrored page field template
 
@@ -758,6 +796,9 @@ def render_mirrored_page_field(request, region_slug):
 
     :param region_slug: The slug of the current region
     :type region_slug: str
+
+    :param language_slug: The slug of the current language
+    :type language_slug: str
 
     :return: The rendered mirrored page field
     :rtype: ~django.template.response.TemplateResponse
@@ -773,6 +814,8 @@ def render_mirrored_page_field(request, region_slug):
             "region": region,
         },
     )
+    # Pass language to mirrored page widget to render the preview urls
+    page_form.fields["mirrored_page"].widget.language_slug = language_slug
     return render(
         request,
         "pages/_mirrored_page_field.html",
