@@ -13,6 +13,7 @@ UNRELEASED
 * [ [#1388](https://github.com/digitalfabrik/integreat-cms/issues/1388) ] Remove additional event handlers for selection count
 * [ [#1038](https://github.com/digitalfabrik/integreat-cms/issues/1038) ] Rename location not on map attribute
 * [ [#1389](https://github.com/digitalfabrik/integreat-cms/issues/1389) ] Change media library upload paths
+* [ [#1371](https://github.com/digitalfabrik/integreat-cms/issues/1371) ] Show fallback text for empty pages
 
 
 2022.4.2
