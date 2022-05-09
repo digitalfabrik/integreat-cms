@@ -15,21 +15,15 @@ RESET = "\x1b[0;39m"
 
 def ensure_exists(path):
     """
-    Make sure the given path exists and is empty
+    Make sure the given path exists
 
     :param path: The path that should be created if not exists
     :type path: pathlib.PosixPath
-
-    :raises RuntimeError: If the path is not empty
 
     :return: The existing path
     :rtype: pathlib.PosixPath
     """
     path.mkdir(parents=True, exist_ok=True)
-    if any(path.iterdir()):
-        raise RuntimeError(
-            f"{ERROR}Error:{RESET} Directory {INFO}media/{path.relative_to(settings.MEDIA_ROOT)}/{RESET} is not empty!",
-        )
     return path
 
 
