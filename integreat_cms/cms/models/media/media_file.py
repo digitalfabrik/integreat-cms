@@ -52,9 +52,9 @@ def upload_path(instance, filename):
             return original_instance.file.name
 
     # If the media file is uploaded to a specific region, prepend a region id subdirectory
-    region_directory = f"sites/{instance.region.id}/" if instance.region else ""
+    subdirectory = f"regions/{instance.region.id}" if instance.region else "global"
     # Calculate the remaining upload path
-    path = f"{region_directory}{strftime('%Y/%m')}/{filename}"
+    path = f"{subdirectory}/{strftime('%Y/%m')}/{filename}"
     logger.debug("Upload path for media file %r: %r", instance.file, path)
     return path
 

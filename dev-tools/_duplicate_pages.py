@@ -49,6 +49,7 @@ def duplicate_page(old_page, new_parent=None):
         new_page = Page.add_root(instance=new_page)
     # Fix parent field
     new_page = Page.objects.get(id=new_page.id)
+    new_page.parent = new_page.get_parent(update=True)
     new_page.save()
     for translation in translations:
         rand_str = "".join(random.choices(string.printable, k=5))

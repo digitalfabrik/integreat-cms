@@ -7,7 +7,7 @@
 <tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if not parent_id %} drop-between {% endif %} h-3 -m-3 hidden level-{{ page.relative_depth }}"><td colspan="9"><div><span></span></div></td></tr>
 <tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %} hidden parent-page-{{ parent_id }} {% endif %}">
     <td class="pl-4">
-        <input type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item cursor-wait">
+        <input type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item cursor-wait"/>
     </td>
     {% if not filter_form.is_enabled %}
         <td class="hierarchy single_icon whitespace-nowrap">
@@ -75,11 +75,11 @@
                                     <span title="{% trans 'Translation outdated' %}">
                                         <i data-feather="alert-triangle" class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
-                                {% elif other_status == translation_status.UP_TO_DATE  %}
+                                {% elif other_status == translation_status.UP_TO_DATE %}
                                     <span title="{% trans 'Translation up-to-date' %}">
                                         <i data-feather="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
-                                {% elif other_status == translation_status.MISSING  %}
+                                {% elif other_status == translation_status.MISSING %}
                                     <span title="{% trans 'Translation missing' %}" class="no-trans">
                                         <i data-feather="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
@@ -107,10 +107,22 @@
         </div>
     </td>
     <td class="pl-2 pr-4 py-1.5 text-right flex flex-nowrap gap-2">
-        <a href="{% url 'view_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-           target="_blank" rel="noopener noreferrer" title="{% trans 'View page as preview' %}" class="btn-icon">
-            <i data-feather="eye"></i>
-        </a>
+        {% if page_translation.content or page.mirrored_page %}
+            <button
+                type="button"
+                data-preview-page="{% url 'preview_page_ajax' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+                title="{% trans 'View page as preview' %}"
+                class="btn-icon">
+                <i data-feather="eye"></i>
+            </button>
+        {% else %}
+            <button
+                type="button"
+                title="{% trans 'You cannot preview an empty page.' %}"
+                class="btn-icon"
+                disabled>
+                <i data-feather="eye"></i>
+        {% endif %}
         {% if page_translation.status == PUBLIC %}
             <a href="{{ WEBAPP_URL }}{{ page_translation.get_absolute_url }}"
                 rel="noopener noreferrer" target="_blank" title="{% trans 'Open page in web app' %}" class="btn-icon">

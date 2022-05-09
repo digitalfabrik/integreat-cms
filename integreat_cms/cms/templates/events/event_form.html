@@ -39,7 +39,13 @@
                     <div class="flex flex-wrap gap-4">
                         <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
                         {% if perms.cms.publish_event %}
-                            <button name="submit_public" class="btn">{% trans 'Publish' %}</button>
+                            <button name="submit_public" class="btn">
+                                {% if event_translation_form.instance.status == PUBLIC %}
+                                    {% trans 'Update' %}
+                                {% else %}
+                                    {% trans 'Publish' %}
+                                {% endif %}
+                            </button>
                         {% else %}
                             <button name="submit_review" class="btn">{% trans 'Submit for review' %}</button>
                         {% endif %}

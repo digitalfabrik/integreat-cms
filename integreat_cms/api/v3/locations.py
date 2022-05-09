@@ -1,6 +1,7 @@
 """
 This module includes functions related to the locations/POIs API endpoint.
 """
+from distutils.util import strtobool
 from django.conf import settings
 from django.http import JsonResponse
 
@@ -70,7 +71,11 @@ def transform_poi_translation(poi_translation):
         "excerpt": poi_translation.short_description,
         "content": poi_translation.content,
         "available_languages": poi_translation.available_languages,
-        "thumbnail": poi.icon.url if poi.icon else None,
+        "icon": poi.icon.url if poi.icon else None,
+        "thumbnail": poi.icon.thumbnail_url if poi.icon else None,
+        "website": poi.website if poi.website else None,
+        "email": poi.email if poi.email else None,
+        "phone_number": poi.phone_number if poi.phone_number else None,
         "location": transform_poi(poi, poi_translation),
         "hash": None,
     }
@@ -96,7 +101,14 @@ def locations(request, region_slug, language_slug):
     """
     region = request.region
     result = []
-    for poi in region.pois.prefetch_public_translations().filter(archived=False):
+    pois = region.pois.prefetch_public_translations().filter(archived=False)
+    if "on_map" in request.GET:
+        try:
+            location_on_map = strtobool(request.GET["on_map"])
+        except ValueError as e:
+            return JsonResponse({"error": str(e)}, status=400)
+        pois = pois.filter(location_on_map=location_on_map)
+    for poi in pois:
         translation = poi.get_public_translation(language_slug)
         if translation:
             result.append(transform_poi_translation(translation))

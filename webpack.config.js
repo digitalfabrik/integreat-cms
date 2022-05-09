@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const BundleTracker = require('webpack-bundle-tracker');
+const BundleTracker = require("webpack-bundle-tracker");
 
 module.exports = {
   entry: {
@@ -16,16 +16,14 @@ module.exports = {
     filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "integreat_cms/static/dist"),
     clean: true,
-    assetModuleFilename: 'assets/[name]-[hash][ext][query]'
+    assetModuleFilename: "assets/[name]-[hash][ext][query]",
   },
   module: {
     rules: [
       {
         test: /\.s[ac]ss$/i,
         use: [
-          process.env.NODE_ENV !== "production"
-            ? "style-loader"
-            : MiniCssExtractPlugin.loader,
+          process.env.NODE_ENV !== "production" ? "style-loader" : MiniCssExtractPlugin.loader,
           "css-loader",
           "postcss-loader",
           "sass-loader",
@@ -80,11 +78,11 @@ module.exports = {
       },
       {
         test: /\.(woff(2)?|ttf|eot|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        type: 'asset/resource'
+        type: "asset/resource",
       },
       {
         test: /\.(png|jpg|gif|svg)$/i,
-        type: 'asset/inline'
+        type: "asset/inline",
       },
     ],
   },
@@ -93,8 +91,11 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css",
+      filename: function (config) {
+        if (config.chunk.name == "pdf") return "[name].css";
+        else return "[name].[contenthash].css";
+      },
+      chunkFilename: "[id].[contenthash].css",
     }),
     new CopyPlugin({
       patterns: [
@@ -111,13 +112,16 @@ module.exports = {
         { from: "integreat_cms/static/src/logos", to: "logos" },
       ],
     }),
-    new BundleTracker({filename: 'integreat_cms/webpack-stats.json'}),
+    new BundleTracker({ filename: "integreat_cms/webpack-stats.json" }),
   ],
   optimization: {
     minimize: process.env.NODE_ENV === "production",
-    minimizer: [new TerserPlugin(), new CssMinimizerPlugin({
-      exclude: "pdf.css",
-    })],
+    minimizer: [
+      new TerserPlugin(),
+      new CssMinimizerPlugin({
+        exclude: "pdf.css",
+      }),
+    ],
   },
   devtool: process.env.NODE_ENV !== "production" ? "inline-source-map" : false,
 };

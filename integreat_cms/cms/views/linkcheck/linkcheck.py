@@ -9,6 +9,7 @@ from django.views.generic import ListView
 from django.views.generic.base import RedirectView
 
 from linkcheck.models import Link
+from cacheops import invalidate_model
 
 from ...utils.filter_links import filter_links
 from ...forms.linkcheck.edit_url_form import EditUrlForm
@@ -78,7 +79,7 @@ class LinkListView(ListView):
         :param \**kwargs: The supplied keyword arguments
         :type \**kwargs: dict
 
-        :return: Redirct to current linkcheck tab
+        :return: Redirect to current linkcheck tab
         :rtype: ~django.http.HttpResponseRedirect
         """
         region_slug = kwargs.get("region_slug")
@@ -131,6 +132,8 @@ class LinkListView(ListView):
             for link in selected_links:
                 link.url.check_url(external_recheck_interval=0)
             messages.success(request, _("Links were successfully checked"))
+        invalidate_model(Link)
+
         return redirect("linkcheck", region_slug=region_slug, link_filter=link_filter)
 
 

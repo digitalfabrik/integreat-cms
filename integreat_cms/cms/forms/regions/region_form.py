@@ -529,7 +529,7 @@ def duplicate_page_translations(source_page, target_page, logging_prefix):
         # Check if the page translation is valid
         page_translation.full_clean()
         # Save duplicated page translation
-        page_translation.save()
+        page_translation.save(update_timestamp=False)
         logger.debug(
             "%s Created %r",
             translation_row_logging_prefix

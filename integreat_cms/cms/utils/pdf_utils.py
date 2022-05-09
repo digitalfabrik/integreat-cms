@@ -2,6 +2,8 @@ import hashlib
 import logging
 import os
 
+from urllib.parse import urlparse
+
 from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.db.models import Min
@@ -133,6 +135,14 @@ def link_callback(uri, rel):
     :return: The absolute path on the file system according to django's static file settings
     :rtype: str
     """
+    parsed_uri = urlparse(uri)
+    # When the uri is an absolute URL to an allowed host, convert it to an absolute local path
+    if parsed_uri.hostname in settings.ALLOWED_HOSTS:
+        uri = parsed_uri.path
+        # When the url contains the legacy media url, replace it with the new pattern
+        LEGACY_MEDIA_URL = "/wp-content/uploads/sites/"
+        if LEGACY_MEDIA_URL in uri:
+            uri = f"/media/regions/{uri.partition(LEGACY_MEDIA_URL)[2]}"
     if uri.startswith(settings.MEDIA_URL):
         # Get absolute path for media files
         path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))

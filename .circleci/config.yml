@@ -400,13 +400,14 @@ jobs:
             # Get most recent changelog (split by 3 sequential new lines and print the second record except the first three lines)
             CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
             # Build notification message
-            MM_MESSAGE="##### :integreat: Integreat CMS version [${CIRCLE_TAG}](https://github.com/digitalfabrik/integreat-cms/releases/tag/${CIRCLE_TAG}) has been released successfully :tada:\n\n###### **Release Notes:**\n\n${CHANGELOG}"
+            MM_MESSAGE="##### Integreat CMS version [${CIRCLE_TAG}](https://github.com/digitalfabrik/integreat-cms/releases/tag/${CIRCLE_TAG}) has been released successfully :tada:\n\n###### **Release Notes:**\n\n${CHANGELOG}"
             # Send message to mattermost
             STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" -X POST -H 'Content-type: application/json' \
               --data \
               "{
-                \"channel\": \"integreat-releases\",
+                \"channel\": \"releases\",
                 \"username\": \"circleci\",
+                \"icon_emoji\": \":integreat:\",
                 \"text\": \"${MM_MESSAGE}\"
               }" "${MM_WEBHOOK}")
             if [ "$STATUS" -ne "200" ]; then
@@ -546,7 +547,7 @@ workflows:
       - create-release:
           context: deliverino
           requires:
-            - build-package
+            - publish-package
           filters:
             tags:
               only: /.*/

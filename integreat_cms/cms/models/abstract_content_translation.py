@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Q
+from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
@@ -59,7 +60,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         ),
     )
     last_updated = models.DateTimeField(
-        auto_now=True,
+        default=timezone.now,
         verbose_name=_("modification date"),
     )
     creator = models.ForeignKey(
@@ -150,6 +151,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         Here is an example for demonstrating the components of a page url::
 
             https://integreat.app/augsburg/en/welcome/city-map/attractions/
+            |-------------------------------------------------------------|    full_url
                                  |----------------------------------------|    get_absolute_url()
             |-------------------------------------------------|                base_link
                                  |----------------------------|                url_prefix
@@ -159,6 +161,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         Here is an example for demonstrating the components of an event url::
 
             https://integreat.app/augsburg/en/events/test-event/
+            |--------------------------------------------------|    full_url
                                  |-----------------------------|    get_absolute_url()
             |---------------------------------------|               base_link
                                  |------------------|               url_prefix
@@ -169,6 +172,16 @@ class AbstractContentTranslation(AbstractBaseModel):
         :rtype: str
         """
         return self.url_prefix + self.slug + "/"
+
+    @cached_property
+    def full_url(self):
+        """
+        This property returns the full url of this content translation object
+
+        :return: The full url
+        :rtype: str
+        """
+        return settings.WEBAPP_URL + self.get_absolute_url()
 
     @cached_property
     def backend_edit_link(self):
@@ -446,6 +459,21 @@ class AbstractContentTranslation(AbstractBaseModel):
             f"language: {self.language.slug}, "
             f"slug: {self.slug})>"
         )
+
+    def save(self, *args, **kwargs):
+        r"""
+        This overwrites the default Django :meth:`~django.db.models.Model.save` method,
+        to update the last_updated field on changes.
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied kwargs
+        :type \**kwargs: dict
+        """
+        if kwargs.pop("update_timestamp", True):
+            self.last_updated = timezone.now()
+        super().save(*args, **kwargs)
 
     class Meta:
         #: This model is an abstract base class

@@ -41,12 +41,21 @@ def filter_links(region_slug, link_filter=None):
             page_translations + event_translations + poi_translations,
         )
     )
+
+    # Define found link types that are not supposed to be shown in the List (e.g. phone numbers and Emails)
+    ignored_link_types = [
+        "mailto",
+        "phone",
+        "anchor",
+    ]
     # Convert translations to list of dicts to enable filtering of links in python
     links = [
         {"translation": translation, "link": link}
         for translation in translations
         for link in translation.links.all()
+        if link.url.type not in ignored_link_types
     ]
+
     # Split link lists into their respective categories
     ignored_links, valid_links, invalid_links, unchecked_links = [], [], [], []
     for item in links:

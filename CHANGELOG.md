@@ -1,6 +1,23 @@
 UNRELEASED
 ----------
 
+* [ [#1369](https://github.com/digitalfabrik/integreat-cms/issues/1369) ] Add contenthash to CSS files for correct cache handling
+* [ [#1046](https://github.com/digitalfabrik/integreat-cms/issues/1046) ] Show number of selected items in lists and page tree
+* [ [#1000](https://github.com/digitalfabrik/integreat-cms/issues/1000) ] Automatically derive location coordinates from address
+* [ [#1180](https://github.com/digitalfabrik/integreat-cms/issues/1180) ] Make coordinates optional for locations not on map
+* [ [#1380](https://github.com/digitalfabrik/integreat-cms/issues/1380) ] Fix url resolving for regions with non-ascii slugs
+* [ [#726](https://github.com/digitalfabrik/integreat-cms/issues/726) ] Add additional fields to location model
+* [ [#1351](https://github.com/digitalfabrik/integreat-cms/issues/1351) ] Fix empty slugs when new translations are imported via XLIFF
+* [ [#1311](https://github.com/digitalfabrik/integreat-cms/issues/1311) ] Fix last_updated field when cloning regions
+* [ [#1384](https://github.com/digitalfabrik/integreat-cms/issues/1384) ] Remove phone numbers and email addresses from invalid links
+* [ [#1350](https://github.com/digitalfabrik/integreat-cms/issues/1350) ] Fix legacy media urls in PDF export
+* [ [#1388](https://github.com/digitalfabrik/integreat-cms/issues/1388) ] Remove additional event handlers for selection count
+* [ [#1038](https://github.com/digitalfabrik/integreat-cms/issues/1038) ] Rename location not on map attribute
+* [ [#1389](https://github.com/digitalfabrik/integreat-cms/issues/1389) ] Change media library upload paths
+* [ [#1371](https://github.com/digitalfabrik/integreat-cms/issues/1371) ] Show fallback text for empty pages
+* [ [#1056](https://github.com/digitalfabrik/integreat-cms/issues/1056) ] Enhance page preview feature
+* [ [#1387](https://github.com/digitalfabrik/integreat-cms/issues/1387) ] Fix error when previewing a non-existing page translation
+
 
 2022.4.2
 --------

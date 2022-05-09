@@ -4,11 +4,11 @@
 
 <tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4 pr-2">
-        <input type="checkbox" name="selected_ids[]" value="{{ poi.id }}" form="bulk-action-form" class="bulk-select-item">
+        <input type="checkbox" name="selected_ids[]" value="{{ poi.id }}" form="bulk-action-form" class="bulk-select-item"/>
     </td>
     <td class="pr-2">
         <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
-            {%  if poi_translation %}
+            {% if poi_translation %}
                 {{ poi_translation.title }}
             {% else %}
                 <i>{% trans 'Translation not available' %}</i>
@@ -40,11 +40,11 @@
                             <span title="{% trans 'Translation outdated' %}">
                                 <i data-feather="alert-triangle" class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
-                        {% elif other_status == translation_status.UP_TO_DATE  %}
+                        {% elif other_status == translation_status.UP_TO_DATE %}
                             <span title="{% trans 'Translation up-to-date' %}">
                                 <i data-feather="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
-                        {% elif other_status == translation_status.MISSING  %}
+                        {% elif other_status == translation_status.MISSING %}
                             <span title="{% trans 'Translation missing' %}" class="no-trans">
                                 <i data-feather="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
