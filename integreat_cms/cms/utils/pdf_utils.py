@@ -140,9 +140,9 @@ def link_callback(uri, rel):
     if parsed_uri.hostname in settings.ALLOWED_HOSTS:
         uri = parsed_uri.path
         # When the url contains the legacy media url, replace it with the new pattern
-        LEGACY_MEDIA_URL = "/wp-content/uploads/"
+        LEGACY_MEDIA_URL = "/wp-content/uploads/sites/"
         if LEGACY_MEDIA_URL in uri:
-            uri = f"/media/{uri.partition(LEGACY_MEDIA_URL)[2]}"
+            uri = f"/media/regions/{uri.partition(LEGACY_MEDIA_URL)[2]}"
     if uri.startswith(settings.MEDIA_URL):
         # Get absolute path for media files
         path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))

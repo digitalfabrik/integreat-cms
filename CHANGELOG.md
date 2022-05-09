@@ -8,10 +8,11 @@ UNRELEASED
 * [ [#1380](https://github.com/digitalfabrik/integreat-cms/issues/1380) ] Fix url resolving for regions with non-ascii slugs
 * [ [#726](https://github.com/digitalfabrik/integreat-cms/issues/726) ] Add additional fields to location model
 * [ [#1311](https://github.com/digitalfabrik/integreat-cms/issues/1311) ] Fix last_updated field when cloning regions
-* [ [#1384](https://github.com/digitalfabrik/integreat-cms/issues/1384) ] Phone numbers and emails addresses marked as invalid links
+* [ [#1384](https://github.com/digitalfabrik/integreat-cms/issues/1384) ] Remove phone numbers and email addresses from invalid links
 * [ [#1350](https://github.com/digitalfabrik/integreat-cms/issues/1350) ] Fix legacy media urls in PDF export
 * [ [#1388](https://github.com/digitalfabrik/integreat-cms/issues/1388) ] Remove additional event handlers for selection count
 * [ [#1038](https://github.com/digitalfabrik/integreat-cms/issues/1038) ] Rename location not on map attribute
+* [ [#1389](https://github.com/digitalfabrik/integreat-cms/issues/1389) ] Change media library upload paths
 
 
 2022.4.2

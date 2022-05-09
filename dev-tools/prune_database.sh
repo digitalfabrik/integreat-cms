@@ -53,3 +53,9 @@ fi
 # Remove media files (because they are no longer usable without the corresponding database entries)
 rm -rfv "${PACKAGE_DIR:?}/media"
 echo "Removed media files" | print_info
+
+if [[ -n "$INTEGREAT_CMS_REDIS_CACHE" ]]; then
+    # Invalidate cache if enabled
+    deescalate_privileges pipenv run integreat-cms-cli invalidate all --verbosity "${SCRIPT_VERBOSITY}"
+    echo "Invalidated Redis cache" | print_info
+fi
