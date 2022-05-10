@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-10 11:18+0000\n"
+"POT-Creation-Date: 2022-05-10 11:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1293,12 +1293,12 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: cms/constants/region_status.py:17 cms/models/regions/region.py:606
+#: cms/constants/region_status.py:17 cms/models/regions/region.py:611
 msgid "Hidden"
 msgstr "Versteckt"
 
 #: cms/constants/region_status.py:18 cms/models/pages/page.py:323
-#: cms/models/regions/region.py:609 cms/templates/events/event_form.html:76
+#: cms/models/regions/region.py:614 cms/templates/events/event_form.html:76
 #: cms/templates/pages/page_form.html:102
 #: cms/templates/pages/page_tree_archived_node.html:81
 #: cms/templates/pois/poi_form.html:66
@@ -1722,17 +1722,17 @@ msgstr "Keine Inhalte übernehmen"
 msgid "Timezone area"
 msgstr "Region der Zeitzone"
 
-#: cms/forms/regions/region_form.py:184
+#: cms/forms/regions/region_form.py:185
 msgid "Statistics can only be enabled when a valid access token is supplied."
 msgstr ""
 "Statistiken können nur aktiviert werden, wenn ein gültiges Zugangstoken "
 "eingegeben wurde."
 
-#: cms/forms/regions/region_form.py:196
+#: cms/forms/regions/region_form.py:197
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
 
-#: cms/forms/regions/region_form.py:224 cms/forms/regions/region_form.py:234
+#: cms/forms/regions/region_form.py:225 cms/forms/regions/region_form.py:235
 msgid ""
 "Could not retrieve the coordinates automatically, please fill the field "
 "manually."
@@ -1740,23 +1740,23 @@ msgstr ""
 "Die Koordinaten konnten nicht automatisch abgerufen werden, bitte füllen Sie "
 "das Feld manuell aus."
 
-#: cms/forms/regions/region_form.py:304
+#: cms/forms/regions/region_form.py:305
 msgid "'{}' is already selected as administrative division."
 msgstr "'{}' ist bereits als Verwaltungseinheit ausgewählt."
 
-#: cms/forms/regions/region_form.py:309
+#: cms/forms/regions/region_form.py:310
 msgid "Please select '{}' as administrative division."
 msgstr "Bitte wählen Sie '{}' als Verwaltungseinheit."
 
-#: cms/forms/regions/region_form.py:320
+#: cms/forms/regions/region_form.py:321
 msgid "Please set {} as default language for this region."
 msgstr "Bitte setzen Sie '{}' als Standard-Sprache für diese Region."
 
-#: cms/forms/regions/region_form.py:326
+#: cms/forms/regions/region_form.py:327
 msgid "Please enable '{}'."
 msgstr "Bitte aktivieren Sie '{}'."
 
-#: cms/forms/regions/region_form.py:341
+#: cms/forms/regions/region_form.py:342
 msgid ""
 "You cannot include the administrative division into the name and use a "
 "custom prefix at the same time."
@@ -1881,7 +1881,7 @@ msgstr "Die Passwörter stimmen nicht überein."
 #: cms/models/feedback/feedback.py:60 cms/models/media/directory.py:24
 #: cms/models/media/media_file.py:138
 #: cms/models/push_notifications/push_notification.py:21
-#: cms/models/regions/region.py:625
+#: cms/models/regions/region.py:630
 msgid "region"
 msgstr "Region"
 
@@ -1890,7 +1890,7 @@ msgstr "Region"
 #: cms/models/languages/language_tree_node.py:37
 #: cms/models/media/directory.py:36 cms/models/offers/offer_template.py:56
 #: cms/models/push_notifications/push_notification.py:45
-#: cms/models/regions/region.py:156 cms/models/users/organization.py:34
+#: cms/models/regions/region.py:161 cms/models/users/organization.py:34
 #: cms/models/users/user_mfa_key.py:39
 msgid "creation date"
 msgstr "Erstellungsdatum"
@@ -1970,7 +1970,7 @@ msgstr ""
 #: cms/models/languages/language_tree_node.py:41
 #: cms/models/offers/offer_template.py:60
 #: cms/models/push_notifications/push_notification_translation.py:37
-#: cms/models/regions/region.py:160 cms/models/users/organization.py:38
+#: cms/models/regions/region.py:165 cms/models/users/organization.py:38
 msgid "modification date"
 msgstr "Änderungsdatum"
 
@@ -2702,7 +2702,7 @@ msgstr "Leer"
 msgid "street and house number"
 msgstr "Straße und Hausnummer"
 
-#: cms/models/pois/poi.py:19 cms/models/regions/region.py:143
+#: cms/models/pois/poi.py:19 cms/models/regions/region.py:148
 msgid "postal code"
 msgstr "Postleitzahl"
 
@@ -2714,7 +2714,7 @@ msgstr "Stadt"
 msgid "country"
 msgstr "Land"
 
-#: cms/models/pois/poi.py:25 cms/models/regions/region.py:135
+#: cms/models/pois/poi.py:25 cms/models/regions/region.py:140
 msgid "latitude"
 msgstr "Geographische Breite"
 
@@ -2722,7 +2722,7 @@ msgstr "Geographische Breite"
 msgid "The latitude coordinate"
 msgstr "Die Breitengrad-Koordinate"
 
-#: cms/models/pois/poi.py:32 cms/models/regions/region.py:140
+#: cms/models/pois/poi.py:32 cms/models/regions/region.py:145
 msgid "longitude"
 msgstr "Geographische Länge"
 
@@ -2880,54 +2880,62 @@ msgid "Whether or not events are enabled in the region"
 msgstr "Ob Veranstaltungen in der Region aktiviert sind oder nicht"
 
 #: cms/models/regions/region.py:130
+msgid "activate locations"
+msgstr "Orte aktivieren"
+
+#: cms/models/regions/region.py:131
+msgid "Whether or not locations are enabled in the region"
+msgstr "Ob Orte in der Region aktiviert sind oder nicht"
+
+#: cms/models/regions/region.py:135
 msgid "activate push notifications"
 msgstr "Push-Benachrichtigungen aktivieren"
 
-#: cms/models/regions/region.py:131
+#: cms/models/regions/region.py:136
 msgid "Whether or not push notifications are enabled in the region"
 msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
 
-#: cms/models/regions/region.py:136
+#: cms/models/regions/region.py:141
 msgid "The latitude coordinate of an approximate center of the region"
 msgstr "Die Breitengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: cms/models/regions/region.py:141
+#: cms/models/regions/region.py:146
 msgid "The longitude coordinate of an approximate center of the region"
 msgstr "Die Längengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: cms/models/regions/region.py:146
+#: cms/models/regions/region.py:151
 msgid "email address of the administrator"
 msgstr "E-Mail-Adresse des Administrators"
 
-#: cms/models/regions/region.py:152
+#: cms/models/regions/region.py:157
 msgid "timezone"
 msgstr "Zeitzone"
 
-#: cms/models/regions/region.py:165
+#: cms/models/regions/region.py:170
 msgid "activate statistics"
 msgstr "Statistiken aktivieren"
 
-#: cms/models/regions/region.py:166
+#: cms/models/regions/region.py:171
 msgid "Whether or not statistics are enabled for the region"
 msgstr "Ob Statistiken für die Region aktiviert sind oder nicht"
 
-#: cms/models/regions/region.py:171
+#: cms/models/regions/region.py:176
 msgid "Matomo ID"
 msgstr "Matomo ID"
 
-#: cms/models/regions/region.py:173
+#: cms/models/regions/region.py:178
 msgid "The Matomo ID of this region."
 msgstr "Die Matomo ID dieser region."
 
-#: cms/models/regions/region.py:174
+#: cms/models/regions/region.py:179
 msgid "Will be automatically derived from the Matomo access token."
 msgstr "Wird automatisch vom Matomo Zugangstoken abgeleitet."
 
-#: cms/models/regions/region.py:181
+#: cms/models/regions/region.py:186
 msgid "Matomo authentication token"
 msgstr "Matomo Authentifizierungs-Token"
 
-#: cms/models/regions/region.py:183
+#: cms/models/regions/region.py:188
 msgid ""
 "The secret Matomo access token of the region is used to authenticate in API "
 "requests"
@@ -2935,11 +2943,11 @@ msgstr ""
 "Das geheime Matomo-Zugangs-Token der Region wird zur Authentifizierung bei "
 "API-Anfragen verwendet"
 
-#: cms/models/regions/region.py:189
+#: cms/models/regions/region.py:194
 msgid "activate page-specific permissions"
 msgstr "Seiten-spezifische-Berechtigungen aktivieren"
 
-#: cms/models/regions/region.py:191
+#: cms/models/regions/region.py:196
 msgid ""
 "This allows individual users to be granted the right to edit or publish a "
 "specific page."
@@ -2947,26 +2955,26 @@ msgstr ""
 "Damit kann einzelnen Benutzern das Recht zum Bearbeiten oder Veröffentlichen "
 "einer bestimmten Seite eingeräumt werden."
 
-#: cms/models/regions/region.py:197 cms/models/users/organization.py:25
+#: cms/models/regions/region.py:202 cms/models/users/organization.py:25
 msgid "logo"
 msgstr "Logo"
 
-#: cms/models/regions/region.py:206
+#: cms/models/regions/region.py:211
 msgid "activate author chat"
 msgstr "Autoren-Chat aktivieren"
 
-#: cms/models/regions/region.py:208
+#: cms/models/regions/region.py:213
 msgid ""
 "This gives all users of this region access to the cross-regional author chat."
 msgstr ""
 "Dies gewährt allen Benutzern dieser Region Zugang zum überregionalen Autoren-"
 "Chat."
 
-#: cms/models/regions/region.py:214
+#: cms/models/regions/region.py:219
 msgid "include administrative division into name"
 msgstr "Verwaltungseinheit dem Namen hinzufügen"
 
-#: cms/models/regions/region.py:217
+#: cms/models/regions/region.py:222
 msgid ""
 "Determines whether the administrative division is displayed next to the "
 "region name."
@@ -2974,7 +2982,7 @@ msgstr ""
 "Legt fest, ob die Verwaltungseinheit neben dem Namen der Region angezeigt "
 "wird."
 
-#: cms/models/regions/region.py:220
+#: cms/models/regions/region.py:225
 msgid ""
 "Sorting is always based on the name, independently from the administrative "
 "division."
@@ -2982,11 +2990,11 @@ msgstr ""
 "Sortierungen werden immer auf Grundlage der Namen vorgenommen, unabhängig "
 "von der Verwaltungseinheit."
 
-#: cms/models/regions/region.py:229
+#: cms/models/regions/region.py:234
 msgid "offers"
 msgstr "Angebote"
 
-#: cms/models/regions/region.py:232
+#: cms/models/regions/region.py:237
 msgid ""
 "Integreat offers are extended features apart from pages and events and are "
 "usually offered by a third party."
@@ -2994,7 +3002,7 @@ msgstr ""
 "Integreat Angebote sind erweiterte Funktionen jenseits von Seiten und "
 "Ereignissen und werden in der Regel von Drittanbietern bereitgestellt."
 
-#: cms/models/regions/region.py:235
+#: cms/models/regions/region.py:240
 msgid ""
 "In most cases, the url is an external API endpoint which the frontend apps "
 "can query and render the results inside the Integreat app."
@@ -3003,23 +3011,23 @@ msgstr ""
 "Frontend Anfragen gesendet werden, um die Ergebnisse in der Integreat App "
 "einzubetten."
 
-#: cms/models/regions/region.py:242
+#: cms/models/regions/region.py:247
 msgid "Activate short urls"
 msgstr "Kurz-URLs aktivieren"
 
-#: cms/models/regions/region.py:243
+#: cms/models/regions/region.py:248
 msgid "Please check the box if you want to use short urls."
 msgstr "Kreuzen Sie an, wenn Sie Kurz-URLs benutzen wollen."
 
-#: cms/models/regions/region.py:248
+#: cms/models/regions/region.py:253
 msgid "Enable tunews"
 msgstr "tünews aktivieren"
 
-#: cms/models/regions/region.py:249
+#: cms/models/regions/region.py:254
 msgid "Enable to show a feed of tunews articles to users."
 msgstr "Auswählen, um Benutzern einen tünews-Feed anzuzeigen."
 
-#: cms/models/regions/region.py:627 cms/models/users/user.py:56
+#: cms/models/regions/region.py:632 cms/models/users/user.py:56
 msgid "regions"
 msgstr "Regionen"
 
@@ -3167,7 +3175,7 @@ msgstr "Mein Dashboard"
 msgid "Analytics"
 msgstr "Analyse"
 
-#: cms/templates/_base.html:118 cms/templates/regions/region_form.html:140
+#: cms/templates/_base.html:118 cms/templates/regions/region_form.html:146
 #: cms/templates/statistics/_statistics_widget.html:11
 #: cms/templates/statistics/statistics_overview.html:10
 #: cms/templates/statistics/statistics_overview.html:49
@@ -5332,38 +5340,38 @@ msgstr ""
 "Wenn Sie diese Felder leer lassen, werden sie automatisch aus dem Namen, der "
 "Verwaltungseinheit und dem Gemeindeschlüssel abgeleitet."
 
-#: cms/templates/regions/region_form.html:177
+#: cms/templates/regions/region_form.html:183
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: cms/templates/regions/region_form.html:180
+#: cms/templates/regions/region_form.html:186
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: cms/templates/regions/region_form.html:189
+#: cms/templates/regions/region_form.html:195
 msgid "Delete region"
 msgstr "Region löschen"
 
-#: cms/templates/regions/region_form.html:190
+#: cms/templates/regions/region_form.html:196
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: cms/templates/regions/region_form.html:191
+#: cms/templates/regions/region_form.html:197
 msgid "This can not be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: cms/templates/regions/region_form.html:191
+#: cms/templates/regions/region_form.html:197
 msgid "All pages, events and locations of this region will also be deleted."
 msgstr ""
 "Alle Seiten, Veranstaltungen und Orte dieser Region werden ebenfalls "
 "gelöscht."
 
-#: cms/templates/regions/region_form.html:191
+#: cms/templates/regions/region_form.html:197
 msgid "Users, who only have access to this region, will be removed as well."
 msgstr ""
 "Benutzer, die nur Zugriff auf diese Region besitzen, werden auch entfernt."
 
-#: cms/templates/regions/region_form.html:195
+#: cms/templates/regions/region_form.html:201
 msgid "Delete this region"
 msgstr "Diese Region löschen"
 

@@ -89,6 +89,7 @@ class RegionForm(CustomModelForm):
             "common_id",
             "slug",
             "events_enabled",
+            "locations_enabled",
             "chat_enabled",
             "push_notifications_enabled",
             "latitude",

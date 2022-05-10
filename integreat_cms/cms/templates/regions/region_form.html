@@ -118,6 +118,12 @@
                     <div class="help-text">{{ form.events_enabled.help_text }}</div>
                 </div>
                 <div>
+                    <!-- Options related to locations -->
+                    {% render_field form.locations_enabled %}
+                    <label for="{{ form.locations_enabled.id_for_label }}">{{ form.locations_enabled.label }}</label>
+                    <div class="help-text">{{ form.locations_enabled.help_text }}</div>
+                </div>
+                <div>
                     <!-- Options related to tunews -->
                     {% render_field form.tunews_enabled %}
                     <label for="{{ form.tunews_enabled.id_for_label }}">{{ form.tunews_enabled.label }}</label>
