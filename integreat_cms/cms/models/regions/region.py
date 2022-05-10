@@ -125,6 +125,11 @@ class Region(AbstractBaseModel):
         verbose_name=_("activate events"),
         help_text=_("Whether or not events are enabled in the region"),
     )
+    locations_enabled = models.BooleanField(
+        default=False,
+        verbose_name=_("activate locations"),
+        help_text=_("Whether or not locations are enabled in the region"),
+    )
     push_notifications_enabled = models.BooleanField(
         default=True,
         verbose_name=_("activate push notifications"),

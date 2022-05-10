@@ -28,6 +28,7 @@ def transform_region(region):
         "plz": region.postal_code,
         "extras": region.offers.exists(),
         "events": region.events_enabled,
+        "pois": region.locations_enabled,
         "push_notifications": region.push_notifications_enabled,
         "longitude": region.longitude,
         "latitude": region.latitude,
