@@ -233,6 +233,15 @@ class GvzRegion:
         """
         return self.name
 
+    def __repr__(self):
+        """
+        Canonical representation of GVZ region
+
+        :return: Debugging representation of GVZ region
+        :rtype: str
+        """
+        return f"<GvzRegion (name: {self.name}, ags: {self.ags}, longitude: {self.longitude}, latitude: {self.latitude})>"
+
     @property
     def aliases(self):
         """

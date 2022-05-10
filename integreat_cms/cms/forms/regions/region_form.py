@@ -131,6 +131,9 @@ class RegionForm(CustomModelForm):
         if self.instance and "/" in self.instance.timezone:
             self.fields["timezone_area"].initial = self.instance.timezone.split("/")[0]
         self.fields["slug"].required = False
+        # Do not require coordinates because they might be automatically filled
+        self.fields["latitude"].required = False
+        self.fields["longitude"].required = False
 
     def save(self, commit=True):
         """
@@ -202,12 +205,37 @@ class RegionForm(CustomModelForm):
                 region_ags=cleaned_data["common_id"],
                 region_type=cleaned_data["administrative_division"],
             )
-            if gvz_region.aliases and cleaned_data["aliases"] in [{}, ""]:
+            logger.debug("GVZ API match: %r", gvz_region)
+            if gvz_region.aliases and not cleaned_data.get("aliases"):
                 cleaned_data["aliases"] = gvz_region.aliases
-            if gvz_region.longitude and cleaned_data["longitude"] == 0.0:
+            if gvz_region.longitude and not cleaned_data.get("longitude"):
                 cleaned_data["longitude"] = gvz_region.longitude
-            if gvz_region.latitude and cleaned_data["latitude"] == 0.0:
+            if gvz_region.latitude and not cleaned_data.get("latitude"):
                 cleaned_data["latitude"] = gvz_region.latitude
+            if gvz_region.ags and not cleaned_data.get("common_id"):
+                cleaned_data["common_id"] = gvz_region.ags
+
+        # If the coordinates could not be filled automatically and have not been filled manually either, throw an error
+        if not cleaned_data.get("latitude"):
+            self.add_error(
+                "latitude",
+                forms.ValidationError(
+                    _(
+                        "Could not retrieve the coordinates automatically, please fill the field manually."
+                    ),
+                    code="required",
+                ),
+            )
+        if not cleaned_data.get("longitude"):
+            self.add_error(
+                "longitude",
+                forms.ValidationError(
+                    _(
+                        "Could not retrieve the coordinates automatically, please fill the field manually."
+                    ),
+                    code="required",
+                ),
+            )
 
         logger.debug("RegionForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data

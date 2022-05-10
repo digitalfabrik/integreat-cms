@@ -78,6 +78,9 @@
                     </div>
                     <div>
                         <label>{% trans 'Center of the region' %}</label>
+                        <div class="help-text">
+                            {% trans 'If you leave these fields blank, they are automatically derived from the name, administrative division and community identification number.' %}
+                        </div>
                         <label for="{{ form.latitude.id_for_label }}" class="secondary">{{ form.latitude.label }}</label>
                         {% render_field form.latitude|add_error_class:"border-red-500" %}
                         <div class="help-text">{{ form.latitude.help_text }}</div>

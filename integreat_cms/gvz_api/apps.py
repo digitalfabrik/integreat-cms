@@ -32,6 +32,7 @@ class GvzApiConfig(AppConfig):
                     # Require the response to return a valid JSON, otherwise it's probably an error
                     assert json.loads(response.text)
                     logger.info("GVZ API is available at: %r", settings.GVZ_API_URL)
+                    self.api_available = True
                 except (
                     json.decoder.JSONDecodeError,
                     requests.exceptions.RequestException,

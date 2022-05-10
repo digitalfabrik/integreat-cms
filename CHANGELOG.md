@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1409](https://github.com/digitalfabrik/integreat-cms/issues/1409) ] Fix automatic filling of region coordinates
+
 
 2022.5.0
 --------
