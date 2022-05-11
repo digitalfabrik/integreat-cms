@@ -509,6 +509,8 @@ def duplicate_pages(
         target_page.tree_id = target_tree_id
         # Delete the primary key to duplicate the object instance instead of updating it
         target_page.pk = None
+        # Set push API token to blank for duplicated page
+        target_page.api_token = ""
         # Check if the page is valid
         target_page.full_clean()
         # Save duplicated page
@@ -603,8 +605,6 @@ def duplicate_imprint(source_region, target_region):
         imprint_translation.full_clean()
         # Save duplicated imprint translation
         imprint_translation.save(update_timestamp=False)
-
-    # TODO: implement duplication of all media files
 
 
 # pylint: disable=unused-argument
