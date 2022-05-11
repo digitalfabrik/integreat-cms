@@ -149,6 +149,10 @@ class PageTranslation(AbstractBasePageTranslation):
             for translation in self.page.prefetched_public_translations_by_language_slug.values()
             if translation.content and not translation.content.isspace()
         ]
+
+        if not fallback_translations:
+            return self.content
+
         return render_to_string(
             "pages/_page_content_alternatives.html",
             {
