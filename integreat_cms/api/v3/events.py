@@ -5,6 +5,7 @@ from datetime import timedelta
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
+from django.utils.html import strip_tags
 
 from ...cms.models.events.event_translation import EventTranslation
 from ...cms.utils.slug_utils import generate_unique_slug
@@ -60,7 +61,7 @@ def transform_event_translation(event_translation):
         "path": event_translation.get_absolute_url(),
         "title": event_translation.title,
         "modified_gmt": event_translation.last_updated.strftime("%Y-%m-%d %H:%M:%S"),
-        "excerpt": event_translation.content,
+        "excerpt": strip_tags(event_translation.content),
         "content": event_translation.content,
         "available_languages": event_translation.available_languages,
         "thumbnail": event.icon.url if event.icon else None,
