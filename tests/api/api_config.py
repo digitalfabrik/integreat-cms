@@ -23,6 +23,12 @@ API_ENDPOINTS = [
         200,
     ),
     (
+        "/api/augsburg/ar/pages/",
+        "/augsburg/ar/wp-json/extensions/v3/pages/",
+        "tests/api/expected-outputs/augsburg_ar_pages.json",
+        200,
+    ),
+    (
         "/api/augsburg/de/locations/",
         "/augsburg/de/wp-json/extensions/v3/locations/",
         "tests/api/expected-outputs/augsburg_de_locations.json",
