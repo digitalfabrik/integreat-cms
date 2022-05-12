@@ -164,6 +164,9 @@ class RegionForm(CustomModelForm):
             # Duplicate pages
             logger.info("Duplicating page tree of %r to %r", source_region, region)
             duplicate_pages(source_region, region)
+            # Duplicate Imprint
+            logger.info("Duplicating imprint of %r to %r", source_region, region)
+            duplicate_imprint(source_region, region)
             # Duplicate media content
             duplicate_media(source_region, region)
 
@@ -506,6 +509,8 @@ def duplicate_pages(
         target_page.tree_id = target_tree_id
         # Delete the primary key to duplicate the object instance instead of updating it
         target_page.pk = None
+        # Set push API token to blank for duplicated page
+        target_page.api_token = ""
         # Check if the page is valid
         target_page.full_clean()
         # Save duplicated page
@@ -565,6 +570,41 @@ def duplicate_page_translations(source_page, target_page, logging_prefix):
             + ("└─" if i == num_translations - 1 else "├─"),
             page_translation,
         )
+
+
+def duplicate_imprint(source_region, target_region):
+    """
+    Function to duplicate the imprint from one region to another.
+
+    :param source_region: the source region from which the imprint should be duplicated
+    :type source_region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param target_region: the target region
+    :type target_region: ~integreat_cms.cms.models.regions.region.Region
+
+    """
+    source_imprint = source_region.imprint
+    target_imprint = deepcopy(source_imprint)
+    target_imprint.region = target_region
+    # Delete the primary key to duplicate the object instance instead of updating it
+    target_imprint.pk = None
+    # Check if the new imprint object is valid
+    target_imprint.full_clean()
+
+    target_imprint.save()
+
+    # Duplicate imprint translations by iterating to all existing ones
+    source_page_translations = source_imprint.translations.all()
+
+    for imprint_translation in source_page_translations:
+        # Set the page of the source translation to the new imprint
+        imprint_translation.page = target_imprint
+        # Delete the primary key to duplicate the object instance instead of updating it
+        imprint_translation.pk = None
+        # Check if the imprint translation is valid
+        imprint_translation.full_clean()
+        # Save duplicated imprint translation
+        imprint_translation.save(update_timestamp=False)
 
 
 # pylint: disable=unused-argument
