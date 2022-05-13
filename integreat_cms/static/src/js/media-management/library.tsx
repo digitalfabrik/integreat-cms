@@ -244,6 +244,7 @@ export default function Library({
               submitForm={submitForm}
               setUploadFile={setUploadFile}
               isLoading={isLoading}
+              refreshState={[refresh, setRefresh]}
             />
           )}
         </div>
