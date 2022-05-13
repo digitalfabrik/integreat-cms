@@ -46,7 +46,7 @@
             {% csrf_token %}
         </form>
     {% endif %}
-    <form method="post" id="bulk-action-form" class="table-listing">
+    <form action="{{ pagination_params }}" method="post" id="bulk-action-form" class="table-listing">
         {% csrf_token %}
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
@@ -87,16 +87,16 @@
                 </option>
                 {% if view.kwargs.link_filter == 'ignored' %}
                     <option value="unignore"
-                            data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}">
+                            data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}{{ pagination_params }}">
                         {% trans 'Unignore' %}
                     </option>
                 {% else %}
                     <option value="recheck"
-                            data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}">
+                            data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}{{ pagination_params }}">
                         {% trans 'Recheck' %}
                     </option>
                     <option value="ignore"
-                            data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}">
+                            data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug link_filter=view.kwargs.link_filter %}{{ pagination_params }}">
                         {% trans 'Ignore' %}
                     </option>
                 {% endif %}

@@ -1,9 +1,12 @@
+import logging
 import re
+
+from urllib.parse import urlencode
 
 from django.conf import settings
 from django.contrib import messages
-from django.urls import reverse
-from django.shortcuts import get_object_or_404, redirect
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, reverse
 from django.utils.translation import gettext as _
 from django.views.generic import ListView
 from django.views.generic.base import RedirectView
@@ -13,6 +16,8 @@ from cacheops import invalidate_model
 
 from ...utils.filter_links import filter_links
 from ...forms.linkcheck.edit_url_form import EditUrlForm
+
+logger = logging.getLogger(__name__)
 
 
 class LinkListView(ListView):
@@ -42,6 +47,21 @@ class LinkListView(ListView):
         """
         return int(self.request.GET.get("size", settings.PER_PAGE))
 
+    def get_pagination_params(self):
+        """
+        Get the urlencoded pagination GET parameters
+
+        :return: The URL params
+        :rtype: str
+        """
+        params = {
+            k: v for k, v in self.request.GET.items() if k in (self.page_kwarg, "size")
+        }
+        print(params)
+        if params:
+            return f"?{urlencode(params)}"
+        return ""
+
     def get_context_data(self, **kwargs):
         r"""
         Extend context by edit link form
@@ -58,6 +78,7 @@ class LinkListView(ListView):
             link = get_object_or_404(Link, id=edit_link_id)
             self.form = EditUrlForm(initial={"url": link.url})
         context["edit_url_form"] = self.form
+        context["pagination_params"] = self.get_pagination_params()
         return context
 
     def get_queryset(self):
@@ -73,6 +94,33 @@ class LinkListView(ListView):
         links, count_dict = filter_links(region_slug, link_filter)
         self.extra_context.update(count_dict)
         return links
+
+    def get(self, request, *args, **kwargs):
+        r"""
+        Return the get view and fall back to the last page if the requested page does not exist
+
+        :param request: Object representing the user call
+        :type request: ~django.http.HttpRequest
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The rendered linkcheck template or a redirect to the last page
+        :rtype: ~django.template.response.TemplateResponse or ~django.http.HttpResponseRedirect
+        """
+        try:
+            return super().get(request, *args, **kwargs)
+        except Http404:
+            logger.debug("Redirecting to last page because response was 404")
+            # If the page does not exist, use the last page as fallback
+            params = {"page": "last"}
+            size = request.GET.get("size")
+            if size:
+                params["size"] = size
+            return redirect(f"{request.path}?{urlencode(params)}")
 
     # pylint: disable-msg=too-many-locals
     def post(self, request, *args, **kwargs):
@@ -126,7 +174,6 @@ class LinkListView(ListView):
                 # If the form is invalid, render the invalid form
                 return super().get(request, *args, **kwargs)
 
-        link_filter = kwargs.get("link_filter")
         link_ids = request.POST.getlist("selected_ids[]")
         action = request.POST.get("action")
         selected_links = Link.objects.filter(id__in=link_ids)
@@ -143,7 +190,8 @@ class LinkListView(ListView):
             messages.success(request, _("Links were successfully checked"))
         invalidate_model(Link)
 
-        return redirect("linkcheck", region_slug=region_slug, link_filter=link_filter)
+        # Keep pagination settings
+        return redirect(f"{request.path}{self.get_pagination_params()}")
 
 
 class LinkListRedirectView(RedirectView):

@@ -37,7 +37,7 @@
     <td class="pr-2">{% get_model_verbose_name item.translation %}</td>
     <td class="text-right pr-4">
         <a title="{% trans 'Replace URL globally' %}"
-           href="{% url 'edit_link' link_id=item.link.id link_filter=view.kwargs.link_filter region_slug=request.region.slug %}"
+           href="{% url 'edit_link' link_id=item.link.id link_filter=view.kwargs.link_filter region_slug=request.region.slug %}{{ pagination_params }}"
            class="btn-icon">
             <i data-feather="edit"></i>
         </a>
@@ -48,7 +48,7 @@
         <td colspan="7">
             <div class="flex gap-2 p-2">
                 {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
-                <a href="{% url 'linkcheck' link_filter=view.kwargs.link_filter region_slug=request.region.slug %}"
+                <a href="{% url 'linkcheck' link_filter=view.kwargs.link_filter region_slug=request.region.slug %}{{ pagination_params }}"
                    class="btn btn-red">Cancel</a>
                 <button type="submit" form="edit-url-form" class="btn">Save</button>
             </div>
