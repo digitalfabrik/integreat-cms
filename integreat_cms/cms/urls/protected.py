@@ -644,7 +644,7 @@ urlpatterns = [
                                             name="linkcheck_landing",
                                         ),
                                         path(
-                                            "<slug:link_filter>/",
+                                            "<slug:url_filter>/",
                                             include(
                                                 [
                                                     path(
@@ -653,9 +653,9 @@ urlpatterns = [
                                                         name="linkcheck",
                                                     ),
                                                     path(
-                                                        "<int:link_id>/",
+                                                        "<int:url_id>/",
                                                         linkcheck.LinkListView.as_view(),
-                                                        name="edit_link",
+                                                        name="edit_url",
                                                     ),
                                                 ]
                                             ),

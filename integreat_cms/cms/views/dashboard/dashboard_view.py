@@ -4,7 +4,7 @@ from django.conf import settings
 from django.utils import translation
 from django.views.generic import TemplateView
 
-from ...utils.filter_links import filter_links
+from ...utils.linkcheck_utils import filter_urls
 from ..chat.chat_context_mixin import ChatContextMixin
 
 logger = logging.getLogger(__name__)
@@ -30,7 +30,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         """
         context = super().get_context_data(**kwargs)
         # Link count
-        _, count_dict = filter_links(kwargs.get("region_slug"))
+        _, count_dict = filter_urls()
         context.update(count_dict)
         # RSS FEED urls
         language_slug = translation.get_language()

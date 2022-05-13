@@ -12,6 +12,7 @@ UNRELEASED
 * [ [#1401](https://github.com/digitalfabrik/integreat-cms/issues/1401) ] Support WordPress slugs by applying slugify on API parameters
 * [ [#1413](https://github.com/digitalfabrik/integreat-cms/issues/1413) ] Fix change of pagination size in broken link checker
 * [ [#1422](https://github.com/digitalfabrik/integreat-cms/issues/1422) ] Keep pagination settings in broken link checker when performing replacement
+* [ [#1405](https://github.com/digitalfabrik/integreat-cms/issues/1405) ] Show same URLs only once in broken link checker
 
 
 2022.5.0

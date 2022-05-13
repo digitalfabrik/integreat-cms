@@ -3221,7 +3221,7 @@ msgstr "Feedback"
 
 #: cms/templates/_base.html:181
 #: cms/templates/push_notifications/push_notification_list.html:7
-#: core/settings.py:747
+#: core/settings.py:754
 msgid "News"
 msgstr "Nachrichten"
 
@@ -3356,6 +3356,7 @@ msgstr "Speichern"
 
 #: cms/templates/_tinymce_config.html:39
 #: cms/templates/generic_confirmation_dialog.html:22
+#: cms/templates/linkcheck/link_list_row.html:58
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -3959,7 +3960,7 @@ msgstr "Wiederholung"
 #: cms/templates/events/event_list.html:82
 #: cms/templates/events/event_list_archived.html:57
 #: cms/templates/languages/language_list.html:30
-#: cms/templates/linkcheck/links_by_filter.html:62
+#: cms/templates/linkcheck/links_by_filter.html:63
 #: cms/templates/offertemplates/offertemplate_list.html:26
 #: cms/templates/organizations/organization_list.html:23
 #: cms/templates/pages/page_tree.html:90
@@ -3986,7 +3987,7 @@ msgstr "Veranstaltungen ausgewählt"
 #: cms/templates/events/event_list_archived.html:81
 #: cms/templates/feedback/admin_feedback_list.html:138
 #: cms/templates/feedback/region_feedback_list.html:130
-#: cms/templates/linkcheck/links_by_filter.html:86
+#: cms/templates/linkcheck/links_by_filter.html:97
 #: cms/templates/pages/page_tree.html:150
 #: cms/templates/pages/page_tree_archived.html:92
 #: cms/templates/pois/poi_list.html:102
@@ -4020,7 +4021,7 @@ msgstr "Diese Sprache wird von DeepL nicht unterstützt"
 #: cms/templates/events/event_list_archived.html:86
 #: cms/templates/feedback/admin_feedback_list.html:152
 #: cms/templates/feedback/region_feedback_list.html:144
-#: cms/templates/linkcheck/links_by_filter.html:104
+#: cms/templates/linkcheck/links_by_filter.html:115
 #: cms/templates/pages/page_tree.html:184
 #: cms/templates/pages/page_tree_archived.html:98
 #: cms/templates/pois/poi_list.html:123
@@ -4438,6 +4439,7 @@ msgstr "Sprache hinzufügen"
 
 #: cms/templates/language_tree/language_tree_node_form.html:23
 #: cms/templates/languages/language_form.html:19
+#: cms/templates/linkcheck/link_list_row.html:59
 #: cms/templates/offertemplates/offertemplate_form.html:20
 #: cms/templates/organizations/organization_form.html:19
 #: cms/templates/push_notifications/push_notification_form.html:23
@@ -4559,7 +4561,7 @@ msgstr "Noch keine Sprachen vorhanden."
 msgid "Go to source"
 msgstr "Inhalt aufrufen"
 
-#: cms/templates/linkcheck/link_list_row.html:39
+#: cms/templates/linkcheck/link_list_row.html:45
 msgid "Replace URL globally"
 msgstr "URL zentral ersetzen"
 
@@ -4591,23 +4593,39 @@ msgstr "Quelle"
 msgid "Content type"
 msgstr "Inhaltstyp"
 
-#: cms/templates/linkcheck/links_by_filter.html:70
-msgid "No links detected yet."
-msgstr "Es konnten keine Links gefunden werden."
+#: cms/templates/linkcheck/links_by_filter.html:62
+msgid "Usages"
+msgstr "Verwendungen"
+
+#: cms/templates/linkcheck/links_by_filter.html:73
+msgid "No valid links could be found."
+msgstr "Es konnten keine gültigen Links gefunden werden."
+
+#: cms/templates/linkcheck/links_by_filter.html:75
+msgid "No invalid links could be found."
+msgstr "Es konnten keine ungültigen Links gefunden werden."
+
+#: cms/templates/linkcheck/links_by_filter.html:77
+msgid "No unchecked links could be found."
+msgstr "Es konnten keine ungeprüften Links gefunden werden."
 
 #: cms/templates/linkcheck/links_by_filter.html:79
+msgid "No ignored links could be found."
+msgstr "Es konnten keine ignorierten Links gefunden werden."
+
+#: cms/templates/linkcheck/links_by_filter.html:90
 msgid "Links selected"
 msgstr "Links ausgewählt"
 
-#: cms/templates/linkcheck/links_by_filter.html:91
+#: cms/templates/linkcheck/links_by_filter.html:102
 msgid "Unignore"
 msgstr "Nicht ignorieren"
 
-#: cms/templates/linkcheck/links_by_filter.html:96
+#: cms/templates/linkcheck/links_by_filter.html:107
 msgid "Recheck"
 msgstr "Erneut prüfen"
 
-#: cms/templates/linkcheck/links_by_filter.html:100
+#: cms/templates/linkcheck/links_by_filter.html:111
 msgid "Ignore"
 msgstr "Ignorieren"
 
@@ -6218,19 +6236,19 @@ msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich gespeichert"
 msgid "Language tree node for \"{}\" was successfully created"
 msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/linkcheck/linkcheck.py:168
+#: cms/views/linkcheck/linkcheck.py:164
 msgid "URL was successfully replaced"
 msgstr "URL wurde erfolgreich ersetzt"
 
-#: cms/views/linkcheck/linkcheck.py:183
+#: cms/views/linkcheck/linkcheck.py:180
 msgid "Links were successfully ignored"
 msgstr "Links wurden erfolgreich ignoriert"
 
-#: cms/views/linkcheck/linkcheck.py:186
+#: cms/views/linkcheck/linkcheck.py:184
 msgid "Links were successfully unignored"
 msgstr "Links werden nicht mehr ignoriert"
 
-#: cms/views/linkcheck/linkcheck.py:190
+#: cms/views/linkcheck/linkcheck.py:188
 msgid "Links were successfully checked"
 msgstr "Links wurden erfolgreich geprüft"
 
@@ -6902,6 +6920,12 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Number of usages"
+#~ msgstr "Anzahl an Verwendungen"
+
+#~ msgid "No links detected yet."
+#~ msgstr "Es konnten keine Links gefunden werden."
 
 #~ msgid "Do not show this location on map"
 #~ msgstr "Diesen Ort nicht auf Karte zeigen"

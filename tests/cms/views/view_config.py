@@ -329,42 +329,42 @@ VIEWS = [
     (
         [("linkcheck", ROLES)],
         # The kwargs for these views
-        {"region_slug": "augsburg", "link_filter": "valid"},
+        {"region_slug": "augsburg", "url_filter": "valid"},
     ),
     (
         [("linkcheck", STAFF_ROLES)],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "link_filter": "valid"},
+        {"region_slug": "nurnberg", "url_filter": "valid"},
     ),
     (
         [("linkcheck", ROLES)],
         # The kwargs for these views
-        {"region_slug": "augsburg", "link_filter": "unchecked"},
+        {"region_slug": "augsburg", "url_filter": "unchecked"},
     ),
     (
         [("linkcheck", STAFF_ROLES)],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "link_filter": "unchecked"},
+        {"region_slug": "nurnberg", "url_filter": "unchecked"},
     ),
     (
         [("linkcheck", ROLES)],
         # The kwargs for these views
-        {"region_slug": "augsburg", "link_filter": "ignored"},
+        {"region_slug": "augsburg", "url_filter": "ignored"},
     ),
     (
         [("linkcheck", STAFF_ROLES)],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "link_filter": "ignored"},
+        {"region_slug": "nurnberg", "url_filter": "ignored"},
     ),
     (
         [("linkcheck", ROLES)],
         # The kwargs for these views
-        {"region_slug": "augsburg", "link_filter": "invalid"},
+        {"region_slug": "augsburg", "url_filter": "invalid"},
     ),
     (
         [("linkcheck", STAFF_ROLES)],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "link_filter": "invalid"},
+        {"region_slug": "nurnberg", "url_filter": "invalid"},
     ),
     (
         [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
@@ -649,7 +649,7 @@ REDIRECT_VIEWS = [
                 STAFF_ROLES,
                 reverse(
                     "linkcheck",
-                    kwargs={"region_slug": "augsburg", "link_filter": "invalid"},
+                    kwargs={"region_slug": "augsburg", "url_filter": "invalid"},
                 ),
             ),
         ],
