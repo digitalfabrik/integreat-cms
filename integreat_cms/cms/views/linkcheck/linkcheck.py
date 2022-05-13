@@ -1,6 +1,7 @@
 import logging
-import re
+import time
 
+from functools import partial
 from urllib.parse import urlencode
 
 from django.conf import settings
@@ -11,6 +12,9 @@ from django.utils.translation import gettext as _
 from django.views.generic import ListView
 from django.views.generic.base import RedirectView
 
+from lxml.html import rewrite_links
+
+from linkcheck import update_lock
 from linkcheck.models import Link, Url
 from cacheops import invalidate_model
 
@@ -149,18 +153,29 @@ class LinkListView(ListView):
             if self.form.is_valid():
                 new_url = self.form.cleaned_data["url"]
                 # Get all current translations with the same url
-                translations = [link.content_object for link in old_url.links.all()]
-                # Replace the old urls with the new urls in the content
-                for translation in translations:
-                    translation.content = re.sub(
-                        rf"href=[\'\"]{old_url.url}[\'\"]",
-                        f'href="{new_url}"',
-                        translation.content,
-                    )
-                    # Save translation with replaced content as new version
-                    translation.id = None
-                    translation.version += 1
-                    translation.save()
+                translations = {
+                    link.content_object
+                    for link in old_url.links.all().prefetch_related("content_object")
+                    # Only take translations of the current region
+                    if link.content_object.foreign_object.region == request.region
+                }
+                # Acquire linkcheck lock to avoid race conditions between post_save signal and links.delete()
+                with update_lock:
+                    # Replace the old urls with the new urls in the content
+                    for translation in translations:
+                        # Delete now outdated link objects
+                        translation.links.all().delete()
+                        # Replace link in translation
+                        logger.debug("Replacing links of %r", translation)
+                        translation.content = rewrite_links(
+                            translation.content,
+                            partial(self.replace_link, old_url.url, new_url),
+                        )
+                        # Save translation with replaced content as new minor version
+                        translation.id = None
+                        translation.version += 1
+                        translation.minor_edit = True
+                        translation.save()
                 messages.success(request, _("URL was successfully replaced"))
             else:
                 # Show error messages
@@ -188,10 +203,33 @@ class LinkListView(ListView):
             messages.success(request, _("Links were successfully checked"))
         invalidate_model(Link)
         invalidate_model(Url)
-
+        # Add short delay to allow rechecking to be finished when page reloads
+        time.sleep(1)
         linkcheck_url = reverse("linkcheck", kwargs=kwargs)
         # Keep pagination settings
         return redirect(f"{linkcheck_url}{self.get_pagination_params()}")
+
+    @staticmethod
+    def replace_link(old_url, new_url, link):
+        """
+        Replace the URL of a link
+
+        :param old_url: The old URL to be replaced
+        :type old_url: str
+
+        :param new_url: The new URL
+        :type new_url: str
+
+        :param link: The input link
+        :type link: str
+
+        :return: The replaced link
+        :rtype: str
+        """
+        if link == old_url:
+            logger.debug("Replacing %r with %r", old_url, new_url)
+            return new_url
+        return link
 
 
 class LinkListRedirectView(RedirectView):
