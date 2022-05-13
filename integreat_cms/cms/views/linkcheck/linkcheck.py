@@ -25,13 +25,22 @@ class LinkListView(ListView):
     #: Designates the name of the variable to use in the context
     #: (see :class:`~django.views.generic.list.MultipleObjectMixin`)
     context_object_name = "filtered_links"
-    #: An integer specifying how many objects should be displayed per page
-    #: (see :class:`~django.views.generic.list.MultipleObjectMixin`)
-    paginate_by = settings.PER_PAGE
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "linkcheck"}
     #: The link edit form
     form = None
+
+    def get_paginate_by(self, queryset):
+        """
+        Get the number of items to paginate by, or ``None`` for no pagination.
+
+        :param queryset: The QuerySet of the filtered links
+        :type queryset: ~django.db.models.query.QuerySet
+
+        :return: The pagination number
+        :rtype: int
+        """
+        return int(self.request.GET.get("size", settings.PER_PAGE))
 
     def get_context_data(self, **kwargs):
         r"""
