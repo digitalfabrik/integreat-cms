@@ -88,7 +88,9 @@ export function setBulkActionEventListeners() {
  */
 function updateSelectionCount() {
   const selectCount = (document.querySelector("[data-list-selection-count]") as HTMLElement);
-  selectCount.innerText = document.querySelectorAll(".bulk-select-item:checked").length.toString();
+  if (selectCount) {
+    selectCount.innerText = document.querySelectorAll(".bulk-select-item:checked").length.toString();
+  }
 }
 
 /*
