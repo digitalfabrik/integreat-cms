@@ -8,6 +8,7 @@ UNRELEASED
 * [ [#1402](https://github.com/digitalfabrik/integreat-cms/issues/1402) ] Also duplicate imprints for new regions
 * [ [#1408](https://github.com/digitalfabrik/integreat-cms/issues/1408) ] Remove duplication of push API tokens for pages during duplication process
 * [ [#1404](https://github.com/digitalfabrik/integreat-cms/issues/1404) ] Fix performance issue for select all on huge page trees
+* [ [#1403](https://github.com/digitalfabrik/integreat-cms/issues/1403) ] Fix problem with cache when removing language in a region
 
 
 2022.5.0
