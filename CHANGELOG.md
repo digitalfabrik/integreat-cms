@@ -9,6 +9,7 @@ UNRELEASED
 * [ [#1408](https://github.com/digitalfabrik/integreat-cms/issues/1408) ] Remove duplication of push API tokens for pages during duplication process
 * [ [#1404](https://github.com/digitalfabrik/integreat-cms/issues/1404) ] Fix performance issue for select all on huge page trees
 * [ [#1403](https://github.com/digitalfabrik/integreat-cms/issues/1403) ] Fix problem with cache when removing language in a region
+* [ [#1401](https://github.com/digitalfabrik/integreat-cms/issues/1401) ] Support WordPress slugs by applying slugify on API parameters
 
 
 2022.5.0
