@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-04-30T17:20:21+00:00" />
+    <meta property="article:modified_time" content="2022-05-13T19:49:59+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2022.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -311,6 +311,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#frequency">Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#linkcheck">Linkcheck</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#matomo-periods">Matomo Periods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#months">Months</a></li>
@@ -400,7 +401,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#content-edit-lock">Content Edit Lock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#email-utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#filter-links">Filter Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#linkcheck-utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
@@ -578,6 +579,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_ratings">Feedback Ratings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_read_status">Feedback Read Status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.frequency">Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.linkcheck">Linkcheck</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.matomo_periods">Matomo Periods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.mirrored_page_first">Mirrored Page First</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.months">Months</a></li>
@@ -667,7 +669,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_edit_lock">Content Edit Lock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.email_utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.filter_links">Filter Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
@@ -1647,6 +1649,15 @@ processor to add some variables to the template context.</p>
 </dd></dl>
 
 <dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.core.settings.LINKCHECK_IGNORED_URL_TYPES">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LINKCHECK_IGNORED_URL_TYPES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['mailto',</span> <span class="pre">'phone',</span> <span class="pre">'anchor']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.LINKCHECK_IGNORED_URL_TYPES" title="Permalink to this definition"></a></dt>
+<dd><p>URL types that are not supposed to be shown in the link list (e.g. phone numbers and emails)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;mailto&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;phone&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;anchor&#39;</span><span class="p">]</span><span class="w"></span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.LOCALE_PATHS">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LOCALE_PATHS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('/home/circleci/project/integreat_cms/locale',)</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.LOCALE_PATHS" title="Permalink to this definition"></a></dt>
 <dd><p>A list of directories where Django looks for translation files
@@ -2225,7 +2236,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Apr 30, 2022.
+      <span class="lastupdated">Last updated on May 13, 2022.
       </span></p>
   </div>
 

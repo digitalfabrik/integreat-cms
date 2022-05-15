@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-05-11T15:05:57+00:00" />
+    <meta property="article:modified_time" content="2022-05-13T20:37:35+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>XLIFF &mdash; integreat-cms 2022.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -311,6 +311,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#feedback-ratings">Feedback Ratings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#feedback-read-status">Feedback Read Status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#frequency">Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#linkcheck">Linkcheck</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#matomo-periods">Matomo Periods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.constants.html#months">Months</a></li>
@@ -400,7 +401,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#content-edit-lock">Content Edit Lock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#email-utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#filter-links">Filter Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#linkcheck-utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#matomo-api-manager">Matomo API Manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
@@ -578,6 +579,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_ratings">Feedback Ratings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.feedback_read_status">Feedback Read Status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.frequency">Frequency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.linkcheck">Linkcheck</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.matomo_periods">Matomo Periods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.mirrored_page_first">Mirrored Page First</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.months">Months</a></li>
@@ -667,7 +669,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_edit_lock">Content Edit Lock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.email_utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.filter_links">Filter Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.matomo_api_manager">Matomo API Manager</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
@@ -1688,7 +1690,7 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
 <p>Helper functions for the XLIFF serializer</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.xliff.utils.get_xliff_import_diff">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L272"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.get_xliff_import_diff" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L274"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.get_xliff_import_diff" title="Permalink to this definition"></a></dt>
 <dd><p>Show the XLIFF import diff</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1708,7 +1710,7 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.xliff.utils.get_xliff_import_errors">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_message_if_unchanged</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L408"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.get_xliff_import_errors" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_message_if_unchanged</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L419"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.get_xliff_import_errors" title="Permalink to this definition"></a></dt>
 <dd><p>Validate an imported page translation and return all errors
 As a side effect, a unique slug is generated for the translation if it does not yet have one.</p>
 <dl class="field-list simple">
@@ -1730,7 +1732,7 @@ As a side effect, a unique slug is generated for the translation if it does not 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.xliff.utils.page_to_xliff">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">page_to_xliff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_public</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.page_to_xliff" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">page_to_xliff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_public</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.page_to_xliff" title="Permalink to this definition"></a></dt>
 <dd><p>Export a page to an XLIFF file for a specified target language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1755,7 +1757,7 @@ As a side effect, a unique slug is generated for the translation if it does not 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.xliff.utils.pages_to_xliff_file">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">pages_to_xliff_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_public</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.pages_to_xliff_file" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">pages_to_xliff_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_public</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.pages_to_xliff_file" title="Permalink to this definition"></a></dt>
 <dd><p>Export a list of page IDs to a ZIP archive containing XLIFF files for a specified target language (or just a single
 XLIFF file if only one page is converted)</p>
 <dl class="field-list simple">
@@ -1778,7 +1780,7 @@ XLIFF file if only one page is converted)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.xliff.utils.xliff_import_confirm">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">xliff_import_confirm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L334"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.xliff_import_confirm" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">xliff_import_confirm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L336"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.xliff_import_confirm" title="Permalink to this definition"></a></dt>
 <dd><p>Confirm the XLIFF import and write changes to database</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1798,7 +1800,7 @@ XLIFF file if only one page is converted)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.xliff.utils.xliffs_to_pages">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">xliffs_to_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L199"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.xliffs_to_pages" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">xliffs_to_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.xliffs_to_pages" title="Permalink to this definition"></a></dt>
 <dd><p>Export a page to an XLIFF file for a specified target language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2413,7 +2415,7 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 11, 2022.
+      <span class="lastupdated">Last updated on May 13, 2022.
       </span></p>
   </div>
 
