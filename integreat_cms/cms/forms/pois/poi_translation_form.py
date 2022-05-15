@@ -82,6 +82,9 @@ class POITranslationForm(CustomContentModelForm):
         if not {"slug", "title", "short_description", "content"}.isdisjoint(
             self.changed_data
         ):
+            # Delete now outdated link objects
+            self.instance.links.all().delete()
+            # Save new version
             self.instance.version += 1
             self.instance.pk = None
 
