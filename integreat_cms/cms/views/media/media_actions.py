@@ -499,3 +499,14 @@ def delete_directory_ajax(request, region_slug=None):
             "directory": directory.serialize(),
         }
     )
+
+
+@require_POST
+@permission_required("cms.change_directory")
+@json_response
+# pylint: disable=unused-argument
+def move_file_to_directory_ajax(request, region_slug=None):
+
+    region = request.region
+
+    return JsonResponse()

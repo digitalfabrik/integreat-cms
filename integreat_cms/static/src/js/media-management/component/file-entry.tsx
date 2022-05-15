@@ -12,9 +12,19 @@ interface Props {
   onClick: (event: MouseEvent) => void;
   mediaTranslations: any;
   globalEdit?: boolean;
+  dragStart: () => unknown;
+  dragEnd: () => unknown;
 }
 
-export default function FileEntry({ file, active, onClick, mediaTranslations, globalEdit }: Props) {
+export default function FileEntry({
+  file,
+  active,
+  onClick,
+  mediaTranslations,
+  globalEdit,
+  dragStart,
+  dragEnd,
+}: Props) {
   return (
     <div
       title={mediaTranslations.btn_show_file}
@@ -24,9 +34,15 @@ export default function FileEntry({ file, active, onClick, mediaTranslations, gl
         { "border-white hover:border-blue-200": !active }
       )}
       onClick={onClick}
+      draggable={globalEdit || !file.isGlobal}
+      onDragStart={(e) => {
+        e.dataTransfer.setDragImage(e.target as Element, 0, 0);
+        dragStart();
+      }}
+      onDragEnd={dragEnd}
     >
       {file.thumbnailUrl ? (
-        <img className="w-full h-24 object-contain" src={file.thumbnailUrl} />
+        <img className="w-full h-24 object-contain pointer-events-none" src={file.thumbnailUrl} />
       ) : file.type.startsWith("image/") ? (
         <Image className="w-full h-24 flex-none" />
       ) : (

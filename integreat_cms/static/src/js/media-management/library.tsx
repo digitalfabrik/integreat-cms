@@ -8,7 +8,7 @@ import { route } from "preact-router";
 
 import { Directory, MediaApiPaths, MediaLibraryEntry, File } from ".";
 import Breadcrumbs from "./component/breadcrumbs";
-import DirectoryContent from "./component/directory-content";
+import DirectoryContent, { DraggedElement } from "./component/directory-content";
 import EditDirectorySidebar from "./component/edit-directory-sidebar";
 import EditSidebar from "./component/edit-sidebar";
 import { Message } from "./component/message";
@@ -81,6 +81,12 @@ export default function Library({
   const [isCreateDirectory, setCreateDirectory] = useState<boolean>(false);
   // Whether or not the file upload form should be shown
   const [isUploadFile, setUploadFile] = useState<boolean>(false);
+
+  const [draggedItem, setDraggedItem] = useState<DraggedElement | null>(null);
+
+  const moveIntoDirectory = (movedItem: DraggedElement, targetDirectoryId: number) => {
+    console.log(movedItem, targetDirectoryId);
+  };
 
   // This submit function is used for all form submissions
   const submitForm = async (event: Event, successCallback?: (data: any) => void) => {
@@ -260,6 +266,8 @@ export default function Library({
                 breadCrumbs={directoryPath}
                 searchQuery={searchQuery}
                 mediaTranslations={mediaTranslations}
+                allowDrop={draggedItem !== null}
+                dropItem={(targetDirectoryId) => moveIntoDirectory(draggedItem, targetDirectoryId)}
               />
             </div>
             {isLoading ? (
@@ -271,6 +279,11 @@ export default function Library({
                   mediaLibraryContent={mediaLibraryContent}
                   mediaTranslations={mediaTranslations}
                   globalEdit={globalEdit}
+                  allowDrop={draggedItem !== null}
+                  setDraggedItem={setDraggedItem}
+                  dropItem={(targetDirectoryId) =>
+                    moveIntoDirectory(draggedItem, targetDirectoryId)
+                  }
                 />
               </div>
             )}
