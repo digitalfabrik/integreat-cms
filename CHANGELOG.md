@@ -13,6 +13,7 @@ UNRELEASED
 * [ [#1413](https://github.com/digitalfabrik/integreat-cms/issues/1413) ] Fix change of pagination size in broken link checker
 * [ [#1422](https://github.com/digitalfabrik/integreat-cms/issues/1422) ] Keep pagination settings in broken link checker when performing replacement
 * [ [#1405](https://github.com/digitalfabrik/integreat-cms/issues/1405) ] Show same URLs only once in broken link checker
+* [ [#1438](https://github.com/digitalfabrik/integreat-cms/issues/1438) ] Fix error in page form when page-specific permissions are enabled
 
 
 2022.5.0
