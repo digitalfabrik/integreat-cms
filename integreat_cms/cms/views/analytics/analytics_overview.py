@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 
-from ...utils.linkcheck_utils import filter_urls
+from ...utils.linkcheck_utils import get_url_count
 
 
 class AnalyticsView(TemplateView):
@@ -22,7 +22,7 @@ class AnalyticsView(TemplateView):
         :rtype: dict
         """
         context = super().get_context_data(**kwargs)
-        _, count_dict = filter_urls()
+        count_dict = get_url_count(kwargs.get("region_slug"))
         context.update(count_dict)
         context["current_menu_item"] = "analytics"
         return context

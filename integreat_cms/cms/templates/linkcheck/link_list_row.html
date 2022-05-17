@@ -3,7 +3,7 @@
 {% load content_filters %}
 {% load model_tags %}
 {% load widget_tweaks %}
-{% object_translation_has_view_perm request.user url.links.all.0.content_object as show_source_link %}
+{% object_translation_has_view_perm request.user url.region_links.0.content_object as show_source_link %}
 <tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4">
         <input type="checkbox"
@@ -23,23 +23,23 @@
         {{ url.message|linkcheck_status_filter }}
     </td>
     <td class="pr-2 whitespace-nowrap max-w-lg overflow-hidden text-ellipsis"
-        title="{{ url.links.all.0.text }}">
-        {{ url.links.all.0.text }}
+        title="{{ url.region_links.0.text }}">
+        {{ url.region_links.0.text }}
     </td>
     <td class="pr-2">
         {% if show_source_link %}
-            <a href="{{ url.links.all.0.content_object.backend_edit_link }}"
+            <a href="{{ url.region_links.0.content_object.backend_edit_link }}"
                title="{% trans 'Go to source' %}"
                class="hover:underline">
-               {{ url.links.all.0.content_object.title }}
+               {{ url.region_links.0.content_object.title }}
             </a>
         {% else %}
-            {{ url.links.all.0.content_object.title }}
+            {{ url.region_links.0.content_object.title }}
         {% endif %}
     </td>
-    <td class="pr-2">{% get_model_verbose_name url.links.all.0.content_object %}</td>
+    <td class="pr-2">{% get_model_verbose_name url.region_links.0.content_object %}</td>
     <td class="text-right pr-2">
-        {{ url.links.all|length }}
+        {{ url.region_links|length }}
     </td>
     <td class="text-right pr-4">
         <a title="{% trans 'Replace URL globally' %}"

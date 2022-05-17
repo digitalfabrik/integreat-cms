@@ -1,7 +1,10 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
+
+from linkcheck.models import Link
 
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
@@ -23,6 +26,7 @@ class EventTranslation(AbstractContentTranslation):
         related_name="translations",
         verbose_name=_("event"),
     )
+    links = GenericRelation(Link, related_query_name="event_translation")
 
     @cached_property
     def foreign_object(self):
