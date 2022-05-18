@@ -8,11 +8,12 @@ from django.core.management import call_command
 from django.test.client import Client
 
 
-from integreat_cms.cms.constants.role_names import (
+from integreat_cms.cms.constants.roles import (
     MANAGEMENT,
     EDITOR,
+    AUTHOR,
     EVENT_MANAGER,
-    MUNICIPALITY_TEAM,
+    SERVICE_TEAM,
     CMS_TEAM,
     APP_TEAM,
     MARKETING_TEAM,
@@ -24,11 +25,13 @@ ROOT = "ROOT"
 ANONYMOUS = "ANONYMOUS"
 
 #: All roles of region users
-REGION_ROLES = [MANAGEMENT, EDITOR, EVENT_MANAGER]
+REGION_ROLES = [MANAGEMENT, EDITOR, AUTHOR, EVENT_MANAGER]
 #: All roles of staff users
-STAFF_ROLES = [ROOT, MUNICIPALITY_TEAM, CMS_TEAM, APP_TEAM, MARKETING_TEAM]
+STAFF_ROLES = [ROOT, SERVICE_TEAM, CMS_TEAM, APP_TEAM, MARKETING_TEAM]
 #: All roles of staff users that don't just have read-only permissions
-PRIV_STAFF_ROLES = [ROOT, MUNICIPALITY_TEAM, CMS_TEAM]
+PRIV_STAFF_ROLES = [ROOT, APP_TEAM, SERVICE_TEAM, CMS_TEAM]
+#: All roles of staff users that don't just have read-only permissions
+HIGH_PRIV_STAFF_ROLES = [ROOT, SERVICE_TEAM, CMS_TEAM]
 #: All region and staff roles
 ROLES = REGION_ROLES + STAFF_ROLES
 #: All region and staff roles and anonymous users

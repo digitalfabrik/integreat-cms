@@ -5,7 +5,7 @@ from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
-from ...constants import role_names
+from ...constants import roles
 
 
 class Role(AbstractBaseModel):
@@ -13,10 +13,10 @@ class Role(AbstractBaseModel):
     Meta information about the default Django auth group model
     """
 
-    #: Manage choices in :mod:`~integreat_cms.cms.constants.role_names`
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.roles`
     name = models.CharField(
         max_length=50,
-        choices=role_names.CHOICES,
+        choices=roles.CHOICES,
         verbose_name=_("name"),
     )
     group = models.OneToOneField(
