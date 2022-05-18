@@ -4,7 +4,7 @@
 {% load model_tags %}
 {% load widget_tweaks %}
 {% object_translation_has_view_perm request.user url.region_links.0.content_object as show_source_link %}
-<tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
+<tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800" {% if url.id == view.kwargs.url_id %} id="replace-url" {% endif %}>
     <td class="py-3 pl-4">
         <input type="checkbox"
                name="selected_ids[]"
@@ -48,7 +48,7 @@
     </td>
     <td class="text-right pr-4">
         <a title="{% trans 'Replace URL globally' %}"
-           href="{% url 'edit_url' url_id=url.id url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}"
+           href="{% url 'edit_url' url_id=url.id url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}#replace-url"
            class="btn-icon">
             <i data-feather="edit"></i>
         </a>
