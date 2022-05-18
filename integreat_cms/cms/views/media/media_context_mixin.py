@@ -29,6 +29,7 @@ class MediaContextMixin(ContextMixin):
                 "heading_media_library": _("Media Library"),
                 "heading_create_directory": _("Create Directory"),
                 "heading_upload_file": _("Upload File"),
+                "text_upload_area": _("Click or drop files here for upload."),
                 "heading_media_root": _("Home"),
                 "heading_directory_properties": _("Directory Properties"),
                 "heading_file_properties": _("File Properties"),
@@ -73,6 +74,9 @@ class MediaContextMixin(ContextMixin):
                 "text_dir_delete_confirm": _(
                     "Please confirm that you really want to delete this directory"
                 ),
+                "text_error_invalid_file_type": _(
+                    "This file type is not supported. Supported types are:"
+                ),
                 "text_error": (
                     _("An error has occurred.") + " " + _("Please try again later.")
                 ),
@@ -81,9 +85,12 @@ class MediaContextMixin(ContextMixin):
                     + " "
                     + _("Please try again later.")
                 ),
+                "text_allowed_media_types": ", ".join(
+                    map(str, dict(allowed_media.UPLOAD_CHOICES).values())
+                ),
             },
             "expertMode": self.request.user.expert_mode,
-            "allowedMediaTypes": ", ".join(dict(allowed_media.CHOICES)),
+            "allowedMediaTypes": ", ".join(dict(allowed_media.UPLOAD_CHOICES)),
         }
         kwargs = (
             {"region_slug": self.request.region.slug} if self.request.region else {}
