@@ -1,6 +1,7 @@
 import logging
 import time
 
+from copy import deepcopy
 from functools import partial
 from urllib.parse import urlencode
 
@@ -163,26 +164,30 @@ class LinkListView(ListView):
                 new_url = self.form.cleaned_data["url"]
                 # Get all current translations with the same url
                 translations = {link.content_object for link in old_url.region_links}
+                # Replace the old urls with the new urls in the content
+                for translation in translations:
+                    new_translation = deepcopy(translation)
+                    # Replace link in translation
+                    logger.debug("Replacing links of %r", new_translation)
+                    new_translation.content = rewrite_links(
+                        new_translation.content,
+                        partial(self.replace_link, old_url.url, new_url),
+                    )
+                    # Save translation with replaced content as new minor version
+                    new_translation.id = None
+                    new_translation.version += 1
+                    new_translation.minor_edit = True
+                    new_translation.save()
+                messages.success(request, _("URL was successfully replaced"))
+                # Add short delay to allow post_save signals to finish (to keep existing URL objects when deleting the old links)
+                time.sleep(0.5)
                 # Acquire linkcheck lock to avoid race conditions between post_save signal and links.delete()
                 with update_lock:
-                    # Replace the old urls with the new urls in the content
                     for translation in translations:
                         # Delete now outdated link objects
                         translation.links.all().delete()
-                        # Replace link in translation
-                        logger.debug("Replacing links of %r", translation)
-                        translation.content = rewrite_links(
-                            translation.content,
-                            partial(self.replace_link, old_url.url, new_url),
-                        )
-                        # Save translation with replaced content as new minor version
-                        translation.id = None
-                        translation.version += 1
-                        translation.minor_edit = True
-                        translation.save()
-                messages.success(request, _("URL was successfully replaced"))
                 # Add short delay to allow rechecking to be finished when page reloads
-                time.sleep(1)
+                time.sleep(0.5)
             else:
                 # Show error messages
                 for field in self.form:
