@@ -57,6 +57,8 @@ def imprint(request, region_slug, language_slug):
     :rtype: ~django.http.JsonResponse
     """
     region = request.region
+    # Throw a 404 error when the language does not exist or is disabled
+    region.get_language_or_404(language_slug, only_active=True)
     # Check if an imprint is available for that region
     if region.imprint:
         imprint_translation = region.imprint.get_public_translation(language_slug)

@@ -100,6 +100,8 @@ def locations(request, region_slug, language_slug):
     :rtype: ~django.http.JsonResponse
     """
     region = request.region
+    # Throw a 404 error when the language does not exist or is disabled
+    region.get_language_or_404(language_slug, only_active=True)
     result = []
     pois = region.pois.prefetch_public_translations().filter(archived=False)
     if "on_map" in request.GET:

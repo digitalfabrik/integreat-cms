@@ -182,6 +182,8 @@ def events(request, region_slug, language_slug):
     :rtype: ~django.http.JsonResponse
     """
     region = request.region
+    # Throw a 404 error when the language does not exist or is disabled
+    region.get_language_or_404(language_slug, only_active=True)
     result = []
     now = timezone.now().date()
     for event in region.events.prefetch_public_translations().filter(archived=False):

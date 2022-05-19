@@ -29,6 +29,12 @@ API_ENDPOINTS = [
         200,
     ),
     (
+        "/api/augsburg/non-existing/pages/",
+        "/augsburg/non-existing/wp-json/extensions/v3/pages/",
+        "tests/api/expected-outputs/augsburg_non-existing_pages.json",
+        404,
+    ),
+    (
         "/api/augsburg/de/locations/",
         "/augsburg/de/wp-json/extensions/v3/locations/",
         "tests/api/expected-outputs/augsburg_de_locations.json",
@@ -45,6 +51,12 @@ API_ENDPOINTS = [
         "/augsburg/ar/wp-json/extensions/v3/locations/",
         "tests/api/expected-outputs/augsburg_ar_locations.json",
         200,
+    ),
+    (
+        "/api/augsburg/non-existing/locations/",
+        "/augsburg/non-existing/wp-json/extensions/v3/locations/",
+        "tests/api/expected-outputs/augsburg_non-existing_locations.json",
+        404,
     ),
     (
         "/api/augsburg/de/children/",
@@ -89,6 +101,12 @@ API_ENDPOINTS = [
         200,
     ),
     (
+        "/api/augsburg/non-existing/events/",
+        "/augsburg/non-existing/wp-json/extensions/v3/events/",
+        "tests/api/expected-outputs/augsburg_non-existing_events.json",
+        404,
+    ),
+    (
         "/api/augsburg/de/page/?id=1",
         "/augsburg/de/wp-json/extensions/v3/page/?id=1",
         "tests/api/expected-outputs/augsburg_de_page_1.json",
@@ -105,6 +123,12 @@ API_ENDPOINTS = [
         "/augsburg/en/wp-json/extensions/v3/disclaimer/",
         "tests/api/expected-outputs/augsburg_en_imprint.json",
         200,
+    ),
+    (
+        "/api/augsburg/non-existing/imprint/",
+        "/augsburg/non-existing/wp-json/extensions/v3/disclaimer/",
+        "tests/api/expected-outputs/augsburg_non-existing_imprint.json",
+        404,
     ),
     (
         "/api/nurnberg/de/events/",
