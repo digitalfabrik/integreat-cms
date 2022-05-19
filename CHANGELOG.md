@@ -15,6 +15,7 @@ UNRELEASED
 * [ [#1405](https://github.com/digitalfabrik/integreat-cms/issues/1405) ] Show same URLs only once in broken link checker
 * [ [#1438](https://github.com/digitalfabrik/integreat-cms/issues/1438) ] Fix error in page form when page-specific permissions are enabled
 * [ [#1292](https://github.com/digitalfabrik/integreat-cms/issues/1292) ] Add multi-file upload via drag and drop
+* [ [#1442](https://github.com/digitalfabrik/integreat-cms/issues/1442) ] Add author role (formerly organizer)
 
 
 2022.5.0

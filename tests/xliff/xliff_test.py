@@ -12,7 +12,14 @@ from django.urls import reverse
 
 from integreat_cms.cms.models import Page
 
-from ..conftest import ANONYMOUS, STAFF_ROLES, PRIV_STAFF_ROLES, MANAGEMENT, EDITOR
+from ..conftest import (
+    ANONYMOUS,
+    STAFF_ROLES,
+    PRIV_STAFF_ROLES,
+    MANAGEMENT,
+    EDITOR,
+    AUTHOR,
+)
 
 
 # pylint: disable=too-many-locals
@@ -56,7 +63,7 @@ def test_xliff_export(
     )
     response = client.post(export_xliff, data={"selected_ids[]": [1, 2, 3]})
     print(response.headers)
-    if role in STAFF_ROLES + [MANAGEMENT, EDITOR]:
+    if role in STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]:
         # If the role should be allowed to access the view, we expect a successful result
         assert response.status_code == 302
         page_tree = reverse(
@@ -138,7 +145,7 @@ def test_xliff_import(login_role_user, settings):
             )
     print(response.headers)
 
-    if role in PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR]:
+    if role in PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]:
         # If the role should be allowed to access the view, we expect a successful result
         assert response.status_code == 302
         page_tree = reverse(
