@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-05-13T19:49:59+00:00" />
+    <meta property="article:modified_time" content="2022-05-17T11:17:57+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2022.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1040,18 +1040,60 @@ version and also attach the branding logo.</p>
 <h2>Linkcheck Utils<a class="headerlink" href="#linkcheck-utils" title="Permalink to this headline"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">filter_urls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">filter_urls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_content_objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Filter all urls of one region by the given category</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>url_filter</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – which urls should be returned (one of <code class="docutils literal notranslate"><span class="pre">valid</span></code>, <code class="docutils literal notranslate"><span class="pre">invalid</span></code>, <code class="docutils literal notranslate"><span class="pre">ignored</span></code>, <code class="docutils literal notranslate"><span class="pre">unchecked</span></code>).
-If parameter is not in these choices or omitted, all urls are returned by default.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The slug of the current region</p></li>
+<li><p><strong>url_filter</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Which urls should be returned (one of <code class="docutils literal notranslate"><span class="pre">valid</span></code>, <code class="docutils literal notranslate"><span class="pre">invalid</span></code>, <code class="docutils literal notranslate"><span class="pre">ignored</span></code>, <code class="docutils literal notranslate"><span class="pre">unchecked</span></code>).
+If parameter is not in these choices or omitted, all urls are returned by default.</p></li>
+<li><p><strong>prefetch_content_objects</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether or not content objects should be prefetched</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A tuple of the requested urls and a dict containing the counters of all remaining urls</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">get_url_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Count all urls by status. The content objects are not prefetched because they are not needed for the counter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The slug of the current region</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary containing the counters of all remaining urls</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">get_urls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_content_objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Count all urls by status, either of a specific region or globally</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The slug of the current region</p></li>
+<li><p><strong>url_ids</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The list of requested url ids</p></li>
+<li><p><strong>prefetch_content_objects</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether or not content objects should be prefetched</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list (or queryset) of urls</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a> or <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1559,7 +1601,7 @@ version and also attach the integreat logo.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 13, 2022.
+      <span class="lastupdated">Last updated on May 17, 2022.
       </span></p>
   </div>
 

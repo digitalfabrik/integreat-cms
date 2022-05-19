@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-05-05T17:46:16+00:00" />
+    <meta property="article:modified_time" content="2022-05-17T11:17:57+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events &mdash; integreat-cms 2022.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1025,7 +1025,7 @@ which is needed to calculate the single instances of a recurring event</p>
 <p>Custom QuerySet to facilitate the filtering by date while taking recurring events into account.</p>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">filter_completed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">5,</span> <span class="pre">18)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">filter_completed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">5,</span> <span class="pre">19)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Filter all events that are not ongoing and don’t have any occurrences in the future. This is, per definition, if
 at least one of the following conditions is true:</p>
 <blockquote>
@@ -1049,7 +1049,7 @@ at least one of the following conditions is true:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">filter_upcoming</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">5,</span> <span class="pre">18)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">filter_upcoming</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">5,</span> <span class="pre">19)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Filter all events that take place after the given date. This is, per definition, if at least one of the
 following conditions is true:</p>
 <blockquote>
@@ -1079,7 +1079,7 @@ following conditions is true:</p>
 <h2>Event Translation<a class="headerlink" href="#event-translation" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.events.event_translation.</span></span><span class="sig-name descname"><span class="pre">EventTranslation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.events.event_translation.</span></span><span class="sig-name descname"><span class="pre">EventTranslation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation</span></code></a></p>
 <p>Data model representing an event translation</p>
 <dl class="field-list simple">
@@ -1104,7 +1104,7 @@ following conditions is true:</p>
 <li><p><strong>language</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>) – Language (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.event_translations" title="integreat_cms.cms.models.languages.language.Language.event_translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">event_translations</span></code></a>)</p></li>
 <li><p><strong>creator</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Creator (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.event_translations" title="integreat_cms.cms.models.users.user.User.event_translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">event_translations</span></code></a>)</p></li>
 <li><p><strong>event</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>) – Event (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.translations" title="integreat_cms.cms.models.events.event.Event.translations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">translations</span></code></a>)</p></li>
-<li><p><strong>links</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/contenttypes/#django.contrib.contenttypes.fields.GenericRelation" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericRelation</span></code></a> to <code class="xref py py-class docutils literal notranslate"><span class="pre">Link</span></code>) – Links (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">+</span></code>)</p></li>
+<li><p><strong>links</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/contenttypes/#django.contrib.contenttypes.fields.GenericRelation" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericRelation</span></code></a> to <code class="xref py py-class docutils literal notranslate"><span class="pre">Link</span></code>) – Links (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">event_translation</span></code>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -1116,19 +1116,19 @@ following conditions is true:</p>
 </dl>
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">backend_edit_link</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">backend_edit_link</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function returns the absolute url to the editor for this translation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1142,7 +1142,7 @@ following conditions is true:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">foreign_field</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">foreign_field</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the string “event” which ist the field name of the reference to the event which the translation belongs to</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1156,7 +1156,7 @@ following conditions is true:</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">foreign_object</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">foreign_object</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property is an alias of the event foreign key and is needed to generalize the <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.slug_utils" title="integreat_cms.cms.utils.slug_utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slug_utils</span></code></a>
 for all content types</p>
 <dl class="field-list simple">
@@ -1171,7 +1171,7 @@ for all content types</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">url_infix</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">url_infix</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the string “events” which is the infix of the url of  the event translation object
 Generates the infix of the url of the event translation object</p>
 <p>For information about the components of such an url,
@@ -1337,7 +1337,7 @@ and that <code class="docutils literal notranslate"><span class="pre">weekday_fo
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 05, 2022.
+      <span class="lastupdated">Last updated on May 17, 2022.
       </span></p>
   </div>
 
