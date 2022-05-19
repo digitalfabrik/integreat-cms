@@ -81,11 +81,9 @@
                 </li><li>
             {% endif %}
             {% get_public_translation page language.slug as page_translation %}
-            {% if page.depth < 3 %}
-                <h1 class="{% if page.depth == 1 %}root_title{% endif %}">{{ page_translation.title }}</h1>
-            {% else %}
-                <h2>{{ page_translation.title }}</h2>
-            {% endif %}
+            <h1 class="level-{{ page.depth|add:"-1" }}">
+                {{ page_translation.title }}
+            </h1>
             <div class="content" style="padding-bottom: 30px;">
                 {{ page_translation.content|safe }}
             </div>
