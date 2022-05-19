@@ -1,10 +1,13 @@
 import logging
 
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
+
+from linkcheck.models import Link
 
 from .abstract_base_page_translation import AbstractBasePageTranslation
 
@@ -23,6 +26,8 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         related_name="translations",
         verbose_name=_("imprint"),
     )
+
+    links = GenericRelation(Link, related_query_name="imprint_translation")
 
     @cached_property
     def url_infix(self):

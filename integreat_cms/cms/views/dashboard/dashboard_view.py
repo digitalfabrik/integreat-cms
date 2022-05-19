@@ -4,7 +4,6 @@ from django.conf import settings
 from django.utils import translation
 from django.views.generic import TemplateView
 
-from ...utils.linkcheck_utils import filter_urls
 from ..chat.chat_context_mixin import ChatContextMixin
 
 logger = logging.getLogger(__name__)
@@ -20,7 +19,7 @@ class DashboardView(TemplateView, ChatContextMixin):
 
     def get_context_data(self, **kwargs):
         r"""
-        Extend context by amount of links per link filter and blog urls
+        Extend context by blog urls
 
         :param \**kwargs: The supplied keyword arguments
         :type \**kwargs: dict
@@ -29,9 +28,6 @@ class DashboardView(TemplateView, ChatContextMixin):
         :rtype: dict
         """
         context = super().get_context_data(**kwargs)
-        # Link count
-        _, count_dict = filter_urls()
-        context.update(count_dict)
         # RSS FEED urls
         language_slug = translation.get_language()
         context.update(

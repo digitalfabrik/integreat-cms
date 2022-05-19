@@ -640,8 +640,13 @@ urlpatterns = [
                                     [
                                         path(
                                             "",
-                                            linkcheck.LinkListRedirectView.as_view(),
+                                            linkcheck.LinkcheckRedirectView.as_view(),
                                             name="linkcheck_landing",
+                                        ),
+                                        path(
+                                            "stats",
+                                            linkcheck.LinkcheckStatsView.as_view(),
+                                            name="linkcheck_stats",
                                         ),
                                         path(
                                             "<slug:url_filter>/",
@@ -649,12 +654,12 @@ urlpatterns = [
                                                 [
                                                     path(
                                                         "",
-                                                        linkcheck.LinkListView.as_view(),
+                                                        linkcheck.LinkcheckListView.as_view(),
                                                         name="linkcheck",
                                                     ),
                                                     path(
                                                         "<int:url_id>/",
-                                                        linkcheck.LinkListView.as_view(),
+                                                        linkcheck.LinkcheckListView.as_view(),
                                                         name="edit_url",
                                                     ),
                                                 ]
