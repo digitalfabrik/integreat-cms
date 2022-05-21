@@ -18,7 +18,7 @@ class MapFeedback(Feedback):
         :return: The name of the object this feedback refers to
         :rtype: str
         """
-        return _("Locations on map")
+        return _("Locations")
 
     @cached_property
     def object_url(self):
