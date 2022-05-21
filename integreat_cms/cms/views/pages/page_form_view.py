@@ -150,13 +150,16 @@ class PageFormView(
         # Pass siblings to template to enable rendering of page order table
         if page:
             siblings = (
-                page.region_siblings.prefetch_translations().prefetch_public_translations()
+                page.region_siblings.prefetch_translations()
+                .prefetch_public_translations()
+                .filter(explicitly_archived=page.explicitly_archived)
             )
         else:
             siblings = (
                 region.get_root_pages()
                 .prefetch_translations()
                 .prefetch_public_translations()
+                .filter(explicitly_archived=False)
             )
 
         return render(
@@ -314,6 +317,9 @@ class PageFormView(
             siblings = page_form.instance.region_siblings
         else:
             siblings = region.get_root_pages()
+        siblings = siblings.filter(
+            explicitly_archived=page_form.instance.explicitly_archived
+        )
 
         return render(
             request,

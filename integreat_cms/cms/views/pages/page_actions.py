@@ -763,11 +763,15 @@ def get_page_order_table_ajax(request, region_slug, parent_id=None, page_id=None
     else:
         page = None
 
-    if parent_id:
-        parent = get_object_or_404(region.pages, id=parent_id)
+    if parent_id or page:
+        parent = (
+            get_object_or_404(region.pages, id=parent_id) if parent_id else page.parent
+        )
         siblings = parent.cached_children
     else:
         siblings = region.get_root_pages()
+
+    siblings = [sibling for sibling in siblings if not sibling.explicitly_archived]
 
     logger.debug(
         "Page order table for page %r and siblings %r",

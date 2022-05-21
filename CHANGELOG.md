@@ -17,6 +17,7 @@ UNRELEASED
 * [ [#1292](https://github.com/digitalfabrik/integreat-cms/issues/1292) ] Add multi-file upload via drag and drop
 * [ [#1442](https://github.com/digitalfabrik/integreat-cms/issues/1442) ] Add author role (formerly organizer)
 * [ [#1461](https://github.com/digitalfabrik/integreat-cms/issues/1461) ] Display warning on leaving page after editing a page description
+* [ [#1283](https://github.com/digitalfabrik/integreat-cms/issues/1283) ] Remove archived pages from several settings/options
 
 
 2022.5.0
