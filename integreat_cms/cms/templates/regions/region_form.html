@@ -22,83 +22,66 @@
         {% endif %}
     </div>
 
-    <div class="flex flex-wrap">
-        <div class="w-1/2 pr-2">
-            <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
-                <div class="p-4 rounded bg-water-500">
-                    <h3 class="heading font-bold text-black"><i data-feather="map" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+    <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+        <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+            <div class="p-4 rounded bg-water-500">
+                <h3 class="heading font-bold text-black"><i data-feather="map" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+            </div>
+            <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+                <div>
+                    <!-- Options related to the region's administrative division -->
+                    <label for="{{ form.administrative_division.id_for_label }}">{{ form.administrative_division.label }}</label>
+                    {% render_field form.administrative_division|add_error_class:"border-red-500" %}
+                    <!-- Option for including/excluding administrative division from region name -->
+                    {% render_field form.administrative_division_included %}
+                    <label for="{{ form.administrative_division_included.id_for_label }}" class="secondary">{{ form.administrative_division_included.label }}</label>
+                    <div class="help-text">{{ form.administrative_division_included.help_text }}</div>
                 </div>
-                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
-                    <div>
-                        <!-- Options related to the region's administrative division -->
-                        <label for="{{ form.administrative_division.id_for_label }}">{{ form.administrative_division.label }}</label>
-                        {% render_field form.administrative_division|add_error_class:"border-red-500" %}
-                        <!-- Option for including/excluding administrative division from region name -->
-                        {% render_field form.administrative_division_included %}
-                        <label for="{{ form.administrative_division_included.id_for_label }}" class="secondary">{{ form.administrative_division_included.label }}</label>
-                        <div class="help-text">{{ form.administrative_division_included.help_text }}</div>
+                <div>
+                    <!-- Option for including custom prefix before region name -->
+                    <label for="{{ form.custom_prefix.id_for_label }}">{{ form.custom_prefix.label }}</label>
+                    {% render_field form.custom_prefix|add_error_class:"border-red-500" %}
+                    <div class="help-text">{{ form.custom_prefix.help_text }}</div>
+                </div>
+                <div>
+                    <!-- General Options for region management -->
+                    <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                    {% render_field form.name|add_error_class:"border-red-500" %}
+                </div>
+                <div>
+                    <label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
+                    <div class="help-text">{{ form.slug.help_text }}</div>
+                    <div class="slug-field">
+                        <label for="{{ form.slug.id_for_label }}">https://integreat.app/</label>
+                        {% render_field form.slug %}
                     </div>
-                    <div>
-                        <!-- Option for including custom prefix before region name -->
-                        <label for="{{ form.custom_prefix.id_for_label }}">{{ form.custom_prefix.label }}</label>
-                        {% render_field form.custom_prefix|add_error_class:"border-red-500" %}
-                        <div class="help-text">{{ form.custom_prefix.help_text }}</div>
-                    </div>
-                    <div>
-                        <!-- General Options for region management -->
-                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
-                        {% render_field form.name|add_error_class:"border-red-500" %}
-                    </div>
-                    <div>
-                        <label for="{{ form.common_id.id_for_label }}">{{ form.common_id.label }}</label>
-                        <div class="help-text">{{ form.common_id.help_text }}</div>
-                        {% render_field form.common_id|add_error_class:"border-red-500" %}
-                    </div>
-                    <div>
-                        <label for="{{ form.aliases.id_for_label }}">{{ form.aliases.label }}</label>
-                        <div class="help-text">{{ form.aliases.help_text }}</div>
-                        {% render_field form.aliases|add_error_class:"border-red-500" %}
-                    </div>
-                    <div>
-                        <label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
-                        <div class="help-text">{{ form.slug.help_text }}</div>
-                        <div class="slug-field">
-                            <label for="{{ form.slug.id_for_label }}">https://integreat.app/</label>
-                            {% render_field form.slug %}
-                        </div>
-                    </div>
-                    <div>
-                        <label for="{{ form.admin_mail.id_for_label }}">{{ form.admin_mail.label }}</label>
-                        {% render_field form.admin_mail|add_error_class:"border-red-500" %}
-                    </div>
-                    <div>
-                        <!-- Options related to coordinates for localization -->
-                        <label for="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }}</label>
-                        {% render_field form.postal_code|add_error_class:"border-red-500" %}
-                    </div>
-                    <div>
-                        <label>{% trans 'Center of the region' %}</label>
-                        <label for="{{ form.latitude.id_for_label }}" class="secondary">{{ form.latitude.label }}</label>
-                        {% render_field form.latitude|add_error_class:"border-red-500" %}
-                        <div class="help-text">{{ form.latitude.help_text }}</div>
-                        <label for="{{ form.longitude.id_for_label }}" class="secondary">{{ form.longitude.label }}</label>
-                        {% render_field form.longitude|add_error_class:"border-red-500" %}
-                        <div class="help-text">{{ form.longitude.help_text }}</div>
-                    </div>
-                    <div>
-                        <!-- Options related to region status -->
-                        <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
-                        {% render_field form.status|add_error_class:"border-red-500" %}
-                    </div>
+                </div>
+                <div>
+                    <!-- Options related to coordinates for localization -->
+                    <label for="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }}</label>
+                    {% render_field form.postal_code|add_error_class:"border-red-500" %}
+                </div>
+                <div>
+                    <label for="{{ form.admin_mail.id_for_label }}">{{ form.admin_mail.label }}</label>
+                    {% render_field form.admin_mail|add_error_class:"border-red-500" %}
+                </div>
+                <div>
+                    <!-- Options related to region status -->
+                    <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                    {% render_field form.status|add_error_class:"border-red-500" %}
                 </div>
             </div>
         </div>
-    <div class="w-1/2 pl-2">
-        <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+        <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="p-4 rounded bg-water-500">
                 <h3 class="heading font-bold text-black"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
             </div>
             <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
+                <div>
+                    <label for="{{ form.common_id.id_for_label }}">{{ form.common_id.label }}</label>
+                    <div class="help-text">{{ form.common_id.help_text }}</div>
+                    {% render_field form.common_id|add_error_class:"border-red-500" %}
+                </div>
                 <div>
                     <!-- Options related to Timezones -->
                     <label for="{{ form.timezone_area.id_for_label }}">{{ form.timezone_area.label }}</label>
@@ -109,77 +92,98 @@
                     <div class="help-text">{{ form.timezone.help_text }}</div>
                 </div>
                 <div>
-                    <!-- Options related to Events -->
-                    {% render_field form.events_enabled %}
-                    <label for="{{ form.events_enabled.id_for_label }}">{{ form.events_enabled.label }}</label>
-                    <div class="help-text">{{ form.events_enabled.help_text }}</div>
+                    <label>{% trans 'Center of the region' %}</label>
+                    <div class="help-text">
+                        {% trans 'If you leave these fields blank, they are automatically derived from the name, administrative division and community identification number.' %}
+                    </div>
+                    <label for="{{ form.latitude.id_for_label }}" class="secondary">{{ form.latitude.label }}</label>
+                    {% render_field form.latitude|add_error_class:"border-red-500" %}
+                    <div class="help-text">{{ form.latitude.help_text }}</div>
+                    <label for="{{ form.longitude.id_for_label }}" class="secondary">{{ form.longitude.label }}</label>
+                    {% render_field form.longitude|add_error_class:"border-red-500" %}
+                    <div class="help-text">{{ form.longitude.help_text }}</div>
                 </div>
                 <div>
-                    <!-- Options related to tunews -->
-                    {% render_field form.tunews_enabled %}
-                    <label for="{{ form.tunews_enabled.id_for_label }}">{{ form.tunews_enabled.label }}</label>
-                    <div class="help-text">{{ form.tunews_enabled.help_text }}</div>
+                    <label for="{{ form.aliases.id_for_label }}">{{ form.aliases.label }}</label>
+                    <div class="help-text">{{ form.aliases.help_text }}</div>
+                    {% render_field form.aliases|add_error_class:"border-red-500" %}
                 </div>
-                <div>
-                    <!-- Options related to Author chat -->
-                    {% render_field form.chat_enabled %}
-                    <label for="{{ form.chat_enabled.id_for_label }}">{{ form.chat_enabled.label }}</label>
-                    <div class="help-text">{{ form.chat_enabled.help_text }}</div>
+            </div>
+        </div>
+        <div class="grid gap-4">
+            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                <div class="p-4 rounded bg-water-500">
+                    <h3 class="heading font-bold text-black"><i data-feather="star" class="mr-2"></i> {% trans 'Features' %}</h3>
                 </div>
-                <div>
-                    <!-- Options related to Push Notifications -->
-                    {% render_field form.push_notifications_enabled %}
-                    <label for="{{ form.push_notifications_enabled.id_for_label }}">{{ form.push_notifications_enabled.label }}</label>
-                    <div class="help-text">{{ form.push_notifications_enabled.help_text }}</div>
-                </div>
-                <div>
-                    <!-- Options related to Tracking -->
-                    <label>{% trans 'Statistics' %}</label>
-                    {% render_field form.statistics_enabled %}
-                    <label for="{{ form.statistics_enabled.id_for_label }}" class="secondary">{{ form.statistics_enabled.label }}</label>
-                    <div id="statistics-toggle-div" {% if not form.instance.statistics_enabled %} class="hidden" {% endif %}>
-                        <label for="{{ form.matomo_token.id_for_label }}" class="secondary">{{ form.matomo_token.label }}</label>
-                        <div class="help-text">{{ form.matomo_token.help_text }}</div>
-                        {% render_field form.matomo_token %}
-                        <label for="{{ form.matomo_id.id_for_label }}" class="secondary">{{ form.matomo_id.label }}</label>
-                        <div class="help-text">{{ form.matomo_id.help_text }}</div>
-                        {% render_field form.matomo_id disabled="disabled" %}
+                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
+                    <div>
+                        <!-- Options related to Events -->
+                        {% render_field form.events_enabled %}
+                        <label for="{{ form.events_enabled.id_for_label }}">{{ form.events_enabled.label }}</label>
+                        <div class="help-text">{{ form.events_enabled.help_text }}</div>
+                    </div>
+                    <div>
+                        <!-- Options related to locations -->
+                        {% render_field form.locations_enabled %}
+                        <label for="{{ form.locations_enabled.id_for_label }}">{{ form.locations_enabled.label }}</label>
+                        <div class="help-text">{{ form.locations_enabled.help_text }}</div>
+                    </div>
+                    <div>
+                        <!-- Options related to tunews -->
+                        {% render_field form.tunews_enabled %}
+                        <label for="{{ form.tunews_enabled.id_for_label }}">{{ form.tunews_enabled.label }}</label>
+                        <div class="help-text">{{ form.tunews_enabled.help_text }}</div>
+                    </div>
+                    <div>
+                        <!-- Options related to Author chat -->
+                        {% render_field form.chat_enabled %}
+                        <label for="{{ form.chat_enabled.id_for_label }}">{{ form.chat_enabled.label }}</label>
+                        <div class="help-text">{{ form.chat_enabled.help_text }}</div>
+                    </div>
+                    <div>
+                        <!-- Options related to Push Notifications -->
+                        {% render_field form.push_notifications_enabled %}
+                        <label for="{{ form.push_notifications_enabled.id_for_label }}">{{ form.push_notifications_enabled.label }}</label>
+                        <div class="help-text">{{ form.push_notifications_enabled.help_text }}</div>
+                    </div>
+                    <div>
+                        <!-- Options related to page-instance-specific permissions -->
+                        {% render_field form.page_permissions_enabled %}
+                        <label for="{{ form.page_permissions_enabled.id_for_label }}">{{ form.page_permissions_enabled.label }}</label>
+                        <div class="help-text">{{ form.page_permissions_enabled.help_text }}</div>
+                    </div>
+                    <div>
+                        {% render_field form.short_urls_enabled %}
+                        <label for="{{ form.short_urls_enabled.id_for_label }}">{{ form.short_urls_enabled.label }}</label>
+                        <div class="help-text">{{ form.short_urls_enabled.help_text }}</div>
+                    </div>
+                    <div>
+                        <label for="{{ form.offers.id_for_offers }}">{{ form.offers.label }}</label>
+                        {% render_field form.offers %}
+                        <div class="help-text">{{ form.offers.help_text }}</div>
                     </div>
                 </div>
-                <div>
-                    <!-- Options related to page-instance-specific permissions -->
-                    {% render_field form.page_permissions_enabled %}
-                    <label for="{{ form.page_permissions_enabled.id_for_label }}">{{ form.page_permissions_enabled.label }}</label>
-                    <div class="help-text">{{ form.page_permissions_enabled.help_text }}</div>
+            </div>
+            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                <div class="p-4 rounded bg-water-500">
+                    <h3 class="heading font-bold text-black"><i data-feather="image" class="mr-2"></i> {{ form.icon.label }}</h3>
                 </div>
-                <div>
-                    {% render_field form.short_urls_enabled %}
-                    <label for="{{ form.short_urls_enabled.id_for_label }}">{{ form.short_urls_enabled.label }}</label>
-                    <div class="help-text">{{ form.short_urls_enabled.help_text }}</div>
-                </div>
-                <div>
-                    <label for="{{ form.offers.id_for_offers }}">{{ form.offers.label }}</label>
-                    {% render_field form.offers %}
-                    <div class="help-text">{{ form.offers.help_text }}</div>
-                </div>
-                <div>
-                    <label for="{{ form.icon.id_for_label }}">{{ form.icon.label }}</label>
+                <div class="p-4">
                     {% render_field form.icon label=form.icon.label %}
                 </div>
             </div>
-        </div>
-        {% if not form.instance.id %}
-        <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
-            <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="heading font-bold text-black"><i data-feather="copy" class="mr-2"></i>{% trans 'Duplicate content of another region' %}</h3>
+            {% if not form.instance.id %}
+            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                <div class="p-4 rounded bg-water-500">
+                    <h3 class="heading font-bold text-black"><i data-feather="copy" class="mr-2"></i> {% trans 'Duplicate content of another region' %}</h3>
+                </div>
+                <div class="px-4 pb-4">
+                    <label for="{{ form.duplicated_region.id_for_label }}">{% trans 'Copy languages, pages and media from another region' %}</label>
+                    {% render_field form.duplicated_region %}
+                </div>
             </div>
-            <div class="w-full p-4">
-                <label for="{{ form.duplicated_region.id_for_label }}">{% trans 'Copy languages, pages and media from another region' %}</label>
-                {% render_field form.duplicated_region %}
-            </div>
+            {% endif %}
         </div>
-        {% endif %}
-    </div>
     </div>
     {% if form.instance.id and perms.cms.delete_region %}
         <div class="pt-2 pb-4">

@@ -78,6 +78,9 @@ class EventTranslationForm(CustomContentModelForm):
 
         # Create new version if content changed
         if not {"slug", "title", "content"}.isdisjoint(self.changed_data):
+            # Delete now outdated link objects
+            self.instance.links.all().delete()
+            # Save new version
             self.instance.version += 1
             self.instance.pk = None
 

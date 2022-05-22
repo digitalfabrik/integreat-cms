@@ -11,6 +11,7 @@ from django.views.decorators.http import require_POST
 from django.db import transaction
 
 from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
+from cacheops import invalidate_obj
 
 from ...constants import position
 from ...decorators import permission_required
@@ -128,6 +129,16 @@ def delete_language_tree_node(request, region_slug, language_tree_node_id):
 
     logger.debug("%r deleted by %r", language_node, request.user)
     language_node.delete()
+
+    for page in region.pages.all():
+        invalidate_obj(page)
+    for event in region.events.all():
+        invalidate_obj(event)
+    for poi in region.pois.all():
+        invalidate_obj(poi)
+    for push_notification in region.push_notifications.all():
+        invalidate_obj(push_notification)
+
     messages.success(
         request,
         _(

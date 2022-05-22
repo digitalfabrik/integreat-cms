@@ -640,22 +640,27 @@ urlpatterns = [
                                     [
                                         path(
                                             "",
-                                            linkcheck.LinkListRedirectView.as_view(),
+                                            linkcheck.LinkcheckRedirectView.as_view(),
                                             name="linkcheck_landing",
                                         ),
                                         path(
-                                            "<slug:link_filter>/",
+                                            "stats",
+                                            linkcheck.LinkcheckStatsView.as_view(),
+                                            name="linkcheck_stats",
+                                        ),
+                                        path(
+                                            "<slug:url_filter>/",
                                             include(
                                                 [
                                                     path(
                                                         "",
-                                                        linkcheck.LinkListView.as_view(),
+                                                        linkcheck.LinkcheckListView.as_view(),
                                                         name="linkcheck",
                                                     ),
                                                     path(
-                                                        "<int:link_id>/",
-                                                        linkcheck.LinkListView.as_view(),
-                                                        name="edit_link",
+                                                        "<int:url_id>/",
+                                                        linkcheck.LinkcheckListView.as_view(),
+                                                        name="edit_url",
                                                     ),
                                                 ]
                                             ),

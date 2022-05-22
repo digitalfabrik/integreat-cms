@@ -17,6 +17,8 @@ from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
 from django.utils.translation import ugettext as _
 
+from linkcheck import update_lock
+
 from ..cms.constants import text_directions
 from ..cms.forms import PageTranslationForm
 from ..cms.models import Page, PageTranslation
@@ -345,63 +347,72 @@ def xliff_import_confirm(request, xliff_dir):
     :rtype: dict
     """
     success = True
-    # Iterate over all xliff files
-    for xliff_file, deserialized_objects in xliffs_to_pages(request, xliff_dir).items():
-        # Iterate over all objects of one xliff file
-        # (typically, one xliff file contains exactly one page translation)
-        for deserialized in deserialized_objects:
-            page_translation = deserialized.object
-            errors, has_changed = get_xliff_import_errors(request, page_translation)
-            if errors:
-                logger.warning(
-                    "XLIFF import of %r not possible because validation of %r failed with the errors: %r",
-                    xliff_file,
-                    page_translation,
-                    errors,
-                )
-                error_list = "<ul>"
-                for error in errors:
-                    error_list += f"<li><i data-feather='alert-triangle' class='pb-1'></i> {error['message']}</li>"
-                error_list += "</ul>"
-                messages.error(
-                    request,
-                    _(
-                        "Page {} could not be imported successfully because of the errors: {}"
-                    ).format(page_translation.readable_title, error_list),
-                )
-                success = False
-            elif not has_changed:
-                # Update existing translation
-                existing_translation = page_translation.latest_version
-                existing_translation.currently_in_translation = False
-                existing_translation.save()
-                logger.info(
-                    "%r of XLIFF file %r was imported without changes by %r",
-                    existing_translation,
-                    xliff_file,
-                    request.user,
-                )
-                messages.info(
-                    request,
-                    _("Page {} was imported without changes.").format(
-                        page_translation.readable_title
-                    ),
-                )
-            else:
-                # Confirm import and write changes to the database
-                page_translation.save()
-                logger.info(
-                    "%r of XLIFF file %r was imported successfully by %r",
-                    page_translation,
-                    xliff_file,
-                    request.user,
-                )
-                messages.success(
-                    request,
-                    _("Page {} was imported successfully.").format(
-                        page_translation.readable_title
-                    ),
-                )
+    # Acquire linkcheck lock to avoid race conditions between post_save signal and links.delete()
+    with update_lock:
+        # Iterate over all xliff files
+        for xliff_file, deserialized_objects in xliffs_to_pages(
+            request, xliff_dir
+        ).items():
+            # Iterate over all objects of one xliff file
+            # (typically, one xliff file contains exactly one page translation)
+            for deserialized in deserialized_objects:
+                page_translation = deserialized.object
+                errors, has_changed = get_xliff_import_errors(request, page_translation)
+                if errors:
+                    logger.warning(
+                        "XLIFF import of %r not possible because validation of %r failed with the errors: %r",
+                        xliff_file,
+                        page_translation,
+                        errors,
+                    )
+                    error_list = "<ul>"
+                    for error in errors:
+                        error_list += f"<li><i data-feather='alert-triangle' class='pb-1'></i> {error['message']}</li>"
+                    error_list += "</ul>"
+                    messages.error(
+                        request,
+                        _(
+                            "Page {} could not be imported successfully because of the errors: {}"
+                        ).format(page_translation.readable_title, error_list),
+                    )
+                    success = False
+                elif not has_changed:
+                    # Update existing translation
+                    existing_translation = page_translation.latest_version
+                    existing_translation.currently_in_translation = False
+                    existing_translation.save()
+                    logger.info(
+                        "%r of XLIFF file %r was imported without changes by %r",
+                        existing_translation,
+                        xliff_file,
+                        request.user,
+                    )
+                    messages.info(
+                        request,
+                        _("Page {} was imported without changes.").format(
+                            page_translation.readable_title
+                        ),
+                    )
+                else:
+                    # Check if previous version already exists
+                    existing_translation = page_translation.latest_version
+                    if existing_translation:
+                        # Delete link objects of existing translation
+                        existing_translation.links.all().delete()
+                    # Confirm import and write changes to the database
+                    page_translation.save()
+                    logger.info(
+                        "%r of XLIFF file %r was imported successfully by %r",
+                        page_translation,
+                        xliff_file,
+                        request.user,
+                    )
+                    messages.success(
+                        request,
+                        _("Page {} was imported successfully.").format(
+                            page_translation.readable_title
+                        ),
+                    )
     return success
 
 

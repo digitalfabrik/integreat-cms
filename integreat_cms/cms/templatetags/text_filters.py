@@ -38,7 +38,10 @@ def linkcheck_status_filter(status_message):
         return _("Unknown")
     if status_message.startswith("Other Error:"):
         return _("Error")
-    return status_message
+    # Sometimes 404 errors are malformed
+    if status_message in ["404 ", "404 404"]:
+        return "404 Not Found"
+    return _(status_message)
 
 
 @register.filter(name="to_json")

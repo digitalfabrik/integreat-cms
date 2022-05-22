@@ -5,6 +5,7 @@ import logging
 
 from django.conf import settings
 from django.http import JsonResponse
+from django.utils.html import strip_tags
 
 from ..decorators import json_response
 
@@ -28,7 +29,7 @@ def transform_imprint(imprint_translation):
         "path": absolute_url,
         "title": imprint_translation.title,
         "modified_gmt": imprint_translation.last_updated,
-        "excerpt": imprint_translation.content,
+        "excerpt": strip_tags(imprint_translation.content),
         "content": imprint_translation.content,
         "parent": None,
         "available_languages": imprint_translation.available_languages,

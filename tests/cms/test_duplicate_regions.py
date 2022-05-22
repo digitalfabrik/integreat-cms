@@ -44,10 +44,10 @@ def test_duplicate_regions(load_test_data, admin_client):
     assert len(source_pages) == len(target_pages)
     for source_page, target_page in zip(source_pages, target_pages):
         source_page_dict = model_to_dict(
-            source_page, exclude=["id", "tree_id", "region", "parent"]
+            source_page, exclude=["id", "tree_id", "region", "parent", "api_token"]
         )
         target_page_dict = model_to_dict(
-            target_page, exclude=["id", "tree_id", "region", "parent"]
+            target_page, exclude=["id", "tree_id", "region", "parent", "api_token"]
         )
         assert source_page_dict == target_page_dict
 

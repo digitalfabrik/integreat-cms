@@ -8,6 +8,8 @@ from django.core.exceptions import MultipleObjectsReturned
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.html import strip_tags
+from django.utils.text import slugify
 
 from ...cms.models import Page
 from ...cms.forms import PageTranslationForm
@@ -68,7 +70,7 @@ def transform_page(page_translation):
         "path": absolute_url,
         "title": page_translation.title,
         "modified_gmt": page_translation.combined_last_updated,
-        "excerpt": page_translation.content,
+        "excerpt": strip_tags(page_translation.combined_text),
         "content": page_translation.combined_text,
         "parent": parent,
         "order": order,
@@ -141,7 +143,7 @@ def get_single_page(request, language_slug):
         # Strip leading and trailing slashes to avoid ambiguous urls
         url = request.GET.get("url").strip("/")
         # The last path component of the url is the page translation slug
-        page_translation_slug = url.split("/")[-1]
+        page_translation_slug = slugify(url.split("/")[-1], allow_unicode=True)
         # Get page by filtering for translation slug and translation language slug
         filtered_pages = region.pages.filter(
             translations__slug=page_translation_slug,

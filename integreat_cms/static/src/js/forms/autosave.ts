@@ -1,6 +1,5 @@
 import { getCsrfToken } from "../utils/csrf-token";
 import tinymce from "tinymce";
-import { markContentSaved } from "../unsaved-warning";
 
 export async function autosaveEditor() {
   const form = document.getElementById("content_form") as HTMLFormElement;
@@ -16,5 +15,9 @@ export async function autosaveEditor() {
   });
   // Set the form action to the url of the server response to make sure new pages aren't created multiple times
   form.action = data.url;
-  markContentSaved();
+  
+  // mark the content as saved
+  document.querySelectorAll("[data-unsaved-warning]").forEach((element) => {
+    element.dispatchEvent(new Event("autosave"))
+  })
 }

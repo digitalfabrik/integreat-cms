@@ -89,6 +89,7 @@ class RegionForm(CustomModelForm):
             "common_id",
             "slug",
             "events_enabled",
+            "locations_enabled",
             "chat_enabled",
             "push_notifications_enabled",
             "latitude",
@@ -131,6 +132,9 @@ class RegionForm(CustomModelForm):
         if self.instance and "/" in self.instance.timezone:
             self.fields["timezone_area"].initial = self.instance.timezone.split("/")[0]
         self.fields["slug"].required = False
+        # Do not require coordinates because they might be automatically filled
+        self.fields["latitude"].required = False
+        self.fields["longitude"].required = False
 
     def save(self, commit=True):
         """
@@ -160,6 +164,9 @@ class RegionForm(CustomModelForm):
             # Duplicate pages
             logger.info("Duplicating page tree of %r to %r", source_region, region)
             duplicate_pages(source_region, region)
+            # Duplicate Imprint
+            logger.info("Duplicating imprint of %r to %r", source_region, region)
+            duplicate_imprint(source_region, region)
             # Duplicate media content
             duplicate_media(source_region, region)
 
@@ -202,12 +209,37 @@ class RegionForm(CustomModelForm):
                 region_ags=cleaned_data["common_id"],
                 region_type=cleaned_data["administrative_division"],
             )
-            if gvz_region.aliases and cleaned_data["aliases"] in [{}, ""]:
+            logger.debug("GVZ API match: %r", gvz_region)
+            if gvz_region.aliases and not cleaned_data.get("aliases"):
                 cleaned_data["aliases"] = gvz_region.aliases
-            if gvz_region.longitude and cleaned_data["longitude"] == 0.0:
+            if gvz_region.longitude and not cleaned_data.get("longitude"):
                 cleaned_data["longitude"] = gvz_region.longitude
-            if gvz_region.latitude and cleaned_data["latitude"] == 0.0:
+            if gvz_region.latitude and not cleaned_data.get("latitude"):
                 cleaned_data["latitude"] = gvz_region.latitude
+            if gvz_region.ags and not cleaned_data.get("common_id"):
+                cleaned_data["common_id"] = gvz_region.ags
+
+        # If the coordinates could not be filled automatically and have not been filled manually either, throw an error
+        if not cleaned_data.get("latitude"):
+            self.add_error(
+                "latitude",
+                forms.ValidationError(
+                    _(
+                        "Could not retrieve the coordinates automatically, please fill the field manually."
+                    ),
+                    code="required",
+                ),
+            )
+        if not cleaned_data.get("longitude"):
+            self.add_error(
+                "longitude",
+                forms.ValidationError(
+                    _(
+                        "Could not retrieve the coordinates automatically, please fill the field manually."
+                    ),
+                    code="required",
+                ),
+            )
 
         logger.debug("RegionForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data
@@ -477,6 +509,8 @@ def duplicate_pages(
         target_page.tree_id = target_tree_id
         # Delete the primary key to duplicate the object instance instead of updating it
         target_page.pk = None
+        # Set push API token to blank for duplicated page
+        target_page.api_token = ""
         # Check if the page is valid
         target_page.full_clean()
         # Save duplicated page
@@ -536,6 +570,41 @@ def duplicate_page_translations(source_page, target_page, logging_prefix):
             + ("└─" if i == num_translations - 1 else "├─"),
             page_translation,
         )
+
+
+def duplicate_imprint(source_region, target_region):
+    """
+    Function to duplicate the imprint from one region to another.
+
+    :param source_region: the source region from which the imprint should be duplicated
+    :type source_region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param target_region: the target region
+    :type target_region: ~integreat_cms.cms.models.regions.region.Region
+
+    """
+    source_imprint = source_region.imprint
+    target_imprint = deepcopy(source_imprint)
+    target_imprint.region = target_region
+    # Delete the primary key to duplicate the object instance instead of updating it
+    target_imprint.pk = None
+    # Check if the new imprint object is valid
+    target_imprint.full_clean()
+
+    target_imprint.save()
+
+    # Duplicate imprint translations by iterating to all existing ones
+    source_page_translations = source_imprint.translations.all()
+
+    for imprint_translation in source_page_translations:
+        # Set the page of the source translation to the new imprint
+        imprint_translation.page = target_imprint
+        # Delete the primary key to duplicate the object instance instead of updating it
+        imprint_translation.pk = None
+        # Check if the imprint translation is valid
+        imprint_translation.full_clean()
+        # Save duplicated imprint translation
+        imprint_translation.save(update_timestamp=False)
 
 
 # pylint: disable=unused-argument

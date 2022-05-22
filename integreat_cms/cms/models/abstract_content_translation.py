@@ -1,12 +1,9 @@
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
-
-from linkcheck.models import Link
 
 from .languages.language import Language
 from .abstract_base_model import AbstractBaseModel
@@ -70,7 +67,6 @@ class AbstractContentTranslation(AbstractBaseModel):
         on_delete=models.SET_NULL,
         verbose_name=_("creator"),
     )
-    links = GenericRelation(Link)
 
     @staticmethod
     def foreign_field():

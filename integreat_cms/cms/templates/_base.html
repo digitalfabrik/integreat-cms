@@ -126,7 +126,7 @@
                         <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}"
                            class="{% if current_menu_item == 'linkcheck' %} active{% endif %}">
                             <i data-feather="link"></i>
-                            {% trans 'Broken Link Checker' %}
+                            {% trans 'Broken Links' %}
                         </a>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                     <div class="{% if current_menu_item|in_list:'pois,pois_form' %} active {% endif %}">
                         <a href="{% url 'pois' region_slug=request.region.slug %}">
                             <i data-feather="map-pin"></i>
-                            {% trans 'Locations on Map' %}
+                            {% trans 'Locations' %}
                         </a>
                     </div>
                 {% endif %}

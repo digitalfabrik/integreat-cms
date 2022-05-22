@@ -6,9 +6,10 @@ from django.urls import reverse
 
 from ...conftest import (
     ALL_ROLES,
+    AUTHOR,
     EDITOR,
+    HIGH_PRIV_STAFF_ROLES,
     MANAGEMENT,
-    MUNICIPALITY_TEAM,
     PRIV_STAFF_ROLES,
     REGION_ROLES,
     ROLES,
@@ -60,7 +61,7 @@ VIEWS = [
             ("new_language_tree_node", STAFF_ROLES),
             (
                 "new_language_tree_node",
-                PRIV_STAFF_ROLES,
+                HIGH_PRIV_STAFF_ROLES,
                 {
                     "language": 5,
                     "parent": 1,
@@ -73,7 +74,7 @@ VIEWS = [
             ("new_region_user", STAFF_ROLES + [MANAGEMENT]),
             (
                 "new_region_user",
-                PRIV_STAFF_ROLES + [MANAGEMENT],
+                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
                 {"username": "new_username", "email": "new@email.address", "role": 1},
             ),
             ("region_feedback", STAFF_ROLES + [MANAGEMENT]),
@@ -96,7 +97,7 @@ VIEWS = [
             ("new_language_tree_node", STAFF_ROLES),
             (
                 "new_language_tree_node",
-                PRIV_STAFF_ROLES,
+                HIGH_PRIV_STAFF_ROLES,
                 {
                     "language": 5,
                     "parent": 5,
@@ -109,7 +110,7 @@ VIEWS = [
             ("new_region_user", STAFF_ROLES),
             (
                 "new_region_user",
-                PRIV_STAFF_ROLES,
+                HIGH_PRIV_STAFF_ROLES,
                 {"username": "new_username", "email": "new@email.address", "role": 1},
             ),
             ("region_feedback", STAFF_ROLES),
@@ -124,7 +125,7 @@ VIEWS = [
     (
         [
             ("sitemap:region_language", ALL_ROLES),
-            ("archived_pages", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            ("archived_pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
             ("archived_pois", ROLES),
             ("edit_imprint", STAFF_ROLES + [MANAGEMENT]),
             (
@@ -146,7 +147,18 @@ VIEWS = [
                     "submit_draft": True,
                 },
             ),
-            ("new_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            ("new_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            (
+                "new_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {
+                    "title": "new page",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 1,
+                    "_position": "first-child",
+                    "submit_draft": True,
+                },
+            ),
             (
                 "new_page",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
@@ -155,7 +167,7 @@ VIEWS = [
                     "mirrored_page_region": "",
                     "_ref_node_id": 1,
                     "_position": "first-child",
-                    "submit_draft": True,
+                    "submit_public": True,
                 },
             ),
             ("new_poi", ROLES),
@@ -174,16 +186,16 @@ VIEWS = [
                     "submit_draft": True,
                 },
             ),
-            ("pages", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            ("pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
             ("pois", ROLES),
             (
                 "bulk_archive_pages",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"selected_ids[]": [1, 2, 3]},
             ),
             (
                 "bulk_restore_pages",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"selected_ids[]": [1, 2, 3]},
             ),
             (
@@ -294,7 +306,7 @@ VIEWS = [
             ("edit_language", STAFF_ROLES),
             (
                 "edit_language",
-                PRIV_STAFF_ROLES,
+                HIGH_PRIV_STAFF_ROLES,
                 {
                     "native_name": "New name",
                     "english_name": "German",
@@ -329,45 +341,45 @@ VIEWS = [
     (
         [("linkcheck", ROLES)],
         # The kwargs for these views
-        {"region_slug": "augsburg", "link_filter": "valid"},
+        {"region_slug": "augsburg", "url_filter": "valid"},
     ),
     (
         [("linkcheck", STAFF_ROLES)],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "link_filter": "valid"},
+        {"region_slug": "nurnberg", "url_filter": "valid"},
     ),
     (
         [("linkcheck", ROLES)],
         # The kwargs for these views
-        {"region_slug": "augsburg", "link_filter": "unchecked"},
+        {"region_slug": "augsburg", "url_filter": "unchecked"},
     ),
     (
         [("linkcheck", STAFF_ROLES)],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "link_filter": "unchecked"},
+        {"region_slug": "nurnberg", "url_filter": "unchecked"},
     ),
     (
         [("linkcheck", ROLES)],
         # The kwargs for these views
-        {"region_slug": "augsburg", "link_filter": "ignored"},
+        {"region_slug": "augsburg", "url_filter": "ignored"},
     ),
     (
         [("linkcheck", STAFF_ROLES)],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "link_filter": "ignored"},
+        {"region_slug": "nurnberg", "url_filter": "ignored"},
     ),
     (
         [("linkcheck", ROLES)],
         # The kwargs for these views
-        {"region_slug": "augsburg", "link_filter": "invalid"},
+        {"region_slug": "augsburg", "url_filter": "invalid"},
     ),
     (
         [("linkcheck", STAFF_ROLES)],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "link_filter": "invalid"},
+        {"region_slug": "nurnberg", "url_filter": "invalid"},
     ),
     (
-        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "parent_id": 1},
     ),
@@ -377,7 +389,7 @@ VIEWS = [
         {"region_slug": "nurnberg", "parent_id": 7},
     ),
     (
-        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "parent_id": 1, "page_id": 2},
     ),
@@ -387,7 +399,7 @@ VIEWS = [
         {"region_slug": "nurnberg", "parent_id": 7, "page_id": 8},
     ),
     (
-        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "page_id": 2},
     ),
@@ -397,7 +409,7 @@ VIEWS = [
         {"region_slug": "nurnberg", "page_id": 8},
     ),
     (
-        [("get_page_tree_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        [("get_page_tree_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de", "tree_id": 2},
     ),
@@ -408,11 +420,11 @@ VIEWS = [
     ),
     (
         [
-            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
-            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
@@ -421,19 +433,30 @@ VIEWS = [
                     "submit_draft": True,
                 },
             ),
-            ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR]),
-            ("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR]),
+            (
+                "edit_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {
+                    "title": "new title",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 21,
+                    "_position": "first-child",
+                    "submit_public": True,
+                },
+            ),
+            ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            ("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
             (
                 "archive_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"post_data": True},
             ),
             (
                 "restore_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"post_data": True},
             ),
-            ("delete_page", [ROOT, MUNICIPALITY_TEAM], {"post_data": True}),
+            ("delete_page", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "en", "page_id": 1},
@@ -445,13 +468,19 @@ VIEWS = [
             ("page_revisions", STAFF_ROLES),
             ("archive_page", PRIV_STAFF_ROLES, {"post_data": True}),
             ("restore_page", PRIV_STAFF_ROLES, {"post_data": True}),
-            ("delete_page", [ROOT, MUNICIPALITY_TEAM], {"post_data": True}),
+            ("delete_page", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
         {"region_slug": "nurnberg", "language_slug": "en", "page_id": 7},
     ),
     (
-        [("move_page", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], {"post_data": True})],
+        [
+            (
+                "move_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"post_data": True},
+            )
+        ],
         # The kwargs for these views
         {
             "region_slug": "augsburg",
@@ -462,7 +491,7 @@ VIEWS = [
         },
     ),
     (
-        [("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR])],
+        [("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
         # The kwargs for these views
         {
             "region_slug": "augsburg",
@@ -487,7 +516,7 @@ VIEWS = [
             ),
             ("archive_event", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
             ("restore_event", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
-            ("delete_event", PRIV_STAFF_ROLES, {"post_data": True}),
+            ("delete_event", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de", "event_id": 1},
@@ -512,7 +541,7 @@ VIEWS = [
             ),
             ("archive_poi", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
             ("restore_poi", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
-            ("delete_poi", [ROOT, MUNICIPALITY_TEAM], {"post_data": True}),
+            ("delete_poi", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de", "poi_id": 4},
@@ -522,7 +551,7 @@ VIEWS = [
             ("edit_language_tree_node", STAFF_ROLES),
             (
                 "edit_language_tree_node",
-                PRIV_STAFF_ROLES,
+                HIGH_PRIV_STAFF_ROLES,
                 {
                     "language": 3,
                     "parent": 2,
@@ -539,7 +568,7 @@ VIEWS = [
             ("edit_region_user", STAFF_ROLES + [MANAGEMENT]),
             (
                 "edit_region_user",
-                PRIV_STAFF_ROLES + [MANAGEMENT],
+                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
                 {"username": "new_username", "email": "new@email.address", "role": 1},
             ),
         ],
@@ -560,7 +589,7 @@ VIEWS = [
         [
             (
                 "cancel_translation_process_ajax",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"post_data": True},
             )
         ],
@@ -649,7 +678,7 @@ REDIRECT_VIEWS = [
                 STAFF_ROLES,
                 reverse(
                     "linkcheck",
-                    kwargs={"region_slug": "augsburg", "link_filter": "invalid"},
+                    kwargs={"region_slug": "augsburg", "url_filter": "invalid"},
                 ),
             ),
         ],
@@ -660,7 +689,7 @@ REDIRECT_VIEWS = [
         [
             (
                 "sbs_edit_page",
-                STAFF_ROLES + [MANAGEMENT, EDITOR],
+                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 reverse(
                     "edit_page",
                     kwargs={

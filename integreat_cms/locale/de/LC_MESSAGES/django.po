@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-09 11:27+0000\n"
+"POT-Creation-Date: 2022-05-22 09:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1183,6 +1183,78 @@ msgstr "Monatlich"
 msgid "Yearly"
 msgstr "Jährlich"
 
+#: cms/constants/linkcheck.py:4
+msgid "Broken external hash anchor"
+msgstr "Fehlerhafter externer Anker"
+
+#: cms/constants/linkcheck.py:5
+msgid "Broken internal link"
+msgstr "Fehlerhafter interner Link"
+
+#: cms/constants/linkcheck.py:6
+msgid "Broken internal hash anchor"
+msgstr "Fehlerhafter interner Anker"
+
+#: cms/constants/linkcheck.py:7
+msgid "Broken redirect"
+msgstr "Fehlerhafte Weiterleitung"
+
+#: cms/constants/linkcheck.py:8
+msgid "Email link (not automatically checked)"
+msgstr "E-Mail-Link (nicht automatisch geprüft)"
+
+#: cms/constants/linkcheck.py:9
+msgid "Empty link"
+msgstr "Leerer Link"
+
+#: cms/constants/linkcheck.py:10
+msgid "Failed to parse HTML for anchor"
+msgstr "HTML konnte nicht geparst werden"
+
+#: cms/constants/linkcheck.py:11
+msgid "Invalid URL"
+msgstr "Ungültige URL"
+
+#: cms/constants/linkcheck.py:12
+msgid "Link to within the same page (not automatically checked)"
+msgstr "Link innerhalb der gleichen Seite (nicht automatisch geprüft)"
+
+#: cms/constants/linkcheck.py:13
+msgid "Missing Document"
+msgstr "Fehlende Datei"
+
+#: cms/constants/linkcheck.py:14
+msgid "Other Error: The read operation timed out"
+msgstr "Fehler: Zeitüberschreitung bei der Leseoperation"
+
+#: cms/constants/linkcheck.py:15
+msgid "Page OK but anchor can't be checked"
+msgstr "Seite OK, aber Anker kann nicht überprüft werden"
+
+#: cms/constants/linkcheck.py:16
+msgid "Phone number (not automatically checked)"
+msgstr "Telefonnummern-Link (nicht automatisch geprüft)"
+
+#: cms/constants/linkcheck.py:17
+msgid "URL Not Yet Checked"
+msgstr "URL noch nicht geprüft"
+
+#: cms/constants/linkcheck.py:18
+msgid "Working file link"
+msgstr "Funktionierender Datei-Link"
+
+#: cms/constants/linkcheck.py:19
+msgid "Working internal hash anchor"
+msgstr "Funktionierender interner Anker"
+
+#: cms/constants/linkcheck.py:20
+msgid "Working internal link"
+msgstr "Funktionierender interner Link"
+
+#: cms/constants/linkcheck.py:21
+msgid "Working redirect"
+msgstr "Funktionierende Weiterleitung"
+
 #: cms/constants/mirrored_page_first.py:8
 msgid "Embed mirrored page before this page"
 msgstr "Gespiegelte Seite vor dieser Seite einbinden"
@@ -1293,43 +1365,50 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: cms/constants/region_status.py:17 cms/models/regions/region.py:606
+#: cms/constants/region_status.py:17 cms/models/regions/region.py:611
 msgid "Hidden"
 msgstr "Versteckt"
 
 #: cms/constants/region_status.py:18 cms/models/pages/page.py:323
-#: cms/models/regions/region.py:609 cms/templates/events/event_form.html:76
+#: cms/models/regions/region.py:614 cms/templates/events/event_form.html:76
 #: cms/templates/pages/page_form.html:102
 #: cms/templates/pages/page_tree_archived_node.html:81
 #: cms/templates/pois/poi_form.html:66
 msgid "Archived"
 msgstr "Archiviert"
 
-#: cms/constants/role_names.py:16
+#: cms/constants/roles.py:18
 msgid "Management"
 msgstr "Verwaltung"
 
-#: cms/constants/role_names.py:17
+#: cms/constants/roles.py:19
 msgid "Editor"
 msgstr "Redakteur"
 
-#: cms/constants/role_names.py:18
+#: cms/constants/roles.py:20 cms/templates/imprint/imprint_revisions.html:21
+#: cms/templates/imprint/imprint_revisions.html:54
+#: cms/templates/pages/page_revisions.html:25
+#: cms/templates/pages/page_revisions.html:61
+msgid "Author"
+msgstr "Autor"
+
+#: cms/constants/roles.py:21
 msgid "Event manager"
 msgstr "Terminplaner"
 
-#: cms/constants/role_names.py:32
-msgid "Municipality team"
-msgstr "Kommunen-Team"
+#: cms/constants/roles.py:35
+msgid "Service team"
+msgstr "Service-Team"
 
-#: cms/constants/role_names.py:33
+#: cms/constants/roles.py:36
 msgid "CMS team"
 msgstr "CMS-Team"
 
-#: cms/constants/role_names.py:34
+#: cms/constants/roles.py:37
 msgid "App team"
 msgstr "App-Team"
 
-#: cms/constants/role_names.py:35
+#: cms/constants/roles.py:38
 msgid "Marketing team"
 msgstr "Marketing-Team"
 
@@ -1722,33 +1801,41 @@ msgstr "Keine Inhalte übernehmen"
 msgid "Timezone area"
 msgstr "Region der Zeitzone"
 
-#: cms/forms/regions/region_form.py:181
+#: cms/forms/regions/region_form.py:188
 msgid "Statistics can only be enabled when a valid access token is supplied."
 msgstr ""
 "Statistiken können nur aktiviert werden, wenn ein gültiges Zugangstoken "
 "eingegeben wurde."
 
-#: cms/forms/regions/region_form.py:193
+#: cms/forms/regions/region_form.py:200
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
 
-#: cms/forms/regions/region_form.py:276
+#: cms/forms/regions/region_form.py:228 cms/forms/regions/region_form.py:238
+msgid ""
+"Could not retrieve the coordinates automatically, please fill the field "
+"manually."
+msgstr ""
+"Die Koordinaten konnten nicht automatisch abgerufen werden, bitte füllen Sie "
+"das Feld manuell aus."
+
+#: cms/forms/regions/region_form.py:308
 msgid "'{}' is already selected as administrative division."
 msgstr "'{}' ist bereits als Verwaltungseinheit ausgewählt."
 
-#: cms/forms/regions/region_form.py:281
+#: cms/forms/regions/region_form.py:313
 msgid "Please select '{}' as administrative division."
 msgstr "Bitte wählen Sie '{}' als Verwaltungseinheit."
 
-#: cms/forms/regions/region_form.py:292
+#: cms/forms/regions/region_form.py:324
 msgid "Please set {} as default language for this region."
 msgstr "Bitte setzen Sie '{}' als Standard-Sprache für diese Region."
 
-#: cms/forms/regions/region_form.py:298
+#: cms/forms/regions/region_form.py:330
 msgid "Please enable '{}'."
 msgstr "Bitte aktivieren Sie '{}'."
 
-#: cms/forms/regions/region_form.py:313
+#: cms/forms/regions/region_form.py:345
 msgid ""
 "You cannot include the administrative division into the name and use a "
 "custom prefix at the same time."
@@ -1873,7 +1960,7 @@ msgstr "Die Passwörter stimmen nicht überein."
 #: cms/models/feedback/feedback.py:60 cms/models/media/directory.py:24
 #: cms/models/media/media_file.py:138
 #: cms/models/push_notifications/push_notification.py:21
-#: cms/models/regions/region.py:625
+#: cms/models/regions/region.py:630
 msgid "region"
 msgstr "Region"
 
@@ -1882,74 +1969,74 @@ msgstr "Region"
 #: cms/models/languages/language_tree_node.py:37
 #: cms/models/media/directory.py:36 cms/models/offers/offer_template.py:56
 #: cms/models/push_notifications/push_notification.py:45
-#: cms/models/regions/region.py:156 cms/models/users/organization.py:34
+#: cms/models/regions/region.py:161 cms/models/users/organization.py:34
 #: cms/models/users/user_mfa_key.py:39
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
-#: cms/models/abstract_content_translation.py:23
+#: cms/models/abstract_content_translation.py:20
 #: cms/models/push_notifications/push_notification_translation.py:16
 msgid "title"
 msgstr "Titel"
 
-#: cms/models/abstract_content_translation.py:27
+#: cms/models/abstract_content_translation.py:24
 msgid "link"
 msgstr "Link"
 
-#: cms/models/abstract_content_translation.py:29
+#: cms/models/abstract_content_translation.py:26
 #: cms/models/offers/offer_template.py:23
 msgid "String identifier without spaces and special characters."
 msgstr "Bezeichner ohne Leerzeichen und Sonderzeichen."
 
-#: cms/models/abstract_content_translation.py:30
+#: cms/models/abstract_content_translation.py:27
 #: cms/models/offers/offer_template.py:24
 msgid "Unique per region and language."
 msgstr "Eindeutig pro Region und Sprache."
 
-#: cms/models/abstract_content_translation.py:31
+#: cms/models/abstract_content_translation.py:28
 msgid "Leave blank to generate unique parameter from title."
 msgstr ""
 "Dieses Feld freilassen, um einen eindeutigen Alias aus dem Titel zu "
 "generieren."
 
-#: cms/models/abstract_content_translation.py:39
+#: cms/models/abstract_content_translation.py:36
 #: cms/models/regions/region.py:91
 msgid "status"
 msgstr "Status"
 
-#: cms/models/abstract_content_translation.py:41
+#: cms/models/abstract_content_translation.py:38
 #: cms/models/chat/chat_message.py:43
 #: cms/models/push_notifications/push_notification_translation.py:21
 msgid "content"
 msgstr "Inhalt"
 
-#: cms/models/abstract_content_translation.py:45
+#: cms/models/abstract_content_translation.py:42
 #: cms/models/feedback/feedback.py:66 cms/models/languages/language.py:157
 #: cms/models/languages/language_tree_node.py:23
 #: cms/models/push_notifications/push_notification_translation.py:27
 msgid "language"
 msgstr "Sprache"
 
-#: cms/models/abstract_content_translation.py:49
+#: cms/models/abstract_content_translation.py:46
 msgid "currently in translation"
 msgstr "wird derzeit übersetzt"
 
-#: cms/models/abstract_content_translation.py:51
+#: cms/models/abstract_content_translation.py:48
 msgid ""
 "Flag to indicate a translation is being updated by an external translator"
 msgstr ""
 "Feld, die anzeigt, dass eine Übersetzung von einem externen Übersetzer "
 "aktualisiert wird"
 
-#: cms/models/abstract_content_translation.py:54
+#: cms/models/abstract_content_translation.py:51
 msgid "revision"
 msgstr "Revision"
 
-#: cms/models/abstract_content_translation.py:57
+#: cms/models/abstract_content_translation.py:54
 msgid "minor edit"
 msgstr "geringfügige Änderung"
 
-#: cms/models/abstract_content_translation.py:59
+#: cms/models/abstract_content_translation.py:56
 msgid ""
 "Tick if this change does not require an update of translations in other "
 "languages."
@@ -1957,16 +2044,16 @@ msgstr ""
 "Kreuzen Sie an, wenn diese Änderung keine Aktualisierung der Übersetzungen "
 "in anderen Sprachen erfordert."
 
-#: cms/models/abstract_content_translation.py:64
+#: cms/models/abstract_content_translation.py:61
 #: cms/models/languages/language.py:89
 #: cms/models/languages/language_tree_node.py:41
 #: cms/models/offers/offer_template.py:60
 #: cms/models/push_notifications/push_notification_translation.py:37
-#: cms/models/regions/region.py:160 cms/models/users/organization.py:38
+#: cms/models/regions/region.py:165 cms/models/users/organization.py:38
 msgid "modification date"
 msgstr "Änderungsdatum"
 
-#: cms/models/abstract_content_translation.py:71
+#: cms/models/abstract_content_translation.py:68
 msgid "creator"
 msgstr "Ersteller"
 
@@ -1997,7 +2084,7 @@ msgid "chat messages"
 msgstr "Chat-Nachrichten"
 
 #: cms/models/events/event.py:84 cms/models/pois/poi.py:74
-#: cms/models/pois/poi_translation.py:24
+#: cms/models/pois/poi_translation.py:27
 msgid "location"
 msgstr "Ort"
 
@@ -2034,7 +2121,7 @@ msgstr "archiviert"
 msgid "copy"
 msgstr "Kopie"
 
-#: cms/models/events/event.py:278 cms/models/events/event_translation.py:24
+#: cms/models/events/event.py:278 cms/models/events/event_translation.py:27
 msgid "event"
 msgstr "Veranstaltung"
 
@@ -2042,25 +2129,25 @@ msgstr "Veranstaltung"
 msgid "events"
 msgstr "Veranstaltungen"
 
-#: cms/models/events/event_translation.py:11
+#: cms/models/events/event_translation.py:14
 msgid "event link"
 msgstr "Veranstaltungslink"
 
-#: cms/models/events/event_translation.py:12
+#: cms/models/events/event_translation.py:15
 msgid "title of the event"
 msgstr "Titel der Veranstaltung"
 
-#: cms/models/events/event_translation.py:13 cms/models/media/media_file.py:141
-#: cms/models/pois/poi_translation.py:13
+#: cms/models/events/event_translation.py:16 cms/models/media/media_file.py:141
+#: cms/models/pois/poi_translation.py:16
 msgid "description"
 msgstr "Beschreibung"
 
-#: cms/models/events/event_translation.py:81
+#: cms/models/events/event_translation.py:85
 #: cms/models/feedback/event_feedback.py:19
 msgid "event translation"
 msgstr "Veranstaltungs-Übersetzung"
 
-#: cms/models/events/event_translation.py:83
+#: cms/models/events/event_translation.py:87
 msgid "event translations"
 msgstr "Veranstaltungs-Übersetzungen"
 
@@ -2195,9 +2282,10 @@ msgstr "Impressum"
 msgid "imprint feedback"
 msgstr "Impressums-Feedback"
 
-#: cms/models/feedback/map_feedback.py:21 cms/templates/pois/poi_list.html:11
-msgid "Locations on map"
-msgstr "Orte auf Karte"
+#: cms/models/feedback/map_feedback.py:21 cms/templates/_base.html:166
+#: cms/templates/pois/poi_list.html:11
+msgid "Locations"
+msgstr "Orte"
 
 #: cms/models/feedback/map_feedback.py:52
 #: cms/models/feedback/map_feedback.py:54
@@ -2224,7 +2312,7 @@ msgstr "Angebotslisten-Feedback"
 
 #: cms/models/feedback/page_feedback.py:19
 #: cms/models/pages/abstract_base_page_translation.py:79
-#: cms/models/pages/page_translation.py:323
+#: cms/models/pages/page_translation.py:332
 msgid "page translation"
 msgstr "Seiten-Übersetzung"
 
@@ -2233,7 +2321,7 @@ msgstr "Seiten-Übersetzung"
 msgid "page feedback"
 msgstr "Seiten-Feedback"
 
-#: cms/models/feedback/poi_feedback.py:19 cms/models/pois/poi_translation.py:83
+#: cms/models/feedback/poi_feedback.py:19 cms/models/pois/poi_translation.py:87
 msgid "location translation"
 msgstr "Orts-Übersetzung"
 
@@ -2489,7 +2577,7 @@ msgstr "Vorschaubild-URL"
 #: cms/models/offers/offer_template.py:31 cms/templates/_tinymce_config.html:46
 #: cms/templates/linkcheck/links_by_filter.html:57
 #: cms/templates/offertemplates/offertemplate_list.html:22
-#: cms/views/media/media_context_mixin.py:57
+#: cms/views/media/media_context_mixin.py:58
 msgid "URL"
 msgstr "URL"
 
@@ -2559,12 +2647,12 @@ msgid "with the title in"
 msgstr "mit dem Titel auf"
 
 #: cms/models/pages/abstract_base_page_translation.py:81
-#: cms/models/pages/page_translation.py:325
+#: cms/models/pages/page_translation.py:334
 msgid "page translations"
 msgstr "Seiten-Übersetzungen"
 
 #: cms/models/pages/imprint_page.py:39
-#: cms/models/pages/imprint_page_translation.py:24
+#: cms/models/pages/imprint_page_translation.py:27
 msgid "imprint"
 msgstr "Impressum"
 
@@ -2572,11 +2660,11 @@ msgstr "Impressum"
 msgid "imprints"
 msgstr "Impressen"
 
-#: cms/models/pages/imprint_page_translation.py:82
+#: cms/models/pages/imprint_page_translation.py:87
 msgid "imprint translation"
 msgstr "Impressums-Übersetzung"
 
-#: cms/models/pages/imprint_page_translation.py:84
+#: cms/models/pages/imprint_page_translation.py:89
 msgid "imprint translations"
 msgstr "Impressums-Übersetzungen"
 
@@ -2662,7 +2750,7 @@ msgstr "API Zugangs-Token"
 msgid "API token to allow writing content to translations."
 msgstr "Token um das Überschreiben der Übersetzungen via API zu erlauben."
 
-#: cms/models/pages/page.py:344 cms/models/pages/page_translation.py:31
+#: cms/models/pages/page.py:344 cms/models/pages/page_translation.py:36
 msgid "page"
 msgstr "Seite"
 
@@ -2670,23 +2758,23 @@ msgstr "Seite"
 msgid "pages"
 msgstr "Seiten"
 
-#: cms/models/pages/page_translation.py:18
+#: cms/models/pages/page_translation.py:21
 msgid "page link"
 msgstr "Seitenlink"
 
-#: cms/models/pages/page_translation.py:19
+#: cms/models/pages/page_translation.py:22
 msgid "title of the page"
 msgstr "Titel der Seite"
 
-#: cms/models/pages/page_translation.py:20
+#: cms/models/pages/page_translation.py:23
 msgid "content of the page"
 msgstr "Inhalt der Seite"
 
-#: cms/models/pages/page_translation.py:226
+#: cms/models/pages/page_translation.py:235
 msgid "Live content"
 msgstr "Live-Inhalt"
 
-#: cms/models/pages/page_translation.py:229
+#: cms/models/pages/page_translation.py:238
 msgid "Empty"
 msgstr "Leer"
 
@@ -2694,7 +2782,7 @@ msgstr "Leer"
 msgid "street and house number"
 msgstr "Straße und Hausnummer"
 
-#: cms/models/pois/poi.py:19 cms/models/regions/region.py:143
+#: cms/models/pois/poi.py:19 cms/models/regions/region.py:148
 msgid "postal code"
 msgstr "Postleitzahl"
 
@@ -2706,7 +2794,7 @@ msgstr "Stadt"
 msgid "country"
 msgstr "Land"
 
-#: cms/models/pois/poi.py:25 cms/models/regions/region.py:135
+#: cms/models/pois/poi.py:25 cms/models/regions/region.py:140
 msgid "latitude"
 msgstr "Geographische Breite"
 
@@ -2714,7 +2802,7 @@ msgstr "Geographische Breite"
 msgid "The latitude coordinate"
 msgstr "Die Breitengrad-Koordinate"
 
-#: cms/models/pois/poi.py:32 cms/models/regions/region.py:140
+#: cms/models/pois/poi.py:32 cms/models/regions/region.py:145
 msgid "longitude"
 msgstr "Geographische Länge"
 
@@ -2750,19 +2838,19 @@ msgstr "Telefonnummer"
 msgid "locations"
 msgstr "Orte"
 
-#: cms/models/pois/poi_translation.py:11
+#: cms/models/pois/poi_translation.py:14
 msgid "link to the location"
 msgstr "Link zum Ort"
 
-#: cms/models/pois/poi_translation.py:12
+#: cms/models/pois/poi_translation.py:15
 msgid "name of the location"
 msgstr "Name des Ortes"
 
-#: cms/models/pois/poi_translation.py:27
+#: cms/models/pois/poi_translation.py:30
 msgid "short description"
 msgstr "Kurzbeschreibung"
 
-#: cms/models/pois/poi_translation.py:85
+#: cms/models/pois/poi_translation.py:89
 msgid "location translations"
 msgstr "Orts-Übersetzungen"
 
@@ -2872,54 +2960,62 @@ msgid "Whether or not events are enabled in the region"
 msgstr "Ob Veranstaltungen in der Region aktiviert sind oder nicht"
 
 #: cms/models/regions/region.py:130
+msgid "activate locations"
+msgstr "Orte aktivieren"
+
+#: cms/models/regions/region.py:131
+msgid "Whether or not locations are enabled in the region"
+msgstr "Ob Orte in der Region aktiviert sind oder nicht"
+
+#: cms/models/regions/region.py:135
 msgid "activate push notifications"
 msgstr "Push-Benachrichtigungen aktivieren"
 
-#: cms/models/regions/region.py:131
+#: cms/models/regions/region.py:136
 msgid "Whether or not push notifications are enabled in the region"
 msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
 
-#: cms/models/regions/region.py:136
+#: cms/models/regions/region.py:141
 msgid "The latitude coordinate of an approximate center of the region"
 msgstr "Die Breitengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: cms/models/regions/region.py:141
+#: cms/models/regions/region.py:146
 msgid "The longitude coordinate of an approximate center of the region"
 msgstr "Die Längengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: cms/models/regions/region.py:146
+#: cms/models/regions/region.py:151
 msgid "email address of the administrator"
 msgstr "E-Mail-Adresse des Administrators"
 
-#: cms/models/regions/region.py:152
+#: cms/models/regions/region.py:157
 msgid "timezone"
 msgstr "Zeitzone"
 
-#: cms/models/regions/region.py:165
+#: cms/models/regions/region.py:170
 msgid "activate statistics"
 msgstr "Statistiken aktivieren"
 
-#: cms/models/regions/region.py:166
+#: cms/models/regions/region.py:171
 msgid "Whether or not statistics are enabled for the region"
 msgstr "Ob Statistiken für die Region aktiviert sind oder nicht"
 
-#: cms/models/regions/region.py:171
+#: cms/models/regions/region.py:176
 msgid "Matomo ID"
 msgstr "Matomo ID"
 
-#: cms/models/regions/region.py:173
+#: cms/models/regions/region.py:178
 msgid "The Matomo ID of this region."
 msgstr "Die Matomo ID dieser region."
 
-#: cms/models/regions/region.py:174
+#: cms/models/regions/region.py:179
 msgid "Will be automatically derived from the Matomo access token."
 msgstr "Wird automatisch vom Matomo Zugangstoken abgeleitet."
 
-#: cms/models/regions/region.py:181
+#: cms/models/regions/region.py:186
 msgid "Matomo authentication token"
 msgstr "Matomo Authentifizierungs-Token"
 
-#: cms/models/regions/region.py:183
+#: cms/models/regions/region.py:188
 msgid ""
 "The secret Matomo access token of the region is used to authenticate in API "
 "requests"
@@ -2927,11 +3023,11 @@ msgstr ""
 "Das geheime Matomo-Zugangs-Token der Region wird zur Authentifizierung bei "
 "API-Anfragen verwendet"
 
-#: cms/models/regions/region.py:189
+#: cms/models/regions/region.py:194
 msgid "activate page-specific permissions"
 msgstr "Seiten-spezifische-Berechtigungen aktivieren"
 
-#: cms/models/regions/region.py:191
+#: cms/models/regions/region.py:196
 msgid ""
 "This allows individual users to be granted the right to edit or publish a "
 "specific page."
@@ -2939,26 +3035,26 @@ msgstr ""
 "Damit kann einzelnen Benutzern das Recht zum Bearbeiten oder Veröffentlichen "
 "einer bestimmten Seite eingeräumt werden."
 
-#: cms/models/regions/region.py:197 cms/models/users/organization.py:25
+#: cms/models/regions/region.py:202 cms/models/users/organization.py:25
 msgid "logo"
 msgstr "Logo"
 
-#: cms/models/regions/region.py:206
+#: cms/models/regions/region.py:211
 msgid "activate author chat"
 msgstr "Autoren-Chat aktivieren"
 
-#: cms/models/regions/region.py:208
+#: cms/models/regions/region.py:213
 msgid ""
 "This gives all users of this region access to the cross-regional author chat."
 msgstr ""
 "Dies gewährt allen Benutzern dieser Region Zugang zum überregionalen Autoren-"
 "Chat."
 
-#: cms/models/regions/region.py:214
+#: cms/models/regions/region.py:219
 msgid "include administrative division into name"
 msgstr "Verwaltungseinheit dem Namen hinzufügen"
 
-#: cms/models/regions/region.py:217
+#: cms/models/regions/region.py:222
 msgid ""
 "Determines whether the administrative division is displayed next to the "
 "region name."
@@ -2966,7 +3062,7 @@ msgstr ""
 "Legt fest, ob die Verwaltungseinheit neben dem Namen der Region angezeigt "
 "wird."
 
-#: cms/models/regions/region.py:220
+#: cms/models/regions/region.py:225
 msgid ""
 "Sorting is always based on the name, independently from the administrative "
 "division."
@@ -2974,11 +3070,11 @@ msgstr ""
 "Sortierungen werden immer auf Grundlage der Namen vorgenommen, unabhängig "
 "von der Verwaltungseinheit."
 
-#: cms/models/regions/region.py:229
+#: cms/models/regions/region.py:234
 msgid "offers"
 msgstr "Angebote"
 
-#: cms/models/regions/region.py:232
+#: cms/models/regions/region.py:237
 msgid ""
 "Integreat offers are extended features apart from pages and events and are "
 "usually offered by a third party."
@@ -2986,7 +3082,7 @@ msgstr ""
 "Integreat Angebote sind erweiterte Funktionen jenseits von Seiten und "
 "Ereignissen und werden in der Regel von Drittanbietern bereitgestellt."
 
-#: cms/models/regions/region.py:235
+#: cms/models/regions/region.py:240
 msgid ""
 "In most cases, the url is an external API endpoint which the frontend apps "
 "can query and render the results inside the Integreat app."
@@ -2995,23 +3091,23 @@ msgstr ""
 "Frontend Anfragen gesendet werden, um die Ergebnisse in der Integreat App "
 "einzubetten."
 
-#: cms/models/regions/region.py:242
+#: cms/models/regions/region.py:247
 msgid "Activate short urls"
 msgstr "Kurz-URLs aktivieren"
 
-#: cms/models/regions/region.py:243
+#: cms/models/regions/region.py:248
 msgid "Please check the box if you want to use short urls."
 msgstr "Kreuzen Sie an, wenn Sie Kurz-URLs benutzen wollen."
 
-#: cms/models/regions/region.py:248
+#: cms/models/regions/region.py:253
 msgid "Enable tunews"
 msgstr "tünews aktivieren"
 
-#: cms/models/regions/region.py:249
+#: cms/models/regions/region.py:254
 msgid "Enable to show a feed of tunews articles to users."
 msgstr "Auswählen, um Benutzern einen tünews-Feed anzuzeigen."
 
-#: cms/models/regions/region.py:627 cms/models/users/user.py:56
+#: cms/models/regions/region.py:632 cms/models/users/user.py:56
 msgid "regions"
 msgstr "Regionen"
 
@@ -3159,7 +3255,7 @@ msgstr "Mein Dashboard"
 msgid "Analytics"
 msgstr "Analyse"
 
-#: cms/templates/_base.html:118 cms/templates/regions/region_form.html:137
+#: cms/templates/_base.html:118
 #: cms/templates/statistics/_statistics_widget.html:11
 #: cms/templates/statistics/statistics_overview.html:10
 #: cms/templates/statistics/statistics_overview.html:49
@@ -3173,8 +3269,8 @@ msgstr "Übersetzungs-Bericht"
 
 #: cms/templates/_base.html:129
 #: cms/templates/analytics/_broken_links_widget.html:12
-msgid "Broken Link Checker"
-msgstr "Broken Link Checker"
+msgid "Broken Links"
+msgstr "Fehlerhafte Links"
 
 #: cms/templates/_base.html:136
 msgid "Contents"
@@ -3194,10 +3290,6 @@ msgstr "Seiten"
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: cms/templates/_base.html:166
-msgid "Locations on Map"
-msgstr "Orte auf Karte"
-
 #: cms/templates/_base.html:174 cms/templates/_base.html:275
 #: cms/templates/feedback/region_feedback_list.html:9
 msgid "Feedback"
@@ -3205,7 +3297,7 @@ msgstr "Feedback"
 
 #: cms/templates/_base.html:181
 #: cms/templates/push_notifications/push_notification_list.html:7
-#: core/settings.py:747
+#: core/settings.py:754
 msgid "News"
 msgstr "Nachrichten"
 
@@ -3289,7 +3381,7 @@ msgstr "Redaktionssystem"
 
 #: cms/templates/_search_input.html:13 cms/templates/_search_input.html:33
 #: cms/templates/events/_event_filter_form.html:34
-#: cms/views/media/media_context_mixin.py:55
+#: cms/views/media/media_context_mixin.py:56
 msgid "Search"
 msgstr "Suchen"
 
@@ -3334,12 +3426,13 @@ msgid "Update"
 msgstr "Aktualisieren"
 
 #: cms/templates/_tinymce_config.html:38
-#: cms/views/media/media_context_mixin.py:51
+#: cms/views/media/media_context_mixin.py:52
 msgid "Submit"
 msgstr "Speichern"
 
 #: cms/templates/_tinymce_config.html:39
 #: cms/templates/generic_confirmation_dialog.html:22
+#: cms/templates/linkcheck/link_list_row.html:63
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -3386,27 +3479,64 @@ msgstr "Hier können Sie eine Übersicht über fehlerhafte Links sehen."
 msgid "Details"
 msgstr "Detailansicht"
 
+#: cms/templates/analytics/_broken_links_widget.html:23
+#: cms/templates/chat/_chat_widget.html:29
+#: cms/templates/statistics/_statistics_widget.html:22
+#: cms/templates/statistics/statistics_overview.html:18
+#: cms/views/media/media_context_mixin.py:84
+msgid "A network error has occurred."
+msgstr "Ein Netzwerkfehler ist aufgetreten."
+
+#: cms/templates/analytics/_broken_links_widget.html:23
+#: cms/templates/chat/_chat_widget.html:29
+#: cms/templates/statistics/_statistics_widget.html:22
+#: cms/templates/statistics/statistics_overview.html:18
+#: cms/views/media/media_context_mixin.py:81
+#: cms/views/media/media_context_mixin.py:86
+msgid "Please try again later."
+msgstr "Bitte versuchen Sie es später erneut."
+
 #: cms/templates/analytics/_broken_links_widget.html:26
-#: cms/templates/linkcheck/links_by_filter.html:9
+#: cms/templates/chat/_chat_widget.html:30
+#: cms/templates/statistics/_statistics_widget.html:23
+#: cms/templates/statistics/statistics_overview.html:19
+msgid "A server error has occurred."
+msgstr "Ein Serverfehler ist aufgetreten."
+
+#: cms/templates/analytics/_broken_links_widget.html:26
+#: cms/templates/chat/_chat_widget.html:30
+#: cms/templates/statistics/_statistics_widget.html:23
+#: cms/templates/statistics/statistics_overview.html:19 xliff/utils.py:248
+msgid "Please contact the administrator."
+msgstr "Bitte kontaktieren Sie einen Administrator."
+
+#: cms/templates/analytics/_broken_links_widget.html:29
+#: cms/templates/dashboard/_news_widget.html:17
+#: cms/templates/statistics/_statistics_widget.html:24
+#: cms/templates/statistics/statistics_overview.html:20
+msgid "Loading..."
+msgstr "Laden..."
+
+#: cms/templates/analytics/_broken_links_widget.html:36
 msgid "Invalid links"
 msgstr "Ungültige Links"
 
-#: cms/templates/analytics/_broken_links_widget.html:30
+#: cms/templates/analytics/_broken_links_widget.html:40
 #: cms/templates/linkcheck/links_by_filter.html:7
 msgid "Valid links"
 msgstr "Gültige Links"
 
-#: cms/templates/analytics/_broken_links_widget.html:34
+#: cms/templates/analytics/_broken_links_widget.html:44
 #: cms/templates/linkcheck/links_by_filter.html:13
 msgid "Ignored links"
 msgstr "Ignorierte Links"
 
-#: cms/templates/analytics/_broken_links_widget.html:38
+#: cms/templates/analytics/_broken_links_widget.html:48
 #: cms/templates/linkcheck/links_by_filter.html:11
 msgid "Unchecked links"
 msgstr "Nicht geprüfte Links"
 
-#: cms/templates/analytics/_broken_links_widget.html:42
+#: cms/templates/analytics/_broken_links_widget.html:53
 msgid "Total links"
 msgstr "Links insgesamt"
 
@@ -3583,42 +3713,9 @@ msgstr "Chat"
 msgid "Send message"
 msgstr "Nachricht abschicken"
 
-#: cms/templates/chat/_chat_widget.html:29
-#: cms/templates/statistics/_statistics_widget.html:22
-#: cms/templates/statistics/statistics_overview.html:18
-#: cms/views/media/media_context_mixin.py:80
-msgid "A network error has occurred."
-msgstr "Ein Netzwerkfehler ist aufgetreten."
-
-#: cms/templates/chat/_chat_widget.html:29
-#: cms/templates/statistics/_statistics_widget.html:22
-#: cms/templates/statistics/statistics_overview.html:18
-#: cms/views/media/media_context_mixin.py:77
-#: cms/views/media/media_context_mixin.py:82
-msgid "Please try again later."
-msgstr "Bitte versuchen Sie es später erneut."
-
-#: cms/templates/chat/_chat_widget.html:30
-#: cms/templates/statistics/_statistics_widget.html:23
-#: cms/templates/statistics/statistics_overview.html:19
-msgid "A server error has occurred."
-msgstr "Ein Serverfehler ist aufgetreten."
-
-#: cms/templates/chat/_chat_widget.html:30
-#: cms/templates/statistics/_statistics_widget.html:23
-#: cms/templates/statistics/statistics_overview.html:19 xliff/utils.py:246
-msgid "Please contact the administrator."
-msgstr "Bitte kontaktieren Sie einen Administrator."
-
 #: cms/templates/dashboard/_news_widget.html:12
 msgid "Integreat News"
 msgstr "Integreat Neuigkeiten"
-
-#: cms/templates/dashboard/_news_widget.html:17
-#: cms/templates/statistics/_statistics_widget.html:24
-#: cms/templates/statistics/statistics_overview.html:20
-msgid "Loading..."
-msgstr "Laden..."
 
 #: cms/templates/dashboard/_news_widget.html:20
 msgid "Unfortunately there was a problem and the news feed could not load."
@@ -3970,7 +4067,7 @@ msgstr "Veranstaltungen ausgewählt"
 #: cms/templates/events/event_list_archived.html:81
 #: cms/templates/feedback/admin_feedback_list.html:138
 #: cms/templates/feedback/region_feedback_list.html:130
-#: cms/templates/linkcheck/links_by_filter.html:86
+#: cms/templates/linkcheck/links_by_filter.html:96
 #: cms/templates/pages/page_tree.html:150
 #: cms/templates/pages/page_tree_archived.html:92
 #: cms/templates/pois/poi_list.html:102
@@ -4004,7 +4101,7 @@ msgstr "Diese Sprache wird von DeepL nicht unterstützt"
 #: cms/templates/events/event_list_archived.html:86
 #: cms/templates/feedback/admin_feedback_list.html:152
 #: cms/templates/feedback/region_feedback_list.html:144
-#: cms/templates/linkcheck/links_by_filter.html:104
+#: cms/templates/linkcheck/links_by_filter.html:114
 #: cms/templates/pages/page_tree.html:184
 #: cms/templates/pages/page_tree_archived.html:98
 #: cms/templates/pois/poi_list.html:123
@@ -4273,13 +4370,6 @@ msgstr "Versionen des Impressums"
 msgid "Go back to imprint editor"
 msgstr "Zurück zum Impressums-Editor"
 
-#: cms/templates/imprint/imprint_revisions.html:21
-#: cms/templates/imprint/imprint_revisions.html:54
-#: cms/templates/pages/page_revisions.html:25
-#: cms/templates/pages/page_revisions.html:61
-msgid "Author"
-msgstr "Autor"
-
 #: cms/templates/imprint/imprint_revisions.html:43
 #: cms/templates/pages/_page_xliff_import_diff.html:34
 #: cms/templates/pages/page_revisions.html:47
@@ -4422,6 +4512,7 @@ msgstr "Sprache hinzufügen"
 
 #: cms/templates/language_tree/language_tree_node_form.html:23
 #: cms/templates/languages/language_form.html:19
+#: cms/templates/linkcheck/link_list_row.html:64
 #: cms/templates/offertemplates/offertemplate_form.html:20
 #: cms/templates/organizations/organization_form.html:19
 #: cms/templates/push_notifications/push_notification_form.html:23
@@ -4472,7 +4563,7 @@ msgstr "Übersetzungen"
 #: cms/templates/languages/language_form.html:74
 #: cms/templates/offertemplates/offertemplate_form.html:57
 #: cms/templates/organizations/organization_form.html:38
-#: cms/templates/regions/region_form.html:99
+#: cms/templates/regions/region_form.html:77
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
 
@@ -4539,13 +4630,17 @@ msgstr "Anzahl an Regionen"
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
-#: cms/templates/linkcheck/link_list_row.html:32
+#: cms/templates/linkcheck/link_list_row.html:37
 msgid "Go to source"
 msgstr "Inhalt aufrufen"
 
-#: cms/templates/linkcheck/link_list_row.html:39
+#: cms/templates/linkcheck/link_list_row.html:50
 msgid "Replace URL globally"
 msgstr "URL zentral ersetzen"
+
+#: cms/templates/linkcheck/links_by_filter.html:9
+msgid "Broken links"
+msgstr "Fehlerhafte Links"
 
 #: cms/templates/linkcheck/links_by_filter.html:18
 msgid "Valid"
@@ -4565,33 +4660,45 @@ msgstr "Ignoriert"
 
 #: cms/templates/linkcheck/links_by_filter.html:59
 msgid "Link text"
-msgstr "Link Text"
+msgstr "Linktext"
 
 #: cms/templates/linkcheck/links_by_filter.html:60
 msgid "Source"
 msgstr "Quelle"
 
 #: cms/templates/linkcheck/links_by_filter.html:61
-msgid "Content type"
-msgstr "Inhaltstyp"
+msgid "Usages"
+msgstr "Verwendungen"
 
-#: cms/templates/linkcheck/links_by_filter.html:70
-msgid "No links detected yet."
-msgstr "Es konnten keine Links gefunden werden."
+#: cms/templates/linkcheck/links_by_filter.html:72
+msgid "No valid links could be found."
+msgstr "Es konnten keine gültigen Links gefunden werden."
 
-#: cms/templates/linkcheck/links_by_filter.html:79
+#: cms/templates/linkcheck/links_by_filter.html:74
+msgid "No invalid links could be found."
+msgstr "Es konnten keine ungültigen Links gefunden werden."
+
+#: cms/templates/linkcheck/links_by_filter.html:76
+msgid "No unchecked links could be found."
+msgstr "Es konnten keine ungeprüften Links gefunden werden."
+
+#: cms/templates/linkcheck/links_by_filter.html:78
+msgid "No ignored links could be found."
+msgstr "Es konnten keine ignorierten Links gefunden werden."
+
+#: cms/templates/linkcheck/links_by_filter.html:89
 msgid "Links selected"
 msgstr "Links ausgewählt"
 
-#: cms/templates/linkcheck/links_by_filter.html:91
+#: cms/templates/linkcheck/links_by_filter.html:101
 msgid "Unignore"
 msgstr "Nicht ignorieren"
 
-#: cms/templates/linkcheck/links_by_filter.html:96
+#: cms/templates/linkcheck/links_by_filter.html:106
 msgid "Recheck"
 msgstr "Erneut prüfen"
 
-#: cms/templates/linkcheck/links_by_filter.html:100
+#: cms/templates/linkcheck/links_by_filter.html:110
 msgid "Ignore"
 msgstr "Ignorieren"
 
@@ -4605,13 +4712,13 @@ msgid "Create new offer template"
 msgstr "Neue Angebots-Vorlage erstellen"
 
 #: cms/templates/offertemplates/offertemplate_form.html:22
-#: cms/views/media/media_context_mixin.py:41
+#: cms/views/media/media_context_mixin.py:42
 msgid "Create"
 msgstr "Erstellen"
 
 #: cms/templates/offertemplates/offertemplate_form.html:30
 #: cms/templates/organizations/organization_form.html:25
-#: cms/templates/regions/region_form.html:29
+#: cms/templates/regions/region_form.html:28
 #: cms/templates/users/region_user_form.html:29
 #: cms/templates/users/user_form.html:26
 msgid "General Settings"
@@ -4726,7 +4833,7 @@ msgstr "Vorschau"
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: cms/templates/pages/_page_xliff_import_diff.html:80 xliff/utils.py:485
+#: cms/templates/pages/_page_xliff_import_diff.html:80 xliff/utils.py:496
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
@@ -4791,7 +4898,7 @@ msgstr ""
 #: cms/templates/pages/page_form.html:283
 #: cms/templates/pages/page_form.html:285
 #: cms/templates/pages/page_form.html:295
-#: cms/templates/pages/page_tree_archived_node.html:112
+#: cms/templates/pages/page_tree_archived_node.html:113
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
@@ -4812,7 +4919,7 @@ msgstr[1] ""
 
 #: cms/templates/pages/page_form.html:315
 #: cms/templates/pages/page_form.html:317
-#: cms/templates/pages/page_tree_node.html:140
+#: cms/templates/pages/page_tree_node.html:141
 msgid "Archive page"
 msgstr "Seite archivieren"
 
@@ -4822,14 +4929,14 @@ msgstr "Diese Seite archivieren"
 
 #: cms/templates/pages/page_form.html:329
 #: cms/templates/pages/page_form.html:393
-#: cms/templates/pages/page_tree_archived_node.html:134
-#: cms/templates/pages/page_tree_node.html:157
+#: cms/templates/pages/page_tree_archived_node.html:135
+#: cms/templates/pages/page_tree_node.html:158
 msgid "Delete page"
 msgstr "Seite löschen"
 
 #: cms/templates/pages/page_form.html:336
-#: cms/templates/pages/page_tree_archived_node.html:126
-#: cms/templates/pages/page_tree_node.html:149
+#: cms/templates/pages/page_tree_archived_node.html:127
+#: cms/templates/pages/page_tree_node.html:150
 #: cms/views/pages/page_actions.py:250
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
@@ -4846,8 +4953,8 @@ msgstr[1] ""
 "verschieben:"
 
 #: cms/templates/pages/page_form.html:357
-#: cms/templates/pages/page_tree_archived_node.html:130
-#: cms/templates/pages/page_tree_node.html:153
+#: cms/templates/pages/page_tree_archived_node.html:131
+#: cms/templates/pages/page_tree_node.html:154
 #: cms/views/pages/page_actions.py:255
 msgid ""
 "This page cannot be deleted because it was embedded as live content from "
@@ -5053,13 +5160,13 @@ msgstr "Seite als Vorschau ansehen"
 msgid "You cannot preview an empty page."
 msgstr "Eine leere Seite hat keine Vorschau"
 
-#: cms/templates/pages/page_tree_archived_node.html:120
+#: cms/templates/pages/page_tree_archived_node.html:121
 msgid "To restore this page, you have to restore its archived parent page."
 msgstr ""
 "Um diese Seite wiederherzustellen, müssen Sie ihre archivierte übergeordnete "
 "Seite wiederherstellen."
 
-#: cms/templates/pages/page_tree_archived_node.html:126
+#: cms/templates/pages/page_tree_archived_node.html:127
 msgid "This also involves non-archived subpages."
 msgstr "Dies betrifft auch nicht-archivierte Unterseiten."
 
@@ -5067,33 +5174,33 @@ msgstr "Dies betrifft auch nicht-archivierte Unterseiten."
 msgid "Change the order and position of the pages with drag & drop."
 msgstr "Ändern Sie die Reihenfolge und Position der Seiten mit Drag & Drop."
 
-#: cms/templates/pages/page_tree_node.html:128
+#: cms/templates/pages/page_tree_node.html:129
 msgid "Open page in web app"
 msgstr "Seite in der Web-App öffnen"
 
-#: cms/templates/pages/page_tree_node.html:132
+#: cms/templates/pages/page_tree_node.html:133
 msgid "This page cannot be opened in the web app, because it is not public."
 msgstr ""
 "Diese Seite kann nicht in der Web-App geöffnet werden, weil sie nicht "
 "veröffentlicht ist."
 
-#: cms/templates/pages/page_tree_node.html:136
+#: cms/templates/pages/page_tree_node.html:137
 msgid "Edit page"
 msgstr "Seite bearbeiten"
 
-#: cms/templates/pages/page_tree_node.html:149
+#: cms/templates/pages/page_tree_node.html:150
 msgid "This also involves archived subpages."
 msgstr "Dies betrifft auch archivierte Unterseiten."
 
-#: cms/templates/pages/page_tree_node.html:153
+#: cms/templates/pages/page_tree_node.html:154
 msgid "You can however archive this page."
 msgstr "Sie können diese Seite jedoch archivieren."
 
-#: cms/templates/pages/page_tree_node.html:168
+#: cms/templates/pages/page_tree_node.html:169
 msgid "Copy short link"
 msgstr "Kurz-URL kopieren"
 
-#: cms/templates/pages/page_tree_node.html:172
+#: cms/templates/pages/page_tree_node.html:173
 msgid "You cannot copy a short link of a page which has no translation."
 msgstr "Sie können keine Kurz-URL zu einer fehlenden Übersetzung kopieren."
 
@@ -5312,42 +5419,54 @@ msgstr "Region \"%(region_name)s\" bearbeiten"
 msgid "Create new region"
 msgstr "Neue Region erstellen"
 
-#: cms/templates/regions/region_form.html:80
+#: cms/templates/regions/region_form.html:95
 msgid "Center of the region"
 msgstr "Mittelpunkt der Region"
 
-#: cms/templates/regions/region_form.html:174
+#: cms/templates/regions/region_form.html:97
+msgid ""
+"If you leave these fields blank, they are automatically derived from the "
+"name, administrative division and community identification number."
+msgstr ""
+"Wenn Sie diese Felder leer lassen, werden sie automatisch aus dem Namen, der "
+"Verwaltungseinheit und dem Gemeindeschlüssel abgeleitet."
+
+#: cms/templates/regions/region_form.html:116
+msgid "Features"
+msgstr "Funktionen"
+
+#: cms/templates/regions/region_form.html:178
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: cms/templates/regions/region_form.html:177
+#: cms/templates/regions/region_form.html:181
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: cms/templates/regions/region_form.html:186
+#: cms/templates/regions/region_form.html:190
 msgid "Delete region"
 msgstr "Region löschen"
 
-#: cms/templates/regions/region_form.html:187
+#: cms/templates/regions/region_form.html:191
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: cms/templates/regions/region_form.html:188
+#: cms/templates/regions/region_form.html:192
 msgid "This can not be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: cms/templates/regions/region_form.html:188
+#: cms/templates/regions/region_form.html:192
 msgid "All pages, events and locations of this region will also be deleted."
 msgstr ""
 "Alle Seiten, Veranstaltungen und Orte dieser Region werden ebenfalls "
 "gelöscht."
 
-#: cms/templates/regions/region_form.html:188
+#: cms/templates/regions/region_form.html:192
 msgid "Users, who only have access to this region, will be removed as well."
 msgstr ""
 "Benutzer, die nur Zugriff auf diese Region besitzen, werden auch entfernt."
 
-#: cms/templates/regions/region_form.html:192
+#: cms/templates/regions/region_form.html:196
 msgid "Delete this region"
 msgstr "Diese Region löschen"
 
@@ -6018,7 +6137,7 @@ msgstr ""
 
 #: cms/views/events/event_form_view.py:198
 #: cms/views/imprint/imprint_form_view.py:216
-#: cms/views/pages/page_form_view.py:266 cms/views/pois/poi_form_view.py:163
+#: cms/views/pages/page_form_view.py:269 cms/views/pois/poi_form_view.py:163
 msgid "No changes detected, autosave skipped"
 msgstr "Keine Änderungen vorgenommen, automatisches Speichern übersprungen"
 
@@ -6027,7 +6146,7 @@ msgid "Event \"{}\" was successfully created"
 msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/events/event_form_view.py:229
-#: cms/views/pages/page_form_view.py:297 cms/views/pois/poi_form_view.py:177
+#: cms/views/pages/page_form_view.py:300 cms/views/pois/poi_form_view.py:177
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
@@ -6109,7 +6228,7 @@ msgid "Imprint was successfully created"
 msgstr "Impressum wurde erfolgreich erstellt"
 
 #: cms/views/imprint/imprint_form_view.py:288
-#: cms/views/pages/page_form_view.py:369
+#: cms/views/pages/page_form_view.py:375
 #, python-brace-format
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
@@ -6154,15 +6273,15 @@ msgstr ""
 "Sie können die Side-by-Side-Ansicht nicht verwenden, wenn die Quell-"
 "Übersetzung (in diesem Fall {source_language}) nicht existiert."
 
-#: cms/views/language_tree/language_tree_actions.py:58
+#: cms/views/language_tree/language_tree_actions.py:59
 msgid "A region can only have one root language."
 msgstr "Eine Region kann nur eine Standard-Sprache besitzen."
 
-#: cms/views/language_tree/language_tree_actions.py:66
+#: cms/views/language_tree/language_tree_actions.py:67
 msgid "The language tree node \"{}\" was successfully moved."
 msgstr "Der Sprach-Knoten \"{}\" wurde erfolgreich verschoben."
 
-#: cms/views/language_tree/language_tree_actions.py:134
+#: cms/views/language_tree/language_tree_actions.py:145
 msgid ""
 "The language tree node \"{}\" and all corresponding translations were "
 "successfully deleted."
@@ -6190,19 +6309,19 @@ msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich gespeichert"
 msgid "Language tree node for \"{}\" was successfully created"
 msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/linkcheck/linkcheck.py:111
+#: cms/views/linkcheck/linkcheck_list_view.py:180
 msgid "URL was successfully replaced"
 msgstr "URL wurde erfolgreich ersetzt"
 
-#: cms/views/linkcheck/linkcheck.py:127
+#: cms/views/linkcheck/linkcheck_list_view.py:210
 msgid "Links were successfully ignored"
 msgstr "Links wurden erfolgreich ignoriert"
 
-#: cms/views/linkcheck/linkcheck.py:130
+#: cms/views/linkcheck/linkcheck_list_view.py:216
 msgid "Links were successfully unignored"
 msgstr "Links werden nicht mehr ignoriert"
 
-#: cms/views/linkcheck/linkcheck.py:134
+#: cms/views/linkcheck/linkcheck_list_view.py:220
 msgid "Links were successfully checked"
 msgstr "Links wurden erfolgreich geprüft"
 
@@ -6247,135 +6366,143 @@ msgid "Upload File"
 msgstr "Datei hochladen"
 
 #: cms/views/media/media_context_mixin.py:32
+msgid "Click or drop files here for upload."
+msgstr "Klicken Sie hier oder legen Sie die Dateien zum Hochladen hier ab."
+
+#: cms/views/media/media_context_mixin.py:33
 msgid "Home"
 msgstr "Home"
 
-#: cms/views/media/media_context_mixin.py:33
+#: cms/views/media/media_context_mixin.py:34
 msgid "Directory Properties"
 msgstr "Ordner-Eigenschaften"
 
-#: cms/views/media/media_context_mixin.py:34
+#: cms/views/media/media_context_mixin.py:35
 msgid "File Properties"
 msgstr "Datei-Eigenschaften"
 
-#: cms/views/media/media_context_mixin.py:35
+#: cms/views/media/media_context_mixin.py:36
 msgid "Search results for"
 msgstr "Suchergebnisse für"
 
-#: cms/views/media/media_context_mixin.py:36
+#: cms/views/media/media_context_mixin.py:37
 msgid "Upload"
 msgstr "Hochladen"
 
-#: cms/views/media/media_context_mixin.py:37
+#: cms/views/media/media_context_mixin.py:38
 msgid "Upload file"
 msgstr "Datei hochladen"
 
-#: cms/views/media/media_context_mixin.py:38
+#: cms/views/media/media_context_mixin.py:39
 msgid "Save file"
 msgstr "Datei speichern"
 
-#: cms/views/media/media_context_mixin.py:39
+#: cms/views/media/media_context_mixin.py:40
 msgid "Delete file"
 msgstr "Datei löschen"
 
-#: cms/views/media/media_context_mixin.py:40
+#: cms/views/media/media_context_mixin.py:41
 msgid "Show file"
 msgstr "Datei anzeigen"
 
-#: cms/views/media/media_context_mixin.py:42
+#: cms/views/media/media_context_mixin.py:43
 msgid "Enter directory"
 msgstr "Verzeichnis betreten"
 
-#: cms/views/media/media_context_mixin.py:43
+#: cms/views/media/media_context_mixin.py:44
 msgid "Create directory"
 msgstr "Verzeichnis erstellen"
 
-#: cms/views/media/media_context_mixin.py:44
+#: cms/views/media/media_context_mixin.py:45
 msgid "Rename directory"
 msgstr "Verzeichnis umbenennen"
 
-#: cms/views/media/media_context_mixin.py:45
+#: cms/views/media/media_context_mixin.py:46
 msgid "Delete directory"
 msgstr "Verzeichnis löschen"
 
-#: cms/views/media/media_context_mixin.py:47
+#: cms/views/media/media_context_mixin.py:48
 msgid "You can only delete empty directories"
 msgstr "Es können nur leere Verzeichnisse gelöscht werden"
 
-#: cms/views/media/media_context_mixin.py:49
+#: cms/views/media/media_context_mixin.py:50
 msgid "Back"
 msgstr "Zurück"
 
-#: cms/views/media/media_context_mixin.py:50
+#: cms/views/media/media_context_mixin.py:51
 msgid "Close detail view"
 msgstr "Detailansicht schließen"
 
-#: cms/views/media/media_context_mixin.py:52
+#: cms/views/media/media_context_mixin.py:53
 msgid "Select"
 msgstr "Auswählen"
 
-#: cms/views/media/media_context_mixin.py:53
+#: cms/views/media/media_context_mixin.py:54
 msgid "Select file"
 msgstr "Datei auswählen"
 
-#: cms/views/media/media_context_mixin.py:54
+#: cms/views/media/media_context_mixin.py:55
 msgid "Replace file"
 msgstr "Datei ersetzen"
 
-#: cms/views/media/media_context_mixin.py:56
+#: cms/views/media/media_context_mixin.py:57
 msgid "File name:"
 msgstr "Dateiname:"
 
-#: cms/views/media/media_context_mixin.py:58
+#: cms/views/media/media_context_mixin.py:59
 msgid "Directory name:"
 msgstr "Verzeichnisname:"
 
-#: cms/views/media/media_context_mixin.py:59
+#: cms/views/media/media_context_mixin.py:60
 msgid "File format:"
 msgstr "Dateiformat:"
 
-#: cms/views/media/media_context_mixin.py:60
+#: cms/views/media/media_context_mixin.py:61
 msgid "File size:"
 msgstr "Dateigröße:"
 
-#: cms/views/media/media_context_mixin.py:61
+#: cms/views/media/media_context_mixin.py:62
 msgid "File uploaded on:"
 msgstr "Datei hochgeladen am:"
 
-#: cms/views/media/media_context_mixin.py:62
+#: cms/views/media/media_context_mixin.py:63
 msgid "Directory created on:"
 msgstr "Verzeichnis erstellt am:"
 
-#: cms/views/media/media_context_mixin.py:63
+#: cms/views/media/media_context_mixin.py:64
 msgid "Alternative text:"
 msgstr "Alternativer Text:"
 
-#: cms/views/media/media_context_mixin.py:64
+#: cms/views/media/media_context_mixin.py:65
 msgid "Enter directory name here"
 msgstr "Verzeichnisname hier eingeben"
 
-#: cms/views/media/media_context_mixin.py:65
+#: cms/views/media/media_context_mixin.py:66
 msgid "This file is read-only and cannot be edited."
 msgstr "Diese Datei ist schreibgeschützt und kann nicht bearbeitet werden."
 
-#: cms/views/media/media_context_mixin.py:67
+#: cms/views/media/media_context_mixin.py:68
 msgid "This directory is read-only and cannot be edited."
 msgstr ""
 "Dieses Verzeichnis ist schreibgeschützt und kann nicht bearbeitet werden."
 
-#: cms/views/media/media_context_mixin.py:69
+#: cms/views/media/media_context_mixin.py:70
 msgid "Only images can be selected as an icon."
 msgstr "Es können nur Bilder als Icon ausgewählt werden."
 
-#: cms/views/media/media_context_mixin.py:71
+#: cms/views/media/media_context_mixin.py:72
 msgid "Please confirm that you really want to delete this file"
 msgstr "Bitte bestätigen Sie, dass diese Datei gelöscht werden soll"
 
-#: cms/views/media/media_context_mixin.py:74
+#: cms/views/media/media_context_mixin.py:75
 msgid "Please confirm that you really want to delete this directory"
 msgstr "Bitte bestätigen Sie, dass dieses Verzeichnis gelöscht werden soll"
 
-#: cms/views/media/media_context_mixin.py:77
+#: cms/views/media/media_context_mixin.py:78
+msgid "This file type is not supported. Supported types are:"
+msgstr "Dieser Dateityp wird nicht unterstützt. Unterstützte Typen sind:"
+
+#: cms/views/media/media_context_mixin.py:81
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
@@ -6555,7 +6682,7 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu veröffentlichen, "
 "aber Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
 
-#: cms/views/pages/page_form_view.py:290
+#: cms/views/pages/page_form_view.py:293
 msgid "Page \"{}\" was successfully created"
 msgstr "Seite \"{}\" wurde erfolgreich erstellt"
 
@@ -6824,7 +6951,7 @@ msgstr "{} \"{}\" wurde erfolgreich übersetzt"
 msgid "{} \"{}\" could not be automatically translated."
 msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
 
-#: xliff/utils.py:152
+#: xliff/utils.py:154
 msgid ""
 "Page {} does not have a source translation in {} and therefore cannot be "
 "exported as XLIFF for translation to {}."
@@ -6832,48 +6959,102 @@ msgstr ""
 "Die Seite {} hat keine Quell-Übersetzung auf {} und kann deshalb nicht als "
 "XLIFF für die Übersetzung nach {} exportiert werden."
 
-#: xliff/utils.py:174
+#: xliff/utils.py:176
 msgid "An unexpected error has occurred while exporting page {}."
 msgstr ""
 "Es ist ein unerwarteter Fehler beim Exportieren der Seite {} aufgetreten."
 
-#: xliff/utils.py:177 xliff/utils.py:264
+#: xliff/utils.py:179 xliff/utils.py:266
 msgid "Please try again or contact the administrator."
 msgstr ""
 "Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator."
 
-#: xliff/utils.py:244
+#: xliff/utils.py:246
 msgid "The page referenced in XLIFF file \"{}\" could not be found."
 msgstr "Die Seite der XLIFF-Datei \"{}\" konnte nicht gefunden werden."
 
-#: xliff/utils.py:262
+#: xliff/utils.py:264
 msgid "An unexpected error has occurred while importing XLIFF file \"{}\"."
 msgstr ""
 "Es ist ein unerwarteter Fehler beim Importieren der XLIFF Datei \"{}\" "
 "aufgetreten."
 
-#: xliff/utils.py:369
+#: xliff/utils.py:375
 msgid "Page {} could not be imported successfully because of the errors: {}"
 msgstr "Die Seite {} konnte nicht importiert werden aufgrund der Fehler: {}"
 
-#: xliff/utils.py:386
+#: xliff/utils.py:392
 msgid "Page {} was imported without changes."
 msgstr "Seite {} wurde ohne Änderungen importiert."
 
-#: xliff/utils.py:401
+#: xliff/utils.py:412
 msgid "Page {} was imported successfully."
 msgstr "Seite {} wurde erfolgreich importiert."
 
-#: xliff/utils.py:434
+#: xliff/utils.py:445
 msgid "You don't have the permission to import this page."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu importieren."
 
-#: xliff/utils.py:443
+#: xliff/utils.py:454
 msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Locations on Map"
+#~ msgstr "Orte auf Karte"
+
+#~ msgid "Locations on map"
+#~ msgstr "Orte auf Karte"
+
+#~ msgid "404 Not Found"
+#~ msgstr "404 Nicht gefunden"
+
+#~ msgid "Content type"
+#~ msgstr "Inhaltstyp"
+
+#~ msgid "Municipality team"
+#~ msgstr "Kommunen-Team"
+
+#~ msgid "200 OK"
+#~ msgstr "200 OK"
+
+#~ msgid "301 Moved Permanently"
+#~ msgstr "301 Permanente Weiterleitung"
+
+#~ msgid "302 Found"
+#~ msgstr "302 Vorübergehende Weiterleitung"
+
+#~ msgid "400 Bad Request"
+#~ msgstr "400 Inkorrekte Anfrage"
+
+#~ msgid "401 Unauthorized"
+#~ msgstr "401 Unberechtigt"
+
+#~ msgid "403 Forbidden"
+#~ msgstr "403 Zugriff verweigert"
+
+#~ msgid "405 Method Not Allowed"
+#~ msgstr "405 Nicht erlaubte Methode"
+
+#~ msgid "500 Internal Server Error"
+#~ msgstr "500 Interner Server-Fehler"
+
+#~ msgid "502 Bad Gateway"
+#~ msgstr "502 Fehlerhaftes Gateway"
+
+#~ msgid "503 Service Unavailable"
+#~ msgstr "503 Dienst nicht verfügbar"
+
+#~ msgid "504 Gateway Timeout"
+#~ msgstr "504 Gateway-Zeitüberschreitung"
+
+#~ msgid "Number of usages"
+#~ msgstr "Anzahl an Verwendungen"
+
+#~ msgid "No links detected yet."
+#~ msgstr "Es konnten keine Links gefunden werden."
 
 #~ msgid "Do not show this location on map"
 #~ msgstr "Diesen Ort nicht auf Karte zeigen"
@@ -6881,9 +7062,6 @@ msgstr ""
 #~ msgid "Tick if you do not show this location on map"
 #~ msgstr ""
 #~ "Kreuzen Sie an, wenn dieser Ort nicht auf der Karte gezeigt werden soll."
-
-#~ msgid "Broken links selected"
-#~ msgstr "Fehlerhafte Links ausgewählt"
 
 #~ msgid "password reset"
 #~ msgstr "Passwort zurücksetzen"
@@ -7096,9 +7274,6 @@ msgstr ""
 
 #~ msgid "Page tree"
 #~ msgstr "Seitenbaum"
-
-#~ msgid "Missing"
-#~ msgstr "Fehlt"
 
 #~ msgid "ID"
 #~ msgstr "ID"

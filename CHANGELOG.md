@@ -1,6 +1,24 @@
 UNRELEASED
 ----------
 
+* [ [#1409](https://github.com/digitalfabrik/integreat-cms/issues/1409) ] Fix automatic filling of region coordinates
+* [ [#1407](https://github.com/digitalfabrik/integreat-cms/issues/1407) ] Add location setting to region model
+* [ [#1417](https://github.com/digitalfabrik/integreat-cms/issues/1417) ] Don't show fallback text for empty pages if there are no alternatives
+* [ [#1418](https://github.com/digitalfabrik/integreat-cms/issues/1410) ] Strip HTML entities in excerpt field in the API
+* [ [#1402](https://github.com/digitalfabrik/integreat-cms/issues/1402) ] Also duplicate imprints for new regions
+* [ [#1408](https://github.com/digitalfabrik/integreat-cms/issues/1408) ] Remove duplication of push API tokens for pages during duplication process
+* [ [#1404](https://github.com/digitalfabrik/integreat-cms/issues/1404) ] Fix performance issue for select all on huge page trees
+* [ [#1403](https://github.com/digitalfabrik/integreat-cms/issues/1403) ] Fix problem with cache when removing language in a region
+* [ [#1401](https://github.com/digitalfabrik/integreat-cms/issues/1401) ] Support WordPress slugs by applying slugify on API parameters
+* [ [#1413](https://github.com/digitalfabrik/integreat-cms/issues/1413) ] Fix change of pagination size in broken link checker
+* [ [#1422](https://github.com/digitalfabrik/integreat-cms/issues/1422) ] Keep pagination settings in broken link checker when performing replacement
+* [ [#1405](https://github.com/digitalfabrik/integreat-cms/issues/1405) ] Show same URLs only once in broken link checker
+* [ [#1438](https://github.com/digitalfabrik/integreat-cms/issues/1438) ] Fix error in page form when page-specific permissions are enabled
+* [ [#1292](https://github.com/digitalfabrik/integreat-cms/issues/1292) ] Add multi-file upload via drag and drop
+* [ [#1442](https://github.com/digitalfabrik/integreat-cms/issues/1442) ] Add author role (formerly organizer)
+* [ [#1461](https://github.com/digitalfabrik/integreat-cms/issues/1461) ] Display warning on leaving page after editing a page description
+* [ [#1283](https://github.com/digitalfabrik/integreat-cms/issues/1283) ] Remove archived pages from several settings/options
+
 
 2022.5.0
 --------
