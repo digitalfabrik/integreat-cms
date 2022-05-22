@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.5.1
+--------
+
 * [ [#1409](https://github.com/digitalfabrik/integreat-cms/issues/1409) ] Fix automatic filling of region coordinates
 * [ [#1407](https://github.com/digitalfabrik/integreat-cms/issues/1407) ] Add location setting to region model
 * [ [#1417](https://github.com/digitalfabrik/integreat-cms/issues/1417) ] Don't show fallback text for empty pages if there are no alternatives
