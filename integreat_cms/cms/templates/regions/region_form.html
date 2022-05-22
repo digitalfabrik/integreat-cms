@@ -158,6 +158,20 @@
                         <div class="help-text">{{ form.short_urls_enabled.help_text }}</div>
                     </div>
                     <div>
+                        <!-- Options related to Tracking -->
+                        <label>{% trans 'Statistics' %}</label>
+                        {% render_field form.statistics_enabled %}
+                        <label for="{{ form.statistics_enabled.id_for_label }}" class="secondary">{{ form.statistics_enabled.label }}</label>
+                        <div id="statistics-toggle-div" {% if not form.instance.statistics_enabled %} class="hidden" {% endif %}>
+                            <label for="{{ form.matomo_token.id_for_label }}" class="secondary">{{ form.matomo_token.label }}</label>
+                            <div class="help-text">{{ form.matomo_token.help_text }}</div>
+                            {% render_field form.matomo_token %}
+                            <label for="{{ form.matomo_id.id_for_label }}" class="secondary">{{ form.matomo_id.label }}</label>
+                            <div class="help-text">{{ form.matomo_id.help_text }}</div>
+                            {% render_field form.matomo_id disabled="disabled" %}
+                        </div>
+                    </div>
+                    <div>
                         <label for="{{ form.offers.id_for_offers }}">{{ form.offers.label }}</label>
                         {% render_field form.offers %}
                         <div class="help-text">{{ form.offers.help_text }}</div>
