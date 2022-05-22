@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1471](https://github.com/digitalfabrik/integreat-cms/issues/1471) ] Add statistic settings to region form again
+
 
 2022.5.1
 --------
