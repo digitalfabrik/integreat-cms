@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.5.2
+--------
+
 * [ [#1471](https://github.com/digitalfabrik/integreat-cms/issues/1471) ] Add statistic settings to region form again
 * [ [#1473](https://github.com/digitalfabrik/integreat-cms/issues/1473) ] Fix offers compatibility with web app
 * [ [#1476](https://github.com/digitalfabrik/integreat-cms/issues/1476) ] Fix error when importing legacy XLIFF files from WordPress
