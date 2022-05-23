@@ -50,6 +50,8 @@ def get_post_data(offer, region):
     post_data = offer.post_data
     if offer.use_postal_code == postal_code.POST:
         post_data.update({"search-plz": region.postal_code})
+    if not post_data:
+        return None
     return post_data
 
 

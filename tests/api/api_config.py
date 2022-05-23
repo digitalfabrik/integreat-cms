@@ -88,6 +88,12 @@ API_ENDPOINTS = [
         "tests/api/expected-outputs/nurnberg_ar_fcm.json",
         200,
     ),
+    (
+        "/api/augsburg/de/extras/",
+        "/augsburg/de/wp-json/extensions/v3/extras/",
+        "tests/api/expected-outputs/augsburg-offers.json",
+        200,
+    ),
 ]
 
 #: This list contains the config for all API feedback views
