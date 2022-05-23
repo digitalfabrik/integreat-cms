@@ -173,11 +173,14 @@ class Deserializer(base_serializer.Deserializer):
                 ) from e
             page_translation_slug = page_link.pop()
             region_slug, language_slug = page_link[:2]
-            page = Page.objects.get(
+            page = Page.objects.filter(
                 region__slug=region_slug,
                 translations__slug=page_translation_slug,
                 translations__language__slug=language_slug,
-            )
+            ).first()
+            if not page:
+                # If no page matches the link, just raise the initial error
+                raise e
 
         logger.debug(
             "Referenced original page: %r",
