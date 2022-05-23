@@ -29,6 +29,7 @@ class POITranslationForm(CustomContentModelForm):
             "status",
             "content",
             "slug",
+            "minor_edit",
         ]
 
     def __init__(self, **kwargs):

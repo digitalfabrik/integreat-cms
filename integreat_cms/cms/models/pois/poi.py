@@ -34,7 +34,7 @@ class POI(AbstractContentModel):
         validators=[MinValueValidator(-180.0), MaxValueValidator(180.0)],
     )
     location_on_map = models.BooleanField(
-        default=True,
+        default=False,
         verbose_name=_("Show this location on map"),
         help_text=_("Tick if you want to show this location on map"),
     )

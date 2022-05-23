@@ -8,7 +8,7 @@
         <input type="checkbox" name="selected_ids[]" value="{{ event.id }}" form="bulk-action-form" class="bulk-select-item" />
     </td>
     <td>
-        <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" class="py-3 pl-2 pr-2 text-gray-800">
+        <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-3 pl-2 pr-2 text-gray-800">
             {% if event_translation %}
                 {{ event_translation.title }}
             {% else %}
@@ -20,7 +20,7 @@
     {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="py-3 pr-2 text-gray-800">
+            <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 pr-2 text-gray-800">
                 {% if event.backend_translation %}
                     {{ event.backend_translation.title }}
                 {% else %}
@@ -74,12 +74,12 @@
         {% endif %}
     </td>
     <td class="py-3 pr-2">
-        <i data-feather="calendar"></i> {{ event.start_date|date:'d.m.Y' }}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
+        <span class="whitespace-nowrap"><i data-feather="calendar"></i> {{ event.start_date|date:'d.m.Y' }}</span>{% if not event.is_all_day %} <span class="whitespace-nowrap"><i data-feather="clock"></i> {{ event.start_time|time:'H:i' }}</span>{% endif %}
     </td>
     <td class="py-3 pr-2">
-        <i data-feather="calendar"></i> {{ event.end_date|date:'d.m.Y' }}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
+        <span class="whitespace-nowrap"><i data-feather="calendar"></i> {{ event.end_date|date:'d.m.Y' }}</span>{% if not event.is_all_day %} <span class="whitespace-nowrap"><i data-feather="clock"></i> {{ event.end_time|time:'H:i' }}</span>{% endif %}
     </td>
-    <td class="py-3 pr-2">
+    <td class="py-3 pr-2 whitespace-nowrap">
         {% if event.recurrence_rule %}
             <i data-feather="repeat"></i> {{ event.recurrence_rule.get_frequency_display }}
         {% else %}
