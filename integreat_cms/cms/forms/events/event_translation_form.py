@@ -27,6 +27,7 @@ class EventTranslationForm(CustomContentModelForm):
             "slug",
             "content",
             "status",
+            "minor_edit",
         ]
 
     def __init__(self, **kwargs):
@@ -60,7 +61,7 @@ class EventTranslationForm(CustomContentModelForm):
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
 
-        # The slug is not rquired because it will be auto-generated if left blank
+        # The slug is not required because it will be auto-generated if left blank
         self.fields["slug"].required = False
 
     # pylint: disable=arguments-differ
