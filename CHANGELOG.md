@@ -5,6 +5,7 @@ UNRELEASED
 * [ [#1473](https://github.com/digitalfabrik/integreat-cms/issues/1473) ] Fix offers compatibility with web app
 * [ [#1476](https://github.com/digitalfabrik/integreat-cms/issues/1476) ] Fix error when importing legacy XLIFF files from WordPress
 * [ [#1462](https://github.com/digitalfabrik/integreat-cms/issues/1462) ] Set default value of POI visible on map to false
+* [ [#1475](https://github.com/digitalfabrik/integreat-cms/issues/1475) ] Add minor edit setting for events and locations
 
 
 2022.5.1
