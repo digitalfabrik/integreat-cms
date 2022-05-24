@@ -6,6 +6,7 @@ UNRELEASED
 * [ [#1406](https://github.com/digitalfabrik/integreat-cms/issues/1406) ] Hide sub-headings in PDF table of contents
 * [ [#1478](https://github.com/digitalfabrik/integreat-cms/issues/1478) ] Fix bug where page with archived sibling cannot be saved
 * [ [#1452](https://github.com/digitalfabrik/integreat-cms/issues/1452) ] Only allow users of the same region for page-specific-permissions
+* [ [#1481](https://github.com/digitalfabrik/integreat-cms/issues/1481) ] Support last week for monthly recurring events
 
 
 2022.5.2
