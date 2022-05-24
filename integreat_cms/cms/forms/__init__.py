@@ -51,6 +51,7 @@ from .users.authentication_form import AuthenticationForm
 from .users.region_user_form import RegionUserForm
 from .users.user_email_form import UserEmailForm
 from .users.user_form import UserForm
+from .users.user_filter_form import UserFilterForm
 from .users.user_password_form import UserPasswordForm
 from .users.password_reset_form import CustomPasswordResetForm
 
