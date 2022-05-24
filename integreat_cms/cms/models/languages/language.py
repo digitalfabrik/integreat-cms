@@ -5,6 +5,8 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
+from cacheops import invalidate_obj
+
 from ..abstract_base_model import AbstractBaseModel
 from ...constants import countries, text_directions
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -129,6 +131,30 @@ class Language(AbstractBaseModel):
         :rtype: str
         """
         return ugettext(self.english_name)
+
+    def save(self, *args, **kwargs):
+        r"""
+        This overwrites the default Django :meth:`~django.db.models.Model.save` method,
+        to invalidate the cache of the related objects.
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied kwargs
+        :type \**kwargs: dict
+        """
+        super().save(*args, **kwargs)
+        # Invalidate related objects
+        for obj in self.language_tree_nodes.all():
+            invalidate_obj(obj)
+        for obj in self.page_translations.all():
+            invalidate_obj(obj)
+        for obj in self.event_translations.all():
+            invalidate_obj(obj)
+        for obj in self.poi_translations.all():
+            invalidate_obj(obj)
+        for obj in self.push_notification_translations.all():
+            invalidate_obj(obj)
 
     def __str__(self):
         """
