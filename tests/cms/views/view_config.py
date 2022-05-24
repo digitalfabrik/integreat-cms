@@ -435,6 +435,17 @@ VIEWS = [
             ),
             (
                 "edit_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {
+                    "title": "new title",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 24,  # Archived ref node
+                    "_position": "right",
+                    "submit_draft": True,
+                },
+            ),
+            (
+                "edit_page",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {
                     "title": "new title",
