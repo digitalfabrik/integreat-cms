@@ -98,7 +98,11 @@ class RecurrenceRule(AbstractBaseModel):
             """
             month_date = month_date.replace(day=1)
             month_date += timedelta((weekday - month_date.weekday()) % 7)
-            return month_date + timedelta(weeks=n - 1)
+            n_th_occurrence = month_date + timedelta(weeks=n - 1)
+            # If the occurrence is not in the desired month (because the last week is 4 and not 5), retry with 4
+            if n_th_occurrence.month != month_date.month:
+                n_th_occurrence = month_date + timedelta(weeks=n - 2)
+            return n_th_occurrence
 
         def next_month(month_date):
             """
@@ -110,9 +114,9 @@ class RecurrenceRule(AbstractBaseModel):
             :return: The same date one month later
             :rtype: datetime.datetime
             """
+            month_date = month_date.replace(day=1)
             if month_date.month < 12:
                 return month_date.replace(month=month_date.month + 1)
-
             return month_date.replace(month=1, year=month_date.year + 1)
 
         def advance():

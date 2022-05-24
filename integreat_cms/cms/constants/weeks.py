@@ -12,6 +12,8 @@ SECOND = 2
 THIRD = 3
 #: Fourth week of the month
 FOURTH = 4
+#: Last week of the month (either 4th or 5th)
+LAST = 5
 
 #: Choices to use these constants in a database field
 CHOICES = (
@@ -19,4 +21,5 @@ CHOICES = (
     (SECOND, _("Second week")),
     (THIRD, _("Third week")),
     (FOURTH, _("Fourth week")),
+    (LAST, _("Last week")),
 )

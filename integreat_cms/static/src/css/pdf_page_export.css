@@ -59,34 +59,56 @@ at the first page of the pdf document */
 pdftoc {
     /* applied to the whole toc */
     font-size: large;
-} 
-pdftoc.pdftoclevel0 {
-    /* applied only to the root of the page tree */
 }
 pdftoc.pdftoclevel1 {
     /* applied for all children of the root page */
-    margin-left: 2em;
+    margin-left: 1em;
 }
 pdftoc.pdftoclevel2 {
     /* applied to all sub headers of the pages */
+    margin-left: 2em;
+}
+pdftoc.pdftoclevel3 {
+    /* applied to all sub headers of the pages */
+    margin-left: 3em;
+}
+pdftoc.pdftoclevel4 {
+    /* applied to all sub headers of the pages */
     margin-left: 4em;
 }
-h1 {
-    font-size: xx-large;
-    margin: 0.67em 0;
-    /* set the level on which the tag is mapped to toc */
-    -pdf-outline-level: 1;
+pdftoc.pdftoclevel5 {
+    /* applied to all sub headers of the pages */
+    margin-left: 5em;
 }
-h2,h3,h4,h5,h6 {
+h1,h2,h3,h4,h5,h6 {
     font-size: x-large;
     margin: 0.83em 0;
     padding: 3px 0px;
-    -pdf-outline-level: 2;
 }
-.root_title {
+h2,h3,h4,h5,h6 {
+    -pdf-outline: false;
+}
+h1.level-0 {
+    font-size: xx-large;
+    margin: 0.67em 0;
     -pdf-outline-level: 0;
     /* keep the following html tag in the same frame */
     -pdf-keep-with-next: false;
+}
+h1.level-1 {
+    -pdf-outline-level: 1;
+}
+h1.level-2 {
+    -pdf-outline-level: 2;
+}
+h1.level-3 {
+    -pdf-outline-level: 3;
+}
+h1.level-4 {
+    -pdf-outline-level: 4;
+}
+h1.level-5 {
+    -pdf-outline-level: 5;
 }
 /* title of document on first page should not show up
     in the table of content */

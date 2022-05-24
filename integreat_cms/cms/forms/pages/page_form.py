@@ -24,7 +24,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
     editors = forms.ModelChoiceField(
         queryset=get_user_model().objects.all(),
         required=False,
-        label=_("Editors"),
+        label=_("Authors"),
         help_text=_(
             "These users can edit this page, but are not allowed to publish it."
         ),
@@ -32,7 +32,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
     publishers = forms.ModelChoiceField(
         queryset=get_user_model().objects.all(),
         required=False,
-        label=_("Publishers"),
+        label=_("Editors"),
         help_text=_("These users can edit and publish this page."),
     )
     mirrored_page_region = forms.ModelChoiceField(
@@ -158,8 +158,12 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
                 for page in parent_queryset.cache_tree(archived=False)
             ]
         )
+        ref_node_choices = [("", "---------")]
+        ref_node_choices.extend(
+            [(page.id, str(page)) for page in parent_queryset.cache_tree()]
+        )
         self.fields["parent"].choices = cached_parent_choices
-        self.fields["_ref_node_id"].choices = cached_parent_choices
+        self.fields["_ref_node_id"].choices = ref_node_choices
 
     def _clean_cleaned_data(self):
         """
@@ -181,10 +185,17 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
-        users_without_permissions = get_user_model().objects.exclude(
-            Q(groups__permissions__codename="change_page")
-            | Q(user_permissions__codename="change_page")
-            | Q(is_superuser=True)
+        users_without_permissions = (
+            get_user_model()
+            .objects.filter(
+                regions=self.instance.region, is_superuser=False, is_staff=False
+            )
+            .exclude(
+                Q(groups__permissions__codename="change_page")
+                | Q(user_permissions__codename="change_page")
+                | Q(editable_pages=self.instance)
+                | Q(publishable_pages=self.instance)
+            )
         )
         if self.instance.id:
             users_without_permissions = users_without_permissions.difference(
@@ -201,10 +212,16 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
-        users_without_permissions = get_user_model().objects.exclude(
-            Q(groups__permissions__codename="publish_page")
-            | Q(user_permissions__codename="publish_page")
-            | Q(is_superuser=True)
+        users_without_permissions = (
+            get_user_model()
+            .objects.filter(
+                regions=self.instance.region, is_superuser=False, is_staff=False
+            )
+            .exclude(
+                Q(groups__permissions__codename="publish_page")
+                | Q(user_permissions__codename="publish_page")
+                | Q(publishable_pages=self.instance)
+            )
         )
         if self.instance.id:
             users_without_permissions = users_without_permissions.difference(
