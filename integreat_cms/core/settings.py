@@ -94,6 +94,10 @@ if BRANDING not in AVAILABLE_BRANDINGS:
         f"The branding {BRANDING!r} is not supported, must be one of {AVAILABLE_BRANDINGS}."
     )
 
+#: The default bounding box for regions with indistinct borders
+DEFAULT_BOUNDING_BOX = [5.98865807458, 47.3024876979, 15.0169958839, 54.983104153]
+
+
 ###############################
 # Firebase Push Notifications #
 ###############################
