@@ -398,7 +398,7 @@ class Region(AbstractBaseModel):
         return f"{self.prefix} {self.name}".strip()
 
     @cached_property
-    def users(self):
+    def region_users(self):
         """
         This property returns a QuerySet of all :class:`~django.contrib.auth.models.User` objects which belong to this
         region and are neither superusers nor staff.

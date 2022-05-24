@@ -44,7 +44,7 @@ class RegionUserListView(TemplateView):
         region = request.region
 
         users = (
-            region.users.select_related("organization")
+            region.region_users.select_related("organization")
             .prefetch_related("groups__role")
             .order_by("username")
         )

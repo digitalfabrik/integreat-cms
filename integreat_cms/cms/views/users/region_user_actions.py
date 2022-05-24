@@ -35,7 +35,7 @@ def delete_region_user(request, region_slug, user_id):
     """
 
     region = request.region
-    user = get_object_or_404(region.users, id=user_id)
+    user = get_object_or_404(region.region_users, id=user_id)
     if user.regions.count() == 1:
         logger.info("%r deleted %r", request.user, user)
         user.delete()
@@ -77,6 +77,6 @@ def resend_activation_link_region(request, region_slug, user_id):
     :rtype: ~django.http.HttpResponseRedirect
     """
     region = request.region
-    user = get_object_or_404(region.users, id=user_id)
+    user = get_object_or_404(region.region_users, id=user_id)
     send_welcome_mail(request, user, activation=True)
     return redirect("region_users", region_slug=region.slug)
