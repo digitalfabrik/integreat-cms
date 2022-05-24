@@ -158,8 +158,12 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
                 for page in parent_queryset.cache_tree(archived=False)
             ]
         )
+        ref_node_choices = [("", "---------")]
+        ref_node_choices.extend(
+            [(page.id, str(page)) for page in parent_queryset.cache_tree()]
+        )
         self.fields["parent"].choices = cached_parent_choices
-        self.fields["_ref_node_id"].choices = cached_parent_choices
+        self.fields["_ref_node_id"].choices = ref_node_choices
 
     def _clean_cleaned_data(self):
         """
