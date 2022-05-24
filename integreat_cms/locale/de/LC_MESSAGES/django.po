@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 12:15+0000\n"
+"POT-Creation-Date: 2022-05-24 16:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1756,8 +1756,8 @@ msgid "Translation status"
 msgstr "Übersetzungsstatus"
 
 #: cms/forms/pages/page_form.py:27
-msgid "Editors"
-msgstr "Bearbeiter"
+msgid "Authors"
+msgstr "Autoren"
 
 #: cms/forms/pages/page_form.py:29
 msgid "These users can edit this page, but are not allowed to publish it."
@@ -1765,8 +1765,8 @@ msgstr ""
 "Diese Benutzer können die Seite bearbeiten, aber nicht veröffentlichen."
 
 #: cms/forms/pages/page_form.py:35
-msgid "Publishers"
-msgstr "Veröffentlicher"
+msgid "Editors"
+msgstr "Redakteure"
 
 #: cms/forms/pages/page_form.py:36
 msgid "These users can edit and publish this page."
@@ -4800,13 +4800,13 @@ msgstr "Ändern Sie die Position der Seite mit Drag & Drop."
 msgid "New Page"
 msgstr "Neue Seite"
 
-#: cms/templates/pages/_page_permission_table.html:44
-msgid "Add to editors"
-msgstr "Zu Bearbeitern hinzufügen"
+#: cms/templates/pages/_page_permission_table.html:45
+msgid "Add to authors"
+msgstr "Zu Autoren hinzufügen"
 
-#: cms/templates/pages/_page_permission_table.html:63
-msgid "Add to publishers"
-msgstr "Erlaubnis zum Veröffentlichen erteilen"
+#: cms/templates/pages/_page_permission_table.html:65
+msgid "Add to editors"
+msgstr "Zu Redakteuren hinzufügen"
 
 #: cms/templates/pages/_page_xliff_import_diff.html:15
 msgid "File"
@@ -6555,19 +6555,16 @@ msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
 #: cms/views/pages/page_actions.py:571 cms/views/pages/page_actions.py:586
-#, python-brace-format
-msgid "Information: The user {user} has this permission already."
-msgstr "Information: Der Nutzer {user} hat diese Berechtigung bereits"
+msgid "Information: The user \"{}\" has this permission already."
+msgstr "Information: Der Nutzer \"{}\" hat diese Berechtigung bereits"
 
 #: cms/views/pages/page_actions.py:578
-#, python-brace-format
-msgid "Success: The user {user} can now edit this page."
-msgstr "Erfolg: Der Nutzer {user} kann nun diese Seite bearbeiten"
+msgid "Success: The user \"{}\" can now edit this page."
+msgstr "Erfolg: Der Nutzer \"{}\" kann diese Seite nun bearbeiten"
 
-#: cms/views/pages/page_actions.py:594
-#, python-brace-format
-msgid "Success: The user {user} can now publish this page."
-msgstr "Erfolg: Der Nutzer {user} kann dieses Seite nun veröffentlichen"
+#: cms/views/pages/page_actions.py:593
+msgid "Success: The user \"{}\" can now publish this page."
+msgstr "Erfolg: Der Nutzer \"{}\" kann dieses Seite nun veröffentlichen"
 
 #: cms/views/pages/page_actions.py:603 cms/views/pages/page_actions.py:715
 msgid "An error has occurred. Please contact an administrator."
@@ -6575,34 +6572,31 @@ msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie einen Administrator."
 
 #: cms/views/pages/page_actions.py:683
-#, python-brace-format
 msgid ""
-"Information: The user {user} has been removed from the editors of this page, "
+"Information: The user \"{}\" has been removed from the editors of this page, "
 "but has the implicit permission to edit this page anyway."
 msgstr ""
-"Information: Die Berechtigung des Nutzers {user} um diese Seite zu "
-"bearbeiten wurde entfernt,aber er kann sie auf Grund seiner anderen "
+"Information: Die Berechtigung des Nutzers \"{}\" um diese Seite zu "
+"bearbeiten wurde entfernt, aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin bearbeiten."
 
 #: cms/views/pages/page_actions.py:689
-#, python-brace-format
-msgid "Success: The user {user} cannot edit this page anymore."
-msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr bearbeiten"
+msgid "Success: The user \"{}\" cannot edit this page anymore."
+msgstr "Erfolg: Der Nutzer \"{}\" kann diese Seite nun nicht mehr bearbeiten"
 
 #: cms/views/pages/page_actions.py:700
-#, python-brace-format
 msgid ""
-"Information: The user {user} has been removed from the publishers of this "
+"Information: The user \"{}\" has been removed from the publishers of this "
 "page, but has the implicit permission to publish this page anyway."
 msgstr ""
-"Information: Die Berechtigung des Nutzers {user} um diese Seite zu "
-"veröffentlichen wurde entfernt,aber er kann sie auf Grund seiner anderen "
+"Information: Die Berechtigung des Nutzers \"{}\" um diese Seite zu "
+"veröffentlichen wurde entfernt, aber er kann sie auf Grund seiner anderen "
 "Berechtigungen weiterhin veröffentlichen."
 
 #: cms/views/pages/page_actions.py:706
-#, python-brace-format
-msgid "Success: The user {user} cannot publish this page anymore."
-msgstr "Erfolg: Der Nutzer {user} kann diese Seite nicht mehr veröffentlichen"
+msgid "Success: The user \"{}\" cannot publish this page anymore."
+msgstr ""
+"Erfolg: Der Nutzer \"{}\" kann diese Seite nun nicht mehr veröffentlichen"
 
 #: cms/views/pages/page_bulk_actions.py:103
 msgid "XLIFF file for translation to {} successfully created."
@@ -7005,6 +6999,12 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Add to publishers"
+#~ msgstr "Erlaubnis zum Veröffentlichen erteilen"
+
+#~ msgid "Publishers"
+#~ msgstr "Veröffentlicher"
 
 #~ msgid "Locations on Map"
 #~ msgstr "Orte auf Karte"

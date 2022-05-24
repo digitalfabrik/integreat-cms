@@ -5,6 +5,7 @@ UNRELEASED
 * [ [#742](https://github.com/digitalfabrik/integreat-cms/issues/742) ] Add default bounding box to region API
 * [ [#1406](https://github.com/digitalfabrik/integreat-cms/issues/1406) ] Hide sub-headings in PDF table of contents
 * [ [#1478](https://github.com/digitalfabrik/integreat-cms/issues/1478) ] Fix bug where page with archived sibling cannot be saved
+* [ [#1452](https://github.com/digitalfabrik/integreat-cms/issues/1452) ] Only allow users of the same region for page-specific-permissions
 
 
 2022.5.2
