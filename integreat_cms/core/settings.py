@@ -95,7 +95,7 @@ if BRANDING not in AVAILABLE_BRANDINGS:
     )
 
 #: The default bounding box for regions with indistinct borders
-DEFAULT_BOUNDING_BOX = [5.98865807458, 47.3024876979, 15.0169958839, 54.983104153]
+DEFAULT_BOUNDING_BOX = [[5.98865807458, 47.3024876979], [15.0169958839, 54.983104153]]
 
 
 ###############################
