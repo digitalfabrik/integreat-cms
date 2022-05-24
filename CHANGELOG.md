@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.5.3
+--------
+
 * [ [#1460](https://github.com/digitalfabrik/integreat-cms/issues/1460) ] Only show status in broken link checker for expert users
 * [ [#742](https://github.com/digitalfabrik/integreat-cms/issues/742) ] Add default bounding box to region API
 * [ [#1406](https://github.com/digitalfabrik/integreat-cms/issues/1406) ] Hide sub-headings in PDF table of contents
