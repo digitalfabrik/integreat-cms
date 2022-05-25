@@ -21,6 +21,7 @@ from ..views import (
     error_handler,
     imprint,
     pages,
+    utils,
 )
 
 
@@ -133,6 +134,7 @@ urlpatterns = [
             url=f"/static/logos/{settings.BRANDING}/{settings.BRANDING}-icon.svg"
         ),
     ),
+    path("ping/", utils.PingView.as_view(), name="ping"),
 ]
 
 # Add test views for "pretty" error pages in debug mode
