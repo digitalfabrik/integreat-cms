@@ -59,6 +59,16 @@ class POI(AbstractContentModel):
         max_length=250, blank=True, verbose_name=_("phone number")
     )
 
+    @property
+    def fallback_translations_enabled(self):
+        """
+        Whether translations should be returned in the default language if they do not exist
+
+        :return: Whether fallback translations are enabled
+        :rtype: bool
+        """
+        return self.region.fallback_translations_enabled
+
     @staticmethod
     def get_translation_model():
         """

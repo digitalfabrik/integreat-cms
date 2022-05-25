@@ -110,6 +110,7 @@ class RegionForm(CustomModelForm):
             "custom_prefix",
             "tunews_enabled",
             "timezone",
+            "fallback_translations_enabled",
         ]
         #: The widgets which are used in this form
         widgets = {

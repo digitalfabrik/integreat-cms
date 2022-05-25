@@ -58,14 +58,14 @@ def archive(request, event_id, region_slug, language_slug):
 
 @require_POST
 @permission_required("cms.change_event")
-def duplicate(request, event_id, region_slug, language_slug):
+def copy(request, event_id, region_slug, language_slug):
     """
     Duplicates the given event and all of its translations.
 
     :param request: Object representing the user call
     :type request: ~django.http.HttpRequest
 
-    :param event_id: internal id of the event to be duplicated
+    :param event_id: internal id of the event to be copied
     :type event_id: int
 
     :param region_slug: slug of the region which the event belongs to
@@ -80,10 +80,10 @@ def duplicate(request, event_id, region_slug, language_slug):
     region = request.region
     event = get_object_or_404(region.events, id=event_id)
 
-    event.duplicate(request.user)
+    event.copy(request.user)
 
-    logger.debug("%r duplicated by %r", event, request.user)
-    messages.success(request, _("Event was successfully duplicated"))
+    logger.debug("%r copied by %r", event, request.user)
+    messages.success(request, _("Event was successfully copied"))
 
     return redirect(
         "events", **{"region_slug": region_slug, "language_slug": language_slug}

@@ -1,6 +1,12 @@
 UNRELEASED
 ----------
 
+* [ [#1454](https://github.com/digitalfabrik/integreat-cms/issues/1454) ] Enable recurring events for non-expert users
+* [ [#1416](https://github.com/digitalfabrik/integreat-cms/issues/1416) ] Hide staff users from region user list
+* [ [#1483](https://github.com/digitalfabrik/integreat-cms/issues/1483) ] Add filters to admin user list
+* [ [#1001](https://github.com/digitalfabrik/integreat-cms/issues/1001) ] Deliver missing translations in default language for events and locations
+* [ [#1411](https://github.com/digitalfabrik/integreat-cms/issues/1411) ] Indicate fallback translations for imprint
+
 
 2022.5.3
 --------

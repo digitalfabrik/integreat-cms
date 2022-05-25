@@ -119,7 +119,6 @@ class Region(AbstractBaseModel):
             ),
         ),
     )
-
     events_enabled = models.BooleanField(
         default=True,
         verbose_name=_("activate events"),
@@ -252,6 +251,14 @@ class Region(AbstractBaseModel):
         default=False,
         verbose_name=_("Enable tunews"),
         help_text=_("Enable to show a feed of tunews articles to users."),
+    )
+
+    fallback_translations_enabled = models.BooleanField(
+        default=True,
+        verbose_name=_("Show content in default language as fallback"),
+        help_text=_(
+            "Whether or not events and locations are shown in default language as fallback"
+        ),
     )
 
     #: Custom model manager :class:`~integreat_cms.cms.models.regions.region.RegionManager` for region objects
@@ -398,7 +405,7 @@ class Region(AbstractBaseModel):
         return f"{self.prefix} {self.name}".strip()
 
     @cached_property
-    def users(self):
+    def region_users(self):
         """
         This property returns a QuerySet of all :class:`~django.contrib.auth.models.User` objects which belong to this
         region and are neither superusers nor staff.

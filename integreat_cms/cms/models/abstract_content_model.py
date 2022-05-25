@@ -1,5 +1,7 @@
 import logging
 
+from copy import deepcopy
+
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import get_language, ugettext_lazy as _
@@ -103,6 +105,9 @@ class AbstractContentModel(AbstractBaseModel):
     #: Custom model manager for content objects
     objects = ContentQuerySet.as_manager()
 
+    #: Whether translations should be returned in the default language if they do not exist
+    fallback_translations_enabled = False
+
     @cached_property
     def languages(self):
         """
@@ -200,7 +205,36 @@ class AbstractContentModel(AbstractBaseModel):
         :return: The public translation of a content object
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
-        return self.prefetched_public_translations_by_language_slug.get(language_slug)
+        public_translation = self.prefetched_public_translations_by_language_slug.get(
+            language_slug
+        )
+        # Check if fallback translation should be used
+        if not public_translation and self.fallback_translations_enabled:
+            # Get the fallback translation
+            public_translation = (
+                self.prefetched_public_translations_by_language_slug.get(
+                    self.region.default_language.slug
+                )
+            )
+            if public_translation:
+                # Create copy in memory to make sure original translation is not affected by changes
+                public_translation = deepcopy(public_translation)
+                # Reset id to make sure id does not conflict with existing translation
+                public_translation.id = None
+                # Fake the requested language
+                public_translation.language = self.region.language_node_by_slug[
+                    language_slug
+                ].language
+                # Reset prefetched translations
+                public_translation.foreign_object.prefetched_public_translations_by_language_slug = (
+                    self.prefetched_public_translations_by_language_slug
+                )
+                # Clear cached property in case url with different language was already calculated before
+                try:
+                    del public_translation.url_prefix
+                except AttributeError:
+                    pass
+        return public_translation
 
     @cached_property
     def prefetched_major_public_translations_by_language_slug(self):
@@ -291,6 +325,12 @@ class AbstractContentModel(AbstractBaseModel):
         """
         translation = self.get_major_public_translation(language_slug)
         if not translation:
+            if self.fallback_translations_enabled:
+                fallback_translation = self.get_public_translation(
+                    self.region.default_language.slug
+                )
+                if fallback_translation:
+                    return translation_status.FALLBACK
             return translation_status.MISSING
         return translation.translation_state
 

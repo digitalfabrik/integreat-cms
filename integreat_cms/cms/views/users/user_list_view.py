@@ -8,8 +8,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from ...decorators import permission_required
-from ...forms import ObjectSearchForm
-from ...utils.user_utils import search_users
+from ...forms import UserFilterForm
 
 logger = logging.getLogger(__name__)
 
@@ -48,14 +47,12 @@ class UserListView(TemplateView):
             .prefetch_related("groups__role")
             .order_by("username")
         )
-        query = None
 
-        search_data = kwargs.get("search_data")
-        search_form = ObjectSearchForm(search_data)
-        if search_form.is_valid():
-            query = search_form.cleaned_data["query"]
-            user_keys = search_users(region=None, query=query).values("pk")
-            users = users.filter(pk__in=user_keys)
+        # Initialize user filter form
+        filter_form = UserFilterForm(data=request.GET)
+
+        # Filter users according to given filters, if any
+        users = filter_form.apply(users)
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
@@ -68,21 +65,6 @@ class UserListView(TemplateView):
             {
                 **self.get_context_data(**kwargs),
                 "users": user_chunk,
-                "search_query": query,
+                "filter_form": filter_form,
             },
         )
-
-    def post(self, request, *args, **kwargs):
-        r"""
-        Apply the query and filter the rendered users
-
-        :param request: The current request
-        :type request: ~django.http.HttpResponse
-        :param \*args: The supplied arguments
-        :type \*args: list
-        :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-        :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
-        """
-        return self.get(request, *args, **kwargs, search_data=request.POST)
