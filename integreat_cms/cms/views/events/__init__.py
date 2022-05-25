@@ -8,5 +8,5 @@ from .event_actions import (
     restore,
     delete,
     search_poi_ajax,
-    duplicate,
+    copy,
 )

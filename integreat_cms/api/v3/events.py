@@ -1,7 +1,11 @@
 """
 This module includes functions related to the event API endpoint.
 """
+
+from copy import deepcopy
+
 from datetime import timedelta
+
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
@@ -45,7 +49,6 @@ def transform_event_translation(event_translation):
     :return: data necessary for API
     :rtype: dict
     """
-
     event = event_translation.event
     if event.location:
         location_translation = (
@@ -55,10 +58,11 @@ def transform_event_translation(event_translation):
     else:
         location_translation = None
 
+    absolute_url = event_translation.get_absolute_url()
     return {
         "id": event_translation.id,
-        "url": settings.BASE_URL + event_translation.get_absolute_url(),
-        "path": event_translation.get_absolute_url(),
+        "url": settings.BASE_URL + absolute_url,
+        "path": absolute_url,
         "title": event_translation.title,
         "modified_gmt": event_translation.last_updated.strftime("%Y-%m-%d %H:%M:%S"),
         "excerpt": strip_tags(event_translation.content),
@@ -84,7 +88,8 @@ def transform_event_recurrences(event_translation, today):
     :return: An iterator over all future recurrences up to ``settings.API_EVENTS_MAX_TIME_SPAN_DAYS``
     :rtype: Iterator[:class:`~datetime.date`]
     """
-    recurrence_rule = event_translation.event.recurrence_rule
+    event = event_translation.event
+    recurrence_rule = event.recurrence_rule
     if not recurrence_rule:
         return
 
@@ -96,13 +101,13 @@ def transform_event_recurrences(event_translation, today):
     ):
         return
 
-    event_data = transform_event_translation(event_translation)
-    event_length = event_translation.event.end_date - event_translation.event.start_date
-
-    url_base = event_data["url"][: event_data["url"].rstrip("/").rfind("/")]
-    path_base = event_data["path"][: event_data["path"].rstrip("/").rfind("/")]
-
-    start_date = event_translation.event.start_date
+    event_length = event.end_date - event.start_date
+    start_date = event.start_date
+    event_translation.id = None
+    # Store language and slug for usage in loop
+    current_language = event_translation.language
+    current_slug = event_translation.slug
+    # Calculate all recurrences of this event
     for recurrence_date in recurrence_rule.iter_after(start_date):
         if recurrence_date - max(start_date, today) > timedelta(
             days=settings.API_EVENTS_MAX_TIME_SPAN_DAYS
@@ -110,27 +115,52 @@ def transform_event_recurrences(event_translation, today):
             break
         if recurrence_date < today or recurrence_date == start_date:
             continue
+        # Create all temporary translations of this recurrence
+        recurrence_translations = {}
+        if event.region.fallback_translations_enabled:
+            languages = event.region.active_languages
+        else:
+            languages = event.public_languages
+        for language in languages:
+            # Create copy in memory to make sure original translation is not affected by changes
+            event_translation = deepcopy(event_translation)
+            # Fake the requested language
+            event_translation.language = language
+            event_translation.slug = generate_unique_slug(
+                **{
+                    "slug": f"{current_slug}-{recurrence_date}",
+                    "manager": EventTranslation.objects,
+                    "object_instance": event_translation,
+                    "foreign_model": "event",
+                    "region": event.region,
+                    "language": language,
+                }
+            )
+            # Reset id to make sure id does not conflict with existing event translation
+            event_translation.event.id = None
+            # Set date to recurrence date
+            event_translation.event.start_date = recurrence_date
+            event_translation.event.end_date = recurrence_date + event_length
+            # Clear cached property in case url with different language was already calculated before
+            try:
+                del event_translation.url_prefix
+            except AttributeError:
+                pass
+            recurrence_translations[language.slug] = event_translation
 
-        unique_path = generate_unique_slug(
-            **{
-                "slug": f"{event_translation.slug}-{recurrence_date}",
-                "manager": EventTranslation.objects,
-                "object_instance": event_translation,
-                "foreign_model": "event",
-                "region": event_translation.event.region,
-                "language": event_translation.language,
-            }
-        )
-
-        event_data_copy = {**event_data}
-        event_data_copy["event"] = {**event_data_copy["event"]}
-        event_data_copy["id"] = None
-        event_data_copy["url"] = f"{url_base}/{unique_path}/"
-        event_data_copy["path"] = f"{path_base}/{unique_path}/"
-        event_data_copy["event"]["id"] = None
-        event_data_copy["event"]["start_date"] = recurrence_date
-        event_data_copy["event"]["end_date"] = recurrence_date + event_length
-        yield event_data_copy
+        # Set the prefetched public translations to make sure the recurrence translations are correctly listed in available languages
+        for recurrence_translation in recurrence_translations.values():
+            recurrence_translation.event.prefetched_public_translations_by_language_slug = (
+                recurrence_translations
+            )
+        # Update translation object with the one with prefetched temporary translations
+        event_translation = recurrence_translations[current_language.slug]
+        # Clear cached property in case available languages with different recurrence was already calculated before
+        try:
+            del event_translation.available_languages
+        except AttributeError:
+            pass
+        yield transform_event_translation(event_translation)
 
 
 @json_response
@@ -152,6 +182,8 @@ def events(request, region_slug, language_slug):
     :rtype: ~django.http.JsonResponse
     """
     region = request.region
+    # Throw a 404 error when the language does not exist or is disabled
+    region.get_language_or_404(language_slug, only_active=True)
     result = []
     now = timezone.now().date()
     for event in region.events.prefetch_public_translations().filter(archived=False):

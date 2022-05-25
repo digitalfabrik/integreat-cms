@@ -13,6 +13,9 @@ class ImprintPage(AbstractContentModel):
     Data model representing an imprint.
     """
 
+    #: Whether translations should be returned in the default language if they do not exist
+    fallback_translations_enabled = True
+
     @staticmethod
     def get_translation_model():
         """

@@ -100,6 +100,8 @@ def pages(request, region_slug, language_slug):
     :rtype: ~django.http.JsonResponse
     """
     region = request.region
+    # Throw a 404 error when the language does not exist or is disabled
+    region.get_language_or_404(language_slug, only_active=True)
     result = []
     # The preliminary filter for explicitly_archived=False is not strictly required, but reduces the number of entries
     # requested from the database

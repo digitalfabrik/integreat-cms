@@ -108,6 +108,16 @@ class Event(AbstractContentModel):
     #: The default manager
     objects = EventQuerySet.as_manager()
 
+    @property
+    def fallback_translations_enabled(self):
+        """
+        Whether translations should be returned in the default language if they do not exist
+
+        :return: Whether fallback translations are enabled
+        :rtype: bool
+        """
+        return self.region.fallback_translations_enabled
+
     @staticmethod
     def get_translation_model():
         """
@@ -219,7 +229,7 @@ class Event(AbstractContentModel):
             else []
         )
 
-    def duplicate(self, user):
+    def copy(self, user):
         """
         This method creates a copy of this event and all of its translations.
         This method saves the new event.
@@ -230,7 +240,7 @@ class Event(AbstractContentModel):
         :return: A copy of this event
         :rtype: ~integreat_cms.cms.models.events.event.Event
         """
-        # save all translations on the original object, so that they can be duplicated later
+        # save all translations on the original object, so that they can be copied later
         translations = list(self.translations.all())
 
         # Clear the own recurrence rule.
@@ -240,12 +250,12 @@ class Event(AbstractContentModel):
         recurrence_rule = self.recurrence_rule
 
         if recurrence_rule:
-            # duplicate the recurrence rule, if it exists
+            # copy the recurrence rule, if it exists
             recurrence_rule.pk = None
             recurrence_rule.save()
             self.recurrence_rule = recurrence_rule
 
-        # create the duplicated event
+        # create the copied event
         self.pk = None
         self.save()
 

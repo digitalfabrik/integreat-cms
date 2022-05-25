@@ -930,9 +930,9 @@ urlpatterns = [
                                                         name="edit_event",
                                                     ),
                                                     path(
-                                                        "duplicate/",
-                                                        events.duplicate,
-                                                        name="duplicate_event",
+                                                        "copy/",
+                                                        events.copy,
+                                                        name="copy_event",
                                                     ),
                                                     path(
                                                         "archive/",

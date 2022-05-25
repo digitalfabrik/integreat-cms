@@ -192,7 +192,7 @@ class AbstractContentTranslation(AbstractBaseModel):
     def available_languages(self):
         """
         This property checks in which :class:`~integreat_cms.cms.models.languages.language.Language` the content is
-        translated apart from ``self.language``.
+        translated apart from ``self.language``
         It only returns languages which have a public translation, so drafts are not included here.
         The returned dict has the following format::
 
@@ -209,16 +209,21 @@ class AbstractContentTranslation(AbstractBaseModel):
         :rtype: dict
         """
         available_languages = {}
-        for language in self.foreign_object.public_languages:
+        # Check if fallback translation should be used
+        if self.foreign_object.fallback_translations_enabled:
+            all_languages = self.foreign_object.region.active_languages
+        else:
+            all_languages = self.foreign_object.public_languages
+        for language in all_languages:
             if language == self.language:
                 continue
-            other_translation = self.foreign_object.get_public_translation(
+            public_translation = self.foreign_object.get_public_translation(
                 language.slug
             )
-            if other_translation:
-                absolute_url = other_translation.get_absolute_url()
+            if public_translation:
+                absolute_url = public_translation.get_absolute_url()
                 available_languages[language.slug] = {
-                    "id": other_translation.id,
+                    "id": public_translation.id,
                     "url": settings.BASE_URL + absolute_url,
                     "path": absolute_url,
                 }
