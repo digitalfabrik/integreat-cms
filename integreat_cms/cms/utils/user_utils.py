@@ -21,7 +21,7 @@ def search_users(region, query):
     )
 
     if region:
-        objects = region.users
+        objects = region.region_users
     else:
         objects = get_user_model().objects
 

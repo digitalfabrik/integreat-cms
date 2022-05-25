@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 21:31+0000\n"
+"POT-Creation-Date: 2022-05-25 13:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -34,6 +34,7 @@ msgstr "Landkreis"
 
 #: cms/constants/administrative_division.py:41
 #: cms/forms/feedback/admin_feedback_filter_form.py:15
+#: cms/forms/users/user_filter_form.py:34
 #: cms/templates/feedback/_feedback_widget.html:22
 #: cms/templates/feedback/admin_feedback_list.html:39
 msgid "Region"
@@ -1360,7 +1361,7 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 #: cms/templates/language_tree/language_tree.html:27
 #: cms/templates/users/region_user_list.html:28
 #: cms/templates/users/region_user_list_row.html:49
-#: cms/templates/users/user_list.html:28
+#: cms/templates/users/user_list.html:36
 #: cms/templates/users/user_list_row.html:49
 msgid "Active"
 msgstr "Aktiv"
@@ -1869,10 +1870,26 @@ msgstr "Passwort"
 msgid "Email"
 msgstr "Email"
 
-#: cms/forms/users/user_form.py:26 cms/templates/users/region_user_list.html:26
-#: cms/templates/users/user_list.html:26
+#: cms/forms/users/user_filter_form.py:20 cms/forms/users/user_form.py:26
+#: cms/templates/users/region_user_list.html:26
+#: cms/templates/users/user_list.html:34
 msgid "Role"
 msgstr "Rolle"
+
+#: cms/forms/users/user_filter_form.py:25
+#: cms/templates/users/region_user_form.html:81
+#: cms/templates/users/user_form.html:79
+msgid "Permissions"
+msgstr "Berechtigungen"
+
+#: cms/forms/users/user_filter_form.py:28 cms/templates/users/user_list.html:41
+#: cms/templates/users/user_list_row.html:77
+msgid "Administrator"
+msgstr "Administrator"
+
+#: cms/forms/users/user_filter_form.py:29 cms/forms/users/user_form.py:109
+msgid "Integreat team member"
+msgstr "Integreat-Teammitglied"
 
 #: cms/forms/users/user_form.py:27
 msgid "This grants the user all permissions of the selected role"
@@ -1909,10 +1926,6 @@ msgstr ""
 #: cms/forms/users/user_form.py:101
 msgid "Leave empty to keep unchanged"
 msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
-
-#: cms/forms/users/user_form.py:109
-msgid "Integreat team member"
-msgstr "Integreat-Teammitglied"
 
 #: cms/forms/users/user_form.py:179
 msgid "Only staff members can be superusers"
@@ -3853,6 +3866,7 @@ msgstr "Ganztägige Veranstaltungen"
 #: cms/templates/feedback/_admin_feedback_filter_form.html:43
 #: cms/templates/feedback/_region_feedback_filter_form.html:40
 #: cms/templates/pages/_page_filter_form.html:11
+#: cms/templates/users/_user_filter_form.html:20
 msgid "Reset filter"
 msgstr "Filter zurücksetzen"
 
@@ -3860,6 +3874,7 @@ msgstr "Filter zurücksetzen"
 #: cms/templates/feedback/_admin_feedback_filter_form.html:46
 #: cms/templates/feedback/_region_feedback_filter_form.html:42
 #: cms/templates/pages/_page_filter_form.html:14
+#: cms/templates/users/_user_filter_form.html:21
 msgid "Apply filter"
 msgstr "Filter anwenden"
 
@@ -4017,6 +4032,7 @@ msgstr "Archivierte Veranstaltungen"
 #: cms/templates/feedback/region_feedback_list.html:13
 #: cms/templates/pages/page_tree.html:30
 #: cms/templates/pages/page_tree_archived.html:25
+#: cms/templates/users/user_list.html:12
 msgid "Show filters"
 msgstr "Filter einblenden"
 
@@ -4026,6 +4042,7 @@ msgstr "Filter einblenden"
 #: cms/templates/feedback/region_feedback_list.html:14
 #: cms/templates/pages/page_tree.html:31
 #: cms/templates/pages/page_tree_archived.html:26
+#: cms/templates/users/user_list.html:13
 msgid "Hide filters"
 msgstr "Filter ausblenden"
 
@@ -5747,11 +5764,6 @@ msgstr "Benutzer \"%(user_name)s\" bearbeiten"
 msgid "Create new user"
 msgstr "Neuen Benutzer erstellen"
 
-#: cms/templates/users/region_user_form.html:81
-#: cms/templates/users/user_form.html:79
-msgid "Permissions"
-msgstr "Berechtigungen"
-
 #: cms/templates/users/region_user_form.html:105
 #: cms/templates/users/user_form.html:135
 msgid "Delete this user"
@@ -5795,52 +5807,52 @@ msgid "Remove user from region"
 msgstr "Benutzer von Region entfernen"
 
 #: cms/templates/users/region_user_list.html:6
-#: cms/templates/users/user_list.html:6
+#: cms/templates/users/user_list.html:7
 msgid "User Management"
 msgstr "Nutzerverwaltung"
 
 #: cms/templates/users/region_user_list.html:11
-#: cms/templates/users/user_list.html:11
+#: cms/templates/users/user_list.html:16
 msgid "Create user"
 msgstr "Benutzer erstellen"
 
 #: cms/templates/users/region_user_list.html:21
-#: cms/templates/users/user_list.html:21
+#: cms/templates/users/user_list.html:29
 msgid "Username"
 msgstr "Benutzername"
 
 #: cms/templates/users/region_user_list.html:22
-#: cms/templates/users/user_list.html:22
+#: cms/templates/users/user_list.html:30
 msgid "First Name"
 msgstr "Vorname"
 
 #: cms/templates/users/region_user_list.html:23
-#: cms/templates/users/user_list.html:23
+#: cms/templates/users/user_list.html:31
 msgid "Last Name"
 msgstr "Nachname"
 
 #: cms/templates/users/region_user_list.html:24
-#: cms/templates/users/user_list.html:24
+#: cms/templates/users/user_list.html:32
 msgid "E-mail-address"
 msgstr "E-Mail Adresse"
 
 #: cms/templates/users/region_user_list.html:25
-#: cms/templates/users/user_list.html:25
+#: cms/templates/users/user_list.html:33
 msgid "Organization"
 msgstr "Organisation"
 
 #: cms/templates/users/region_user_list.html:27
-#: cms/templates/users/user_list.html:27
+#: cms/templates/users/user_list.html:35
 msgid "Last Login"
 msgstr "Letzter Login"
 
 #: cms/templates/users/region_user_list.html:38
-#: cms/templates/users/user_list.html:43
+#: cms/templates/users/user_list.html:51
 msgid "No users found with these filters."
 msgstr "Keine Benutzer mit diesen Filtern gefunden."
 
 #: cms/templates/users/region_user_list.html:40
-#: cms/templates/users/user_list.html:45
+#: cms/templates/users/user_list.html:53
 msgid "No users available yet."
 msgstr "Noch keine Benutzer vorhanden."
 
@@ -5871,14 +5883,9 @@ msgstr "Bevorzugte Regionen"
 msgid "The regions to which the user has quick access"
 msgstr "Die Regionen, zu denen der Benutzer Schnellzugriff hat"
 
-#: cms/templates/users/user_list.html:30
+#: cms/templates/users/user_list.html:38
 msgid "Team member"
 msgstr "Teammitglied"
-
-#: cms/templates/users/user_list.html:33
-#: cms/templates/users/user_list_row.html:77
-msgid "Administrator"
-msgstr "Administrator"
 
 #: cms/templates/users/user_list_row.html:66
 msgid "Staff member"

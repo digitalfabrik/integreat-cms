@@ -45,7 +45,7 @@ class RegionUserFormView(TemplateView):
         region = request.region
 
         # filter region users to make sure no users from other regions can be changed through this view
-        user = region.users.filter(id=kwargs.get("user_id")).first()
+        user = region.region_users.filter(id=kwargs.get("user_id")).first()
 
         region_user_form = RegionUserForm(instance=user)
 
@@ -83,7 +83,7 @@ class RegionUserFormView(TemplateView):
         region = request.region
 
         # filter region users to make sure no users from other regions can be changed through this view
-        user_instance = region.users.filter(id=kwargs.get("user_id")).first()
+        user_instance = region.region_users.filter(id=kwargs.get("user_id")).first()
 
         region_user_form = RegionUserForm(data=request.POST, instance=user_instance)
 
