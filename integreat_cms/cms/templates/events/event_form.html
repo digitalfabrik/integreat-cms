@@ -165,7 +165,7 @@
                             {% render_field event_form.is_all_day %}
                             <label for="{{ event_form.is_all_day.id_for_label }}">{{ event_form.is_all_day.label }}</label>
                         </div>
-                        <div class="{% if not request.user.expert_mode %}hidden{% endif %}">
+                        <div>
                             {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
                             <label for="recurrence-rule-checkbox">{{ event_form.is_recurring.label }}</label>
                             <div class="help-text">{{ event_form.is_recurring.help_text }}</div>
