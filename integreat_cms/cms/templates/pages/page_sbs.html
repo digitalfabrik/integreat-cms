@@ -20,20 +20,17 @@
                        class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
                         {% trans 'Go Back to Page Editor' %}
                     </a>
-                    {% has_perm 'cms.change_page_object' request.user source_page_translation.page as can_change_page_object %}
                     {% if not source_page_translation.page.archived %}
-                        {% if can_change_page_object %}
-                            <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
-                        {% endif %}
                         {% has_perm 'cms.publish_page_object' request.user source_page_translation.page as can_publish_page %}
                         {% if can_publish_page %}
+                            <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
                             <button name="submit_public" class="btn">
                                 {% if page_translation_form.instance.status == PUBLIC %}
                                     {% trans 'Update' %}
                                 {% else %}
                                     {% trans 'Publish' %}
                                 {% endif %}
-                            </button>
+                            </button> 
                         {% else %}
                             <button name="submit_review" class="btn">{% trans 'Submit for review' %}</button>
                         {% endif %}

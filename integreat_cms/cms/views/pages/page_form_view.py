@@ -253,9 +253,11 @@ class PageFormView(
             # Add error messages
             page_form.add_error_messages(request)
             page_translation_form.add_error_messages(request)
-        elif (
-            not request.user.has_perm("cms.publish_page_object", page_form.instance)
-            and page_translation_form.cleaned_data.get("status") == status.PUBLIC
+        elif not request.user.has_perm(
+            "cms.publish_page_object", page_form.instance
+        ) and (
+            page_translation_form.cleaned_data.get("status")
+            in [status.DRAFT, status.PUBLIC]
         ):
             # Raise PermissionDenied if user wants to publish page but doesn't have the permission
             raise PermissionDenied(
