@@ -2,7 +2,6 @@
 Helper classes for Gemeindeverzeichnis API
 """
 import logging
-import json
 import requests
 
 from django.conf import settings
@@ -241,13 +240,3 @@ class GvzRegion:
         :rtype: str
         """
         return f"<GvzRegion (name: {self.name}, ags: {self.ags}, longitude: {self.longitude}, latitude: {self.latitude})>"
-
-    @property
-    def aliases(self):
-        """
-        Returns JSON of region aliases compliant to Integreat API v3 definition
-
-        :return: aliases of region according to Integreat APIv3 definition
-        :rtype: str
-        """
-        return json.dumps(self.child_coordinates)
