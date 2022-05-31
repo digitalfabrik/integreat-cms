@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1501](https://github.com/digitalfabrik/integreat-cms/issues/1501) ] Remove formatting when content is pasted into tinymce editor
+
 
 2022.5.4
 --------
