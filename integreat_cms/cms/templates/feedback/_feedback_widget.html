@@ -24,7 +24,7 @@
         </tr>
         {% for feedback in admin_feedback %}
             <tr class="border-t border-solid border-yellow-200 bg-yellow-100">
-                <td class="px-2 py-3 border-l-4 border-yellow-400">
+                <td class="px-2 py-3 border-l-4 border-yellow-400 truncate max-w-[75px] 3xl:max-w-[150px]" title="{{ feedback.object_name }}">
                     {% if feedback.object_url %}
                         <a href="{{ feedback.object_url }}">
                             {{ feedback.object_name }}
@@ -33,21 +33,20 @@
                         {{ feedback.object_name }}
                     {% endif %}
                 </td>
-                <td class="pr-2 feedback-comment">
-                    {% if feedback.comment.splitlines|length > 1 %}
-                        <span>
-                            {{ feedback.comment.splitlines.0|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
-                        </span>
-                        <span class="hidden whitespace-pre-line">{{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i></span>
-                    {% elif feedback.comment|words|length > 20 %}
-                        <span>
-                            {{ feedback.comment|truncatewords:20 }} <i data-feather="chevron-down" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
-                        </span>
-                        <span class="hidden">
-                            {{ feedback.comment }} <i data-feather="chevron-up" class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
-                        </span>
+                <td class="pr-2 feedback-comment max-w-[75px] lg:max-w-[300px] xl:max-w-[75px] 3xl:max-w-[300px] 4xl:max-w-[500px]"
+                    title="{{ feedback.comment }}">
+                    {% if not feedback.comment %}
+                        <i data-feather="minus" class="pr-1"></i>
                     {% else %}
-                        {{ feedback.comment }}
+                        <div class="flex">
+                            <div class="feedback-comment-preview truncate grow">{{ feedback.comment }}</div>
+                            <i data-feather="chevron-down"
+                                class="toggle-feedback-comment transform cursor-pointer hover:scale-125 flex-none"></i>
+                        </div>
+                        <div class="hidden">
+                            <span class="feedback-comment-full">{{ feedback.comment }}</span> <i data-feather="chevron-up"
+                            class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
+                        </div>
                     {% endif %}
                 </td>
                 <td class="pr-2">
