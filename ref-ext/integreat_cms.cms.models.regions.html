@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-05-25T20:40:40+00:00" />
+    <meta property="article:modified_time" content="2022-06-01T14:37:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Regions &mdash; integreat-cms 2022.5.4 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -869,7 +869,7 @@
 <li><p><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.SlugField" title="(in Django v3.2)"><em>SlugField</em></a>) – URL parameter. Unique string identifier without spaces and special characters. Leave blank to generate unique parameter from name</p></li>
 <li><p><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Status</p></li>
 <li><p><strong>administrative_division</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Administrative division</p></li>
-<li><p><strong>aliases</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><em>TextField</em></a>) – Aliases. E.g. smaller municipalities in that area. If empty, the CMS will try to fill this automatically. Specify as JSON.</p></li>
+<li><p><strong>aliases</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.JSONField" title="(in Django v3.2)"><em>JSONField</em></a>) – Aliases. E.g. smaller municipalities in that area. If empty, the CMS will try to fill this automatically. Specify as JSON.</p></li>
 <li><p><strong>custom_prefix</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Custom prefix. Enter parts of the name that should not affect sorting. Use this field only if the prefix is not an available choice in the list of administrative divisions above.</p></li>
 <li><p><strong>events_enabled</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Activate events. Whether or not events are enabled in the region</p></li>
 <li><p><strong>locations_enabled</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Activate locations. Whether or not locations are enabled in the region</p></li>
@@ -1031,7 +1031,7 @@ Also see <a class="reference external" href="https://en.wikipedia.org/wiki/Admin
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.aliases">
 <span class="sig-name descname"><span class="pre">aliases</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.aliases" title="Permalink to this definition"></a></dt>
-<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></p>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.JSONField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">JSONField</span></code></a></p>
 <p>Aliases. E.g. smaller municipalities in that area. If empty, the CMS will try to fill this automatically. Specify as JSON.</p>
 </dd></dl>
 
@@ -1205,7 +1205,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.get_language_or_404">
-<span class="sig-name descname"><span class="pre">get_language_or_404</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_active</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L432"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_language_or_404" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_language_or_404</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_active</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L433"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_language_or_404" title="Permalink to this definition"></a></dt>
 <dd><p>This class method returns the requested language of this region with optional filters <code class="docutils literal notranslate"><span class="pre">active</span></code> and <code class="docutils literal notranslate"><span class="pre">visible</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1241,7 +1241,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.get_pages">
-<span class="sig-name descname"><span class="pre">get_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archived</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_unrestricted_queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_translations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_public_translations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotate_language_tree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L515"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_pages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archived</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_unrestricted_queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_translations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_public_translations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotate_language_tree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L516"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_pages" title="Permalink to this definition"></a></dt>
 <dd><p>This method returns either all archived or all non-archived pages of this region.
 To retrieve all pages independently of their archived-state, use the reverse foreign key
 <a class="reference internal" href="#integreat_cms.cms.models.regions.region.Region.pages" title="integreat_cms.cms.models.regions.region.Region.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>.</p>
@@ -1286,7 +1286,7 @@ To perform the extra effort of returning an unrestricted queryset, set the param
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.get_repr">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L625"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_repr" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L626"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_repr" title="Permalink to this definition"></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;Region:</span> <span class="pre">Region</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -1301,7 +1301,7 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.get_root_pages">
-<span class="sig-name descname"><span class="pre">get_root_pages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L575"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_root_pages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_root_pages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L576"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_root_pages" title="Permalink to this definition"></a></dt>
 <dd><p>This method returns all root pages of this region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1315,7 +1315,7 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.get_source_language">
-<span class="sig-name descname"><span class="pre">get_source_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L316"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_source_language" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_source_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.get_source_language" title="Permalink to this definition"></a></dt>
 <dd><p>This property returns this region’s source language of a given language object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1668,7 +1668,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.regions.region.Region.search">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L586"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L587"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.regions.region.Region.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all regions which match the given <cite>query</cite> in their name.
 :param query: The query string used for filtering the regions
 :type query: str
@@ -2169,7 +2169,7 @@ thus be available in e.g. RunPython operations.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 25, 2022.
+      <span class="lastupdated">Last updated on Jun 01, 2022.
       </span></p>
   </div>
 
