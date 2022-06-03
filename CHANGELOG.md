@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.6.0
+--------
+
 * [ [#1501](https://github.com/digitalfabrik/integreat-cms/issues/1501) ] Remove formatting when content is pasted into tinymce editor
 * [ [#1514](https://github.com/digitalfabrik/integreat-cms/issues/1514) ] Fix format of region aliases in API
 * [ [#1503](https://github.com/digitalfabrik/integreat-cms/issues/1503) ] Fix expanding feedback not working
