@@ -73,4 +73,6 @@ import "./js/unsaved-warning";
 
 window.addEventListener('load',() => {
     feather.replace({ class: 'inline-block' });
+    const event = new Event("icon-load");
+    window.dispatchEvent(event);
 })

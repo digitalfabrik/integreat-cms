@@ -99,7 +99,8 @@ class Region(AbstractBaseModel):
         default=administrative_division.RURAL_DISTRICT,
         verbose_name=_("administrative division"),
     )
-    aliases = models.TextField(
+    aliases = models.JSONField(
+        default=dict,
         blank=True,
         verbose_name=_("aliases"),
         help_text=__(

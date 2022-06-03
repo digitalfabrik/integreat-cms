@@ -1,7 +1,7 @@
 """
 This module contains the abstract base classes for the XLIFF serializers.
 It makes use of the existing Django serialization functionality (see :doc:`django:topics/serialization` and
-:ref:`django:topics/serialization:xml`).
+:ref:`django:topics/serialization:serialization formats`).
 
 It extends :django-source:`django/core/serializers/base.py` and
 :django-source:`django/core/serializers/xml_serializer.py`.
@@ -39,7 +39,7 @@ class XMLGeneratorWithCDATA(SimplerXMLGenerator):
 class Serializer(xml_serializer.Serializer):
     """
     Abstract base XLIFF serializer class. Inherits basic XML initialization from the default xml_serializer of Django
-    (see :ref:`django:topics/serialization:xml`).
+    (see :ref:`django:topics/serialization:serialization formats`).
 
     The XLIFF file can be extended by writing to ``self.xml``, which is an instance of
     :class:`~integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA`.

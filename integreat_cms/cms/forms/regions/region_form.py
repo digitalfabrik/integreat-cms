@@ -1,3 +1,4 @@
+import json
 import logging
 
 from copy import deepcopy
@@ -211,8 +212,8 @@ class RegionForm(CustomModelForm):
                 region_type=cleaned_data["administrative_division"],
             )
             logger.debug("GVZ API match: %r", gvz_region)
-            if gvz_region.aliases and not cleaned_data.get("aliases"):
-                cleaned_data["aliases"] = gvz_region.aliases
+            if gvz_region.child_coordinates and not cleaned_data.get("aliases"):
+                cleaned_data["aliases"] = gvz_region.child_coordinates
             if gvz_region.longitude and not cleaned_data.get("longitude"):
                 cleaned_data["longitude"] = gvz_region.longitude
             if gvz_region.latitude and not cleaned_data.get("latitude"):
@@ -347,6 +348,23 @@ class RegionForm(CustomModelForm):
                 ),
             )
         return cleaned_data.get("custom_prefix")
+
+    def clean_aliases(self):
+        """
+        Validate the aliases field (see :ref:`overriding-modelform-clean-method`).
+
+        :return: The valid aliases
+        :rtype: dict
+        """
+        cleaned_aliases = self.cleaned_data["aliases"]
+        # If a string is given, try to load as JSON string
+        if isinstance(cleaned_aliases, str):
+            try:
+                cleaned_aliases = json.loads(cleaned_aliases)
+            except json.JSONDecodeError:
+                self.add_error("aliases", _("Enter a valid JSON."))
+        # Convert None to an empty dict
+        return cleaned_aliases or {}
 
 
 def duplicate_language_tree(

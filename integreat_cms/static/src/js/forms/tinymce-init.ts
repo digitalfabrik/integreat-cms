@@ -14,6 +14,7 @@ import "tinymce/plugins/image";
 import "tinymce/plugins/link";
 import "tinymce/plugins/lists";
 import "tinymce/plugins/media";
+import "tinymce/plugins/paste";
 import "tinymce/plugins/preview";
 import "tinymce/plugins/wordcount";
 import "tinymce-i18n/langs/de.js";
@@ -104,7 +105,7 @@ window.addEventListener("load", () => {
       autosave_interval: "120s",
       forced_root_block: true,
       plugins:
-        "code fullscreen autosave preview media image lists directionality wordcount hr charmap",
+        "code fullscreen autosave preview media image lists directionality wordcount hr charmap paste",
       external_plugins: {
         autolink_tel: tinymceConfig.getAttribute("data-custom-plugins"),
         mediacenter: tinymceConfig.getAttribute("data-custom-plugins"),
@@ -117,6 +118,7 @@ window.addEventListener("load", () => {
       relative_urls: false,
       remove_script_host: false,
       branding: false,
+      paste_as_text: true,
       toolbar:
         "bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link openmediacenter | export",
       style_formats: [
