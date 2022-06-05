@@ -2,8 +2,9 @@ UNRELEASED
 ----------
 
 * [ [#1516](https://github.com/digitalfabrik/integreat-cms/issues/1516) ] Fix save buttons alignment
-
 * [ [#1520](https://github.com/digitalfabrik/integreat-cms/issues/1520) ] Fix button name in side-by-side view
+* [ [#1502](https://github.com/digitalfabrik/integreat-cms/issues/1502) ] Do not check links in archived pages
+
 
 2022.6.0
 --------
