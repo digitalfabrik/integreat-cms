@@ -13,7 +13,7 @@
           data-unsaved-warning>
         {% csrf_token %}
         <div class="w-full flex flex-wrap justify-between mb-4">
-            <h1 class="heading">
+            <h1 class="heading overflow-hidden text-ellipsis">
                 {% if poi_form.instance.id %}
                     {% if poi_translation_form.instance.id %}
                         {% with poi_translation_form.instance.title as poi_title %}
@@ -31,7 +31,7 @@
                 {% endif %}
             </h1>
             {% if not poi_form.instance.archived and perms.cms.change_poi %}
-                <div class="flex flex-wrap gap-4">
+                <div class="flex flex-wrap gap-4 ml-auto mr-0">
                     <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
                     <button name="submit_public" class="btn">
                         {% if poi_translation_form.instance.status == PUBLIC %}

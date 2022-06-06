@@ -6,7 +6,7 @@
 <form method="post" data-unsaved-warning>
     {% csrf_token %}
     <div class="flex justify-between mb-4">
-        <h1 class="heading">
+        <h1 class="heading overflow-hidden text-ellipsis">
             {% if user_form.instance.id %}
                 {% with user_form.username.value as user_name %}
                     {% blocktrans %}Edit user "{{ user_name }}"{% endblocktrans %}
