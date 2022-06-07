@@ -9,7 +9,7 @@
         {% csrf_token %}
         <div class="flex flex-wrap">
             <div class="w-full flex flex-wrap justify-between gap-4 mb-6">
-                <h1 class="heading">
+                <h1 class="heading overflow-hidden text-ellipsis">
                     {% if push_notification_form.instance.id %}
                         {% with push_notification_form.instance as push_notification_title %}
                             {% blocktrans %}Edit news message "{{ push_notification_title }}"{% endblocktrans %}
@@ -18,7 +18,7 @@
                         {% trans 'Create news message' %}
                     {% endif %}
                 </h1>
-                <div class="flex flex-wrap gap-4">
+                <div class="flex flex-wrap gap-4 ml-auto mr-0">
                     {% if perms.cms.change_pushnotification %}
                         <button name="submit_save" class="btn btn-gray">{% trans 'Save' %}</button>
                     {% endif %}

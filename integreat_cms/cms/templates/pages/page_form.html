@@ -18,7 +18,7 @@
           data-unsaved-warning>
         {% csrf_token %}
         <div class="w-full flex flex-wrap justify-between mb-6">
-            <h1 class="heading">
+            <h1 class="heading overflow-hidden text-ellipsis">
                 {% if page %}
                     {% if page_translation_form.instance.id %}
                         {% with page_translation_form.instance.title as page_title %}
@@ -37,7 +37,7 @@
                 {% endif %}
             </h1>
             {% if not page_form.instance.id or not page_form.instance.archived %}
-                <div class="flex flex-wrap gap-4">
+                <div class="flex flex-wrap gap-4 ml-auto mr-0">
                     <button
                         name="preview_page"
                         type="button"

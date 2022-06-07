@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1516](https://github.com/digitalfabrik/integreat-cms/issues/1516) ] Fix save buttons alignment
+
 
 2022.6.0
 --------

@@ -8,7 +8,7 @@
 <form enctype="multipart/form-data" method="post" data-unsaved-warning>
     {% csrf_token %}
     <div class="flex flex-wrap justify-between mb-4">
-        <h1 class="heading">
+        <h1 class="heading overflow-hidden text-ellipsis">
             {% if form.initial %}
                 {% with form.name.value as region_name %}
                     {% blocktrans %}Edit region "{{ region_name }}"{% endblocktrans %}
@@ -18,7 +18,7 @@
             {% endif %}
         </h1>
         {% if perms.cms.change_region %}
-            <button class="btn">{% trans 'Save' %}</button>
+            <button class="btn ml-auto mr-0">{% trans 'Save' %}</button>
         {% endif %}
     </div>
 
