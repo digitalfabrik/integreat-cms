@@ -797,6 +797,11 @@ urlpatterns = [
                                                         name="restore_page",
                                                     ),
                                                     path(
+                                                        "refresh/",
+                                                        pages.refresh_date,
+                                                        name="refresh_page",
+                                                    ),
+                                                    path(
                                                         "delete/",
                                                         pages.delete_page,
                                                         name="delete_page",
