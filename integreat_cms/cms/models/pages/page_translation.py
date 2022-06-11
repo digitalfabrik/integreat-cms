@@ -338,3 +338,10 @@ class PageTranslation(AbstractBasePageTranslation):
         default_permissions = ()
         #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["page__pk", "language__pk", "-version"]
+        #: A list of database constraints for this model
+        constraints = [
+            models.UniqueConstraint(
+                fields=["page", "language", "version"],
+                name="%(class)s_unique_version",
+            ),
+        ]
