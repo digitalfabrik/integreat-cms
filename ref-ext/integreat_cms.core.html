@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-05-25T20:40:40+00:00" />
+    <meta property="article:modified_time" content="2022-06-13T14:43:02+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2022.6.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1663,6 +1663,16 @@ processor to add some variables to the template context.</p>
 </dd></dl>
 
 <dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.core.settings.LINKCHECK_EXCLUDE_ARCHIVED_PAGES">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LINKCHECK_EXCLUDE_ARCHIVED_PAGES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.LINKCHECK_EXCLUDE_ARCHIVED_PAGES" title="Permalink to this definition"></a></dt>
+<dd><p>Whether archived pages should be ignored for linkcheck scan.
+Since this causes a lot of overhead, only use this for the findlinks management command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ INTEGREAT_CMS_LINKCHECK_EXCLUDE_ARCHIVED_PAGES=1 integreat-cms-cli findlinks
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.LINKCHECK_IGNORED_URL_TYPES">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LINKCHECK_IGNORED_URL_TYPES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['mailto',</span> <span class="pre">'phone',</span> <span class="pre">'anchor']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.LINKCHECK_IGNORED_URL_TYPES" title="Permalink to this definition"></a></dt>
 <dd><p>URL types that are not supposed to be shown in the link list (e.g. phone numbers and emails)</p>
@@ -2250,7 +2260,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 25, 2022.
+      <span class="lastupdated">Last updated on Jun 13, 2022.
       </span></p>
   </div>
 
