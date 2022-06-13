@@ -749,6 +749,14 @@ LINKCHECK_IGNORED_URL_TYPES = [
     "anchor",
 ]
 
+#: Whether archived pages should be ignored for linkcheck scan.
+#: Since this causes a lot of overhead, only use this for the findlinks management command::
+#:
+#:    $ INTEGREAT_CMS_LINKCHECK_EXCLUDE_ARCHIVED_PAGES=1 integreat-cms-cli findlinks
+LINKCHECK_EXCLUDE_ARCHIVED_PAGES = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_EXCLUDE_ARCHIVED_PAGES", "False"))
+)
+
 
 #############################
 # Push Notification Channel #

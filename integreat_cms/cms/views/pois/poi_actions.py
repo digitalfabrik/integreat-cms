@@ -9,6 +9,8 @@ from django.shortcuts import render, redirect
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
+from linkcheck.models import Link
+
 from ...decorators import permission_required
 from ...models import POI
 
@@ -40,6 +42,9 @@ def archive_poi(request, poi_id, region_slug, language_slug):
 
     poi.archived = True
     poi.save()
+
+    # Delete related link objects as they are no longer required
+    Link.objects.filter(poi_translation__poi=poi).delete()
 
     logger.debug("%r archived by %r", poi, request.user)
     messages.success(request, _("Location was successfully archived"))
@@ -78,6 +83,11 @@ def restore_poi(request, poi_id, region_slug, language_slug):
 
     poi.archived = False
     poi.save()
+
+    # Restore related link objects
+    for translation in poi.translations.distinct("poi__pk", "language__pk"):
+        # The post_save signal will create link objects from the content
+        translation.save(update_timestamp=False)
 
     logger.debug("%r restored by %r", poi, request.user)
     messages.success(request, _("Location was successfully restored"))
