@@ -17,6 +17,7 @@ from .page_actions import (
     cancel_translation_process_ajax,
     preview_page_ajax,
     get_page_content_ajax,
+    refresh_date,
 )
 from .page_bulk_actions import (
     GeneratePdfView,

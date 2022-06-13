@@ -16,6 +16,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 from django.db import transaction
 
+from linkcheck.models import Link
 from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
 from ....api.decorators import json_response
@@ -58,6 +59,10 @@ def archive_page(request, page_id, region_slug, language_slug):
         raise PermissionDenied(
             f"{request.user!r} does not have the permission to archive {page!r}"
         )
+
+    # Delete related link objects as they are no longer required
+    for child_page in Page.get_tree(parent=page).exclude(explicitly_archived=True):
+        Link.objects.filter(page_translation__page=child_page).delete()
 
     page.explicitly_archived = True
     page.save()
@@ -129,6 +134,13 @@ def restore_page(request, page_id, region_slug, language_slug):
                 "language_slug": language_slug,
             },
         )
+
+    # Restore related link objects
+    for child_page in Page.get_tree(parent=page).cache_tree(archived=False):
+        for translation in child_page.translations.distinct("page__pk", "language__pk"):
+            # The post_save signal will create link objects from the content
+            translation.save(update_timestamp=False)
+
     logger.debug("%r restored by %r", page, request.user)
     messages.success(request, _("Page was successfully restored."))
     return redirect(
@@ -269,6 +281,7 @@ def delete_page(request, page_id, region_slug, language_slug):
     )
 
 
+# pylint: disable=unused-argument
 def expand_page_translation_id(request, short_url_id):
     """
     Searches for a page translation with corresponding ID and redirects browser to web app
@@ -825,5 +838,70 @@ def render_mirrored_page_field(request, region_slug, language_slug):
         "pages/_mirrored_page_field.html",
         {
             "page_form": page_form,
+        },
+    )
+
+
+@require_POST
+# pylint: disable=unused-argument
+def refresh_date(
+    request,
+    page_id,
+    region_slug,
+    language_slug,
+):
+    """
+    Refresh the date for all translations of a corresponding page
+
+    :param request: The current request
+    :type request: ~django.http.HttpResponse
+
+    :param page_id: The id of the page of the current page form
+    :type page_id: int
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_slug: The slug of the current language
+    :type language_slug: str
+
+    :raises ~django.core.exceptions.PermissionDenied: If the user does not have the permission to refresh page dates
+
+    :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_form_view.PageFormView`
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+    region = request.region
+    page = get_object_or_404(
+        region.get_pages(archived=False, return_unrestricted_queryset=True), id=page_id
+    )
+
+    if not request.user.has_perm("cms.change_page_object", page):
+        raise PermissionDenied(
+            f"{request.user!r} does not have the permission mark {page!r} as up-to-date"
+        )
+
+    # Consider only the last version of each translation
+    page_translations = page.translations.filter(
+        language__in=region.active_languages
+    ).distinct("page__pk", "language__pk")
+    # Sort page translations according to the position of their languages in the
+    # language tree to ensure that the translations are not considered outdated.
+    page_translations = sorted(
+        page_translations,
+        key=lambda page_translation: region.active_languages.index(
+            page_translation.language
+        ),
+    )
+    # Update timestamps of all translations
+    for page_translation in page_translations:
+        page_translation.save()
+
+    messages.success(request, _("Marked all translations of this page as up-to-date"))
+    return redirect(
+        "edit_page",
+        **{
+            "page_id": page_id,
+            "language_slug": language_slug,
+            "region_slug": request.region.slug,
         },
     )

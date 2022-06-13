@@ -6,7 +6,7 @@
 <form method="post" data-unsaved-warning>
     {% csrf_token %}
     <div class="flex flex-wrap mb-4 justify-between">
-        <h1 class="heading">
+        <h1 class="heading overflow-hidden text-ellipsis">
           {% if form.instance.id %}
             {% with form.instance.translated_name as translated_language_name %}
             {% blocktrans %}Edit language "{{ translated_language_name }}"{% endblocktrans %}
@@ -16,7 +16,7 @@
           {% endif %}
         </h1>
         {% if perms.cms.change_language %}
-            <button class="btn">{% trans 'Save' %}</button>
+            <button class="btn ml-auto mr-0">{% trans 'Save' %}</button>
         {% endif %}
     </div>
 

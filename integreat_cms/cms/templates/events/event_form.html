@@ -16,7 +16,7 @@
         {% get_current_language as LANGUAGE_CODE %}
         {% get_language LANGUAGE_CODE as current_language %}
         <div class="flex flex-wrap justify-between gap-4 mb-4">
-            <h1 class="heading">
+            <h1 class="heading overflow-hidden text-ellipsis">
                 {% if event_form.instance.id %}
                     {% if event_translation_form.instance.id %}
                         {% with event_translation_form.instance.title as event_title %}
@@ -36,7 +36,7 @@
             </h1>
             {% if perms.cms.change_event %}
                 {% if not event_form.instance.id or not event_form.instance.archived %}
-                    <div class="flex flex-wrap gap-4">
+                    <div class="flex flex-wrap gap-4 ml-auto mr-0">
                         <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
                         {% if perms.cms.publish_event %}
                             <button name="submit_public" class="btn">

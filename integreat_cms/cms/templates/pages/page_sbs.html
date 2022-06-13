@@ -27,7 +27,13 @@
                         {% endif %}
                         {% has_perm 'cms.publish_page_object' request.user source_page_translation.page as can_publish_page %}
                         {% if can_publish_page %}
-                            <button name="submit_public" class="btn">{% trans 'Publish' %}</button>
+                            <button name="submit_public" class="btn">
+                                {% if page_translation_form.instance.status == PUBLIC %}
+                                    {% trans 'Update' %}
+                                {% else %}
+                                    {% trans 'Publish' %}
+                                {% endif %}
+                            </button>
                         {% else %}
                             <button name="submit_review" class="btn">{% trans 'Submit for review' %}</button>
                         {% endif %}

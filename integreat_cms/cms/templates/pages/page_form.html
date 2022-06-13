@@ -12,13 +12,22 @@
 {% block content %}
     {% get_current_language as LANGUAGE_CODE %}
     {% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
+    {% if page_form.instance.id and can_edit_page and not page.archived %}
+    <form enctype="multipart/form-data"
+          method="post"
+          action="{% url 'refresh_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug  %}"
+          id="refresh_date_form">
+        {% csrf_token %}
+    </form>
+    {% endif %}
+
     <form enctype="multipart/form-data"
           method="post"
           id="content_form"
           data-unsaved-warning>
         {% csrf_token %}
         <div class="w-full flex flex-wrap justify-between mb-6">
-            <h1 class="heading">
+            <h1 class="heading overflow-hidden text-ellipsis">
                 {% if page %}
                     {% if page_translation_form.instance.id %}
                         {% with page_translation_form.instance.title as page_title %}
@@ -37,7 +46,7 @@
                 {% endif %}
             </h1>
             {% if not page_form.instance.id or not page_form.instance.archived %}
-                <div class="flex flex-wrap gap-4">
+                <div class="flex flex-wrap gap-4 ml-auto mr-0">
                     <button
                         name="preview_page"
                         type="button"
@@ -112,18 +121,19 @@
                         {% render_field page_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
                         {% if page_translation_form.instance.id %}
                             {% if request.region.short_urls_enabled and request.user.expert_mode %}
-                                <label class="inline-block">{% trans 'Short URL' %}:</label>
-                                <a href="{{ page_translation_form.instance.short_url }}"
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
-                                <a href="#"
-                                   data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}"
-                                   title="{% trans 'Copy to clipboard' %}"
-                                   class="px-2 text-gray-800 hover:text-blue-500">
-                                    <i data-feather="copy"></i>
-                                </a>
-                                <br />
+                                <div class="flex items-center">
+                                    <label class="inline-block mr-2">{% trans 'Short URL' %}:</label>
+                                    <a href="{{ page_translation_form.instance.short_url }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
+                                    <a href="#"
+                                       data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}"
+                                       title="{% trans 'Copy to clipboard' %}"
+                                       class="mx-2 text-gray-800 hover:text-blue-500">
+                                        <i data-feather="copy"></i>
+                                    </a>
+                                </div>
                             {% endif %}
                         {% endif %}
                         <div id="link-container" class="flex items-center">
@@ -278,6 +288,19 @@
                                 </h3>
                             </div>
                             <div class="w-full px-4 pb-4 rounded shadow bg-white">
+                                {% if page_form.instance.id and can_edit_page and not page.archived %}
+                                    <label>
+                                        {% trans 'Refresh date' %}
+                                    </label>
+                                    <button title="{% trans 'Mark this page as up-to-date' %}"
+                                            form="refresh_date_form"
+                                            name="refresh_page"
+                                            class="btn text-center w-full"
+                                            >
+                                        <i data-feather="check-circle" class="mr-2"></i>
+                                        {% trans 'Mark this page as up-to-date' %}
+                                    </button>
+                                {% endif %}
                                 {% if page.explicitly_archived %}
                                     <label>
                                         {% trans 'Restore page' %}
