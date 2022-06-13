@@ -63,7 +63,7 @@ window.addEventListener("load", () => {
 
   document.getElementById("copy-slug-btn")?.addEventListener("click", function(e){
     // copy whole permalink to clipboard
-    copyToClipboard(document.getElementById("slug-link").textContent);
+    copyToClipboard(encodeURI(document.getElementById("slug-link").textContent));
   });
 
   document.getElementById("restore-slug-btn")?.addEventListener("click", function(e){
