@@ -5,6 +5,7 @@ UNRELEASED
 * [ [#1520](https://github.com/digitalfabrik/integreat-cms/issues/1520) ] Fix button name in side-by-side view
 * [ [#1502](https://github.com/digitalfabrik/integreat-cms/issues/1502) ] Do not check links in archived pages
 * [ [#1258](https://github.com/digitalfabrik/integreat-cms/issues/1258) ] Add possibility to mark pages as up-to-date
+* [ [#1539](https://github.com/digitalfabrik/integreat-cms/issues/1539) ] Urlencode permalinks when copying to clipboard
 
 
 2022.6.0
