@@ -121,18 +121,19 @@
                         {% render_field page_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
                         {% if page_translation_form.instance.id %}
                             {% if request.region.short_urls_enabled and request.user.expert_mode %}
-                                <label class="inline-block">{% trans 'Short URL' %}:</label>
-                                <a href="{{ page_translation_form.instance.short_url }}"
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
-                                <a href="#"
-                                   data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}"
-                                   title="{% trans 'Copy to clipboard' %}"
-                                   class="px-2 text-gray-800 hover:text-blue-500">
-                                    <i data-feather="copy"></i>
-                                </a>
-                                <br />
+                                <div class="flex items-center">
+                                    <label class="inline-block mr-2">{% trans 'Short URL' %}:</label>
+                                    <a href="{{ page_translation_form.instance.short_url }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
+                                    <a href="#"
+                                       data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}"
+                                       title="{% trans 'Copy to clipboard' %}"
+                                       class="mx-2 text-gray-800 hover:text-blue-500">
+                                        <i data-feather="copy"></i>
+                                    </a>
+                                </div>
                             {% endif %}
                         {% endif %}
                         <div id="link-container" class="flex items-center">
