@@ -158,11 +158,11 @@ class ImprintRevisionView(TemplateView):
         revision.pk = None
         revision.version = current_revision.version + 1
 
-        if request.POST.get("submit_draft"):
+        if "submit_draft" in request.POST:
             revision.status = status.DRAFT
-        elif request.POST.get("submit_review"):
+        elif "submit_review" in request.POST:
             revision.status = status.REVIEW
-        elif request.POST.get("submit_public"):
+        elif "submit_public" in request.POST:
             revision.status = status.PUBLIC
 
         revision.save()
