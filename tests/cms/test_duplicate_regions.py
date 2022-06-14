@@ -3,6 +3,7 @@ import pytest
 from django.forms.models import model_to_dict
 from django.urls import reverse
 
+from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import Region, LanguageTreeNode, Page
 
 # pylint: disable=unused-argument,too-many-locals
@@ -59,12 +60,13 @@ def test_duplicate_regions(load_test_data, admin_client):
             source_page_translations, target_pages_translations
         ):
             source_page_translation_dict = model_to_dict(
-                source_page_translation, exclude=["id", "page"]
+                source_page_translation, exclude=["id", "page", "status"]
             )
             target_page_translation_dict = model_to_dict(
-                target_page_translation, exclude=["id", "page"]
+                target_page_translation, exclude=["id", "page", "status"]
             )
             assert source_page_translation_dict == target_page_translation_dict
+            assert target_page_translation.status == status.DRAFT
 
     # Check if all cloned language tree nodes exist and are identical
     source_language_tree = source_region.language_tree_nodes.all()

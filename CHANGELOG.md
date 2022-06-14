@@ -7,6 +7,7 @@ UNRELEASED
 * [ [#1509](https://github.com/digitalfabrik/integreat-cms/issues/1509) ] Support legacy sitemap URL patterns
 * [ [#742](https://github.com/digitalfabrik/integreat-cms/issues/742) ] Make bounding box configurable per region
 * [ [#742](https://github.com/digitalfabrik/integreat-cms/issues/742) ] Automatically fetch region bounding boxes from Nominatim API
+* [ [#1517](https://github.com/digitalfabrik/integreat-cms/issues/1517) ] Set all pages to draft when duplicating regions
 
 
 2022.6.1
