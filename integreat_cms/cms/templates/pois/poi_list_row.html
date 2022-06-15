@@ -7,9 +7,11 @@
         <input type="checkbox" name="selected_ids[]" value="{{ poi.id }}" form="bulk-action-form" class="bulk-select-item"/>
     </td>
     <td class="pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
+        <a title="{% if poi_translation %} {{ poi_translation.title }} {% endif %}"
+           href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" 
+           class="block">
             {% if poi_translation %}
-                {{ poi_translation.title }}
+                {{ poi_translation.title|truncatechars:35 }}
             {% else %}
                 <i>{% trans 'Translation not available' %}</i>
             {% endif %}
@@ -17,9 +19,11 @@
     </td>
     {% if backend_language and backend_language != language %}
         <td class="pr-2">
-            <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block">
+            <a title="{% if poi.backend_translation %} {{ poi.backend_translation.title }} {% endif %}"
+               href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" 
+               class="block">
                 {% if poi.backend_translation %}
-                    {{ poi.backend_translation.title }}
+                    {{ poi.backend_translation.title|truncatechars:35 }}
                 {% else %}
                     <i>{% trans 'Translation not available' %}</i>
                 {% endif %}

@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1528](https://github.com/digitalfabrik/integreat-cms/issues/1528) ] Fix list view layouts for long titles
+
 
 2022.6.3
 --------
