@@ -174,6 +174,10 @@ class PageRevisionView(TemplateView):
         revision.version = current_revision.version + 1
 
         if request.POST.get("submit_draft"):
+            if not request.user.has_perm("cms.publish_page_object", page):
+                raise PermissionDenied(
+                    f"{request.user!r} does not have the permission to restore {revision!r} of {page!r} as draft"
+                )
             revision.status = status.DRAFT
         elif request.POST.get("submit_review"):
             revision.status = status.REVIEW

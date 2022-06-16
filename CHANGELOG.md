@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1445](https://github.com/digitalfabrik/integreat-cms/issues/1445) ] Allow only users with publish permission to unpublish page
+
 
 2022.6.1
 --------

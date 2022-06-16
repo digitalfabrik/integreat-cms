@@ -150,7 +150,7 @@ VIEWS = [
             ("new_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
             (
                 "new_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {
                     "title": "new page",
                     "mirrored_page_region": "",
@@ -424,7 +424,7 @@ VIEWS = [
             ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
@@ -435,7 +435,7 @@ VIEWS = [
             ),
             (
                 "edit_page",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {
                     "title": "new title",
                     "mirrored_page_region": "",
