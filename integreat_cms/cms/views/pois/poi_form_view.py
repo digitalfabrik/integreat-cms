@@ -168,6 +168,16 @@ class POIFormView(
             # Save forms
             poi_translation_form.instance.poi = poi_form.save()
             poi_translation_form.save()
+            # If any source translation changes to draft, set all depending translations/versions to draft
+            if poi_translation_form.instance.status == status.DRAFT:
+                language_tree_node = region.language_node_by_slug.get(language.slug)
+                languages = [language] + [
+                    node.language for node in language_tree_node.get_descendants()
+                ]
+                poi_translation_form.instance.poi.translations.filter(
+                    language__in=languages
+                ).update(status=status.DRAFT)
+
             # Add the success message and redirect to the edit page
             if not poi_instance:
                 messages.success(

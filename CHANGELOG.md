@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1445](https://github.com/digitalfabrik/integreat-cms/issues/1445) ] Allow only users with publish permission to unpublish page
+* [ [#1497](https://github.com/digitalfabrik/integreat-cms/issues/1516) ] Set older versions to draft when saved as draft
 
 
 2022.6.1
