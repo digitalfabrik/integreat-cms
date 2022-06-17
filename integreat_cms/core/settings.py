@@ -179,6 +179,7 @@ INSTALLED_APPS = [
     "integreat_cms.cms",
     "integreat_cms.gvz_api",
     "integreat_cms.deepl_api",
+    "integreat_cms.nominatim_api",
     "integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig",
     # Installed Django apps
     "django.contrib.auth",
@@ -494,6 +495,10 @@ LOGGING = {
             "level": DEPS_LOG_LEVEL,
         },
         "django": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
+        },
+        "geopy": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },

@@ -1,15 +1,12 @@
 import logging
 
-from urllib.parse import urlparse
-
 from django import forms
 from django.conf import settings
 from django.utils.translation import gettext as _
 
 from geopy.distance import distance
-from geopy.geocoders import Nominatim
-from geopy.exc import GeopyError
 
+from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...models import POI
 from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
@@ -64,37 +61,25 @@ class POIForm(CustomModelForm):
 
         # When the Nominatim API is enabled, validate the coordinates
         if settings.NOMINATIM_API_ENABLED:
-            try:
-                nominatim_url = urlparse(settings.NOMINATIM_API_URL)
-                geolocator = Nominatim(
-                    domain=nominatim_url.netloc + nominatim_url.path,
-                    scheme=nominatim_url.scheme,
+            nominatim_api_client = NominatimApiClient()
+            latitude, longitude = nominatim_api_client.get_coordinates(
+                street=cleaned_data.get("address"),
+                postalcode=cleaned_data.get("postcode"),
+                city=cleaned_data.get("city"),
+            )
+            if latitude and longitude:
+                # Only override coordinates if not set manually
+                if not cleaned_data.get("latitude"):
+                    cleaned_data["latitude"] = latitude
+                if not cleaned_data.get("longitude"):
+                    cleaned_data["longitude"] = longitude
+                # Store distance between manually entered coordinates and API result
+                self.nominatim_distance_delta = int(
+                    distance(
+                        (cleaned_data["latitude"], cleaned_data["longitude"]),
+                        (latitude, longitude),
+                    ).km
                 )
-                result = geolocator.geocode(
-                    {
-                        "street": cleaned_data.get("address"),
-                        "postalcode": cleaned_data.get("postcode"),
-                        "city": cleaned_data.get("city"),
-                    },
-                    exactly_one=True,
-                )
-                logger.debug("Nominatim result: %r", result)
-                if result:
-                    # Only override coordinates if not set manually
-                    if not cleaned_data.get("latitude"):
-                        cleaned_data["latitude"] = result.latitude
-                    if not cleaned_data.get("longitude"):
-                        cleaned_data["longitude"] = result.longitude
-                    # Store distance between manually entered coordinates and API result
-                    self.nominatim_distance_delta = int(
-                        distance(
-                            (cleaned_data["latitude"], cleaned_data["longitude"]),
-                            (result.latitude, result.longitude),
-                        ).km
-                    )
-            except GeopyError as e:
-                logger.exception(e)
-                logger.error("Nominatim API call failed")
 
         if cleaned_data.get("location_on_map"):
             # If the location should be shown on the map, require the coordinates
