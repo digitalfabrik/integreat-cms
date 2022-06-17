@@ -4,11 +4,15 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import override
 
 from geopy.geocoders import Nominatim
 from geopy.exc import GeopyError
 
 from integreat_cms import __version__
+
+from ..cms.constants import administrative_division as ad
+from .utils import BoundingBox
 
 logger = logging.getLogger(__name__)
 
@@ -114,3 +118,108 @@ class NominatimApiClient:
         if result:
             return result.latitude, result.longitude
         return None, None
+
+    def get_bounding_box(self, administrative_division, name, aliases=None):
+        """
+        Get the bounding box for a given region
+
+        :param administrative_division: The administrative division of the requested region
+        :type administrative_division: str
+
+        :param name: The name of the requested region
+        :type name: str
+
+        :param aliases: A dictionary of region aliases
+        :type aliases: dict
+
+        :return: The bounding box
+        :rtype: ~integreat_cms.nominatim_api.utils.BoundingBox
+        """
+        if administrative_division in [
+            ad.CITY,
+            ad.MUNICIPALITY,
+            ad.CITY_STATE,
+            ad.URBAN_DISTRICT,
+            ad.COLLECTIVE_MUNICIPALITY,
+        ]:
+            return self.get_city_bounding_box(name)
+        if administrative_division == ad.CITY_AND_DISTRICT:
+            return self.get_city_and_district_bounding_box(name)
+        if administrative_division in [ad.DISTRICT, ad.RURAL_DISTRICT]:
+            return self.get_district_bounding_box(administrative_division, name)
+        if administrative_division == ad.REGION:
+            return self.get_region_bounding_box(name, aliases)
+        return None
+
+    def get_city_bounding_box(self, name):
+        """
+        Get the bounding box for a given city
+
+        :param name: The name of the requested region
+        :type name: str
+
+        :return: The bounding box
+        :rtype: ~integreat_cms.nominatim_api.utils.BoundingBox
+        """
+        # For cities and municipalities, we can just use the "city" parameter
+        return BoundingBox.from_result(self.search(city=name))
+
+    def get_city_and_district_bounding_box(self, name):
+        """
+        Get the bounding box for a given city and district
+
+        :param name: The name of the requested region
+        :type name: str
+
+        :return: The bounding box
+        :rtype: ~integreat_cms.nominatim_api.utils.BoundingBox
+        """
+        # Get bounding box of city
+        city_box = BoundingBox.from_result(self.search(city=name))
+        # Get bounding box of district
+        district_box = BoundingBox.from_result(
+            self.search(query_str=f"Landkreis {name}")
+        )
+        # Merge both results
+        return BoundingBox.merge(city_box, district_box)
+
+    def get_district_bounding_box(self, administrative_division, name):
+        """
+        Get the bounding box for a given district
+
+        :param administrative_division: The administrative division of the requested region
+        :type administrative_division: str
+
+        :param name: The name of the requested region
+        :type name: str
+
+        :return: The bounding box
+        :rtype: ~integreat_cms.nominatim_api.utils.BoundingBox
+        """
+        # Get translated name of the administrative division
+        with override(settings.LANGUAGE_CODE):
+            adm_div = dict(ad.CHOICES)[administrative_division]
+        # For districts, we have to use string queries
+        return BoundingBox.from_result(self.search(query_str=f"{adm_div} {name}"))
+
+    def get_region_bounding_box(self, name, aliases=None):
+        """
+        Get the bounding box for a given region and all its aliases
+
+        :param name: The name of the requested region
+        :type name: str
+
+        :param aliases: A dictionary of region aliases
+        :type aliases: dict
+
+        :return: The bounding box
+        :rtype: ~integreat_cms.nominatim_api.utils.BoundingBox
+        """
+        if not aliases:
+            aliases = {}
+        # Get bounding box of city
+        bounding_boxes = [BoundingBox.from_result(self.search(city=name))]
+        # Get bounding boxes of all aliases
+        for alias in aliases.keys():
+            bounding_boxes.append(BoundingBox.from_result(self.search(city=alias)))
+        return BoundingBox.merge(*bounding_boxes)

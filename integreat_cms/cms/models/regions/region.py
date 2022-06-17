@@ -3,6 +3,7 @@ from html import escape
 
 from django.apps import apps
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.http import Http404
 from django.utils import timezone as django_timezone
@@ -12,6 +13,7 @@ from django.utils.translation import override, ugettext, ugettext_lazy as _
 from django.conf import settings
 
 
+from ....nominatim_api.utils import BoundingBox
 from ...constants import region_status, administrative_division
 from ...utils.translation_utils import ugettext_many_lazy as __
 from ...utils.matomo_api_manager import MatomoApiManager
@@ -145,7 +147,41 @@ class Region(AbstractBaseModel):
         verbose_name=_("longitude"),
         help_text=_("The longitude coordinate of an approximate center of the region"),
     )
-    postal_code = models.CharField(max_length=10, verbose_name=_("postal code"))
+    longitude_min = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name=_("minimum longitude"),
+        help_text=_("The left boundary of the region"),
+        validators=[MinValueValidator(-180.0), MaxValueValidator(180.0)],
+    )
+    latitude_min = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name=_("minimum latitude"),
+        help_text=_("The bottom boundary of the region"),
+        validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)],
+    )
+    longitude_max = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name=_("maximum longitude"),
+        help_text=_("The right boundary of the region"),
+        validators=[MinValueValidator(-180.0), MaxValueValidator(180.0)],
+    )
+    latitude_max = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name=_("maximum latitude"),
+        help_text=_("The top boundary of the region"),
+        validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)],
+    )
+    postal_code = models.CharField(
+        max_length=10,
+        verbose_name=_("postal code"),
+        help_text=_(
+            "For districts, enter the postcode of the administrative headquarters."
+        ),
+    )
 
     admin_mail = models.EmailField(
         verbose_name=_("email address of the administrator"),
@@ -264,6 +300,40 @@ class Region(AbstractBaseModel):
 
     #: Custom model manager :class:`~integreat_cms.cms.models.regions.region.RegionManager` for region objects
     objects = RegionManager()
+
+    @cached_property
+    def has_bounding_box(self):
+        """
+        Whether the region has an individual bounding box
+
+        :return: Whether all required coordinates for the bounding box are set
+        :rtype: bool
+        """
+        return all(
+            [
+                self.longitude_min,
+                self.latitude_min,
+                self.longitude_max,
+                self.latitude_max,
+            ]
+        )
+
+    @cached_property
+    def bounding_box(self):
+        """
+        The bounding box of the region
+
+        :return: A bounding box object
+        :rtype: ~integreat_cms.nominatim_api.utils.BoundingBox
+        """
+        if self.has_bounding_box:
+            return BoundingBox(
+                self.latitude_min,
+                self.latitude_max,
+                self.longitude_min,
+                self.longitude_max,
+            )
+        return settings.DEFAULT_BOUNDING_BOX
 
     @cached_property
     def language_tree(self):

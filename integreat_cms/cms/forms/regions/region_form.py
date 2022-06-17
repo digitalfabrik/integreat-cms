@@ -9,6 +9,7 @@ from django.conf import settings
 from django.utils.translation import override, ugettext_lazy as _
 from django.apps import apps
 
+from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ....gvz_api.utils import GvzRegion
 from ...models import Region, Page, LanguageTreeNode
 from ...utils.matomo_api_manager import MatomoException
@@ -95,6 +96,10 @@ class RegionForm(CustomModelForm):
             "push_notifications_enabled",
             "latitude",
             "longitude",
+            "longitude_min",
+            "latitude_min",
+            "longitude_max",
+            "latitude_max",
             "postal_code",
             "admin_mail",
             "statistics_enabled",
@@ -243,6 +248,9 @@ class RegionForm(CustomModelForm):
                 ),
             )
 
+        # Automatically fill the bounding box coordinates
+        cleaned_data = self.autofill_bounding_box(cleaned_data)
+
         logger.debug("RegionForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data
 
@@ -365,6 +373,38 @@ class RegionForm(CustomModelForm):
                 self.add_error("aliases", _("Enter a valid JSON."))
         # Convert None to an empty dict
         return cleaned_aliases or {}
+
+    @staticmethod
+    def autofill_bounding_box(cleaned_data):
+        """
+        Automatically fill the bounding box coordinates
+
+        :param cleaned_data: The partially cleaned data
+        :type cleaned_data: dict
+
+        :return: The updated cleaned data
+        :rtype: dict
+        """
+        # When the Nominatim API is enabled, auto fill the bounding box coordinates
+        if settings.NOMINATIM_API_ENABLED:
+            nominatim_api_client = NominatimApiClient()
+            bounding_box = nominatim_api_client.get_bounding_box(
+                administrative_division=cleaned_data.get("administrative_division"),
+                name=cleaned_data.get("name"),
+                aliases=cleaned_data.get("aliases"),
+            )
+            if bounding_box:
+                # Update bounding box values if not set manually
+                if not cleaned_data.get("latitude_min"):
+                    cleaned_data["latitude_min"] = bounding_box.latitude_min
+                if not cleaned_data.get("latitude_max"):
+                    cleaned_data["latitude_max"] = bounding_box.latitude_max
+                if not cleaned_data.get("longitude_min"):
+                    cleaned_data["longitude_min"] = bounding_box.longitude_min
+                if not cleaned_data.get("longitude_max"):
+                    cleaned_data["longitude_max"] = bounding_box.longitude_max
+
+        return cleaned_data
 
 
 def duplicate_language_tree(

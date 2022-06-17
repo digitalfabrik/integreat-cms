@@ -1,7 +1,6 @@
 """
 This module includes functions related to the regions API endpoint.
 """
-from django.conf import settings
 from django.http import JsonResponse
 
 from ...cms.models import Region
@@ -33,8 +32,7 @@ def transform_region(region):
         "push_notifications": region.push_notifications_enabled,
         "longitude": region.longitude,
         "latitude": region.latitude,
-        # TODO: Store bounding box in region model
-        "bounding_box": settings.DEFAULT_BOUNDING_BOX,
+        "bounding_box": region.bounding_box.api_representation,
         "aliases": region.aliases,
         "tunews": region.tunews_enabled,
     }
