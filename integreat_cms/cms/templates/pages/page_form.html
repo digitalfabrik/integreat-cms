@@ -56,11 +56,9 @@
                         class="btn btn-gray">
                         {% trans 'Preview' %}
                     </button>
-                    {% if can_edit_page %}
-                        <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
-                    {% endif %}
                     {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
                     {% if can_publish_page %}
+                        <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
                         <button name="submit_public" class="btn whitespace-nowrap">
                             {% if page_translation_form.instance.status == PUBLIC %}
                                 {% trans 'Update' %}

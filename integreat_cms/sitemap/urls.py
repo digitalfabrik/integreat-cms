@@ -10,7 +10,7 @@ See :mod:`~integreat_cms.core.urls` for the other namespaces of this application
 
 For more information on this file, see :doc:`topics/http/urls`.
 """
-from django.urls import path
+from django.urls import path, include
 
 from .views import SitemapIndexView, SitemapView
 
@@ -21,9 +21,21 @@ app_name = "sitemap"
 #: The url patterns of this module (see :doc:`topics/http/urls`)
 urlpatterns = [
     path("sitemap.xml", SitemapIndexView.as_view(), name="index"),
+    path("wp-json/ig-sitemap/v1/sitemap-index.xml", SitemapIndexView.as_view()),
     path(
-        "<slug:region_slug>/<slug:language_slug>/sitemap.xml",
-        SitemapView.as_view(),
-        name="region_language",
+        "<slug:region_slug>/<slug:language_slug>/",
+        include(
+            [
+                path(
+                    "sitemap.xml",
+                    SitemapView.as_view(),
+                    name="region_language",
+                ),
+                path(
+                    "wp-json/ig-sitemap/v1/sitemap.xml",
+                    SitemapView.as_view(),
+                ),
+            ]
+        ),
     ),
 ]

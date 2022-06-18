@@ -199,7 +199,7 @@ class EventFormView(
             messages.info(request, _("No changes detected, autosave skipped"))
         else:
             # Check publish permissions
-            if event_translation_form.instance.status == status.PUBLIC:
+            if event_translation_form.instance.status in [status.DRAFT, status.PUBLIC]:
                 if not request.user.has_perm("cms.publish_event"):
                     raise PermissionDenied(
                         f"{request.user!r} does not have the permission 'cms.publish_event'"
@@ -214,6 +214,15 @@ class EventFormView(
                 event_form.instance.recurrence_rule = None
             event_translation_form.instance.event = event_form.save()
             event_translation_form.save()
+            # If any source translation changes to draft, set all depending translations/versions to draft
+            if event_translation_form.instance.status == status.DRAFT:
+                language_tree_node = region.language_node_by_slug.get(language.slug)
+                languages = [language] + [
+                    node.language for node in language_tree_node.get_descendants()
+                ]
+                event_translation_form.instance.event.translations.filter(
+                    language__in=languages
+                ).update(status=status.DRAFT)
             # Add the success message and redirect to the edit page
             if not event_instance:
                 messages.success(

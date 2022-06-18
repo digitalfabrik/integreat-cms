@@ -191,9 +191,7 @@ urlpatterns = [
                         [
                             path(
                                 "edit/",
-                                form_views.CustomUpdateView.as_view(
-                                    form_class=RegionForm
-                                ),
+                                regions.RegionUpdateView.as_view(),
                                 name="edit_region",
                             ),
                             path(

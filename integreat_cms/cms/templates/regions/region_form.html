@@ -1,5 +1,6 @@
 {% extends "_base.html" %}
 
+{% load l10n %}
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
@@ -92,7 +93,21 @@
                     <div class="help-text">{{ form.timezone.help_text }}</div>
                 </div>
                 <div>
-                    <label>{% trans 'Center of the region' %}</label>
+                    <div class="flex justify-between">
+                        <label>{% trans 'Center of the region' %}</label>
+                        {% if form.instance.id %}
+                            {% localize off %}
+                                <label>
+                                    <a href="https://www.openstreetmap.org/?mlat={{ form.instance.latitude }}&mlon={{ form.instance.longitude }}"
+                                    class="text-blue-500 hover:underline"
+                                    target="_blank" rel="noopener noreferrer">
+                                        <i data-feather="map" class="mr-2"></i>
+                                        {% trans 'Preview on map' %}
+                                    </a>
+                                </label>
+                            {% endlocalize %}
+                        {% endif %}
+                    </div>
                     <div class="help-text">
                         {% trans 'If you leave these fields blank, they are automatically derived from the name, administrative division and community identification number.' %}
                     </div>
@@ -102,6 +117,39 @@
                     <label for="{{ form.longitude.id_for_label }}" class="secondary">{{ form.longitude.label }}</label>
                     {% render_field form.longitude|add_error_class:"border-red-500" %}
                     <div class="help-text">{{ form.longitude.help_text }}</div>
+                </div>
+                <div>
+                    <div class="flex justify-between">
+                        <label>{% trans 'Bounding box' %}</label>
+                        {% if form.instance.has_bounding_box %}
+                            {% localize off %}
+                                <label>
+                                    <a href="https://www.openstreetmap.org/?minlon={{ form.instance.longitude_min }}&minlat={{ form.instance.latitude_min }}&maxlon={{ form.instance.longitude_max }}&maxlat={{ form.instance.latitude_max }}&box=yes"
+                                    class="text-blue-500 hover:underline"
+                                    target="_blank" rel="noopener noreferrer">
+                                        <i data-feather="map" class="mr-2"></i>
+                                        {% trans 'Preview on map' %}
+                                    </a>
+                                </label>
+                            {% endlocalize %}
+                        {% endif %}
+                    </div>
+                    <div class="help-text">
+                        {% trans 'The boundaries of the region.' %}
+                        {% trans 'If you leave these fields blank, they are automatically derived from the name and postal code.' %}
+                    </div>
+                    <label for="{{ form.longitude_min.id_for_label }}" class="secondary">{{ form.longitude_min.label }}</label>
+                    {% render_field form.longitude_min|add_error_class:"border-red-500" %}
+                    <div class="help-text">{{ form.longitude_min.help_text }}</div>
+                    <label for="{{ form.latitude_min.id_for_label }}" class="secondary">{{ form.latitude_min.label }}</label>
+                    {% render_field form.latitude_min|add_error_class:"border-red-500" %}
+                    <div class="help-text">{{ form.latitude_min.help_text }}</div>
+                    <label for="{{ form.longitude_max.id_for_label }}" class="secondary">{{ form.longitude_max.label }}</label>
+                    {% render_field form.longitude_max|add_error_class:"border-red-500" %}
+                    <div class="help-text">{{ form.longitude_max.help_text }}</div>
+                    <label for="{{ form.latitude_max.id_for_label }}" class="secondary">{{ form.latitude_max.label }}</label>
+                    {% render_field form.latitude_max|add_error_class:"border-red-500" %}
+                    <div class="help-text">{{ form.latitude_max.help_text }}</div>
                 </div>
                 <div>
                     <label for="{{ form.aliases.id_for_label }}">{{ form.aliases.label }}</label>

@@ -37,8 +37,8 @@
             {% if perms.cms.change_event %}
                 {% if not event_form.instance.id or not event_form.instance.archived %}
                     <div class="flex flex-wrap gap-4 ml-auto mr-0">
-                        <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
                         {% if perms.cms.publish_event %}
+                            <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
                             <button name="submit_public" class="btn">
                                 {% if event_translation_form.instance.status == PUBLIC %}
                                     {% trans 'Update' %}

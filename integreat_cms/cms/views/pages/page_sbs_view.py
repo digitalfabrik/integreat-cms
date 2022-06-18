@@ -190,9 +190,9 @@ class PageSideBySideView(TemplateView, PageContextMixin):
         elif not page_translation_form.has_changed():
             # Add "no changes" messages
             messages.info(request, _("No changes made"))
-        elif (
-            not request.user.has_perm("cms.publish_page_object", page)
-            and page_translation_form.cleaned_data.get("status") == status.PUBLIC
+        elif not request.user.has_perm("cms.publish_page_object", page) and (
+            page_translation_form.cleaned_data.get("status")
+            in [status.DRAFT, status.PUBLIC]
         ):
             # Raise PermissionDenied if user wants to publish page but doesn't have the permission
             raise PermissionDenied(
