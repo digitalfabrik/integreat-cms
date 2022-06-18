@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-06-03T12:57:21+00:00" />
+    <meta property="article:modified_time" content="2022-06-18T12:13:40+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Regions &mdash; integreat-cms 2022.6.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -487,6 +487,12 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.linkcheck.html#apps">Apps</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.nominatim_api.html">Nominatim API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#nominatim-api-client">Nominatim API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#utils">Utils</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.sitemap.html">Sitemap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#sitemaps">Sitemaps</a></li>
@@ -755,6 +761,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.linkcheck.html#module-integreat_cms.linkcheck.apps">Apps</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html">Nominatim API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#module-integreat_cms.nominatim_api.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#module-integreat_cms.nominatim_api.nominatim_api_client">Nominatim API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#module-integreat_cms.nominatim_api.utils">Utils</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html">Sitemap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#module-integreat_cms.sitemap.sitemaps">Sitemaps</a></li>
@@ -946,6 +958,79 @@ are manually removed.</p>
 </dd></dl>
 
 </section>
+<section id="region-update-view">
+<h2>Region Update View<a class="headerlink" href="#region-update-view" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.regions.region_update_view.</span></span><span class="sig-name descname"><span class="pre">RegionUpdateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/regions/region_update_view.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomUpdateView" title="integreat_cms.cms.views.form_views.CustomUpdateView"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.form_views.CustomUpdateView</span></code></a></p>
+<p>View for updating regions</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The form class for this update view</p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">common_id</span></code>: Community identification number (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slug</span></code>: URL parameter (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.SlugField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlugField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">events_enabled</span></code>: Activate events (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">locations_enabled</span></code>: Activate locations (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chat_enabled</span></code>: Activate author chat (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">push_notifications_enabled</span></code>: Activate push notifications (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latitude</span></code>: Latitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">longitude</span></code>: Longitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">longitude_min</span></code>: Minimum longitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latitude_min</span></code>: Minimum latitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">longitude_max</span></code>: Maximum longitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latitude_max</span></code>: Maximum latitude (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.FloatField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FloatField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">postal_code</span></code>: Postal code (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">admin_mail</span></code>: Email address of the administrator (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.EmailField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">statistics_enabled</span></code>: Activate statistics (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">matomo_id</span></code>: Matomo ID (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.IntegerField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntegerField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">matomo_token</span></code>: Matomo authentication token (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: Status (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page_permissions_enabled</span></code>: Activate page-specific permissions (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">administrative_division</span></code>: Administrative division (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aliases</span></code>: Aliases (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.JSONField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">JSONField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">icon</span></code>: Logo (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">administrative_division_included</span></code>: Include administrative division into name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">offers</span></code>: Offers (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelMultipleChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMultipleChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">short_urls_enabled</span></code>: Activate short urls (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">custom_prefix</span></code>: Custom prefix (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tunews_enabled</span></code>: Enable tunews (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timezone</span></code>: Timezone (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fallback_translations_enabled</span></code>: Show content in default language as fallback (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">duplicated_region</span></code>: Duplicated Region (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timezone_area</span></code>: Timezone area (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChoiceField</span></code></a>)</p></li>
+</ul>
+<p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm" title="integreat_cms.cms.forms.regions.region_form.RegionForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.forms.regions.region_form.RegionForm</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/regions/region_update_view.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Render region form for HTTP GET requests</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><em>TemplateResponse</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 </section>
 
 
@@ -963,7 +1048,7 @@ are manually removed.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 03, 2022.
+      <span class="lastupdated">Last updated on Jun 18, 2022.
       </span></p>
   </div>
 

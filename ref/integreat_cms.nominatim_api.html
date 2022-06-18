@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-04-23T19:08:31+00:00" />
+    <meta property="article:modified_time" content="2022-06-18T12:13:40+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Authentication &mdash; integreat-cms 2022.6.1 documentation</title>
+  <title>Nominatim API &mdash; integreat-cms 2022.6.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/integreat-icon.svg"/>
-    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref/integreat_cms.cms.views.authentication.html" />
+    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref/integreat_cms.nominatim_api.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="MFA" href="integreat_cms.cms.views.authentication.mfa.html" />
-    <link rel="prev" title="Analytics" href="integreat_cms.cms.views.analytics.html" /> 
+    <link rel="next" title="Sitemap" href="integreat_cms.sitemap.html" />
+    <link rel="prev" title="Linkcheck" href="integreat_cms.linkcheck.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -306,7 +306,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#urls">Urls</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.constants.html">Constants</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#all-day">All Day</a></li>
@@ -419,9 +419,9 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.analytics.html">Analytics</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html">Authentication</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
@@ -487,10 +487,10 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.linkcheck.html#apps">Apps</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.nominatim_api.html">Nominatim API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#apps">Apps</a></li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#nominatim-api-client">Nominatim API Client</a></li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#utils">Utils</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Nominatim API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nominatim-api-client">Nominatim API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.sitemap.html">Sitemap</a><ul>
@@ -852,11 +852,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="integreat_cms.html">Integreat CMS</a> &raquo;</li>
-          <li><a href="integreat_cms.cms.html">CMS</a> &raquo;</li>
-          <li><a href="integreat_cms.cms.views.html">Views</a> &raquo;</li>
-      <li>Authentication</li>
+      <li>Nominatim API</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../ref-ext/integreat_cms.cms.views.authentication.html" class="fa fa-search-plus"> Open extended view</a>
+            <a href="../ref-ext/integreat_cms.nominatim_api.html" class="fa fa-search-plus"> Open extended view</a>
           
       </li>
   </ul>
@@ -865,300 +863,276 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="authentication">
-<h1>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline"></a></h1>
-<p>This package contains views related to login, logout and password reset functionality as well as 2FA authentication:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html">MFA</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#mfa-assert-view">MFA Assert View</a></li>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#mfa-login-view">MFA Login View</a></li>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#mfa-verify-view">MFA Verify View</a></li>
+  <section id="nominatim-api">
+<h1>Nominatim API<a class="headerlink" href="#nominatim-api" title="Permalink to this headline"></a></h1>
+<section id="apps">
+<h2>Apps<a class="headerlink" href="#apps" title="Permalink to this headline"></a></h2>
+<p>Configuration of Nominatim API app</p>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.nominatim_api.apps.</span></span><span class="sig-name descname"><span class="pre">NominatimApiConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/apps.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
+<p>Nominatim API config inheriting the Django AppConfig</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">ready</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/apps.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Checking if API is available</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="nominatim-api-client">
+<h2>Nominatim API Client<a class="headerlink" href="#nominatim-api-client" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.nominatim_api.nominatim_api_client.</span></span><span class="sig-name descname"><span class="pre">NominatimApiClient</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Client to interact with the Nominatim API.
+For documentation about the underlying library, see <a class="reference external" href="https://geopy.readthedocs.io/en/stable/index.html" title="(in GeoPy v2.2.0)"><span class="xref std std-doc">GeoPy</span></a>.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Initialize the Nominatim client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ImproperlyConfigured" title="(in Django v3.2)"><strong>ImproperlyConfigured</strong></a> – When the Nominatim API is disabled</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">check_availability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L84"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Check if Nominatim API is available</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">administrative_division</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aliases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get the bounding box for a given region</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>administrative_division</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The administrative division of the requested region</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the requested region</p></li>
+<li><p><strong>aliases</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A dictionary of region aliases</p></li>
 </ul>
-</li>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The bounding box</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_city_and_district_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L167"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get the bounding box for a given city and district</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the requested region</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The bounding box</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_city_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get the bounding box for a given city</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the requested region</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The bounding box</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">street</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postalcode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">city</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get coordinates for given address</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>street</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The requested street</p></li>
+<li><p><strong>postalcode</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The requested postal code</p></li>
+<li><p><strong>city</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The requested city</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The coordinates of the requested address</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a> ( <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)">float</a>, <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)">float</a> )</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_district_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">administrative_division</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get the bounding box for a given district</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>administrative_division</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The administrative division of the requested region</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the requested region</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The bounding box</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_region_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aliases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L205"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get the bounding box for a given region and all its aliases</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the requested region</p></li>
+<li><p><strong>aliases</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A dictionary of region aliases</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The bounding box</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exactly_one</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">query_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Search for a given query, either by string or by dict.
+<code class="docutils literal notranslate"><span class="pre">query_str</span></code> and <code class="docutils literal notranslate"><span class="pre">query_dict</span></code> are mutually exclusive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#RuntimeError" title="(in Python v3.9)"><strong>RuntimeError</strong></a> – When the <code class="docutils literal notranslate"><span class="pre">query_str</span></code> and <code class="docutils literal notranslate"><span class="pre">query_dict</span></code> parameters are passed at the same time</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>query_str</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The query string</p></li>
+<li><p><strong>exactly_one</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether only one result should be returned</p></li>
+<li><p><strong>**query_dict</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The query as dictionary</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The location that matches the given criteria</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://geopy.readthedocs.io/en/stable/index.html#geopy.location.Location" title="(in GeoPy v2.2.0)">geopy.location.Location</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="utils">
+<h2>Utils<a class="headerlink" href="#utils" title="Permalink to this headline"></a></h2>
+<p>Utilities for the Nominatim API app</p>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.nominatim_api.utils.</span></span><span class="sig-name descname"><span class="pre">BoundingBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latitude_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_max</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/utils.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class for bounding boxes</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latitude_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_max</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/utils.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Initialize the bounding box</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>latitude_min</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The bottom boundary of the box</p></li>
+<li><p><strong>latitude_max</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The top boundary of the box</p></li>
+<li><p><strong>longitude_min</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The left boundary of the box</p></li>
+<li><p><strong>longitude_max</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The right boundary of the box</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">api_representation</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/utils.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The bounding box in the format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">[</span>
+        <span class="n">longitude_min</span><span class="p">,</span>
+        <span class="n">latitude_min</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="n">longitude_max</span><span class="p">,</span>
+        <span class="n">latitude_max</span>
+    <span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
 </div>
-<section id="account-activation-view">
-<h2>Account Activation View<a class="headerlink" href="#account-activation-view" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.account_activation_view.</span></span><span class="sig-name descname"><span class="pre">AccountActivationView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.PasswordResetConfirmView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.PasswordResetConfirmView</span></code></a></p>
-<p>View to set a new password and activate and account.</p>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/account_activation_view.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The view part of the view. Handles all HTTP methods equally.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A nested list of the borders of the box</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The rendered template response or a redirection to the login page</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><em>TemplateResponse</em></a> or <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>[ [ <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)">float</a>, <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)">float</a> ], [ <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)">float</a>, <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)">float</a> ] ]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/account_activation_view.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>If the form is valid, show a success message.</p>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/utils.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return a bounding box object from a Nominatim API result</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>form</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" title="(in Django v3.2)"><em>SetPasswordForm</em></a>) – The supplied form</p>
+<dd class="field-odd"><p><strong>result</strong> (<a class="reference external" href="https://geopy.readthedocs.io/en/stable/index.html#geopy.location.Location" title="(in GeoPy v2.2.0)"><em>geopy.location.Location</em></a>) – The Nominatim API result</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A redirection to the <code class="docutils literal notranslate"><span class="pre">success_url</span></code></p>
+<dd class="field-even"><p>A bounding box</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/login/'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>If the password was successfully reset, redirect to the login</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'authentication/account_activation_form.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template which should be rendered</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">token_generator</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator</span> <span class="pre">object&gt;</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The generator for activation tokens
-(use <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator" title="integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountActivationTokenGenerator</span></code></a> instead of the default one to
-make sure password reset tokens are not accepted for account activation and vice versa)</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="login-view">
-<h2>Login View<a class="headerlink" href="#login-view" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.login_view.</span></span><span class="sig-name descname"><span class="pre">LoginView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/login_view.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.LoginView</span></code></a></p>
-<p>View to extend the default login behaviour from <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a> with
-multi-factor-authentication.</p>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/login_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This function overwrites <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_valid" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">form_valid()</span></code></a> which is called if the login
-form is valid. In case the user has mfa-keys configured, the login is delegated to
-<a class="reference internal" href="../ref-ext/integreat_cms.cms.views.authentication.mfa.html#integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView" title="integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaLoginView</span></code></a>. Else, the default method
-<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.login" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">login()</span></code></a> is used to log the user in. After that, the user is redirected to
-<a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOGIN_REDIRECT_URL" title="integreat_cms.core.settings.LOGIN_REDIRECT_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">LOGIN_REDIRECT_URL</span></code></a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>form</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.AuthenticationForm" title="(in Django v3.2)"><em>AuthenticationForm</em></a>) – User login form</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Redirect user to mfa login view or to <a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOGIN_REDIRECT_URL" title="integreat_cms.core.settings.LOGIN_REDIRECT_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">LOGIN_REDIRECT_URL</span></code></a></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">redirect_authenticated_user</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/login_view.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>A boolean that controls whether or not authenticated users accessing the login page will be redirected as if they
-had just successfully logged in.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'authentication/login.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/login_view.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="logout-view">
-<h2>Logout View<a class="headerlink" href="#logout-view" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.logout_view.</span></span><span class="sig-name descname"><span class="pre">LogoutView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/logout_view.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LogoutView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.LogoutView</span></code></a></p>
-<p>View to log off a user</p>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/logout_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This function sends message, if logout was successful</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>passes form to dispatch function</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="password-reset-confirm-view">
-<h2>Password Reset Confirm View<a class="headerlink" href="#password-reset-confirm-view" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.password_reset_confirm_view.</span></span><span class="sig-name descname"><span class="pre">PasswordResetConfirmView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_confirm_view.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.PasswordResetConfirmView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.PasswordResetConfirmView</span></code></a></p>
-<p>View to confirm that the password should be reset</p>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_confirm_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The view part of the view. Handles all HTTP methods equally.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The rendered template response or a redirection to the password reset page</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><em>TemplateResponse</em></a> or <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_confirm_view.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>If the form is valid, show a success message.</p>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">bounding_boxes</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/utils.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Merge the given bounding boxes</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>form</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" title="(in Django v3.2)"><em>SetPasswordForm</em></a>) – The supplied form</p>
+<dd class="field-odd"><p><strong>*bounding_boxes</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> [ </em><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a><em> ]</em>) – The bounding boxes that should be merged</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>form validation</p>
+<dd class="field-even"><p>A bounding box that contains all of the given boxes</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a></p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/login/'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_confirm_view.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>If the password was successfully reset, redirect to the login</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'authentication/password_reset_confirm.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_confirm_view.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template which should be rendered</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="password-reset-view">
-<h2>Password Reset View<a class="headerlink" href="#password-reset-view" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.password_reset_view.</span></span><span class="sig-name descname"><span class="pre">PasswordResetView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_view.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.PasswordResetView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.PasswordResetView</span></code></a></p>
-<p>View to extend the default login behaviour from <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a> with
-multi-factor-authentication.</p>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_view.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The view part of the view. Handles all HTTP methods equally.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The rendered template response or a redirection</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><em>TemplateResponse</em></a> or <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">email_template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'emails/password_reset_email.txt'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_view.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The full name of a template to use for generating the email with the reset password link.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">form_class</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/password_reset_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The form for the password reset</p>
-<p><strong>Form fields:</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">email</span></code>: Email (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.EmailField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailField</span></code></a>)</p></li>
-</ul>
-<p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm" title="integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm</span></code></a></p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_view.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This function validates the form and sends a message depending if the function was executed successfully</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>form</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" title="(in Django v3.2)"><em>SetPasswordForm</em></a>) – The supplied form</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>passes form to form validation</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a></p>
-</dd>
-</dl>
-<p>If the form is valid, show a success message.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">html_email_template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'emails/password_reset_email.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_view.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The full name of a template to use for generating the html email with the reset password link.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/reset-password/'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_view.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>If the password reset process was successfully initialized, stay on the password reset page</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'authentication/password_reset_form.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_view.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template which should be rendered</p>
 </dd></dl>
 
 </dd></dl>
@@ -1170,8 +1144,8 @@ multi-factor-authentication.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="integreat_cms.cms.views.analytics.html" class="btn btn-neutral float-left" title="Analytics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="integreat_cms.cms.views.authentication.mfa.html" class="btn btn-neutral float-right" title="MFA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="integreat_cms.linkcheck.html" class="btn btn-neutral float-left" title="Linkcheck" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integreat_cms.sitemap.html" class="btn btn-neutral float-right" title="Sitemap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -1181,7 +1155,7 @@ multi-factor-authentication.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Apr 23, 2022.
+      <span class="lastupdated">Last updated on Jun 18, 2022.
       </span></p>
   </div>
 

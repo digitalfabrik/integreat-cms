@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-06-13T19:55:24+00:00" />
+    <meta property="article:modified_time" content="2022-06-18T12:13:40+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>V3 &mdash; integreat-cms 2022.6.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -487,6 +487,12 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.linkcheck.html#apps">Apps</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.nominatim_api.html">Nominatim API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#nominatim-api-client">Nominatim API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#utils">Utils</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.sitemap.html">Sitemap</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.sitemap.html#sitemaps">Sitemaps</a></li>
@@ -753,6 +759,12 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.linkcheck.html">Linkcheck</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.linkcheck.html#module-integreat_cms.linkcheck.apps">Apps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html">Nominatim API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#module-integreat_cms.nominatim_api.apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#module-integreat_cms.nominatim_api.nominatim_api_client">Nominatim API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#module-integreat_cms.nominatim_api.utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html">Sitemap</a><ul>
@@ -1451,7 +1463,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/inte
 <p>This module includes functions related to the regions API endpoint.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">hiddenregions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/regions.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">hiddenregions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/regions.py#L92"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>List all regions that are hidden and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1465,7 +1477,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/inte
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">liveregions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/regions.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">liveregions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/regions.py#L73"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>List all regions that are not archived and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1479,7 +1491,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/inte
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/regions.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/regions.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>List all regions that are not archived and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1493,7 +1505,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/inte
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">transform_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/regions.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">transform_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/regions.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to create a JSON from a single region object, including information if region is live/active.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1510,7 +1522,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/inte
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">transform_region_by_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/regions.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.regions.</span></span><span class="sig-name descname"><span class="pre">transform_region_by_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/regions.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to create a JSON from a single “active” region object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1543,7 +1555,7 @@ by forwarding the request to <a class="reference internal" href="../ref-ext/inte
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 13, 2022.
+      <span class="lastupdated">Last updated on Jun 18, 2022.
       </span></p>
   </div>
 
