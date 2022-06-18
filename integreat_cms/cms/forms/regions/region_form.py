@@ -11,6 +11,7 @@ from django.apps import apps
 
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ....gvz_api.utils import GvzRegion
+from ...constants import status
 from ...models import Region, Page, LanguageTreeNode
 from ...utils.matomo_api_manager import MatomoException
 from ...utils.slug_utils import generate_unique_slug_helper
@@ -619,6 +620,8 @@ def duplicate_page_translations(source_page, target_page, logging_prefix):
         page_translation.page = target_page
         # Delete the primary key to duplicate the object instance instead of updating it
         page_translation.pk = None
+        # Set the translation to draft
+        page_translation.status = status.DRAFT
         # Check if the page translation is valid
         page_translation.full_clean()
         # Save duplicated page translation
@@ -660,6 +663,8 @@ def duplicate_imprint(source_region, target_region):
         imprint_translation.page = target_imprint
         # Delete the primary key to duplicate the object instance instead of updating it
         imprint_translation.pk = None
+        # Set the translation to draft
+        imprint_translation.status = status.DRAFT
         # Check if the imprint translation is valid
         imprint_translation.full_clean()
         # Save duplicated imprint translation
