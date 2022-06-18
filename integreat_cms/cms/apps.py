@@ -1,20 +1,12 @@
 import logging
-import os
-import sys
-
-from urllib.parse import urlparse
 
 from django.apps import AppConfig
-from django.conf import settings
 from django.contrib.auth.signals import (
     user_logged_in,
     user_logged_out,
     user_login_failed,
 )
 from django.dispatch import receiver
-
-from geopy.geocoders import Nominatim
-from geopy.exc import GeopyError
 
 logger = logging.getLogger(__name__)
 
@@ -35,33 +27,6 @@ class CmsConfig(AppConfig):
     def ready(self):
         # Implicitly connect a signal handlers decorated with @receiver.
         from .signals import feedback_signals
-
-        # Only check availability if running a server
-        if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
-            # If Nominatim API is enabled, check availability
-            if settings.NOMINATIM_API_ENABLED:
-                try:
-                    nominatim_url = urlparse(settings.NOMINATIM_API_URL)
-                    geolocator = Nominatim(
-                        domain=nominatim_url.netloc + nominatim_url.path,
-                        scheme=nominatim_url.scheme,
-                    )
-                    assert geolocator.geocode(
-                        "Deutschland",
-                        exactly_one=True,
-                    )
-                    logger.info(
-                        "Nominatim API is available at: %r",
-                        settings.NOMINATIM_API_URL,
-                    )
-                except (GeopyError, AssertionError) as e:
-                    logger.exception(e)
-                    logger.error(
-                        "Nominatim API unavailable. You won't be able to "
-                        "automatically import location coordinates."
-                    )
-            else:
-                logger.info("Nominatim API is disabled")
 
 
 authlog = logging.getLogger("auth")

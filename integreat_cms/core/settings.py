@@ -15,6 +15,7 @@ from urllib.parse import urlparse
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy as _
 
+from ..nominatim_api.utils import BoundingBox
 from .logging_formatter import ColorFormatter
 
 
@@ -95,7 +96,12 @@ if BRANDING not in AVAILABLE_BRANDINGS:
     )
 
 #: The default bounding box for regions with indistinct borders
-DEFAULT_BOUNDING_BOX = [[5.98865807458, 47.3024876979], [15.0169958839, 54.983104153]]
+DEFAULT_BOUNDING_BOX = BoundingBox(
+    latitude_min=47.3024876979,
+    latitude_max=54.983104153,
+    longitude_min=5.98865807458,
+    longitude_max=15.0169958839,
+)
 
 
 ###############################
@@ -179,6 +185,7 @@ INSTALLED_APPS = [
     "integreat_cms.cms",
     "integreat_cms.gvz_api",
     "integreat_cms.deepl_api",
+    "integreat_cms.nominatim_api",
     "integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig",
     # Installed Django apps
     "django.contrib.auth",
@@ -494,6 +501,10 @@ LOGGING = {
             "level": DEPS_LOG_LEVEL,
         },
         "django": {
+            "handlers": ["console", "logfile"],
+            "level": DEPS_LOG_LEVEL,
+        },
+        "geopy": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },
