@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1561](https://github.com/digitalfabrik/integreat-cms/issues/1561) ] Rename location contact labels
+
 
 2022.6.2
 --------
