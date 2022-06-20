@@ -7,20 +7,18 @@
 {% block content %}
     <form method="post" id="content_form" data-unsaved-warning>
         <div>
-            <div class="flex flex-wrap mb-4">
-                <div class="w-3/5 flex flex-wrap flex-col justify-center mb-6">
-                    <h1 class="heading">
-                        {% with source_language=source_imprint_translation.language.translated_name target_language_name=target_language.translated_name %}
-                            {% blocktrans %}Translate the imprint from {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
-                        {% endwith %}
-                    </h1>
-                </div>
-                <div class="w-2/5 flex justify-end mb-6 gap-2">
-                    <a href="{% url 'edit_imprint' region_slug=request.region.slug language_slug=target_language.slug %}"
-                       class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
-                        {% trans 'Go back to imprint editor' %}
-                    </a>
-                    {% if perms.cms.change_imprintpage %}
+            <h1 class="heading">
+                {% with source_language=source_imprint_translation.language.translated_name target_language_name=target_language.translated_name %}
+                    {% blocktrans %}Translate the imprint from {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
+                {% endwith %}
+            </h1>
+            <div class="flex flex-wrap grow justify-between gap-2 mb-4">
+                <a href="{% url 'edit_imprint' region_slug=request.region.slug language_slug=target_language.slug %}"
+                   class="bg-gray-400 hover:bg-gray-500 text-center cursor-pointer text-white font-bold py-3 px-4 rounded">
+                    <i data-feather="arrow-left-circle" class="align-top"></i> {% trans 'Back to the imprint form' %}
+                </a>
+                {% if perms.cms.change_imprintpage %}
+                    <div class="flex flex-wrap gap-2">
                         <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
                         <button name="submit_public" class="btn">
                             {% if imprint_translation_form.instance.status == PUBLIC %}
@@ -29,8 +27,8 @@
                                 {% trans 'Publish' %}
                             {% endif %}
                         </button>
-                    {% endif %}
-                </div>
+                    </div>
+                {% endif %}
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div class="border border-blue-500 rounded shadow-2xl bg-white">
