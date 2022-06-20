@@ -3,6 +3,7 @@ UNRELEASED
 
 * [ [#1561](https://github.com/digitalfabrik/integreat-cms/issues/1561) ] Rename location contact labels
 * [ [#1567](https://github.com/digitalfabrik/integreat-cms/issues/1567) ] Hide organization field in user form
+* [ [#1563](https://github.com/digitalfabrik/integreat-cms/issues/1563) ] Fix permission checks in side-by-side view
 
 
 2022.6.2

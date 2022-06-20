@@ -117,7 +117,7 @@ class PageFormView(
                 _("You don't have the permission to edit this page."),
             )
         # Show warning if user has no permission to publish the page
-        if not request.user.has_perm("cms.publish_page_object", page):
+        elif not request.user.has_perm("cms.publish_page_object", page):
             messages.warning(
                 request,
                 _(

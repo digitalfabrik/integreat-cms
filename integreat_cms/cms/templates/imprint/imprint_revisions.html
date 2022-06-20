@@ -74,9 +74,11 @@
             <label>{% trans 'Content' %}</label>
         </div>
     </div>
-    <div class="w-full p-4 flex justify-end gap-4">
+    {% if perms.cms.change_imprintpage %}
+        <div class="w-full p-4 flex justify-end gap-4">
             <button name="submit_draft" class="btn btn-gray">{% trans 'Restore this version as draft' %}</button>
             <button name="submit_public" class="btn">{% trans 'Restore and publish this version' %}</button>
-    </div>
+        </div>
+    {%  endif %}
 </form>
 {% endblock %}

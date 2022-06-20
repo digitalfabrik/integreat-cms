@@ -87,8 +87,18 @@ class PageSideBySideView(TemplateView, PageContextMixin):
                 },
             )
 
+        disabled = False
+        # Make form disabled if user has no permission to edit the page
+        if not request.user.has_perm("cms.change_page_object", page):
+            disabled = True
+            messages.warning(
+                request,
+                _("You don't have the permission to edit this page."),
+            )
+
         page_translation_form = PageTranslationForm(
             instance=target_page_translation,
+            disabled=disabled,
         )
 
         return render(
