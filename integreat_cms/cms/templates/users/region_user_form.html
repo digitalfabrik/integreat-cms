@@ -91,11 +91,13 @@
                     {% render_field user_form.role|add_error_class:"border-red-500" required="required" %}
                     <div class="help-text">{{ user_form.role.help_text }}</div>
                 </div>
-                <div>
-                    <label for="{{ user_form.organization.id_for_label }}">{{ user_form.organization.label }}</label>
-                        {% render_field user_form.organization|add_error_class:"border-red-500" %}
-                    <div class="help-text">{{ user_form.organization.help_text }}</div>
-                </div>
+                {% if user_form.organization.field.queryset.exists %}
+                    <div>
+                        <label for="{{ user_form.organization.id_for_label }}">{{ user_form.organization.label }}</label>
+                            {% render_field user_form.organization|add_error_class:"border-red-500" %}
+                        <div class="help-text">{{ user_form.organization.help_text }}</div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
