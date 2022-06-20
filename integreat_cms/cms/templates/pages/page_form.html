@@ -26,8 +26,8 @@
           id="content_form"
           data-unsaved-warning>
         {% csrf_token %}
-        <div class="w-full flex flex-wrap justify-between mb-6">
-            <h1 class="heading overflow-hidden text-ellipsis">
+        <div class="w-full flex flex-wrap justify-between mb-6 gap-2">
+            <h1 class="heading">
                 {% if page %}
                     {% if page_translation_form.instance.id %}
                         {% with page_translation_form.instance.title as page_title %}
@@ -46,7 +46,7 @@
                 {% endif %}
             </h1>
             {% if not page_form.instance.id or not page_form.instance.archived %}
-                <div class="flex flex-wrap gap-4 ml-auto mr-0">
+                <div class="flex flex-wrap grow justify-end gap-2">
                     <button
                         name="preview_page"
                         type="button"
@@ -66,7 +66,7 @@
                                 {% trans 'Publish' %}
                             {% endif %}
                         </button>
-                    {% else %}
+                    {% elif can_edit_page %}
                         <button name="submit_review" class="btn">{% trans 'Submit for review' %}</button>
                     {% endif %}
                 </div>

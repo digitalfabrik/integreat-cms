@@ -7,19 +7,18 @@
 {% block content %}
     <form method="post" id="content_form" data-unsaved-warning>
         <div>
-            <div class="flex flex-wrap mb-4">
-                <div class="w-3/5 flex flex-wrap flex-col justify-center mb-6">
-                    <h1 class="heading">
-                        {% with page_title=source_page_translation.title source_language=source_page_translation.language.translated_name target_language_name=target_language.translated_name %}
-                            {% blocktrans %}Translate "{{ page_title }}" from {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
-                        {% endwith %}
-                    </h1>
-                </div>
-                <div class="w-2/5 flex justify-end mb-6 gap-2">
-                    <a href="{% url 'edit_page' page_id=source_page_translation.page.id region_slug=request.region.slug language_slug=target_language.slug %}"
-                       class="bg-gray-400 hover:bg-gray-500 cursor-pointer text-white font-bold py-3 px-4 rounded">
-                        {% trans 'Go Back to Page Editor' %}
-                    </a>
+            <h1 class="heading">
+                {% with page_title=source_page_translation.title source_language=source_page_translation.language.translated_name target_language_name=target_language.translated_name %}
+                    {% blocktrans %}Translate "{{ page_title }}" from {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
+                {% endwith %}
+            </h1>
+            <div class="flex flex-wrap grow justify-between gap-2 mb-4">
+                <a href="{% url 'edit_page' page_id=source_page_translation.page.id region_slug=request.region.slug language_slug=target_language.slug %}"
+                   class="bg-gray-400 hover:bg-gray-500 text-center cursor-pointer text-white font-bold py-3 px-4 rounded">
+                    <i data-feather="arrow-left-circle" class="align-top"></i> {% trans 'Back to the page form' %}
+                </a>
+                <div class="flex flex-wrap gap-2">
+                    {% has_perm 'cms.change_page_object' request.user source_page_translation.page as can_edit_page %}
                     {% if not source_page_translation.page.archived %}
                         {% has_perm 'cms.publish_page_object' request.user source_page_translation.page as can_publish_page %}
                         {% if can_publish_page %}
@@ -30,8 +29,8 @@
                                 {% else %}
                                     {% trans 'Publish' %}
                                 {% endif %}
-                            </button> 
-                        {% else %}
+                            </button>
+                        {% elif can_edit_page %}
                             <button name="submit_review" class="btn">{% trans 'Submit for review' %}</button>
                         {% endif %}
                     {% endif %}
@@ -146,7 +145,7 @@
             </div>
         </div>
     </form>
-    {% if not can_change_page_object or page_translation_form.instance.id and page_translation_form.instance.page.archived %}
+    {% if not can_edit_page or page_translation_form.instance.id and page_translation_form.instance.page.archived %}
         {% include '../_tinymce_config.html' with readonly=1 language=target_language %}
     {% else %}
         {% include '../_tinymce_config.html' with language=target_language %}

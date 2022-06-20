@@ -78,6 +78,13 @@ class ImprintRevisionView(TemplateView):
                 }
             )
 
+        # Show warning if user has no permission to manage the imprint
+        if not request.user.has_perm("cms.change_imprintpage"):
+            messages.warning(
+                request,
+                _("You don't have the permission restore revisions of the imprint."),
+            )
+
         return render(
             request,
             self.template_name,

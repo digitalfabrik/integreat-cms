@@ -1,12 +1,16 @@
 UNRELEASED
 ----------
 
+* [ [#1561](https://github.com/digitalfabrik/integreat-cms/issues/1561) ] Rename location contact labels
+* [ [#1567](https://github.com/digitalfabrik/integreat-cms/issues/1567) ] Hide organization field in user form
+* [ [#1563](https://github.com/digitalfabrik/integreat-cms/issues/1563) ] Fix permission checks in side-by-side view
+
 
 2022.6.2
 --------
 
 * [ [#1445](https://github.com/digitalfabrik/integreat-cms/issues/1445) ] Allow only users with publish permission to unpublish page
-* [ [#1497](https://github.com/digitalfabrik/integreat-cms/issues/1516) ] Set older versions to draft when saved as draft
+* [ [#1497](https://github.com/digitalfabrik/integreat-cms/issues/1497) ] Set older versions to draft when saved as draft
 * [ [#1550](https://github.com/digitalfabrik/integreat-cms/issues/1550) ] Fix status change when restoring revisions
 * [ [#1509](https://github.com/digitalfabrik/integreat-cms/issues/1509) ] Support legacy sitemap URL patterns
 * [ [#742](https://github.com/digitalfabrik/integreat-cms/issues/742) ] Make bounding box configurable per region
