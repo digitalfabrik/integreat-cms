@@ -18,6 +18,8 @@ from django.views.decorators.cache import never_cache
 
 from xhtml2pdf import pisa
 
+
+from .text_utils import truncate_bytewise
 from ..constants import text_directions
 from ..models import Language, Page
 
@@ -83,7 +85,15 @@ def generate_pdf(region, language_slug, pages):
             # In any other case, take the region name
             title = region.name
     language = Language.objects.get(slug=language_slug)
-    filename = f"{pdf_hash}/{capfirst(settings.BRANDING)} - {language.translated_name} - {title}.pdf"
+    # Make sure, that the length of the filename is valid. To prevent potential
+    # edge cases, shorten filenames to 3/4 of the allowed max length.
+    ext = ".pdf"
+    try:
+        max_len = ((os.statvfs(settings.PDF_ROOT).f_namemax // 4) * 3) - len(ext)
+    except FileNotFoundError:
+        max_len = 192 - len(ext)
+    name = f"{capfirst(settings.BRANDING)} - {language.translated_name} - {title}"
+    filename = f"{pdf_hash}/{truncate_bytewise(name, max_len)}{ext}"
     # Only generate new pdf if not already exists
     if not pdf_storage.exists(filename):
         # Convert queryset to annotated list which can be rendered better
