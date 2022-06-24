@@ -3,9 +3,11 @@
 
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
     <td class="pl-2">
-        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-3 px-2 text-gray-800">
+        <a title="{% if push_notification_translation.title %} {{ push_notification_translation.title }} {% endif %}"
+           href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}" 
+           class="block py-3 px-2 text-gray-800">
             {% if push_notification_translation.title %}
-                {{ push_notification_translation.title }}
+                {{ push_notification_translation.title|truncatechars:35 }}
             {% else %}
                 <i>{% trans 'Title not available' %}</i>
             {% endif %}

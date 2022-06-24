@@ -8,9 +8,11 @@
         <input type="checkbox" name="selected_ids[]" value="{{ event.id }}" form="bulk-action-form" class="bulk-select-item" />
     </td>
     <td>
-        <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-3 pl-2 pr-2 text-gray-800">
+        <a title="{% if event_translation %} {{ event_translation.title }} {% endif %}"
+           href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" 
+           class="block py-3 pl-2 pr-2 text-gray-800">
             {% if event_translation %}
-                {{ event_translation.title }}
+                {{ event_translation.title|truncatechars:35 }}
             {% else %}
                 <i>{% trans 'Translation not available' %}</i>
             {% endif %}
@@ -20,9 +22,11 @@
     {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block py-3 pr-2 text-gray-800">
+            <a title="{% if event.backend_translation %} {{ event.backend_translation.title }} {% endif %}"
+               href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" 
+               class="block py-3 pr-2 text-gray-800">
                 {% if event.backend_translation %}
-                    {{ event.backend_translation.title }}
+                    {{ event.backend_translation.title|truncatechars:35 }}
                 {% else %}
                     <i>{% trans 'Translation not available' %}</i>
                 {% endif %}
