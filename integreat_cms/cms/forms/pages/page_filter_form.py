@@ -3,12 +3,13 @@ import logging
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from ..custom_filter_form import CustomFilterForm
 from ...constants import translation_status
 
 logger = logging.getLogger(__name__)
 
 
-class PageFilterForm(forms.Form):
+class PageFilterForm(CustomFilterForm):
     """
     Form for filtering page objects
     """
@@ -31,36 +32,7 @@ class PageFilterForm(forms.Form):
         """
         # Instantiate Form
         super().__init__(**kwargs)
-
-        if "translation_status" not in self.data:
-            # make self.data mutable to allow values to be changed manually
-            self.data = self.data.copy()
-            # Reset to initial values if no data is given
-            self.data.setlist(
-                "translation_status", self.fields["translation_status"].initial
-            )
-
         logger.debug("PageFilterForm initialized with data %r", self.data)
-
-    @property
-    def is_enabled(self):
-        """
-        This function determines whether the filters are applied.
-
-        :return: Whether filtering should be performed
-        :rtype: bool
-        """
-        return self.is_valid() and self.has_changed()
-
-    @property
-    def filters_visible(self):
-        """
-        This function determines whether the filter form is visible by default.
-
-        :return: Whether any filters (other than search) were changed
-        :rtype: bool
-        """
-        return self.is_enabled and self.changed_data != ["query"]
 
     def apply(self, pages, language_slug):
         """

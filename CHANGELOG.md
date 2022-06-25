@@ -6,6 +6,7 @@ UNRELEASED
 * [ [#1512](https://github.com/digitalfabrik/integreat-cms/issues/1512) ] Deliver location names in the api in the default language only
 * [ [#1581](https://github.com/digitalfabrik/integreat-cms/issues/1581) ] Improve wording of minor edit label
 * [ [#1580](https://github.com/digitalfabrik/integreat-cms/issues/1580) ] Improve user list
+* [ [#1504](https://github.com/digitalfabrik/integreat-cms/issues/1504) ] Keep filters on pagination
 
 
 2022.6.3
