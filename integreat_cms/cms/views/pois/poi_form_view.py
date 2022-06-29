@@ -78,7 +78,9 @@ class POIFormView(
 
         poi_form = POIForm(instance=poi, disabled=disabled)
         poi_translation_form = POITranslationForm(
-            instance=poi_translation, disabled=disabled
+            instance=poi_translation,
+            disabled=disabled,
+            default_language_title=poi.default_translation.title if poi else None,
         )
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{poi_translation_form.instance.url_infix}/"
         return render(
