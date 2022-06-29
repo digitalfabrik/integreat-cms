@@ -50,14 +50,6 @@ def transform_event_translation(event_translation):
     :rtype: dict
     """
     event = event_translation.event
-    if event.location:
-        location_translation = (
-            event.location.get_public_translation(event_translation.language.slug)
-            or event.location.best_translation
-        )
-    else:
-        location_translation = None
-
     absolute_url = event_translation.get_absolute_url()
     return {
         "id": event_translation.id,
@@ -69,7 +61,7 @@ def transform_event_translation(event_translation):
         "content": event_translation.content,
         "available_languages": event_translation.available_languages,
         "thumbnail": event.icon.url if event.icon else None,
-        "location": transform_poi(event.location, location_translation),
+        "location": transform_poi(event.location),
         "event": transform_event(event),
         "hash": None,
     }

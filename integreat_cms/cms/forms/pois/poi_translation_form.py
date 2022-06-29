@@ -62,10 +62,14 @@ class POITranslationForm(CustomContentModelForm):
                 "Changed POST data 'status' manually to %r", data.get("status")
             )
 
+        default_language_title = kwargs.pop("default_language_title", None)
+
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
 
         self.fields["slug"].required = False
+        if default_language_title:
+            self.fields["title"].initial = default_language_title
 
     def save(self, commit=True):
         """
