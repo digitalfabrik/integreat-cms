@@ -84,6 +84,28 @@ def get_language(language_slug):
 
 
 @register.simple_tag
+def minor_edit_label(region, language):
+    """
+    This tag returns the label of the minor edit field of the given form
+
+    :param region: current region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param language: The current language
+    :type language: ~integreat_cms.cms.models.languages.language.Language
+
+    :return: The minor edit label
+    :rtype: str
+    """
+    language_node = region.language_node_by_slug[language.slug]
+    if language_node.is_leaf():
+        return _("Implications on the translation status")
+    if language_node.is_root():
+        return _("Implications on other translations")
+    return _("Implications on the status of this and other translations")
+
+
+@register.simple_tag
 def minor_edit_help_text(region, language, translation_form):
     """
     This tag returns the help text of the minor edit field of the given form
