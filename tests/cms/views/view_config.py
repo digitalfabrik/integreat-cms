@@ -409,6 +409,120 @@ VIEWS = [
         {"region_slug": "nurnberg", "parent_id": 7},
     ),
     (
+        [
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"revision": 1, "submit_review": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_draft": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_public": True},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 1},
+    ),
+    (
+        [
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"revision": 1, "submit_review": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_draft": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_public": True},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 3},
+    ),
+    (
+        [
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"revision": 1, "submit_review": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_draft": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_reject": True},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 14},
+    ),
+    (
+        [
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"revision": 1, "submit_review": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_draft": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_reject": True},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 15},
+    ),
+    (
         [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "parent_id": 1, "page_id": 2},
