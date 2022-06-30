@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-12-18T18:12:14+00:00" />
+    <meta property="article:modified_time" content="2022-06-30T10:43:03+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Packaging &mdash; integreat-cms 2022.6.3 documentation</title>
+  <title>Testing (Pytest) &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/integreat-icon.svg"/>
-    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/packaging.html" />
+    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/testing.html" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -21,8 +21,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Production Server" href="prod-server.html" />
-    <link rel="prev" title="Continuous Integration (CircleCI)" href="continuous-integration.html" /> 
+    <link rel="next" title="Documentation (Sphinx)" href="documentation.html" />
+    <link rel="prev" title="Frontend Bundling (Webpack)" href="frontend-bundling.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -95,7 +95,7 @@
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Basic Concepts</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment (Pipenv)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a></li>
@@ -120,9 +120,9 @@
 <li class="toctree-l2"><a class="reference internal" href="frontend-bundling.html#fonts">Fonts</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing (Pytest)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="testing.html#coverage">Coverage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="testing.html#test-api-with-webapp">Test API with WebApp</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing (Pytest)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#coverage">Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-api-with-webapp">Test API with WebApp</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation (Sphinx)</a><ul>
@@ -180,10 +180,10 @@
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deployment</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Packaging</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#create-python-package">Create python package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#publish-package">Publish package</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html#create-python-package">Create python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging.html#publish-package">Publish package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prod-server.html">Production Server</a><ul>
@@ -858,7 +858,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Packaging</li>
+      <li>Testing (Pytest)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -867,47 +867,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="packaging">
-<h1>Packaging<a class="headerlink" href="#packaging" title="Permalink to this headline"></a></h1>
-<section id="create-python-package">
-<h2>Create python package<a class="headerlink" href="#create-python-package" title="Permalink to this headline"></a></h2>
-<p>Packaging for a Python repository like e.g. <a class="reference external" href="https://pypi.org/">PyPI</a> is automated via our
-<a class="reference internal" href="continuous-integration.html"><span class="doc">Continuous Integration (CircleCI)</span></a> (see <a class="reference internal" href="continuous-integration.html#circleci-build-package"><span class="std std-ref">build-package</span></a>). If you want to do the packaging process manually, follow these steps:</p>
-<ol class="arabic">
-<li><p>Build all static files which are required:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compile translation file</span>
-pipenv run integreat-cms-cli compilemessages
-<span class="c1"># Bundle static files</span>
-npm run prod
-</pre></div>
-</div>
-</li>
-<li><p>Fix the dependency versions in setup.cfg to make sure the production setup uses well-tested depdendency versions:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/fix_dependencies.sh
-</pre></div>
-</div>
-</li>
-<li><p>Move the README to make sure to include the PyPI-README instead of the GitHub-README:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mv integreat_cms/README.md .
-</pre></div>
-</div>
-</li>
-<li><p>After that, you can build the python package with <a class="reference external" href="https://setuptools.pypa.io/en/latest/index.html" title="(in setuptools v62.6.0.post20220628)"><span>Documentation</span></a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install --upgrade pip setuptools wheel
-python3 setup.py sdist bdist_wheel
-</pre></div>
-</div>
-<p>Then, the built package can be found in <code class="docutils literal notranslate"><span class="pre">./dist/</span></code>.</p>
-</li>
-</ol>
+  <section id="testing-pytest">
+<h1>Testing (Pytest)<a class="headerlink" href="#testing-pytest" title="Permalink to this headline"></a></h1>
+<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v7.2.0.dev182+g7dcabc1f4)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
+<p>In addition, we use the following plugins:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/index.html" title="(in pytest-cov v3.0.0)"><span class="xref std std-doc">pytest-cov</span></a>: This plugin produces coverage reports.</p></li>
+<li><p><a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/index.html" title="(in pytest-django)"><span class="xref std std-doc">pytest-django</span></a>: Provide a few helpers for Django</p></li>
+<li><p><a class="reference external" href="https://pytest-xdist.readthedocs.io/en/latest/index.html" title="(in pytest-xdist)"><span>pytest-xdist</span></a>: Enable distributing tests across multiple CPUs to speed up test execution</p></li>
+</ul>
+<p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/" title="(in Django v3.2)"><span>Testing in Django</span></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/overview/" title="(in Django v3.2)"><span>Writing and running tests</span></a>.</p>
+<p>For reference of our test framework and test cases, see <a class="reference internal" href="ref-ext/tests.html#module-tests" title="tests"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tests</span></code></a>.</p>
+<section id="coverage">
+<h2>Coverage<a class="headerlink" href="#coverage" title="Permalink to this headline"></a></h2>
+<p>After each run, the test coverage is uploaded to <a class="reference external" href="https://codeclimate.com/github/digitalfabrik/integreat-cms">CodeClimate</a> (see <a class="reference internal" href="continuous-integration.html#circleci-upload-test-coverage"><span class="std std-ref">upload-test-coverage</span></a>).</p>
 </section>
-<section id="publish-package">
-<h2>Publish package<a class="headerlink" href="#publish-package" title="Permalink to this headline"></a></h2>
-<p>You can publish the package to a python repository like e.g. <a class="reference external" href="https://pypi.org/">PyPI</a> with <a class="reference external" href="https://twine.readthedocs.io/en/latest/index.html" title="(in twine v4.0)"><span>Twine</span></a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv run twine upload ./dist/integreat-cms-*.tar.gz
+<section id="test-api-with-webapp">
+<h2>Test API with WebApp<a class="headerlink" href="#test-api-with-webapp" title="Permalink to this headline"></a></h2>
+<p>To test the API in the web app with a different CMS server, open the JavaScript console of the web app and execute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span><span class="o">.</span><span class="n">localStorage</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="s1">&#39;api-url&#39;</span><span class="p">,</span> <span class="s1">&#39;https://cms-test.integreat-app.de&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>See the <a class="reference external" href="https://twine.readthedocs.io/en/latest/index.html" title="(in twine v4.0)"><span class="xref std std-doc">Twine documentation</span></a> for all configuration options of this command.</p>
 </section>
 </section>
 
@@ -915,8 +895,8 @@ python3 setup.py sdist bdist_wheel
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="continuous-integration.html" class="btn btn-neutral float-left" title="Continuous Integration (CircleCI)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="prod-server.html" class="btn btn-neutral float-right" title="Production Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="frontend-bundling.html" class="btn btn-neutral float-left" title="Frontend Bundling (Webpack)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="documentation.html" class="btn btn-neutral float-right" title="Documentation (Sphinx)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -926,7 +906,7 @@ python3 setup.py sdist bdist_wheel
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 18, 2021.
+      <span class="lastupdated">Last updated on Jun 30, 2022.
       </span></p>
   </div>
 
