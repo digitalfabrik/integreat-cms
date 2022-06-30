@@ -4,6 +4,7 @@ UNRELEASED
 * [ [#1528](https://github.com/digitalfabrik/integreat-cms/issues/1528) ] Fix list view layouts for long titles
 * [ [#1510](https://github.com/digitalfabrik/integreat-cms/issues/1510) ] Limit event duration to 7 days
 * [ [#1512](https://github.com/digitalfabrik/integreat-cms/issues/1512) ] Deliver location names in the api in the default language only
+* [ [#1581](https://github.com/digitalfabrik/integreat-cms/issues/1581) ] Improve wording of minor edit label
 
 
 2022.6.3
