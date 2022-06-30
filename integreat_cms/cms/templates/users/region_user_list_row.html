@@ -6,43 +6,28 @@
             {{ user.username }}
         </a>
     </td>
-	<td>
-        <a href="{% url 'edit_region_user' region_slug=request.region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
-            {{ user.first_name }}
-        </a>
+	<td class="pr-2">
+		{{ user.first_name }}
 	</td>
-	<td>
-        <a href="{% url 'edit_region_user' region_slug=request.region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
-            {{ user.last_name }}
-        </a>
+	<td class="pr-2">
+		{{ user.last_name }}
 	</td>
-	<td>
+	<td class="pr-2">
 		<span class="hover:underline text-blue-500 hover:text-blue-600">
             {{ user.email|urlize }}
 		</span>
 	</td>
-	<td>
-        <a href="{% url 'edit_region_user' region_slug=request.region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
-			{% if user.organization %}
-				{{ user.organization }}
-			{% endif %}
-        </a>
+	<td class="pr-2">
+		{{ user.role }}
 	</td>
-	<td>
-		<a href="{% url 'edit_region_user' region_slug=request.region.slug user_id=user.id %}" class="block py-3 pr-2 text-gray-800">
-			{{ user.role }}
-		</a>
-	</td>
-	<td>
-		<a href="{% url 'edit_user' user_id=user.id %}" class="block py-3 pr-2 text-gray-800 whitespace-nowrap">
-			{% if user.last_login %}
-				{{ user.last_login }}
-			{% else %}
-				<span title="{% trans 'No login yet' %}">
-					<i data-feather="x" class="text-red-500"></i>
-				</span>
-			{% endif %}
-		</a>
+	<td class="pr-2 whitespace-nowrap">
+		{% if user.last_login %}
+			{{ user.last_login }}
+		{% else %}
+			<span title="{% trans 'No login yet' %}">
+				<i data-feather="x" class="text-red-500"></i>
+			</span>
+		{% endif %}
 	</td>
 	<td class="pr-4 whitespace-nowrap">
 		{% if user.is_active %}
