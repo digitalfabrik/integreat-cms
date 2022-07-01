@@ -10,12 +10,13 @@ from django.views.generic import TemplateView
 from ...constants import status
 from ...decorators import permission_required
 from ...models import Language
+from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
-class PageRevisionView(TemplateView):
+class PageRevisionView(PageContextMixin, TemplateView):
     """
     View for browsing the page revisions and restoring old page revisions
     """
@@ -66,7 +67,7 @@ class PageRevisionView(TemplateView):
         if not request.user.has_perm("cms.change_page_object", page):
             messages.warning(
                 request,
-                _("You don't have the permission to restore revisions of this page."),
+                _("You don't have the permission to restore versions of this page."),
             )
 
         selected_revision = page_translations.filter(
@@ -87,7 +88,7 @@ class PageRevisionView(TemplateView):
         if page.archived:
             messages.warning(
                 request,
-                _("You cannot restore revisions of this page because it is archived."),
+                _("You cannot restore versions of this page because it is archived."),
             )
 
         return render(
@@ -103,7 +104,7 @@ class PageRevisionView(TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument
+    # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Restore a previous revision of a page translation
@@ -132,16 +133,18 @@ class PageRevisionView(TemplateView):
             language=language, version=request.POST.get("revision")
         ).first()
 
+        redirect_to_page_revisions = redirect(
+            "page_revisions",
+            **{
+                "page_id": page.id,
+                "region_slug": region.slug,
+                "language_slug": language.slug,
+            },
+        )
+
         if not revision:
             messages.error(request, _("This revision does not exist."))
-            return redirect(
-                "page_revisions",
-                **{
-                    "page_id": page.id,
-                    "region_slug": region.slug,
-                    "language_slug": language.slug,
-                },
-            )
+            return redirect_to_page_revisions
 
         if not request.user.has_perm("cms.change_page_object", page):
             raise PermissionDenied(
@@ -150,59 +153,76 @@ class PageRevisionView(TemplateView):
 
         current_revision = page.get_translation(language.slug)
 
+        if "submit_draft" in request.POST:
+            desired_status = status.DRAFT
+        elif "submit_review" in request.POST:
+            desired_status = status.REVIEW
+        elif "submit_public" in request.POST:
+            desired_status = status.PUBLIC
+        elif "submit_reject" in request.POST:
+            # If the current version should be rejected, return to the latest version that is neither an auto save nor in review
+            revision = page.translations.filter(
+                language=language, status__in=[status.DRAFT, status.PUBLIC]
+            ).first()
+            if not revision:
+                messages.error(
+                    request,
+                    _("You cannot reject changes if there is no version to return to."),
+                )
+                return redirect_to_page_revisions
+            desired_status = revision.status
+        else:
+            raise PermissionDenied(
+                f"{request.user!r} tried to restore {revision!r} of {page!r} without status"
+            )
+
+        # Assume that changing to an older revision is not a minor change by default
+        minor_edit = False
         if (
             revision.slug == current_revision.slug
             and revision.title == current_revision.title
             and revision.content == current_revision.content
         ):
-            messages.error(
-                request,
-                _(
-                    "This revision is identical to the current version of this translation."
-                ),
+            minor_edit = True
+            if desired_status == status.PUBLIC:
+                if current_revision.status == status.PUBLIC:
+                    messages.info(request, _("No changes detected, but date refreshed"))
+                else:
+                    messages.success(
+                        request,
+                        _("No changes detected, but status changed to published"),
+                    )
+            else:
+                messages.error(
+                    request,
+                    _(
+                        "This version is identical to the current version of this translation."
+                    ),
+                )
+                return redirect_to_page_revisions
+
+        if desired_status == status.DRAFT and not request.user.has_perm(
+            "cms.publish_page_object", page
+        ):
+            raise PermissionDenied(
+                f"{request.user!r} does not have the permission to restore {revision!r} of {page!r} as draft"
             )
-            return redirect(
-                "page_revisions",
-                **{
-                    "page_id": page.id,
-                    "region_slug": region.slug,
-                    "language_slug": language.slug,
-                },
+        if desired_status == status.PUBLIC and not request.user.has_perm(
+            "cms.publish_page_object", page
+        ):
+            raise PermissionDenied(
+                f"{request.user!r} does not have the permission to restore the public {revision!r} of {page!r}"
             )
+
+        # Delete all now outdated links
         current_revision.links.all().delete()
+        # Create new version
         revision.pk = None
         revision.version = current_revision.version + 1
-
-        if "submit_draft" in request.POST:
-            if not request.user.has_perm("cms.publish_page_object", page):
-                raise PermissionDenied(
-                    f"{request.user!r} does not have the permission to restore {revision!r} of {page!r} as draft"
-                )
-            revision.status = status.DRAFT
-        elif "submit_review" in request.POST:
-            revision.status = status.REVIEW
-        elif "submit_public" in request.POST:
-            if not request.user.has_perm("cms.publish_page_object", page):
-                raise PermissionDenied(
-                    f"{request.user!r} does not have the permission to restore the public {revision!r} of {page!r}"
-                )
-            revision.status = status.PUBLIC
-
+        revision.status = desired_status
+        revision.minor_edit = minor_edit
         revision.save()
 
-        messages.success(request, _("The revision was successfully restored"))
+        messages.success(request, _("The version was successfully restored"))
 
-        page_translations = page.translations.filter(language=language)
-
-        return render(
-            request,
-            self.template_name,
-            {
-                **self.get_context_data(**kwargs),
-                "page": page,
-                "page_translations": page_translations,
-                "api_revision": page_translations.filter(status=status.PUBLIC).first(),
-                "selected_revision": revision,
-                "language": language,
-            },
-        )
+        return redirect_to_page_revisions

@@ -9,6 +9,7 @@ UNRELEASED
 * [ [#1607](https://github.com/digitalfabrik/integreat-cms/issues/1607) ] Count words of source translation in translation report
 * [ [#1674](https://github.com/digitalfabrik/integreat-cms/issues/1674) ] Improve language tree node creation
 * [ [#1591](https://github.com/digitalfabrik/integreat-cms/issues/1591) ] Add bulk actions for language tree nodes
+* [ [#1673](https://github.com/digitalfabrik/integreat-cms/issues/1673) ] Add possibility to reject pending reviews and discard auto saves
 
 
 2022.8.3
