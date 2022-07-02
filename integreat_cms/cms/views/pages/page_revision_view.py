@@ -221,6 +221,8 @@ class PageRevisionView(PageContextMixin, TemplateView):
         revision.version = current_revision.version + 1
         revision.status = desired_status
         revision.minor_edit = minor_edit
+        # Reset author to current user
+        revision.creator = request.user
         revision.save()
 
         messages.success(request, _("The version was successfully restored"))

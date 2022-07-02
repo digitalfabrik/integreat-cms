@@ -164,6 +164,8 @@ class ImprintRevisionView(TemplateView):
 
         revision.pk = None
         revision.version = current_revision.version + 1
+        # Reset author to current user
+        revision.creator = request.user
 
         if "submit_draft" in request.POST:
             revision.status = status.DRAFT

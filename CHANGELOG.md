@@ -10,6 +10,7 @@ UNRELEASED
 * [ [#1674](https://github.com/digitalfabrik/integreat-cms/issues/1674) ] Improve language tree node creation
 * [ [#1591](https://github.com/digitalfabrik/integreat-cms/issues/1591) ] Add bulk actions for language tree nodes
 * [ [#1673](https://github.com/digitalfabrik/integreat-cms/issues/1673) ] Add possibility to reject pending reviews and discard auto saves
+* [ [#1640](https://github.com/digitalfabrik/integreat-cms/issues/1640) ] Update author when restoring old versions
 
 
 2022.8.3
