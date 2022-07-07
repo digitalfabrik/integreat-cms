@@ -115,6 +115,12 @@ FCM_KEY = os.environ.get("INTEGREAT_CMS_FCM_KEY")
 #: This is ``True`` if :attr:`~integreat_cms.core.settings.FCM_KEY` is set, ``False`` otherwise.
 FCM_ENABLED = bool(FCM_KEY)
 
+#: The available push notification channels
+FCM_CHANNELS = (("news", _("News")),)
+
+#: How many days push notifications are shown in the apps
+FCM_HISTORY_DAYS = 28
+
 
 ###########
 # GVZ API #
@@ -767,14 +773,6 @@ LINKCHECK_IGNORED_URL_TYPES = [
 LINKCHECK_EXCLUDE_ARCHIVED_PAGES = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_EXCLUDE_ARCHIVED_PAGES", "False"))
 )
-
-
-#############################
-# Push Notification Channel #
-#############################
-
-#: The available push notification channels
-CHANNELS = (("news", _("News")),)
 
 
 #########################

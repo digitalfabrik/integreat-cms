@@ -1,9 +1,10 @@
 """
 This module includes functions related to the push notification that are sent via firebase.
 """
+from django.conf import settings
 from django.http import JsonResponse
 from django.utils.formats import date_format
-from django.utils.timezone import localtime
+from django.utils import timezone
 
 from ...cms.models import PushNotificationTranslation
 from ..decorators import json_response
@@ -30,7 +31,10 @@ def sent_push_notifications(request, region_slug, language_slug):
         PushNotificationTranslation.objects.filter(
             push_notification__region__slug=region_slug
         )
-        .filter(push_notification__sent_date__isnull=False)
+        .filter(
+            push_notification__sent_date__gte=timezone.now()
+            - timezone.timedelta(days=settings.FCM_HISTORY_DAYS)
+        )
         .filter(language__slug=language_slug)
         .order_by("-last_updated")
     )
@@ -54,6 +58,6 @@ def transform_notification(pnt):
         "id": str(pnt.pk),
         "title": pnt.title,
         "message": pnt.text,
-        "timestamp": date_format(localtime(pnt.last_updated), "Y-m-d H:i:s"),
+        "timestamp": date_format(timezone.localtime(pnt.last_updated), "Y-m-d H:i:s"),
         "channel": pnt.push_notification.channel,
     }

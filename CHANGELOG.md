@@ -7,6 +7,7 @@ UNRELEASED
 * [ [#1581](https://github.com/digitalfabrik/integreat-cms/issues/1581) ] Improve wording of minor edit label
 * [ [#1580](https://github.com/digitalfabrik/integreat-cms/issues/1580) ] Improve user list
 * [ [#1504](https://github.com/digitalfabrik/integreat-cms/issues/1504) ] Keep filters on pagination
+* [ [#1585](https://github.com/digitalfabrik/integreat-cms/issues/1585) ] Hide news after 28 days
 
 
 2022.6.3
