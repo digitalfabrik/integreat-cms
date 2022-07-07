@@ -7,5 +7,5 @@ In addition, we use the following plugins:
 * :doc:`pytest-django <pytest-django:index>`: Provide a few helpers for Django
 * :doc:`pytest-xdist:index`: Enable distributing tests across multiple CPUs to speed up test execution
 
-For more information, see :doc:`topics/testing/index` and :doc:`topics/testing/overview`.
+For more information, see :doc:`django:topics/testing/index` and :doc:`django:topics/testing/overview`.
 """

@@ -1,7 +1,7 @@
 """
 Django view decorators can be used to restrict the execution of a view function on certain conditions.
 
-For more information, see :doc:`topics/http/decorators`.
+For more information, see :doc:`django:topics/http/decorators`.
 """
 import time
 from functools import wraps

@@ -5,7 +5,7 @@ It exposes the WSGI callable as a module-level variable named ``application``.
 :doc:`wsgi:index` (Web Server Gateway Interface) is a simple calling convention for web servers to forward requests to
 python frameworks (in our case Django).
 
-For more information on this file, see :doc:`howto/deployment/wsgi/index`.
+For more information on this file, see :doc:`django:howto/deployment/wsgi/index`.
 """
 import configparser
 import os

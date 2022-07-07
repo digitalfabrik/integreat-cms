@@ -114,9 +114,9 @@ intersphinx_timeout = 5
 templates_path = ["templates"]
 #: Markup to shorten external links (see :doc:`sphinx:usage/extensions/extlinks`)
 extlinks = {
-    "github": (f"{github_url}/%s", ""),
-    "github-source": (f"{github_url}/blob/develop/%s", ""),
-    "django-source": (f"{django_github_url}/%s", ""),
+    "github": (f"{github_url}/%s", None),
+    "github-source": (f"{github_url}/blob/develop/%s", None),
+    "django-source": (f"{django_github_url}/%s", None),
 }
 #: A string of reStructuredText that will be included at the end of every source file that is read. Used for substitutions.
 rst_epilog = f"""

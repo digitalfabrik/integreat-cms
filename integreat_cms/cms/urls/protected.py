@@ -168,7 +168,7 @@ page_order_table_urlpatterns = [
     ),
 ]
 
-#: The url patterns of this module (see :doc:`topics/http/urls`)
+#: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns = [
     path(
         "admin-dashboard/",

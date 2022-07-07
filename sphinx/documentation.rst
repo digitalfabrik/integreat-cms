@@ -9,7 +9,7 @@ The generation process is divided into two stages:
 1. :doc:`sphinx:man/sphinx-apidoc` is a tool which scans the whole source code of our application in the ``integreat_cms``
    directory and generates ``.rst`` files out of the Python docstrings. These files are then placed in the
    ``sphinx/ref-ext`` directory.
-2. :doc:`man/sphinx-build` generates the html documentation out of the ``.rst`` files located in the sphinx directory.
+2. :doc:`sphinx:man/sphinx-build` generates the html documentation out of the ``.rst`` files located in the sphinx directory.
    It merges the static ``.rst`` files directly in the ``sphinx`` directory together with the files generated in step 1
    in ``sphinx/ref-ext`` and the simplified ``.rst`` files in ``sphinx/ref``.
 
@@ -50,7 +50,7 @@ Cross-referencing
 =================
 
 Whenever you want to reference another module, class or function inside a static documentation page or within a
-docstring, use the according :doc:`usage/restructuredtext/domains` and have a look at :ref:`sphinx:python-roles`.
+docstring, use the according :doc:`sphinx:usage/restructuredtext/domains` and have a look at :ref:`sphinx:python-roles`.
 
 Example:
 ``:class:`~integreat_cms.cms.models.regions.region.Region``` becomes :class:`~integreat_cms.cms.models.regions.region.Region`

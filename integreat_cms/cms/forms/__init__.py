@@ -1,6 +1,6 @@
 """
 Forms for creating and modifying database objects.
-Please refer to :mod:`django.forms` for general information about Django forms (see also: :doc:`topics/forms/index`).
+Please refer to :mod:`django.forms` for general information about Django forms (see also: :doc:`django:topics/forms/index`).
 """
 
 from .chat.chat_message_form import ChatMessageForm
