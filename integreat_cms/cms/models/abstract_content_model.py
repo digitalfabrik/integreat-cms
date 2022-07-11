@@ -59,6 +59,19 @@ class ContentQuerySet(models.QuerySet):
             to_attr="prefetched_public_translations", status=status.PUBLIC
         )
 
+    def prefetch_public_or_draft_translations(self):
+        """
+        Get the queryset including the custom attribute ``prefetched_public_or_draft_translations`` which contains the latest
+        public or draft translations of each content object in each language
+
+        :return: The queryset of content objects
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
+        """
+        return self.prefetch_translations(
+            to_attr="prefetched_public_or_draft_translations",
+            status__in=[status.DRAFT, status.PUBLIC],
+        )
+
     def prefetch_major_public_translations(self):
         """
         Get the queryset including the custom attribute ``prefetched_major_public_translations`` which contains the
@@ -243,6 +256,35 @@ class AbstractContentModel(AbstractBaseModel):
                 except AttributeError:
                     pass
         return public_translation
+
+    @cached_property
+    def prefetched_public_or_draft_translations_by_language_slug(self):
+        """
+        This method returns a mapping from language slugs to their public translations of this object
+
+        :return: The object translation in the requested :class:`~integreat_cms.cms.models.languages.language.Language` or
+                 :obj:`None` if no translation exists
+        :rtype: dict
+        """
+        return self.get_prefetched_translations_by_language_slug(
+            attr="prefetched_public_or_draft_translations",
+            status__in=[status.DRAFT, status.PUBLIC],
+        )
+
+    def get_public_or_draft_translation(self, language_slug):
+        """
+        This function retrieves the newest public or draft translation of a content object.
+
+        :param language_slug: The slug of the requested :class:`~integreat_cms.cms.models.languages.language.Language`
+        :type language_slug: str
+
+        :return: The public translation of a content object
+        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+        """
+        translation = self.prefetched_public_or_draft_translations_by_language_slug.get(
+            language_slug
+        )
+        return translation
 
     @cached_property
     def prefetched_major_public_translations_by_language_slug(self):

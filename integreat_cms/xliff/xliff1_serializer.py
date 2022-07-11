@@ -101,7 +101,7 @@ class Serializer(base_serializer.Serializer):
         source_translation = (
             obj.public_source_translation
             if self.only_public
-            else obj.source_translation
+            else obj.public_or_draft_source_translation
         )
         self.xml.cdata(field.value_to_string(source_translation))
         self.xml.endElement("source")
