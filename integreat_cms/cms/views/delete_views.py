@@ -43,7 +43,10 @@ class CustomModelDeleteMixin(
         :return: The url to redirect on success
         :rtype: str
         """
-        return reverse(f"{self.object._meta.model_name}s")
+        kwargs = {}
+        if self.request.region:
+            kwargs["region_slug"] = self.request.region.slug
+        return reverse(f"{self.object._meta.model_name}s", kwargs=kwargs)
 
     def delete(self, request, *args, **kwargs):
         r"""
