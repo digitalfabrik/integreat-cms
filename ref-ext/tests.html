@@ -359,6 +359,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#custom-filter-form">Custom Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#custom-tree-node-form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#icon-widget">Icon Widget</a></li>
@@ -401,6 +402,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#url-tags">Url Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#user-filters">User Filters</a></li>
 </ul>
 </li>
@@ -633,6 +635,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_filter_form">Custom Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_tree_node_form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.icon_widget">Icon Widget</a></li>
@@ -675,6 +678,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.url_tags">Url Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
 </ul>
 </li>
@@ -870,7 +874,7 @@
              
   <section id="module-tests">
 <span id="tests"></span><h1>Tests<a class="headerlink" href="#module-tests" title="Permalink to this headline"></a></h1>
-<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v7.2.0.dev182+g7dcabc1f4)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
+<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v0.1.dev201+gc2b1d5b)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
 <p>In addition, we use the following plugins:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/index.html" title="(in pytest-cov v3.0.0)"><span class="xref std std-doc">pytest-cov</span></a>: This plugin produces coverage reports.</p></li>
@@ -1048,7 +1052,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.FixtureRequest" title="(in pytest v7.2.0.dev182+g7dcabc1f4)"><em>pytest.FixtureRequest</em></a>) – The request object providing the parametrized role variable through <code class="docutils literal notranslate"><span class="pre">request.param</span></code></p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.FixtureRequest" title="(in pytest v0.1.dev201+gc2b1d5b)"><em>pytest.FixtureRequest</em></a>) – The request object providing the parametrized role variable through <code class="docutils literal notranslate"><span class="pre">request.param</span></code></p></li>
 <li><p><strong>load_test_data</strong> (<em>NoneType</em>) – The fixture providing the test data (see <a class="reference internal" href="#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
 <li><p><strong>django_db_blocker</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/database.html#std-fixture-django_db_blocker" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">django_db_blocker</span></code></a>) – The fixture providing the database blocker</p></li>
 </ul>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-06-30T09:52:21+00:00" />
+    <meta property="article:modified_time" content="2022-07-12T15:45:39+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Templatetags &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -359,6 +359,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-filter-form">Custom Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-tree-node-form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#icon-widget">Icon Widget</a></li>
@@ -401,6 +402,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#settings-tags">Settings Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#text-filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#tree-filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#url-tags">Url Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#user-filters">User Filters</a></li>
 </ul>
 </li>
@@ -633,6 +635,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_filter_form">Custom Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_tree_node_form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.icon_widget">Icon Widget</a></li>
@@ -675,6 +678,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.url_tags">Url Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
 </ul>
 </li>
@@ -1471,6 +1475,30 @@ this filter reduced the output when display in list view</p>
 </dd></dl>
 
 </section>
+<section id="url-tags">
+<h2>Url Tags<a class="headerlink" href="#url-tags" title="Permalink to this headline"></a></h2>
+<p>Contains a collection of tags for working with urls.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.url_tags.</span></span><span class="sig-name descname"><span class="pre">add_queries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">queries</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/url_tags.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This filter adds a query to an url</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The url to modify</p></li>
+<li><p><strong>*queries</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The queries to add to the url. Should contain key-value pairs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The url with a modified query part</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="user-filters">
 <h2>User Filters<a class="headerlink" href="#user-filters" title="Permalink to this headline"></a></h2>
 <p>This is a collection of tags and filters which are useful for all user forms</p>
@@ -1512,7 +1540,7 @@ this filter reduced the output when display in list view</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 30, 2022.
+      <span class="lastupdated">Last updated on Jul 12, 2022.
       </span></p>
   </div>
 

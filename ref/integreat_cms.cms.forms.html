@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-06-29T17:43:09+00:00" />
+    <meta property="article:modified_time" content="2022-07-12T15:45:39+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Forms &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -359,6 +359,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#custom-content-model-form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-filter-form">Custom Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#custom-tree-node-form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#icon-widget">Icon Widget</a></li>
@@ -401,6 +402,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#url-tags">Url Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#user-filters">User Filters</a></li>
 </ul>
 </li>
@@ -633,6 +635,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_filter_form">Custom Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_tree_node_form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.icon_widget">Icon Widget</a></li>
@@ -675,6 +678,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.url_tags">Url Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
 </ul>
 </li>
@@ -1039,6 +1043,62 @@ to <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</spa
 </dd></dl>
 
 </section>
+<section id="custom-filter-form">
+<h2>Custom Filter Form<a class="headerlink" href="#custom-filter-form" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.custom_filter_form.</span></span><span class="sig-name descname"><span class="pre">CustomFilterForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_filter_form.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.Form</span></code></a></p>
+<p>Base class for filter forms</p>
+<p><strong>Form fields:</strong></p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_filter_form.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Initialize the custom filter form</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filters_visible</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_filter_form.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function determines whether the filter form is visible by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether any filters (other than search) were changed</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_enabled</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_filter_form.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function determines whether the filters are applied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether filtering should be performed</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_filter_form.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="custom-model-form">
 <h2>Custom Model Form<a class="headerlink" href="#custom-model-form" title="Permalink to this headline"></a></h2>
 <dl class="py class">
@@ -1257,7 +1317,7 @@ additional queries to render the node titles should be avoided.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 29, 2022.
+      <span class="lastupdated">Last updated on Jul 12, 2022.
       </span></p>
   </div>
 

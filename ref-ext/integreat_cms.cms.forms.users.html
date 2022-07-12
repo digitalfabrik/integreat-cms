@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-06-18T17:41:07+00:00" />
+    <meta property="article:modified_time" content="2022-07-12T15:45:39+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Users &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -359,6 +359,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.statistics.html">Statistics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#custom-content-model-form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#custom-filter-form">Custom Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#custom-tree-node-form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.forms.html#icon-widget">Icon Widget</a></li>
@@ -401,6 +402,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#url-tags">Url Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#user-filters">User Filters</a></li>
 </ul>
 </li>
@@ -633,6 +635,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.statistics.html">Statistics</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_content_model_form">Custom Content Model Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_filter_form">Custom Filter Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_tree_node_form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.icon_widget">Icon Widget</a></li>
@@ -675,6 +678,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.url_tags">Url Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.user_filters">User Filters</a></li>
 </ul>
 </li>
@@ -1805,8 +1809,8 @@ The opposite of the hidden_fields() method.</p>
 <span id="user-filter-form"></span><h2>User Filter Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.user_filter_form" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.users.user_filter_form.</span></span><span class="sig-name descname"><span class="pre">UserFilterForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_order=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.Form</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.users.user_filter_form.</span></span><span class="sig-name descname"><span class="pre">UserFilterForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_filter_form.CustomFilterForm" title="integreat_cms.cms.forms.custom_filter_form.CustomFilterForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.forms.custom_filter_form.CustomFilterForm</span></code></a></p>
 <p>Form for filtering user objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
@@ -1817,8 +1821,14 @@ The opposite of the hidden_fields() method.</p>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_order=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/forms/forms.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_filter_form.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize the custom filter form</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.add_error">
@@ -1853,7 +1863,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.apply">
-<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">users</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.apply" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">users</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.apply" title="Permalink to this definition"></a></dt>
 <dd><p>Filter the users list according to the given filter data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1888,7 +1898,7 @@ prefix set.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.changed_data">
-<span class="sig-name descname"><span class="pre">changed_data</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.changed_data" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">changed_data</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.changed_data" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1902,23 +1912,23 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.default_renderer">
-<span class="sig-name descname"><span class="pre">default_renderer</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.default_renderer" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">default_renderer</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.default_renderer" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.errors">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">errors</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.errors" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">errors</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.errors" title="Permalink to this definition"></a></dt>
 <dd><p>Return an ErrorDict for the data provided for the form.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.field_order">
-<span class="sig-name descname"><span class="pre">field_order</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.field_order" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">field_order</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.field_order" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.filter_by_query">
-<span class="sig-name descname"><span class="pre">filter_by_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">users</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.filter_by_query" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filter_by_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">users</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.filter_by_query" title="Permalink to this definition"></a></dt>
 <dd><p>Filter the pages list by a given search query</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1935,7 +1945,7 @@ association with the field named ‘__all__’.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.filters_visible">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filters_visible</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.filters_visible" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filters_visible</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.filters_visible" title="Permalink to this definition"></a></dt>
 <dd><p>This function determines whether the filter form is visible by default.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1980,7 +1990,7 @@ Useful for manual form layout in templates.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.is_enabled">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_enabled</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.is_enabled" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_enabled</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.is_enabled" title="Permalink to this definition"></a></dt>
 <dd><p>This function determines whether the filters are applied.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -2007,7 +2017,7 @@ FileInput, or False otherwise.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.media">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.media" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.media" title="Permalink to this definition"></a></dt>
 <dd><p>Return all media required to render the widgets on this form.</p>
 </dd></dl>
 
@@ -2033,12 +2043,12 @@ without redefining ordering.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.prefix">
-<span class="sig-name descname"><span class="pre">prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.prefix" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prefix</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.prefix" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.use_required_attribute">
-<span class="sig-name descname"><span class="pre">use_required_attribute</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.use_required_attribute" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">use_required_attribute</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm.use_required_attribute" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2594,7 +2604,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 18, 2022.
+      <span class="lastupdated">Last updated on Jul 12, 2022.
       </span></p>
   </div>
 
