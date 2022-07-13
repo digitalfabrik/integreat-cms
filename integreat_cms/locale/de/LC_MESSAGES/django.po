@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-08 14:37+0000\n"
+"POT-Creation-Date: 2022-09-08 15:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1359,7 +1359,7 @@ msgid "Non-recurring events"
 msgstr "Einmalig stattfindende Veranstaltungen"
 
 #: cms/constants/region_status.py:16
-#: cms/templates/language_tree/language_tree.html:27
+#: cms/templates/languagetreenodes/languagetreenode_list.html:27
 #: cms/templates/users/region_user_list.html:27
 #: cms/templates/users/region_user_list_row.html:34
 #: cms/templates/users/user_list.html:36
@@ -1658,7 +1658,7 @@ msgstr "Alle Regionen"
 #: cms/templates/analytics/translation_coverage.html:38
 #: cms/templates/feedback/admin_feedback_list.html:35
 #: cms/templates/feedback/region_feedback_list.html:35
-#: cms/templates/language_tree/language_tree.html:22
+#: cms/templates/languagetreenodes/languagetreenode_list.html:22
 #: cms/templates/pages/_page_xliff_import_diff.html:30
 #: cms/templates/statistics/statistics_overview.html:49
 msgid "Language"
@@ -2406,8 +2406,8 @@ msgid ""
 msgstr "Eindeutiger Bezeichner für URLs, ohne Leerzeichen und Sonderzeichen."
 
 #: cms/models/languages/language.py:37
-#: cms/templates/language_tree/language_tree.html:24
 #: cms/templates/languages/language_list.html:24
+#: cms/templates/languagetreenodes/languagetreenode_list.html:24
 msgid "BCP47 Tag"
 msgstr "BCP47 Tag"
 
@@ -4365,7 +4365,7 @@ msgstr "Als ungelesen markieren"
 
 #: cms/templates/feedback/admin_feedback_list.html:141
 #: cms/templates/feedback/region_feedback_list.html:133
-#: cms/templates/language_tree/language_tree.html:29
+#: cms/templates/languagetreenodes/languagetreenode_list.html:29
 msgid "Delete"
 msgstr "Löschen"
 
@@ -4566,63 +4566,17 @@ msgstr "Noch nicht gespeichert"
 msgid "Implications on other translations"
 msgstr "Auswirkungen auf andere Übersetzungen"
 
-#: cms/templates/language_tree/language_tree.html:7
-msgid "Language tree"
-msgstr "Sprach-Baum"
+#: cms/templates/languages/language_form.html:12
+#, python-format
+msgid "Edit language \"%(translated_language_name)s\""
+msgstr "Sprache \"%(translated_language_name)s\" bearbeiten"
 
-#: cms/templates/language_tree/language_tree.html:11
-msgid "Create language tree node"
-msgstr "Sprach-Knoten hinzufügen"
+#: cms/templates/languages/language_form.html:15
+msgid "Create new language"
+msgstr "Neue Sprache erstellen"
 
-#: cms/templates/language_tree/language_tree.html:21
-#: cms/templates/pages/page_tree.html:67
-#: cms/templates/pages/page_tree_archived.html:48
-msgid "Hierarchy"
-msgstr "Hierarchie"
-
-#: cms/templates/language_tree/language_tree.html:23
-#: cms/templates/languages/language_list.html:23
-#: cms/templates/offertemplates/offertemplate_list.html:21
-#: cms/templates/organizations/organization_list.html:21
-msgid "Slug"
-msgstr "URL-Parameter"
-
-#: cms/templates/language_tree/language_tree.html:25
-#: cms/templates/languages/language_list.html:26
-msgid "Text direction"
-msgstr "Schreibrichtung"
-
-#: cms/templates/language_tree/language_tree.html:26
-#: cms/templates/languages/language_list.html:25
-msgid "Country Flags"
-msgstr "Länderflaggen"
-
-#: cms/templates/language_tree/language_tree.html:28
-msgid "Visible"
-msgstr "sichtbar"
-
-#: cms/templates/language_tree/language_tree.html:39
-msgid "No language tree available yet."
-msgstr "Noch kein Sprach-Baum vorhanden."
-
-#: cms/templates/language_tree/language_tree_node.html:60
-msgid "You cannot delete a node which has children."
-msgstr "Sie können keinen Knoten mit untergeordneten Sprachen löschen."
-
-#: cms/templates/language_tree/language_tree_node.html:60
-msgid "Delete entire language node"
-msgstr "Lösche gesamten Sprachknoten"
-
-#: cms/templates/language_tree/language_tree_node_form.html:15
-msgid "Edit language tree node"
-msgstr "Sprach-Knoten bearbeiten"
-
-#: cms/templates/language_tree/language_tree_node_form.html:17
-msgid "Add language"
-msgstr "Sprache hinzufügen"
-
-#: cms/templates/language_tree/language_tree_node_form.html:23
 #: cms/templates/languages/language_form.html:19
+#: cms/templates/languagetreenodes/languagetreenode_form.html:23
 #: cms/templates/linkcheck/link_list_row.html:66
 #: cms/templates/offertemplates/offertemplate_form.html:20
 #: cms/templates/organizations/organization_form.html:19
@@ -4633,19 +4587,6 @@ msgstr "Sprache hinzufügen"
 #: cms/templates/users/user_form.html:19
 msgid "Save"
 msgstr "Speichern"
-
-#: cms/templates/language_tree/language_tree_node_form.html:30
-msgid "Language tree node"
-msgstr "Sprach-Knoten"
-
-#: cms/templates/languages/language_form.html:12
-#, python-format
-msgid "Edit language \"%(translated_language_name)s\""
-msgstr "Sprache \"%(translated_language_name)s\" bearbeiten"
-
-#: cms/templates/languages/language_form.html:15
-msgid "Create new language"
-msgstr "Neue Sprache erstellen"
 
 #: cms/templates/languages/language_form.html:27
 #: cms/templates/offertemplates/offertemplate_list.html:20
@@ -4712,6 +4653,23 @@ msgstr "Name auf"
 msgid "Native name"
 msgstr "Nativer Name"
 
+#: cms/templates/languages/language_list.html:23
+#: cms/templates/languagetreenodes/languagetreenode_list.html:23
+#: cms/templates/offertemplates/offertemplate_list.html:21
+#: cms/templates/organizations/organization_list.html:21
+msgid "Slug"
+msgstr "URL-Parameter"
+
+#: cms/templates/languages/language_list.html:25
+#: cms/templates/languagetreenodes/languagetreenode_list.html:26
+msgid "Country Flags"
+msgstr "Länderflaggen"
+
+#: cms/templates/languages/language_list.html:26
+#: cms/templates/languagetreenodes/languagetreenode_list.html:25
+msgid "Text direction"
+msgstr "Schreibrichtung"
+
 #: cms/templates/languages/language_list.html:27
 #: cms/templates/offertemplates/offertemplate_list.html:24
 #: cms/templates/regions/region_list.html:22
@@ -4740,6 +4698,48 @@ msgstr "Anzahl an Regionen"
 #: cms/templates/languages/language_list.html:39
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
+
+#: cms/templates/languagetreenodes/languagetreenode_form.html:15
+msgid "Edit language tree node"
+msgstr "Sprach-Knoten bearbeiten"
+
+#: cms/templates/languagetreenodes/languagetreenode_form.html:17
+msgid "Add language"
+msgstr "Sprache hinzufügen"
+
+#: cms/templates/languagetreenodes/languagetreenode_form.html:30
+msgid "Language tree node"
+msgstr "Sprach-Knoten"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:7
+msgid "Language tree"
+msgstr "Sprach-Baum"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:11
+msgid "Create language tree node"
+msgstr "Sprach-Knoten hinzufügen"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:21
+#: cms/templates/pages/page_tree.html:67
+#: cms/templates/pages/page_tree_archived.html:48
+msgid "Hierarchy"
+msgstr "Hierarchie"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:28
+msgid "Visible"
+msgstr "sichtbar"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:39
+msgid "No language tree available yet."
+msgstr "Noch kein Sprach-Baum vorhanden."
+
+#: cms/templates/languagetreenodes/languagetreenode_list_row.html:52
+msgid "You cannot delete a node which has children."
+msgstr "Sie können keinen Knoten mit untergeordneten Sprachen löschen."
+
+#: cms/templates/languagetreenodes/languagetreenode_list_row.html:52
+msgid "Delete entire language node"
+msgstr "Lösche gesamten Sprachknoten"
 
 #: cms/templates/linkcheck/link_list_row.html:39
 msgid "Go to source"
@@ -6354,7 +6354,6 @@ msgid "Feedback was successfully deleted"
 msgstr "Feedback wurde erfolgreich gelöscht"
 
 #: cms/views/form_views.py:117 cms/views/imprint/imprint_sbs_view.py:209
-#: cms/views/language_tree/language_tree_node_form_view.py:105
 #: cms/views/pages/page_sbs_view.py:214 cms/views/roles/role_form_view.py:93
 #: cms/views/settings/user_settings_view.py:91
 #: cms/views/settings/user_settings_view.py:108
@@ -6455,15 +6454,15 @@ msgstr ""
 "Sie können die Side-by-Side-Ansicht nicht verwenden, wenn die Quell-"
 "Übersetzung (in diesem Fall {source_language}) nicht existiert."
 
-#: cms/views/language_tree/language_tree_actions.py:59
+#: cms/views/language_tree/language_tree_actions.py:55
 msgid "A region can only have one root language."
 msgstr "Eine Region kann nur eine Standard-Sprache besitzen."
 
-#: cms/views/language_tree/language_tree_actions.py:68
+#: cms/views/language_tree/language_tree_actions.py:64
 msgid "The language tree node \"{}\" was successfully moved."
 msgstr "Der Sprach-Knoten \"{}\" wurde erfolgreich verschoben."
 
-#: cms/views/language_tree/language_tree_actions.py:139
+#: cms/views/language_tree/language_tree_actions.py:133
 msgid ""
 "The language tree node \"{}\" and all corresponding translations were "
 "successfully deleted."
@@ -6482,14 +6481,6 @@ msgid ""
 msgstr ""
 "Alle Übersetzungen zu Seiten, Orten, Veranstaltungen und Push-"
 "Benachrichtigungen zu dieser Sprache werden ebenfalls gelöscht."
-
-#: cms/views/language_tree/language_tree_node_form_view.py:113
-msgid "Language tree node for \"{}\" was successfully saved"
-msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich gespeichert"
-
-#: cms/views/language_tree/language_tree_node_form_view.py:121
-msgid "Language tree node for \"{}\" was successfully created"
-msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/linkcheck/linkcheck_list_view.py:180
 msgid "URL was successfully replaced"
@@ -7254,6 +7245,12 @@ msgstr ""
 
 #~ msgid "created"
 #~ msgstr "Erstellt"
+
+#~ msgid "Language tree node for \"{}\" was successfully saved"
+#~ msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich gespeichert"
+
+#~ msgid "Language tree node for \"{}\" was successfully created"
+#~ msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich erstellt"
 
 #~ msgid "Contents"
 #~ msgstr "Inhalte"

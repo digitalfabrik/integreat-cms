@@ -7,6 +7,7 @@ from django.urls import include, path
 
 from ..forms import (
     LanguageForm,
+    LanguageTreeNodeForm,
     OfferTemplateForm,
     OrganizationForm,
     RegionForm,
@@ -1126,32 +1127,36 @@ urlpatterns = [
                             path(
                                 "",
                                 language_tree.LanguageTreeView.as_view(),
-                                name="language_tree",
+                                name="languagetreenodes",
                             ),
                             path(
                                 "new/",
-                                language_tree.LanguageTreeNodeFormView.as_view(),
-                                name="new_language_tree_node",
+                                form_views.CustomCreateView.as_view(
+                                    form_class=LanguageTreeNodeForm
+                                ),
+                                name="new_languagetreenode",
                             ),
                             path(
-                                "<int:language_tree_node_id>/",
+                                "<int:pk>/",
                                 include(
                                     [
                                         path(
                                             "edit/",
-                                            language_tree.LanguageTreeNodeFormView.as_view(),
-                                            name="edit_language_tree_node",
+                                            form_views.CustomUpdateView.as_view(
+                                                form_class=LanguageTreeNodeForm
+                                            ),
+                                            name="edit_languagetreenode",
                                         ),
                                         path(
                                             "delete/",
                                             language_tree.delete_language_tree_node,
-                                            name="delete_language_tree_node",
+                                            name="delete_languagetreenode",
                                         ),
                                         # warning: the move url is also hardcoded in src/integreat_cms/static/js/tree_drag_and_drop.js
                                         path(
                                             "move/<int:target_id>/<slug:target_position>/",
                                             language_tree.move_language_tree_node,
-                                            name="move_language_tree_node",
+                                            name="move_languagetreenode",
                                         ),
                                     ]
                                 ),

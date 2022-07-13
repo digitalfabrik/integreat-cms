@@ -7,7 +7,7 @@
     <h1 class="heading">{% trans 'Language tree' %}</h1>
     <div class="flex flex-wrap justify-end">
         {% if perms.cms.change_languagetreenode %}
-            <a href="{% url 'new_language_tree_node' region_slug=request.region.slug %}" class="btn">
+            <a href="{% url 'new_languagetreenode' region_slug=request.region.slug %}" class="btn">
                 {% trans 'Create language tree node' %}
             </a>
         {% endif %}
@@ -31,7 +31,7 @@
         </thead>
         <tbody>
             {% for node in languagetreenodes %}
-                {% include "language_tree/language_tree_node.html" %}
+                {% include "languagetreenodes/languagetreenode_list_row.html" %}
             {% empty %}
                 <tr>
                     <td></td>

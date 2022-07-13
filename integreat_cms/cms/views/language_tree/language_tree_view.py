@@ -14,8 +14,6 @@ class LanguageTreeView(LanguageTreeContextMixin, ModelListView):
     This view is available in regions.
     """
 
-    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "language_tree/language_tree.html"
     #: The model of this list view
     model = LanguageTreeNode
     #: Disable pagination for language tree
@@ -28,4 +26,5 @@ class LanguageTreeView(LanguageTreeContextMixin, ModelListView):
         :return: The language tree of the current region
         :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode ]
         """
+        # Return the annotated language tree of the current region to save a few database queries
         return self.request.region.language_tree
