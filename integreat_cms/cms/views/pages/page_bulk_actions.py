@@ -100,9 +100,13 @@ class ExportXliffView(PageBulkActionMixin, BulkActionView):
             messages.success(
                 request,
                 __(
-                    _("XLIFF file for translation to {} successfully created.").format(
-                        target_language
-                    ),
+                    _(
+                        "XLIFF file with published pages only for translation to {} successfully created."
+                    ).format(target_language)
+                    if self.only_public
+                    else _(
+                        "XLIFF file with unpublished and published pages for translation to {} successfully created."
+                    ).format(target_language),
                     _(
                         "If the download does not start automatically, please click {}here{}."
                     ).format(

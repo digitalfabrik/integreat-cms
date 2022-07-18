@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-18 10:31+0000\n"
+"POT-Creation-Date: 2022-07-18 13:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -5174,18 +5174,19 @@ msgstr "Veröffentlichte Seiten als PDF exportieren"
 
 #: cms/templates/pages/page_tree.html:163
 #, python-format
-msgid "Export selected pages for %(language_translated_name)s translation"
+msgid "Export published pages for %(language_translated_name)s translation"
 msgstr ""
-"Ausgewählte Seiten für die %(language_translated_name)s-Übersetzung "
+"Nur veröffentlichte Seiten für die %(language_translated_name)s-Übersetzung "
 "exportieren"
 
 #: cms/templates/pages/page_tree.html:164
 #, python-format
 msgid ""
-"Export only published pages for %(language_translated_name)s translation"
+"Export unpublished (⚠️) and published pages for %(language_translated_name)s "
+"translation"
 msgstr ""
-"Nur veröffentlichte Seiten für die %(language_translated_name)s-Übersetzung "
-"exportieren"
+"Nicht (⚠️) veröffentlichte und veröffentlichte Seiten für die "
+"%(language_translated_name)s-Übersetzung exportieren"
 
 #: cms/templates/pages/page_tree.html:166
 msgid "You cannot export XLIFF files for the default language"
@@ -6728,11 +6729,23 @@ msgstr ""
 msgid "Marked all translations of this page as up-to-date"
 msgstr "Alle Übersetzungen dieser Seite als aktuell markiert."
 
-#: cms/views/pages/page_bulk_actions.py:103
-msgid "XLIFF file for translation to {} successfully created."
-msgstr "XLIFF Datei für die Übersetzung nach {} wurde erfolgreich erstellt."
+#: cms/views/pages/page_bulk_actions.py:104
+msgid ""
+"XLIFF file with published pages only for translation to {} successfully "
+"created."
+msgstr ""
+"XLIFF Datei nur mit veröffentlichten Seiten für die Übersetzung nach{} wurde "
+"erfolgreich erstellt."
 
-#: cms/views/pages/page_bulk_actions.py:107
+#: cms/views/pages/page_bulk_actions.py:108
+msgid ""
+"XLIFF file with unpublished and published pages for translation to {} "
+"successfully created."
+msgstr ""
+"XLIFF Datei mit nicht veröffentlichten und veröffentlichten Seitenfür die "
+"Übersetzung nach {} wurde erfolgreich erstellt."
+
+#: cms/views/pages/page_bulk_actions.py:111
 msgid "If the download does not start automatically, please click {}here{}."
 msgstr ""
 "Wenn der Download nicht automatisch startet, klicken Sie bitte {}hier{}."
@@ -7134,6 +7147,11 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Export selected pages for %(language_translated_name)s translation"
+#~ msgstr ""
+#~ "Ausgewählte Seiten für die %(language_translated_name)s-Übersetzung "
+#~ "exportieren"
 
 #~ msgid "Organization"
 #~ msgstr "Organisation"

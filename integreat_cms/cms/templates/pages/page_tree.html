@@ -160,22 +160,22 @@
                     </option>
                     {% if request.user.expert_mode %}
                         {% with language_translated_name=language.translated_name %}
-                            {% blocktrans asvar xliff_export_all %}Export selected pages for {{ language_translated_name }} translation{% endblocktrans %}
-                            {% blocktrans asvar xliff_export_public %}Export only published pages for {{ language_translated_name }} translation{% endblocktrans %}
+                            {% blocktrans asvar xliff_export_public %}Export published pages for {{ language_translated_name }} translation{% endblocktrans %}
+                            {% blocktrans asvar xliff_export_all %}Export unpublished (⚠️) and published pages for {{ language_translated_name }} translation{% endblocktrans %}
                             {% if language == request.region.default_language %}
                                 {% blocktrans asvar xliff_export_disabled %}You cannot export XLIFF files for the default language{% endblocktrans %}
                                 <option disabled title="{{ xliff_export_disabled }}">
-                                    {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                                    {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
                                 </option>
                                 <option disabled title="{{ xliff_export_disabled }}">
-                                    {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
-                                </option>
-                            {% else %}
-                                <option data-bulk-action="{% url 'download_xliff' region_slug=request.region.slug language_slug=language.slug %}">
                                     {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
                                 </option>
+                            {% else %}
                                 <option data-bulk-action="{% url 'download_xliff_only_public' region_slug=request.region.slug language_slug=language.slug %}">
                                     {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                                </option>
+                                <option data-bulk-action="{% url 'download_xliff' region_slug=request.region.slug language_slug=language.slug %}">
+                                    {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
                                 </option>
                             {% endif %}
                         {% endwith %}
