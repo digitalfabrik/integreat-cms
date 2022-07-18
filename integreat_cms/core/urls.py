@@ -12,9 +12,9 @@ Delegates the following namespaces:
 
 * ``/`` to :mod:`~integreat_cms.cms.urls`
 
-Additionally, the error handlers in :mod:`~integreat_cms.cms.views.error_handler` are referenced here (see :doc:`ref/urls`).
+Additionally, the error handlers in :mod:`~integreat_cms.cms.views.error_handler` are referenced here (see :doc:`django:ref/urls`).
 
-For more information on this file, see :doc:`topics/http/urls`.
+For more information on this file, see :doc:`django:topics/http/urls`.
 """
 from django.conf import settings
 from django.urls import include, path
@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 
-#: The url patterns of this module (see :doc:`topics/http/urls`)
+#: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns = [
     path("", include("integreat_cms.api.urls")),
     path(

@@ -119,7 +119,7 @@ region_api_urlpatterns = [
     path("hidden/", hiddenregions, name="regions_hidden"),
 ]
 
-#: The url patterns of this module (see :doc:`topics/http/urls`)
+#: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns = [
     path("api/regions/", include(region_api_urlpatterns)),
     path("wp-json/extensions/v3/sites/", include(region_api_urlpatterns)),

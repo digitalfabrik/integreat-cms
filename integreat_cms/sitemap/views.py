@@ -138,7 +138,7 @@ class SitemapView(TemplateResponseMixin, View):
             [],
         )
         # Pick the latest last_modified if all sitemaps
-        last_modified = max([sitemap.latest_lastmod for sitemap in sitemaps])
+        last_modified = max(sitemap.latest_lastmod for sitemap in sitemaps)
 
         logger.debug("Sitemap urls %r", urls)
 

@@ -82,8 +82,8 @@ class WebappSitemap(ABC, Sitemap):
         This patch is required because the inbuilt function can only deal with the i18n backend languages and not with
         our custom language model.
         Additionally, it overwrites the protocol and domain of the urls with
-        :attr:`~integreat_cms.core.settings.WEBAPP_URL` because out of the box, :doc:`ref/contrib/sitemaps` does only
-        support this functionality when used together with :doc:`ref/contrib/sites`.
+        :attr:`~integreat_cms.core.settings.WEBAPP_URL` because out of the box, :doc:`django:ref/contrib/sitemaps` does only
+        support this functionality when used together with :doc:`django:ref/contrib/sites`.
 
         :param page: The page for the paginator (will always be ``1`` in our case)
         :type page: int
@@ -105,7 +105,6 @@ class WebappSitemap(ABC, Sitemap):
             url["alternates"] = self.sitemap_alternates(url["item"])
         return urls
 
-    # pylint: disable=no-self-use
     def sitemap_alternates(self, obj):
         """
         This function returns the sitemap alternatives for a given object

@@ -21,7 +21,6 @@ class OfferListFeedback(Feedback):
         return _("Offer List")
 
     @cached_property
-    # pylint: disable=no-self-use
     def object_url(self):
         """
         This property returns the url to the object this feedback comments on.
