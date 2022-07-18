@@ -8,6 +8,7 @@ UNRELEASED
 * [ [#1580](https://github.com/digitalfabrik/integreat-cms/issues/1580) ] Improve user list
 * [ [#1504](https://github.com/digitalfabrik/integreat-cms/issues/1504) ] Keep filters on pagination
 * [ [#1585](https://github.com/digitalfabrik/integreat-cms/issues/1585) ] Hide news after 28 days
+* [ [#1600](https://github.com/digitalfabrik/integreat-cms/issues/1600) ] Improve XLIFF export bulk option description
 
 
 2022.6.3
