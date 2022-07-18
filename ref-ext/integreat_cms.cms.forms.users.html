@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-07-12T15:45:39+00:00" />
+    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Users &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -876,14 +877,14 @@
            <div itemprop="articleBody">
              
   <section id="module-integreat_cms.cms.forms.users">
-<span id="users"></span><h1>Users<a class="headerlink" href="#module-integreat_cms.cms.forms.users" title="Permalink to this headline"></a></h1>
+<span id="users"></span><h1>Users<a class="headerlink" href="#module-integreat_cms.cms.forms.users" title="Permalink to this heading"></a></h1>
 <p>Forms for creating and modifying user objects</p>
 <section id="module-integreat_cms.cms.forms.users.authentication_form">
-<span id="authentication-form"></span><h2>Authentication Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.authentication_form" title="Permalink to this headline"></a></h2>
+<span id="authentication-form"></span><h2>Authentication Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.authentication_form" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.authentication_form.AuthenticationForm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.users.authentication_form.</span></span><span class="sig-name descname"><span class="pre">AuthenticationForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_order=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/authentication_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.Form</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Form</span></code></a></p>
 <p>Form to check the password of an already authenticated user. Used for critical operations where a valid session
 might not be enough (e.g. modifying 2-FA options).</p>
 <p><strong>Form fields:</strong></p>
@@ -1065,11 +1066,11 @@ The opposite of the hidden_fields() method.</p>
 
 </section>
 <section id="module-integreat_cms.cms.forms.users.password_reset_form">
-<span id="password-reset-form"></span><h2>Password Reset Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.password_reset_form" title="Permalink to this headline"></a></h2>
+<span id="password-reset-form"></span><h2>Password Reset Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.password_reset_form" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.users.password_reset_form.</span></span><span class="sig-name descname"><span class="pre">CustomPasswordResetForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_order=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/password_reset_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.PasswordResetForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.PasswordResetForm</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.PasswordResetForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PasswordResetForm</span></code></a></p>
 <p>A custom form to attach the logo to the password reset email</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
@@ -1284,11 +1285,11 @@ The opposite of the hidden_fields() method.</p>
 
 </section>
 <section id="module-integreat_cms.cms.forms.users.region_user_form">
-<span id="region-user-form"></span><h2>Region User Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.region_user_form" title="Permalink to this headline"></a></h2>
+<span id="region-user-form"></span><h2>Region User Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.region_user_form" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.region_user_form.RegionUserForm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.users.region_user_form.</span></span><span class="sig-name descname"><span class="pre">RegionUserForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/region_user_form.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.region_user_form.RegionUserForm" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.forms.users.user_form.UserForm" title="integreat_cms.cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.forms.users.user_form.UserForm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.forms.users.user_form.UserForm" title="integreat_cms.cms.forms.users.user_form.UserForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserForm</span></code></a></p>
 <p>Form for creating and modifying region user objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
@@ -1555,11 +1556,11 @@ The opposite of the hidden_fields() method.</p>
 
 </section>
 <section id="module-integreat_cms.cms.forms.users.user_email_form">
-<span id="user-email-form"></span><h2>User Email Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.user_email_form" title="Permalink to this headline"></a></h2>
+<span id="user-email-form"></span><h2>User Email Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.user_email_form" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_email_form.UserEmailForm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.users.user_email_form.</span></span><span class="sig-name descname"><span class="pre">UserEmailForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_email_form.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_email_form.UserEmailForm" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomModelForm</span></code></a></p>
 <p>Form for modifying user email addresses</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
@@ -1806,11 +1807,11 @@ The opposite of the hidden_fields() method.</p>
 
 </section>
 <section id="module-integreat_cms.cms.forms.users.user_filter_form">
-<span id="user-filter-form"></span><h2>User Filter Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.user_filter_form" title="Permalink to this headline"></a></h2>
+<span id="user-filter-form"></span><h2>User Filter Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.user_filter_form" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_filter_form.UserFilterForm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.users.user_filter_form.</span></span><span class="sig-name descname"><span class="pre">UserFilterForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_filter_form.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_filter_form.UserFilterForm" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_filter_form.CustomFilterForm" title="integreat_cms.cms.forms.custom_filter_form.CustomFilterForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.forms.custom_filter_form.CustomFilterForm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_filter_form.CustomFilterForm" title="integreat_cms.cms.forms.custom_filter_form.CustomFilterForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomFilterForm</span></code></a></p>
 <p>Form for filtering user objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
@@ -2062,11 +2063,11 @@ The opposite of the hidden_fields() method.</p>
 
 </section>
 <section id="module-integreat_cms.cms.forms.users.user_form">
-<span id="user-form"></span><h2>User Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.user_form" title="Permalink to this headline"></a></h2>
+<span id="user-form"></span><h2>User Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.user_form" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_form.UserForm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.users.user_form.</span></span><span class="sig-name descname"><span class="pre">UserForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_form.UserForm" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomModelForm</span></code></a></p>
 <p>Form for creating and modifying user objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
@@ -2336,11 +2337,11 @@ The opposite of the hidden_fields() method.</p>
 
 </section>
 <section id="module-integreat_cms.cms.forms.users.user_password_form">
-<span id="user-password-form"></span><h2>User Password Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.user_password_form" title="Permalink to this headline"></a></h2>
+<span id="user-password-form"></span><h2>User Password Form<a class="headerlink" href="#module-integreat_cms.cms.forms.users.user_password_form" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_password_form.UserPasswordForm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.users.user_password_form.</span></span><span class="sig-name descname"><span class="pre">UserPasswordForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_password_form.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_password_form.UserPasswordForm" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.forms.custom_model_form.CustomModelForm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomModelForm</span></code></a></p>
 <p>Form for changing a user’s password</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
@@ -2604,7 +2605,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 12, 2022.
+      <span class="lastupdated">Last updated on Jul 18, 2022.
       </span></p>
   </div>
 

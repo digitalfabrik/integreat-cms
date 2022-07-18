@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-05-22T10:09:36+00:00" />
+    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Views &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -875,7 +876,7 @@
            <div itemprop="articleBody">
              
   <section id="module-integreat_cms.cms.views">
-<span id="views"></span><h1>Views<a class="headerlink" href="#module-integreat_cms.cms.views" title="Permalink to this headline"></a></h1>
+<span id="views"></span><h1>Views<a class="headerlink" href="#module-integreat_cms.cms.views" title="Permalink to this heading"></a></h1>
 <p>This package contains all views for the cms.
 Use <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/class-based-views/" title="(in Django v3.2)"><span>Class-based views</span></a> whenever possible.
 Before writing a view completely from scratch, have a look at the <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/" title="(in Django v3.2)"><span>Built-in class-based views API</span></a> and check whether
@@ -1027,12 +1028,12 @@ anything meets your requirements.</p>
 </ul>
 </div>
 <section id="module-integreat_cms.cms.views.bulk_action_views">
-<span id="bulk-action-views"></span><h2>Bulk Action Views<a class="headerlink" href="#module-integreat_cms.cms.views.bulk_action_views" title="Permalink to this headline"></a></h2>
+<span id="bulk-action-views"></span><h2>Bulk Action Views<a class="headerlink" href="#module-integreat_cms.cms.views.bulk_action_views" title="Permalink to this heading"></a></h2>
 <p>This module contains the base view for bulk actions</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkActionView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-multiple-object/#django.views.generic.list.MultipleObjectMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.list.MultipleObjectMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.RedirectView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-multiple-object/#django.views.generic.list.MultipleObjectMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.RedirectView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RedirectView</span></code></a></p>
 <p>View for executing a bulk action and redirect to a given location</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.__init__">
@@ -1263,7 +1264,7 @@ The bulk action form uses only POST as submission method.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkActionView.paginator_class">
 <span class="sig-name descname"><span class="pre">paginator_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/paginator.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView.paginator_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.paginator.Paginator</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Paginator</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1355,7 +1356,7 @@ The bulk action form uses only POST as submission method.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkArchiveView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.bulk_action_views.BulkActionView</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
 <p>Bulk action for archiving multiple objects at once</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.__init__">
@@ -1592,7 +1593,7 @@ The bulk action form uses only POST as submission method.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginator_class">
 <span class="sig-name descname"><span class="pre">paginator_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/paginator.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkArchiveView.paginator_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.paginator.Paginator</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Paginator</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1700,7 +1701,7 @@ The bulk action form uses only POST as submission method.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkAutoTranslateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L96"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.bulk_action_views.BulkActionView</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
 <p>Bulk action for automatically translating multiple objects</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.__init__">
@@ -1937,7 +1938,7 @@ The bulk action form uses only POST as submission method.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginator_class">
 <span class="sig-name descname"><span class="pre">paginator_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/paginator.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkAutoTranslateView.paginator_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.paginator.Paginator</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Paginator</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -2045,7 +2046,7 @@ The bulk action form uses only POST as submission method.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkRestoreView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.bulk_action_views.BulkActionView</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
 <p>Bulk action for restoring multiple objects at once</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.__init__">
@@ -2282,7 +2283,7 @@ The bulk action form uses only POST as submission method.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginator_class">
 <span class="sig-name descname"><span class="pre">paginator_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/paginator.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.paginator_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.paginator.Paginator</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Paginator</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -2389,12 +2390,12 @@ The bulk action form uses only POST as submission method.</p>
 
 </section>
 <section id="module-integreat_cms.cms.views.delete_views">
-<span id="delete-views"></span><h2>Delete Views<a class="headerlink" href="#module-integreat_cms.cms.views.delete_views" title="Permalink to this headline"></a></h2>
+<span id="delete-views"></span><h2>Delete Views<a class="headerlink" href="#module-integreat_cms.cms.views.delete_views" title="Permalink to this heading"></a></h2>
 <p>This module contains deletion views for our models that don’t need custom handling.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.delete_views.CustomDeleteView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.delete_views.</span></span><span class="sig-name descname"><span class="pre">CustomDeleteView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/delete_views.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.delete_views.CustomDeleteView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin" title="integreat_cms.cms.views.delete_views.CustomModelDeleteMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.delete_views.CustomModelDeleteMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.DeleteView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.DeleteView</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin" title="integreat_cms.cms.views.delete_views.CustomModelDeleteMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomModelDeleteMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.DeleteView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeleteView</span></code></a></p>
 <p>View for deleting an object retrieved with self.get_object()</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.delete_views.CustomDeleteView.__init__">
@@ -2648,7 +2649,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.delete_views.CustomDeleteView.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.delete_views.CustomDeleteView.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -2697,7 +2698,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.delete_views.CustomModelDeleteMixin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.delete_views.</span></span><span class="sig-name descname"><span class="pre">CustomModelDeleteMixin</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/delete_views.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.delete_views.CustomModelDeleteMixin" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a></p>
 <p>This mixin handles error messages in form views of subclasses of
 <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomModelForm</span></code></a></p>
 <dl class="py method">
@@ -2827,12 +2828,12 @@ success URL.</p>
 
 </section>
 <section id="module-integreat_cms.cms.views.form_views">
-<span id="form-views"></span><h2>Form Views<a class="headerlink" href="#module-integreat_cms.cms.views.form_views" title="Permalink to this headline"></a></h2>
+<span id="form-views"></span><h2>Form Views<a class="headerlink" href="#module-integreat_cms.cms.views.form_views" title="Permalink to this heading"></a></h2>
 <p>This module contains form views for our models that don’t need custom handling.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.form_views.CustomCreateView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.form_views.</span></span><span class="sig-name descname"><span class="pre">CustomCreateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/form_views.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.form_views.CustomCreateView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.form_views.CustomModelFormMixin" title="integreat_cms.cms.views.form_views.CustomModelFormMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.form_views.CustomModelFormMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.BaseCreateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.BaseCreateView</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.form_views.CustomModelFormMixin" title="integreat_cms.cms.views.form_views.CustomModelFormMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomModelFormMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.BaseCreateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCreateView</span></code></a></p>
 <p>A view that displays a form for creating a region object, redisplaying the form with validation errors (if
 there are any) and saving the object.</p>
 <dl class="py method">
@@ -3161,7 +3162,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.form_views.CustomCreateView.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.form_views.CustomCreateView.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -3215,7 +3216,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.form_views.CustomModelFormMixin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.form_views.</span></span><span class="sig-name descname"><span class="pre">CustomModelFormMixin</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/form_views.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.form_views.CustomModelFormMixin" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference internal" href="#integreat_cms.cms.views.mixins.ModelTemplateResponseMixin" title="integreat_cms.cms.views.mixins.ModelTemplateResponseMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.mixins.ModelTemplateResponseMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.ModelFormMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.ModelFormMixin</span></code></a>, <a class="reference internal" href="#integreat_cms.cms.views.mixins.ModelConfirmationContextMixin" title="integreat_cms.cms.views.mixins.ModelConfirmationContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.mixins.ModelConfirmationContextMixin</span></code></a>, <a class="reference internal" href="integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin" title="integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>, <a class="reference internal" href="#integreat_cms.cms.views.mixins.ModelTemplateResponseMixin" title="integreat_cms.cms.views.mixins.ModelTemplateResponseMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelTemplateResponseMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.ModelFormMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelFormMixin</span></code></a>, <a class="reference internal" href="#integreat_cms.cms.views.mixins.ModelConfirmationContextMixin" title="integreat_cms.cms.views.mixins.ModelConfirmationContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelConfirmationContextMixin</span></code></a>, <a class="reference internal" href="integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin" title="integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaContextMixin</span></code></a></p>
 <p>This mixin handles error messages in form views of subclasses of
 <a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomModelForm</span></code></a></p>
 <dl class="py method">
@@ -3502,7 +3503,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.form_views.CustomModelFormMixin.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.form_views.CustomModelFormMixin.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -3550,7 +3551,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.form_views.CustomUpdateView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.form_views.</span></span><span class="sig-name descname"><span class="pre">CustomUpdateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/form_views.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.form_views.CustomUpdateView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.form_views.CustomModelFormMixin" title="integreat_cms.cms.views.form_views.CustomModelFormMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.form_views.CustomModelFormMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.BaseUpdateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.BaseUpdateView</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.form_views.CustomModelFormMixin" title="integreat_cms.cms.views.form_views.CustomModelFormMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomModelFormMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.BaseUpdateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseUpdateView</span></code></a></p>
 <p>A view that displays a form for editing an existing region object, redisplaying the form with validation errors
 (if there are any) and saving changes to the object. This uses a form automatically generated from the object’s
 model class (unless a form class is manually specified).</p>
@@ -3880,7 +3881,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.form_views.CustomUpdateView.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.form_views.CustomUpdateView.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -3933,12 +3934,12 @@ template rendered with the given context.</p>
 
 </section>
 <section id="module-integreat_cms.cms.views.list_views">
-<span id="list-views"></span><h2>List Views<a class="headerlink" href="#module-integreat_cms.cms.views.list_views" title="Permalink to this headline"></a></h2>
+<span id="list-views"></span><h2>List Views<a class="headerlink" href="#module-integreat_cms.cms.views.list_views" title="Permalink to this heading"></a></h2>
 <p>This module contains list views for our models that don’t need custom handling.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.list_views.ModelListView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.list_views.</span></span><span class="sig-name descname"><span class="pre">ModelListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/list_views.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.list_views.ModelListView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin</span></code></a>, <a class="reference internal" href="#integreat_cms.cms.views.mixins.ModelTemplateResponseMixin" title="integreat_cms.cms.views.mixins.ModelTemplateResponseMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.mixins.ModelTemplateResponseMixin</span></code></a>, <a class="reference internal" href="#integreat_cms.cms.views.mixins.ModelConfirmationContextMixin" title="integreat_cms.cms.views.mixins.ModelConfirmationContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.views.mixins.ModelConfirmationContextMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-display/#django.views.generic.list.ListView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.list.ListView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PermissionRequiredMixin</span></code></a>, <a class="reference internal" href="#integreat_cms.cms.views.mixins.ModelTemplateResponseMixin" title="integreat_cms.cms.views.mixins.ModelTemplateResponseMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelTemplateResponseMixin</span></code></a>, <a class="reference internal" href="#integreat_cms.cms.views.mixins.ModelConfirmationContextMixin" title="integreat_cms.cms.views.mixins.ModelConfirmationContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelConfirmationContextMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-display/#django.views.generic.list.ListView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListView</span></code></a></p>
 <p>Render some list of objects, set by <code class="docutils literal notranslate"><span class="pre">self.model</span></code> or <code class="docutils literal notranslate"><span class="pre">self.queryset</span></code>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.list_views.ModelListView.__init__">
@@ -4183,7 +4184,7 @@ This either returns the current <code class="docutils literal notranslate"><span
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.list_views.ModelListView.paginator_class">
 <span class="sig-name descname"><span class="pre">paginator_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/paginator.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.list_views.ModelListView.paginator_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.paginator.Paginator</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Paginator</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -4222,7 +4223,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.list_views.ModelListView.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.list_views.ModelListView.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -4259,12 +4260,12 @@ template rendered with the given context.</p>
 
 </section>
 <section id="module-integreat_cms.cms.views.mixins">
-<span id="mixins"></span><h2>Mixins<a class="headerlink" href="#module-integreat_cms.cms.views.mixins" title="Permalink to this headline"></a></h2>
+<span id="mixins"></span><h2>Mixins<a class="headerlink" href="#module-integreat_cms.cms.views.mixins" title="Permalink to this heading"></a></h2>
 <p>This module contains mixins for our views</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.mixins.ContentEditLockMixin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.mixins.</span></span><span class="sig-name descname"><span class="pre">ContentEditLockMixin</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/mixins.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.mixins.ContentEditLockMixin" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.ContextMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a></p>
 <p>A mixin that provides some variables required for the content edit lock</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.mixins.ContentEditLockMixin.__init__">
@@ -4305,7 +4306,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.mixins.ModelConfirmationContextMixin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.mixins.</span></span><span class="sig-name descname"><span class="pre">ModelConfirmationContextMixin</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/mixins.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.mixins.ModelConfirmationContextMixin" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.ContextMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a></p>
 <p>A mixin that can be used to inject confirmation text into a template of a model (e.g. list or form)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.mixins.ModelConfirmationContextMixin.__init__">
@@ -4340,7 +4341,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.mixins.ModelTemplateResponseMixin">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.mixins.</span></span><span class="sig-name descname"><span class="pre">ModelTemplateResponseMixin</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/mixins.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.mixins.ModelTemplateResponseMixin" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateResponseMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a></p>
 <p>A mixin that can be used to render a template of a model (e.g. list or form)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.mixins.ModelTemplateResponseMixin.__init__">
@@ -4370,7 +4371,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.mixins.ModelTemplateResponseMixin.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.mixins.ModelTemplateResponseMixin.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -4397,7 +4398,7 @@ template rendered with the given context.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.mixins.</span></span><span class="sig-name descname"><span class="pre">RegionPermissionRequiredMixing</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/mixins.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.UserPassesTestMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.UserPassesTestMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.UserPassesTestMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserPassesTestMixin</span></code></a></p>
 <p>A mixin that can be used for class-based views that require that the user is has access to the current region of this request</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.__init__">
@@ -4492,7 +4493,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 22, 2022.
+      <span class="lastupdated">Last updated on Jul 18, 2022.
       </span></p>
   </div>
 

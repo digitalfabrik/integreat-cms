@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2021-11-13T12:44:26+00:00" />
+    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Frontend Bundling (Webpack) &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -872,30 +873,30 @@
            <div itemprop="articleBody">
              
   <section id="frontend-bundling-webpack">
-<h1>Frontend Bundling (Webpack)<a class="headerlink" href="#frontend-bundling-webpack" title="Permalink to this headline"></a></h1>
+<h1>Frontend Bundling (Webpack)<a class="headerlink" href="#frontend-bundling-webpack" title="Permalink to this heading"></a></h1>
 <p>Webpack is being used to generate frontend bundles based on TypeScript code that is compiled to JavaScript as well as SCSS code which is being transpiled to CSS. The following bundles are defined:</p>
 <ol class="arabic simple">
-<li><p><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/index.ts">integreat_cms/static/src/index.ts</a> (<code class="docutils literal notranslate"><span class="pre">main.js</span></code>/<code class="docutils literal notranslate"><span class="pre">main.css</span></code>): All main assets which should be available on all pages</p></li>
-<li><p><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/editor.ts">integreat_cms/static/src/editor.ts</a> (<code class="docutils literal notranslate"><span class="pre">editor.js</span></code>): Contains TinyMCE and related assets. It was decided to bundle TinyMCE in a separate file because it is the largest of all bundled assets</p></li>
-<li><p><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/editor_content.ts">integreat_cms/static/src/editor_content.ts</a> (<code class="docutils literal notranslate"><span class="pre">editor_content.js</span></code>/<code class="docutils literal notranslate"><span class="pre">editor_content.css</span></code>): Contains assets for the TinyMCE content iframe which cannot be passed via the global context</p></li>
-<li><p><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/pdf.ts">integreat_cms/static/src/pdf.ts</a> (<code class="docutils literal notranslate"><span class="pre">pdf.js</span></code>/<code class="docutils literal notranslate"><span class="pre">pdf.css</span></code>): Contains assets for the PDF rendering</p></li>
+<li><p><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/index.ts">https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/index.ts</a> (<code class="docutils literal notranslate"><span class="pre">main.js</span></code>/<code class="docutils literal notranslate"><span class="pre">main.css</span></code>): All main assets which should be available on all pages</p></li>
+<li><p><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/editor.ts">https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/editor.ts</a> (<code class="docutils literal notranslate"><span class="pre">editor.js</span></code>): Contains TinyMCE and related assets. It was decided to bundle TinyMCE in a separate file because it is the largest of all bundled assets</p></li>
+<li><p><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/editor_content.ts">https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/editor_content.ts</a> (<code class="docutils literal notranslate"><span class="pre">editor_content.js</span></code>/<code class="docutils literal notranslate"><span class="pre">editor_content.css</span></code>): Contains assets for the TinyMCE content iframe which cannot be passed via the global context</p></li>
+<li><p><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/pdf.ts">https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src/pdf.ts</a> (<code class="docutils literal notranslate"><span class="pre">pdf.js</span></code>/<code class="docutils literal notranslate"><span class="pre">pdf.css</span></code>): Contains assets for the PDF rendering</p></li>
 </ol>
-<p>To get started with adding new code go to <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src">integreat_cms/static/src</a> and open the bundle you want to edit.
+<p>To get started with adding new code go to <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src">https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/static/src</a> and open the bundle you want to edit.
 In this file you can import any TypeScript or JavaScript file or library that is needed for the application.
 Generated assets will be stored in <code class="docutils literal notranslate"><span class="pre">integreat_cms/static/dist</span></code>.
-When running <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/run.sh">dev-tools/run.sh</a>, <code class="docutils literal notranslate"><span class="pre">webpack-dev-server</span></code> is being used to generate JavaScript that includes CSS as well as SourceMaps to help debugging the output.
+When running <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/run.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/run.sh</a>, <code class="docutils literal notranslate"><span class="pre">webpack-dev-server</span></code> is being used to generate JavaScript that includes CSS as well as SourceMaps to help debugging the output.
 For a production build one should run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">prod</span></code>.
 This will generate minified js and css files in the same target directory.</p>
 <section id="compatible-browsers">
-<h2>Compatible Browsers<a class="headerlink" href="#compatible-browsers" title="Permalink to this headline"></a></h2>
-<p>We use <code class="docutils literal notranslate"><span class="pre">babel-preset-env</span></code> as well als <code class="docutils literal notranslate"><span class="pre">postcss-preset-env</span></code> to transpile or polyfill css and js features for supported browsers. <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/.browserslistrc">.browserslistrc</a> contains a list of supported browsers (mostly selected by looking at their usage stats and support status).</p>
+<h2>Compatible Browsers<a class="headerlink" href="#compatible-browsers" title="Permalink to this heading"></a></h2>
+<p>We use <code class="docutils literal notranslate"><span class="pre">babel-preset-env</span></code> as well als <code class="docutils literal notranslate"><span class="pre">postcss-preset-env</span></code> to transpile or polyfill css and js features for supported browsers. <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/.browserslistrc">https://github.com/digitalfabrik/integreat-cms/blob/develop/.browserslistrc</a> contains a list of supported browsers (mostly selected by looking at their usage stats and support status).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>At some point IE 11 will probably be removed from that list.</p>
 </div>
 </section>
 <section id="fonts">
-<h2>Fonts<a class="headerlink" href="#fonts" title="Permalink to this headline"></a></h2>
+<h2>Fonts<a class="headerlink" href="#fonts" title="Permalink to this heading"></a></h2>
 <p>For the conventions of fonts to be used for different content languages, see <a class="reference external" href="https://wiki.tuerantuer.org/integreat-languages">https://wiki.tuerantuer.org/integreat-languages</a>:</p>
 <ul class="simple">
 <li><p>UI/headings: <code class="docutils literal notranslate"><span class="pre">Raleway</span></code></p></li>
@@ -922,7 +923,7 @@ This will generate minified js and css files in the same target directory.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 13, 2021.
+      <span class="lastupdated">Last updated on Jul 18, 2022.
       </span></p>
   </div>
 

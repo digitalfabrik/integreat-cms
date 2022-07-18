@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-06-18T17:41:07+00:00" />
+    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CMS &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -875,7 +876,7 @@
            <div itemprop="articleBody">
              
   <section id="cms">
-<h1>CMS<a class="headerlink" href="#cms" title="Permalink to this headline"></a></h1>
+<h1>CMS<a class="headerlink" href="#cms" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.constants.html">Constants</a><ul>
@@ -1271,15 +1272,15 @@
 </ul>
 </div>
 <section id="admin">
-<h2>Admin<a class="headerlink" href="#admin" title="Permalink to this headline"></a></h2>
+<h2>Admin<a class="headerlink" href="#admin" title="Permalink to this heading"></a></h2>
 <p>Debug lists and forms for all models</p>
 </section>
 <section id="apps">
-<h2>Apps<a class="headerlink" href="#apps" title="Permalink to this headline"></a></h2>
+<h2>Apps<a class="headerlink" href="#apps" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.apps.</span></span><span class="sig-name descname"><span class="pre">CmsConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/apps.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></a></p>
 <p>This class represents the Django-configuration of the backend.</p>
 <p>See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a> for more information.</p>
 <dl class="field-list simple">
@@ -1347,11 +1348,11 @@
 
 </section>
 <section id="auth">
-<h2>Auth<a class="headerlink" href="#auth" title="Permalink to this headline"></a></h2>
+<h2>Auth<a class="headerlink" href="#auth" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.auth.</span></span><span class="sig-name descname"><span class="pre">WPBCryptPasswordHasher</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/auth.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.hashers.BCryptSHA256PasswordHasher</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BCryptSHA256PasswordHasher</span></code></p>
 <p>A PHP (and WordPress) compatible BCrypt password hasher that supports hashes with <code class="docutils literal notranslate"><span class="pre">$2y$10$</span></code>.
 See <a class="reference external" href="https://www.php.net/manual/en/function.password-hash.php">https://www.php.net/manual/en/function.password-hash.php</a>.
 For PHP style hashes only verification is supported.</p>
@@ -1379,7 +1380,7 @@ For PHP style hashes only verification is supported.</p>
 
 </section>
 <section id="decorators">
-<h2>Decorators<a class="headerlink" href="#decorators" title="Permalink to this headline"></a></h2>
+<h2>Decorators<a class="headerlink" href="#decorators" title="Permalink to this heading"></a></h2>
 <p>Django view decorators can be used to restrict the execution of a view function on certain conditions.</p>
 <p>For more information, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/decorators/" title="(in Django v3.2)"><span>View decorators</span></a>.</p>
 <dl class="py function">
@@ -1436,11 +1437,11 @@ If not, the PermissionDenied exception is raised.</p>
 
 </section>
 <section id="linklists">
-<h2>Linklists<a class="headerlink" href="#linklists" title="Permalink to this headline"></a></h2>
+<h2>Linklists<a class="headerlink" href="#linklists" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">ContentTranslationLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">linkcheck.Linklist</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Linklist</span></code></p>
 <p>Base class for content translation link lists</p>
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -1464,12 +1465,12 @@ If not, the PermissionDenied exception is raised.</p>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">EventTranslationLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.ContentTranslationLinklist" title="integreat_cms.cms.linklists.ContentTranslationLinklist"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.linklists.ContentTranslationLinklist</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.ContentTranslationLinklist" title="integreat_cms.cms.linklists.ContentTranslationLinklist"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContentTranslationLinklist</span></code></a></p>
 <p>Class for selecting the EventTranslation model for link checks</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.events.event_translation.EventTranslation</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -1477,12 +1478,12 @@ If not, the PermissionDenied exception is raised.</p>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">POITranslationLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.ContentTranslationLinklist" title="integreat_cms.cms.linklists.ContentTranslationLinklist"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.linklists.ContentTranslationLinklist</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.ContentTranslationLinklist" title="integreat_cms.cms.linklists.ContentTranslationLinklist"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContentTranslationLinklist</span></code></a></p>
 <p>Class for selecting the POITranslation model for link checks</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pois/poi_translation.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.pois.poi_translation.POITranslation</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
@@ -1490,7 +1491,7 @@ If not, the PermissionDenied exception is raised.</p>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">PageTranslationLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">linkcheck.Linklist</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Linklist</span></code></p>
 <p>Class for selecting the PageTranslation model for link checks</p>
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -1512,14 +1513,14 @@ If not, the PermissionDenied exception is raised.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page_translation.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.models.pages.page_translation.PageTranslation</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a></p>
 </dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="rules">
-<h2>Rules<a class="headerlink" href="#rules" title="Permalink to this headline"></a></h2>
+<h2>Rules<a class="headerlink" href="#rules" title="Permalink to this heading"></a></h2>
 <p>We use <a class="reference external" href="https://pypi.org/project/rules/">django-rules</a> to add custom permissions for specific pages.</p>
 <p>For a given user and page, the following permissions are added:</p>
 <ul>
@@ -1681,7 +1682,7 @@ If not, the PermissionDenied exception is raised.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 18, 2022.
+      <span class="lastupdated">Last updated on Jul 18, 2022.
       </span></p>
   </div>
 

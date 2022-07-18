@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-07-12T15:45:39+00:00" />
+    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Templatetags &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -876,13 +877,13 @@
            <div itemprop="articleBody">
              
   <section id="templatetags">
-<h1>Templatetags<a class="headerlink" href="#templatetags" title="Permalink to this headline"></a></h1>
+<h1>Templatetags<a class="headerlink" href="#templatetags" title="Permalink to this heading"></a></h1>
 <p>Template tags are our custom extension of the <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/templates/builtins/" title="(in Django v3.2)"><span>Built-in template tags and filters</span></a> of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/templates/language/" title="(in Django v3.2)"><span>The Django template language</span></a>.</p>
 <p>Tags are used to provide arbitrary logic in the rendering process and are surrounded by <code class="docutils literal notranslate"><span class="pre">{%</span></code> and <code class="docutils literal notranslate"><span class="pre">%}</span></code>.
 Filters transform the values of variables and are surrounded by <code class="docutils literal notranslate"><span class="pre">{{</span></code> and <code class="docutils literal notranslate"><span class="pre">}}</span></code>.</p>
 <p>See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/howto/custom-template-tags/" title="(in Django v3.2)"><span>Custom template tags and filters</span></a> for more information.</p>
 <section id="arithmetic">
-<h2>Arithmetic<a class="headerlink" href="#arithmetic" title="Permalink to this headline"></a></h2>
+<h2>Arithmetic<a class="headerlink" href="#arithmetic" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.arithmetic.</span></span><span class="sig-name descname"><span class="pre">diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/arithmetic.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -905,7 +906,7 @@ Filters transform the values of variables and are surrounded by <code class="doc
 
 </section>
 <section id="base-filters">
-<h2>Base Filters<a class="headerlink" href="#base-filters" title="Permalink to this headline"></a></h2>
+<h2>Base Filters<a class="headerlink" href="#base-filters" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.base_filters.</span></span><span class="sig-name descname"><span class="pre">get_private_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/base_filters.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -948,7 +949,7 @@ Filters transform the values of variables and are surrounded by <code class="doc
 
 </section>
 <section id="content-filters">
-<h2>Content Filters<a class="headerlink" href="#content-filters" title="Permalink to this headline"></a></h2>
+<h2>Content Filters<a class="headerlink" href="#content-filters" title="Permalink to this heading"></a></h2>
 <p>This is a collection of tags and filters which are useful for all content types (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>,
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a> and <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI" title="integreat_cms.cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>).</p>
 <dl class="py function">
@@ -1195,7 +1196,7 @@ whether the user has the permission to view this object</p>
 
 </section>
 <section id="form-icon-filters">
-<h2>Form Icon Filters<a class="headerlink" href="#form-icon-filters" title="Permalink to this headline"></a></h2>
+<h2>Form Icon Filters<a class="headerlink" href="#form-icon-filters" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.form_icon_filters.</span></span><span class="sig-name descname"><span class="pre">strip_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/form_icon_filters.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1215,7 +1216,7 @@ whether the user has the permission to view this object</p>
 
 </section>
 <section id="model-tags">
-<h2>Model Tags<a class="headerlink" href="#model-tags" title="Permalink to this headline"></a></h2>
+<h2>Model Tags<a class="headerlink" href="#model-tags" title="Permalink to this heading"></a></h2>
 <p>This is a collection of tags and filters which are useful for all models.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1236,7 +1237,7 @@ whether the user has the permission to view this object</p>
 
 </section>
 <section id="page-filters">
-<h2>Page Filters<a class="headerlink" href="#page-filters" title="Permalink to this headline"></a></h2>
+<h2>Page Filters<a class="headerlink" href="#page-filters" title="Permalink to this heading"></a></h2>
 <p>This is a collection of tags and filters for <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> objects.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1278,7 +1279,7 @@ whether the user has the permission to view this object</p>
 
 </section>
 <section id="parse-struct-time">
-<h2>Parse Struct Time<a class="headerlink" href="#parse-struct-time" title="Permalink to this headline"></a></h2>
+<h2>Parse Struct Time<a class="headerlink" href="#parse-struct-time" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.parse_struct_time.</span></span><span class="sig-name descname"><span class="pre">parse_struct_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">struct_time</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/parse_struct_time.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1298,7 +1299,7 @@ whether the user has the permission to view this object</p>
 
 </section>
 <section id="poi-filters">
-<h2>POI Filters<a class="headerlink" href="#poi-filters" title="Permalink to this headline"></a></h2>
+<h2>POI Filters<a class="headerlink" href="#poi-filters" title="Permalink to this heading"></a></h2>
 <p>This is a collection of tags and filters for points of interest (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI" title="integreat_cms.cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>).</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1322,7 +1323,7 @@ whether the user has the permission to view this object</p>
 
 </section>
 <section id="push-notification-filters">
-<h2>Push Notification Filters<a class="headerlink" href="#push-notification-filters" title="Permalink to this headline"></a></h2>
+<h2>Push Notification Filters<a class="headerlink" href="#push-notification-filters" title="Permalink to this heading"></a></h2>
 <p>This is a collection of tags and filters for <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification.PushNotification" title="integreat_cms.cms.models.push_notifications.push_notification.PushNotification"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotification</span></code></a>
 objects.</p>
 <dl class="py function">
@@ -1347,7 +1348,7 @@ objects.</p>
 
 </section>
 <section id="settings-tags">
-<h2>Settings Tags<a class="headerlink" href="#settings-tags" title="Permalink to this headline"></a></h2>
+<h2>Settings Tags<a class="headerlink" href="#settings-tags" title="Permalink to this heading"></a></h2>
 <p>This contains tags for accessing settings</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1379,7 +1380,7 @@ objects.</p>
 
 </section>
 <section id="text-filters">
-<h2>Text Filters<a class="headerlink" href="#text-filters" title="Permalink to this headline"></a></h2>
+<h2>Text Filters<a class="headerlink" href="#text-filters" title="Permalink to this heading"></a></h2>
 <p>This is a collection of tags and filters for strings.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1435,7 +1436,7 @@ this filter reduced the output when display in list view</p>
 
 </section>
 <section id="tree-filters">
-<h2>Tree Filters<a class="headerlink" href="#tree-filters" title="Permalink to this headline"></a></h2>
+<h2>Tree Filters<a class="headerlink" href="#tree-filters" title="Permalink to this heading"></a></h2>
 <p>This is a collection of tags and filters for models which inherit from the MPTT model
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode" title="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTreeNode</span></code></a>
 (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> and
@@ -1476,7 +1477,7 @@ this filter reduced the output when display in list view</p>
 
 </section>
 <section id="url-tags">
-<h2>Url Tags<a class="headerlink" href="#url-tags" title="Permalink to this headline"></a></h2>
+<h2>Url Tags<a class="headerlink" href="#url-tags" title="Permalink to this heading"></a></h2>
 <p>Contains a collection of tags for working with urls.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1500,7 +1501,7 @@ this filter reduced the output when display in list view</p>
 
 </section>
 <section id="user-filters">
-<h2>User Filters<a class="headerlink" href="#user-filters" title="Permalink to this headline"></a></h2>
+<h2>User Filters<a class="headerlink" href="#user-filters" title="Permalink to this heading"></a></h2>
 <p>This is a collection of tags and filters which are useful for all user forms</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1540,7 +1541,7 @@ this filter reduced the output when display in list view</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 12, 2022.
+      <span class="lastupdated">Last updated on Jul 18, 2022.
       </span></p>
   </div>
 

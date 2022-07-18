@@ -17,6 +17,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -872,7 +873,7 @@
            <div itemprop="articleBody">
              
   <section id="production-server">
-<h1>Production Server<a class="headerlink" href="#production-server" title="Permalink to this headline"></a></h1>
+<h1>Production Server<a class="headerlink" href="#production-server" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This guide explains how to set up a production server on
@@ -880,7 +881,7 @@
 fine, but we don’t provide detailed instructions for them.</p>
 </div>
 <section id="system-requirements">
-<h2>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline"></a></h2>
+<h2>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this heading"></a></h2>
 <blockquote>
 <div><ol class="arabic">
 <li><p>Upgrade all packages:</p>
@@ -897,7 +898,7 @@ fine, but we don’t provide detailed instructions for them.</p>
 </div></blockquote>
 </section>
 <section id="integreat-cms-package">
-<h2>Integreat CMS Package<a class="headerlink" href="#integreat-cms-package" title="Permalink to this headline"></a></h2>
+<h2>Integreat CMS Package<a class="headerlink" href="#integreat-cms-package" title="Permalink to this heading"></a></h2>
 <blockquote>
 <div><ol class="arabic">
 <li><p>Choose a location for your installation, e.g. <code class="docutils literal notranslate"><span class="pre">/opt/integreat-cms/</span></code>:</p>
@@ -930,13 +931,13 @@ python3 -m venv .venv
 </pre></div>
 </div>
 </li>
-<li><p>Create a symlink to the <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/wsgi.py">integreat_cms/core/wsgi.py</a> file to facilitate the Apache configuration:</p>
+<li><p>Create a symlink to the <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/wsgi.py">https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/wsgi.py</a> file to facilitate the Apache configuration:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ln -s <span class="k">$(</span>python -c <span class="s2">&quot;from integreat_cms.core import wsgi; print(wsgi.__file__)&quot;</span><span class="k">)</span> .
 </pre></div>
 </div>
 </li>
 <li><p>Set the initial configuration by adding the following to <code class="docutils literal notranslate"><span class="pre">/etc/integreat-cms.ini</span></code> (for a full list of all
-possible configuration values, have a look at <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/integreat-cms.ini">example-configs/integreat-cms.ini</a>):</p>
+possible configuration values, have a look at <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/integreat-cms.ini">https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/integreat-cms.ini</a>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>integreat-cms<span class="o">]</span>
 
 <span class="nv">SECRET_KEY</span> <span class="o">=</span> &lt;your-secret-key&gt;
@@ -955,7 +956,7 @@ possible configuration values, have a look at <a class="reference external" href
 </div></blockquote>
 </section>
 <section id="static-files">
-<h2>Static Files<a class="headerlink" href="#static-files" title="Permalink to this headline"></a></h2>
+<h2>Static Files<a class="headerlink" href="#static-files" title="Permalink to this heading"></a></h2>
 <blockquote>
 <div><ol class="arabic">
 <li><p>Create root directories for all static files. It’s usually good practise to separate code and data, so e.g.
@@ -999,7 +1000,7 @@ integreat-cms-cli collectstatic
 </div></blockquote>
 </section>
 <section id="webserver">
-<h2>Webserver<a class="headerlink" href="#webserver" title="Permalink to this headline"></a></h2>
+<h2>Webserver<a class="headerlink" href="#webserver" title="Permalink to this heading"></a></h2>
 <blockquote>
 <div><ol class="arabic">
 <li><p>Install an <a class="reference external" href="https://httpd.apache.org/">Apache2</a> server with <a class="reference external" href="https://modwsgi.readthedocs.io/en/develop/">mod_wsgi</a>:</p>
@@ -1012,13 +1013,13 @@ integreat-cms-cli collectstatic
 </pre></div>
 </div>
 </li>
-<li><p>Setup a vhost for the integreat-cms by using our example config: <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/apache2-integreat-vhost.conf">example-configs/apache2-integreat-vhost.conf</a>
+<li><p>Setup a vhost for the integreat-cms by using our example config: <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/apache2-integreat-vhost.conf">https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/apache2-integreat-vhost.conf</a>
 and edit the your domain and the paths for static files.</p></li>
 </ol>
 </div></blockquote>
 </section>
 <section id="database">
-<h2>Database<a class="headerlink" href="#database" title="Permalink to this headline"></a></h2>
+<h2>Database<a class="headerlink" href="#database" title="Permalink to this heading"></a></h2>
 <blockquote>
 <div><ol class="arabic">
 <li><p>Install a <a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a> database on your system:</p>
@@ -1053,7 +1054,7 @@ integreat-cms-cli migrate
 </div></blockquote>
 </section>
 <section id="redis-cache">
-<h2>Redis Cache<a class="headerlink" href="#redis-cache" title="Permalink to this headline"></a></h2>
+<h2>Redis Cache<a class="headerlink" href="#redis-cache" title="Permalink to this heading"></a></h2>
 <blockquote>
 <div><ol class="arabic">
 <li><p>Install a <a class="reference external" href="https://redis.io/">Redis</a> database on your system which can be used as cache:</p>
@@ -1082,10 +1083,10 @@ unixsocketperm <span class="m">770</span>
 </div></blockquote>
 </section>
 <section id="email-configuration">
-<h2>Email configuration<a class="headerlink" href="#email-configuration" title="Permalink to this headline"></a></h2>
+<h2>Email configuration<a class="headerlink" href="#email-configuration" title="Permalink to this heading"></a></h2>
 <blockquote>
 <div><ol class="arabic">
-<li><p>Add your SMTP credentials to <code class="docutils literal notranslate"><span class="pre">/etc/integreat.ini</span></code> (for the default values, see <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/integreat-cms.ini">example-configs/integreat-cms.ini</a>):</p>
+<li><p>Add your SMTP credentials to <code class="docutils literal notranslate"><span class="pre">/etc/integreat.ini</span></code> (for the default values, see <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/integreat-cms.ini">https://github.com/digitalfabrik/integreat-cms/blob/develop/example-configs/integreat-cms.ini</a>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">EMAIL_HOST</span> <span class="o">=</span> &lt;your-smtp-server&gt;
 <span class="nv">EMAIL_HOST_USER</span> <span class="o">=</span> &lt;your-username&gt;
 <span class="nv">EMAIL_HOST_PASSWORD</span> <span class="o">=</span> &lt;your-password&gt;

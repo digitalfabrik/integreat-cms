@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-04-23T19:08:31+00:00" />
+    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Authentication &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -876,7 +877,7 @@
            <div itemprop="articleBody">
              
   <section id="module-integreat_cms.cms.views.authentication">
-<span id="authentication"></span><h1>Authentication<a class="headerlink" href="#module-integreat_cms.cms.views.authentication" title="Permalink to this headline"></a></h1>
+<span id="authentication"></span><h1>Authentication<a class="headerlink" href="#module-integreat_cms.cms.views.authentication" title="Permalink to this heading"></a></h1>
 <p>This package contains views related to login, logout and password reset functionality as well as 2FA authentication:</p>
 <div class="toctree-wrapper compound">
 <ul>
@@ -889,11 +890,11 @@
 </ul>
 </div>
 <section id="module-integreat_cms.cms.views.authentication.account_activation_view">
-<span id="account-activation-view"></span><h2>Account Activation View<a class="headerlink" href="#module-integreat_cms.cms.views.authentication.account_activation_view" title="Permalink to this headline"></a></h2>
+<span id="account-activation-view"></span><h2>Account Activation View<a class="headerlink" href="#module-integreat_cms.cms.views.authentication.account_activation_view" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.account_activation_view.</span></span><span class="sig-name descname"><span class="pre">AccountActivationView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/account_activation_view.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.PasswordResetConfirmView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.PasswordResetConfirmView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.PasswordResetConfirmView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PasswordResetConfirmView</span></code></a></p>
 <p>View to set a new password and activate and account.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView.__init__">
@@ -941,7 +942,7 @@ keyword arguments, and other things.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView.form_class">
 <span class="sig-name descname"><span class="pre">form_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/forms.py#L316"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView.form_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.SetPasswordForm</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SetPasswordForm</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1091,7 +1092,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1134,11 +1135,11 @@ make sure password reset tokens are not accepted for account activation and vice
 
 </section>
 <section id="module-integreat_cms.cms.views.authentication.login_view">
-<span id="login-view"></span><h2>Login View<a class="headerlink" href="#module-integreat_cms.cms.views.authentication.login_view" title="Permalink to this headline"></a></h2>
+<span id="login-view"></span><h2>Login View<a class="headerlink" href="#module-integreat_cms.cms.views.authentication.login_view" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.login_view.LoginView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.login_view.</span></span><span class="sig-name descname"><span class="pre">LoginView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/login_view.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.login_view.LoginView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.LoginView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a></p>
 <p>View to extend the default login behaviour from <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a> with
 multi-factor-authentication.</p>
 <dl class="py method">
@@ -1177,7 +1178,7 @@ keyword arguments, and other things.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.login_view.LoginView.form_class">
 <span class="sig-name descname"><span class="pre">form_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/forms.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.login_view.LoginView.form_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.AuthenticationForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.AuthenticationForm</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.AuthenticationForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AuthenticationForm</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1334,7 +1335,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.login_view.LoginView.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.login_view.LoginView.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1368,11 +1369,11 @@ template rendered with the given context.</p>
 
 </section>
 <section id="module-integreat_cms.cms.views.authentication.logout_view">
-<span id="logout-view"></span><h2>Logout View<a class="headerlink" href="#module-integreat_cms.cms.views.authentication.logout_view" title="Permalink to this headline"></a></h2>
+<span id="logout-view"></span><h2>Logout View<a class="headerlink" href="#module-integreat_cms.cms.views.authentication.logout_view" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.logout_view.LogoutView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.logout_view.</span></span><span class="sig-name descname"><span class="pre">LogoutView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/logout_view.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.logout_view.LogoutView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LogoutView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.LogoutView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LogoutView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogoutView</span></code></a></p>
 <p>View to log off a user</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.logout_view.LogoutView.__init__">
@@ -1488,7 +1489,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.logout_view.LogoutView.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.logout_view.LogoutView.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1516,11 +1517,11 @@ template rendered with the given context.</p>
 
 </section>
 <section id="module-integreat_cms.cms.views.authentication.password_reset_confirm_view">
-<span id="password-reset-confirm-view"></span><h2>Password Reset Confirm View<a class="headerlink" href="#module-integreat_cms.cms.views.authentication.password_reset_confirm_view" title="Permalink to this headline"></a></h2>
+<span id="password-reset-confirm-view"></span><h2>Password Reset Confirm View<a class="headerlink" href="#module-integreat_cms.cms.views.authentication.password_reset_confirm_view" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.password_reset_confirm_view.</span></span><span class="sig-name descname"><span class="pre">PasswordResetConfirmView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_confirm_view.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.PasswordResetConfirmView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.PasswordResetConfirmView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.PasswordResetConfirmView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PasswordResetConfirmView</span></code></a></p>
 <p>View to confirm that the password should be reset</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView.__init__">
@@ -1568,7 +1569,7 @@ keyword arguments, and other things.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView.form_class">
 <span class="sig-name descname"><span class="pre">form_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/forms.py#L316"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView.form_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.SetPasswordForm</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.forms.SetPasswordForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SetPasswordForm</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1718,7 +1719,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.password_reset_confirm_view.PasswordResetConfirmView.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1758,11 +1759,11 @@ template rendered with the given context.</p>
 
 </section>
 <section id="module-integreat_cms.cms.views.authentication.password_reset_view">
-<span id="password-reset-view"></span><h2>Password Reset View<a class="headerlink" href="#module-integreat_cms.cms.views.authentication.password_reset_view" title="Permalink to this headline"></a></h2>
+<span id="password-reset-view"></span><h2>Password Reset View<a class="headerlink" href="#module-integreat_cms.cms.views.authentication.password_reset_view" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.password_reset_view.</span></span><span class="sig-name descname"><span class="pre">PasswordResetView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/password_reset_view.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.PasswordResetView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.views.PasswordResetView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.PasswordResetView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PasswordResetView</span></code></a></p>
 <p>View to extend the default login behaviour from <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a> with
 multi-factor-authentication.</p>
 <dl class="py method">
@@ -1827,7 +1828,7 @@ keyword arguments, and other things.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">email</span></code>: Email (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.EmailField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmailField</span></code></a>)</p></li>
 </ul>
-<p>alias of <a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm" title="integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm</span></code></a></p>
+<p>alias of <a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm" title="integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomPasswordResetForm</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1969,7 +1970,7 @@ template rendered with the given context.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.template.response.TemplateResponse</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -2030,7 +2031,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Apr 23, 2022.
+      <span class="lastupdated">Last updated on Jul 18, 2022.
       </span></p>
   </div>
 

@@ -17,6 +17,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -872,7 +873,7 @@
            <div itemprop="articleBody">
              
   <section id="continuous-integration-circleci">
-<h1>Continuous Integration (CircleCI)<a class="headerlink" href="#continuous-integration-circleci" title="Permalink to this headline"></a></h1>
+<h1>Continuous Integration (CircleCI)<a class="headerlink" href="#continuous-integration-circleci" title="Permalink to this heading"></a></h1>
 <div class="admonition-what-is-continuous-integration admonition">
 <p class="admonition-title">What is continuous integration?</p>
 <p>Continuous integration (CI) is a software development strategy that increases the speed of development while ensuring
@@ -881,150 +882,150 @@ even several times a day), which is then automatically built and tested before i
 <p>Source: <a class="reference external" href="https://circleci.com/continuous-integration/">CircleCI documentation</a></p>
 </div>
 <section id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h2>
-<p>Our CircleCI configuration resides in <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/.circleci/config.yml">.circleci/config.yml</a>.
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h2>
+<p>Our CircleCI configuration resides in <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/.circleci/config.yml">https://github.com/digitalfabrik/integreat-cms/blob/develop/.circleci/config.yml</a>.
 It contains all the jobs listed below.
 See <a class="reference external" href="https://circleci.com/docs/2.0/configuration-reference/">Configuring CircleCI</a> for a full reference.</p>
 </section>
 <section id="workflow-develop">
-<h2>Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code><a class="headerlink" href="#workflow-develop" title="Permalink to this headline"></a></h2>
+<h2>Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code><a class="headerlink" href="#workflow-develop" title="Permalink to this heading"></a></h2>
 <p>This workflow gets triggered everytime a commit is pushed to the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch or a PR is opened.</p>
 <img alt="CircleCI main workflow" src="_images/circleci-main-workflow.png" />
 <section id="pipenv-install">
-<span id="circleci-pipenv-install"></span><h3>pipenv-install<a class="headerlink" href="#pipenv-install" title="Permalink to this headline"></a></h3>
+<span id="circleci-pipenv-install"></span><h3>pipenv-install<a class="headerlink" href="#pipenv-install" title="Permalink to this heading"></a></h3>
 <p>This job executes <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">--dev</span></code> and makes use of the <a class="reference external" href="https://circleci.com/docs/2.0/caching/">CircleCI Dependency Cache</a>.
 It passes the virtual environment <code class="docutils literal notranslate"><span class="pre">.venv</span></code> to the subsequent jobs.</p>
 </section>
 <section id="webpack">
-<span id="circleci-webpack"></span><h3>webpack<a class="headerlink" href="#webpack" title="Permalink to this headline"></a></h3>
+<span id="circleci-webpack"></span><h3>webpack<a class="headerlink" href="#webpack" title="Permalink to this heading"></a></h3>
 <p>This job executes <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span></code> and makes use of the <a class="reference external" href="https://circleci.com/docs/2.0/caching/">CircleCI Dependency Cache</a>.
 After that, it compiles all static files with webpack (<code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">prod</span></code>) and passes the output in
 <code class="docutils literal notranslate"><span class="pre">integreat_cms/static/dist</span></code> to the subsequent jobs.</p>
 </section>
 <section id="pylint">
-<h3>pylint<a class="headerlink" href="#pylint" title="Permalink to this headline"></a></h3>
+<h3>pylint<a class="headerlink" href="#pylint" title="Permalink to this heading"></a></h3>
 <p>This job executes <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">pylint_runner</span></code>, which checks whether the <a class="reference internal" href="code-style.html#pylint"><span class="std std-ref">Linting</span></a> throws any errors or warnings.</p>
 </section>
 <section id="black">
-<h3>black<a class="headerlink" href="#black" title="Permalink to this headline"></a></h3>
+<h3>black<a class="headerlink" href="#black" title="Permalink to this heading"></a></h3>
 <p>This job executes <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">black</span> <span class="pre">--check</span> <span class="pre">.</span></code>, which checks whether the code matches the <a class="reference internal" href="code-style.html#black-code-style"><span class="std std-ref">Black</span></a> code style.</p>
 </section>
 <section id="check-migrations">
-<h3>check-migrations<a class="headerlink" href="#check-migrations" title="Permalink to this headline"></a></h3>
+<h3>check-migrations<a class="headerlink" href="#check-migrations" title="Permalink to this heading"></a></h3>
 <p>This job checks whether there are any changes to the models that need a database migration</p>
 </section>
 <section id="setup-test-reporter">
-<h3>setup-test-reporter<a class="headerlink" href="#setup-test-reporter" title="Permalink to this headline"></a></h3>
+<h3>setup-test-reporter<a class="headerlink" href="#setup-test-reporter" title="Permalink to this heading"></a></h3>
 <p>This job sets up the test coverage reporter for CodeClimate.</p>
 </section>
 <section id="tests">
-<h3>tests<a class="headerlink" href="#tests" title="Permalink to this headline"></a></h3>
+<h3>tests<a class="headerlink" href="#tests" title="Permalink to this heading"></a></h3>
 <p>This job runs the tests in 16 parallel containers. It sets up a temporary postgres database and runs the migrations
 before testing. It runs pytest and passes the coverage in the <code class="docutils literal notranslate"><span class="pre">test-results</span></code> directory to the build artifacts.</p>
 </section>
 <section id="upload-test-coverage">
-<span id="circleci-upload-test-coverage"></span><h3>upload-test-coverage<a class="headerlink" href="#upload-test-coverage" title="Permalink to this headline"></a></h3>
+<span id="circleci-upload-test-coverage"></span><h3>upload-test-coverage<a class="headerlink" href="#upload-test-coverage" title="Permalink to this heading"></a></h3>
 <p>This job joins all separate coverage data files generated from the previous steps and uploads it to CodeClimate.</p>
 </section>
 <section id="check-translations">
-<h3>check-translations<a class="headerlink" href="#check-translations" title="Permalink to this headline"></a></h3>
+<h3>check-translations<a class="headerlink" href="#check-translations" title="Permalink to this heading"></a></h3>
 <p>This job uses the dev-tool <code class="docutils literal notranslate"><span class="pre">./dev-tools/check_translations.sh</span></code> to check whether the translation file is up to date and
 does not contain any empty or fuzzy entries.</p>
 </section>
 <section id="compile-translations">
-<span id="circleci-compile-translations"></span><h3>compile-translations<a class="headerlink" href="#compile-translations" title="Permalink to this headline"></a></h3>
+<span id="circleci-compile-translations"></span><h3>compile-translations<a class="headerlink" href="#compile-translations" title="Permalink to this heading"></a></h3>
 <p>This job compiles the translation file and passes the resulting <code class="docutils literal notranslate"><span class="pre">django.mo</span></code> to the packaging job.</p>
 </section>
 <section id="bump-dev-version">
-<h3>bump-dev-version<a class="headerlink" href="#bump-dev-version" title="Permalink to this headline"></a></h3>
+<h3>bump-dev-version<a class="headerlink" href="#bump-dev-version" title="Permalink to this heading"></a></h3>
 <p>This job modifies the <code class="docutils literal notranslate"><span class="pre">bumpver</span></code> config to make sure the changes are only temporary and not committed, then it bumps
 the version to the next alpha version which is not yet published on
 <a class="reference external" href="https://test.pypi.org/project/integreat-cms/#history">TestPyPI</a>.
 This is only executed on develop (usually after PRs have been merged) or on branches that end with <code class="docutils literal notranslate"><span class="pre">-publish-dev-package</span></code>.</p>
 </section>
 <section id="build-package">
-<span id="circleci-build-package"></span><h3>build-package<a class="headerlink" href="#build-package" title="Permalink to this headline"></a></h3>
+<span id="circleci-build-package"></span><h3>build-package<a class="headerlink" href="#build-package" title="Permalink to this heading"></a></h3>
 <p>This job creates a python package and passes the resulting files in <code class="docutils literal notranslate"><span class="pre">dist</span></code> to the <a class="reference internal" href="#circleci-publish-package"><span class="std std-ref">publish-package</span></a> job.
 See <a class="reference internal" href="packaging.html"><span class="doc">Packaging</span></a> for more information.</p>
 </section>
 <section id="publish-package">
-<span id="circleci-publish-package"></span><h3>publish-package<a class="headerlink" href="#publish-package" title="Permalink to this headline"></a></h3>
+<span id="circleci-publish-package"></span><h3>publish-package<a class="headerlink" href="#publish-package" title="Permalink to this heading"></a></h3>
 <p>This job publishes the built package to <a class="reference external" href="https://test.pypi.org/project/integreat-cms/">TestPyPI</a> via <a class="reference external" href="https://twine.readthedocs.io/en/latest/index.html" title="(in twine v4.0)"><span>Twine</span></a>.
 This is only executed on develop (usually after PRs have been merged) or on branches that end with <code class="docutils literal notranslate"><span class="pre">-publish-dev-package</span></code>.</p>
 </section>
 <section id="build-documentation">
-<h3>build-documentation<a class="headerlink" href="#build-documentation" title="Permalink to this headline"></a></h3>
+<h3>build-documentation<a class="headerlink" href="#build-documentation" title="Permalink to this heading"></a></h3>
 <p>This job checks whether the documentation can be generated without any errors by running
 <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">./dev-tools/generate_documentation.sh</span></code>.
 It passes the html documentation in <code class="docutils literal notranslate"><span class="pre">docs</span></code> to the <a class="reference internal" href="#circleci-deploy-documentation"><span class="std std-ref">deploy-documentation</span></a> job.</p>
 </section>
 <section id="deploy-documentation">
-<span id="circleci-deploy-documentation"></span><h3>deploy-documentation<a class="headerlink" href="#deploy-documentation" title="Permalink to this headline"></a></h3>
+<span id="circleci-deploy-documentation"></span><h3>deploy-documentation<a class="headerlink" href="#deploy-documentation" title="Permalink to this heading"></a></h3>
 <p>This job authenticates as the user <a class="reference external" href="https://github.com/DigitalfabrikMember">DigitalfabrikMember</a> and commits all changes to the
 documentation to the branch <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/tree/gh-pages">gh-pages</a>
 which is then deployed to <code class="docutils literal notranslate"><span class="pre">https://digitalfabrik.github.io/integreat-cms/</span></code> by GitHub.</p>
 </section>
 <section id="shellcheck-check">
-<span id="circleci-shellcheck"></span><h3>shellcheck/check<a class="headerlink" href="#shellcheck-check" title="Permalink to this headline"></a></h3>
+<span id="circleci-shellcheck"></span><h3>shellcheck/check<a class="headerlink" href="#shellcheck-check" title="Permalink to this heading"></a></h3>
 <p>This job makes use of the <a class="reference external" href="https://circleci.com/developer/orbs/orb/circleci/shellcheck">ShellCheck CircleCI Orb</a> and
-executes the pre-defined job <code class="docutils literal notranslate"><span class="pre">shellcheck/check</span></code>. It is configured to check the directory <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools">dev-tools</a>
+executes the pre-defined job <code class="docutils literal notranslate"><span class="pre">shellcheck/check</span></code>. It is configured to check the directory <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools</a>
 and to allow external sources because all dev tools source one common function script. Also see <a class="reference internal" href="code-style.html#shellcheck"><span class="std std-ref">Shellcheck</span></a>.</p>
 </section>
 </section>
 <section id="workflow-main">
-<h2>Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code><a class="headerlink" href="#workflow-main" title="Permalink to this headline"></a></h2>
+<h2>Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code><a class="headerlink" href="#workflow-main" title="Permalink to this heading"></a></h2>
 <p>This workflow gets executed when a commit is pushed to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch. Typically, this is a release PR from <code class="docutils literal notranslate"><span class="pre">develop</span></code>.</p>
 <section id="id1">
-<h3>pipenv-install<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<h3>pipenv-install<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <p>See <a class="reference internal" href="#circleci-pipenv-install"><span class="std std-ref">pipenv-install</span></a>.</p>
 </section>
 <section id="bump-version">
-<h3>bump-version<a class="headerlink" href="#bump-version" title="Permalink to this headline"></a></h3>
+<h3>bump-version<a class="headerlink" href="#bump-version" title="Permalink to this heading"></a></h3>
 <p>This job authenticates as the deliverino app and runs <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">bumpver</span> <span class="pre">update</span></code> to bump the version and commit the
 changes to the main branch. Additionally, it merges the version bump commit into the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch.</p>
 </section>
 </section>
 <section id="workflow-deploy">
-<h2>Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code><a class="headerlink" href="#workflow-deploy" title="Permalink to this headline"></a></h2>
+<h2>Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code><a class="headerlink" href="#workflow-deploy" title="Permalink to this heading"></a></h2>
 <p>This workflow gets executed when a commit is tagged.</p>
 <section id="id2">
-<h3>pipenv-install<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+<h3>pipenv-install<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
 <p>See <a class="reference internal" href="#circleci-pipenv-install"><span class="std std-ref">pipenv-install</span></a>.</p>
 </section>
 <section id="id3">
-<h3>webpack<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<h3>webpack<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <p>See <a class="reference internal" href="#circleci-webpack"><span class="std std-ref">webpack</span></a>.</p>
 </section>
 <section id="id4">
-<h3>compile-translations<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
+<h3>compile-translations<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
 <p>See <a class="reference internal" href="#circleci-compile-translations"><span class="std std-ref">compile-translations</span></a>.</p>
 </section>
 <section id="id5">
-<h3>build-package<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<h3>build-package<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
 <p>See <a class="reference internal" href="#circleci-build-package"><span class="std std-ref">build-package</span></a>.</p>
 </section>
 <section id="id6">
-<h3>publish-package<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
+<h3>publish-package<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
 <p>See <a class="reference internal" href="#circleci-publish-package"><span class="std std-ref">publish-package</span></a>. The only difference is that PyPI is used as repository instead of TestPyPI.</p>
 </section>
 <section id="create-release">
-<h3>create-release<a class="headerlink" href="#create-release" title="Permalink to this headline"></a></h3>
-<p>This job authenticates as Deliverino app and creates a GitHub release with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/.circleci/scripts/create_release.py">.circleci/scripts/create_release.py</a>.</p>
+<h3>create-release<a class="headerlink" href="#create-release" title="Permalink to this heading"></a></h3>
+<p>This job authenticates as Deliverino app and creates a GitHub release with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/.circleci/scripts/create_release.py">https://github.com/digitalfabrik/integreat-cms/blob/develop/.circleci/scripts/create_release.py</a>.</p>
 </section>
 <section id="notify-mattermost">
-<h3>notify-mattermost<a class="headerlink" href="#notify-mattermost" title="Permalink to this headline"></a></h3>
+<h3>notify-mattermost<a class="headerlink" href="#notify-mattermost" title="Permalink to this heading"></a></h3>
 <p>This job sends a release notification to Mattermost into the <code class="docutils literal notranslate"><span class="pre">integreat-releases</span></code> channel. It needs the Mattermost
 webhook which is injected via the <code class="docutils literal notranslate"><span class="pre">mattermost</span></code> context.</p>
 </section>
 </section>
 <section id="debugging-with-ssh">
-<h2>Debugging with SSH<a class="headerlink" href="#debugging-with-ssh" title="Permalink to this headline"></a></h2>
+<h2>Debugging with SSH<a class="headerlink" href="#debugging-with-ssh" title="Permalink to this heading"></a></h2>
 <p>If you encounter any build failures which you cannot reproduce on your local machine, you can SSH into the build
 server and examine the problem. See <a class="reference external" href="https://circleci.com/docs/2.0/ssh-access-jobs/">Debugging with SSH</a> for
 more information.</p>
 </section>
 <section id="unauthorized-circleci">
-<span id="circleci-unauthorized"></span><h2>⚠ Unauthorized (CircleCI)<a class="headerlink" href="#unauthorized-circleci" title="Permalink to this headline"></a></h2>
+<span id="circleci-unauthorized"></span><h2>⚠ Unauthorized (CircleCI)<a class="headerlink" href="#unauthorized-circleci" title="Permalink to this heading"></a></h2>
 <div class="error admonition">
 <p class="admonition-title">Got error “Unauthorized”?</p>
 <p>Some jobs need secrets that are passed into the execution via <a class="reference external" href="https://circleci.com/docs/2.0/contexts/">contexts</a>.

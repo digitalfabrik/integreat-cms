@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-06-13T19:55:24+00:00" />
+    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>XLIFF &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -874,7 +875,7 @@
            <div itemprop="articleBody">
              
   <section id="module-integreat_cms.xliff">
-<span id="xliff"></span><h1>XLIFF<a class="headerlink" href="#module-integreat_cms.xliff" title="Permalink to this headline"></a></h1>
+<span id="xliff"></span><h1>XLIFF<a class="headerlink" href="#module-integreat_cms.xliff" title="Permalink to this heading"></a></h1>
 <p>This package contains helper classes for the handling of XLIFF files.
 It can handle XLIFF files of version 1.2 (see <a class="reference internal" href="#module-integreat_cms.xliff.xliff1_serializer" title="integreat_cms.xliff.xliff1_serializer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">xliff1_serializer</span></code></a>) and 2.0 (see
 <a class="reference internal" href="#module-integreat_cms.xliff.xliff2_serializer" title="integreat_cms.xliff.xliff2_serializer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">xliff2_serializer</span></code></a>).
@@ -888,12 +889,12 @@ respective version’s deserializer.</p>
 </div>
 <p>To facilitate the handling of XLIFF files in the views, this package also contains utilities in <a class="reference internal" href="#module-integreat_cms.xliff.utils" title="integreat_cms.xliff.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">utils</span></code></a>.</p>
 <section id="module-integreat_cms.xliff.apps">
-<span id="apps"></span><h2>Apps<a class="headerlink" href="#module-integreat_cms.xliff.apps" title="Permalink to this headline"></a></h2>
+<span id="apps"></span><h2>Apps<a class="headerlink" href="#module-integreat_cms.xliff.apps" title="Permalink to this heading"></a></h2>
 <p>Configuration of XLIFF app</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.xliff.apps.XLIFFConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.apps.</span></span><span class="sig-name descname"><span class="pre">XLIFFConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/apps.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.apps.XLIFFConfig" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></a></p>
 <p>XLIFF config inheriting the django AppConfig</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.apps.XLIFFConfig.__init__">
@@ -952,16 +953,16 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 
 </section>
 <section id="module-integreat_cms.xliff.base_serializer">
-<span id="base-serializer"></span><h2>Base Serializer<a class="headerlink" href="#module-integreat_cms.xliff.base_serializer" title="Permalink to this headline"></a></h2>
+<span id="base-serializer"></span><h2>Base Serializer<a class="headerlink" href="#module-integreat_cms.xliff.base_serializer" title="Permalink to this heading"></a></h2>
 <p>This module contains the abstract base classes for the XLIFF serializers.
 It makes use of the existing Django serialization functionality (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/serialization/" title="(in Django v3.2)"><span>Serializing Django objects</span></a> and
 <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/serialization/#serialization-formats" title="(in Django v3.2)"><span>Serialization formats</span></a>).</p>
-<p>It extends <a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/base.py">django/core/serializers/base.py</a> and
-<a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/xml_serializer.py">django/core/serializers/xml_serializer.py</a>.</p>
+<p>It extends <a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/base.py">https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/base.py</a> and
+<a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/xml_serializer.py">https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/xml_serializer.py</a>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.Deserializer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.base_serializer.</span></span><span class="sig-name descname"><span class="pre">Deserializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream_or_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignorenonexistent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/base_serializer.py#L167"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.Deserializer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.serializers.xml_serializer.Deserializer</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Deserializer</span></code></p>
 <p>Abstract base XLIFF deserializer class. Inherits basic XML initialization from the default xml_serializer of Django.
 The contents of the XLIFF file are available through <code class="docutils literal notranslate"><span class="pre">self.event_stream</span></code>, which gets assigned to the result of
 <a class="reference external" href="https://docs.python.org/3.9/library/xml.dom.pulldom.html#xml.dom.pulldom.parse" title="(in Python v3.9)"><code class="docutils literal notranslate"><span class="pre">xml.dom.pulldom.parse()</span></code></a>.</p>
@@ -1066,13 +1067,13 @@ To be implemented in the subclass of this base serializer.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.Serializer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.base_serializer.</span></span><span class="sig-name descname"><span class="pre">Serializer</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/base_serializer.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.Serializer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.serializers.xml_serializer.Serializer</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Serializer</span></code></p>
 <p>Abstract base XLIFF serializer class. Inherits basic XML initialization from the default xml_serializer of Django
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/serialization/#serialization-formats" title="(in Django v3.2)"><span>Serialization formats</span></a>).</p>
 <p>The XLIFF file can be extended by writing to <code class="docutils literal notranslate"><span class="pre">self.xml</span></code>, which is an instance of
 <a class="reference internal" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA" title="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA"><code class="xref py py-class docutils literal notranslate"><span class="pre">XMLGeneratorWithCDATA</span></code></a>.</p>
-<p>For details, look at the implementation of <a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/base.py">django/core/serializers/base.py</a> and
-<a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/xml_serializer.py">django/core/serializers/xml_serializer.py</a>.</p>
+<p>For details, look at the implementation of <a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/base.py">https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/base.py</a> and
+<a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/xml_serializer.py">https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/xml_serializer.py</a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.Serializer.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/base_serializer.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.Serializer.__init__" title="Permalink to this definition"></a></dt>
@@ -1175,7 +1176,7 @@ They will just be ignored and are not contained in the resulting XLIFF file.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.Serializer.progress_class">
 <span class="sig-name descname"><span class="pre">progress_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/base.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.Serializer.progress_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.serializers.base.ProgressBar</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">ProgressBar</span></code></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1223,7 +1224,7 @@ objects which should be serialized</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.Serializer.stream_class">
 <span class="sig-name descname"><span class="pre">stream_class</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/base_serializer.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.Serializer.stream_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_io.StringIO</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">StringIO</span></code></p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1237,7 +1238,7 @@ objects which should be serialized</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.base_serializer.</span></span><span class="sig-name descname"><span class="pre">XMLGeneratorWithCDATA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'iso-8859-1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_empty_elements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/base_serializer.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.utils.xmlutils.SimplerXMLGenerator</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SimplerXMLGenerator</span></code></p>
 <p>Subclass of SimplerXMLGenerator to provide a custom CDATA node</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.__init__">
@@ -1431,11 +1432,11 @@ not guaranteed.</p>
 
 </section>
 <section id="module-integreat_cms.xliff.generic_serializer">
-<span id="generic-serializer"></span><h2>Generic Serializer<a class="headerlink" href="#module-integreat_cms.xliff.generic_serializer" title="Permalink to this headline"></a></h2>
+<span id="generic-serializer"></span><h2>Generic Serializer<a class="headerlink" href="#module-integreat_cms.xliff.generic_serializer" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.xliff.generic_serializer.Deserializer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.generic_serializer.</span></span><span class="sig-name descname"><span class="pre">Deserializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/generic_serializer.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.generic_serializer.Deserializer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.base_serializer.Deserializer" title="integreat_cms.xliff.base_serializer.Deserializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.xliff.base_serializer.Deserializer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.base_serializer.Deserializer" title="integreat_cms.xliff.base_serializer.Deserializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deserializer</span></code></a></p>
 <p>For deserialization, inspect the data and choose the correct version</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.generic_serializer.Deserializer.__init__">
@@ -1536,7 +1537,7 @@ Handled by either <a class="reference internal" href="#integreat_cms.xliff.xliff
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.xliff.generic_serializer.Serializer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.generic_serializer.</span></span><span class="sig-name descname"><span class="pre">Serializer</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/generic_serializer.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.generic_serializer.Serializer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.xliff2_serializer.Serializer" title="integreat_cms.xliff.xliff2_serializer.Serializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.xliff.xliff2_serializer.Serializer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.xliff2_serializer.Serializer" title="integreat_cms.xliff.xliff2_serializer.Serializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serializer</span></code></a></p>
 <p>For serialization, just fall back to the serializer for XLIFF version 2.0</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.generic_serializer.Serializer.__init__">
@@ -1641,7 +1642,7 @@ They will just be ignored and are not contained in the resulting XLIFF file.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.xliff.generic_serializer.Serializer.progress_class">
 <span class="sig-name descname"><span class="pre">progress_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/base.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.generic_serializer.Serializer.progress_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.serializers.base.ProgressBar</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">ProgressBar</span></code></p>
 </dd></dl>
 
 <dl class="py method">
@@ -1696,7 +1697,7 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.xliff.generic_serializer.Serializer.stream_class">
 <span class="sig-name descname"><span class="pre">stream_class</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/generic_serializer.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.generic_serializer.Serializer.stream_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_io.StringIO</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">StringIO</span></code></p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1715,7 +1716,7 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
 
 </section>
 <section id="module-integreat_cms.xliff.utils">
-<span id="utils"></span><h2>Utils<a class="headerlink" href="#module-integreat_cms.xliff.utils" title="Permalink to this headline"></a></h2>
+<span id="utils"></span><h2>Utils<a class="headerlink" href="#module-integreat_cms.xliff.utils" title="Permalink to this heading"></a></h2>
 <p>Helper functions for the XLIFF serializer</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.xliff.utils.get_xliff_import_diff">
@@ -1849,11 +1850,11 @@ XLIFF file if only one page is converted)</p>
 
 </section>
 <section id="module-integreat_cms.xliff.xliff1_serializer">
-<span id="xliff-1-2-serializer"></span><h2>XLIFF 1.2 Serializer<a class="headerlink" href="#module-integreat_cms.xliff.xliff1_serializer" title="Permalink to this headline"></a></h2>
+<span id="xliff-1-2-serializer"></span><h2>XLIFF 1.2 Serializer<a class="headerlink" href="#module-integreat_cms.xliff.xliff1_serializer" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.xliff.xliff1_serializer.Deserializer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.xliff1_serializer.</span></span><span class="sig-name descname"><span class="pre">Deserializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream_or_string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignorenonexistent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/xliff1_serializer.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.xliff1_serializer.Deserializer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.base_serializer.Deserializer" title="integreat_cms.xliff.base_serializer.Deserializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.xliff.base_serializer.Deserializer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.base_serializer.Deserializer" title="integreat_cms.xliff.base_serializer.Deserializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deserializer</span></code></a></p>
 <p>XLIFF deserializer class for XLIFF version 1.2</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.xliff.xliff1_serializer.Deserializer.__init__">
@@ -1961,7 +1962,7 @@ attribute</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.xliff.xliff1_serializer.Serializer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.xliff1_serializer.</span></span><span class="sig-name descname"><span class="pre">Serializer</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/xliff1_serializer.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.xliff1_serializer.Serializer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.base_serializer.Serializer" title="integreat_cms.xliff.base_serializer.Serializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.xliff.base_serializer.Serializer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.base_serializer.Serializer" title="integreat_cms.xliff.base_serializer.Serializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serializer</span></code></a></p>
 <p>XLIFF serializer class for XLIFF version 1.2.
 This was inspired by <a class="reference external" href="https://github.com/callowayproject/django-xliff">django-xliff</a>.</p>
 <dl class="py method">
@@ -2064,7 +2065,7 @@ They will just be ignored and are not contained in the resulting XLIFF file.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.xliff.xliff1_serializer.Serializer.progress_class">
 <span class="sig-name descname"><span class="pre">progress_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/base.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.xliff1_serializer.Serializer.progress_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.serializers.base.ProgressBar</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">ProgressBar</span></code></p>
 </dd></dl>
 
 <dl class="py method">
@@ -2113,7 +2114,7 @@ additional <code class="docutils literal notranslate"><span class="pre">&lt;body
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.xliff.xliff1_serializer.Serializer.stream_class">
 <span class="sig-name descname"><span class="pre">stream_class</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/xliff1_serializer.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.xliff1_serializer.Serializer.stream_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_io.StringIO</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">StringIO</span></code></p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2126,11 +2127,11 @@ additional <code class="docutils literal notranslate"><span class="pre">&lt;body
 
 </section>
 <section id="module-integreat_cms.xliff.xliff2_serializer">
-<span id="xliff-2-0-serializer"></span><h2>XLIFF 2.0 Serializer<a class="headerlink" href="#module-integreat_cms.xliff.xliff2_serializer" title="Permalink to this headline"></a></h2>
+<span id="xliff-2-0-serializer"></span><h2>XLIFF 2.0 Serializer<a class="headerlink" href="#module-integreat_cms.xliff.xliff2_serializer" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.xliff.xliff2_serializer.Deserializer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.xliff2_serializer.</span></span><span class="sig-name descname"><span class="pre">Deserializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/xliff2_serializer.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.xliff2_serializer.Deserializer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.base_serializer.Deserializer" title="integreat_cms.xliff.base_serializer.Deserializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.xliff.base_serializer.Deserializer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.base_serializer.Deserializer" title="integreat_cms.xliff.base_serializer.Deserializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deserializer</span></code></a></p>
 <p>XLIFF deserializer class for XLIFF version 2.0</p>
 <p>Deserializes XLIFF files into <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> objects.</p>
 <dl class="py method">
@@ -2248,7 +2249,7 @@ To be implemented in the subclass of this base serializer.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.xliff.xliff2_serializer.Serializer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.xliff2_serializer.</span></span><span class="sig-name descname"><span class="pre">Serializer</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/xliff2_serializer.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.xliff2_serializer.Serializer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.base_serializer.Serializer" title="integreat_cms.xliff.base_serializer.Serializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.xliff.base_serializer.Serializer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.xliff.base_serializer.Serializer" title="integreat_cms.xliff.base_serializer.Serializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serializer</span></code></a></p>
 <p>XLIFF serializer class for XLIFF version 2.0</p>
 <p>Serializes <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> objects into translatable XLIFF files.</p>
 <dl class="py method">
@@ -2354,7 +2355,7 @@ They will just be ignored and are not contained in the resulting XLIFF file.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.xliff.xliff2_serializer.Serializer.progress_class">
 <span class="sig-name descname"><span class="pre">progress_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/serializers/base.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.xliff2_serializer.Serializer.progress_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.serializers.base.ProgressBar</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">ProgressBar</span></code></p>
 </dd></dl>
 
 <dl class="py method">
@@ -2409,7 +2410,7 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.xliff.xliff2_serializer.Serializer.stream_class">
 <span class="sig-name descname"><span class="pre">stream_class</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/xliff2_serializer.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.xliff2_serializer.Serializer.stream_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_io.StringIO</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">StringIO</span></code></p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2444,7 +2445,7 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 13, 2022.
+      <span class="lastupdated">Last updated on Jul 18, 2022.
       </span></p>
   </div>
 

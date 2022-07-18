@@ -17,6 +17,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -872,21 +873,21 @@
            <div itemprop="articleBody">
              
   <section id="code-style-guidelines">
-<h1>Code Style Guidelines<a class="headerlink" href="#code-style-guidelines" title="Permalink to this headline"></a></h1>
+<h1>Code Style Guidelines<a class="headerlink" href="#code-style-guidelines" title="Permalink to this heading"></a></h1>
 <section id="black">
-<span id="black-code-style"></span><h2>Black<a class="headerlink" href="#black" title="Permalink to this headline"></a></h2>
+<span id="black-code-style"></span><h2>Black<a class="headerlink" href="#black" title="Permalink to this heading"></a></h2>
 <p>We use the <a class="reference external" href="https://github.com/psf/black">black</a> coding style, a flavour of <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a> for Python.</p>
 <p>We use a <a class="reference external" href="https://pre-commit.com/">pre-commit-hook</a> to apply this style before committing, so you don’t have to bother about formatting.
 Just code how you feel comfortable and let the tool do the work for you (see <a class="reference internal" href="git-flow.html#pre-commit-hooks"><span class="std std-ref">Pre-commit Hooks</span></a>).</p>
-<p>If you want to apply the code without committing, use our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/black.sh">dev-tools/black.sh</a>:</p>
+<p>If you want to apply the code without committing, use our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/black.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/black.sh</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">black</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 </section>
 <section id="linting">
-<span id="pylint"></span><h2>Linting<a class="headerlink" href="#linting" title="Permalink to this headline"></a></h2>
+<span id="pylint"></span><h2>Linting<a class="headerlink" href="#linting" title="Permalink to this heading"></a></h2>
 <p>In addition to black, we use pylint to check the code for semantic correctness.
-Run pylint with our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/pylint.sh">dev-tools/pylint.sh</a>:</p>
+Run pylint with our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/pylint.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/pylint.sh</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">pylint</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
@@ -901,14 +902,14 @@ Run pylint with our developer tool <a class="reference external" href="https://g
 </div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>If you want to run both tools at once, use our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/code_style.sh">dev-tools/code_style.sh</a>:</p>
+<p>If you want to run both tools at once, use our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/code_style.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/code_style.sh</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">code_style</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="docstrings">
-<h2>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this headline"></a></h2>
+<h2>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this heading"></a></h2>
 <p>Please add docstrings in the sphinx format (see <a class="reference external" href="https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html" title="(in Sphinx-RTD-Tutorial)"><span>Writing docstrings</span></a>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">[Summary]</span>
@@ -946,8 +947,8 @@ model field type.</p>
 <p>See the configuration files <a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings" title="integreat_cms.core.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">settings</span></code></a> and <a class="reference internal" href="documentation.html#module-conf" title="conf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">conf</span></code></a> or <a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants" title="integreat_cms.cms.constants"><code class="xref py py-mod docutils literal notranslate"><span class="pre">constants</span></code></a> for examples.</p>
 </section>
 <section id="shellcheck">
-<span id="id2"></span><h2>Shellcheck<a class="headerlink" href="#shellcheck" title="Permalink to this headline"></a></h2>
-<p>All developer tools in the <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools">dev-tools</a> directory have to comply to the standards of shellcheck (see
+<span id="id2"></span><h2>Shellcheck<a class="headerlink" href="#shellcheck" title="Permalink to this heading"></a></h2>
+<p>All developer tools in the <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools</a> directory have to comply to the standards of shellcheck (see
 <a class="reference external" href="https://github.com/koalaman/shellcheck/wiki">ShellCheck wiki</a>).
 Shellcheck is run both in the CI-pipeline of CircleCI (see <a class="reference internal" href="continuous-integration.html#circleci-shellcheck"><span class="std std-ref">shellcheck/check</span></a>) and as pre-commit hook (see
 <a class="reference internal" href="git-flow.html#pre-commit-hooks"><span class="std std-ref">Pre-commit Hooks</span></a>) and can be run locally with:</p>

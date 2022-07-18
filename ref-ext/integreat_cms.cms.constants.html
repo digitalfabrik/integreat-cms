@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-05-25T20:40:40+00:00" />
+    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Constants &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -875,7 +876,7 @@
            <div itemprop="articleBody">
              
   <section id="module-integreat_cms.cms.constants">
-<span id="constants"></span><h1>Constants<a class="headerlink" href="#module-integreat_cms.cms.constants" title="Permalink to this headline"></a></h1>
+<span id="constants"></span><h1>Constants<a class="headerlink" href="#module-integreat_cms.cms.constants" title="Permalink to this heading"></a></h1>
 <p>Constants are used whenever we store values in the database which are chosen from a very limited set.
 Defining constants here adds an abstract layer on top of the actual values that are stored in the database.
 This improves readability of the code, enables auto-completion of values and minimizes the risk of mistakes.
@@ -884,7 +885,7 @@ nor the end users gets to see them.
 The developer only sees the defined constant, and the end user only sees the (translated) string representation
 defined in a mapping which is called <code class="docutils literal notranslate"><span class="pre">CHOICES</span></code> for every submodule.</p>
 <section id="module-integreat_cms.cms.constants.administrative_division">
-<span id="administrative-division"></span><h2>Administrative Division<a class="headerlink" href="#module-integreat_cms.cms.constants.administrative_division" title="Permalink to this headline"></a></h2>
+<span id="administrative-division"></span><h2>Administrative Division<a class="headerlink" href="#module-integreat_cms.cms.constants.administrative_division" title="Permalink to this heading"></a></h2>
 <p>This module contains constants which represent all possible administrative divisions of a region in Germany.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.administrative_division.AREA_STATE">
@@ -996,7 +997,7 @@ defined in a mapping which is called <code class="docutils literal notranslate">
 
 </section>
 <section id="module-integreat_cms.cms.constants.all_day">
-<span id="all-day"></span><h2>All Day<a class="headerlink" href="#module-integreat_cms.cms.constants.all_day" title="Permalink to this headline"></a></h2>
+<span id="all-day"></span><h2>All Day<a class="headerlink" href="#module-integreat_cms.cms.constants.all_day" title="Permalink to this heading"></a></h2>
 <p>This module contains all string representations of all day filter options, used by <a class="reference internal" href="integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.event_filter_form.EventFilterForm" title="integreat_cms.cms.forms.events.event_filter_form.EventFilterForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventFilterForm</span></code></a> and
 <a class="reference internal" href="integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_list_view.EventListView" title="integreat_cms.cms.views.events.event_list_view.EventListView"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventListView</span></code></a>.</p>
 <p>The module also contains a constant <a class="reference internal" href="#integreat_cms.cms.constants.all_day.DATATYPE" title="integreat_cms.cms.constants.all_day.DATATYPE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DATATYPE</span></code></a>, which contains the type of the constant
@@ -1031,7 +1032,7 @@ instances in <a class="reference internal" href="integreat_cms.cms.forms.events.
 
 </section>
 <section id="module-integreat_cms.cms.constants.allowed_media">
-<span id="allowed-media"></span><h2>Allowed Media<a class="headerlink" href="#module-integreat_cms.cms.constants.allowed_media" title="Permalink to this headline"></a></h2>
+<span id="allowed-media"></span><h2>Allowed Media<a class="headerlink" href="#module-integreat_cms.cms.constants.allowed_media" title="Permalink to this heading"></a></h2>
 <p>This module contains a list of Mime-Types that are allowed to be uploaded.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.allowed_media.CHOICES">
@@ -1189,7 +1190,7 @@ instances in <a class="reference internal" href="integreat_cms.cms.forms.events.
 
 </section>
 <section id="module-integreat_cms.cms.constants.colors">
-<span id="colors"></span><h2>Colors<a class="headerlink" href="#module-integreat_cms.cms.constants.colors" title="Permalink to this headline"></a></h2>
+<span id="colors"></span><h2>Colors<a class="headerlink" href="#module-integreat_cms.cms.constants.colors" title="Permalink to this heading"></a></h2>
 <p>This module contains colors which aim to be good distinguishable by humans.
 They are used to display graphs with overlapping lines (e.g. statistics).</p>
 <dl class="py data">
@@ -1230,7 +1231,7 @@ They are used to display graphs with overlapping lines (e.g. statistics).</p>
 
 </section>
 <section id="module-integreat_cms.cms.constants.countries">
-<span id="countries"></span><h2>Countries<a class="headerlink" href="#module-integreat_cms.cms.constants.countries" title="Permalink to this headline"></a></h2>
+<span id="countries"></span><h2>Countries<a class="headerlink" href="#module-integreat_cms.cms.constants.countries" title="Permalink to this heading"></a></h2>
 <p>This module contains a mapping from ISO 3166-1 alpha-2 country codes to their names in English.
 Data based on: <a class="reference external" href="https://github.com/SmileyChris/django-countries/blob/master/django_countries/data.py">https://github.com/SmileyChris/django-countries/blob/master/django_countries/data.py</a></p>
 <dl class="py data">
@@ -1506,7 +1507,7 @@ Data based on: <a class="reference external" href="https://github.com/SmileyChri
 
 </section>
 <section id="module-integreat_cms.cms.constants.events_time_range">
-<span id="events-time-range"></span><h2>Events Time Range<a class="headerlink" href="#module-integreat_cms.cms.constants.events_time_range" title="Permalink to this headline"></a></h2>
+<span id="events-time-range"></span><h2>Events Time Range<a class="headerlink" href="#module-integreat_cms.cms.constants.events_time_range" title="Permalink to this heading"></a></h2>
 <p>This module contains all string representations of event time range filter options, used by
 <a class="reference internal" href="integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.event_filter_form.EventFilterForm" title="integreat_cms.cms.forms.events.event_filter_form.EventFilterForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventFilterForm</span></code></a> and
 <a class="reference internal" href="integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_list_view.EventListView" title="integreat_cms.cms.views.events.event_list_view.EventListView"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventListView</span></code></a>.</p>
@@ -1552,7 +1553,7 @@ Data based on: <a class="reference external" href="https://github.com/SmileyChri
 
 </section>
 <section id="module-integreat_cms.cms.constants.feedback_ratings">
-<span id="feedback-ratings"></span><h2>Feedback Ratings<a class="headerlink" href="#module-integreat_cms.cms.constants.feedback_ratings" title="Permalink to this headline"></a></h2>
+<span id="feedback-ratings"></span><h2>Feedback Ratings<a class="headerlink" href="#module-integreat_cms.cms.constants.feedback_ratings" title="Permalink to this heading"></a></h2>
 <p>This module contains all constants representing the rating of the <a class="reference internal" href="integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.Feedback" title="integreat_cms.cms.models.feedback.feedback.Feedback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Feedback</span></code></a> model.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.feedback_ratings.CHOICES">
@@ -1607,7 +1608,7 @@ Data based on: <a class="reference external" href="https://github.com/SmileyChri
 
 </section>
 <section id="module-integreat_cms.cms.constants.feedback_read_status">
-<span id="feedback-read-status"></span><h2>Feedback Read Status<a class="headerlink" href="#module-integreat_cms.cms.constants.feedback_read_status" title="Permalink to this headline"></a></h2>
+<span id="feedback-read-status"></span><h2>Feedback Read Status<a class="headerlink" href="#module-integreat_cms.cms.constants.feedback_read_status" title="Permalink to this heading"></a></h2>
 <p>This module contains all string representations of all day filter options, used by <a class="reference internal" href="integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.event_filter_form.EventFilterForm" title="integreat_cms.cms.forms.events.event_filter_form.EventFilterForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventFilterForm</span></code></a> and
 <a class="reference internal" href="integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_list_view.EventListView" title="integreat_cms.cms.views.events.event_list_view.EventListView"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventListView</span></code></a>.</p>
 <p>The module also contains a constant <a class="reference internal" href="#integreat_cms.cms.constants.all_day.DATATYPE" title="integreat_cms.cms.constants.all_day.DATATYPE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DATATYPE</span></code></a>, which contains the type of the constant
@@ -1636,7 +1637,7 @@ instances in <a class="reference internal" href="integreat_cms.cms.forms.events.
 
 </section>
 <section id="module-integreat_cms.cms.constants.frequency">
-<span id="frequency"></span><h2>Frequency<a class="headerlink" href="#module-integreat_cms.cms.constants.frequency" title="Permalink to this headline"></a></h2>
+<span id="frequency"></span><h2>Frequency<a class="headerlink" href="#module-integreat_cms.cms.constants.frequency" title="Permalink to this heading"></a></h2>
 <p>This module contains all constants representing the frequency of an <a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>’s
 <a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule" title="integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrenceRule</span></code></a>.</p>
 <dl class="py data">
@@ -1679,10 +1680,10 @@ instances in <a class="reference internal" href="integreat_cms.cms.forms.events.
 
 </section>
 <section id="module-integreat_cms.cms.constants.linkcheck">
-<span id="linkcheck"></span><h2>Linkcheck<a class="headerlink" href="#module-integreat_cms.cms.constants.linkcheck" title="Permalink to this headline"></a></h2>
+<span id="linkcheck"></span><h2>Linkcheck<a class="headerlink" href="#module-integreat_cms.cms.constants.linkcheck" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-integreat_cms.cms.constants.matomo_periods">
-<span id="matomo-periods"></span><h2>Matomo Periods<a class="headerlink" href="#module-integreat_cms.cms.constants.matomo_periods" title="Permalink to this headline"></a></h2>
+<span id="matomo-periods"></span><h2>Matomo Periods<a class="headerlink" href="#module-integreat_cms.cms.constants.matomo_periods" title="Permalink to this heading"></a></h2>
 <p>This module contains all constants representing the period choices for the Matomo API
 (See <a class="reference external" href="https://developer.matomo.org/api-reference/reporting-api">https://developer.matomo.org/api-reference/reporting-api</a>).</p>
 <dl class="py data">
@@ -1725,11 +1726,11 @@ instances in <a class="reference internal" href="integreat_cms.cms.forms.events.
 
 </section>
 <section id="module-integreat_cms.cms.constants.mirrored_page_first">
-<span id="mirrored-page-first"></span><h2>Mirrored Page First<a class="headerlink" href="#module-integreat_cms.cms.constants.mirrored_page_first" title="Permalink to this headline"></a></h2>
+<span id="mirrored-page-first"></span><h2>Mirrored Page First<a class="headerlink" href="#module-integreat_cms.cms.constants.mirrored_page_first" title="Permalink to this heading"></a></h2>
 <p>This module contains labels for the choices regarding the position of embedding live content</p>
 </section>
 <section id="module-integreat_cms.cms.constants.months">
-<span id="months"></span><h2>Months<a class="headerlink" href="#module-integreat_cms.cms.constants.months" title="Permalink to this headline"></a></h2>
+<span id="months"></span><h2>Months<a class="headerlink" href="#module-integreat_cms.cms.constants.months" title="Permalink to this heading"></a></h2>
 <p>This module contains all string representations of months, used by <a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.months.APRIL">
@@ -1827,7 +1828,7 @@ instances in <a class="reference internal" href="integreat_cms.cms.forms.events.
 
 </section>
 <section id="module-integreat_cms.cms.constants.position">
-<span id="position"></span><h2>Position<a class="headerlink" href="#module-integreat_cms.cms.constants.position" title="Permalink to this headline"></a></h2>
+<span id="position"></span><h2>Position<a class="headerlink" href="#module-integreat_cms.cms.constants.position" title="Permalink to this heading"></a></h2>
 <p>This module contains all possible positions inside a MPTT tree model.
 It is used to determine the relative position of nodes in relation to another node.</p>
 <dl class="py data">
@@ -1882,7 +1883,7 @@ It is used to determine the relative position of nodes in relation to another no
 
 </section>
 <section id="module-integreat_cms.cms.constants.postal_code">
-<span id="postal-code"></span><h2>Postal Code<a class="headerlink" href="#module-integreat_cms.cms.constants.postal_code" title="Permalink to this headline"></a></h2>
+<span id="postal-code"></span><h2>Postal Code<a class="headerlink" href="#module-integreat_cms.cms.constants.postal_code" title="Permalink to this heading"></a></h2>
 <p>This module contains all possible configurations of postal codes in offers.
 This is needed when the postal code is placed inside the offer’s url or api request data.</p>
 <dl class="py data">
@@ -1918,7 +1919,7 @@ This is needed when the postal code is placed inside the offer’s url or api re
 
 </section>
 <section id="module-integreat_cms.cms.constants.push_notifications">
-<span id="push-notifications"></span><h2>Push Notifications<a class="headerlink" href="#module-integreat_cms.cms.constants.push_notifications" title="Permalink to this headline"></a></h2>
+<span id="push-notifications"></span><h2>Push Notifications<a class="headerlink" href="#module-integreat_cms.cms.constants.push_notifications" title="Permalink to this heading"></a></h2>
 <p>This module contains the possible modes for push notifications.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.push_notifications.ONLY_AVAILABLE">
@@ -1946,7 +1947,7 @@ This is needed when the postal code is placed inside the offer’s url or api re
 
 </section>
 <section id="module-integreat_cms.cms.constants.recurrence">
-<span id="recurrence"></span><h2>Recurrence<a class="headerlink" href="#module-integreat_cms.cms.constants.recurrence" title="Permalink to this headline"></a></h2>
+<span id="recurrence"></span><h2>Recurrence<a class="headerlink" href="#module-integreat_cms.cms.constants.recurrence" title="Permalink to this heading"></a></h2>
 <p>This module contains all string representations of recurrence filter options, used by <a class="reference internal" href="integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.event_filter_form.EventFilterForm" title="integreat_cms.cms.forms.events.event_filter_form.EventFilterForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventFilterForm</span></code></a> and
 <a class="reference internal" href="integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_list_view.EventListView" title="integreat_cms.cms.views.events.event_list_view.EventListView"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventListView</span></code></a>:</p>
 <p>The module also contains a constant <a class="reference internal" href="#integreat_cms.cms.constants.recurrence.DATATYPE" title="integreat_cms.cms.constants.recurrence.DATATYPE"><code class="xref py py-const docutils literal notranslate"><span class="pre">DATATYPE</span></code></a> which contains the type of the constant values linked to the strings and is used for correctly
@@ -1980,7 +1981,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 
 </section>
 <section id="module-integreat_cms.cms.constants.region_status">
-<span id="region-status"></span><h2>Region Status<a class="headerlink" href="#module-integreat_cms.cms.constants.region_status" title="Permalink to this headline"></a></h2>
+<span id="region-status"></span><h2>Region Status<a class="headerlink" href="#module-integreat_cms.cms.constants.region_status" title="Permalink to this heading"></a></h2>
 <p>This module contains the possible status of regions.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.region_status.ACTIVE">
@@ -2011,7 +2012,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 
 </section>
 <section id="module-integreat_cms.cms.constants.roles">
-<span id="roles"></span><h2>Roles<a class="headerlink" href="#module-integreat_cms.cms.constants.roles" title="Permalink to this headline"></a></h2>
+<span id="roles"></span><h2>Roles<a class="headerlink" href="#module-integreat_cms.cms.constants.roles" title="Permalink to this heading"></a></h2>
 <p>This module contains the possible names of roles to make them translatable and the permission definitions.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.roles.APP_TEAM">
@@ -2625,7 +2626,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 
 </section>
 <section id="module-integreat_cms.cms.constants.status">
-<span id="status"></span><h2>Status<a class="headerlink" href="#module-integreat_cms.cms.constants.status" title="Permalink to this headline"></a></h2>
+<span id="status"></span><h2>Status<a class="headerlink" href="#module-integreat_cms.cms.constants.status" title="Permalink to this heading"></a></h2>
 <p>This module contains the possible status of translations.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.status.AUTO_SAVE">
@@ -2667,7 +2668,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 
 </section>
 <section id="module-integreat_cms.cms.constants.text_directions">
-<span id="text-directions"></span><h2>Text Directions<a class="headerlink" href="#module-integreat_cms.cms.constants.text_directions" title="Permalink to this headline"></a></h2>
+<span id="text-directions"></span><h2>Text Directions<a class="headerlink" href="#module-integreat_cms.cms.constants.text_directions" title="Permalink to this heading"></a></h2>
 <p>This module contains all constants representing the text directions of a <a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">Language</span></code></a>.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.text_directions.CHOICES">
@@ -2692,7 +2693,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 
 </section>
 <section id="module-integreat_cms.cms.constants.translation_status">
-<span id="translation-status"></span><h2>Translation Status<a class="headerlink" href="#module-integreat_cms.cms.constants.translation_status" title="Permalink to this headline"></a></h2>
+<span id="translation-status"></span><h2>Translation Status<a class="headerlink" href="#module-integreat_cms.cms.constants.translation_status" title="Permalink to this heading"></a></h2>
 <p>This module contains the states a translation can have</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.translation_status.CHOICES">
@@ -2754,7 +2755,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 
 </section>
 <section id="module-integreat_cms.cms.constants.weekdays">
-<span id="weekdays"></span><h2>Weekdays<a class="headerlink" href="#module-integreat_cms.cms.constants.weekdays" title="Permalink to this headline"></a></h2>
+<span id="weekdays"></span><h2>Weekdays<a class="headerlink" href="#module-integreat_cms.cms.constants.weekdays" title="Permalink to this heading"></a></h2>
 <p>This module contains all string representations of weekdays, used by <a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.weekdays.CHOICES">
@@ -2817,7 +2818,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 
 </section>
 <section id="module-integreat_cms.cms.constants.weeks">
-<span id="weeks"></span><h2>Weeks<a class="headerlink" href="#module-integreat_cms.cms.constants.weeks" title="Permalink to this headline"></a></h2>
+<span id="weeks"></span><h2>Weeks<a class="headerlink" href="#module-integreat_cms.cms.constants.weeks" title="Permalink to this heading"></a></h2>
 <p>This module contains all string representations of a month’s week, used by <a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event" title="integreat_cms.cms.models.events.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a>.</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.cms.constants.weeks.CHOICES">
@@ -2882,7 +2883,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 25, 2022.
+      <span class="lastupdated">Last updated on Jul 18, 2022.
       </span></p>
   </div>
 

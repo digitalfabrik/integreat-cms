@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-06-20T18:27:54+00:00" />
+    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Documentation (Sphinx) &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -872,7 +873,7 @@
            <div itemprop="articleBody">
              
   <section id="documentation-sphinx">
-<h1>Documentation (Sphinx)<a class="headerlink" href="#documentation-sphinx" title="Permalink to this headline"></a></h1>
+<h1>Documentation (Sphinx)<a class="headerlink" href="#documentation-sphinx" title="Permalink to this heading"></a></h1>
 <p>To generate this documentation, we use the Python documentation generator Sphinx (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/index.html" title="(in Sphinx v6.0.0)"><span>Using Sphinx</span></a>).</p>
 <p>The generation process is divided into two stages:</p>
 <ol class="arabic simple">
@@ -884,8 +885,8 @@ It merges the static <code class="docutils literal notranslate"><span class="pre
 in <code class="docutils literal notranslate"><span class="pre">sphinx/ref-ext</span></code> and the simplified <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files in <code class="docutils literal notranslate"><span class="pre">sphinx/ref</span></code>.</p></li>
 </ol>
 <section id="developer-tools">
-<h2>Developer Tools<a class="headerlink" href="#developer-tools" title="Permalink to this headline"></a></h2>
-<p>Generate this documentation with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/generate_documentation.sh">dev-tools/generate_documentation.sh</a>:</p>
+<h2>Developer Tools<a class="headerlink" href="#developer-tools" title="Permalink to this heading"></a></h2>
+<p>Generate this documentation with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/generate_documentation.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/generate_documentation.sh</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">generate_documentation</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="n">clean</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -907,7 +908,7 @@ view to the extended view and vice versa</p></li>
 and <code class="docutils literal notranslate"><span class="pre">sphinx/ref-ext/</span></code> directories as well as the compiled html output in <code class="docutils literal notranslate"><span class="pre">docs</span></code>. Existing outdated documentation
 files can cause the generation script to fail if e.g. source files were added or deleted.</p>
 <section id="docstrings">
-<h3>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this headline"></a></h3>
+<h3>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this heading"></a></h3>
 <p>Please add docstrings in the sphinx format (see <a class="reference external" href="https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html" title="(in Sphinx-RTD-Tutorial)"><span>Writing docstrings</span></a>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">[Summary]</span>
@@ -946,7 +947,7 @@ model field type.</p>
 </section>
 </section>
 <section id="cross-referencing">
-<h2>Cross-referencing<a class="headerlink" href="#cross-referencing" title="Permalink to this headline"></a></h2>
+<h2>Cross-referencing<a class="headerlink" href="#cross-referencing" title="Permalink to this heading"></a></h2>
 <p>Whenever you want to reference another module, class or function inside a static documentation page or within a
 docstring, use the according <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html" title="(in Sphinx v6.0.0)"><span>Domains</span></a> and have a look at <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#python-roles" title="(in Sphinx v6.0.0)"><span>Cross-referencing Python objects</span></a>.</p>
 <p>Example:
@@ -978,7 +979,7 @@ Remote inventory found.
 </div>
 </section>
 <section id="substitutions">
-<h2>Substitutions<a class="headerlink" href="#substitutions" title="Permalink to this headline"></a></h2>
+<h2>Substitutions<a class="headerlink" href="#substitutions" title="Permalink to this heading"></a></h2>
 <p>Whenever you use GitHub-specific strings, please use <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#default-substitutions" title="(in Sphinx v6.0.0)"><span>Substitutions</span></a>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">|github-username|</span></code> becomes digitalfabrik</p></li>
@@ -988,22 +989,22 @@ Remote inventory found.
 <p>If you want to provide new substitutions, add them to <a class="reference internal" href="#conf.rst_epilog" title="conf.rst_epilog"><code class="xref py py-const docutils literal notranslate"><span class="pre">rst_epilog</span></code></a>.</p>
 </section>
 <section id="github-pages">
-<h2>GitHub Pages<a class="headerlink" href="#github-pages" title="Permalink to this headline"></a></h2>
+<h2>GitHub Pages<a class="headerlink" href="#github-pages" title="Permalink to this heading"></a></h2>
 <p>The CircleCI job <code class="docutils literal notranslate"><span class="pre">deploy-documentation</span></code> uses the GitHub user <a class="reference external" href="https://github.com/DigitalfabrikMember">DigitalfabrikMember</a> to
 push all changes to the documentation on the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch to our repository’s <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch.
 This branch is then automatically deployed to <a class="reference external" href="https://digitalfabrik.github.io/integreat-cms">https://digitalfabrik.github.io/integreat-cms</a>.</p>
 </section>
 <section id="external-links">
-<h2>External Links<a class="headerlink" href="#external-links" title="Permalink to this headline"></a></h2>
+<h2>External Links<a class="headerlink" href="#external-links" title="Permalink to this heading"></a></h2>
 <p>Whenever you use multiple external links to the same website, consider defining a shortcut in <a class="reference internal" href="#conf.extlinks" title="conf.extlinks"><code class="xref py py-const docutils literal notranslate"><span class="pre">extlinks</span></code></a>.
 Currently, the following shortcuts exists:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">:github:</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">:github:`issues`</span></code> is rendered to <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues">issues</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">:github-source:</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">:github-source:`setup.py`</span></code> is rendered to <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/setup.py">setup.py</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:github:</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">:github:`issues`</span></code> is rendered to <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues">https://github.com/digitalfabrik/integreat-cms/issues</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:github-source:</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">:github-source:`setup.py`</span></code> is rendered to <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/setup.py">https://github.com/digitalfabrik/integreat-cms/blob/develop/setup.py</a></p></li>
 </ul>
 </section>
 <section id="extensions">
-<span id="sphinx-extensions"></span><h2>Extensions<a class="headerlink" href="#extensions" title="Permalink to this headline"></a></h2>
+<span id="sphinx-extensions"></span><h2>Extensions<a class="headerlink" href="#extensions" title="Permalink to this heading"></a></h2>
 <p>We use the following sphinx extensions:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#module-sphinx.ext.autodoc" title="(in Sphinx v6.0.0)"><code class="docutils literal notranslate"><span class="pre">sphinx.ext.autodoc</span></code></a> allows to use directives like <code class="docutils literal notranslate"><span class="pre">automodule</span></code> in <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files to automatically
@@ -1022,7 +1023,7 @@ date on the generated html documentation by the modification date of the source 
 </ul>
 </section>
 <section id="module-conf">
-<span id="configuration"></span><h2>Configuration<a class="headerlink" href="#module-conf" title="Permalink to this headline"></a></h2>
+<span id="configuration"></span><h2>Configuration<a class="headerlink" href="#module-conf" title="Permalink to this heading"></a></h2>
 <p>Configuration file for the Sphinx documentation builder.</p>
 <p>This file only contains the options which deviate from the default values.
 For a full list see the documentation: <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html" title="(in Sphinx v6.0.0)"><span>Configuration</span></a></p>
@@ -1070,17 +1071,17 @@ For a full list see the documentation: <a class="reference external" href="https
 
 <dl class="py data">
 <dt class="sig sig-object py" id="conf.extlinks">
-<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">extlinks</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'django-source':</span> <span class="pre">('https://github.com/django/django/blob/stable/3.2.x/%s',</span> <span class="pre">''),</span> <span class="pre">'github':</span> <span class="pre">('https://github.com/digitalfabrik/integreat-cms/%s',</span> <span class="pre">''),</span> <span class="pre">'github-source':</span> <span class="pre">('https://github.com/digitalfabrik/integreat-cms/blob/develop/%s',</span> <span class="pre">'')}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.extlinks" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">conf.</span></span><span class="sig-name descname"><span class="pre">extlinks</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'django-source':</span> <span class="pre">('https://github.com/django/django/blob/stable/3.2.x/%s',</span> <span class="pre">None),</span> <span class="pre">'github':</span> <span class="pre">('https://github.com/digitalfabrik/integreat-cms/%s',</span> <span class="pre">None),</span> <span class="pre">'github-source':</span> <span class="pre">('https://github.com/digitalfabrik/integreat-cms/blob/develop/%s',</span> <span class="pre">None)}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/conf.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#conf.extlinks" title="Permalink to this definition"></a></dt>
 <dd><p>Markup to shorten external links (see <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html" title="(in Sphinx v6.0.0)"><span>sphinx.ext.extlinks – Markup to shorten external links</span></a>)</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;django-source&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">        </span><span class="s1">&#39;https://github.com/django/django/blob/stable/3.2.x/%s&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">None</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="p">),</span><span class="w"></span>
-<span class="w">    </span><span class="s1">&#39;github&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;https://github.com/digitalfabrik/integreat-cms/%s&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="s1">&#39;github&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;https://github.com/digitalfabrik/integreat-cms/%s&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">None</span><span class="p">),</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;github-source&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">        </span><span class="s1">&#39;https://github.com/digitalfabrik/integreat-cms/blob/develop/%s&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">None</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="p">),</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
@@ -1375,7 +1376,7 @@ It links all classes and functions to their source files on GitHub including lin
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 20, 2022.
+      <span class="lastupdated">Last updated on Jul 18, 2022.
       </span></p>
   </div>
 

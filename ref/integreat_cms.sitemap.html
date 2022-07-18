@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-06-18T17:41:07+00:00" />
+    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sitemap &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -875,26 +876,26 @@
            <div itemprop="articleBody">
              
   <section id="sitemap">
-<h1>Sitemap<a class="headerlink" href="#sitemap" title="Permalink to this headline"></a></h1>
+<h1>Sitemap<a class="headerlink" href="#sitemap" title="Permalink to this heading"></a></h1>
 <p>This package contains all classes for building the webapp’s sitemap dynamically.
 It makes use of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/" title="(in Django v3.2)"><span>The sitemap framework</span></a>, an inbuilt Django package.</p>
 <section id="apps">
-<h2>Apps<a class="headerlink" href="#apps" title="Permalink to this headline"></a></h2>
+<h2>Apps<a class="headerlink" href="#apps" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.apps.</span></span><span class="sig-name descname"><span class="pre">SitemapConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/apps.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.AppConfig</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/applications/#django.apps.AppConfig" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></a></p>
 <p>This is the basic configuration for the sitemap app</p>
 </dd></dl>
 
 </section>
 <section id="sitemaps">
-<h2>Sitemaps<a class="headerlink" href="#sitemaps" title="Permalink to this headline"></a></h2>
+<h2>Sitemaps<a class="headerlink" href="#sitemaps" title="Permalink to this heading"></a></h2>
 <p>This module contains all sitemap classes which are all based on <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.Sitemap" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.sitemaps.Sitemap</span></code></a>.</p>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.sitemaps.</span></span><span class="sig-name descname"><span class="pre">EventSitemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.sitemap.sitemaps.WebappSitemap</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.sitemaps.</span></span><span class="sig-name descname"><span class="pre">EventSitemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebappSitemap</span></code></a></p>
 <p>This sitemap contains all urls to event translations for a specific region and language.</p>
 <p>Attributes inherited from <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebappSitemap</span></code></a>:</p>
 <dl class="field-list simple">
@@ -904,7 +905,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L171"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This init function filters the queryset of event translation objects based on the given region and language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -918,13 +919,13 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">changefreq</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'daily'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">changefreq</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'daily'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The usual change frequency of this sitemap’s urls</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of this sitemap</p>
 </dd></dl>
 
@@ -932,8 +933,8 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.sitemaps.</span></span><span class="sig-name descname"><span class="pre">OfferSitemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L221"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.sitemap.sitemaps.WebappSitemap</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.sitemaps.</span></span><span class="sig-name descname"><span class="pre">OfferSitemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L220"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebappSitemap</span></code></a></p>
 <p>This sitemap contains all urls to offers for a specific region.</p>
 <p>Attributes inherited from <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebappSitemap</span></code></a>:</p>
 <dl class="field-list simple">
@@ -943,7 +944,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L234"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This init function filters the queryset of offers objects based on the given region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -957,7 +958,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L250"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This location function returns the absolute path for a given object returned by items().</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -974,19 +975,19 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L221"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L220"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The priority of this sitemap’s urls (<code class="docutils literal notranslate"><span class="pre">1.0</span></code>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L221"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L220"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.offers.html#integreat_cms.cms.models.offers.offer_template.OfferTemplate" title="integreat_cms.cms.models.offers.offer_template.OfferTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfferTemplate</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> queryset of this sitemap</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">sitemap_alternates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L264"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">sitemap_alternates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L263"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This sitemap_alternates function returns the language alternatives of offers for the use in sitemaps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1005,8 +1006,8 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.sitemaps.</span></span><span class="sig-name descname"><span class="pre">POISitemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L190"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.sitemap.sitemaps.WebappSitemap</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.sitemaps.</span></span><span class="sig-name descname"><span class="pre">POISitemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L189"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebappSitemap</span></code></a></p>
 <p>This sitemap contains all urls to POI translations for a specific region and language.</p>
 <p>Attributes inherited from <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebappSitemap</span></code></a>:</p>
 <dl class="field-list simple">
@@ -1019,7 +1020,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This init function filters the queryset of POI translation objects based on the given region and language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1033,7 +1034,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L190"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L189"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">POITranslation</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> queryset of this sitemap</p>
 </dd></dl>
 
@@ -1041,8 +1042,8 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.sitemaps.</span></span><span class="sig-name descname"><span class="pre">PageSitemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">integreat_cms.sitemap.sitemaps.WebappSitemap</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.sitemaps.</span></span><span class="sig-name descname"><span class="pre">PageSitemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebappSitemap</span></code></a></p>
 <p>This sitemap contains all urls to page translations for a specific region and language.</p>
 <p>Attributes inherited from <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebappSitemap</span></code></a>:</p>
 <dl class="field-list simple">
@@ -1052,7 +1053,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This init function filters the queryset of page translation objects based on the given region and language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1066,13 +1067,13 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The priority of this sitemap’s urls</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">QuerySet</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySet</span></code></a> of this sitemap</p>
 </dd></dl>
 
@@ -1081,7 +1082,7 @@ It makes use of <a class="reference external" href="https://docs.djangoproject.c
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.sitemaps.</span></span><span class="sig-name descname"><span class="pre">WebappSitemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/abc.html#abc.ABC" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.Sitemap" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.sitemaps.Sitemap</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/abc.html#abc.ABC" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.Sitemap" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sitemap</span></code></a></p>
 <p>This is an abstract base class for all webapp sitemaps.</p>
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -1177,7 +1178,7 @@ support this functionality when used together with <a class="reference external"
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">sitemap_alternates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L109"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">sitemap_alternates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/sitemaps.py#L108"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function returns the sitemap alternatives for a given object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1196,7 +1197,7 @@ support this functionality when used together with <a class="reference external"
 
 </section>
 <section id="urls">
-<h2>Urls<a class="headerlink" href="#urls" title="Permalink to this headline"></a></h2>
+<h2>Urls<a class="headerlink" href="#urls" title="Permalink to this heading"></a></h2>
 <p>Django URL dispatcher for the sitemap package.
 It contains the following routes:</p>
 <ul class="simple">
@@ -1226,7 +1227,7 @@ It contains the following routes:</p>
 
 </section>
 <section id="utils">
-<h2>Utils<a class="headerlink" href="#utils" title="Permalink to this headline"></a></h2>
+<h2>Utils<a class="headerlink" href="#utils" title="Permalink to this heading"></a></h2>
 <p>This module contains utils for the sitemap app.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1251,14 +1252,14 @@ It is used in <a class="reference internal" href="../ref-ext/integreat_cms.sitem
 
 </section>
 <section id="views">
-<h2>Views<a class="headerlink" href="#views" title="Permalink to this headline"></a></h2>
+<h2>Views<a class="headerlink" href="#views" title="Permalink to this heading"></a></h2>
 <p>This module contains views for generating the sitemap dynamically.
 The views are class-based patches of the inbuilt views <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.views.index" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">index()</span></code></a> and
 <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.views.sitemap" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sitemap()</span></code></a> of the <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#module-django.contrib.sitemaps" title="(in Django v3.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.sitemaps</span></code></a> <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/" title="(in Django v3.2)"><span>The sitemap framework</span></a>.</p>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.views.</span></span><span class="sig-name descname"><span class="pre">SitemapIndexView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/views.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateResponseMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a></p>
 <p>This view allows to generate a sitemap index dynamically.
 It is a patched version of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.views.index" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">django.contrib.sitemaps.views.index()</span></code></a> with the following changes:</p>
 <ul class="simple">
@@ -1304,7 +1305,7 @@ It is a patched version of <a class="reference external" href="https://docs.djan
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.sitemap.views.</span></span><span class="sig-name descname"><span class="pre">SitemapView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/sitemap/views.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateResponseMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a></p>
 <p>This view allows to generate a sitemap dynamically.
 A sitemap contains the urls of multiple <a class="reference internal" href="../ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap" title="integreat_cms.sitemap.sitemaps.WebappSitemap"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebappSitemap</span></code></a> instances, one for each content type.
 It is a patched version of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/sitemaps/#django.contrib.sitemaps.views.sitemap" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">django.contrib.sitemaps.views.sitemap()</span></code></a> with the following changes:</p>
@@ -1370,7 +1371,7 @@ or if the sitemap is empty.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 18, 2022.
+      <span class="lastupdated">Last updated on Jul 18, 2022.
       </span></p>
   </div>
 

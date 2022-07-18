@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-05-25T20:40:40+00:00" />
+    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -876,16 +877,16 @@
            <div itemprop="articleBody">
              
   <section id="utils">
-<h1>Utils<a class="headerlink" href="#utils" title="Permalink to this headline"></a></h1>
+<h1>Utils<a class="headerlink" href="#utils" title="Permalink to this heading"></a></h1>
 <p>This package contains utilities which facilitate specific tasks and can be re-used and imported from different locations.</p>
 <section id="account-activation-token-generator">
-<h2>Account Activation Token Generator<a class="headerlink" href="#account-activation-token-generator" title="Permalink to this headline"></a></h2>
+<h2>Account Activation Token Generator<a class="headerlink" href="#account-activation-token-generator" title="Permalink to this heading"></a></h2>
 <p>This module contains helpers for the account activation process
 (also see <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView" title="integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView"><code class="xref py py-class docutils literal notranslate"><span class="pre">AccountActivationView</span></code></a>).</p>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.account_activation_token_generator.</span></span><span class="sig-name descname"><span class="pre">AccountActivationTokenGenerator</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/account_activation_token_generator.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.tokens.PasswordResetTokenGenerator</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PasswordResetTokenGenerator</span></code></p>
 <p>This token generator is identical to the default password reset token generator of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/#module-django.contrib.auth" title="(in Django v3.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.auth</span></code></a> with
 the exception of the used HMAC salt.
 This means password reset tokens are no longer accepted for the account activation and vice versa.</p>
@@ -906,7 +907,7 @@ This means password reset tokens are no longer accepted for the account activati
 
 </section>
 <section id="content-edit-lock">
-<h2>Content Edit Lock<a class="headerlink" href="#content-edit-lock" title="Permalink to this headline"></a></h2>
+<h2>Content Edit Lock<a class="headerlink" href="#content-edit-lock" title="Permalink to this heading"></a></h2>
 <p>This file contains a mechanism to lock a content editor for other people while a person is using it.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -996,7 +997,7 @@ If it is not locked by the passed user, nothing will happen.</p>
 
 </section>
 <section id="email-utils">
-<h2>Email Utils<a class="headerlink" href="#email-utils" title="Permalink to this headline"></a></h2>
+<h2>Email Utils<a class="headerlink" href="#email-utils" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.email_utils.</span></span><span class="sig-name descname"><span class="pre">send_mail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email_template_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">html_email_template_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipient</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/email_utils.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1020,7 +1021,7 @@ version and also attach the branding logo.</p>
 
 </section>
 <section id="file-utils">
-<h2>File Utils<a class="headerlink" href="#file-utils" title="Permalink to this headline"></a></h2>
+<h2>File Utils<a class="headerlink" href="#file-utils" title="Permalink to this heading"></a></h2>
 <p>This module contains helpers for file handling.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1066,7 +1067,7 @@ version and also attach the branding logo.</p>
 
 </section>
 <section id="linkcheck-utils">
-<h2>Linkcheck Utils<a class="headerlink" href="#linkcheck-utils" title="Permalink to this headline"></a></h2>
+<h2>Linkcheck Utils<a class="headerlink" href="#linkcheck-utils" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">filter_urls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_content_objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1129,7 +1130,7 @@ If parameter is not in these choices or omitted, all urls are returned by defaul
 
 </section>
 <section id="matomo-api-manager">
-<h2>Matomo API Manager<a class="headerlink" href="#matomo-api-manager" title="Permalink to this headline"></a></h2>
+<h2>Matomo API Manager<a class="headerlink" href="#matomo-api-manager" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.matomo_api_manager.</span></span><span class="sig-name descname"><span class="pre">MatomoApiManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/matomo_api_manager.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1374,7 +1375,7 @@ Matomo API request</p>
 
 </section>
 <section id="media-utils">
-<h2>Media Utils<a class="headerlink" href="#media-utils" title="Permalink to this headline"></a></h2>
+<h2>Media Utils<a class="headerlink" href="#media-utils" title="Permalink to this heading"></a></h2>
 <p>Utility functions for the media management. Most of the functions are used to transform media data to other data types.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1401,7 +1402,7 @@ defaults to <a class="reference internal" href="../ref-ext/integreat_cms.core.ht
 
 </section>
 <section id="mfa-utils">
-<h2>MFA Utils<a class="headerlink" href="#mfa-utils" title="Permalink to this headline"></a></h2>
+<h2>MFA Utils<a class="headerlink" href="#mfa-utils" title="Permalink to this heading"></a></h2>
 <p>This module contains helpers for multi-factor-authentication tasks.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1423,7 +1424,7 @@ defaults to <a class="reference internal" href="../ref-ext/integreat_cms.core.ht
 
 </section>
 <section id="pdf-utils">
-<h2>PDF Utils<a class="headerlink" href="#pdf-utils" title="Permalink to this headline"></a></h2>
+<h2>PDF Utils<a class="headerlink" href="#pdf-utils" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">generate_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/pdf_utils.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1471,7 +1472,7 @@ It returns the absolute paths to the files on the file system.</p>
 
 </section>
 <section id="slug-utils">
-<h2>Slug Utils<a class="headerlink" href="#slug-utils" title="Permalink to this headline"></a></h2>
+<h2>Slug Utils<a class="headerlink" href="#slug-utils" title="Permalink to this heading"></a></h2>
 <p>This module contains helpers regarding unique string identifiers without special characters (“slugs”).</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1532,7 +1533,7 @@ as fallback (either <code class="docutils literal notranslate"><span class="pre"
 
 </section>
 <section id="text-utils">
-<h2>Text Utils<a class="headerlink" href="#text-utils" title="Permalink to this headline"></a></h2>
+<h2>Text Utils<a class="headerlink" href="#text-utils" title="Permalink to this heading"></a></h2>
 <p>This module contains helpers for strings.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1554,7 +1555,7 @@ as fallback (either <code class="docutils literal notranslate"><span class="pre"
 
 </section>
 <section id="translation-utils">
-<h2>Translation Utils<a class="headerlink" href="#translation-utils" title="Permalink to this headline"></a></h2>
+<h2>Translation Utils<a class="headerlink" href="#translation-utils" title="Permalink to this heading"></a></h2>
 <p>This module contains helpers for the translation process.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
@@ -1577,7 +1578,7 @@ which improves the translation memory.</p>
 
 </section>
 <section id="user-utils">
-<h2>User Utils<a class="headerlink" href="#user-utils" title="Permalink to this headline"></a></h2>
+<h2>User Utils<a class="headerlink" href="#user-utils" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.user_utils.</span></span><span class="sig-name descname"><span class="pre">search_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/user_utils.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1593,7 +1594,7 @@ If region is None, all users are searched.
 
 </section>
 <section id="welcome-mail-utils">
-<h2>Welcome Mail Utils<a class="headerlink" href="#welcome-mail-utils" title="Permalink to this headline"></a></h2>
+<h2>Welcome Mail Utils<a class="headerlink" href="#welcome-mail-utils" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.welcome_mail_utils.</span></span><span class="sig-name descname"><span class="pre">send_welcome_mail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/welcome_mail_utils.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
@@ -1630,7 +1631,7 @@ version and also attach the integreat logo.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 25, 2022.
+      <span class="lastupdated">Last updated on Jul 18, 2022.
       </span></p>
   </div>
 
