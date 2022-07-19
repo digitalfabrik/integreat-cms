@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-07-18T11:56:15+00:00" />
+    <meta property="article:modified_time" content="2022-07-19T07:49:50+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2022.6.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1471,7 +1471,7 @@ defaults to <a class="reference internal" href="integreat_cms.core.html#integrea
 <span id="pdf-utils"></span><h2>PDF Utils<a class="headerlink" href="#module-integreat_cms.cms.utils.pdf_utils" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.pdf_utils.generate_pdf">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">generate_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/pdf_utils.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.pdf_utils.generate_pdf" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">generate_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/pdf_utils.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.pdf_utils.generate_pdf" title="Permalink to this definition"></a></dt>
 <dd><p>Function for handling a pdf export request for pages.
 The pages were either selected by cms user or by API request (see <a class="reference internal" href="integreat_cms.api.v3.html#module-integreat_cms.api.v3.pdf_export" title="integreat_cms.api.v3.pdf_export"><code class="xref py py-func docutils literal notranslate"><span class="pre">pdf_export()</span></code></a>)
 For more information on xhtml2pdf, see <a class="reference external" href="https://xhtml2pdf.readthedocs.io/en/latest/index.html" title="(in xhtml2pdf v0.2.7)"><span>Welcome to xhtml2pdf’s documentation!</span></a></p>
@@ -1494,7 +1494,7 @@ For more information on xhtml2pdf, see <a class="reference external" href="https
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.pdf_utils.link_callback">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">link_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/pdf_utils.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.pdf_utils.link_callback" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">link_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/pdf_utils.py#L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.pdf_utils.link_callback" title="Permalink to this definition"></a></dt>
 <dd><p>According to xhtml2pdf documentation (see <a class="reference external" href="https://xhtml2pdf.readthedocs.io/en/latest/usage.html" title="(in xhtml2pdf v0.2.7)"><span>Usage</span></a>),
 this function is necessary for resolving the django static files references.
 It returns the absolute paths to the files on the file system.</p>
@@ -1597,6 +1597,26 @@ as fallback (either <code class="docutils literal notranslate"><span class="pre"
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.text_utils.truncate_bytewise">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.text_utils.</span></span><span class="sig-name descname"><span class="pre">truncate_bytewise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/text_utils.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.text_utils.truncate_bytewise" title="Permalink to this definition"></a></dt>
+<dd><p>Truncate a UTF-8 encoded string to a maximum byte length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The input text</p></li>
+<li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The maximum length of the text in byte representation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The truncated text</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-integreat_cms.cms.utils.translation_utils">
 <span id="translation-utils"></span><h2>Translation Utils<a class="headerlink" href="#module-integreat_cms.cms.utils.translation_utils" title="Permalink to this heading"></a></h2>
@@ -1675,7 +1695,7 @@ version and also attach the integreat logo.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 18, 2022.
+      <span class="lastupdated">Last updated on Jul 19, 2022.
       </span></p>
   </div>
 
