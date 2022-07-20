@@ -26,7 +26,7 @@ import {
   ExternalLink,
   Info,
   RefreshCw,
-} from "preact-feather";
+} from "lucide-preact";
 import cn from "classnames";
 
 import { showConfirmationPopupAjax } from "../../confirmation-popups";

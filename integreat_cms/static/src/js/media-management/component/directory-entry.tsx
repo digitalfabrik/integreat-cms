@@ -1,7 +1,7 @@
 /*
  * This component renders a subdirectory entry within the current directory
  */
-import { Folder, Lock } from "preact-feather";
+import { Folder, Lock } from "lucide-preact";
 import { useState } from "preact/hooks";
 import cn from 'classnames';
 

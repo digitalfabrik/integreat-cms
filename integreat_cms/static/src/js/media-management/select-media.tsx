@@ -2,7 +2,7 @@
  * This component renders a selection dialog to select a specific file from the media library.
  * On selection, the given selection handler selectMedia() is executed.
  */
-import { XCircle } from "preact-feather";
+import { XCircle } from "lucide-preact";
 
 import MediaManagement, { File, MediaApiPaths } from ".";
 

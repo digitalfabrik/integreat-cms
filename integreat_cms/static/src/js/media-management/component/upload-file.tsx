@@ -2,7 +2,7 @@
  * This component renders a file upload field
  */
 import { StateUpdater, useEffect, useRef, useState } from "preact/hooks";
-import { FilePlus } from "preact-feather";
+import { FilePlus } from "lucide-preact";
 import Dropzone, { DropzoneFile } from "dropzone";
 import "dropzone/dist/dropzone.css";
 

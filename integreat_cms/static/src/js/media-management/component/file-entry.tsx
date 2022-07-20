@@ -1,7 +1,7 @@
 /*
  * This component renders a file entry within the current directory
  */
-import { FileText, Image, Lock } from "preact-feather";
+import { FileText, Image, Lock } from "lucide-preact";
 import cn from "classnames";
 
 import { File } from "..";
