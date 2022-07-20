@@ -33,7 +33,7 @@ auth_context = {
     "COMPANY_URL": settings.COMPANY_URL,
 }
 
-#: The url patterns of this module (see :doc:`topics/http/urls`)
+#: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns = [
     path("", dashboard.RegionSelection.as_view(), name="region_selection"),
     path(

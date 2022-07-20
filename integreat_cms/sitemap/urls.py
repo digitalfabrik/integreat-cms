@@ -8,7 +8,7 @@ It contains the following routes:
 
 See :mod:`~integreat_cms.core.urls` for the other namespaces of this application.
 
-For more information on this file, see :doc:`topics/http/urls`.
+For more information on this file, see :doc:`django:topics/http/urls`.
 """
 from django.urls import path, include
 
@@ -18,7 +18,7 @@ from .views import SitemapIndexView, SitemapView
 #: The namespace for this URL config (see :attr:`django.urls.ResolverMatch.app_name`)
 app_name = "sitemap"
 
-#: The url patterns of this module (see :doc:`topics/http/urls`)
+#: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns = [
     path("sitemap.xml", SitemapIndexView.as_view(), name="index"),
     path("wp-json/ig-sitemap/v1/sitemap-index.xml", SitemapIndexView.as_view()),

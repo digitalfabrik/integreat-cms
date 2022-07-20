@@ -8,22 +8,17 @@ from django.http import JsonResponse
 from ..decorators import json_response
 
 
-def transform_poi(poi, poi_translation):
+def transform_poi(poi):
     """
     Function to create a JSON from a single poi object.
-    Because the json requires a translated name, `poi_translation` has to be
-    passed as the second parameter.
 
     :param poi: The poi object which should be converted
     :type poi: ~integreat_cms.cms.models.pois.poi.POI
 
-    :param poi_translation: The translation of the POI which should be used for the title
-    :type poi_translation: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
-
     :return: data necessary for API
     :rtype: dict
     """
-    if not poi or not poi_translation:
+    if not poi:
         return {
             "id": None,
             "name": None,
@@ -38,7 +33,7 @@ def transform_poi(poi, poi_translation):
         }
     return {
         "id": poi.id,
-        "name": poi_translation.title,
+        "name": poi.default_translation.title,
         "address": poi.address,
         "town": poi.city,
         "state": None,
@@ -66,7 +61,7 @@ def transform_poi_translation(poi_translation):
         "id": poi_translation.id,
         "url": settings.BASE_URL + poi_translation.get_absolute_url(),
         "path": poi_translation.get_absolute_url(),
-        "title": poi_translation.title,
+        "title": poi.default_translation.title,
         "modified_gmt": poi_translation.last_updated.strftime("%Y-%m-%d %H:%M:%S"),
         "excerpt": poi_translation.short_description,
         "content": poi_translation.content,
@@ -76,7 +71,7 @@ def transform_poi_translation(poi_translation):
         "website": poi.website if poi.website else None,
         "email": poi.email if poi.email else None,
         "phone_number": poi.phone_number if poi.phone_number else None,
-        "location": transform_poi(poi, poi_translation),
+        "location": transform_poi(poi),
         "hash": None,
     }
 

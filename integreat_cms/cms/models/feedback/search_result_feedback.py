@@ -23,7 +23,6 @@ class SearchResultFeedback(Feedback):
         return _("Search results for {}").format(self.search_query)
 
     @cached_property
-    # pylint: disable=no-self-use
     def object_url(self):
         """
         This property returns the url to the object this feedback comments on.

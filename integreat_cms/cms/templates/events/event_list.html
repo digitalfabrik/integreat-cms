@@ -101,7 +101,8 @@
             {% endif %}
             </tbody>
         </table>
-        {% if events %}
+    </div>
+    {% if events %}
         <div class="pt-2 px-2">
             <div class="inline">
                 <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% trans "Events selected" %}</span>
@@ -132,9 +133,8 @@
             </select>
             <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
         </div>
-    </div>
 
     {% include "../generic_confirmation_dialog.html" %}
     {% url "events" as url %}
-    {% include "pagination.html" with url=url chunk=events %}
+    {% include "pagination.html" with chunk=events %}
 {% endblock content %}

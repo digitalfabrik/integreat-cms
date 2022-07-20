@@ -72,6 +72,11 @@
                             {% endif %}
                         </div>
                         {% render_field poi_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
+                        {% if language != request.region.default_language %}
+                            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-1 mb-2">
+                                {% blocktrans %}The name is currently displayed to users only in the default language{% endblocktrans %}
+                            </div>
+                        {% endif %}
                         <div id="link-container" class="flex items-center">
                             <label for="{{ poi_translation_form.slug.id_for_label }}" class="mr-2">{{ poi_translation_form.slug.label }}:</label>
                             <a id="slug-link"
@@ -115,7 +120,7 @@
                             </h3>
                         </div>
                         <div class="w-full px-4 pb-4 rounded shadow bg-white">
-                            <label>{% trans 'Implications on other translations' %}</label>
+                            <label>{% minor_edit_label request.region language %}</label>
                             {% render_field poi_translation_form.minor_edit %}
                             <label for="{{ poi_translation_form.minor_edit.id_for_label }}"
                                    class="secondary">

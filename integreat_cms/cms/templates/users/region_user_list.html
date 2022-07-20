@@ -22,7 +22,6 @@
                 <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'First Name' %}</th>
                 <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Last Name' %}</th>
                 <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'E-mail-address' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Organization' %}</th>
                 <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Role' %}</th>
                 <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Last Login' %}</th>
                 <th class="text-sm text-left uppercase py-3 pr-4 min">{% trans 'Active' %}</th>
@@ -46,5 +45,5 @@
     </table>
 </div>
 {% url "region_users" as url %}
-{% include "pagination.html" with url=url chunk=users %}
+{% include "pagination.html" with chunk=users %}
 {% endblock %}

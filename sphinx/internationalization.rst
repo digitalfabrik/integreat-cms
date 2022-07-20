@@ -2,7 +2,7 @@
 Internationalization (i18n)
 ***************************
 
-For more detailed information, have a look at the official Django documentation on :doc:`topics/i18n/index`.
+For more detailed information, have a look at the official Django documentation on :doc:`django:topics/i18n/index`.
 
 
 Hardcoded Strings

@@ -1,6 +1,6 @@
 import logging
 
-from datetime import time
+from datetime import time, timedelta
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -95,6 +95,16 @@ class EventForm(CustomModelForm):
         # make self.data mutable to allow values to be changed manually
         self.data = self.data.copy()
 
+        if cleaned_data["end_date"] - cleaned_data["start_date"] > timedelta(6):
+            self.add_error(
+                "end_date",
+                forms.ValidationError(
+                    _(
+                        "The maximum duration for events is 7 days. Consider using recurring events if the event is not continuous."
+                    ),
+                    code="invalid",
+                ),
+            )
         if cleaned_data.get("is_all_day"):
             cleaned_data["start_time"] = time.min
             self.data["start_time"] = time.min

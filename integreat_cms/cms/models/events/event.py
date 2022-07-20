@@ -20,7 +20,7 @@ class EventQuerySet(ContentQuerySet):
     Custom QuerySet to facilitate the filtering by date while taking recurring events into account.
     """
 
-    def filter_upcoming(self, from_date=date.today()):
+    def filter_upcoming(self, from_date=None):
         """
         Filter all events that take place after the given date. This is, per definition, if at least one of the
         following conditions is true:
@@ -35,6 +35,7 @@ class EventQuerySet(ContentQuerySet):
         :return: The Queryset of events after the given date
         :rtype: ~integreat_cms.cms.models.events.event.EventQuerySet
         """
+        from_date = from_date or date.today()
         return self.filter(
             Q(end_date__gte=from_date)
             | Q(
@@ -47,7 +48,7 @@ class EventQuerySet(ContentQuerySet):
             )
         )
 
-    def filter_completed(self, to_date=date.today()):
+    def filter_completed(self, to_date=None):
         """
         Filter all events that are not ongoing and don't have any occurrences in the future. This is, per definition, if
         at least one of the following conditions is true:
@@ -61,6 +62,7 @@ class EventQuerySet(ContentQuerySet):
         :return: The Queryset of events before the given date
         :rtype: ~integreat_cms.cms.models.events.event.EventQuerySet
         """
+        to_date = to_date or date.today()
         return self.filter(
             Q(recurrence_rule__isnull=True, end_date__lt=to_date)
             | Q(

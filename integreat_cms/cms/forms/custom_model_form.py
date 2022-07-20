@@ -117,7 +117,7 @@ class CustomModelForm(forms.ModelForm):
         :param commit: Whether or not the changes should be written to the database
         :type commit: bool
 
-        :return: The saved object returned by :ref:`topics-modelform-save`
+        :return: The saved object returned by :ref:`django:topics-modelform-save`
         :rtype: object
         """
         self.logger.debug(

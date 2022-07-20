@@ -1,6 +1,16 @@
 UNRELEASED
 ----------
 
+* [ [#1528](https://github.com/digitalfabrik/integreat-cms/issues/1528) ] Fix list view layouts for long titles
+* [ [#1510](https://github.com/digitalfabrik/integreat-cms/issues/1510) ] Limit event duration to 7 days
+* [ [#1512](https://github.com/digitalfabrik/integreat-cms/issues/1512) ] Deliver location names in the api in the default language only
+* [ [#1581](https://github.com/digitalfabrik/integreat-cms/issues/1581) ] Improve wording of minor edit label
+* [ [#1580](https://github.com/digitalfabrik/integreat-cms/issues/1580) ] Improve user list
+* [ [#1504](https://github.com/digitalfabrik/integreat-cms/issues/1504) ] Keep filters on pagination
+* [ [#1585](https://github.com/digitalfabrik/integreat-cms/issues/1585) ] Hide news after 28 days
+* [ [#1600](https://github.com/digitalfabrik/integreat-cms/issues/1600) ] Improve XLIFF export bulk option description
+* [ [#1511](https://github.com/digitalfabrik/integreat-cms/issues/1511) ] Fix PDF generation for long filenames
+
 
 2022.6.3
 --------

@@ -4,6 +4,7 @@ from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.translation import ugettext_lazy as _
 
+from ..custom_filter_form import CustomFilterForm
 from ...constants import roles
 from ...models import Region
 from ...utils.user_utils import search_users
@@ -11,7 +12,7 @@ from ...utils.user_utils import search_users
 logger = logging.getLogger(__name__)
 
 
-class UserFilterForm(forms.Form):
+class UserFilterForm(CustomFilterForm):
     """
     Form for filtering user objects
     """
@@ -36,26 +37,6 @@ class UserFilterForm(forms.Form):
         required=False,
     )
     query = forms.CharField(required=False)
-
-    @property
-    def is_enabled(self):
-        """
-        This function determines whether the filters are applied.
-
-        :return: Whether filtering should be performed
-        :rtype: bool
-        """
-        return self.is_valid() and self.has_changed()
-
-    @property
-    def filters_visible(self):
-        """
-        This function determines whether the filter form is visible by default.
-
-        :return: Whether any filters (other than search) were changed
-        :rtype: bool
-        """
-        return self.is_enabled and self.changed_data != ["query"]
 
     def apply(self, users):
         """
