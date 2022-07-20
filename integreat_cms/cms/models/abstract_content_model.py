@@ -120,6 +120,24 @@ class AbstractContentModel(AbstractBaseModel):
         translations = self.prefetched_translations_by_language_slug.values()
         return [translation.language for translation in translations]
 
+    def available_translations(self):
+        """
+        This method returns an iterator over all available translations, respecting the `fallback_translations_enabled` setting.
+
+        :return: An iterator over all translations
+        :rtype: Iterator[:class:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation`]
+        """
+        # Check if fallback translation should be used
+        if self.fallback_translations_enabled:
+            all_languages = self.region.active_languages
+        else:
+            all_languages = self.public_languages
+
+        for language in all_languages:
+            public_translation = self.get_public_translation(language.slug)
+            if public_translation:
+                yield public_translation
+
     @cached_property
     def public_languages(self):
         """
