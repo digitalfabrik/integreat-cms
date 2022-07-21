@@ -1,7 +1,7 @@
 /*
  * This component renders a subdirectory entry within the current directory
  */
-import { Folder, Lock } from "lucide-preact";
+import { Folder, FolderOpen, Lock } from "lucide-preact";
 import { useState } from "preact/hooks";
 import cn from 'classnames';
 
@@ -60,7 +60,11 @@ export default function DirectoryEntry({
       onDragEnd={dragEnd}
       draggable={!allowDrop && (!directory.isGlobal || globalEdit)}
     >
-      <Folder className={"w-full h-24 flex-none"} />
+      {isCurrentDropTarget ? (
+        <FolderOpen className={"w-full h-24 flex-none"} />
+      ) : (
+        <Folder className={"w-full h-24 flex-none"} />
+      )}
       <span class="font-bold text-black text-center break-all leading-5 max-h-15 m-auto overflow-hidden">
         {directory.name}
       </span>

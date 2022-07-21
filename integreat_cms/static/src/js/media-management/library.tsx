@@ -2,7 +2,7 @@
  * This component renders the media library in edit mode,
  * so new directories and files can be added and the existing entries can be modified
  */
-import { FilePlus, FolderPlus, Search, Loader } from "preact-feather";
+import { FilePlus, FolderPlus, Search, Loader } from "lucide-preact";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 import { route } from "preact-router";
 
@@ -84,8 +84,11 @@ export default function Library({
 
   const [draggedItem, setDraggedItem] = useState<DraggedElement | null>(null);
 
-  const moveIntoDirectory = (movedItem: DraggedElement, targetDirectoryId: number) => {
-    console.log(movedItem, targetDirectoryId);
+  const moveIntoDirectory = async (targetDirectoryId: number) => {
+    let form = document.getElementById("media-move-form") as HTMLFormElement;
+    (document.getElementById("parent_directory") as HTMLInputElement).value =
+      targetDirectoryId == 0 ? "" : targetDirectoryId.toString();
+    (document.getElementById("media-move-btn") as HTMLInputElement).click();
   };
 
   // This submit function is used for all form submissions
@@ -103,9 +106,9 @@ export default function Library({
         },
         body: new FormData(form),
       });
-      console.log(response);
+      console.debug(response);
       const data = await response.json();
-      console.log(data);
+      console.debug(data);
       if (response.status === 200) {
         console.debug("Form submission successful!");
         if (typeof successCallback === "function") {
@@ -167,6 +170,18 @@ export default function Library({
       <h1 className="w-full heading p-2">{mediaTranslations.heading_media_library}</h1>
       <div className="flex flex-wrap justify-between gap-x-2 gap-y-4">
         <div id="table-search" class="flex">
+          <form
+            id="media-move-form"
+            class="hidden"
+            method="POST"
+            encType="multipart/form-data"
+            onSubmit={submitForm}
+            action={apiEndpoints.moveFile}
+          >
+            <input name="mediafile_id" value={draggedItem?.id} />
+            <input name="parent_directory" id="parent_directory" />
+            <input id="media-move-btn" type="submit" />
+          </form>
           <form
             id="media-search-form"
             class="relative"
@@ -267,7 +282,7 @@ export default function Library({
                 searchQuery={searchQuery}
                 mediaTranslations={mediaTranslations}
                 allowDrop={draggedItem !== null}
-                dropItem={(targetDirectoryId) => moveIntoDirectory(draggedItem, targetDirectoryId)}
+                dropItem={moveIntoDirectory}
               />
             </div>
             {isLoading ? (
@@ -281,9 +296,7 @@ export default function Library({
                   globalEdit={globalEdit}
                   allowDrop={draggedItem !== null}
                   setDraggedItem={setDraggedItem}
-                  dropItem={(targetDirectoryId) =>
-                    moveIntoDirectory(draggedItem, targetDirectoryId)
-                  }
+                  dropItem={moveIntoDirectory}
                 />
               </div>
             )}

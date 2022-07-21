@@ -114,6 +114,7 @@ class MediaContextMixin(ContextMixin):
             "deleteDirectory": reverse("mediacenter_delete_directory", kwargs=kwargs),
             "uploadFile": reverse("mediacenter_upload_file", kwargs=kwargs),
             "editFile": reverse("mediacenter_edit_file", kwargs=kwargs),
+            "moveFile": reverse("mediacenter_move_file", kwargs=kwargs),
             "deleteFile": reverse("mediacenter_delete_file", kwargs=kwargs),
             "replaceFile": reverse("mediacenter_replace_file", kwargs=kwargs),
         }

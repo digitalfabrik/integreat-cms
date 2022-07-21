@@ -26,6 +26,7 @@ export interface MediaApiPaths {
   deleteDirectory: string;
   uploadFile: string;
   editFile: string;
+  moveFile: string;
   deleteFile: string;
   replaceFile: string;
 }
