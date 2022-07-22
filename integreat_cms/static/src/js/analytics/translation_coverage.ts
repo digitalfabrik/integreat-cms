@@ -18,7 +18,7 @@ window.addEventListener("load", async () => {
   if (!document.getElementById("translation_coverage_chart")) return;
 
   const json_data: ChartData = JSON.parse(
-    document.getElementById("translation_coverage_data").textContent
+    document.getElementById("chart_data").textContent
   );
   const chart: HTMLElement = document.getElementById("translation_coverage_chart");
 
@@ -26,20 +26,21 @@ window.addEventListener("load", async () => {
     type: "bar",
     data: json_data,
     options: {
+      indexAxis: 'y',
       responsive: true,
       scales: {
         x: {
           stacked: true,
           title: {
             display: true,
-            text: chart.getAttribute("data-chart-languages"),
+            text: chart.getAttribute("data-chart-hits"),
           },
         },
         y: {
           stacked: true,
           title: {
             display: true,
-            text: chart.getAttribute("data-chart-hits"),
+            text: chart.getAttribute("data-chart-languages"),
           },
         },
       },
