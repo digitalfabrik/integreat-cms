@@ -5,7 +5,7 @@ import { route } from "preact-router";
 import cn from "classnames";
 
 import { MediaApiPaths } from "../index";
-import { FolderPlus } from "preact-feather";
+import { FolderPlus } from "lucide-preact"
 import { StateUpdater } from "preact/hooks";
 
 interface Props {

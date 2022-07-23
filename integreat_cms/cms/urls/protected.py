@@ -93,6 +93,11 @@ media_ajax_urlpatterns = [
                                 name="mediacenter_edit_file",
                             ),
                             path(
+                                "move/",
+                                media.move_file_ajax,
+                                name="mediacenter_move_file",
+                            ),
+                            path(
                                 "delete/",
                                 media.delete_file_ajax,
                                 name="mediacenter_delete_file",

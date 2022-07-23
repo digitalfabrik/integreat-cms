@@ -7,6 +7,7 @@ from .media_actions import (
     get_query_search_results_ajax,
     upload_file_ajax,
     edit_file_ajax,
+    move_file_ajax,
     delete_file_ajax,
     create_directory_ajax,
     edit_directory_ajax,

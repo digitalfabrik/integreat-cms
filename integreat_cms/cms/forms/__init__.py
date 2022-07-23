@@ -23,6 +23,7 @@ from .media.replace_media_file_form import ReplaceMediaFileForm
 from .media.media_file_form import MediaFileForm
 from .media.create_directory_form import CreateDirectoryForm
 from .media.directory_form import DirectoryForm
+from .media.media_move_form import MediaMoveForm
 
 from .offer_templates.offer_template_form import OfferTemplateForm
 
