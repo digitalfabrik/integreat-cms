@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1390](https://github.com/digitalfabrik/integreat-cms/issues/1390) ] Move files via drag and drop
+* [ [#1606](https://github.com/digitalfabrik/integreat-cms/issues/1606) ] Remove warning at POI contacts
 
 
 2022.7.0
