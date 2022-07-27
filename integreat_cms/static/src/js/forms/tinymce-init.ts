@@ -89,7 +89,7 @@ window.addEventListener("load", () => {
         },
         icon: {
           title: "Icons",
-          items: "pin www email call clock idea",
+          items: "pin www email call clock idea group",
         },
         format: {
           title: "Format",
@@ -176,6 +176,7 @@ window.addEventListener("load", () => {
         addIcon(editor, tinymceConfig, "call");
         addIcon(editor, tinymceConfig, "clock");
         addIcon(editor, tinymceConfig, "idea");
+        addIcon(editor, tinymceConfig, "group");
         editor.ui.registry.addIcon(
           "no-translate",
           parseSvg(require(`../../svg/no-translate.svg`))
