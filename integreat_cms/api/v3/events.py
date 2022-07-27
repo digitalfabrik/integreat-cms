@@ -4,6 +4,7 @@ This module includes functions related to the event API endpoint.
 
 from copy import deepcopy
 
+from collections import deque
 from datetime import timedelta
 
 from django.conf import settings
@@ -178,14 +179,23 @@ def events(request, region_slug, language_slug):
     region.get_language_or_404(language_slug, only_active=True)
     result = []
     now = timezone.now().date()
+
+    event_iterators = deque()
     for event in region.events.prefetch_public_translations().filter(archived=False):
         event_translation = event.get_public_translation(language_slug)
         if event_translation:
             if event.end_date >= now:
                 result.append(transform_event_translation(event_translation))
 
-            for future_event in transform_event_recurrences(event_translation, now):
-                result.append(future_event)
+            event_iterators.append(transform_event_recurrences(event_translation, now))
+
+    # Since the number of results is now limited, treat all events equally so that most events should be in the output
+    while len(result) < settings.API_MAX_COUNT_EVENTS and event_iterators:
+        if json := next(event_iterators[0]):
+            result.append(json)
+            event_iterators.rotate()
+        else:
+            event_iterators.popleft()
 
     return JsonResponse(
         result, safe=False

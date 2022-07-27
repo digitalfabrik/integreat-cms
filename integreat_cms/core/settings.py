@@ -76,6 +76,9 @@ AUTHOR_CHAT_HISTORY_DAYS = 30
 #: The time span up to which recurrent events should be returned by the api
 API_EVENTS_MAX_TIME_SPAN_DAYS = 31
 
+#: The maximum number of events to return from events api, temporary workaround
+API_MAX_COUNT_EVENTS = 30
+
 #: The company operating this CMS
 COMPANY = os.environ.get("INTEGREAT_CMS_COMPANY", "Tür an Tür – Digitalfabrik gGmbH")
 
