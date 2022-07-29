@@ -8,6 +8,7 @@ from ...constants.translation_status import (
     COLORS,
     MISSING,
     OUTDATED,
+    UP_TO_DATE,
 )
 
 
@@ -44,8 +45,19 @@ class TranslationCoverageView(TemplateView):
             .prefetch_major_public_translations()
             .cache_tree(archived=False)
         )
+        # Ignore all pages which do not have a published translation in the default language
+        pages = list(
+            filter(
+                lambda page: page.get_translation_state(region.default_language.slug)
+                == UP_TO_DATE,
+                pages,
+            )
+        )
         # Iterate over all active languages of the current region
         for language in region.active_languages:
+            # Only check pages that are not in the default language
+            if language == region.default_language:
+                continue
             # Initialize counter dicts for both the translation count and the word count
             translation_count[language] = Counter()
             word_count[language] = Counter()
