@@ -4,6 +4,7 @@ UNRELEASED
 * [ [#1390](https://github.com/digitalfabrik/integreat-cms/issues/1390) ] Move files via drag and drop
 * [ [#1606](https://github.com/digitalfabrik/integreat-cms/issues/1606) ] Remove warning at POI contacts
 * [ [#1571](https://github.com/digitalfabrik/integreat-cms/issues/1571) ] Show offline downloads in statistics
+* [ [#1464](https://github.com/digitalfabrik/integreat-cms/issues/1464) ] Fix status of translation with only minor public version
 
 
 2022.7.0

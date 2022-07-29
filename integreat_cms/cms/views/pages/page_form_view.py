@@ -288,6 +288,30 @@ class PageFormView(
                 page_translation_form.instance.page.translations.filter(
                     language__in=languages
                 ).update(status=status.DRAFT)
+            # If the translation is minor change and there is no major public version
+            if (page_translation_form.instance.minor_edit is True) and (
+                not page_translation_form.instance.major_public_version
+            ):
+                # and if it is the first version, save it as major public
+                if page_translation_form.instance.version == 1:
+                    page_translation_form.instance.minor_edit = False
+                    page_translation_form.save()
+                    messages.info(
+                        request,
+                        _(
+                            'Page "{}" was saved as major version. The first version is not allowed to be a minor edit.'
+                        ).format(page_translation_form.instance.title),
+                    )
+                # or if there are only draft and/or minor public version, change them to public major version
+                else:
+                    language_tree_node = region.language_node_by_slug.get(language.slug)
+                    languages = [language] + [
+                        node.language for node in language_tree_node.get_descendants()
+                    ]
+                    page_translation_form.instance.page.translations.filter(
+                        language__in=languages
+                    ).update(status=status.PUBLIC)
+
             # Add the success message and redirect to the edit page
             if not page_instance:
                 messages.success(
