@@ -15,6 +15,7 @@ UNRELEASED
 * [ [#1534](https://github.com/digitalfabrik/integreat-cms/issues/1534) ] Invalidate cache after moving nodes
 * [ [#1535](https://github.com/digitalfabrik/integreat-cms/issues/1535) ] Fix event api performance
 * [ [#1604](https://github.com/digitalfabrik/integreat-cms/issues/1604) ] Show no broken links from restored versions
+* [ [#1549](https://github.com/digitalfabrik/integreat-cms/issues/1549) ] Add multilingual XLIFF export
 
 
 2022.7.0

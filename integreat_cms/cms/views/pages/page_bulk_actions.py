@@ -71,8 +71,8 @@ class ExportXliffView(PageBulkActionMixin, BulkActionView):
 
     def post(self, request, *args, **kwargs):
         r"""
-        Function for handling a pdf export request for pages.
-        The pages get extracted from request.GET attribute and the request is forwarded to :func:`~integreat_cms.cms.utils.pdf_utils.generate_pdf`
+        Function for handling a XLIFF export request for pages.
+        The pages get extracted from request.GET attribute and the request is forwarded to :func:`~integreat_cms.xliff.utils.pages_to_xliff_file`
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -93,7 +93,10 @@ class ExportXliffView(PageBulkActionMixin, BulkActionView):
         ).language
 
         xliff_file_url = pages_to_xliff_file(
-            request, self.get_queryset(), target_language, only_public=self.only_public
+            request,
+            self.get_queryset(),
+            [target_language],
+            only_public=self.only_public,
         )
         if xliff_file_url:
             # Insert link with automatic download into success message
@@ -107,6 +110,62 @@ class ExportXliffView(PageBulkActionMixin, BulkActionView):
                     else _(
                         "XLIFF file with unpublished and published pages for translation to {} successfully created."
                     ).format(target_language),
+                    _(
+                        "If the download does not start automatically, please click {}here{}."
+                    ).format(
+                        f"<a data-auto-download href='{xliff_file_url}' class='font-bold underline hover:no-underline' download>",
+                        "</a>",
+                    ),
+                ),
+            )
+
+        # Let the base view handle the redirect
+        return super().post(request, *args, **kwargs)
+
+
+class ExportMultiLanguageXliffView(PageBulkActionMixin, BulkActionView):
+    """
+    Bulk action for generating XLIFF files for translations in multiple languages.
+    """
+
+    #: Whether the view requires change permissions
+    require_change_permission = False
+
+    def post(self, request, *args, **kwargs):
+        r"""
+        Function for handling a XLIFF export request for pages and multiple languages.
+        The pages get extracted from request.GET attribute and the request is forwarded to :func:`~integreat_cms.xliff.utils.pages_to_xliff_file`
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The redirect
+        :rtype: ~django.http.HttpResponseRedirect
+        """
+
+        target_languages = [
+            language
+            for language in self.request.region.active_languages
+            if language.slug in self.request.POST.getlist("selected_language_slugs[]")
+        ]
+
+        xliff_file_url = pages_to_xliff_file(
+            request, self.get_queryset(), target_languages, only_public=False
+        )
+        if xliff_file_url:
+            # Insert link with automatic download into success message
+            messages.success(
+                request,
+                __(
+                    _(
+                        "XLIFF file for translation to selected languages successfully created."
+                    ),
                     _(
                         "If the download does not start automatically, please click {}here{}."
                     ).format(

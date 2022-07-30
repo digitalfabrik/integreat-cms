@@ -34,7 +34,7 @@ download_storage = FileSystemStorage(
 logger = logging.getLogger(__name__)
 
 
-def pages_to_xliff_file(request, pages, target_language, only_public=False):
+def pages_to_xliff_file(request, pages, target_languages, only_public=False):
     """
     Export a list of page IDs to a ZIP archive containing XLIFF files for a specified target language (or just a single
     XLIFF file if only one page is converted)
@@ -45,8 +45,8 @@ def pages_to_xliff_file(request, pages, target_language, only_public=False):
     :param pages: list of pages which should be translated
     :type pages: list [ ~integreat_cms.cms.models.pages.page.Page ]
 
-    :param target_language: The target language (should not be the region's default language)
-    :type target_language: :class:`~integreat_cms.cms.models.languages.language.Language`
+    :param target_languages: list of target languages (should exclude the region's default language)
+    :type target_languages: [ :class:`~integreat_cms.cms.models.languages.language.Language` ]
 
     :param only_public: Whether only public versions should be exported
     :type only_public: bool
@@ -55,22 +55,23 @@ def pages_to_xliff_file(request, pages, target_language, only_public=False):
     :rtype: str
     """
     logger.debug(
-        "XLIFF export started by %r for pages %r and language %r",
+        "XLIFF export started by %r for pages %r and languages %r",
         request.user,
         pages,
-        target_language,
+        target_languages,
     )
     # Generate unique directory for this export
     dir_name = uuid.uuid4()
     # Create XLIFF files
     xliff_paths = {}
-    for page in pages:
-        try:
-            xliff_paths[page] = page_to_xliff(
-                page, target_language, dir_name, only_public=only_public
-            )
-        except RuntimeError as e:
-            messages.error(request, e)
+    for target_language in target_languages:
+        for page in pages:
+            try:
+                xliff_paths[f"{target_language}/{page}"] = page_to_xliff(
+                    page, target_language, dir_name, only_public=only_public
+                )
+            except RuntimeError as e:
+                messages.error(request, e)
     # Check how many XLIFF files were created
     if len(xliff_paths) == 0:
         return None
@@ -90,7 +91,11 @@ def pages_to_xliff_file(request, pages, target_language, only_public=False):
     # Generate file path for ZIP archive
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     region = pages[0].region
-    zip_name = f"{region.slug}_{timestamp}_{region.get_source_language(target_language.slug).slug}_{target_language.slug}.zip"
+    if len(target_languages) == 1:
+        target_language = target_languages[0]
+        zip_name = f"{region.slug}_{timestamp}_{region.get_source_language(target_language.slug).slug}_{target_language.slug}.zip"
+    else:
+        zip_name = f"{region.slug}_{timestamp}_multiple_languages.zip"
     actual_filename = download_storage.save(f"{dir_name}/{zip_name}", ContentFile(""))
     # Create ZIP archive
     create_zip_archive(

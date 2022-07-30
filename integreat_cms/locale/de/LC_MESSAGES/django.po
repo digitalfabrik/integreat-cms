@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-13 21:26+0000\n"
+"POT-Creation-Date: 2022-08-17 09:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -3604,7 +3604,7 @@ msgstr "Ein Serverfehler ist aufgetreten."
 #: cms/templates/analytics/_broken_links_widget.html:26
 #: cms/templates/chat/_chat_widget.html:30
 #: cms/templates/statistics/_statistics_widget.html:23
-#: cms/templates/statistics/statistics_overview.html:19 xliff/utils.py:248
+#: cms/templates/statistics/statistics_overview.html:19 xliff/utils.py:253
 msgid "Please contact the administrator."
 msgstr "Bitte kontaktieren Sie einen Administrator."
 
@@ -4212,7 +4212,8 @@ msgstr "Diese Sprache wird von DeepL nicht unterstützt"
 #: cms/templates/feedback/admin_feedback_list.html:145
 #: cms/templates/feedback/region_feedback_list.html:137
 #: cms/templates/linkcheck/links_by_filter.html:116
-#: cms/templates/pages/page_tree.html:184
+#: cms/templates/pages/_page_xliff_export_overlay.html:42
+#: cms/templates/pages/page_tree.html:190
 #: cms/templates/pages/page_tree_archived.html:98
 #: cms/templates/pois/poi_list.html:124
 #: cms/templates/pois/poi_list_archived.html:63
@@ -4908,6 +4909,23 @@ msgstr "Zu Autoren hinzufügen"
 msgid "Add to editors"
 msgstr "Zu Redakteuren hinzufügen"
 
+#: cms/templates/pages/_page_xliff_export_overlay.html:7
+msgid "Multilingual XLIFF export"
+msgstr "Mehrsprachiger XLIFF-Export"
+
+#: cms/templates/pages/_page_xliff_export_overlay.html:13
+msgid "Please select languages for multilingual export."
+msgstr "Bitte wählen Sie Sprachen für den mehrsprachigen Export."
+
+#: cms/templates/pages/_page_xliff_export_overlay.html:20
+#: cms/templates/pages/page_tree.html:166
+msgid "You cannot export XLIFF files for the default language"
+msgstr "Sie können keine XLIFF-Dateien für die Standard-Sprache exportieren"
+
+#: cms/templates/pages/_page_xliff_export_overlay.html:39
+msgid "Select all languages."
+msgstr "Alle Sprachen auswählen"
+
 #: cms/templates/pages/_page_xliff_import_diff.html:15
 msgid "File"
 msgstr "Datei"
@@ -4937,7 +4955,7 @@ msgstr "Vorschau"
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: cms/templates/pages/_page_xliff_import_diff.html:80 xliff/utils.py:496
+#: cms/templates/pages/_page_xliff_import_diff.html:80 xliff/utils.py:501
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
@@ -5199,27 +5217,27 @@ msgstr ""
 "Nicht (⚠️) veröffentlichte und veröffentlichte Seiten für die "
 "%(language_translated_name)s-Übersetzung exportieren"
 
-#: cms/templates/pages/page_tree.html:166
-msgid "You cannot export XLIFF files for the default language"
-msgstr "Sie können keine XLIFF-Dateien für die Standard-Sprache exportieren"
+#: cms/templates/pages/page_tree.html:186
+msgid "Export selected pages for multilingual translation"
+msgstr "Ausgewählte Seiten für die mehrsprachige Übersetzung exportieren"
 
-#: cms/templates/pages/page_tree.html:189
+#: cms/templates/pages/page_tree.html:195
 msgid "Import XLIFF files"
 msgstr "XLIFF-Dateien importieren"
 
-#: cms/templates/pages/page_tree.html:190
+#: cms/templates/pages/page_tree.html:196
 msgid "Supported file extensions"
 msgstr "Unterstützte Dateiendungen"
 
-#: cms/templates/pages/page_tree.html:199
+#: cms/templates/pages/page_tree.html:205
 msgid "Select files"
 msgstr "Dateien auswählen"
 
-#: cms/templates/pages/page_tree.html:201
+#: cms/templates/pages/page_tree.html:207
 msgid "and {} other files"
 msgstr "und {} weitere Dateien"
 
-#: cms/templates/pages/page_tree.html:209
+#: cms/templates/pages/page_tree.html:215
 msgid "Import"
 msgstr "Importieren"
 
@@ -6745,7 +6763,7 @@ msgstr ""
 msgid "Marked all translations of this page as up-to-date"
 msgstr "Alle Übersetzungen dieser Seite als aktuell markiert."
 
-#: cms/views/pages/page_bulk_actions.py:104
+#: cms/views/pages/page_bulk_actions.py:107
 msgid ""
 "XLIFF file with published pages only for translation to {} successfully "
 "created."
@@ -6753,7 +6771,7 @@ msgstr ""
 "XLIFF Datei nur mit veröffentlichten Seiten für die Übersetzung nach{} wurde "
 "erfolgreich erstellt."
 
-#: cms/views/pages/page_bulk_actions.py:108
+#: cms/views/pages/page_bulk_actions.py:111
 msgid ""
 "XLIFF file with unpublished and published pages for translation to {} "
 "successfully created."
@@ -6761,10 +6779,17 @@ msgstr ""
 "XLIFF Datei mit nicht veröffentlichten und veröffentlichten Seiten für die "
 "Übersetzung nach {} wurde erfolgreich erstellt."
 
-#: cms/views/pages/page_bulk_actions.py:111
+#: cms/views/pages/page_bulk_actions.py:114
+#: cms/views/pages/page_bulk_actions.py:170
 msgid "If the download does not start automatically, please click {}here{}."
 msgstr ""
 "Wenn der Download nicht automatisch startet, klicken Sie bitte {}hier{}."
+
+#: cms/views/pages/page_bulk_actions.py:167
+msgid "XLIFF file for translation to selected languages successfully created."
+msgstr ""
+"XLIFF Datei für die Übersetzung in die ausgewählten Sprachen wurde "
+"erfolgreich erstellt."
 
 #: cms/views/pages/page_context_mixin.py:38
 msgid "Please confirm that you really want to archive this page"
@@ -7133,7 +7158,7 @@ msgstr "{} \"{}\" wurde erfolgreich übersetzt"
 msgid "{} \"{}\" could not be automatically translated."
 msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
 
-#: xliff/utils.py:154
+#: xliff/utils.py:159
 msgid ""
 "Page {} does not have a source translation in {} and therefore cannot be "
 "exported as XLIFF for translation to {}."
@@ -7141,44 +7166,44 @@ msgstr ""
 "Die Seite {} hat keine Quell-Übersetzung auf {} und kann deshalb nicht als "
 "XLIFF für die Übersetzung nach {} exportiert werden."
 
-#: xliff/utils.py:176
+#: xliff/utils.py:181
 msgid "An unexpected error has occurred while exporting page {}."
 msgstr ""
 "Es ist ein unerwarteter Fehler beim Exportieren der Seite {} aufgetreten."
 
-#: xliff/utils.py:179 xliff/utils.py:266
+#: xliff/utils.py:184 xliff/utils.py:271
 msgid "Please try again or contact the administrator."
 msgstr ""
 "Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator."
 
-#: xliff/utils.py:246
+#: xliff/utils.py:251
 msgid "The page referenced in XLIFF file \"{}\" could not be found."
 msgstr "Die Seite der XLIFF-Datei \"{}\" konnte nicht gefunden werden."
 
-#: xliff/utils.py:264
+#: xliff/utils.py:269
 msgid "An unexpected error has occurred while importing XLIFF file \"{}\"."
 msgstr ""
 "Es ist ein unerwarteter Fehler beim Importieren der XLIFF Datei \"{}\" "
 "aufgetreten."
 
-#: xliff/utils.py:375
+#: xliff/utils.py:380
 msgid "Page {} could not be imported successfully because of the errors: {}"
 msgstr "Die Seite {} konnte nicht importiert werden aufgrund der Fehler: {}"
 
-#: xliff/utils.py:392
+#: xliff/utils.py:397
 msgid "Page {} was imported without changes."
 msgstr "Seite {} wurde ohne Änderungen importiert."
 
-#: xliff/utils.py:412
+#: xliff/utils.py:417
 msgid "Page {} was imported successfully."
 msgstr "Seite {} wurde erfolgreich importiert."
 
-#: xliff/utils.py:445
+#: xliff/utils.py:450
 msgid "You don't have the permission to import this page."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu importieren."
 
-#: xliff/utils.py:454
+#: xliff/utils.py:459
 msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
