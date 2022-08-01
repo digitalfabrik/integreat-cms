@@ -6,6 +6,7 @@ UNRELEASED
 * [ [#1571](https://github.com/digitalfabrik/integreat-cms/issues/1571) ] Show offline downloads in statistics
 * [ [#1464](https://github.com/digitalfabrik/integreat-cms/issues/1464) ] Fix status of translation with only minor public version
 * [ [#1623](https://github.com/digitalfabrik/integreat-cms/issues/1623) ] Fix imprint publish/update button
+* [ [#1534](https://github.com/digitalfabrik/integreat-cms/issues/1534) ] Invalidate cache after moving nodes
 
 
 2022.7.0
