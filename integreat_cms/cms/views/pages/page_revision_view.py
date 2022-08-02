@@ -169,7 +169,7 @@ class PageRevisionView(TemplateView):
                     "language_slug": language.slug,
                 },
             )
-
+        current_revision.links.all().delete()
         revision.pk = None
         revision.version = current_revision.version + 1
 
