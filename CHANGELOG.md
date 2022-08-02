@@ -12,7 +12,7 @@ UNRELEASED
 * [ [#1623](https://github.com/digitalfabrik/integreat-cms/issues/1623) ] Fix imprint publish/update button
 * [ [#1534](https://github.com/digitalfabrik/integreat-cms/issues/1534) ] Invalidate cache after moving nodes
 * [ [#1535](https://github.com/digitalfabrik/integreat-cms/issues/1535) ] Fix event api performance
-* [ [#1604](https://github.com/digitalfabrik/integreat-cms/issues/#1604) ] Show no broken links from restored versions
+* [ [#1604](https://github.com/digitalfabrik/integreat-cms/issues/1604) ] Show no broken links from restored versions
 
 
 2022.7.0
