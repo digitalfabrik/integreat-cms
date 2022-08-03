@@ -70,19 +70,38 @@
                                type="text"
                                value="{{ source_page_translation.title }}"
                                disabled>
-                        <div class="mt-4">
-                            <label class="block mt-4 font-bold">{{ page_translation_form.content.label }}</label>
-                            <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea" disabled>{{source_page_translation.content}}</textarea>
+                        <div>
+                            <label class="block font-bold">{{ page_translation_form.content.label }}</label>
+                            <textarea 
+                                id="source_translation_tinymce" 
+                                cols="40" 
+                                rows="10" 
+                                class="tinymce_textarea" 
+                                disabled
+                                data-old="{{ old_translation_content }}" 
+                                data-new="{{ source_page_translation.content }}"
+                            >
+                                {{source_page_translation.content}}
+                            </textarea>
                         </div>
-                        <label>{% trans 'Copy content' %}</label>
-                        <button id="copy-translation-content"
-                                title="{% trans 'Copy content' %}"
-                                class="btn w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                            {% with source_language=source_page_translation.language.translated_name target_language_name=target_language.translated_name %}
-                                {% blocktrans %}Copy content of {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
-                            {% endwith %}
-                            <i data-feather="arrow-right-circle" class="mr-2"></i>
-                        </button>
+                        <label>{% trans 'Actions' %}</label>
+                        <div class="flex flex-wrap gap-4">
+                            <button id="toggle-translation-diff"
+                                    class="btn grow bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                    title="{% if page_translation_form.instance.is_up_to_date %}{% trans 'No changes have been made to the source translation.' %}{% else %}{% trans 'Toggle source translation differences' %}{% endif %}"
+                                    {% if page_translation_form.instance.is_up_to_date %}disabled{% endif %}>
+                                <div class="hidden toggle">{% trans 'Hide source translation differences' %}</div>
+                                <div>{% trans 'Show source translation differences' %}</div>
+                            </button>
+                            <button id="copy-translation-content"
+                                    title="{% trans 'Copy content' %}"
+                                    class="btn grow bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                                {% with source_language=source_page_translation.language.translated_name target_language_name=target_language.translated_name %}
+                                    {% blocktrans %}Copy content of {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
+                                {% endwith %}
+                                <i data-feather="arrow-right-circle" class="mr-2"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="border border-blue-500 rounded shadow-2xl">

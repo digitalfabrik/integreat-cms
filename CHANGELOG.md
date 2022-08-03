@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1635](https://github.com/digitalfabrik/integreat-cms/issues/1635) ] Show Matomo actions in statistics instead of visitors
+* [ [#1449](https://github.com/digitalfabrik/integreat-cms/issues/1449) ] Show diff to last source version in side-by-side view
 
 
 2022.8.2
