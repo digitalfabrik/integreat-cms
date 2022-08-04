@@ -24,7 +24,13 @@
             <div class="flex flex-wrap gap-4">
                 {% if perms.cms.change_imprintpage %}
                     <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
-                    <button name="submit_public" class="btn">{% trans 'Publish' %}</button>
+                    <button name="submit_public" class="btn">
+                        {% if imprint_translation_form.instance.status == PUBLIC %}
+                            {% trans 'Update' %}
+                        {% else %}
+                            {% trans 'Publish' %}
+                        {% endif %}
+                    </button>
                 {% endif %}
             </div>
         </div>

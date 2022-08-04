@@ -34,6 +34,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
         "WEBAPP_URL": settings.WEBAPP_URL,
         "IMPRINT_SLUG": settings.IMPRINT_SLUG,
         "translation_status": translation_status,
+        "PUBLIC": status.PUBLIC,
     }
 
     def get(self, request, *args, **kwargs):
