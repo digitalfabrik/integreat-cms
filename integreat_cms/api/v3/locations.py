@@ -65,7 +65,7 @@ def transform_poi_translation(poi_translation):
         "modified_gmt": poi_translation.last_updated.strftime("%Y-%m-%d %H:%M:%S"),
         "excerpt": poi_translation.short_description,
         "content": poi_translation.content,
-        "available_languages": poi_translation.available_languages,
+        "available_languages": poi_translation.available_languages_dict,
         "icon": poi.icon.url if poi.icon else None,
         "thumbnail": poi.icon.thumbnail_url if poi.icon else None,
         "website": poi.website if poi.website else None,

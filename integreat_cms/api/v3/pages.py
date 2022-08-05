@@ -74,7 +74,7 @@ def transform_page(page_translation):
         "content": page_translation.combined_text,
         "parent": parent,
         "order": order,
-        "available_languages": page_translation.available_languages,
+        "available_languages": page_translation.available_languages_dict,
         "thumbnail": page_translation.page.icon.url
         if page_translation.page.icon
         else None,

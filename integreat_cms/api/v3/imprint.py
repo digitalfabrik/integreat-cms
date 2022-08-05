@@ -32,7 +32,7 @@ def transform_imprint(imprint_translation):
         "excerpt": strip_tags(imprint_translation.content),
         "content": imprint_translation.content,
         "parent": None,
-        "available_languages": imprint_translation.available_languages,
+        "available_languages": imprint_translation.available_languages_dict,
         "thumbnail": None,
         "hash": None,
     }

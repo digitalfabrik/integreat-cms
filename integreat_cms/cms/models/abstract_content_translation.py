@@ -189,7 +189,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         raise NotImplementedError
 
     @cached_property
-    def available_languages(self):
+    def available_languages_dict(self):
         """
         This property checks in which :class:`~integreat_cms.cms.models.languages.language.Language` the content is
         translated apart from ``self.language``
@@ -209,31 +209,24 @@ class AbstractContentTranslation(AbstractBaseModel):
         :rtype: dict
         """
         available_languages = {}
-        # Check if fallback translation should be used
-        if self.foreign_object.fallback_translations_enabled:
-            all_languages = self.foreign_object.region.active_languages
-        else:
-            all_languages = self.foreign_object.public_languages
-        for language in all_languages:
-            if language == self.language:
+
+        for public_translation in self.foreign_object.available_translations():
+            if public_translation.language == self.language:
                 continue
-            public_translation = self.foreign_object.get_public_translation(
-                language.slug
-            )
-            if public_translation:
-                absolute_url = public_translation.get_absolute_url()
-                available_languages[language.slug] = {
-                    "id": public_translation.id,
-                    "url": settings.BASE_URL + absolute_url,
-                    "path": absolute_url,
-                }
+
+            absolute_url = public_translation.get_absolute_url()
+            available_languages[public_translation.language.slug] = {
+                "id": public_translation.id,
+                "url": settings.BASE_URL + absolute_url,
+                "path": absolute_url,
+            }
         return available_languages
 
     @cached_property
     def sitemap_alternates(self):
         """
         This property returns the language alternatives of a content translation for the use in sitemaps.
-        Similar to :func:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.available_languages`,
+        Similar to :func:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.available_languages_dict`,
         but in a slightly different format.
 
         :return: A list of dictionaries containing the alternative translations of a content translation
