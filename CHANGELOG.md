@@ -7,6 +7,7 @@ UNRELEASED
 * [ [#1464](https://github.com/digitalfabrik/integreat-cms/issues/1464) ] Fix status of translation with only minor public version
 * [ [#1623](https://github.com/digitalfabrik/integreat-cms/issues/1623) ] Fix imprint publish/update button
 * [ [#1534](https://github.com/digitalfabrik/integreat-cms/issues/1534) ] Invalidate cache after moving nodes
+* [ [#1535](https://github.com/digitalfabrik/integreat-cms/issues/1535) ] Fix event api performance
 
 
 2022.7.0
@@ -21,7 +22,6 @@ UNRELEASED
 * [ [#1585](https://github.com/digitalfabrik/integreat-cms/issues/1585) ] Hide news after 28 days
 * [ [#1600](https://github.com/digitalfabrik/integreat-cms/issues/1600) ] Improve XLIFF export bulk option description
 * [ [#1511](https://github.com/digitalfabrik/integreat-cms/issues/1511) ] Fix PDF generation for long filenames
-* [ [#1535](https://github.com/digitalfabrik/integreat-cms/issues/1535) ] Fix event api performance
 
 
 2022.6.3
