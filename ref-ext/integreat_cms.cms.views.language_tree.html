@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-08-04T20:49:23+00:00" />
+    <meta property="article:modified_time" content="2022-08-05T09:08:05+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Language Tree &mdash; integreat-cms 2022.7.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -886,7 +886,7 @@
 Typically, they do not render a whole page, but only parts of it or they redirect to regular views.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.language_tree.language_tree_actions.delete_language_tree_node">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_actions.</span></span><span class="sig-name descname"><span class="pre">delete_language_tree_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_tree_node_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_actions.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.language_tree.language_tree_actions.delete_language_tree_node" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_actions.</span></span><span class="sig-name descname"><span class="pre">delete_language_tree_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_tree_node_id</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_actions.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.language_tree.language_tree_actions.delete_language_tree_node" title="Permalink to this definition"></a></dt>
 <dd><p>Deletes the language node of distinct region
 and all page translations for this language</p>
 <dl class="field-list simple">
@@ -902,6 +902,18 @@ and all page translations for this language</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.language_tree.language_tree_actions.manually_invalidate_models">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_actions.</span></span><span class="sig-name descname"><span class="pre">manually_invalidate_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_actions.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.language_tree.language_tree_actions.manually_invalidate_models" title="Permalink to this definition"></a></dt>
+<dd><p>This is a helper function to iterate through all affected objects and invalidate their cache.
+This is necessary as the original cache invalidation of cacheops only triggers for direct foreign key relationships.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region</strong> (<a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The affected region</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1463,7 +1475,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 04, 2022.
+      <span class="lastupdated">Last updated on Aug 05, 2022.
       </span></p>
   </div>
 
