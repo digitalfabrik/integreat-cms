@@ -68,9 +68,11 @@ class TranslationCoverageView(TemplateView):
                 translation_count[language][translation_state] += 1
                 # If the state is either outdated or missing, keep track of the word count
                 if translation_state in [OUTDATED, MISSING]:
-                    # If the translation does not exist, fall back to the default translation
+                    # Check word count of translation in source language
+                    source_language = region.get_source_language(language.slug)
+                    # If the source translation does not exist, fall back to the default translation
                     translation = page.get_translation(
-                        language.slug
+                        source_language.slug
                     ) or page.get_translation(region.default_language.slug)
                     # Provide a rough estimation of the word count
                     word_count[language][translation_state] += len(
