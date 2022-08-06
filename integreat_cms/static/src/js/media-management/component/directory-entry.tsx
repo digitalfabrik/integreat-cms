@@ -1,7 +1,9 @@
 /*
  * This component renders a subdirectory entry within the current directory
  */
-import { Folder, Lock } from "preact-feather";
+import { Folder, FolderOpen, Lock } from "lucide-preact";
+import { useState } from "preact/hooks";
+import cn from 'classnames';
 
 import { Directory } from "../index";
 
@@ -10,6 +12,10 @@ interface Props {
   onClick?: (event: MouseEvent) => void;
   mediaTranslations: any;
   globalEdit?: boolean;
+  allowDrop: boolean;
+  itemDropped: () => unknown;
+  dragStart: () => unknown;
+  dragEnd: () => unknown;
 }
 
 export default function DirectoryEntry({
@@ -17,16 +23,48 @@ export default function DirectoryEntry({
   onClick,
   mediaTranslations,
   globalEdit,
+  allowDrop,
+  itemDropped: fileDropped,
+  dragStart, dragEnd
 }: Props) {
+  const [isCurrentDropTarget, setIsCurrentDropTarget] = useState(false);
+
   return (
     <div
       title={mediaTranslations.btn_enter_directory}
       className={
-        "relative cursor-pointer hover:text-blue-500 flex flex-col justify-between h-full p-2"
+        cn("relative cursor-pointer hover:text-blue-500 flex flex-col justify-between h-full p-2",
+        {"text-blue-500": isCurrentDropTarget})
       }
       onClick={onClick}
+      onDragOver={(e) => {
+        if(allowDrop) {
+          e.preventDefault();
+          setIsCurrentDropTarget(true);
+        }
+      }}
+      onDragLeave={(e) => {
+        if(allowDrop) {
+          e.preventDefault();
+          setIsCurrentDropTarget(false);
+        }
+      }}
+      onDrop={(e) => {
+        if(allowDrop) {
+          e.preventDefault();
+          setIsCurrentDropTarget(false);
+          fileDropped();
+        }
+      }}
+      onDragStart={dragStart}
+      onDragEnd={dragEnd}
+      draggable={!allowDrop && (!directory.isGlobal || globalEdit)}
     >
-      <Folder className={"w-full h-24 flex-none"} />
+      {isCurrentDropTarget ? (
+        <FolderOpen className={"w-full h-24 flex-none"} />
+      ) : (
+        <Folder className={"w-full h-24 flex-none"} />
+      )}
       <span class="font-bold text-black text-center break-all leading-5 max-h-15 m-auto overflow-hidden">
         {directory.name}
       </span>

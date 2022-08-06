@@ -288,6 +288,29 @@ class PageFormView(
                 page_translation_form.instance.page.translations.filter(
                     language__in=languages
                 ).update(status=status.DRAFT)
+            # If this is the first version and the minor edit checkbox is checked, remove it
+            if (
+                page_translation_form.instance.version == 1
+                and page_translation_form.instance.minor_edit
+            ):
+                page_translation_form.instance.minor_edit = False
+                page_translation_form.instance.save()
+                messages.info(
+                    request,
+                    _(
+                        'The "minor edit" option was disabled because the first version can never be a minor edit.'
+                    ).format(page_translation_form.instance.title),
+                )
+            # When a version is published and a minor edit, also publish the past versions
+            # (to make sure the translation state is updated correctly)
+            if (
+                page_translation_form.instance.status == status.PUBLIC
+                and page_translation_form.instance.minor_edit
+            ):
+                page_translation_form.instance.page.translations.filter(
+                    language=language
+                ).update(status=status.PUBLIC)
+
             # Add the success message and redirect to the edit page
             if not page_instance:
                 messages.success(

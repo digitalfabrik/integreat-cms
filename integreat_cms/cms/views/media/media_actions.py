@@ -16,6 +16,7 @@ from ...forms import (
     UploadMediaFileForm,
     ReplaceMediaFileForm,
     MediaFileForm,
+    MediaMoveForm,
     CreateDirectoryForm,
     DirectoryForm,
 )
@@ -30,7 +31,7 @@ logger = logging.getLogger(__name__)
 # pylint: disable=unused-argument
 def get_directory_path_ajax(request, region_slug=None):
     """
-    View provides the frontend with the current directory path for the breadcrumps.
+    View provides the frontend with the current directory path for the breadcrumbs.
 
     :param request: The current request
     :type request: ~django.http.HttpRequest
@@ -497,5 +498,64 @@ def delete_directory_ajax(request, region_slug=None):
                 }
             ],
             "directory": directory.serialize(),
+        }
+    )
+
+
+@require_POST
+@permission_required("cms.change_directory")
+@permission_required("cms.change_mediafile")
+@json_response
+# pylint: disable=unused-argument
+def move_file_ajax(request, region_slug=None):
+    """
+    This view provides the frontend with the option to move files via AJAX.
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :return: JSON response which indicates error or success
+    :rtype: ~django.http.JsonResponse
+    """
+
+    region = request.region
+
+    media_file = get_object_or_404(
+        MediaFile.objects.filter(region=region), id=request.POST.get("mediafile_id")
+    )
+
+    media_move_form = MediaMoveForm(data=request.POST, instance=media_file)
+
+    if not media_move_form.is_valid():
+        return JsonResponse(
+            {
+                "messages": media_move_form.get_error_messages(),
+            },
+            status=400,
+        )
+
+    if not media_move_form.has_changed():
+        return JsonResponse(
+            {
+                "messages": [{"type": "info", "text": _("No changes detected")}],
+            }
+        )
+
+    # Save form
+    media_file = media_move_form.save()
+
+    return JsonResponse(
+        {
+            "messages": [
+                {
+                    "type": "success",
+                    "text": _(
+                        'File "{}" was moved successfully into directory "{}"'
+                    ).format(media_file.name, media_file.parent_directory or "Home"),
+                }
+            ],
         }
     )

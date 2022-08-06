@@ -2,7 +2,7 @@
  * This component renders a sidebar which shows information about the current directory
  * as well as provides the possibility to rename and delete the current directory
  */
-import { Save, Sliders, Folder, Edit3, Trash2, Lock } from "preact-feather";
+import { Save, Sliders, Folder, Edit3, Trash2, Lock } from "lucide-preact";
 import { useEffect, useState } from "preact/hooks";
 import cn from "classnames";
 

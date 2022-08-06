@@ -28,7 +28,7 @@ class MatomoApiManager:
     This class helps to interact with Matomo API.
     There are three functions which can be used publicly:
 
-    * :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id`: Retrieve the Metomo ID belonging to the given Matomo access token
+    * :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_matomo_id`: Retrieve the Matomo ID belonging to the given Matomo access token
     * :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_total_visits`: Retrieve the total visits for the current region
     * :func:`~integreat_cms.cms.utils.matomo_api_manager.MatomoApiManager.get_visits_per_language`: Retrieve the visits for the current region by language
     """
@@ -249,11 +249,17 @@ class MatomoApiManager:
                     self.fetch(
                         session,
                         **query_params,
-                        segment=f"pageUrl=@/{language.slug}/wp-json/",
+                        segment=f"pageUrl=@/{language.slug}/wp-json/;pageUrl!@/pages/",
                     )
                 )
                 for language in languages
             ]
+            # Create separate task to gather offline download hits
+            tasks.append(
+                loop.create_task(
+                    self.fetch(session, **query_params, segment="pageUrl=@/pages/"),
+                )
+            )
             # Create task for total visits in all languages
             tasks.append(
                 loop.create_task(
@@ -316,6 +322,8 @@ class MatomoApiManager:
         logger.debug("All asynchronous fetching tasks have finished.")
         # The last dataset contains the total visits
         total_visits = datasets.pop()
+        # Get the separately created datasets for offline downloads
+        offline_downloads = datasets.pop()
 
         return {
             # Send original labels for usage in the CSV export (convert to list because type dict_keys is not JSON-serializable)
@@ -335,6 +343,14 @@ class MatomoApiManager:
                     # zip aggregates two lists into tuples, e.g. zip([1,2,3], [4,5,6])=[(1,4), (2,5), (3,6)]
                     # In this case, it matches the languages to their respective dataset (because the datasets are ordered)
                     for language, dataset in zip(languages, datasets)
+                ]
+                # The dataset for offline downloads
+                + [
+                    {
+                        "label": _("Offline Downloads"),
+                        "borderColor": next(color_cycle),
+                        "data": list(offline_downloads.values()),
+                    }
                 ]
                 # The dataset for total visits
                 + [
@@ -369,7 +385,7 @@ class MatomoApiManager:
             ]
             # Convert date objects to more readable labels
             if date.today().year == date_objects[0].year:
-                # If the first label is in the current year, obmit the year for all dates
+                # If the first label is in the current year, omit the year for all dates
                 simplified_date_labels = [
                     date_obj.strftime("%d.%m.") for date_obj in date_objects
                 ]
@@ -386,7 +402,7 @@ class MatomoApiManager:
             ]
             # Convert date objects to more readable labels
             if date.today().year == date_objects[0].year:
-                # If the first label is in the current year, obmit the year for all dates
+                # If the first label is in the current year, omit the year for all dates
                 simplified_date_labels = [
                     _("CW") + date_obj.strftime(" %W") for date_obj in date_objects
                 ]
@@ -404,7 +420,7 @@ class MatomoApiManager:
             ]
             # Convert date objects to more readable labels
             if date.today().year == date_objects[0].year:
-                # If the first label is in the current year, obmit the year for all dates
+                # If the first label is in the current year, omit the year for all dates
                 simplified_date_labels = [
                     _(date_obj.strftime("%B")) for date_obj in date_objects
                 ]

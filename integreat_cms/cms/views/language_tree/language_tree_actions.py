@@ -62,6 +62,7 @@ def move_language_tree_node(
         # (The move()-method executes raw sql which might cause problems if the instance isn't fetched again)
         language_tree_node = LanguageTreeNode.objects.get(id=language_tree_node_id)
         language_tree_node.save()
+        manually_invalidate_models(region)
         messages.success(
             request,
             _('The language tree node "{}" was successfully moved.').format(
@@ -130,14 +131,7 @@ def delete_language_tree_node(request, region_slug, language_tree_node_id):
     logger.debug("%r deleted by %r", language_node, request.user)
     language_node.delete()
 
-    for page in region.pages.all():
-        invalidate_obj(page)
-    for event in region.events.all():
-        invalidate_obj(event)
-    for poi in region.pois.all():
-        invalidate_obj(poi)
-    for push_notification in region.push_notifications.all():
-        invalidate_obj(push_notification)
+    manually_invalidate_models(region)
 
     messages.success(
         request,
@@ -146,3 +140,21 @@ def delete_language_tree_node(request, region_slug, language_tree_node_id):
         ).format(language_node.translated_name),
     )
     return redirect("language_tree", **{"region_slug": region_slug})
+
+
+def manually_invalidate_models(region):
+    """
+    This is a helper function to iterate through all affected objects and invalidate their cache.
+    This is necessary as the original cache invalidation of cacheops only triggers for direct foreign key relationships.
+
+    :param region: The affected region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
+    """
+    for page in region.pages.all():
+        invalidate_obj(page)
+    for event in region.events.all():
+        invalidate_obj(event)
+    for poi in region.pois.all():
+        invalidate_obj(poi)
+    for push_notification in region.push_notifications.all():
+        invalidate_obj(push_notification)
