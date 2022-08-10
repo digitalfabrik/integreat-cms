@@ -162,6 +162,18 @@ NOMINATIM_API_URL = os.environ.get(
     "INTEGREAT_CMS_NOMINATIM_API_URL", "http://nominatim.maps.tuerantuer.org/nominatim/"
 )
 
+###############
+# TEXTLAB API #
+###############
+
+#: URL to the textlab api
+TEXTLAB_API_URL = "https://preview.text-lab.de/api"
+
+#: Password for the textlab api
+TEXTLAB_API_PASSWORD = os.environ.get("TEXTLAB_PW")
+
+#: Username for the textlab api
+TEXTLAB_API_USERNAME = "Integreat"
 
 ############
 # WEBAUTHN #

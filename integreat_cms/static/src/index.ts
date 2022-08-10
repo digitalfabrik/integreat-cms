@@ -55,6 +55,7 @@ import "./js/mfa/login.ts";
 import "./js/analytics/statistics-charts.ts";
 import "./js/analytics/translation_coverage.ts";
 import "./js/analytics/linkcheck-widget.ts";
+import "./js/analytics/hix-widget.ts";
 
 import "./js/user/user-creation-workflow.ts";
 import "./js/user/user-roles.ts";
