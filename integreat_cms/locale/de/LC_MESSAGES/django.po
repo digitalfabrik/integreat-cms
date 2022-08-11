@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-08 15:34+0000\n"
+"POT-Creation-Date: 2022-09-08 18:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1722,7 +1722,7 @@ msgstr "Von"
 msgid "To"
 msgstr "Bis"
 
-#: cms/forms/language_tree/language_tree_node_form.py:108
+#: cms/forms/language_tree/language_tree_node_form.py:107
 msgid ""
 "This region has already a default language.Please specify a source language "
 "for this language."
@@ -3532,6 +3532,7 @@ msgstr "Gruppe"
 #: cms/templates/events/event_form.html:44
 #: cms/templates/imprint/imprint_form.html:29
 #: cms/templates/imprint/imprint_sbs.html:25
+#: cms/templates/languagetreenodes/languagetreenode_form.html:23
 #: cms/templates/pages/page_form.html:64 cms/templates/pages/page_sbs.html:28
 #: cms/templates/pois/poi_form.html:38
 msgid "Update"
@@ -4576,7 +4577,6 @@ msgid "Create new language"
 msgstr "Neue Sprache erstellen"
 
 #: cms/templates/languages/language_form.html:19
-#: cms/templates/languagetreenodes/languagetreenode_form.html:23
 #: cms/templates/linkcheck/link_list_row.html:66
 #: cms/templates/offertemplates/offertemplate_form.html:20
 #: cms/templates/organizations/organization_form.html:19
@@ -4700,14 +4700,25 @@ msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
 #: cms/templates/languagetreenodes/languagetreenode_form.html:15
-msgid "Edit language tree node"
-msgstr "Sprach-Knoten bearbeiten"
+#, python-format
+msgid "Edit language tree node \"%(translated_language_name)s\""
+msgstr "Sprach-Knoten \"%(translated_language_name)s\" bearbeiten"
 
-#: cms/templates/languagetreenodes/languagetreenode_form.html:17
-msgid "Add language"
-msgstr "Sprache hinzufügen"
+#: cms/templates/languagetreenodes/languagetreenode_form.html:18
+msgid "Add language to this region"
+msgstr "Sprache zu dieser Region hinzufügen"
 
-#: cms/templates/languagetreenodes/languagetreenode_form.html:30
+#: cms/templates/languagetreenodes/languagetreenode_form.html:26
+#: cms/templates/offertemplates/offertemplate_form.html:22
+#: cms/views/media/media_context_mixin.py:42
+msgid "Create"
+msgstr "Erstellen"
+
+#: cms/templates/languagetreenodes/languagetreenode_form.html:27
+msgid "Create and add more"
+msgstr "Erstellen und weitere hinzufügen"
+
+#: cms/templates/languagetreenodes/languagetreenode_form.html:44
 msgid "Language tree node"
 msgstr "Sprach-Knoten"
 
@@ -4821,11 +4832,6 @@ msgstr "Angebots-Vorlage \"%(offer_template_name)s\" bearbeiten"
 #: cms/templates/offertemplates/offertemplate_form.html:15
 msgid "Create new offer template"
 msgstr "Neue Angebots-Vorlage erstellen"
-
-#: cms/templates/offertemplates/offertemplate_form.html:22
-#: cms/views/media/media_context_mixin.py:42
-msgid "Create"
-msgstr "Erstellen"
 
 #: cms/templates/offertemplates/offertemplate_form.html:30
 #: cms/templates/organizations/organization_form.html:25
@@ -7225,6 +7231,12 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Edit language tree node"
+#~ msgstr "Sprach-Knoten bearbeiten"
+
+#~ msgid "Add language"
+#~ msgstr "Sprache hinzufügen"
 
 #~ msgid "Organization \"{}\" was successfully {}"
 #~ msgstr "Organisation \"{}\" wurde erfolgreich erstellt"

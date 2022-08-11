@@ -1131,9 +1131,7 @@ urlpatterns = [
                             ),
                             path(
                                 "new/",
-                                form_views.CustomCreateView.as_view(
-                                    form_class=LanguageTreeNodeForm
-                                ),
+                                language_tree.LanguageTreeNodeCreateView.as_view(),
                                 name="new_languagetreenode",
                             ),
                             path(

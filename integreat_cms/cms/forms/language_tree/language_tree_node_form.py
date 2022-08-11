@@ -37,6 +37,8 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         :param \**kwargs: The supplied keyword arguments
         :type \**kwargs: dict
         """
+        # Pop kwarg to make sure parent class does not get this argument
+        region = kwargs.pop("region", None)
 
         # Instantiate CustomModelForm and CustomTreeNodeForm
         super().__init__(**kwargs)
@@ -47,6 +49,8 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         parent_queryset = self.instance.region.language_tree_nodes
 
         if self.instance.id:
+            # Once the language tree node exists, make the language field disabled to prevent confusion
+            self.fields["language"].disabled = True
             descendant_ids = [
                 descendant.id
                 for descendant in self.instance.get_cached_descendants(
@@ -54,24 +58,19 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
                 )
             ]
             parent_queryset = parent_queryset.exclude(id__in=descendant_ids)
-            excluded_languages = [
-                language.id
-                for language in self.instance.region.languages
-                if language != self.instance.language
-            ]
         else:
+            # Populate parent field with default language
+            if region:
+                self.fields["parent"].initial = region.language_tree_root
             # Make sure it's not possible to create multiple nodes for the same language
-            excluded_languages = [
-                language.id for language in self.instance.region.languages
-            ]
+            # by limiting possible languages to those which are not yet included in the tree
+            self.fields["language"].queryset = Language.objects.exclude(
+                id__in=[language.id for language in self.instance.region.languages]
+            )
 
         # limit possible parents to nodes of current region
         self.fields["parent"].queryset = parent_queryset
         self.fields["_ref_node_id"].choices = self.fields["parent"].choices
-        # limit possible languages to those which are not yet included in the tree
-        self.fields["language"].queryset = Language.objects.exclude(
-            id__in=excluded_languages
-        )
 
     def clean(self):
         """
