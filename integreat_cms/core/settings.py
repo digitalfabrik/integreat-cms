@@ -61,6 +61,9 @@ BLOG_URLS = {
     "de": f"{WEBSITE_URL}/blog/",
 }
 
+#: The blog URL to use when the blog is not available in the requested language
+DEFAULT_BLOG_URL = BLOG_URLS["en"]
+
 #: URL to the Integreat wiki
 WIKI_URL = os.environ.get("INTEGREAT_CMS_WIKI_URL", "https://wiki.integreat-app.de")
 
@@ -69,6 +72,9 @@ RSS_FEED_URLS = {
     "en": f"{WEBSITE_URL}/en/feed/",
     "de": f"{WEBSITE_URL}/feed/",
 }
+
+#: The RSS feed URL to use when the feed is not available in the requested language
+DEFAULT_RSS_FEED_URL = RSS_FEED_URLS["en"]
 
 #: How many days of chat history should be shown
 AUTHOR_CHAT_HISTORY_DAYS = 30
@@ -600,8 +606,9 @@ EMAIL_USE_SSL = bool(strtobool(os.environ.get("INTEGREAT_CMS_EMAIL_USE_SSL", "Fa
 
 #: A list of all available languages (see :setting:`django:LANGUAGES` and :doc:`django:topics/i18n/index`)
 LANGUAGES = (
-    ("en", "English"),
-    ("de", "Deutsch"),
+    ("de", _("German")),
+    ("en", _("English")),
+    ("nl", _("Dutch")),
 )
 
 #: A list of directories where Django looks for translation files

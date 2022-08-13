@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1628](https://github.com/digitalfabrik/integreat-cms/issues/1628) ] Add Dutch UI language
+
 
 2022.8.0
 --------

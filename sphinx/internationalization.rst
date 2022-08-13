@@ -51,6 +51,18 @@ Then, open the file :github-source:`integreat_cms/locale/de/LC_MESSAGES/django.p
     msgid "Your string"
     msgstr "Deine Zeichenkette"
 
+Apart from German, we also try to support the following additional languages:
+
+* Dutch (:github-source:`integreat_cms/locale/nl/LC_MESSAGES/django.po`)
+
+Since not all of our developers are fluent in those languages, they are not required to be up to date all the time.
+However, if you are, feel free to update these additional translation files from time to time be executing::
+
+    cd integreat_cms
+    pipenv run integreat-cms-cli makemessages --all
+
+And fill in all translations you can.
+
 
 Compilation
 ===========
