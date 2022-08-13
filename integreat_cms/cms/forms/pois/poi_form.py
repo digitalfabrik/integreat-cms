@@ -1,4 +1,5 @@
 import logging
+import re
 
 from django import forms
 from django.conf import settings
@@ -63,7 +64,7 @@ class POIForm(CustomModelForm):
         if settings.NOMINATIM_API_ENABLED:
             nominatim_api_client = NominatimApiClient()
             latitude, longitude = nominatim_api_client.get_coordinates(
-                street=cleaned_data.get("address"),
+                street=re.search(r'\d+', cleaned_data.get("address")).group() + " " + re.sub(r'[0-9-]', '', cleaned_data.get("address")),
                 postalcode=cleaned_data.get("postcode"),
                 city=cleaned_data.get("city"),
             )
