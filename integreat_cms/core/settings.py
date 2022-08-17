@@ -162,18 +162,27 @@ NOMINATIM_API_URL = os.environ.get(
     "INTEGREAT_CMS_NOMINATIM_API_URL", "http://nominatim.maps.tuerantuer.org/nominatim/"
 )
 
+
 ###############
 # TEXTLAB API #
 ###############
 
-#: URL to the textlab api
+#: URL to the Textlab API
 TEXTLAB_API_URL = "https://preview.text-lab.de/api"
 
-#: Password for the textlab api
-TEXTLAB_API_PASSWORD = os.environ.get("TEXTLAB_PW")
+#: Key for the Textlab API
+TEXTLAB_API_KEY = os.environ.get("INTEGREAT_CMS_TEXTLAB_API_KEY")
 
-#: Username for the textlab api
-TEXTLAB_API_USERNAME = "Integreat"
+#: Whether the Textlab API is enabled.
+#: This is ``True`` if :attr:`~integreat_cms.core.settings.TEXTLAB_API_KEY` is set, ``False`` otherwise.
+TEXTLAB_API_ENABLED = bool(TEXTLAB_API_KEY)
+
+#: Username for the Textlab API
+TEXTLAB_API_USERNAME = os.environ.get("INTEGREAT_CMS_TEXTLAB_API_USERNAME", "Integreat")
+
+#: Which language slugs are allowed for the Textlab API
+TEXTLAB_API_LANGUAGES = ["de"]
+
 
 ############
 # WEBAUTHN #
@@ -216,6 +225,7 @@ INSTALLED_APPS = [
     "integreat_cms.deepl_api",
     "integreat_cms.nominatim_api",
     "integreat_cms.summ_ai_api",
+    "integreat_cms.textlab_api",
     "integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig",
     # Installed Django apps
     "django.contrib.auth",

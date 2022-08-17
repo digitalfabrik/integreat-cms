@@ -194,6 +194,17 @@
                         {% endif %}
                     </div>
                     <div>
+                        <!-- Options related to HIX text analysis -->
+                        {% render_field form.hix_enabled %}
+                        <label for="{{ form.hix_enabled.id_for_label }}">{{ form.hix_enabled.label }}</label>
+                        <div class="help-text">{{ form.hix_enabled.help_text }}</div>
+                        {% if form.hix_enabled.field.disabled %}
+                            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-3" role="alert">
+                                <p>{% trans 'Currently HIX is globally deactivated' %}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
                         <!-- Options related to tunews -->
                         {% render_field form.tunews_enabled %}
                         <label for="{{ form.tunews_enabled.id_for_label }}">{{ form.tunews_enabled.label }}</label>
@@ -218,6 +229,7 @@
                         <div class="help-text">{{ form.page_permissions_enabled.help_text }}</div>
                     </div>
                     <div>
+                        <!-- Options related to URL conventions -->
                         {% render_field form.short_urls_enabled %}
                         <label for="{{ form.short_urls_enabled.id_for_label }}">{{ form.short_urls_enabled.label }}</label>
                         <div class="help-text">{{ form.short_urls_enabled.help_text }}</div>

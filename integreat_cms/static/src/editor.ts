@@ -7,3 +7,4 @@ import './js/forms/tinymce-init.ts';
 import './js/pages/sbs-copy-content.ts';
 import "./js/content-edit-lock.ts";
 import "./js/pages/page-preview-form.ts";
+import "./js/analytics/hix-widget.ts";

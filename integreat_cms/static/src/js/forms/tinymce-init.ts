@@ -199,9 +199,9 @@ window.addEventListener("load", () => {
         editor.on("dirty", () => document.querySelectorAll("[data-unsaved-warning]").forEach((element) => {
           element.dispatchEvent(new Event("input"))
         }));
-        // Create an event every time the content changes 
-        editor.on('Input', () => document.querySelectorAll("[data-content-changed]").forEach((element) => {
-          element.dispatchEvent(new Event("contentChanged")); 
+        // Create an event every time the content changes
+        editor.on('keyup', () => document.querySelectorAll("[data-content-changed]").forEach((element) => {
+          element.dispatchEvent(new Event("contentChanged"));
         }));
       },
     });

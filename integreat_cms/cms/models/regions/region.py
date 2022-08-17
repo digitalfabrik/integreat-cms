@@ -298,6 +298,14 @@ class Region(AbstractBaseModel):
         ),
     )
 
+    hix_enabled = models.BooleanField(
+        default=False,
+        verbose_name=_("Activate HIX analysis"),
+        help_text=_(
+            "Allow users of this region to analyze understandability of text content via TextLab API."
+        ),
+    )
+
     summ_ai_enabled = models.BooleanField(
         default=False,
         verbose_name=_("activate automatic translations via SUMM.AI"),

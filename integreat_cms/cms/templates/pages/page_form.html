@@ -167,7 +167,7 @@
                 </div>
             </div>
             <div class="flex flex-wrap flex-col gap-4">
-                {% if language.slug == "de" %}
+                {% if language.slug in TEXTLAB_API_LANGUAGES and request.region.hix_enabled and TEXTLAB_API_ENABLED %}
                     {% include "../hix_widget.html" %}
                 {% endif %}
 
