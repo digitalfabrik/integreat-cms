@@ -68,6 +68,26 @@ VIEWS = [
                     "active": True,
                 },
             ),
+            (
+                "bulk_make_languagetreenodes_visible",
+                HIGH_PRIV_STAFF_ROLES,
+                {"selected_ids[]": [1, 2, 3]},
+            ),
+            (
+                "bulk_hide_languagetreenodes",
+                HIGH_PRIV_STAFF_ROLES,
+                {"selected_ids[]": [1, 2, 3]},
+            ),
+            (
+                "bulk_activate_languagetreenodes",
+                HIGH_PRIV_STAFF_ROLES,
+                {"selected_ids[]": [1, 2, 3]},
+            ),
+            (
+                "bulk_disable_languagetreenodes",
+                HIGH_PRIV_STAFF_ROLES,
+                {"selected_ids[]": [1, 2, 3]},
+            ),
             ("new_region_user", STAFF_ROLES + [MANAGEMENT]),
             (
                 "new_region_user",

@@ -1135,6 +1135,26 @@ urlpatterns = [
                                 name="new_languagetreenode",
                             ),
                             path(
+                                "bulk-make-visible/",
+                                language_tree.BulkMakeVisibleView.as_view(),
+                                name="bulk_make_languagetreenodes_visible",
+                            ),
+                            path(
+                                "bulk-hide/",
+                                language_tree.BulkHideView.as_view(),
+                                name="bulk_hide_languagetreenodes",
+                            ),
+                            path(
+                                "bulk-activate/",
+                                language_tree.BulkActivateView.as_view(),
+                                name="bulk_activate_languagetreenodes",
+                            ),
+                            path(
+                                "bulk-disable/",
+                                language_tree.BulkDisableView.as_view(),
+                                name="bulk_disable_languagetreenodes",
+                            ),
+                            path(
                                 "<int:pk>/",
                                 include(
                                     [

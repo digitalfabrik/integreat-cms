@@ -8,6 +8,7 @@ UNRELEASED
 * [ [#1596](https://github.com/digitalfabrik/integreat-cms/issues/1596) ] Ignore default language in translation report
 * [ [#1607](https://github.com/digitalfabrik/integreat-cms/issues/1607) ] Count words of source translation in translation report
 * [ [#1674](https://github.com/digitalfabrik/integreat-cms/issues/1674) ] Improve language tree node creation
+* [ [#1591](https://github.com/digitalfabrik/integreat-cms/issues/1591) ] Add bulk actions for language tree nodes
 
 
 2022.8.3

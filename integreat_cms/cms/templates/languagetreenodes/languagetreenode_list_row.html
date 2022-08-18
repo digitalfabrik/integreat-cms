@@ -4,9 +4,12 @@
 {% if node.depth != 1 %}
 <tr data-drop-id="{{ node.id }}" data-drop-position="left" class="drop drop-between h-3 -m-3 hidden level-{{node.depth}}"><td colspan="9"><div><span></span></div></td></tr>
 {% endif %}
-<tr data-drop-id="{{ node.id }}" data-drop-position="last-child" class="drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100{% if node.depth > 1 %} level-{{node.depth}}{% endif %}">
+<tr data-drop-id="{{ node.id }}" data-drop-position="last-child" class="drop drop-on hover:bg-gray-100{% if node.depth > 1 %} level-{{node.depth}}{% endif %}">
+	<td class="pl-4">
+        <input type="checkbox" name="selected_ids[]" value="{{ node.id }}" class="bulk-select-item"/>
+    </td>
     <td class="hierarchy single_icon">
-		<span data-drag-id="{{ node.id }}" data-node-descendants="{{ node|get_descendant_ids }}" class="drag text-gray-800 block py-1.5 pl-4 pr-2 cursor-move" draggable="true">
+		<span data-drag-id="{{ node.id }}" data-node-descendants="{{ node|get_descendant_ids }}" class="drag text-gray-800 block py-1.5 px-2 cursor-move" draggable="true">
             <i data-feather="move" class="text-gray-800"></i>
         </span>
     </td>
@@ -46,19 +49,17 @@
 			{% endif %}
 		</div>
 	</td>
-	<td>
-		<div class="flex justify-center">
-			{% if perms.cms.delete_languagetreenode %}
-				<button title="{% if not node.is_leaf %}{% trans 'You cannot delete a node which has children.' %}{% else %}{% trans 'Delete entire language node' %}{% endif %}"
-					class="btn-icon confirmation-button"
-					{% if not node.is_leaf %}disabled{% endif %}
-					data-confirmation-title="{{ delete_dialog_title }}"
-					data-confirmation-text="{{ delete_dialog_text }}"
-					data-confirmation-subject="{{ node.translated_name }}"
-					data-action="{% url 'delete_languagetreenode' region_slug=request.region.slug pk=node.pk %}">
-					<i data-feather="trash-2" class="{% if not node.is_leaf %}text-gray-400{% else %}text-gray-800{% endif %}"></i>
-				</button>
-			{% endif %}
-		</div>
+	<td class="pl-2 pr-4 py-1.5 text-right">
+		{% if perms.cms.delete_languagetreenode %}
+			<button title="{% if not node.is_leaf %}{% trans 'You cannot delete a node which has children.' %}{% else %}{% trans 'Delete entire language node' %}{% endif %}"
+				class="btn-icon confirmation-button"
+				{% if not node.is_leaf %}disabled{% endif %}
+				data-confirmation-title="{{ delete_dialog_title }}"
+				data-confirmation-text="{{ delete_dialog_text }}"
+				data-confirmation-subject="{{ node.translated_name }}"
+				data-action="{% url 'delete_languagetreenode' region_slug=request.region.slug pk=node.pk %}">
+				<i data-feather="trash-2" class="{% if not node.is_leaf %}text-gray-400{% else %}text-gray-800{% endif %}"></i>
+			</button>
+		{% endif %}
 	</td>
 </tr>
