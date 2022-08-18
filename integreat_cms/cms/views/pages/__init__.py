@@ -22,6 +22,7 @@ from .page_actions import (
 from .page_bulk_actions import (
     GeneratePdfView,
     ExportXliffView,
+    ExportMultiLanguageXliffView,
 )
 from .page_sbs_view import PageSideBySideView
 from .page_revision_view import PageRevisionView

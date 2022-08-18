@@ -110,7 +110,7 @@ function setCheckboxRecursively(pageId: number, checked: boolean) {
 /*
  * Execute the selected bulk action
  */
-function bulkActionExecute(event: Event) {
+export function bulkActionExecute(event: Event) {
   event.preventDefault();
   const bulkAction = document.getElementById("bulk-action") as HTMLSelectElement;
   const form = event.target as HTMLFormElement;
@@ -131,7 +131,7 @@ function bulkActionExecute(event: Event) {
  */
 export function toggleBulkActionButton() {
   // Only activate button if at least one item and the action is selected
-  // also check if at least one page translation exists for PDF export before activation
+  // Also check if at least one page translation exists for PDF export before activation.
   const selectItems = <HTMLInputElement[]>(
     Array.from(document.getElementsByClassName("bulk-select-item"))
   );
