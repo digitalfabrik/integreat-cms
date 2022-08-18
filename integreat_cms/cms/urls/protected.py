@@ -702,7 +702,7 @@ urlpatterns = [
                                             "bulk-archive/",
                                             bulk_action_views.BulkArchiveView.as_view(
                                                 model=Page,
-                                                archived_field="explicitly_archived",
+                                                field_name="explicitly_archived",
                                             ),
                                             name="bulk_archive_pages",
                                         ),
@@ -710,7 +710,7 @@ urlpatterns = [
                                             "bulk-restore/",
                                             bulk_action_views.BulkRestoreView.as_view(
                                                 model=Page,
-                                                archived_field="explicitly_archived",
+                                                field_name="explicitly_archived",
                                             ),
                                             name="bulk_restore_pages",
                                         ),
