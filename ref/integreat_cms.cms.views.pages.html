@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-08-06T17:08:01+00:00" />
+    <meta property="article:modified_time" content="2022-08-18T07:47:03+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pages &mdash; integreat-cms 2022.8.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1216,6 +1216,41 @@ not have the permission to revoke page permissions</p>
 <h2>Page Bulk Actions<a class="headerlink" href="#page-bulk-actions" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.pages.page_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">ExportMultiLanguageXliffView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin" title="integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageBulkActionMixin</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
+<p>Bulk action for generating XLIFF files for translations in multiple languages.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L134"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Function for handling a XLIFF export request for pages and multiple languages.
+The pages get extracted from request.GET attribute and the request is forwarded to <a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.utils.pages_to_xliff_file" title="integreat_cms.xliff.utils.pages_to_xliff_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">pages_to_xliff_file()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The redirect</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">require_change_permission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Whether the view requires change permissions</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.pages.page_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">ExportXliffView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin" title="integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageBulkActionMixin</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
 <p>Bulk action for generating XLIFF files for translations</p>
@@ -1228,8 +1263,8 @@ not have the permission to revoke page permissions</p>
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Function for handling a pdf export request for pages.
-The pages get extracted from request.GET attribute and the request is forwarded to <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.generate_pdf" title="integreat_cms.cms.utils.pdf_utils.generate_pdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_pdf()</span></code></a></p>
+<dd><p>Function for handling a XLIFF export request for pages.
+The pages get extracted from request.GET attribute and the request is forwarded to <a class="reference internal" href="../ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.utils.pages_to_xliff_file" title="integreat_cms.xliff.utils.pages_to_xliff_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">pages_to_xliff_file()</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1822,7 +1857,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/to
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 06, 2022.
+      <span class="lastupdated">Last updated on Aug 18, 2022.
       </span></p>
   </div>
 

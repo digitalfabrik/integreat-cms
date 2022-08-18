@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-08-06T17:08:01+00:00" />
+    <meta property="article:modified_time" content="2022-08-18T07:47:03+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pages &mdash; integreat-cms 2022.8.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1214,6 +1214,347 @@ not have the permission to revoke page permissions</p>
 <section id="module-integreat_cms.cms.views.pages.page_bulk_actions">
 <span id="page-bulk-actions"></span><h2>Page Bulk Actions<a class="headerlink" href="#module-integreat_cms.cms.views.pages.page_bulk_actions" title="Permalink to this heading"></a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.pages.page_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">ExportMultiLanguageXliffView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin" title="integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageBulkActionMixin</span></code></a>, <a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
+<p>Bulk action for generating XLIFF files for translations in multiple languages.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Constructor. Called in the URLconf; can contain helpful extra
+keyword arguments, and other things.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.allow_empty">
+<span class="sig-name descname"><span class="pre">allow_empty</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.allow_empty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.as_view">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.as_view" title="Permalink to this definition"></a></dt>
+<dd><p>Main entry point for a request-response process.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.context_object_name">
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.context_object_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.delete" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/mixins.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.dispatch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.extra_context">
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.extra_context" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L188"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_allow_empty">
+<span class="sig-name descname"><span class="pre">get_allow_empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/list.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_allow_empty" title="Permalink to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the view should display empty lists and <code class="docutils literal notranslate"><span class="pre">False</span></code>
+if a 404 should be raised instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/list.py#L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_context_data" title="Permalink to this definition"></a></dt>
+<dd><p>Get the context for this view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_context_object_name">
+<span class="sig-name descname"><span class="pre">get_context_object_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/list.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_context_object_name" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name of the item to be used in the context.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_login_url">
+<span class="sig-name descname"><span class="pre">get_login_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_login_url" title="Permalink to this definition"></a></dt>
+<dd><p>Override this method to override the login_url attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_ordering">
+<span class="sig-name descname"><span class="pre">get_ordering</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/list.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_ordering" title="Permalink to this definition"></a></dt>
+<dd><p>Return the field or fields to use for ordering the queryset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_paginate_by">
+<span class="sig-name descname"><span class="pre">get_paginate_by</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/list.py#L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_paginate_by" title="Permalink to this definition"></a></dt>
+<dd><p>Get the number of items to paginate by, or <code class="docutils literal notranslate"><span class="pre">None</span></code> for no pagination.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_paginate_orphans">
+<span class="sig-name descname"><span class="pre">get_paginate_orphans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/list.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_paginate_orphans" title="Permalink to this definition"></a></dt>
+<dd><p>Return the maximum number of orphans extend the last page by when
+paginating.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_paginator">
+<span class="sig-name descname"><span class="pre">get_paginator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orphans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_empty_first_page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/list.py#L83"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_paginator" title="Permalink to this definition"></a></dt>
+<dd><p>Return an instance of the paginator for this view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_permission_denied_message">
+<span class="sig-name descname"><span class="pre">get_permission_denied_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_permission_denied_message" title="Permalink to this definition"></a></dt>
+<dd><p>Override this method to override the permission_denied_message attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_permission_required">
+<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_permission_required" title="Permalink to this definition"></a></dt>
+<dd><p>Override this method to override the permission_required attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The permissions that are required for views inheriting from this Mixin</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.9)"><em>Iterable</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_queryset" title="Permalink to this definition"></a></dt>
+<dd><p>Get the queryset of selected items for this bulk action</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – HTTP status 404 if no objects with the given ids exist</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The QuerySet of the filtered links</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_redirect_field_name">
+<span class="sig-name descname"><span class="pre">get_redirect_field_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_redirect_field_name" title="Permalink to this definition"></a></dt>
+<dd><p>Override this method to override the redirect_field_name attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_redirect_url">
+<span class="sig-name descname"><span class="pre">get_redirect_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.get_redirect_url" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve url for redirection</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>url to redirect to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.handle_no_permission">
+<span class="sig-name descname"><span class="pre">handle_no_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.handle_no_permission" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.has_permission">
+<span class="sig-name descname"><span class="pre">has_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/mixins.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.has_permission" title="Permalink to this definition"></a></dt>
+<dd><p>Override this method to customize the way permissions are checked.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.head">
+<span class="sig-name descname"><span class="pre">head</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.head" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.http_method_names">
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['post']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.http_method_names" title="Permalink to this definition"></a></dt>
+<dd><p>The list of HTTP method names that this view will accept.
+The bulk action form uses only POST as submission method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.http_method_not_allowed">
+<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.http_method_not_allowed" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.login_url">
+<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.login_url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.model" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.options" title="Permalink to this definition"></a></dt>
+<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.ordering">
+<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.ordering" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.page_kwarg">
+<span class="sig-name descname"><span class="pre">page_kwarg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'page'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.page_kwarg" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.paginate_by">
+<span class="sig-name descname"><span class="pre">paginate_by</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.paginate_by" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.paginate_orphans">
+<span class="sig-name descname"><span class="pre">paginate_orphans</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.paginate_orphans" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.paginate_queryset">
+<span class="sig-name descname"><span class="pre">paginate_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/list.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.paginate_queryset" title="Permalink to this definition"></a></dt>
+<dd><p>Paginate the queryset, if needed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.paginator_class">
+<span class="sig-name descname"><span class="pre">paginator_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/core/paginator.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.paginator_class" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/paginator/#django.core.paginator.Paginator" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Paginator</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.patch">
+<span class="sig-name descname"><span class="pre">patch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.patch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.pattern_name">
+<span class="sig-name descname"><span class="pre">pattern_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.pattern_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.permanent">
+<span class="sig-name descname"><span class="pre">permanent</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.permanent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.permission_denied_message">
+<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.permission_denied_message" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.permission_required">
+<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.permission_required" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L134"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.post" title="Permalink to this definition"></a></dt>
+<dd><p>Function for handling a XLIFF export request for pages and multiple languages.
+The pages get extracted from request.GET attribute and the request is forwarded to <a class="reference internal" href="integreat_cms.xliff.html#integreat_cms.xliff.utils.pages_to_xliff_file" title="integreat_cms.xliff.utils.pages_to_xliff_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">pages_to_xliff_file()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The redirect</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.prefetch_public_translations">
+<span class="sig-name descname"><span class="pre">prefetch_public_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.prefetch_public_translations" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the public translation objects should be prefetched</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.prefetch_translations">
+<span class="sig-name descname"><span class="pre">prefetch_translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.prefetch_translations" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the translation objects should be prefetched</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.put" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.query_string">
+<span class="sig-name descname"><span class="pre">query_string</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.query_string" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.queryset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.raise_exception">
+<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.raise_exception" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.redirect_field_name">
+<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'next'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.redirect_field_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.require_change_permission">
+<span class="sig-name descname"><span class="pre">require_change_permission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.require_change_permission" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the view requires change permissions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.setup" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize attributes shared by all view methods.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.url">
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView.url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.pages.page_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">ExportXliffView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin" title="integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageBulkActionMixin</span></code></a>, <a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
@@ -1485,8 +1826,8 @@ The bulk action form uses only POST as submission method.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.post">
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_bulk_actions.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView.post" title="Permalink to this definition"></a></dt>
-<dd><p>Function for handling a pdf export request for pages.
-The pages get extracted from request.GET attribute and the request is forwarded to <a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.generate_pdf" title="integreat_cms.cms.utils.pdf_utils.generate_pdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_pdf()</span></code></a></p>
+<dd><p>Function for handling a XLIFF export request for pages.
+The pages get extracted from request.GET attribute and the request is forwarded to <a class="reference internal" href="integreat_cms.xliff.html#integreat_cms.xliff.utils.pages_to_xliff_file" title="integreat_cms.xliff.utils.pages_to_xliff_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">pages_to_xliff_file()</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -3074,7 +3415,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 06, 2022.
+      <span class="lastupdated">Last updated on Aug 18, 2022.
       </span></p>
   </div>
 
