@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
 from ..media.media_file import MediaFile
+from ..regions.region import Region
 
 
 class Organization(AbstractBaseModel):
@@ -28,14 +29,16 @@ class Organization(AbstractBaseModel):
         blank=True,
         null=True,
     )
-
-    created_date = models.DateTimeField(
-        default=timezone.now,
-        verbose_name=_("creation date"),
-    )
     last_updated = models.DateTimeField(
         auto_now=True,
         verbose_name=_("modification date"),
+    )
+
+    region = models.ForeignKey(
+        Region, on_delete=models.CASCADE, verbose_name=_("region")
+    )
+    created_date = models.DateTimeField(
+        default=timezone.now, verbose_name=_("creation date")
     )
 
     def __str__(self):
@@ -56,14 +59,16 @@ class Organization(AbstractBaseModel):
         :return: The canonical string representation of the organization
         :rtype: str
         """
-        return f"<Organization (id: {self.id}, slug: {self.slug})>"
+        return f"<Organization (id: {self.id}, slug: {self.slug}, region: {self.region.slug})>"
 
     class Meta:
         #: The verbose name of the model
         verbose_name = _("organization")
+        #: The name that will be used by default for the relation from a related object back to this one
+        default_related_name = "organizations"
         #: The plural verbose name of the model
         verbose_name_plural = _("organizations")
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view")
         #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["slug"]
+        ordering = ["name"]
