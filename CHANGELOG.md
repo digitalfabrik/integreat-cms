@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1011](https://github.com/digitalfabrik/integreat-cms/issues/1011) ] Use ISO format for datetime objects/fields
+
 
 2022.9.1
 --------

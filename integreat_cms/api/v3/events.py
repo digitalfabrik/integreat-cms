@@ -2,13 +2,12 @@
 This module includes functions related to the event API endpoint.
 """
 
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
 from django.utils.html import strip_tags
-
 from ..decorators import json_response
 from .locations import transform_poi
 
@@ -26,17 +25,29 @@ def transform_event(event, custom_date=None):
     :return: data necessary for API
     :rtype: dict
     """
+    start_local = event.start_local
+    end_local = event.end_local
+    if custom_date:
+        start_local = datetime.combine(
+            custom_date, start_local.time(), tzinfo=start_local.tzinfo
+        )
+        end_local = datetime.combine(
+            custom_date + (end_local.date() - start_local.date()),
+            end_local.time(),
+            tzinfo=end_local.tzinfo,
+        )
+
     return {
         "id": event.id if not custom_date else None,
-        "start_date": custom_date or event.start_date,
-        "end_date": custom_date + (event.end_date - event.start_date)
-        if custom_date
-        else event.end_date,
+        "start": start_local,
+        "start_date": start_local.date(),  # deprecated field in the future
+        "start_time": start_local.time(),  # deprecated field in the future
+        "end": end_local,
+        "end_date": end_local.date(),  # deprecated field in the future
+        "end_time": end_local.time(),  # deprecated field in the future
         "all_day": event.is_all_day,
-        "start_time": event.start_time,
-        "end_time": event.end_time,
         "recurrence_id": event.recurrence_rule.id if event.recurrence_rule else None,
-        "timezone": settings.CURRENT_TIME_ZONE,
+        "timezone": event.timezone,
     }
 
 
@@ -65,7 +76,8 @@ def transform_event_translation(event_translation, recurrence_date=None):
         "url": settings.BASE_URL + absolute_url,
         "path": absolute_url,
         "title": event_translation.title,
-        "modified_gmt": event_translation.last_updated.strftime("%Y-%m-%d %H:%M:%S"),
+        "modified_gmt": event_translation.last_updated,  # deprecated field in the future
+        "last_updated": timezone.localtime(event_translation.last_updated),
         "excerpt": strip_tags(event_translation.content),
         "content": event_translation.content,
         "available_languages": transform_available_languages(
@@ -137,7 +149,7 @@ def transform_event_recurrences(event_translation, today):
     ):
         return
 
-    start_date = event.start_date
+    start_date = event.start_local.date()
     event_translation.id = None
 
     # Calculate all recurrences of this event
@@ -178,7 +190,7 @@ def events(request, region_slug, language_slug):
     for event in region.events.prefetch_public_translations().filter(archived=False):
         event_translation = event.get_public_translation(language_slug)
         if event_translation:
-            if event.end_date >= now:
+            if event.end_local.date() >= now:
                 result.append(transform_event_translation(event_translation))
 
             for future_event in transform_event_recurrences(event_translation, now):

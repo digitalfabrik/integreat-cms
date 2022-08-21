@@ -1,6 +1,6 @@
 import logging
-
-from datetime import time, timedelta
+import zoneinfo
+from datetime import time, timedelta, datetime
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -32,6 +32,26 @@ class EventForm(CustomModelForm):
         label_suffix="",
         help_text=_("Determines whether the event is assigned to a physical location."),
     )
+    # Specific fields for the date and time of the start and end of the event
+    # These Fields will be used for form the start and date fields of the event model
+    start_date = forms.DateField(
+        label=_("start date"),
+        widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+    )
+    end_date = forms.DateField(
+        label=_("end date"),
+        widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+    )
+    start_time = forms.TimeField(
+        label=_("start time"),
+        required=False,
+        widget=forms.TimeInput(format="%H:%M", attrs={"type": "time"}),
+    )
+    end_time = forms.TimeField(
+        label=_("end time"),
+        required=False,
+        widget=forms.TimeInput(format="%H:%M", attrs={"type": "time"}),
+    )
 
     class Meta:
         """
@@ -43,19 +63,13 @@ class EventForm(CustomModelForm):
         model = Event
         #: The fields of the model which should be handled by this form
         fields = [
-            "start_date",
-            "start_time",
-            "end_date",
-            "end_time",
+            "start",
+            "end",
             "icon",
             "location",
         ]
         #: The widgets which are used in this form
         widgets = {
-            "start_date": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
-            "end_date": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
-            "start_time": forms.TimeInput(format="%H:%M", attrs={"type": "time"}),
-            "end_time": forms.TimeInput(format="%H:%M", attrs={"type": "time"}),
             "icon": IconWidget(),
         }
         error_messages = {
@@ -76,7 +90,10 @@ class EventForm(CustomModelForm):
 
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
-
+        # Set the required tag for start and end field to false,
+        # since they will be set later in the clean method
+        self.fields["start"].required = False
+        self.fields["end"].required = False
         if self.instance.id:
             # Initialize BooleanFields based on Event properties
             self.fields["is_all_day"].initial = self.instance.is_all_day
@@ -161,5 +178,14 @@ class EventForm(CustomModelForm):
                     ),
                 )
 
+        tzinfo = zoneinfo.ZoneInfo(self.instance.timezone)
+        cleaned_data["start"] = datetime.combine(
+            cleaned_data["start_date"],
+            cleaned_data["start_time"],
+        ).replace(tzinfo=tzinfo)
+        cleaned_data["end"] = datetime.combine(
+            cleaned_data["end_date"],
+            cleaned_data["end_time"],
+        ).replace(tzinfo=tzinfo)
         logger.debug("EventForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data

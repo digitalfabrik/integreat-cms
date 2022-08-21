@@ -1,5 +1,4 @@
 import logging
-
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
@@ -73,9 +72,15 @@ class EventFormView(
         ).first()
         if event_instance:
             poi_instance = event_instance.location
+            initial = {
+                "start_date": event_instance.start_local.date(),
+                "start_time": event_instance.start_local.time(),
+                "end_date": event_instance.end_local.date(),
+                "end_time": event_instance.end_local.time(),
+            }
         else:
             poi_instance = None
-
+            initial = {}
         # Make form disabled if event is archived or user doesn't have the permission to edit the event
         if event_instance and event_instance.archived:
             disabled = True
@@ -98,7 +103,11 @@ class EventFormView(
                 ),
             )
 
-        event_form = EventForm(instance=event_instance, disabled=disabled)
+        event_form = EventForm(
+            initial=initial,
+            instance=event_instance,
+            disabled=disabled,
+        )
         event_translation_form = EventTranslationForm(
             instance=event_translation_instance, disabled=disabled
         )
@@ -212,7 +221,10 @@ class EventFormView(
                 # If the event is not recurring but it was before, delete the associated recurrence rule
                 event_form.instance.recurrence_rule.delete()
                 event_form.instance.recurrence_rule = None
-            event_translation_form.instance.event = event_form.save()
+
+            # Save event from event form
+            event = event_form.save()
+            event_translation_form.instance.event = event
             event_translation_form.save()
             # If any source translation changes to draft, set all depending translations/versions to draft
             if event_translation_form.instance.status == status.DRAFT:

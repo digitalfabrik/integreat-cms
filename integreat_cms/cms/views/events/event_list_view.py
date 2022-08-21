@@ -103,11 +103,10 @@ class EventListView(TemplateView, EventContextMixin):
         # Filter events according to given filters, if any
         event_filter_form = EventFilterForm(data=request.GET)
         events, poi, query = event_filter_form.apply(events, region, language_slug)
-
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
         paginator = Paginator(
-            events.prefetch_translations().order_by("start_date", "start_time"),
+            events.prefetch_translations().order_by("start"),
             chunk_size,
         )
         chunk = request.GET.get("page")
