@@ -604,12 +604,30 @@ EMAIL_USE_SSL = bool(strtobool(os.environ.get("INTEGREAT_CMS_EMAIL_USE_SSL", "Fa
 # INTERNATIONALIZATION #
 ########################
 
-#: A list of all available languages (see :setting:`django:LANGUAGES` and :doc:`django:topics/i18n/index`)
-LANGUAGES = (
-    ("de", _("German")),
-    ("en", _("English")),
-    ("nl", _("Dutch")),
-)
+#: A list of all available languages with locale files for translated strings
+AVAILABLE_LANGUAGES = {
+    "de": _("German"),
+    "en": _("English"),
+    "nl": _("Dutch"),
+}
+
+#: The default UI languages
+DEFAULT_LANGUAGES = ["de", "en"]
+
+#: The list of languages which are available in the UI
+#: (see :setting:`django:LANGUAGES` and :doc:`django:topics/i18n/index`)
+LANGUAGES = [
+    (language, AVAILABLE_LANGUAGES[language])
+    for language in filter(
+        None,
+        (
+            language.strip()
+            for language in os.environ.get(
+                "INTEGREAT_CMS_LANGUAGES", "\n".join(DEFAULT_LANGUAGES)
+            ).splitlines()
+        ),
+    )
+]
 
 #: A list of directories where Django looks for translation files
 #: (see :setting:`django:LOCALE_PATHS` and :doc:`django:topics/i18n/index`)
@@ -617,7 +635,7 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
 #: A string representing the language slug for this installation
 #: (see :setting:`django:LANGUAGE_CODE` and :doc:`django:topics/i18n/index`)
-LANGUAGE_CODE = "de"
+LANGUAGE_CODE = os.environ.get("INTEGREAT_CMS_LANGUAGE_CODE", "de")
 
 #: A string representing the time zone for this installation
 #: (see :setting:`django:TIME_ZONE` and :doc:`django:topics/i18n/index`)
