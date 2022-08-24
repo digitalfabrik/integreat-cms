@@ -718,6 +718,11 @@ urlpatterns = [
                                                         name="download_xliff_only_public",
                                                     ),
                                                     path(
+                                                        "multiple-languages/",
+                                                        pages.ExportMultiLanguageXliffView.as_view(),
+                                                        name="download_xliff_multiple_languages",
+                                                    ),
+                                                    path(
                                                         "upload/",
                                                         pages.upload_xliff,
                                                         name="upload_xliff",

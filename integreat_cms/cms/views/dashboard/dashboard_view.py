@@ -33,8 +33,12 @@ class DashboardView(TemplateView, ChatContextMixin):
         context.update(
             {
                 "current_menu_item": "region_dashboard",
-                "blog_url": settings.BLOG_URLS[language_slug],
-                "feed_url": settings.RSS_FEED_URLS[language_slug],
+                "blog_url": settings.BLOG_URLS.get(
+                    language_slug, settings.DEFAULT_BLOG_URL
+                ),
+                "feed_url": settings.RSS_FEED_URLS.get(
+                    language_slug, settings.DEFAULT_RSS_FEED_URL
+                ),
             }
         )
         return context

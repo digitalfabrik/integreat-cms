@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+* [ [#1628](https://github.com/digitalfabrik/integreat-cms/issues/1628) ] Add Dutch UI language
+* [ [#1549](https://github.com/digitalfabrik/integreat-cms/issues/1549) ] Add multilingual XLIFF export
+* [ [#1636](https://github.com/digitalfabrik/integreat-cms/issues/1636) ] Improve XLIFF export error messages
+
 
 2022.8.0
 --------
@@ -12,7 +16,7 @@ UNRELEASED
 * [ [#1623](https://github.com/digitalfabrik/integreat-cms/issues/1623) ] Fix imprint publish/update button
 * [ [#1534](https://github.com/digitalfabrik/integreat-cms/issues/1534) ] Invalidate cache after moving nodes
 * [ [#1535](https://github.com/digitalfabrik/integreat-cms/issues/1535) ] Fix event api performance
-* [ [#1604](https://github.com/digitalfabrik/integreat-cms/issues/#1604) ] Show no broken links from restored versions
+* [ [#1604](https://github.com/digitalfabrik/integreat-cms/issues/1604) ] Show no broken links from restored versions
 
 
 2022.7.0

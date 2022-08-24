@@ -1,0 +1,47 @@
+{% load i18n %}
+
+<div id="xliff_export_overlay" class="hidden fixed items-center justify-center inset-0 bg-opacity-75 bg-gray-800 z-50 cursor-pointer">
+    <div class="cursor-auto justify-center w-[400px] max-h-fit px-[10px] z-50 m-auto">
+        <div class="bg-white opacity-100 content rounded shadow-md w-full">
+            <div class="flex items-center w-full rounded p-4 bg-water-500">
+                <h2 class="font-bold font-default">{% trans 'Multilingual XLIFF export' %}</h2>
+                <button type="button" id="btn-close-xliff-export" class="flex ml-auto rounded-full hover:bg-blue-500 hover:text-white">
+                    <i data-feather="x-circle" class="h-8 w-8"></i>
+                </button>
+            </div> 
+            <div class="w-full p-4 rounded shadow">
+                <h3>{% trans 'Please select languages for multilingual export.' %}</h3>
+                <table class="mt-4">
+                    <tbody>
+                        {% for lang in languages %}
+                            <tr class="h-[38px]">
+                                {% if lang == request.region.default_language %}
+                                    <td></td>
+                                    <td class="text-gray-400" title="{% trans 'You cannot export XLIFF files for the default language' %}"> {{ lang.translated_name }} </td> 
+                                    <td>
+                                        <span class="left-2 fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
+                                    </td>  
+                                {% else %}
+                                    <td> 
+                                        <input id="xliff_export_select_lang_{{ lang.slug }}" type="checkbox" form="bulk-action-form" name="selected_language_slugs[]" value="{{ lang.slug }}" class="bulk-select-language"/>
+                                    </td>
+                                    <td><label for="xliff_export_select_lang_{{ lang.slug }}">{{ lang.translated_name }}</label></td> 
+                                    <td>
+                                        <label for="xliff_export_select_lang_{{ lang.slug }}"><span class="left-2 fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span></label>
+                                    </td> 
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="font-bold mt-4">
+                    <input id="select-all-languages" type="checkbox"/>
+                    <label for="select-all-languages">{% trans 'Select all languages.' %}</label>
+                </div>
+                <div class="flex justify-end"> 
+                    <button id="xliff-overlay-bulk-action-execute" class="btn" form="bulk-action-form" type="submit" disabled>{% trans 'Execute' %}</button>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

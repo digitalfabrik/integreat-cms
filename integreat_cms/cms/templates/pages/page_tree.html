@@ -180,6 +180,12 @@
                             {% endif %}
                         {% endwith %}
                     {% endif %}
+                    {% if request.user.is_superuser or request.user.is_staff %}
+                        <option id="xliff-multiple-languages-option" data-show-xliff-export-overlay
+                            data-bulk-action="{% url 'download_xliff_multiple_languages' region_slug=request.region.slug language_slug=language.slug %}">
+                            {% trans 'Export selected pages for multilingual translation' %} ({{ XLIFF_EXPORT_VERSION|upper }})
+                        </option>
+                    {% endif %}
                 </select>
                 <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
             </div>
@@ -213,4 +219,5 @@
         {% include "../generic_confirmation_dialog.html" %}
         {% include "../tutorials/page_tree.html" with tutorial_id="page-tree" hidden=request.user.page_tree_tutorial_seen %}
         {% include "pages/_page_preview_overlay.html" %}
+        {% include "pages/_page_xliff_export_overlay.html" %}
     {% endblock content %}
