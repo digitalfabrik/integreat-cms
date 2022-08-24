@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.8.1
+--------
+
 * [ [#1628](https://github.com/digitalfabrik/integreat-cms/issues/1628) ] Add Dutch UI language
 * [ [#1549](https://github.com/digitalfabrik/integreat-cms/issues/1549) ] Add multilingual XLIFF export
 * [ [#1636](https://github.com/digitalfabrik/integreat-cms/issues/1636) ] Improve XLIFF export error messages
