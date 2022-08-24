@@ -72,6 +72,8 @@ def pages_to_xliff_file(request, pages, target_languages, only_public=False):
                 )
             except RuntimeError as e:
                 messages.error(request, e)
+            except RuntimeWarning as e:
+                messages.warning(request, e)
     # Check how many XLIFF files were created
     if len(xliff_paths) == 0:
         return None
@@ -127,7 +129,9 @@ def page_to_xliff(page, target_language, dir_name, only_public=False):
     :param only_public: Whether only public versions should be exported
     :type only_public: bool
 
-    :raises RuntimeError: If the selected page translation does not have a source translation
+    :raises RuntimeWarning: If the selected page translation does not have a source translation
+
+    :raises RuntimeError: When an unexpected error occurs during serialization
 
     :return: The path of the generated XLIFF file
     :rtype: str
@@ -150,16 +154,20 @@ def page_to_xliff(page, target_language, dir_name, only_public=False):
     if not source_translation:
         source_language = page.region.get_source_language(target_language.slug)
         logger.warning(
-            "Page translation %r does not have a source translation in %r and therefore cannot be exported to XLIFF.",
+            "Page translation %r does not have a %ssource translation in %r and therefore cannot be exported to XLIFF.",
             target_page_translation,
+            "published " if only_public else "",
             source_language,
         )
-        raise RuntimeError(
+        raise RuntimeWarning(
             _(
-                "Page {} does not have a source translation in {} and "
+                "Page {} does not have a {}source translation in {} and "
                 "therefore cannot be exported as XLIFF for translation to {}."
             ).format(
-                target_page_translation.readable_title, source_language, target_language
+                target_page_translation.readable_title,
+                _("published") + " " if only_public else "",
+                source_language,
+                target_language,
             )
         )
 
