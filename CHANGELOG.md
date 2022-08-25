@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.8.2
+--------
+
 * [ [#1649](https://github.com/digitalfabrik/integreat-cms/issues/1649) ] Make UI languages configurable
 
 
