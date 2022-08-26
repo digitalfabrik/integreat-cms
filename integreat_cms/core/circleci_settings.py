@@ -15,6 +15,10 @@ SECRET_KEY = "dummy"
 FCM_KEY = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 FCM_ENABLED = True
+#: Set dummy SUMM.AI API key to test translations into Easy German
+SUMM_AI_API_KEY = "dummy"
+#: Enable manually because existing setting derives from the unset env var
+SUMM_AI_ENABLED = True
 #: Use debug logging on CircleCI
 LOG_LEVEL = "DEBUG"
 

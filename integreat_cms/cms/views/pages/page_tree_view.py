@@ -9,13 +9,14 @@ from django.views.generic import TemplateView
 
 from ...decorators import permission_required
 from ...forms import PageFilterForm
+from ..mixins import SummAiContextMixin
 from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
-class PageTreeView(TemplateView, PageContextMixin):
+class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
     """
     View for showing the page tree
     """

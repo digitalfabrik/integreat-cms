@@ -203,6 +203,7 @@ INSTALLED_APPS = [
     "integreat_cms.gvz_api",
     "integreat_cms.deepl_api",
     "integreat_cms.nominatim_api",
+    "integreat_cms.summ_ai_api",
     "integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig",
     # Installed Django apps
     "django.contrib.auth",
@@ -672,6 +673,54 @@ DEEPL_AUTH_KEY = os.environ.get("INTEGREAT_CMS_DEEPL_AUTH_KEY")
 #: Whether automatic translations via DeepL are enabled.
 #: This is ``True`` if :attr:`~integreat_cms.core.settings.DEEPL_AUTH_KEY` is set, ``False`` otherwise.
 DEEPL_ENABLED = bool(DEEPL_AUTH_KEY)
+
+
+#########################
+# SUMM.AI - EASY GERMAN #
+#########################
+
+#: The URL to our SUMM.AI API for automatic translations from German into Easy German
+SUMM_AI_API_URL = os.environ.get(
+    "INTEGREAT_CMS_SUMM_AI_API_URL", "https://backend.summ-ai.com/translate/v1/"
+)
+
+#: Authentication token for SUMM.AI,
+#: If not set, automatic translations to easy german are disabled
+SUMM_AI_API_KEY = os.environ.get("INTEGREAT_CMS_SUMM_AI_API_KEY")
+
+#: Whether SUMM.AI is enabled or not
+#: This is ``True`` if SUMM_AI_API_KEY is set, ``False`` otherwise.
+SUMM_AI_ENABLED = bool(SUMM_AI_API_KEY)
+
+#: Whether requests to the SUMM.AI are done with the ``is_test`` flag
+SUMM_AI_TEST_MODE = strtobool(
+    os.environ.get("INTEGREAT_CMS_SUMM_AI_TEST_MODE", str(DEBUG))
+)
+
+#: The language slugs for German
+SUMM_AI_GERMAN_LANGUAGE_SLUG = os.environ.get(
+    "INTEGREAT_CMS_SUMM_AI_GERMAN_LANGUAGE_SLUG", "de"
+)
+
+#: The language slug for Easy German
+SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG = os.environ.get(
+    "INTEGREAT_CMS_SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG", "de-si"
+)
+
+#: The separator which is used to split compound words, e.g. Bundes-Kanzler (hyphen) or Bundes·kanzler (interpunct)
+SUMM_AI_SEPARATOR = os.environ.get("INTEGREAT_CMS_SUMM_AI_SEPARATOR", "hyphen")
+
+#: All plain text fields of the content models which should be translated
+SUMM_AI_TEXT_FIELDS = ["short_description"]
+
+#: All HTML fields of the content models which should be translated
+SUMM_AI_HTML_FIELDS = ["content"]
+
+#: All fields of the content models which should not be translated, but inherited from the source translation
+SUMM_AI_INHERITED_FIELDS = ["title"]
+
+#: Translate all <p> and <li> tags
+SUMM_AI_HTML_TAGS = ["p", "li"]
 
 
 ################

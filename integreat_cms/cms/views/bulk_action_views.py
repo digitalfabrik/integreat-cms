@@ -14,6 +14,7 @@ from django.views.generic.list import MultipleObjectMixin
 
 from cacheops import invalidate_model
 from ...deepl_api.utils import DeepLApi
+from ...summ_ai_api.summ_ai_api_client import SummAiApiClient
 
 logger = logging.getLogger(__name__)
 
@@ -138,6 +139,47 @@ class BulkAutoTranslateView(BulkActionView):
                 ),
             )
 
+        # Let the base view handle the redirect
+        return super().post(request, *args, **kwargs)
+
+
+class BulkActionEasyGermanView(BulkActionView):
+    """
+    Bulk action for translating multiple objects to Easy German
+    """
+
+    #: the form of this bulk action
+    form = None
+
+    def post(self, request, *args, **kwargs):
+        r"""
+        Translate multiple objects automatically to Easy German
+
+        :param request: The current request
+        :type request: ~django.http.HttpResponse
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The redirect
+        :rtype: ~django.http.HttpResponseRedirect
+        """
+        if not settings.SUMM_AI_ENABLED or not request.region.summ_ai_enabled:
+            if not settings.SUMM_AI_ENABLED:
+                logger.warning("SUMM.AI globally disabled")
+            if not request.region.summ_ai_enabled:
+                logger.warning("SUMM.AI disabled in %r", request.region)
+            messages.error(request, _("Translations to Easy German are disabled"))
+            return super().post(request, *args, **kwargs)
+        # Collect the corresponding objects
+        logger.info(
+            "%r started SUMM.AI translation for: %r", request.user, self.get_queryset()
+        )
+        api_client = SummAiApiClient(request, self.form)
+        api_client.translate_queryset(self.get_queryset())
         # Let the base view handle the redirect
         return super().post(request, *args, **kwargs)
 

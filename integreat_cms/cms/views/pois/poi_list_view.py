@@ -11,6 +11,7 @@ from django.views.generic import TemplateView
 from ...decorators import permission_required
 from ...models import POITranslation
 from ...forms import ObjectSearchForm
+from ..mixins import SummAiContextMixin
 from .poi_context_mixin import POIContextMixin
 
 from ....deepl_api.utils import DeepLApi
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_poi"), name="dispatch")
-class POIListView(TemplateView, POIContextMixin):
+class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
     """
     View for listing POIs (points of interests)
     """

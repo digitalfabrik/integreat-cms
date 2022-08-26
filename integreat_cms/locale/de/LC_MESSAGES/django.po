@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-21 13:08+0000\n"
+"POT-Creation-Date: 2022-09-28 08:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1149,6 +1149,18 @@ msgstr "Samoa"
 msgid "Mayotte"
 msgstr "Mayotte"
 
+#: cms/constants/custom_translations.py:7
+msgid "Easy German"
+msgstr "Leichte Sprache"
+
+#: cms/constants/custom_translations.py:8
+msgid "German (easy)"
+msgstr "Deutsch (leicht)"
+
+#: cms/constants/custom_translations.py:9
+msgid "Amharic"
+msgstr "Amharisch"
+
 #: cms/constants/events_time_range.py:21
 msgid "Custom time range"
 msgstr "Benutzerdefinierter Zeitraum"
@@ -1379,12 +1391,12 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: cms/constants/region_status.py:17 cms/models/regions/region.py:689
+#: cms/constants/region_status.py:17 cms/models/regions/region.py:697
 msgid "Hidden"
 msgstr "Versteckt"
 
 #: cms/constants/region_status.py:18 cms/models/pages/page.py:323
-#: cms/models/regions/region.py:692 cms/templates/events/event_form.html:76
+#: cms/models/regions/region.py:700 cms/templates/events/event_form.html:76
 #: cms/templates/pages/page_form.html:109
 #: cms/templates/pages/page_tree_archived_node.html:81
 #: cms/templates/pois/poi_form.html:66
@@ -1850,17 +1862,17 @@ msgstr "Keine Inhalte übernehmen"
 msgid "Timezone area"
 msgstr "Region der Zeitzone"
 
-#: cms/forms/regions/region_form.py:196
+#: cms/forms/regions/region_form.py:199
 msgid "Statistics can only be enabled when a valid access token is supplied."
 msgstr ""
 "Statistiken können nur aktiviert werden, wenn ein gültiges Zugangstoken "
 "eingegeben wurde."
 
-#: cms/forms/regions/region_form.py:208
+#: cms/forms/regions/region_form.py:211
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
 
-#: cms/forms/regions/region_form.py:236 cms/forms/regions/region_form.py:246
+#: cms/forms/regions/region_form.py:239 cms/forms/regions/region_form.py:249
 msgid ""
 "Could not retrieve the coordinates automatically, please fill the field "
 "manually."
@@ -1868,23 +1880,23 @@ msgstr ""
 "Die Koordinaten konnten nicht automatisch abgerufen werden, bitte füllen Sie "
 "das Feld manuell aus."
 
-#: cms/forms/regions/region_form.py:319
+#: cms/forms/regions/region_form.py:322
 msgid "'{}' is already selected as administrative division."
 msgstr "'{}' ist bereits als Verwaltungseinheit ausgewählt."
 
-#: cms/forms/regions/region_form.py:324
+#: cms/forms/regions/region_form.py:327
 msgid "Please select '{}' as administrative division."
 msgstr "Bitte wählen Sie '{}' als Verwaltungseinheit."
 
-#: cms/forms/regions/region_form.py:335
+#: cms/forms/regions/region_form.py:338
 msgid "Please set {} as default language for this region."
 msgstr "Bitte setzen Sie '{}' als Standard-Sprache für diese Region."
 
-#: cms/forms/regions/region_form.py:341
+#: cms/forms/regions/region_form.py:344
 msgid "Please enable '{}'."
 msgstr "Bitte aktivieren Sie '{}'."
 
-#: cms/forms/regions/region_form.py:356
+#: cms/forms/regions/region_form.py:359
 msgid ""
 "You cannot include the administrative division into the name and use a "
 "custom prefix at the same time."
@@ -1892,9 +1904,14 @@ msgstr ""
 "Sie können nicht gleichzeitig die Verwaltungseinheit dem Namen hinzufügen "
 "und ein benutzerdefiniertes Präfix verwenden."
 
-#: cms/forms/regions/region_form.py:374
+#: cms/forms/regions/region_form.py:377
 msgid "Enter a valid JSON."
 msgstr "Bitte ein gültiges JSON-Objekt eingeben."
+
+#: cms/forms/regions/region_form.py:390
+#: cms/templates/regions/region_form.html:192
+msgid "Currently SUMM.AI is globally deactivated"
+msgstr "Derzeit ist SUMM.AI global deaktiviert"
 
 #: cms/forms/statistics/statistics_filter_form.py:41
 msgid "Evaluation"
@@ -2036,7 +2053,7 @@ msgstr "Die Passwörter stimmen nicht überein."
 #: cms/models/feedback/feedback.py:60 cms/models/media/directory.py:24
 #: cms/models/media/media_file.py:138
 #: cms/models/push_notifications/push_notification.py:21
-#: cms/models/regions/region.py:708 cms/models/users/organization.py:38
+#: cms/models/regions/region.py:716 cms/models/users/organization.py:38
 msgid "region"
 msgstr "Region"
 
@@ -2182,7 +2199,7 @@ msgid "icon"
 msgstr "Icon"
 
 #: cms/models/events/event.py:107 cms/models/pois/poi.py:50
-#: cms/views/bulk_action_views.py:223
+#: cms/views/bulk_action_views.py:265
 msgid "archived"
 msgstr "archiviert"
 
@@ -3224,7 +3241,17 @@ msgstr ""
 "Ob Veranstaltungen und Orte als Fallback in der Standardsprache angezeigt "
 "werden sollen oder nicht"
 
-#: cms/models/regions/region.py:710 cms/models/users/user.py:56
+#: cms/models/regions/region.py:303
+msgid "activate automatic translations via SUMM.AI"
+msgstr "Automatische Übersetzungen über SUMM.AI aktivieren"
+
+#: cms/models/regions/region.py:305
+msgid ""
+"Whether automatic translations into Easy German with SUMM.AI are enabled"
+msgstr ""
+"Ob automatische Übersetzungen in Leichte Sprache mit SUMM.AI aktiviert sind"
+
+#: cms/models/regions/region.py:718 cms/models/users/user.py:56
 msgid "regions"
 msgstr "Regionen"
 
@@ -3371,7 +3398,7 @@ msgstr "Mein Dashboard"
 msgid "Analytics"
 msgstr "Analyse"
 
-#: cms/templates/_base.html:116 cms/templates/regions/region_form.html:216
+#: cms/templates/_base.html:116 cms/templates/regions/region_form.html:227
 #: cms/templates/statistics/_statistics_widget.html:11
 #: cms/templates/statistics/statistics_overview.html:10
 #: cms/templates/statistics/statistics_overview.html:49
@@ -4244,16 +4271,20 @@ msgstr "Fehlende Übersetzungen automatisch erstellen"
 msgid "This language is not supported by DeepL"
 msgstr "Diese Sprache wird von DeepL nicht unterstützt"
 
-#: cms/templates/events/event_list.html:134
+#: cms/templates/events/event_list.html:135
+msgid "Automatically translate this event into Easy German"
+msgstr "Diese Veranstaltung automatisch in Leichte Sprache übersetzen"
+
+#: cms/templates/events/event_list.html:139
 #: cms/templates/events/event_list_archived.html:87
 #: cms/templates/feedback/admin_feedback_list.html:145
 #: cms/templates/feedback/region_feedback_list.html:137
 #: cms/templates/languagetreenodes/languagetreenode_list.html:65
 #: cms/templates/linkcheck/links_by_filter.html:116
 #: cms/templates/pages/_page_xliff_export_overlay.html:42
-#: cms/templates/pages/page_tree.html:190
+#: cms/templates/pages/page_tree.html:195
 #: cms/templates/pages/page_tree_archived.html:98
-#: cms/templates/pois/poi_list.html:124
+#: cms/templates/pois/poi_list.html:129
 #: cms/templates/pois/poi_list_archived.html:63
 msgid "Execute"
 msgstr "Ausführen"
@@ -4966,7 +4997,7 @@ msgid "Please select languages for multilingual export."
 msgstr "Bitte wählen Sie Sprachen für den mehrsprachigen Export."
 
 #: cms/templates/pages/_page_xliff_export_overlay.html:20
-#: cms/templates/pages/page_tree.html:166
+#: cms/templates/pages/page_tree.html:171
 msgid "You cannot export XLIFF files for the default language"
 msgstr "Sie können keine XLIFF-Dateien für die Standard-Sprache exportieren"
 
@@ -5325,18 +5356,22 @@ msgstr "Seiten ausgewählt"
 msgid "Archive pages"
 msgstr "Seiten archivieren"
 
-#: cms/templates/pages/page_tree.html:159
+#: cms/templates/pages/page_tree.html:157
+msgid "Automatically translate this page into Easy German"
+msgstr "Diese Seite automatisch in Leichte Sprache übersetzen"
+
+#: cms/templates/pages/page_tree.html:164
 msgid "Export published pages as PDF"
 msgstr "Veröffentlichte Seiten als PDF exportieren"
 
-#: cms/templates/pages/page_tree.html:163
+#: cms/templates/pages/page_tree.html:168
 #, python-format
 msgid "Export published pages for %(language_translated_name)s translation"
 msgstr ""
 "Nur veröffentlichte Seiten für die %(language_translated_name)s-Übersetzung "
 "exportieren"
 
-#: cms/templates/pages/page_tree.html:164
+#: cms/templates/pages/page_tree.html:169
 #, python-format
 msgid ""
 "Export unpublished (⚠️) and published pages for %(language_translated_name)s "
@@ -5345,27 +5380,27 @@ msgstr ""
 "Nicht (⚠️) veröffentlichte und veröffentlichte Seiten für die "
 "%(language_translated_name)s-Übersetzung exportieren"
 
-#: cms/templates/pages/page_tree.html:186
+#: cms/templates/pages/page_tree.html:191
 msgid "Export selected pages for multilingual translation"
 msgstr "Ausgewählte Seiten für die mehrsprachige Übersetzung exportieren"
 
-#: cms/templates/pages/page_tree.html:195
+#: cms/templates/pages/page_tree.html:200
 msgid "Import XLIFF files"
 msgstr "XLIFF-Dateien importieren"
 
-#: cms/templates/pages/page_tree.html:196
+#: cms/templates/pages/page_tree.html:201
 msgid "Supported file extensions"
 msgstr "Unterstützte Dateiendungen"
 
-#: cms/templates/pages/page_tree.html:205
+#: cms/templates/pages/page_tree.html:210
 msgid "Select files"
 msgstr "Dateien auswählen"
 
-#: cms/templates/pages/page_tree.html:207
+#: cms/templates/pages/page_tree.html:212
 msgid "and {} other files"
 msgstr "und {} weitere Dateien"
 
-#: cms/templates/pages/page_tree.html:215
+#: cms/templates/pages/page_tree.html:220
 msgid "Import"
 msgstr "Importieren"
 
@@ -5603,6 +5638,10 @@ msgstr "Orte ausgewählt"
 msgid "Archive locations"
 msgstr "Orte archivieren"
 
+#: cms/templates/pois/poi_list.html:125
+msgid "Automatically translate this location into Easy German"
+msgstr "Diesen Ort automatisch in Leichte Sprache übersetzen"
+
 #: cms/templates/pois/poi_list_archived.html:48
 msgid "No locations archived yet."
 msgstr "Noch keine Orte archiviert."
@@ -5720,38 +5759,38 @@ msgstr ""
 msgid "Features"
 msgstr "Funktionen"
 
-#: cms/templates/regions/region_form.html:246
+#: cms/templates/regions/region_form.html:257
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: cms/templates/regions/region_form.html:249
+#: cms/templates/regions/region_form.html:260
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: cms/templates/regions/region_form.html:258
+#: cms/templates/regions/region_form.html:269
 msgid "Delete region"
 msgstr "Region löschen"
 
-#: cms/templates/regions/region_form.html:259
+#: cms/templates/regions/region_form.html:270
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: cms/templates/regions/region_form.html:260
+#: cms/templates/regions/region_form.html:271
 msgid "This can not be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: cms/templates/regions/region_form.html:260
+#: cms/templates/regions/region_form.html:271
 msgid "All pages, events and locations of this region will also be deleted."
 msgstr ""
 "Alle Seiten, Veranstaltungen und Orte dieser Region werden ebenfalls "
 "gelöscht."
 
-#: cms/templates/regions/region_form.html:260
+#: cms/templates/regions/region_form.html:271
 msgid "Users, who only have access to this region, will be removed as well."
 msgstr ""
 "Benutzer, die nur Zugriff auf diese Region besitzen, werden auch entfernt."
 
-#: cms/templates/regions/region_form.html:264
+#: cms/templates/regions/region_form.html:275
 msgid "Delete this region"
 msgstr "Diese Region löschen"
 
@@ -6035,7 +6074,7 @@ msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
 
 #: cms/templates/users/region_user_form.html:109
-#: cms/templates/users/user_form.html:131 cms/views/mixins.py:70
+#: cms/templates/users/user_form.html:131 cms/views/mixins.py:71
 msgid "This cannot be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
@@ -6295,21 +6334,25 @@ msgstr ""
 "Adresse eingegeben haben, mit der Sie sich registriert haben, und überprüfen "
 "Sie Ihren Spam-Ordner."
 
-#: cms/views/bulk_action_views.py:124
+#: cms/views/bulk_action_views.py:125
 msgid "Automatic translations are disabled"
 msgstr "Automatische Übersetzungen sind deaktiviert"
 
-#: cms/views/bulk_action_views.py:137
+#: cms/views/bulk_action_views.py:138
 msgid "This language is not supported by DeepL. Please try another language"
 msgstr ""
 "Diese Sprache wird von DeepL nicht unterstützt. Bitte versuchen Sie eine "
 "andere Sprache"
 
-#: cms/views/bulk_action_views.py:205
+#: cms/views/bulk_action_views.py:175
+msgid "Translations to Easy German are disabled"
+msgstr "Übersetzung in Leichte Sprache nicht aktiviert"
+
+#: cms/views/bulk_action_views.py:247
 msgid "The selected {} were successfully {}"
 msgstr "Die ausgewählten {} wurden erfolgreich {}"
 
-#: cms/views/bulk_action_views.py:236
+#: cms/views/bulk_action_views.py:278
 msgid "restored"
 msgstr "wiederhergestellt"
 
@@ -6434,13 +6477,13 @@ msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
-#: cms/views/events/event_list_view.py:83
+#: cms/views/events/event_list_view.py:84
 msgid "Please create at least one language node before creating events."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie "
 "Veranstaltungen verwalten."
 
-#: cms/views/events/event_list_view.py:89
+#: cms/views/events/event_list_view.py:90
 msgid "You don't have the permission to edit or create events."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten "
@@ -6483,7 +6526,7 @@ msgid "Imprint was successfully deleted"
 msgstr "Impressum wurde erfolgreich gelöscht"
 
 #: cms/views/imprint/imprint_form_view.py:73
-#: cms/views/pages/page_tree_view.py:77
+#: cms/views/pages/page_tree_view.py:78
 msgid "Please create at least one language node before creating pages."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Seiten "
@@ -6806,7 +6849,7 @@ msgstr "Dieser Dateityp wird nicht unterstützt. Unterstützte Typen sind:"
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
-#: cms/views/mixins.py:68
+#: cms/views/mixins.py:69
 msgid "Please confirm that you really want to delete this {}"
 msgstr "Bitte bestätigen Sie, dass diese {} gelöscht werden soll"
 
@@ -7067,7 +7110,7 @@ msgstr ""
 msgid "The version was successfully restored"
 msgstr "Die Version wurde erfolgreich wiederhergestellt"
 
-#: cms/views/pages/page_tree_view.py:88
+#: cms/views/pages/page_tree_view.py:89
 msgid "You don't have the permission to edit or create pages."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Seiten zu bearbeiten oder zu "
@@ -7133,7 +7176,7 @@ msgstr ""
 msgid "Please make sure the entered values are correct."
 msgstr "Bitte vergewissern Sie sich, dass die eingegebenen Werte korrekt sind."
 
-#: cms/views/pois/poi_list_view.py:84
+#: cms/views/pois/poi_list_view.py:85
 msgid "Please create at least one language node before creating locations."
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Orte verwalten."
@@ -7314,15 +7357,15 @@ msgid "Superuser permissions need to be set by another superuser."
 msgstr ""
 "Administratorrechte müssen von einem anderen Administrator vergeben werden."
 
-#: core/settings.py:614
+#: core/settings.py:615
 msgid "German"
 msgstr "Deutsch"
 
-#: core/settings.py:615
+#: core/settings.py:616
 msgid "English"
 msgstr "Englisch"
 
-#: core/settings.py:616
+#: core/settings.py:617
 msgid "Dutch"
 msgstr "Niederländisch"
 
@@ -7337,6 +7380,24 @@ msgstr "{} \"{}\" wurde erfolgreich übersetzt"
 #: deepl_api/utils.py:137
 msgid "{} \"{}\" could not be automatically translated."
 msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
+
+#: summ_ai_api/utils.py:251
+msgid "No German translation could be found for {} \"{}\"."
+msgstr "Es konnte keine Deutsche Übersetzung für {} \"{}\" gefunden werden."
+
+#: summ_ai_api/utils.py:319 summ_ai_api/utils.py:360
+msgid "{} \"{}\" could not be automatically translated into Easy German."
+msgstr ""
+"{} \"{}\" konnte nicht automatisch in Leichte Sprache übersetzt werden."
+
+#: summ_ai_api/utils.py:324
+msgid "Please try again later or contact an administrator"
+msgstr ""
+"Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator."
+
+#: summ_ai_api/utils.py:375
+msgid "{} \"{}\" has been successfully translated into Easy German."
+msgstr "{} \"{}\" wurde erfolgreich in Leichte Sprache übersetzt."
 
 #: xliff/utils.py:166
 msgid ""
@@ -7356,7 +7417,7 @@ msgstr ""
 "Es ist ein unerwarteter Fehler beim Exportieren der Seite {} aufgetreten."
 
 #: xliff/utils.py:194 xliff/utils.py:281
-msgid "Please try again or contact the administrator."
+msgid "Please try again later or contact an administrator."
 msgstr ""
 "Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator."
 
@@ -7392,6 +7453,12 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "The automatic translation into Easy German has been started."
+#~ msgstr "Die automatische Übersetzung ins Leichte Deutsch wurde gestartet."
+
+#~ msgid "The selected {} were successfully archived"
+#~ msgstr "Die ausgewählten {} wurden erfolgreich archiviert"
 
 #~ msgid "The selected {} were successfully restored"
 #~ msgstr "Die ausgewählten {} wurden erfolgreich wiederhergestellt"

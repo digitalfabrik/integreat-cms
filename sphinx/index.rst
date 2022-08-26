@@ -103,6 +103,7 @@ Reference
   - :doc:`ref/integreat_cms.gvz_api`: This is the app to communicate with our Gemeindeverzeichnis API to automatically import coordinates and region aliases
   - :doc:`ref/integreat_cms.nominatim_api`: This is the app to communicate with our Nominatim API to automatically import region bounding boxes
   - :doc:`ref/integreat_cms.sitemap`: This is the app to dynamically generate a sitemap.xml for the webapp
+  - :doc:`ref/integreat_cms.summ_ai_api`: This is the app to interact with the SUMM.AI API for automatic translations into Easy German
   - :doc:`ref/integreat_cms.xliff`: The XLIFF serializer module
 
 * :doc:`ref/tests`: The tests for integreat-cms

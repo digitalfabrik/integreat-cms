@@ -191,7 +191,7 @@ def page_to_xliff(page, target_language, dir_name, only_public=False):
                 _("An unexpected error has occurred while exporting page {}.").format(
                     target_page_translation.readable_title
                 ),
-                _("Please try again or contact the administrator."),
+                _("Please try again later or contact an administrator."),
             )
         ) from e
 
@@ -278,7 +278,7 @@ def xliffs_to_pages(request, xliff_dir):
                         _(
                             'An unexpected error has occurred while importing XLIFF file "{}".'
                         ).format(xliff_file_path_rel),
-                        _("Please try again or contact the administrator."),
+                        _("Please try again later or contact an administrator."),
                     ),
                 )
     # Store deserialized objects in cache

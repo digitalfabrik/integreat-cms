@@ -118,6 +118,7 @@ class RegionForm(CustomModelForm):
             "tunews_enabled",
             "timezone",
             "fallback_translations_enabled",
+            "summ_ai_enabled",
         ]
         #: The widgets which are used in this form
         widgets = {
@@ -143,6 +144,8 @@ class RegionForm(CustomModelForm):
         # Do not require coordinates because they might be automatically filled
         self.fields["latitude"].required = False
         self.fields["longitude"].required = False
+        if not settings.SUMM_AI_ENABLED:
+            self.fields["summ_ai_enabled"].disabled = True
 
     def save(self, commit=True):
         """
@@ -374,6 +377,20 @@ class RegionForm(CustomModelForm):
                 self.add_error("aliases", _("Enter a valid JSON."))
         # Convert None to an empty dict
         return cleaned_aliases or {}
+
+    def clean_summ_ai_enabled(self):
+        """
+        Validate the summ_ai_enabled field (see :ref:`overriding-modelform-clean-method`)
+
+        :return: The validated field whether SUMM.AI is enabled
+        :rtype: str
+        """
+        if self.cleaned_data.get("summ_ai_enabled") and not settings.SUMM_AI_ENABLED:
+            self.add_error(
+                "summ_ai_enabled", _("Currently SUMM.AI is globally deactivated")
+            )
+            return False
+        return self.cleaned_data.get("summ_ai_enabled")
 
     @staticmethod
     def autofill_bounding_box(cleaned_data):

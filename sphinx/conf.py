@@ -68,6 +68,7 @@ extensions = [
 intersphinx_mapping = {
     "aiohttp": ("https://docs.aiohttp.org/en/stable/", None),
     "geopy": ("https://geopy.readthedocs.io/en/stable/", None),
+    "lxml": ("https://lxml.de/apidoc/", None),
     "python": (
         f"https://docs.python.org/{sys.version_info.major}.{sys.version_info.minor}/",
         None,
@@ -156,6 +157,7 @@ nitpick_ignore = [
     ("py:class", "django.core.serializers.xml_serializer.Serializer"),
     ("py:class", "django.core.serializers.xml_serializer.Deserializer"),
     ("py:class", "django.forms.models.ModelChoiceIterator"),
+    ("py:class", "django.forms.models.ModelFormMetaclass"),
     ("py:class", "django.forms.widgets.LanguageTreeNodeForm"),
     ("py:class", "django.forms.widgets.PageForm"),
     ("py:func", "django.utils.text.capfirst"),
