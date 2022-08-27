@@ -190,7 +190,7 @@ class MatomoApiManager:
         query_params = {
             "date": f"{start_date},{end_date}",
             "idSite": self.matomo_id,
-            "method": "VisitsSummary.getVisits",
+            "method": "VisitsSummary.getActions",
             "period": period,
         }
 
@@ -298,7 +298,7 @@ class MatomoApiManager:
             "filter_limit": "-1",
             "format_metrics": "1",
             "idSite": self.matomo_id,
-            "method": "VisitsSummary.getVisits",
+            "method": "VisitsSummary.getActions",
             "period": period,
         }
         logger.debug(
