@@ -101,6 +101,10 @@ class PageSideBySideView(TemplateView, PageContextMixin):
             disabled=disabled,
         )
 
+        old_translation_content = get_old_source_content(
+            page, source_language, target_language
+        )
+
         return render(
             request,
             self.template_name,
@@ -109,6 +113,7 @@ class PageSideBySideView(TemplateView, PageContextMixin):
                 "page_translation_form": page_translation_form,
                 "source_page_translation": source_page_translation,
                 "target_language": target_language,
+                "old_translation_content": old_translation_content,
             },
         )
 
@@ -214,6 +219,10 @@ class PageSideBySideView(TemplateView, PageContextMixin):
             # Add the success message
             page_translation_form.add_success_message(request)
 
+        old_translation_content = get_old_source_content(
+            page, source_language_node.language, target_language
+        )
+
         return render(
             request,
             self.template_name,
@@ -222,5 +231,43 @@ class PageSideBySideView(TemplateView, PageContextMixin):
                 "page_translation_form": page_translation_form,
                 "source_page_translation": source_page_translation,
                 "target_language": target_language,
+                "old_translation_content": old_translation_content,
             },
         )
+
+
+def get_old_source_content(page, source_language, target_language):
+    """
+    This function returns the content of the source language translation that was up to date when the latest (no minor edit)
+    target language translation was created.
+
+    :param page: The page
+    :type page: ~integreat_cms.cms.models.pages.page.Page
+
+    :param source_language: The source language of the page
+    :type source_language: ~integreat_cms.cms.models.languages.language.Language
+
+    :param target_language: The target language of the page
+    :type target_language: ~integreat_cms.cms.models.languages.language.Language
+
+    :return: The content of the translation
+    :rtype: str
+    """
+    # For the text diff, use the latest source translation that was created before the latest no minor edit target translation
+    major_target_page_translation = page.translations.filter(
+        language__slug=target_language.slug, minor_edit=False
+    ).first()
+
+    if major_target_page_translation:
+        source_previous_translation = (
+            page.translations.filter(
+                language=source_language,
+                last_updated__lte=major_target_page_translation.last_updated,
+            )
+            .order_by("-last_updated")
+            .first()
+        )
+        if source_previous_translation:
+            return source_previous_translation.content
+
+    return ""
