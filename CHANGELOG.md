@@ -4,6 +4,8 @@ UNRELEASED
 * [ [#1635](https://github.com/digitalfabrik/integreat-cms/issues/1635) ] Show Matomo actions in statistics instead of visitors
 * [ [#1449](https://github.com/digitalfabrik/integreat-cms/issues/1449) ] Show diff to last source version in side-by-side view
 * [ [#1656](https://github.com/digitalfabrik/integreat-cms/issues/1656) ] Only validate event duration if dates are valid
+* [ [#1638](https://github.com/digitalfabrik/integreat-cms/issues/1638) ] Change help text of visibility for language nodes
+* [ [#1615](https://github.com/digitalfabrik/integreat-cms/issues/1615) ] Streamline navbar structure and remove analytics dashboard
 
 
 2022.8.2

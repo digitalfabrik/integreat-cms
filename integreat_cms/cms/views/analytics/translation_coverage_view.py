@@ -19,7 +19,7 @@ class TranslationCoverageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         r"""
-        Extend context by traanslation coverage data
+        Extend context by translation coverage data
 
         :param \**kwargs: The supplied keyword arguments
         :type \**kwargs: dict
