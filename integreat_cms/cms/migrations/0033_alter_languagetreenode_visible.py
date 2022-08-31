@@ -4,6 +4,9 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+    """
+    Update help text of visibility field.
+    """
 
     dependencies = [
         ("cms", "0032_region_bounding_box"),

@@ -104,32 +104,28 @@
                     {% trans 'My Dashboard' %}
                 </a>
                 <!-- Analytics Section -->
-                <div class="{% if current_menu_item|in_list:'analytics,statistics,translation_coverage,linkcheck' %} active {% endif %}">
-                    <a href="{% url 'analytics' region_slug=request.region.slug %}"
-                       class="{% if current_menu_item == 'analytics' %} active{% endif %}">
-                        <i data-feather="activity"></i>
-                        {% trans 'Analytics' %}
-                    </a>
-                    <div class="dropdown-container">
-                        {% if request.region.statistics_enabled %}
-                            <a href="{% url 'statistics' region_slug=request.region.slug %}"
-                               class="{% if current_menu_item == 'statistics' %} active{% endif %}">
-                                <i data-feather="bar-chart"></i>
-                                {% trans 'Statistics' %}
-                            </a>
-                        {% endif %}
-                        <a href="{% url 'translation_coverage' region_slug=request.region.slug %}"
-                           class="{% if current_menu_item == 'translation_coverage' %} active{% endif %}">
-                            <i data-feather="check-circle"></i>
-                            {% trans 'Translation Report' %}
-                        </a>
-                        <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}"
-                           class="{% if current_menu_item == 'linkcheck' %} active{% endif %}">
-                            <i data-feather="link"></i>
-                            {% trans 'Broken Links' %}
-                        </a>
-                    </div>
+                <div class="min-h-3 pl-2">
+                    <p class="font-bold">
+                        {% trans "Analytics" %}
+                    </p>
                 </div>
+                {% if request.region.statistics_enabled %}
+                    <a href="{% url 'statistics' region_slug=request.region.slug %}"
+                       class="{% if current_menu_item == 'statistics' %} active{% endif %}">
+                        <i data-feather="trending-up"></i>
+                        {% trans 'Statistics' %}
+                    </a>
+                {% endif %}
+                <a href="{% url 'translation_coverage' region_slug=request.region.slug %}"
+                class="{% if current_menu_item == 'translation_coverage' %} active{% endif %}">
+                    <i data-feather="check-circle"></i>
+                    {% trans 'Translation Report' %}
+                </a>
+                <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}"
+                class="{% if current_menu_item == 'linkcheck' %} active{% endif %}">
+                    <i data-feather="link"></i>
+                    {% trans 'Broken Links' %}
+                </a>
                 <!-- Content Section -->
                 <div class="min-h-3 pl-2">
                     <p class="font-bold">
