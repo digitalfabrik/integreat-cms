@@ -52,7 +52,6 @@ VIEWS = [
     ),
     (
         [
-            ("analytics", ROLES),
             ("dashboard", ROLES),
             ("language_tree", STAFF_ROLES),
             ("media", ROLES),
@@ -88,7 +87,6 @@ VIEWS = [
     ),
     (
         [
-            ("analytics", STAFF_ROLES),
             ("dashboard", STAFF_ROLES),
             ("language_tree", STAFF_ROLES),
             ("media", STAFF_ROLES),

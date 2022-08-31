@@ -623,11 +623,6 @@ urlpatterns = [
                     include(
                         [
                             path(
-                                "",
-                                analytics.AnalyticsView.as_view(),
-                                name="analytics",
-                            ),
-                            path(
                                 "statistics/",
                                 statistics.AnalyticsView.as_view(),
                                 name="statistics",

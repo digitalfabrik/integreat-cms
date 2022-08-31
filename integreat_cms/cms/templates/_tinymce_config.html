@@ -8,12 +8,15 @@
 {% get_files 'editor_content' 'css' as editor_content_css_files %}
 
 {% if language.slug == 'zh-CN' %}
-    {% firstof "body { font-family: 'Noto Sans SC', sans-serif; }" as content_style %}
+    {% firstof "body { font-family: 'Noto Sans SC', sans-serif; }" as font_style %}
 {% elif right_to_left %}
-    {% firstof "body { font-family: 'Lateef', sans-serif; font-size: 1.2rem; }" as content_style %}
+    {% firstof "body { font-family: 'Lateef', sans-serif; font-size: 1.2rem; }" as font_style %}
 {% else %}
-    {% firstof "body { font-family: 'Open Sans', sans-serif; }" as content_style %}
+    {% firstof "body { font-family: 'Open Sans', sans-serif; }" as font_style %}
 {% endif %}
+
+{% comment %} Styling for text diff taken from style.scss {% endcomment %}
+{% firstof font_style|add:"del { background-color: rgb(252 165 165); } ins { background-color: rgb(134 239 172); text-decoration-line: none; }" as content_style %}
 
 <div
         id="tinymce-config-options"
