@@ -130,8 +130,10 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
             page_queryset = region.pages.filter(lft=1)
 
         # Cache tree structure to reduce database queries
-        pages = page_queryset.prefetch_major_public_translations().cache_tree(
-            archived=self.archived
+        pages = (
+            page_queryset.prefetch_major_translations()
+            .prefetch_related("mirroring_pages")
+            .cache_tree(archived=self.archived)
         )
 
         # Filter pages according to given filters, if any

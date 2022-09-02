@@ -56,7 +56,7 @@
     <form method="post" id="bulk-action-form" class="table-listing">
         {% csrf_token %}
         <div class="overflow-x-auto">
-            <table {% if not filter_form.is_enabled %} data-delay-event-handlers data-activate-tree-drag-drop{% endif %}
+            <table {% if not filter_form.is_enabled %} data-delay-event-handlers data-activate-tree-drag-drop data-descendants-url={% url 'get_page_tree_ajax' region_slug=request.region.slug language_slug=language.slug %}{% endif %}
                    class="w-full mt-4 rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
                 <thead>
                     <tr class="border-b border-solid border-gray-200">
