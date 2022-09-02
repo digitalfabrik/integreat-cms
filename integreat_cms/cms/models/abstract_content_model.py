@@ -20,10 +20,16 @@ class ContentQuerySet(models.QuerySet):
     This queryset provides the option to prefetch translations for content objects
     """
 
-    def prefetch_translations(self):
-        """
-        Get the queryset including the custom attribute ``prefetched_translations`` which contains the latest
-        translations of each content object in each language
+    def prefetch_translations(self, to_attr="prefetched_translations", **filters):
+        r"""
+        Get the queryset including the custom attribute ``to_attr`` which contains the latest
+        translations of each content object in each language, optionally filtered by the given ``status``
+
+        :param to_attr: To which attribute the prefetched translations should be added [optional, defaults to ``prefetched_translations``]
+        :type to_attr: str
+
+        :param \**filters: Additional filters to be applied on the translations (e.g. by status)
+        :type \**filters: dict
 
         :return: The queryset of content objects
         :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
@@ -33,12 +39,11 @@ class ContentQuerySet(models.QuerySet):
         return self.prefetch_related(
             models.Prefetch(
                 "translations",
-                queryset=TranslationModel.objects.order_by(
-                    foreign_field, "language_id", "-version"
-                )
+                queryset=TranslationModel.objects.filter(**filters)
+                .order_by(foreign_field, "language_id", "-version")
                 .distinct(foreign_field, "language_id")
                 .select_related("language"),
-                to_attr="prefetched_translations",
+                to_attr=to_attr,
             )
         )
 
@@ -50,17 +55,8 @@ class ContentQuerySet(models.QuerySet):
         :return: The queryset of content objects
         :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
         """
-        TranslationModel = self.model.get_translation_model()
-        foreign_field = TranslationModel.foreign_field() + "_id"
-        return self.prefetch_related(
-            models.Prefetch(
-                "translations",
-                queryset=TranslationModel.objects.filter(status=status.PUBLIC)
-                .order_by(foreign_field, "language_id", "-version")
-                .distinct(foreign_field, "language_id")
-                .select_related("language"),
-                to_attr="prefetched_public_translations",
-            )
+        return self.prefetch_translations(
+            to_attr="prefetched_public_translations", status=status.PUBLIC
         )
 
     def prefetch_major_public_translations(self):
@@ -71,20 +67,10 @@ class ContentQuerySet(models.QuerySet):
         :return: The queryset of content objects
         :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
         """
-        TranslationModel = self.model.get_translation_model()
-        foreign_field = TranslationModel.foreign_field() + "_id"
-        return self.prefetch_related(
-            models.Prefetch(
-                "translations",
-                queryset=TranslationModel.objects.filter(
-                    status=status.PUBLIC,
-                    minor_edit=False,
-                )
-                .order_by(foreign_field, "language_id", "-version")
-                .distinct(foreign_field, "language_id")
-                .select_related("language"),
-                to_attr="prefetched_major_public_translations",
-            )
+        return self.prefetch_translations(
+            to_attr="prefetched_major_public_translations",
+            status=status.PUBLIC,
+            minor_edit=False,
         )
 
 
@@ -148,21 +134,29 @@ class AbstractContentModel(AbstractBaseModel):
         translations = self.prefetched_public_translations_by_language_slug.values()
         return [translation.language for translation in translations]
 
-    @cached_property
-    def prefetched_translations_by_language_slug(self):
-        """
+    def get_prefetched_translations_by_language_slug(
+        self, attr="prefetched_translations", **filters
+    ):
+        r"""
         This method returns a mapping from language slugs to their latest translations of this object
+
+        :param attr: Which attribute should be tried to get the prefetched translations [optional, defaults to ``"prefetched_translations"``]
+        :type attr: str
+
+        :param \**filters: Additional filters to be applied on the translations (e.g. by status)
+        :type \**filters: dict
 
         :return: The prefetched translations by language slug
         :rtype: dict
         """
         try:
             # Try to get the prefetched translations (which are already distinct per language)
-            prefetched_translations = self.prefetched_translations
+            prefetched_translations = getattr(self, attr)
         except AttributeError:
             # If the translations were not prefetched, query it from the database
             prefetched_translations = (
-                self.translations.select_related("language")
+                self.translations.filter(**filters)
+                .select_related("language")
                 .order_by("language__id", "-version")
                 .distinct("language__id")
                 .all()
@@ -171,6 +165,16 @@ class AbstractContentModel(AbstractBaseModel):
             translation.language.slug: translation
             for translation in prefetched_translations
         }
+
+    @cached_property
+    def prefetched_translations_by_language_slug(self):
+        """
+        This method returns a mapping from language slugs to their latest translations of this object
+
+        :return: The prefetched translations by language slug
+        :rtype: dict
+        """
+        return self.get_prefetched_translations_by_language_slug()
 
     def get_translation(self, language_slug):
         """
@@ -195,21 +199,9 @@ class AbstractContentModel(AbstractBaseModel):
                  :obj:`None` if no translation exists
         :rtype: dict
         """
-        try:
-            # Try to get the prefetched translations (which are already distinct per language)
-            prefetched_public_translations = self.prefetched_public_translations
-        except AttributeError:
-            # If the translations were not prefetched, query it from the database
-            prefetched_public_translations = (
-                self.translations.filter(status=status.PUBLIC)
-                .select_related("language")
-                .order_by("language__id", "-version")
-                .distinct("language__id")
-            )
-        return {
-            translation.language.slug: translation
-            for translation in prefetched_public_translations
-        }
+        return self.get_prefetched_translations_by_language_slug(
+            attr="prefetched_public_translations", status=status.PUBLIC
+        )
 
     def get_public_translation(self, language_slug):
         """
@@ -261,21 +253,11 @@ class AbstractContentModel(AbstractBaseModel):
                  :obj:`None` if no translation exists
         :rtype: dict
         """
-        try:
-            # Try to get the prefetched translations (which are already distinct per language)
-            prefetched_public_translations = self.prefetched_major_public_translations
-        except AttributeError:
-            # If the translations were not prefetched, query it from the database
-            prefetched_public_translations = (
-                self.translations.filter(status=status.PUBLIC, minor_edit=False)
-                .select_related("language")
-                .order_by("language__id", "-version")
-                .distinct("language__id")
-            )
-        return {
-            translation.language.slug: translation
-            for translation in prefetched_public_translations
-        }
+        return self.get_prefetched_translations_by_language_slug(
+            attr="prefetched_major_public_translations",
+            status=status.PUBLIC,
+            minor_edit=False,
+        )
 
     def get_major_public_translation(self, language_slug):
         """
