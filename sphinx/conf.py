@@ -107,7 +107,7 @@ intersphinx_mapping = {
     "setuptools": ("https://setuptools.pypa.io/en/latest/", None),
     "twine": ("https://twine.readthedocs.io/en/latest/", None),
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
-    "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest/", None),
+    "weasyprint": ("https://doc.courtbouillon.org/weasyprint/stable/", None),
 }
 intersphinx_timeout = 5
 #: The path for patched template files
