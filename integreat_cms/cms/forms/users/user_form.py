@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from ..custom_model_form import CustomModelForm
 from ...models import Role
 from ...utils.translation_utils import ugettext_many_lazy as __
+from .organization_field import OrganizationField
 
 logger = logging.getLogger(__name__)
 
@@ -75,6 +76,7 @@ class UserForm(CustomModelForm):
             "role",
             "send_activation_link",
         ]
+        field_classes = {"organization": OrganizationField}
 
     def __init__(self, **kwargs):
         r"""
@@ -238,6 +240,36 @@ class UserForm(CustomModelForm):
                     code="required",
                 ),
             )
+
+        # If this is the global user form, validate the given organization
+        # (In the region user form, this is already ensured by the field's choices)
+        if "regions" in self.fields and cleaned_data.get("organization"):
+            if cleaned_data.get("is_superuser") or cleaned_data.get("is_staff"):
+                logger.warning(
+                    "Staff member %r cannot be member of an organization", self.instance
+                )
+                self.add_error(
+                    "organization",
+                    forms.ValidationError(
+                        _("Staff members cannot be member of an organization"),
+                        code="invalid",
+                    ),
+                )
+            elif cleaned_data["organization"].region not in cleaned_data.get("regions"):
+                logger.warning(
+                    "User %r cannot be member of organization %r of other region",
+                    self.instance,
+                    cleaned_data["organization"],
+                )
+                self.add_error(
+                    "organization",
+                    forms.ValidationError(
+                        _(
+                            "Users can only be members of organizations in regions they have access to"
+                        ),
+                        code="invalid",
+                    ),
+                )
 
         logger.debug("UserForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data

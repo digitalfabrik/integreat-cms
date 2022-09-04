@@ -1880,7 +1880,7 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
-#: cms/forms/users/authentication_form.py:11 cms/forms/users/user_form.py:107
+#: cms/forms/users/authentication_form.py:11 cms/forms/users/user_form.py:109
 #: cms/templates/authentication/password_reset_confirm.html:25
 msgid "Password"
 msgstr "Passwort"
@@ -1890,7 +1890,7 @@ msgstr "Passwort"
 msgid "Email"
 msgstr "Email"
 
-#: cms/forms/users/user_filter_form.py:21 cms/forms/users/user_form.py:26
+#: cms/forms/users/user_filter_form.py:21 cms/forms/users/user_form.py:27
 #: cms/templates/users/region_user_list.html:25
 #: cms/templates/users/user_list.html:34
 msgid "Role"
@@ -1907,27 +1907,27 @@ msgstr "Berechtigungen"
 msgid "Administrator"
 msgstr "Administrator"
 
-#: cms/forms/users/user_filter_form.py:30 cms/forms/users/user_form.py:109
+#: cms/forms/users/user_filter_form.py:30 cms/forms/users/user_form.py:111
 msgid "Integreat team member"
 msgstr "Integreat-Teammitglied"
 
-#: cms/forms/users/user_form.py:27
+#: cms/forms/users/user_form.py:28
 msgid "This grants the user all permissions of the selected role"
 msgstr "Dies gewährt dem Benutzer alle Berechtigungen der ausgewählten Rolle"
 
-#: cms/forms/users/user_form.py:32
+#: cms/forms/users/user_form.py:33
 msgid "Team"
 msgstr "Team"
 
-#: cms/forms/users/user_form.py:33
+#: cms/forms/users/user_form.py:34
 msgid "This grants the user all permissions of the selected team"
 msgstr "Dies gewährt dem Benutzer alle Berechtigungen des ausgewählten Teams"
 
-#: cms/forms/users/user_form.py:44
+#: cms/forms/users/user_form.py:45
 msgid "Send activation link"
 msgstr "Aktivierungslink versenden"
 
-#: cms/forms/users/user_form.py:47
+#: cms/forms/users/user_form.py:48
 msgid ""
 "Select this option to create an inactive user account and send an activation "
 "link per email to the user."
@@ -1935,7 +1935,7 @@ msgstr ""
 "Wählen Sie diese Option, um ein inaktives Nutzerkonto zu erstellen und einen "
 "Link zu dessen Aktivierung per Email an den Nutzer zu senden."
 
-#: cms/forms/users/user_form.py:50
+#: cms/forms/users/user_form.py:51
 msgid ""
 "This link allows the user to choose a password and activates the account "
 "after confirmation."
@@ -1943,35 +1943,46 @@ msgstr ""
 "Dieser Link erlaubt es dem Nutzer ein Passwort auszuwählen und aktiviert das "
 "Konto nach Bestätigung."
 
-#: cms/forms/users/user_form.py:101
+#: cms/forms/users/user_form.py:103
 msgid "Leave empty to keep unchanged"
 msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
 
-#: cms/forms/users/user_form.py:179
+#: cms/forms/users/user_form.py:181
 msgid "Only staff members can be superusers"
 msgstr "Nur Mitarbeiter können Administratoren sein"
 
-#: cms/forms/users/user_form.py:192
+#: cms/forms/users/user_form.py:194
 msgid "Staff members can only have staff roles"
 msgstr "Mitarbeiter können nur Mitarbeiterrollen haben"
 
-#: cms/forms/users/user_form.py:201
+#: cms/forms/users/user_form.py:203
 msgid "Staff members have to be member of a team"
 msgstr "Mitarbeiter müssen Mitglied eines Teams sein"
 
-#: cms/forms/users/user_form.py:213
+#: cms/forms/users/user_form.py:215
 msgid "Only staff members can be member of a team"
 msgstr "Nur Mitarbeiter können Mitglied eines Teams sein"
 
-#: cms/forms/users/user_form.py:222
+#: cms/forms/users/user_form.py:224
 msgid "Please select a role"
 msgstr "Bitte wählen Sie eine Rolle aus"
 
-#: cms/forms/users/user_form.py:236
+#: cms/forms/users/user_form.py:238
 msgid "Please choose either to send an activation link or set a password."
 msgstr ""
 "Bitte wählen Sie entweder ein Passwort aus oder wählen die Option zum Senden "
 "eines Aktivierungslinks."
+
+#: cms/forms/users/user_form.py:254
+msgid "Staff members cannot be member of an organization"
+msgstr "Teammitglieder können nicht Mitglied einer Organisation sein"
+
+#: cms/forms/users/user_form.py:268
+msgid ""
+"Users can only be members of organizations in regions they have access to"
+msgstr ""
+"Benutzer:innen können nur Mitglieder von Organisationen in Regionen sein, "
+"auf die sie Zugriff haben"
 
 #: cms/forms/users/user_password_form.py:24
 msgid "My old password"
@@ -6339,7 +6350,7 @@ msgstr "Feedback wurde erfolgreich gelöscht"
 #: cms/views/pages/page_sbs_view.py:214 cms/views/roles/role_form_view.py:93
 #: cms/views/settings/user_settings_view.py:91
 #: cms/views/settings/user_settings_view.py:108
-#: cms/views/users/region_user_form_view.py:95
+#: cms/views/users/region_user_form_view.py:97
 #: cms/views/users/user_form_view.py:107
 msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
@@ -7105,17 +7116,17 @@ msgid "User {} was successfully removed from this region."
 msgstr "Benutzer {} wurde erfolgreich von dieser Region entfernt."
 
 #: cms/views/users/region_user_form_view.py:53
-#: cms/views/users/region_user_form_view.py:128
+#: cms/views/users/region_user_form_view.py:130
 #: cms/views/users/user_form_view.py:51 cms/views/users/user_form_view.py:137
 msgid "Pending account activation"
 msgstr "Aktivierung des Benutzerkontos noch ausstehend"
 
-#: cms/views/users/region_user_form_view.py:109
+#: cms/views/users/region_user_form_view.py:111
 #: cms/views/users/user_form_view.py:119
 msgid "User \"{}\" was successfully created"
 msgstr "Benutzer \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/users/region_user_form_view.py:117
+#: cms/views/users/region_user_form_view.py:119
 #: cms/views/users/user_form_view.py:127
 msgid "User \"{}\" was successfully saved"
 msgstr "Benutzer \"{}\" wurde erfolgreich gespeichert"
@@ -7215,15 +7226,6 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
-
-#~ msgid "Staff members cannot be member of an organization"
-#~ msgstr "Teammitglieder können nicht Mitglied einer Organisation sein"
-
-#~ msgid ""
-#~ "Users can only be members of organizations in regions they have access to"
-#~ msgstr ""
-#~ "Benutzer:innen können nur Mitglieder von Organisationen in Regionen sein, "
-#~ "auf die sie Zugriff haben"
 
 #~ msgid "Organization \"{}\" was successfully {}"
 #~ msgstr "Organisation \"{}\" wurde erfolgreich erstellt"

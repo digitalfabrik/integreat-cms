@@ -59,6 +59,7 @@ import "./js/analytics/linkcheck-widget.ts";
 
 import "./js/user/user-creation-workflow.ts";
 import "./js/user/user-roles.ts";
+import "./js/user/organization.ts";
 
 import "./js/charCounter.ts";
 
