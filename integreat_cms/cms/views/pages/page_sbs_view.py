@@ -11,19 +11,25 @@ from ...constants import status
 from ...decorators import permission_required
 from ...forms import PageTranslationForm
 from ...models import Language
+from ..media.media_context_mixin import MediaContextMixin
+from ..mixins import ContentEditLockMixin
 from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
-class PageSideBySideView(TemplateView, PageContextMixin):
+class PageSideBySideView(
+    TemplateView, PageContextMixin, MediaContextMixin, ContentEditLockMixin
+):
     """
     View for the page side by side form
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_sbs.html"
+    #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`)
+    back_url_name = "pages"
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -197,6 +203,7 @@ class PageSideBySideView(TemplateView, PageContextMixin):
                 "creator": request.user,
                 "language": target_language,
             },
+            changed_by_user=request.user,
         )
 
         if not page_translation_form.is_valid():

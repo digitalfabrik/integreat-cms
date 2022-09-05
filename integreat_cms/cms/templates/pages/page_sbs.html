@@ -164,11 +164,15 @@
             </div>
         </div>
     </form>
+
+    {{ media_config_data|json_script:"media_config_data" }}
     {% if not can_edit_page or page_translation_form.instance.id and page_translation_form.instance.page.archived %}
         {% include '../_tinymce_config.html' with readonly=1 language=target_language %}
     {% else %}
         {% include '../_tinymce_config.html' with language=target_language %}
+        {% include "../_content_edit_lock.html" with lock_key=source_page_translation.page.edit_lock_key %}
     {% endif %}
+    {% include "../generic_confirmation_dialog.html" %}
 {% endblock %}
 {% block javascript %}
     {% render_bundle 'editor' 'js' %}

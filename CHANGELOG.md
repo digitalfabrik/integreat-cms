@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1664](https://github.com/digitalfabrik/integreat-cms/issues/1664) ] Fix media library and content edit lock in sbs view
+
 
 2022.8.3
 --------
