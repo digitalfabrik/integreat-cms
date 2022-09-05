@@ -250,7 +250,7 @@ def is_empty(iterable):
 def object_translation_has_view_perm(user, obj):
     """
     This filter accepts any translation of Event, Page or Poi and returns
-    whether the user has the permission to view this object
+    whether this account has the permission to view this object
 
     :param user: The requested user
     :type user: ~integreat_cms.cms.models.users.user.User
@@ -261,7 +261,7 @@ def object_translation_has_view_perm(user, obj):
 
     :raises ValueError: if the object is not a translation of Event, Page or Poi
 
-    :return: Whether the user is allowed to view this object
+    :return: Whether this account is allowed to view this object
     :rtype: bool
     """
     if isinstance(obj, EventTranslation):

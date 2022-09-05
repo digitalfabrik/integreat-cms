@@ -108,7 +108,7 @@ class RegionUserFormView(TemplateView):
                 # Add the success message and redirect to the edit page
                 messages.success(
                     request,
-                    _('User "{}" was successfully created').format(
+                    _('Account "{}" was successfully created').format(
                         region_user_form.instance.full_user_name
                     ),
                 )

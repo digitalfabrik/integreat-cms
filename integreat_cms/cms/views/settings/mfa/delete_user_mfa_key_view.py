@@ -80,7 +80,7 @@ class DeleteUserMfaKeyView(TemplateView):
         :param \**kwargs: The supplied keyword arguments
         :type \**kwargs: dict
 
-        :return: A redirection to the user settings
+        :return: A redirection to the account settings
         :rtype: ~django.http.HttpResponseRedirect
         """
 

@@ -87,7 +87,7 @@ class Feedback(PolymorphicModel, AbstractBaseModel):
         related_name="feedback",
         verbose_name=_("marked as read by"),
         help_text=__(
-            _("The user who marked this feedback as read."),
+            _("The account that marked this feedback as read."),
             _("If the feedback is unread, this field is empty."),
         ),
     )

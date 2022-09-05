@@ -94,7 +94,7 @@ class UserFormView(TemplateView):
             messages.error(
                 request,
                 _(
-                    "A user has to be either staff/superuser or needs to be restricted to at least one region."
+                    "An account has to be either staff/superuser or needs to be restricted to at least one region."
                 ),
             )
         elif not request.user.is_superuser and "is_superuser" in user_form.changed_data:
@@ -116,7 +116,7 @@ class UserFormView(TemplateView):
                 # Add the success message and redirect to the edit page
                 messages.success(
                     request,
-                    _('User "{}" was successfully created').format(
+                    _('Account "{}" was successfully created').format(
                         user_form.instance.full_user_name
                     ),
                 )
@@ -124,7 +124,7 @@ class UserFormView(TemplateView):
                 # Add the success message
                 messages.success(
                     request,
-                    _('User "{}" was successfully saved').format(
+                    _('Account "{}" was successfully saved').format(
                         user_form.instance.full_user_name
                     ),
                 )

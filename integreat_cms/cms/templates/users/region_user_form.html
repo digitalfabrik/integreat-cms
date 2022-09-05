@@ -10,10 +10,10 @@
             <h1 class="heading">
                 {% if user_form.instance.id %}
                     {% with user_form.username.value as user_name %}
-                        {% blocktrans %}Edit user "{{ user_name }}"{% endblocktrans %}
+                        {% blocktrans %}Edit account "{{ user_name }}"{% endblocktrans %}
                     {% endwith %}
                 {% else %}
-                    {% trans "Create new user" %}
+                    {% trans "Create new account" %}
                 {% endif %}
             </h1>
             {% if perms.cms.change_user %}
@@ -28,7 +28,7 @@
                     </h3>
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
-                    <!-- General Options for user management -->
+                    <!-- General Options for account management -->
                     <div>
                         <label for="{{ user_form.username.id_for_label }}">{{ user_form.username.label }}</label>
                         {% render_field user_form.username|add_error_class:"border-red-500" %}
@@ -105,26 +105,26 @@
         {% if user_form.instance.id and perms.cms.delete_user %}
             {% if user_form.instance.regions.count == 1 %}
                 <div class="pt-2 pb-4">
-                    <button title="{% trans "Delete this user" %}"
+                    <button title="{% trans "Delete this account" %}"
                             class="btn confirmation-button btn-red"
-                            data-confirmation-title="{% trans "Please confirm that you really want to delete this user" %}"
+                            data-confirmation-title="{% trans "Please confirm that you really want to delete this account" %}"
                             data-confirmation-text="{% trans "This cannot be reversed." %}"
                             data-confirmation-subject="{{ user_form.username.value }}"
                             data-action="{% url 'delete_region_user' region_slug=request.region.slug user_id=user_form.instance.id %}">
                         <i icon-name="trash-2" class="mr-2"></i>
-                        {% trans "Delete user" %}
+                        {% trans "Delete account" %}
                     </button>
                 </div>
             {% else %}
                 <div class="pt-2 pb-4">
                     <button title="{% blocktrans %}Remove this user from region {{ request.region }}{% endblocktrans %}"
                             class="btn confirmation-button btn-red"
-                            data-confirmation-title="{% blocktrans %}Please confirm that you really want to remove this user from region {{ request.region }}.{% endblocktrans %}"
-                            data-confirmation-text="{% trans "The user will keep access to the following regions:" %} {{ user_form.instance|remaining_regions:request.region|join:', ' }}"
+                            data-confirmation-title="{% blocktrans %}Please confirm that you really want to remove this account from region {{ request.region }}.{% endblocktrans %}"
+                            data-confirmation-text="{% trans "The account will keep access to the following regions:" %} {{ user_form.instance|remaining_regions:request.region|join:', ' }}"
                             data-confirmation-subject="{{ user_form.username.value }}"
                             data-action="{% url 'delete_region_user' region_slug=request.region.slug user_id=user_form.instance.id %}">
                         <i icon-name="trash-2" class="mr-2"></i>
-                        {% trans "Remove user from region" %}
+                        {% trans "Remove account from region" %}
                     </button>
                 </div>
             {% endif %}

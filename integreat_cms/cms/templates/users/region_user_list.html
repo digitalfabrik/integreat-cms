@@ -3,12 +3,12 @@
 {% block content %}
     {% load static %}
     <div class="table-header">
-        <h1 class="heading">{% trans "User Management" %}</h1>
+        <h1 class="heading">{% trans "Account Management" %}</h1>
         <div class="flex justify-between">
             {% include "search_input_form.html" with object_type="user" %}
             {% if perms.cms.change_user %}
                 <a href="{% url 'new_region_user' region_slug=request.region.slug %}"
-                   class="btn">{% trans "Create user" %}</a>
+                   class="btn">{% trans "Create account" %}</a>
             {% endif %}
         </div>
     </div>
