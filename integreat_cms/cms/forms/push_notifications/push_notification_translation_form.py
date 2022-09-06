@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.utils.translation import override, ugettext_lazy as _
 
 from ..custom_model_form import CustomModelForm
+from ...constants import push_notifications
 from ...models import PushNotificationTranslation
 
 logger = logging.getLogger(__name__)
@@ -50,3 +51,19 @@ class PushNotificationTranslationForm(CustomModelForm):
             logger.debug(
                 "PushNotificationTranslationForm submitted with errors: %r", self.errors
             )
+
+    def has_changed(self):
+        """
+        Return ``True`` if submitted data differs from initial data.
+        If the main language should be used as fallback for missing translations, this always return ``True``.
+
+        :return: Whether the form has changed
+        :rtype: bool
+        """
+        if (
+            hasattr(self.instance, "push_notification")
+            and self.instance.push_notification.mode
+            == push_notifications.USE_MAIN_LANGUAGE
+        ):
+            return True
+        return super().has_changed()

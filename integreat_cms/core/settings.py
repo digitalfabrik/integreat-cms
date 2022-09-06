@@ -44,7 +44,7 @@ MATOMO_TRACKING = bool(
 IMPRINT_SLUG = "imprint"
 
 #: The slug of the region "Testumgebung" - prevent sending PNs to actual users in development in
-#: :func:`~integreat_cms.cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_pn`
+#: :func:`~integreat_cms.cms.utils.push_notification_sender.PushNotificationSender.send_pn`
 TEST_REGION_SLUG = "testumgebung"
 
 #: URL to the Integreat Website
