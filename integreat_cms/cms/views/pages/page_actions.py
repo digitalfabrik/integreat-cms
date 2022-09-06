@@ -771,20 +771,17 @@ def get_page_order_table_ajax(request, region_slug, parent_id=None, page_id=None
 
     region = request.region
 
-    if page_id:
-        page = get_object_or_404(region.pages, id=page_id)
-    else:
-        page = None
+    page = get_object_or_404(region.pages, id=page_id) if page_id else None
 
-    if parent_id or page:
-        parent = (
-            get_object_or_404(region.pages, id=parent_id) if parent_id else page.parent
-        )
-        siblings = parent.cached_children
+    if parent_id:
+        parent = get_object_or_404(region.pages, id=parent_id)
+        siblings = [
+            sibling
+            for sibling in parent.cached_children
+            if not sibling.explicitly_archived
+        ]
     else:
-        siblings = region.get_root_pages()
-
-    siblings = [sibling for sibling in siblings if not sibling.explicitly_archived]
+        siblings = region.get_root_pages().filter(explicitly_archived=False)
 
     logger.debug(
         "Page order table for page %r and siblings %r",

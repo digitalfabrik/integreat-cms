@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1664](https://github.com/digitalfabrik/integreat-cms/issues/1664) ] Fix media library and content edit lock in sbs view
+* [ [#1660](https://github.com/digitalfabrik/integreat-cms/issues/1660) ] Fix moving pages to the root level from the page form
 
 
 2022.8.3
