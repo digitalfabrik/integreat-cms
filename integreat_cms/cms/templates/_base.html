@@ -121,6 +121,13 @@
                     <i data-feather="check-circle"></i>
                     {% trans 'Translation Report' %}
                 </a>
+                {% if perms.cms.view_feedback %}
+                <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
+                   class="{% if current_menu_item == 'region_feedback' %} active{% endif %}">
+                    <i data-feather="thumbs-up"></i>
+                    {% trans 'Feedback' %}
+                </a>
+                {% endif %}
                 <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}"
                 class="{% if current_menu_item == 'linkcheck' %} active{% endif %}">
                     <i data-feather="link"></i>
@@ -129,7 +136,7 @@
                 <!-- Content Section -->
                 <div class="min-h-3 pl-2">
                     <p class="font-bold">
-                        {% trans "Contents" %}
+                        {% trans "Content" %}
                     </p>
                 </div>
                 {% if perms.cms.view_directory and perms.cms.view_mediafile %}
@@ -162,13 +169,6 @@
                             {% trans 'Locations' %}
                         </a>
                     </div>
-                {% endif %}
-                {% if perms.cms.view_feedback %}
-                    <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
-                       class="{% if current_menu_item == 'region_feedback' %} active{% endif %}">
-                        <i data-feather="thumbs-up"></i>
-                        {% trans 'Feedback' %}
-                    </a>
                 {% endif %}
                 {% if FCM_ENABLED and request.region.push_notifications_enabled and perms.cms.view_pushnotification %}
                     <div class="{% if current_menu_item|in_list:'push_notifications,push_notifications_form' %} active {% endif %}">
