@@ -4,6 +4,9 @@ UNRELEASED
 * [ [#1664](https://github.com/digitalfabrik/integreat-cms/issues/1664) ] Fix media library and content edit lock in sbs view
 * [ [#1660](https://github.com/digitalfabrik/integreat-cms/issues/1660) ] Fix moving pages to the root level from the page form
 * [ [#1566](https://github.com/digitalfabrik/integreat-cms/issues/1566) ] Manage organizations per region
+* [ [#1440](https://github.com/digitalfabrik/integreat-cms/issues/1440) ] Add missing word count to translation coverage report
+* [ [#1596](https://github.com/digitalfabrik/integreat-cms/issues/1596) ] Ignore default language in translation report
+* [ [#1607](https://github.com/digitalfabrik/integreat-cms/issues/1607) ] Count words of source translation in translation report
 
 
 2022.8.3

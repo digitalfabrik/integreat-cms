@@ -62,7 +62,7 @@ class PageFormView(
             kwargs.get("language_slug"), only_active=True
         )
 
-        # get page and translation objects if they exist
+        # Get page and translation objects if they exist
         page = (
             region.pages.filter(id=kwargs.get("page_id"))
             .prefetch_translations()
