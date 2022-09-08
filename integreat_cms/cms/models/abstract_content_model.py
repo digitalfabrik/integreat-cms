@@ -94,9 +94,7 @@ class AbstractContentModel(AbstractBaseModel):
     """
 
     region = models.ForeignKey(
-        Region,
-        on_delete=models.CASCADE,
-        verbose_name=_("region"),
+        Region, on_delete=models.CASCADE, verbose_name=_("region")
     )
     created_date = models.DateTimeField(
         default=timezone.now, verbose_name=_("creation date")

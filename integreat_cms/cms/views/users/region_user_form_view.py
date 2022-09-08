@@ -47,7 +47,7 @@ class RegionUserFormView(TemplateView):
         # filter region users to make sure no users from other regions can be changed through this view
         user = region.region_users.filter(id=kwargs.get("user_id")).first()
 
-        region_user_form = RegionUserForm(instance=user)
+        region_user_form = RegionUserForm(region=region, instance=user)
 
         if user and not user.is_active:
             messages.info(request, _("Pending account activation"))
@@ -85,7 +85,9 @@ class RegionUserFormView(TemplateView):
         # filter region users to make sure no users from other regions can be changed through this view
         user_instance = region.region_users.filter(id=kwargs.get("user_id")).first()
 
-        region_user_form = RegionUserForm(data=request.POST, instance=user_instance)
+        region_user_form = RegionUserForm(
+            region=region, data=request.POST, instance=user_instance
+        )
 
         if not region_user_form.is_valid():
             # Add error messages

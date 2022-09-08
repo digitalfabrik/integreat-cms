@@ -305,44 +305,6 @@ urlpatterns = [
         ),
     ),
     path(
-        "organizations/",
-        include(
-            [
-                path(
-                    "",
-                    list_views.ModelListView.as_view(model=Organization),
-                    name="organizations",
-                ),
-                path(
-                    "new/",
-                    form_views.CustomCreateView.as_view(form_class=OrganizationForm),
-                    name="new_organization",
-                ),
-                path(
-                    "<slug>/",
-                    include(
-                        [
-                            path(
-                                "edit/",
-                                form_views.CustomUpdateView.as_view(
-                                    form_class=OrganizationForm
-                                ),
-                                name="edit_organization",
-                            ),
-                            path(
-                                "delete/",
-                                delete_views.CustomDeleteView.as_view(
-                                    model=Organization,
-                                ),
-                                name="delete_organization",
-                            ),
-                        ]
-                    ),
-                ),
-            ]
-        ),
-    ),
-    path(
         "feedback/",
         include(
             [
@@ -878,6 +840,46 @@ urlpatterns = [
                                 "delete/",
                                 imprint.delete_imprint,
                                 name="delete_imprint",
+                            ),
+                        ]
+                    ),
+                ),
+                path(
+                    "organizations/",
+                    include(
+                        [
+                            path(
+                                "",
+                                list_views.ModelListView.as_view(model=Organization),
+                                name="organizations",
+                            ),
+                            path(
+                                "new/",
+                                form_views.CustomCreateView.as_view(
+                                    form_class=OrganizationForm
+                                ),
+                                name="new_organization",
+                            ),
+                            path(
+                                "<slug>/",
+                                include(
+                                    [
+                                        path(
+                                            "edit/",
+                                            form_views.CustomUpdateView.as_view(
+                                                form_class=OrganizationForm
+                                            ),
+                                            name="edit_organization",
+                                        ),
+                                        path(
+                                            "delete/",
+                                            delete_views.CustomDeleteView.as_view(
+                                                model=Organization,
+                                            ),
+                                            name="delete_organization",
+                                        ),
+                                    ]
+                                ),
                             ),
                         ]
                     ),

@@ -89,3 +89,16 @@ class ModelListView(
         :rtype: ~collections.abc.Iterable
         """
         return (f"cms.view_{self.model._meta.model_name}",)
+
+    def get_queryset(self):
+        """
+        Get the model's queryset (optionally filtered by the current region)
+
+        :return: The queryset of the current list view
+        :rtype: ~django.db.models.query.QuerySet
+        """
+        queryset = super().get_queryset()
+        if self.request.region:
+            # Only return objects of the current region
+            queryset = queryset.filter(region=self.request.region)
+        return queryset

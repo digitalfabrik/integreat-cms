@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import (
     PermissionRequiredMixin,
 )
+from django.core.exceptions import FieldDoesNotExist
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.generic.edit import ModelFormMixin, BaseCreateView, BaseUpdateView
@@ -70,6 +71,18 @@ class CustomModelFormMixin(
         context.update({"current_menu_item": f"{self.model._meta.model_name}s"})
         return context
 
+    def get_form_kwargs(self):
+        """
+        Return the keyword arguments for instantiating the form
+
+        :return: The form kwargs
+        :rtype: dict
+        """
+        kwargs = super().get_form_kwargs()
+        if self.request.region:
+            kwargs["additional_instance_attributes"] = {"region": self.request.region}
+        return kwargs
+
     def get_success_url(self):
         """
         Determine the URL to redirect to when the form is successfully validated
@@ -77,10 +90,17 @@ class CustomModelFormMixin(
         :return: The url to redirect on success
         :rtype: str
         """
-        return reverse(
-            f"edit_{self.object._meta.model_name}",
-            kwargs={"slug": self.object.slug},
-        )
+        kwargs = {}
+        try:
+            # Check whether the model has a slug field
+            self.model._meta.get_field(self.slug_url_kwarg)
+            kwargs[self.slug_url_kwarg] = self.object.slug
+        except FieldDoesNotExist:
+            # If not, use the primary key field as fallback
+            kwargs[self.pk_url_kwarg] = self.object.pk
+        if self.request.region:
+            kwargs["region_slug"] = self.request.region.slug
+        return reverse(f"edit_{self.object._meta.model_name}", kwargs=kwargs)
 
     def form_valid(self, form):
         """

@@ -49,7 +49,7 @@
 				data-confirmation-title="{{ delete_dialog_title }}"
 				data-confirmation-text="{{ delete_dialog_text }}"
 				data-confirmation-subject="{{ form.name.value }}"
-				data-action="{% url 'delete_organization' slug=form.instance.slug %}">
+				data-action="{% url 'delete_organization' region_slug=request.region.slug slug=form.instance.slug %}">
 			<i data-feather="trash-2" class="mr-2"></i>
 			{% trans 'Delete this organization' %}
 		</button>

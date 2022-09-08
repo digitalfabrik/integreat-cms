@@ -116,7 +116,7 @@
                     <div class="help-text show-for-non-staff">{{ user_form.regions.help_text }}</div>
                     <div class="help-text show-for-staff">{% trans 'The regions to which the user has quick access' %}</div>
                 </div>
-                <div>
+                <div class="show-for-non-staff">
                     <label for="{{ user_form.organization.id_for_label }}">{{ user_form.organization.label }}</label>
                     {% render_field user_form.organization %}
                     <div class="help-text">{{ user_form.organization.help_text }}</div>
