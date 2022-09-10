@@ -209,7 +209,7 @@
                     </div>
                 {% endif %}
                 {% if perms.cms.view_languagetreenode %}
-                    <a href="{% url 'language_tree' region_slug=request.region.slug %}"
+                    <a href="{% url 'languagetreenodes' region_slug=request.region.slug %}"
                        class="{% if current_menu_item|in_list:'languagetreenodes,language_tree_form' %} active {% endif %}">
                         <i data-feather="flag"></i>
                         {% trans 'Language Tree' %}

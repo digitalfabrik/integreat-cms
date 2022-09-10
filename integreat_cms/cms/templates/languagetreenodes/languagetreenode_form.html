@@ -1,0 +1,76 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+{% load base_filters %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<form method="post" data-unsaved-warning>
+    {% csrf_token %}
+    <div class="flex flex-wrap mb-4 gap-4 justify-between">
+        <h1 class="heading overflow-hidden text-ellipsis">
+            {% if form.instance.id %}
+                {% with form.instance.translated_name as translated_language_name %}
+                    {% blocktrans %}Edit language tree node "{{ translated_language_name }}"{% endblocktrans %}
+                {% endwith %}
+            {% else %}
+                {% trans 'Add language to this region' %}
+            {% endif %}
+        </h1>
+        {% if perms.cms.change_languagetreenode %}
+            {% if form.instance.id %}
+                <button class="btn ml-auto mr-0">{% trans 'Update' %}</button>
+            {% else %}
+                <div class="flex flex-wrap gap-2">
+                    <button class="btn ml-auto mr-0">{% trans 'Create' %}</button>
+                    <button name="submit_add_new" class="btn ml-auto mr-0">{% trans 'Create and add more' %}</button>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="mb-4 rounded border border-blue-500 shadow-2xl bg-white">
+        <div class="p-4 rounded bg-water-500">
+            <h3 class="heading font-bold text-black">
+                {% if form.instance.id %}
+                    <span class="fp fp-rounded fp-{{ form.instance.language.primary_country_code }} text-[24px] align-bottom"></span>
+                    {% if form.instance.language.secondary_country_code %}
+                        <span class="fp fp-rounded fp-{{ form.instance.language.secondary_country_code }} text-[24px] align-bottom"></span>
+                    {% endif %}
+                {% else %}
+                    <i data-feather="flag"></i>
+                {% endif %}
+                <span class="ml-2">{% trans 'Language tree node' %}</span>
+                {% if form.instance.id %}
+                    "{{ form.instance.translated_name }}"
+                {% endif %}
+            </h3>
+        </div>
+        <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+            {% if not form.instance.id %}
+                <div>
+                    <label for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
+                    {% render_field form.language|add_error_class:"border-red-500" %}
+                </div>
+            {% endif %}
+            <div>
+                <label for="{{ form.parent.id_for_label }}">{{ form.parent.label }}</label>
+                {% render_field form|get_private_member:"ref_node_id" %}
+                {% render_field form|get_private_member:"position" %}
+                {% render_field form.parent|add_error_class:"border-red-500" %}
+            </div>
+            <div>
+                {% render_field form.visible|add_error_class:"border-red-500" %}
+                <label for="{{ form.visible.id_for_label }}">{{ form.visible.label }}</label>
+                <div class="help-text">{{ form.visible.help_text }}</div>
+            </div>
+            <div>
+                {% render_field form.active|add_error_class:"border-red-500" %}
+                <label for="{{ form.active.id_for_label }}">{{ form.active.label }}</label>
+                <div class="help-text">{{ form.active.help_text }}</div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock content %}

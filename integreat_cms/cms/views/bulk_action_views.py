@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
@@ -59,13 +59,13 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
         :return: url to redirect to
         :rtype: str
         """
-        return reverse(
-            f"{self.model._meta.model_name}s",
-            kwargs={
-                "region_slug": self.request.region.slug,
-                "language_slug": kwargs.get("language_slug"),
-            },
-        )
+        redirect_kwargs = {
+            "region_slug": self.request.region.slug,
+        }
+        # If this bulk action is bound to a language url paramter, also pass this to the redirect url
+        if "language_slug" in kwargs:
+            redirect_kwargs["language_slug"] = kwargs["language_slug"]
+        return reverse(f"{self.model._meta.model_name}s", kwargs=redirect_kwargs)
 
     def get_queryset(self):
         """
@@ -142,17 +142,39 @@ class BulkAutoTranslateView(BulkActionView):
         return super().post(request, *args, **kwargs)
 
 
-class BulkArchiveView(BulkActionView):
+class BulkUpdateBooleanFieldView(BulkActionView):
     """
-    Bulk action for archiving multiple objects at once
+    Bulk action for toggling boolean fields of multiple objects at once
     """
 
-    #: The name of the archived-field
-    archived_field = "archived"
+    #: The value of the field (defaults to ``True``)
+    value = True
+
+    @property
+    def field_name(self):
+        """
+        Called when the bulk action is performed and the ``field_name`` attribute was not overwritten
+
+        :raises NotImplementedError: If the ``field_name`` attribute is not implemented in the subclass
+        """
+        raise NotImplementedError(
+            "Subclasses of BulkUpdateBooleanFieldView must provide a 'field_name' attribute"
+        )
+
+    @property
+    def action(self):
+        """
+        Called when the bulk action is performed and the ``action`` attribute was not overwritten
+
+        :raises NotImplementedError: If the ``action`` attribute is not implemented in the subclass
+        """
+        raise NotImplementedError(
+            "Subclasses of BulkUpdateBooleanFieldView must provide an 'action' attribute"
+        )
 
     def post(self, request, *args, **kwargs):
         r"""
-        Archive the selected objects and redirect
+        Update the fields of the selected objects and redirect
 
         :param request: The current request
         :type request: ~django.http.HttpResponse
@@ -168,54 +190,47 @@ class BulkArchiveView(BulkActionView):
         """
 
         # Archive objects
-        self.get_queryset().update(**{self.archived_field: True})
+        self.get_queryset().update(**{self.field_name: self.value})
         # Invalidate cache
         invalidate_model(self.model)
-        logger.debug("%r archived by %r", self.get_queryset(), request.user)
+        logger.debug(
+            "Updated %s=%s for %r by %r",
+            self.field_name,
+            self.value,
+            self.get_queryset(),
+            request.user,
+        )
         messages.success(
             request,
-            _("The selected {} were successfully archived").format(
-                self.model._meta.verbose_name_plural
+            _("The selected {} were successfully {}").format(
+                self.model._meta.verbose_name_plural, self.action
             ),
         )
         # Let the base view handle the redirect
         return super().post(request, *args, **kwargs)
 
 
-class BulkRestoreView(BulkActionView):
+# pylint: disable=too-many-ancestors
+class BulkArchiveView(BulkUpdateBooleanFieldView):
     """
     Bulk action for restoring multiple objects at once
     """
 
     #: The name of the archived-field
-    archived_field = "archived"
+    field_name = "archived"
 
-    def post(self, request, *args, **kwargs):
-        r"""
-        Restore the selected objects and redirect
+    #: The name of the action
+    action = _("archived")
 
-        :param request: The current request
-        :type request: ~django.http.HttpResponse
 
-        :param \*args: The supplied arguments
-        :type \*args: list
+# pylint: disable=too-many-ancestors
+class BulkRestoreView(BulkArchiveView):
+    """
+    Bulk action for restoring multiple objects at once
+    """
 
-        :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
+    #: The value of the field
+    value = False
 
-        :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
-        """
-        # Restore objects
-        self.get_queryset().update(**{self.archived_field: False})
-        # Invalidate cache
-        invalidate_model(self.model)
-        logger.debug("%r restored by %r", self.get_queryset(), request.user)
-        messages.success(
-            request,
-            _("The selected {} were successfully restored").format(
-                self.model._meta.verbose_name_plural
-            ),
-        )
-        # Let the base view handle the redirect
-        return super().post(request, *args, **kwargs)
+    #: The name of the action
+    action = _("restored")

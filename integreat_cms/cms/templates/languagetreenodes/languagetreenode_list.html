@@ -1,0 +1,69 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<div class="table-header flex flex-wrap justify-between">
+    <h1 class="heading">{% trans 'Language tree' %}</h1>
+    {% if perms.cms.change_languagetreenode %}
+        <a href="{% url 'new_languagetreenode' region_slug=request.region.slug %}" class="btn">
+            {% trans 'Create language tree node' %}
+        </a>
+    {% endif %}
+</div>
+
+<form method="post" id="bulk-action-form" class="table-listing">
+    {% csrf_token %}
+    <table data-activate-tree-drag-drop class="w-full mt-4 rounded border-2 border-solid border-gray-200 shadow bg-white">
+        <thead>
+            <tr>
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">
+                    <input type="checkbox" id="bulk-select-all" />
+                </th>
+                <th class="text-sm text-left uppercase py-3 px-2 min">{% trans 'Hierarchy' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Language' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Slug' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'BCP47 Tag' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Text direction' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2">{% trans 'Country Flags' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2 w-4">{% trans 'Active' %}</th>
+                <th class="text-sm text-left uppercase py-3 px-2 w-4">{% trans 'Visible' %}</th>
+                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% trans 'Delete' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for node in languagetreenodes %}
+                {% include "languagetreenodes/languagetreenode_list_row.html" %}
+            {% empty %}
+                <tr>
+                    <td></td>
+                    <td colspan="9" class="px-2 py-3">
+                        {% trans 'No language tree available yet.' %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="flex flex-wrap gap-2 mt-2">
+        <select id="bulk-action" class="w-auto max-w-full">
+            <option>
+                {% trans 'Select bulk action' %}
+            </option>
+            <option data-bulk-action="{% url 'bulk_make_languagetreenodes_visible' region_slug=request.region.slug %}">
+                {% trans 'Make languages visible in apps' %}
+            </option>
+            <option data-bulk-action="{% url 'bulk_hide_languagetreenodes' region_slug=request.region.slug %}">
+                {% trans 'Hide languages in apps' %}
+            </option>
+            <option data-bulk-action="{% url 'bulk_activate_languagetreenodes' region_slug=request.region.slug %}">
+                {% trans 'Activate languages in content management system' %}
+            </option>
+            <option data-bulk-action="{% url 'bulk_disable_languagetreenodes' region_slug=request.region.slug %}">
+                {% trans 'Disable languages in content management system' %}
+            </option>
+        </select>
+        <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
+    </div>
+</form>
+{% include "../generic_confirmation_dialog.html" %}
+{% endblock %}
