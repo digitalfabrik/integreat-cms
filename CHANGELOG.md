@@ -11,6 +11,8 @@ UNRELEASED
 * [ [#1591](https://github.com/digitalfabrik/integreat-cms/issues/1591) ] Add bulk actions for language tree nodes
 * [ [#1673](https://github.com/digitalfabrik/integreat-cms/issues/1673) ] Add possibility to reject pending reviews and discard auto saves
 * [ [#1640](https://github.com/digitalfabrik/integreat-cms/issues/1640) ] Update author when restoring old versions
+* [ [#1583](https://github.com/digitalfabrik/integreat-cms/issues/1583) ] Only enable the chat for staff and management roles
+* [ [#1647](https://github.com/digitalfabrik/integreat-cms/issues/1647) ] Give service team delete permissions for regions and push notifications
 
 
 2022.8.3
