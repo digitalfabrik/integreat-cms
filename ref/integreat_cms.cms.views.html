@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-09-08T13:09:09+00:00" />
+    <meta property="article:modified_time" content="2022-09-10T11:40:17+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Views &mdash; integreat-cms 2022.8.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -946,6 +946,7 @@ anything meets your requirements.</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html">Language Tree</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#language-tree-actions">Language Tree Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#language-tree-bulk-actions">Language Tree Bulk Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#language-tree-context-mixin">Language Tree Context Mixin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#language-tree-node-form-view">Language Tree Node Form View</a></li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html#language-tree-view">Language Tree View</a></li>
@@ -1120,34 +1121,19 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkArchiveView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
-<p>Bulk action for archiving multiple objects at once</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkArchiveView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView" title="integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkUpdateBooleanFieldView</span></code></a></p>
+<p>Bulk action for restoring multiple objects at once</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">archived_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'archived'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The name of the archived-field</p>
+<span class="sig-name descname"><span class="pre">action</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'archived'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The name of the action</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Archive the selected objects and redirect</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a>) – The current request</p></li>
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The redirect</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
-</dd>
-</dl>
+<span class="sig-name descname"><span class="pre">field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'archived'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L214"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The name of the archived-field</p>
 </dd></dl>
 
 </dd></dl>
@@ -1194,19 +1180,54 @@ The bulk action form uses only POST as submission method.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkRestoreView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkRestoreView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L227"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkArchiveView" title="integreat_cms.cms.views.bulk_action_views.BulkArchiveView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkArchiveView</span></code></a></p>
 <p>Bulk action for restoring multiple objects at once</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">archived_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'archived'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The name of the archived-field</p>
+<span class="sig-name descname"><span class="pre">action</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'restored'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L227"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The name of the action</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L227"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The value of the field</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.bulk_action_views.</span></span><span class="sig-name descname"><span class="pre">BulkUpdateBooleanFieldView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
+<p>Bulk action for toggling boolean fields of multiple objects at once</p>
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Called when the bulk action is performed and the <code class="docutils literal notranslate"><span class="pre">action</span></code> attribute was not overwritten</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#NotImplementedError" title="(in Python v3.9)"><strong>NotImplementedError</strong></a> – If the <code class="docutils literal notranslate"><span class="pre">action</span></code> attribute is not implemented in the subclass</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">field_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Called when the bulk action is performed and the <code class="docutils literal notranslate"><span class="pre">field_name</span></code> attribute was not overwritten</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#NotImplementedError" title="(in Python v3.9)"><strong>NotImplementedError</strong></a> – If the <code class="docutils literal notranslate"><span class="pre">field_name</span></code> attribute is not implemented in the subclass</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L193"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Restore the selected objects and redirect</p>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Update the fields of the selected objects and redirect</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1222,6 +1243,12 @@ The bulk action form uses only POST as submission method.</p>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/bulk_action_views.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The value of the field (defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1677,7 +1704,7 @@ This either returns the current <code class="docutils literal notranslate"><span
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 08, 2022.
+      <span class="lastupdated">Last updated on Sep 10, 2022.
       </span></p>
   </div>
 
