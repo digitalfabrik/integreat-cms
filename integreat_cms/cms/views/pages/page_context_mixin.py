@@ -33,6 +33,9 @@ class PageContextMixin(ContextMixin):
                 "current_menu_item": "pages",
                 "translation_status": translation_status,
                 "PUBLIC": status.PUBLIC,
+                "DRAFT": status.DRAFT,
+                "REVIEW": status.REVIEW,
+                "AUTO_SAVE": status.AUTO_SAVE,
                 "WEBAPP_URL": settings.WEBAPP_URL,
                 "archive_dialog_title": _(
                     "Please confirm that you really want to archive this page"

@@ -54,8 +54,8 @@ function handleRevisionSliderInput({ target }: Event) {
   const revisionElement = document.getElementById("revision-" + currentRevision)
   // Update the revision info box
   document.getElementById("revision-number").textContent = currentRevision.toString();
-  document.getElementById("revision-editor").textContent = revisionElement.getAttribute("data-editor");
-  document.getElementById("revision-date").textContent = revisionElement.getAttribute("data-date");
+  document.getElementById("revision-editor").textContent = revisionElement.dataset.editor;
+  document.getElementById("revision-date").textContent = revisionElement.dataset.date;
   // Calculate position of revision info box to make sure it stays within the area of the slider position
   revisionInfo.style.left = `calc(${position}% + (${revisionInfo.offsetWidth / 2 - position * revisionInfo.offsetWidth / 100}px))`;
   // Hide all other revisions
@@ -66,4 +66,17 @@ function handleRevisionSliderInput({ target }: Event) {
   document
     .getElementById("revision-" + currentRevision)
     .classList.remove("hidden");
+  // Hide/show the desired buttons
+  document.querySelectorAll(".action-buttons button").forEach((button) => {
+    if (
+      // Show a button if the status is equivalent
+      (button as HTMLElement).dataset.status == revisionElement.dataset.status &&
+      // And make sure that when the current revision is the latest revision, the data-max is present on the button
+      (currentRevision == numRevisions) !== ((button as HTMLElement).dataset.max === undefined)
+    ) {
+      button.classList.remove("hidden");
+    } else {
+      button.classList.add("hidden");
+    }
+  });
 }
