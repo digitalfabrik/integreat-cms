@@ -124,7 +124,12 @@ class PushNotificationSender:
             },
         }
         headers = {"Authorization": f"key={self.auth_key}"}
-        return requests.post(self.fcm_url, json=payload, headers=headers)
+        return requests.post(
+            self.fcm_url,
+            json=payload,
+            headers=headers,
+            timeout=settings.DEFAULT_REQUEST_TIMEOUT,
+        )
 
     def send_all(self):
         """

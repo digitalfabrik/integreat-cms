@@ -44,6 +44,7 @@ def main():
     response = requests.post(
         "https://api.github.com/app/installations/16579631/access_tokens",
         headers={"Authorization": f"Bearer {encoded_jwt}"},
+        timeout=60,
     )
 
     # Print access token

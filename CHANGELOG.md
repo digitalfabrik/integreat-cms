@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1470](https://github.com/digitalfabrik/integreat-cms/issues/1470) ] Add non-political flags for Arabic and Farsi
+
 
 2022.9.0
 --------

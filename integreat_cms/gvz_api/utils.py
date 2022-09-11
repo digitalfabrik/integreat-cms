@@ -36,7 +36,8 @@ class GvzApiWrapper:
         """
         logger.debug("Searching for %r", region_name)
         regions = requests.get(
-            f"{self.api_url}/api/administrative_divisions/?search={region_name}&division_category={division_category}"
+            f"{self.api_url}/api/administrative_divisions/?search={region_name}&division_category={division_category}",
+            timeout=settings.DEFAULT_REQUEST_TIMEOUT,
         ).json()["results"]
         return regions
 
@@ -52,7 +53,8 @@ class GvzApiWrapper:
         """
         logger.debug("GVZ API: Details for %r", ags)
         result = requests.get(
-            f"{self.api_url}/api/administrative_divisions/?ags={ags}"
+            f"{self.api_url}/api/administrative_divisions/?ags={ags}",
+            timeout=settings.DEFAULT_REQUEST_TIMEOUT,
         ).json()
         if result["count"] != 1:
             return None
@@ -81,7 +83,9 @@ class GvzApiWrapper:
         """
         result = {}
         for url in child_urls:
-            response = requests.get(url).json()
+            response = requests.get(
+                url, timeout=settings.DEFAULT_REQUEST_TIMEOUT
+            ).json()
             result[response["name"]] = {
                 "longitude": response["longitude"],
                 "latitude": response["latitude"],
