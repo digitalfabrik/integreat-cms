@@ -10,11 +10,11 @@
             {% trans 'Here you can get an overview of the current translation status of your page content.' %}
         </p>
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 2xl:grid-cols-4">
-        <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 rounded border border-blue-500 shadow-2xl">
+    <div class="grid grid-cols-1 2xl:grid-cols-3 gap-4">
+        <div class="2xl:col-span-2 rounded border border-blue-500 shadow-2xl">
             <div class="rounded p-4 bg-water-500">
                 <h3 class="heading font-bold text-black"><i data-feather="check-circle" class="pb-1"></i>
-                    {% trans 'Overview of the current translation status' %}
+                    {% trans 'Current translation status' %}
                 </h3>
             </div>
             <div class="p-5 bg-white text-center rounded">
@@ -25,28 +25,37 @@
             <div class="rounded p-4 bg-water-500">
                 <h3 class="heading font-bold text-black">
                     <i data-feather="shopping-bag" class="pb-1"></i>
-                    {% trans "Outdated Translations" %}
+                    {% trans "Outdated and missing Translations" %}
                 </h3>
             </div>
             <p class="p-2">
-                {% trans "This overview show the approximate number of words of all outdated translations." %}
+                {% trans "This overview show the approximate number of words of outdated and missing translations." %}
             </p>
             <div class="table-listing w-full p-2">
                 <table class="w-full rounded bg-white">
                     <thead>
                         <tr class="border-b border-solid border-gray-200">
                             <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Language' %}</th>
-                            <th class="text-sm text-left uppercase py-3 p2-4 pr-4">{% trans 'Words' %}</th>
+                            <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% trans 'Outdated (Words)' %}</th>
+                            <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% trans 'Missing (Words)' %}</th>
+                            <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% trans 'Total (per language)'%}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for language, word_count in outdated_word_count.items %}
+                        {% for language, counter in word_count.items %}
                             <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+
                                 <td class="pl-2">
-                                    <p class="block py-3 px-2 text-gray-800"> {{ language.translated_name }} </p>
+                                    <p class="block py-3 px-2 text-gray-800"> {{ language }} </p>
                                 </td>
                                 <td class="pl-2">
-                                    <p class="block py-3 px-2 text-gray-800"> {{ word_count }} </p>
+                                    <p class="block py-3 px-2 text-gray-800"> {{ counter.OUTDATED }} </p>
+                                </td>
+                                <td class="pl-2 ">
+                                    <p class="block py-3 px-2 text-gray-800 "> {{ counter.MISSING }} </p>
+                                </td>
+                                <td class="pl-2">
+                                    <p class="block py-3 px-2 text-gray-800"> {{ counter.OUTDATED|add:counter.MISSING }} </p>
                                 </td>
                             </tr>
                         {% empty %}
@@ -56,12 +65,18 @@
                                 </td>
                             </tr>
                         {% endfor %}
-                        <tr class="border-t-4 border-solid border-gray-900 hover:bg-gray-100">
+                        <tr class="border-t-2 border-solid border-gray-900 hover:bg-gray-100">
                             <td class="pl-2">
                                 <p class="block font-extrabold py-3 px-2 text-gray-900"> {% trans "Total" %} </p>
                             </td>
                             <td class="pl-2">
                                 <p class="block py-3 px-2 text-gray-800"> {{ total_outdated_words }} </p>
+                            </td>
+                            <td class="pl-2">
+                                <p class="block py-3 px-2 text-gray-800"> {{ total_missing_words }} </p>
+                            </td>
+                            <td class="pl-2">
+                                <p class="block py-3 px-2 text-gray-800"> {{ total_outdated_words|add:total_missing_words }} </p>
                             </td>
                         </tr>
                     </tbody>
@@ -71,5 +86,5 @@
     </div>
 </div>
 
-{{ coverage_data|json_script:"translation_coverage_data" }}
+{{ chart_data|json_script:"chart_data" }}
 {% endblock content %}

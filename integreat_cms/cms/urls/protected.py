@@ -7,6 +7,7 @@ from django.urls import include, path
 
 from ..forms import (
     LanguageForm,
+    LanguageTreeNodeForm,
     OfferTemplateForm,
     OrganizationForm,
     RegionForm,
@@ -297,44 +298,6 @@ urlpatterns = [
                                 "delete/",
                                 roles.RoleFormView.as_view(),
                                 name="delete_role",
-                            ),
-                        ]
-                    ),
-                ),
-            ]
-        ),
-    ),
-    path(
-        "organizations/",
-        include(
-            [
-                path(
-                    "",
-                    list_views.ModelListView.as_view(model=Organization),
-                    name="organizations",
-                ),
-                path(
-                    "new/",
-                    form_views.CustomCreateView.as_view(form_class=OrganizationForm),
-                    name="new_organization",
-                ),
-                path(
-                    "<slug>/",
-                    include(
-                        [
-                            path(
-                                "edit/",
-                                form_views.CustomUpdateView.as_view(
-                                    form_class=OrganizationForm
-                                ),
-                                name="edit_organization",
-                            ),
-                            path(
-                                "delete/",
-                                delete_views.CustomDeleteView.as_view(
-                                    model=Organization,
-                                ),
-                                name="delete_organization",
                             ),
                         ]
                     ),
@@ -739,7 +702,7 @@ urlpatterns = [
                                             "bulk-archive/",
                                             bulk_action_views.BulkArchiveView.as_view(
                                                 model=Page,
-                                                archived_field="explicitly_archived",
+                                                field_name="explicitly_archived",
                                             ),
                                             name="bulk_archive_pages",
                                         ),
@@ -747,7 +710,7 @@ urlpatterns = [
                                             "bulk-restore/",
                                             bulk_action_views.BulkRestoreView.as_view(
                                                 model=Page,
-                                                archived_field="explicitly_archived",
+                                                field_name="explicitly_archived",
                                             ),
                                             name="bulk_restore_pages",
                                         ),
@@ -878,6 +841,46 @@ urlpatterns = [
                                 "delete/",
                                 imprint.delete_imprint,
                                 name="delete_imprint",
+                            ),
+                        ]
+                    ),
+                ),
+                path(
+                    "organizations/",
+                    include(
+                        [
+                            path(
+                                "",
+                                list_views.ModelListView.as_view(model=Organization),
+                                name="organizations",
+                            ),
+                            path(
+                                "new/",
+                                form_views.CustomCreateView.as_view(
+                                    form_class=OrganizationForm
+                                ),
+                                name="new_organization",
+                            ),
+                            path(
+                                "<slug>/",
+                                include(
+                                    [
+                                        path(
+                                            "edit/",
+                                            form_views.CustomUpdateView.as_view(
+                                                form_class=OrganizationForm
+                                            ),
+                                            name="edit_organization",
+                                        ),
+                                        path(
+                                            "delete/",
+                                            delete_views.CustomDeleteView.as_view(
+                                                model=Organization,
+                                            ),
+                                            name="delete_organization",
+                                        ),
+                                    ]
+                                ),
                             ),
                         ]
                     ),
@@ -1124,32 +1127,54 @@ urlpatterns = [
                             path(
                                 "",
                                 language_tree.LanguageTreeView.as_view(),
-                                name="language_tree",
+                                name="languagetreenodes",
                             ),
                             path(
                                 "new/",
-                                language_tree.LanguageTreeNodeFormView.as_view(),
-                                name="new_language_tree_node",
+                                language_tree.LanguageTreeNodeCreateView.as_view(),
+                                name="new_languagetreenode",
                             ),
                             path(
-                                "<int:language_tree_node_id>/",
+                                "bulk-make-visible/",
+                                language_tree.BulkMakeVisibleView.as_view(),
+                                name="bulk_make_languagetreenodes_visible",
+                            ),
+                            path(
+                                "bulk-hide/",
+                                language_tree.BulkHideView.as_view(),
+                                name="bulk_hide_languagetreenodes",
+                            ),
+                            path(
+                                "bulk-activate/",
+                                language_tree.BulkActivateView.as_view(),
+                                name="bulk_activate_languagetreenodes",
+                            ),
+                            path(
+                                "bulk-disable/",
+                                language_tree.BulkDisableView.as_view(),
+                                name="bulk_disable_languagetreenodes",
+                            ),
+                            path(
+                                "<int:pk>/",
                                 include(
                                     [
                                         path(
                                             "edit/",
-                                            language_tree.LanguageTreeNodeFormView.as_view(),
-                                            name="edit_language_tree_node",
+                                            form_views.CustomUpdateView.as_view(
+                                                form_class=LanguageTreeNodeForm
+                                            ),
+                                            name="edit_languagetreenode",
                                         ),
                                         path(
                                             "delete/",
                                             language_tree.delete_language_tree_node,
-                                            name="delete_language_tree_node",
+                                            name="delete_languagetreenode",
                                         ),
                                         # warning: the move url is also hardcoded in src/integreat_cms/static/js/tree_drag_and_drop.js
                                         path(
                                             "move/<int:target_id>/<slug:target_position>/",
                                             language_tree.move_language_tree_node,
-                                            name="move_language_tree_node",
+                                            name="move_languagetreenode",
                                         ),
                                     ]
                                 ),

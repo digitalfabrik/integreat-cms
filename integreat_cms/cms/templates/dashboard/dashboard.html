@@ -14,7 +14,7 @@
                     {% include "statistics/_statistics_widget.html" %}
                 {% endif %}
                 <!-- Chat Widget -->
-                {% if chat_form %}
+                {% if chat_form and perms.cms.change_chatmessage %}
                     {% include "chat/_chat_widget.html" %}
                 {% endif %}
                 <!-- Translation Status Widget: TODO-->

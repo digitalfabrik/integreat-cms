@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-31 12:19+0000\n"
+"POT-Creation-Date: 2022-09-10 12:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1359,7 +1359,7 @@ msgid "Non-recurring events"
 msgstr "Einmalig stattfindende Veranstaltungen"
 
 #: cms/constants/region_status.py:16
-#: cms/templates/language_tree/language_tree.html:27
+#: cms/templates/languagetreenodes/languagetreenode_list.html:29
 #: cms/templates/users/region_user_list.html:27
 #: cms/templates/users/region_user_list_row.html:34
 #: cms/templates/users/user_list.html:36
@@ -1390,7 +1390,7 @@ msgstr "Redakteur"
 #: cms/constants/roles.py:20 cms/templates/imprint/imprint_revisions.html:21
 #: cms/templates/imprint/imprint_revisions.html:54
 #: cms/templates/pages/page_revisions.html:25
-#: cms/templates/pages/page_revisions.html:61
+#: cms/templates/pages/page_revisions.html:71
 msgid "Author"
 msgstr "Autor"
 
@@ -1658,7 +1658,7 @@ msgstr "Alle Regionen"
 #: cms/templates/analytics/translation_coverage.html:38
 #: cms/templates/feedback/admin_feedback_list.html:35
 #: cms/templates/feedback/region_feedback_list.html:35
-#: cms/templates/language_tree/language_tree.html:22
+#: cms/templates/languagetreenodes/languagetreenode_list.html:24
 #: cms/templates/pages/_page_xliff_import_diff.html:30
 #: cms/templates/statistics/statistics_overview.html:49
 msgid "Language"
@@ -1690,7 +1690,7 @@ msgstr "Kategorie"
 #: cms/templates/imprint/imprint_sbs.html:138
 #: cms/templates/linkcheck/links_by_filter.html:59
 #: cms/templates/pages/page_form.html:106
-#: cms/templates/pages/page_revisions.html:50
+#: cms/templates/pages/page_revisions.html:54
 #: cms/templates/pages/page_sbs.html:61 cms/templates/pages/page_sbs.html:136
 #: cms/templates/pages/page_sbs.html:142 cms/templates/pages/page_tree.html:88
 #: cms/templates/pages/page_tree_archived.html:67
@@ -1722,7 +1722,7 @@ msgstr "Von"
 msgid "To"
 msgstr "Bis"
 
-#: cms/forms/language_tree/language_tree_node_form.py:108
+#: cms/forms/language_tree/language_tree_node_form.py:107
 msgid ""
 "This region has already a default language.Please specify a source language "
 "for this language."
@@ -1880,7 +1880,7 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
-#: cms/forms/users/authentication_form.py:11 cms/forms/users/user_form.py:107
+#: cms/forms/users/authentication_form.py:11 cms/forms/users/user_form.py:109
 #: cms/templates/authentication/password_reset_confirm.html:25
 msgid "Password"
 msgstr "Passwort"
@@ -1890,7 +1890,7 @@ msgstr "Passwort"
 msgid "Email"
 msgstr "Email"
 
-#: cms/forms/users/user_filter_form.py:21 cms/forms/users/user_form.py:26
+#: cms/forms/users/user_filter_form.py:21 cms/forms/users/user_form.py:27
 #: cms/templates/users/region_user_list.html:25
 #: cms/templates/users/user_list.html:34
 msgid "Role"
@@ -1907,27 +1907,27 @@ msgstr "Berechtigungen"
 msgid "Administrator"
 msgstr "Administrator"
 
-#: cms/forms/users/user_filter_form.py:30 cms/forms/users/user_form.py:109
+#: cms/forms/users/user_filter_form.py:30 cms/forms/users/user_form.py:111
 msgid "Integreat team member"
 msgstr "Integreat-Teammitglied"
 
-#: cms/forms/users/user_form.py:27
+#: cms/forms/users/user_form.py:28
 msgid "This grants the user all permissions of the selected role"
 msgstr "Dies gewährt dem Benutzer alle Berechtigungen der ausgewählten Rolle"
 
-#: cms/forms/users/user_form.py:32
+#: cms/forms/users/user_form.py:33
 msgid "Team"
 msgstr "Team"
 
-#: cms/forms/users/user_form.py:33
+#: cms/forms/users/user_form.py:34
 msgid "This grants the user all permissions of the selected team"
 msgstr "Dies gewährt dem Benutzer alle Berechtigungen des ausgewählten Teams"
 
-#: cms/forms/users/user_form.py:44
+#: cms/forms/users/user_form.py:45
 msgid "Send activation link"
 msgstr "Aktivierungslink versenden"
 
-#: cms/forms/users/user_form.py:47
+#: cms/forms/users/user_form.py:48
 msgid ""
 "Select this option to create an inactive user account and send an activation "
 "link per email to the user."
@@ -1935,7 +1935,7 @@ msgstr ""
 "Wählen Sie diese Option, um ein inaktives Nutzerkonto zu erstellen und einen "
 "Link zu dessen Aktivierung per Email an den Nutzer zu senden."
 
-#: cms/forms/users/user_form.py:50
+#: cms/forms/users/user_form.py:51
 msgid ""
 "This link allows the user to choose a password and activates the account "
 "after confirmation."
@@ -1943,35 +1943,46 @@ msgstr ""
 "Dieser Link erlaubt es dem Nutzer ein Passwort auszuwählen und aktiviert das "
 "Konto nach Bestätigung."
 
-#: cms/forms/users/user_form.py:101
+#: cms/forms/users/user_form.py:103
 msgid "Leave empty to keep unchanged"
 msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
 
-#: cms/forms/users/user_form.py:179
+#: cms/forms/users/user_form.py:181
 msgid "Only staff members can be superusers"
 msgstr "Nur Mitarbeiter können Administratoren sein"
 
-#: cms/forms/users/user_form.py:192
+#: cms/forms/users/user_form.py:194
 msgid "Staff members can only have staff roles"
 msgstr "Mitarbeiter können nur Mitarbeiterrollen haben"
 
-#: cms/forms/users/user_form.py:201
+#: cms/forms/users/user_form.py:203
 msgid "Staff members have to be member of a team"
 msgstr "Mitarbeiter müssen Mitglied eines Teams sein"
 
-#: cms/forms/users/user_form.py:213
+#: cms/forms/users/user_form.py:215
 msgid "Only staff members can be member of a team"
 msgstr "Nur Mitarbeiter können Mitglied eines Teams sein"
 
-#: cms/forms/users/user_form.py:222
+#: cms/forms/users/user_form.py:224
 msgid "Please select a role"
 msgstr "Bitte wählen Sie eine Rolle aus"
 
-#: cms/forms/users/user_form.py:236
+#: cms/forms/users/user_form.py:238
 msgid "Please choose either to send an activation link or set a password."
 msgstr ""
 "Bitte wählen Sie entweder ein Passwort aus oder wählen die Option zum Senden "
 "eines Aktivierungslinks."
+
+#: cms/forms/users/user_form.py:254
+msgid "Staff members cannot be member of an organization"
+msgstr "Teammitglieder können nicht Mitglied einer Organisation sein"
+
+#: cms/forms/users/user_form.py:268
+msgid ""
+"Users can only be members of organizations in regions they have access to"
+msgstr ""
+"Benutzer:innen können nur Mitglieder von Organisationen in Regionen sein, "
+"auf die sie Zugriff haben"
 
 #: cms/forms/users/user_password_form.py:24
 msgid "My old password"
@@ -1993,20 +2004,20 @@ msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
 msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
-#: cms/models/abstract_content_model.py:99 cms/models/abstract_tree_node.py:35
+#: cms/models/abstract_content_model.py:97 cms/models/abstract_tree_node.py:35
 #: cms/models/feedback/feedback.py:60 cms/models/media/directory.py:24
 #: cms/models/media/media_file.py:138
 #: cms/models/push_notifications/push_notification.py:21
-#: cms/models/regions/region.py:708
+#: cms/models/regions/region.py:708 cms/models/users/organization.py:38
 msgid "region"
 msgstr "Region"
 
-#: cms/models/abstract_content_model.py:102 cms/models/feedback/feedback.py:96
+#: cms/models/abstract_content_model.py:100 cms/models/feedback/feedback.py:96
 #: cms/models/languages/language.py:87
 #: cms/models/languages/language_tree_node.py:39
 #: cms/models/media/directory.py:36 cms/models/offers/offer_template.py:56
 #: cms/models/push_notifications/push_notification.py:45
-#: cms/models/regions/region.py:197 cms/models/users/organization.py:34
+#: cms/models/regions/region.py:197 cms/models/users/organization.py:41
 #: cms/models/users/user_mfa_key.py:39
 msgid "creation date"
 msgstr "Erstellungsdatum"
@@ -2086,7 +2097,7 @@ msgstr ""
 #: cms/models/languages/language_tree_node.py:43
 #: cms/models/offers/offer_template.py:60
 #: cms/models/push_notifications/push_notification_translation.py:37
-#: cms/models/regions/region.py:201 cms/models/users/organization.py:38
+#: cms/models/regions/region.py:201 cms/models/users/organization.py:34
 msgid "modification date"
 msgstr "Änderungsdatum"
 
@@ -2151,6 +2162,7 @@ msgid "icon"
 msgstr "Icon"
 
 #: cms/models/events/event.py:108 cms/models/pois/poi.py:50
+#: cms/views/bulk_action_views.py:223
 msgid "archived"
 msgstr "archiviert"
 
@@ -2319,7 +2331,7 @@ msgstr "Impressum"
 msgid "imprint feedback"
 msgstr "Impressums-Feedback"
 
-#: cms/models/feedback/map_feedback.py:21 cms/templates/_base.html:162
+#: cms/models/feedback/map_feedback.py:21 cms/templates/_base.html:169
 #: cms/templates/pois/poi_list.html:11
 msgid "Locations"
 msgstr "Orte"
@@ -2395,8 +2407,8 @@ msgid ""
 msgstr "Eindeutiger Bezeichner für URLs, ohne Leerzeichen und Sonderzeichen."
 
 #: cms/models/languages/language.py:37
-#: cms/templates/language_tree/language_tree.html:24
 #: cms/templates/languages/language_list.html:24
+#: cms/templates/languagetreenodes/languagetreenode_list.html:26
 msgid "BCP47 Tag"
 msgstr "BCP47 Tag"
 
@@ -2535,7 +2547,7 @@ msgstr "Sprach-Knoten"
 
 #: cms/models/media/directory.py:17 cms/models/media/media_file.py:123
 #: cms/models/offers/offer_template.py:17 cms/models/regions/region.py:67
-#: cms/models/users/organization.py:14 cms/models/users/role.py:20
+#: cms/models/users/organization.py:15 cms/models/users/role.py:20
 msgid "name"
 msgstr "Name"
 
@@ -2597,7 +2609,7 @@ msgstr "Medien-Datei"
 msgid "media files"
 msgstr "Medien-Dateien"
 
-#: cms/models/offers/offer_template.py:21 cms/models/users/organization.py:19
+#: cms/models/offers/offer_template.py:21 cms/models/users/organization.py:20
 msgid "slug"
 msgstr "URL-Parameter"
 
@@ -2951,7 +2963,7 @@ msgstr ""
 msgid "URL parameter"
 msgstr "URL-Parameter"
 
-#: cms/models/regions/region.py:84 cms/models/users/organization.py:20
+#: cms/models/regions/region.py:84 cms/models/users/organization.py:21
 msgid "Unique string identifier without spaces and special characters."
 msgstr "Eindeutiger Bezeichner ohne Leerzeichen und Sonderzeichen."
 
@@ -3108,7 +3120,7 @@ msgstr ""
 "Damit kann einzelnen Benutzern das Recht zum Bearbeiten oder Veröffentlichen "
 "einer bestimmten Seite eingeräumt werden."
 
-#: cms/models/regions/region.py:238 cms/models/users/organization.py:25
+#: cms/models/regions/region.py:238 cms/models/users/organization.py:26
 msgid "logo"
 msgstr "Logo"
 
@@ -3196,11 +3208,11 @@ msgstr ""
 msgid "regions"
 msgstr "Regionen"
 
-#: cms/models/users/organization.py:63 cms/models/users/user.py:65
+#: cms/models/users/organization.py:66 cms/models/users/user.py:65
 msgid "organization"
 msgstr "Organisation"
 
-#: cms/models/users/organization.py:65
+#: cms/models/users/organization.py:70
 msgid "organizations"
 msgstr "Organisationen"
 
@@ -3351,33 +3363,37 @@ msgstr "Statistiken"
 msgid "Translation Report"
 msgstr "Übersetzungsbericht"
 
-#: cms/templates/_base.html:127
+#: cms/templates/_base.html:128 cms/templates/_base.html:271
+#: cms/templates/feedback/region_feedback_list.html:9
+msgid "Feedback"
+msgstr "Feedback"
+
+#: cms/templates/_base.html:134
 #: cms/templates/analytics/_broken_links_widget.html:12
 msgid "Broken Links"
 msgstr "Fehlerhafte Links"
 
-#: cms/templates/_base.html:132
-msgid "Contents"
-msgstr "Inhalte"
+#: cms/templates/_base.html:139 cms/templates/imprint/imprint_revisions.html:62
+#: cms/templates/imprint/imprint_revisions.html:74
+#: cms/templates/pages/_page_xliff_import_diff.html:83
+#: cms/templates/pages/page_revisions.html:79
+#: cms/templates/pages/page_revisions.html:91
+msgid "Content"
+msgstr "Inhalt"
 
-#: cms/templates/_base.html:139 cms/templates/_base.html:228
+#: cms/templates/_base.html:146 cms/templates/_base.html:235
 #: cms/templates/_tinymce_config.html:58
 #: cms/views/media/media_context_mixin.py:29
 msgid "Media Library"
 msgstr "Medienbibliothek"
 
-#: cms/templates/_base.html:146
+#: cms/templates/_base.html:153
 msgid "Pages"
 msgstr "Seiten"
 
-#: cms/templates/_base.html:154 cms/templates/events/event_list.html:10
+#: cms/templates/_base.html:161 cms/templates/events/event_list.html:10
 msgid "Events"
 msgstr "Veranstaltungen"
-
-#: cms/templates/_base.html:170 cms/templates/_base.html:271
-#: cms/templates/feedback/region_feedback_list.html:9
-msgid "Feedback"
-msgstr "Feedback"
 
 #: cms/templates/_base.html:177
 #: cms/templates/push_notifications/push_notification_list.html:7
@@ -3390,34 +3406,34 @@ msgstr "Nachrichten"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: cms/templates/_base.html:200 cms/templates/_base.html:242
+#: cms/templates/_base.html:200
+msgid "Organizations"
+msgstr "Organisationen"
+
+#: cms/templates/_base.html:207 cms/templates/_base.html:249
 msgid "Users"
 msgstr "Benutzer"
 
-#: cms/templates/_base.html:208
+#: cms/templates/_base.html:215
 msgid "Language Tree"
 msgstr "Sprach-Baum"
 
-#: cms/templates/_base.html:215 cms/templates/dashboard/admin_dashboard.html:8
+#: cms/templates/_base.html:222 cms/templates/dashboard/admin_dashboard.html:8
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
-#: cms/templates/_base.html:221
+#: cms/templates/_base.html:228
 msgid "Regions"
 msgstr "Regionen"
 
-#: cms/templates/_base.html:235
+#: cms/templates/_base.html:242
 #: cms/templates/analytics/translation_coverage.html:21
 msgid "Languages"
 msgstr "Sprachen"
 
-#: cms/templates/_base.html:250
+#: cms/templates/_base.html:257
 msgid "Roles"
 msgstr "Rollen"
-
-#: cms/templates/_base.html:257
-msgid "Organizations"
-msgstr "Organisationen"
 
 #: cms/templates/_base.html:264
 #: cms/templates/offertemplates/offertemplate_list.html:7
@@ -3517,6 +3533,7 @@ msgstr "Gruppe"
 #: cms/templates/events/event_form.html:44
 #: cms/templates/imprint/imprint_form.html:29
 #: cms/templates/imprint/imprint_sbs.html:25
+#: cms/templates/languagetreenodes/languagetreenode_form.html:23
 #: cms/templates/pages/page_form.html:64 cms/templates/pages/page_sbs.html:28
 #: cms/templates/pois/poi_form.html:38
 msgid "Update"
@@ -3663,34 +3680,42 @@ msgstr ""
 "Inhalte erhalten."
 
 #: cms/templates/analytics/translation_coverage.html:17
-msgid "Overview of the current translation status"
-msgstr "Hier können Sie den Status der Übersetzungen sehen."
+msgid "Current translation status"
+msgstr "Aktueller Übersetzungs-Status"
 
 #: cms/templates/analytics/translation_coverage.html:21
 msgid "Number of Pages"
 msgstr "Anzahl an Seiten"
 
 #: cms/templates/analytics/translation_coverage.html:28
-msgid "Outdated Translations"
-msgstr "Veraltete Übersetzungen"
+msgid "Outdated and missing Translations"
+msgstr "Veraltete und fehlende Übersetzungen"
 
 #: cms/templates/analytics/translation_coverage.html:32
 msgid ""
-"This overview show the approximate number of words of all outdated "
+"This overview show the approximate number of words of outdated and missing "
 "translations."
 msgstr ""
-"Diese Übersicht zeigt die ungefähre Wörteranzahl aller veralteten "
-"Übersetzungen."
+"Diese Übersicht zeigt die ungefähre Wörteranzahl aller veralteten und "
+"fehlenden Übersetzungen."
 
 #: cms/templates/analytics/translation_coverage.html:39
-msgid "Words"
-msgstr "Wörter"
+msgid "Outdated (Words)"
+msgstr "Veraltet (Wörter)"
 
-#: cms/templates/analytics/translation_coverage.html:55
+#: cms/templates/analytics/translation_coverage.html:40
+msgid "Missing (Words)"
+msgstr "Fehlend (Wörter)"
+
+#: cms/templates/analytics/translation_coverage.html:41
+msgid "Total (per language)"
+msgstr "Summe (pro Sprache)"
+
+#: cms/templates/analytics/translation_coverage.html:64
 msgid "No Language available."
 msgstr "Noch keine Sprachen vorhanden."
 
-#: cms/templates/analytics/translation_coverage.html:61
+#: cms/templates/analytics/translation_coverage.html:70
 msgid "Total"
 msgstr "Summe"
 
@@ -4011,7 +4036,7 @@ msgstr "In die Zwischenablage kopieren"
 #: cms/templates/events/event_form.html:122
 #: cms/templates/imprint/imprint_form.html:102
 #: cms/templates/pages/page_form.html:175
-#: cms/templates/pages/page_revisions.html:58
+#: cms/templates/pages/page_revisions.html:68
 #: cms/templates/pois/poi_form.html:119
 msgid "Minor edit"
 msgstr "Geringfügige Änderung"
@@ -4168,6 +4193,7 @@ msgstr "Veranstaltungen ausgewählt"
 #: cms/templates/events/event_list_archived.html:82
 #: cms/templates/feedback/admin_feedback_list.html:131
 #: cms/templates/feedback/region_feedback_list.html:123
+#: cms/templates/languagetreenodes/languagetreenode_list.html:50
 #: cms/templates/linkcheck/links_by_filter.html:98
 #: cms/templates/pages/page_tree.html:150
 #: cms/templates/pages/page_tree_archived.html:92
@@ -4202,6 +4228,7 @@ msgstr "Diese Sprache wird von DeepL nicht unterstützt"
 #: cms/templates/events/event_list_archived.html:87
 #: cms/templates/feedback/admin_feedback_list.html:145
 #: cms/templates/feedback/region_feedback_list.html:137
+#: cms/templates/languagetreenodes/languagetreenode_list.html:65
 #: cms/templates/linkcheck/links_by_filter.html:116
 #: cms/templates/pages/_page_xliff_export_overlay.html:42
 #: cms/templates/pages/page_tree.html:190
@@ -4342,7 +4369,7 @@ msgstr "Als ungelesen markieren"
 
 #: cms/templates/feedback/admin_feedback_list.html:141
 #: cms/templates/feedback/region_feedback_list.html:133
-#: cms/templates/language_tree/language_tree.html:29
+#: cms/templates/languagetreenodes/languagetreenode_list.html:31
 msgid "Delete"
 msgstr "Löschen"
 
@@ -4467,46 +4494,35 @@ msgid "deleted user"
 msgstr "gelöschter Benutzer"
 
 #: cms/templates/imprint/imprint_revisions.html:49
-#: cms/templates/pages/page_revisions.html:53
+#: cms/templates/pages/page_revisions.html:57
 msgid "This is the version shown in the apps."
 msgstr "Diese Version wird in den Apps angezeigt."
 
 #: cms/templates/imprint/imprint_revisions.html:51
-#: cms/templates/pages/page_revisions.html:55
 msgid "This is <b>not</b> the version shown in the apps."
 msgstr "Diese Version wird <b>nicht</b> in den Apps angezeigt."
 
 #: cms/templates/imprint/imprint_revisions.html:58
 #: cms/templates/imprint/imprint_revisions.html:72
-#: cms/templates/pages/page_revisions.html:65
-#: cms/templates/pages/page_revisions.html:79
+#: cms/templates/pages/page_revisions.html:75
+#: cms/templates/pages/page_revisions.html:89
 msgid "Permalink"
 msgstr "Permalink"
 
 #: cms/templates/imprint/imprint_revisions.html:60
 #: cms/templates/imprint/imprint_revisions.html:73
 #: cms/templates/pages/_page_xliff_import_diff.html:81
-#: cms/templates/pages/page_revisions.html:67
-#: cms/templates/pages/page_revisions.html:80
+#: cms/templates/pages/page_revisions.html:77
+#: cms/templates/pages/page_revisions.html:90
 #: cms/templates/push_notifications/push_notification_list.html:25
 msgid "Title"
 msgstr "Titel"
 
-#: cms/templates/imprint/imprint_revisions.html:62
-#: cms/templates/imprint/imprint_revisions.html:74
-#: cms/templates/pages/_page_xliff_import_diff.html:83
-#: cms/templates/pages/page_revisions.html:69
-#: cms/templates/pages/page_revisions.html:81
-msgid "Content"
-msgstr "Inhalt"
-
 #: cms/templates/imprint/imprint_revisions.html:79
-#: cms/templates/pages/page_revisions.html:89
 msgid "Restore this version as draft"
 msgstr "Diese Version als Entwurf wiederherstellen"
 
 #: cms/templates/imprint/imprint_revisions.html:80
-#: cms/templates/pages/page_revisions.html:90
 msgid "Restore and publish this version"
 msgstr "Diese Version wiederherstellen und veröffentlichen"
 
@@ -4551,62 +4567,15 @@ msgstr "Noch nicht gespeichert"
 msgid "Implications on other translations"
 msgstr "Auswirkungen auf andere Übersetzungen"
 
-#: cms/templates/language_tree/language_tree.html:7
-msgid "Language tree"
-msgstr "Sprach-Baum"
+#: cms/templates/languages/language_form.html:12
+#, python-format
+msgid "Edit language \"%(translated_language_name)s\""
+msgstr "Sprache \"%(translated_language_name)s\" bearbeiten"
 
-#: cms/templates/language_tree/language_tree.html:11
-msgid "Create language tree node"
-msgstr "Sprach-Knoten hinzufügen"
+#: cms/templates/languages/language_form.html:15
+msgid "Create new language"
+msgstr "Neue Sprache erstellen"
 
-#: cms/templates/language_tree/language_tree.html:21
-#: cms/templates/pages/page_tree.html:67
-#: cms/templates/pages/page_tree_archived.html:48
-msgid "Hierarchy"
-msgstr "Hierarchie"
-
-#: cms/templates/language_tree/language_tree.html:23
-#: cms/templates/languages/language_list.html:23
-#: cms/templates/offertemplates/offertemplate_list.html:21
-#: cms/templates/organizations/organization_list.html:21
-msgid "Slug"
-msgstr "URL-Parameter"
-
-#: cms/templates/language_tree/language_tree.html:25
-#: cms/templates/languages/language_list.html:26
-msgid "Text direction"
-msgstr "Schreibrichtung"
-
-#: cms/templates/language_tree/language_tree.html:26
-#: cms/templates/languages/language_list.html:25
-msgid "Country Flags"
-msgstr "Länderflaggen"
-
-#: cms/templates/language_tree/language_tree.html:28
-msgid "Visible"
-msgstr "sichtbar"
-
-#: cms/templates/language_tree/language_tree.html:39
-msgid "No language tree available yet."
-msgstr "Noch kein Sprach-Baum vorhanden."
-
-#: cms/templates/language_tree/language_tree_node.html:60
-msgid "You cannot delete a node which has children."
-msgstr "Sie können keinen Knoten mit untergeordneten Sprachen löschen."
-
-#: cms/templates/language_tree/language_tree_node.html:60
-msgid "Delete entire language node"
-msgstr "Lösche gesamten Sprachknoten"
-
-#: cms/templates/language_tree/language_tree_node_form.html:15
-msgid "Edit language tree node"
-msgstr "Sprach-Knoten bearbeiten"
-
-#: cms/templates/language_tree/language_tree_node_form.html:17
-msgid "Add language"
-msgstr "Sprache hinzufügen"
-
-#: cms/templates/language_tree/language_tree_node_form.html:23
 #: cms/templates/languages/language_form.html:19
 #: cms/templates/linkcheck/link_list_row.html:66
 #: cms/templates/offertemplates/offertemplate_form.html:20
@@ -4618,19 +4587,6 @@ msgstr "Sprache hinzufügen"
 #: cms/templates/users/user_form.html:19
 msgid "Save"
 msgstr "Speichern"
-
-#: cms/templates/language_tree/language_tree_node_form.html:30
-msgid "Language tree node"
-msgstr "Sprach-Knoten"
-
-#: cms/templates/languages/language_form.html:12
-#, python-format
-msgid "Edit language \"%(translated_language_name)s\""
-msgstr "Sprache \"%(translated_language_name)s\" bearbeiten"
-
-#: cms/templates/languages/language_form.html:15
-msgid "Create new language"
-msgstr "Neue Sprache erstellen"
 
 #: cms/templates/languages/language_form.html:27
 #: cms/templates/offertemplates/offertemplate_list.html:20
@@ -4697,6 +4653,23 @@ msgstr "Name auf"
 msgid "Native name"
 msgstr "Nativer Name"
 
+#: cms/templates/languages/language_list.html:23
+#: cms/templates/languagetreenodes/languagetreenode_list.html:25
+#: cms/templates/offertemplates/offertemplate_list.html:21
+#: cms/templates/organizations/organization_list.html:21
+msgid "Slug"
+msgstr "URL-Parameter"
+
+#: cms/templates/languages/language_list.html:25
+#: cms/templates/languagetreenodes/languagetreenode_list.html:28
+msgid "Country Flags"
+msgstr "Länderflaggen"
+
+#: cms/templates/languages/language_list.html:26
+#: cms/templates/languagetreenodes/languagetreenode_list.html:27
+msgid "Text direction"
+msgstr "Schreibrichtung"
+
 #: cms/templates/languages/language_list.html:27
 #: cms/templates/offertemplates/offertemplate_list.html:24
 #: cms/templates/regions/region_list.html:22
@@ -4725,6 +4698,75 @@ msgstr "Anzahl an Regionen"
 #: cms/templates/languages/language_list.html:39
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
+
+#: cms/templates/languagetreenodes/languagetreenode_form.html:15
+#, python-format
+msgid "Edit language tree node \"%(translated_language_name)s\""
+msgstr "Sprach-Knoten \"%(translated_language_name)s\" bearbeiten"
+
+#: cms/templates/languagetreenodes/languagetreenode_form.html:18
+msgid "Add language to this region"
+msgstr "Sprache zu dieser Region hinzufügen"
+
+#: cms/templates/languagetreenodes/languagetreenode_form.html:26
+#: cms/templates/offertemplates/offertemplate_form.html:22
+#: cms/views/media/media_context_mixin.py:42
+msgid "Create"
+msgstr "Erstellen"
+
+#: cms/templates/languagetreenodes/languagetreenode_form.html:27
+msgid "Create and add more"
+msgstr "Erstellen und weitere hinzufügen"
+
+#: cms/templates/languagetreenodes/languagetreenode_form.html:44
+msgid "Language tree node"
+msgstr "Sprach-Knoten"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:7
+msgid "Language tree"
+msgstr "Sprach-Baum"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:10
+msgid "Create language tree node"
+msgstr "Sprach-Knoten hinzufügen"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:23
+#: cms/templates/pages/page_tree.html:67
+#: cms/templates/pages/page_tree_archived.html:48
+msgid "Hierarchy"
+msgstr "Hierarchie"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:30
+msgid "Visible"
+msgstr "sichtbar"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:41
+msgid "No language tree available yet."
+msgstr "Noch kein Sprach-Baum vorhanden."
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:53
+msgid "Make languages visible in apps"
+msgstr "Sprachen in Apps sichtbar machen"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:56
+msgid "Hide languages in apps"
+msgstr "Sprachen in Apps verstecken"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:59
+msgid "Activate languages in content management system"
+msgstr "Sprachen im Redaktionssystem aktivieren"
+
+#: cms/templates/languagetreenodes/languagetreenode_list.html:62
+msgid "Disable languages in content management system"
+msgstr "Sprachen im Redaktionssystem deaktivieren"
+
+#: cms/templates/languagetreenodes/languagetreenode_list_row.html:54
+msgid "You cannot delete a node which has children."
+msgstr "Sie können keinen Knoten mit untergeordneten Sprachen löschen."
+
+#: cms/templates/languagetreenodes/languagetreenode_list_row.html:54
+msgid "Delete entire language node"
+msgstr "Lösche gesamten Sprachknoten"
 
 #: cms/templates/linkcheck/link_list_row.html:39
 msgid "Go to source"
@@ -4806,11 +4848,6 @@ msgstr "Angebots-Vorlage \"%(offer_template_name)s\" bearbeiten"
 #: cms/templates/offertemplates/offertemplate_form.html:15
 msgid "Create new offer template"
 msgstr "Neue Angebots-Vorlage erstellen"
-
-#: cms/templates/offertemplates/offertemplate_form.html:22
-#: cms/views/media/media_context_mixin.py:42
-msgid "Create"
-msgstr "Erstellen"
 
 #: cms/templates/offertemplates/offertemplate_form.html:30
 #: cms/templates/organizations/organization_form.html:25
@@ -5009,6 +5046,7 @@ msgstr ""
 "beliebige Seiten zu ändern."
 
 #: cms/templates/pages/page_form.html:291
+#: cms/templates/pages/page_revisions.html:115
 msgid "Refresh date"
 msgstr "Datum aktualisieren"
 
@@ -5121,7 +5159,70 @@ msgstr "Versionen der Seite \"%(page_title)s\""
 msgid "Back to the page form"
 msgstr "Zurück zum Seiten-Formular"
 
-#: cms/templates/pages/page_revisions.html:92
+#: cms/templates/pages/page_revisions.html:61
+#, python-format
+msgid ""
+"This version is <b>not</b> displayed in the apps - but version %(version)s "
+"instead"
+msgstr ""
+"Diese Version wird <b>nicht</b> in den Apps angezeigt - sondern stattdessen "
+"Version %(version)s"
+
+#: cms/templates/pages/page_revisions.html:64
+msgid "This translation is <b>not</b> shown in the apps"
+msgstr "Diese Übersetzung wird <b>nicht</b> in den Apps angezeigt"
+
+#: cms/templates/pages/page_revisions.html:100
+msgid "Discard auto save"
+msgstr "Automatische Speicherung verwerfen"
+
+#: cms/templates/pages/page_revisions.html:101
+msgid "Reject changes"
+msgstr "Änderungen ablehnen"
+
+#: cms/templates/pages/page_revisions.html:103
+#: cms/templates/pages/page_revisions.html:104
+msgid "Restore as draft"
+msgstr "Als Entwurf wiederherstellen"
+
+#: cms/templates/pages/page_revisions.html:105
+msgid "Restore auto save as draft"
+msgstr "Automatische Speicherung als Entwurf wiederherstellen"
+
+#: cms/templates/pages/page_revisions.html:106
+msgid "Accept and restore changes as draft"
+msgstr "Änderung akzeptieren und als Entwurf wiederherstellen"
+
+#: cms/templates/pages/page_revisions.html:108
+msgid "Accept current changes as draft"
+msgstr "Aktuelle Änderungen als Entwurf akzeptieren"
+
+#: cms/templates/pages/page_revisions.html:110
+#: cms/templates/pages/page_revisions.html:111
+msgid "Restore and publish"
+msgstr "Wiederherstellen und veröffentlichen"
+
+#: cms/templates/pages/page_revisions.html:112
+msgid "Restore and publish auto save"
+msgstr "Automatische Speicherung wiederherstellen und veröffentlichen"
+
+#: cms/templates/pages/page_revisions.html:113
+msgid "Accept, restore and publish changes"
+msgstr "Änderungen akzeptieren, wiederherstellen und veröffentlichen"
+
+#: cms/templates/pages/page_revisions.html:116
+msgid "Publish the current draft"
+msgstr "Den aktuellen Entwurf veröffentlichen"
+
+#: cms/templates/pages/page_revisions.html:117
+msgid "Publish auto save"
+msgstr "Automatische Speicherung veröffentlichen"
+
+#: cms/templates/pages/page_revisions.html:118
+msgid "Accept and publish the current changes"
+msgstr "Die aktuellen Änderungen akzeptieren und veröffentlichen"
+
+#: cms/templates/pages/page_revisions.html:120
 msgid "Restore this version and submit for review"
 msgstr "Diese Revision wiederherstellen und zum Review vorlegen"
 
@@ -6184,15 +6285,15 @@ msgstr ""
 "Diese Sprache wird von DeepL nicht unterstützt. Bitte versuchen Sie eine "
 "andere Sprache"
 
-#: cms/views/bulk_action_views.py:177
-msgid "The selected {} were successfully archived"
-msgstr "Die ausgewählten {} wurden erfolgreich archiviert"
+#: cms/views/bulk_action_views.py:205
+msgid "The selected {} were successfully {}"
+msgstr "Die ausgewählten {} wurden erfolgreich {}"
 
-#: cms/views/bulk_action_views.py:216
-msgid "The selected {} were successfully restored"
-msgstr "Die ausgewählten {} wurden erfolgreich wiederhergestellt"
+#: cms/views/bulk_action_views.py:236
+msgid "restored"
+msgstr "wiederhergestellt"
 
-#: cms/views/delete_views.py:80
+#: cms/views/delete_views.py:83
 msgid "{} \"{}\" was successfully deleted"
 msgstr "{} \"{}\" wurde erfolgreich gelöscht"
 
@@ -6298,7 +6399,7 @@ msgstr ""
 
 #: cms/views/events/event_form_view.py:199
 #: cms/views/imprint/imprint_form_view.py:217
-#: cms/views/pages/page_form_view.py:271 cms/views/pois/poi_form_view.py:168
+#: cms/views/pages/page_form_view.py:309 cms/views/pois/poi_form_view.py:168
 msgid "No changes detected, autosave skipped"
 msgstr "Keine Änderungen vorgenommen, automatisches Speichern übersprungen"
 
@@ -6307,7 +6408,9 @@ msgid "Event \"{}\" was successfully created"
 msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/events/event_form_view.py:239
-#: cms/views/pages/page_form_view.py:325 cms/views/pois/poi_form_view.py:192
+#: cms/views/pages/page_form_view.py:363
+#: cms/views/pages/page_revision_view.py:189
+#: cms/views/pois/poi_form_view.py:192
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
@@ -6338,21 +6441,20 @@ msgstr "Feedback wurde als ungelesen markiert"
 msgid "Feedback was successfully deleted"
 msgstr "Feedback wurde erfolgreich gelöscht"
 
-#: cms/views/form_views.py:97 cms/views/imprint/imprint_sbs_view.py:209
-#: cms/views/language_tree/language_tree_node_form_view.py:105
-#: cms/views/pages/page_sbs_view.py:207 cms/views/roles/role_form_view.py:93
+#: cms/views/form_views.py:117 cms/views/imprint/imprint_sbs_view.py:209
+#: cms/views/pages/page_sbs_view.py:214 cms/views/roles/role_form_view.py:93
 #: cms/views/settings/user_settings_view.py:91
 #: cms/views/settings/user_settings_view.py:108
-#: cms/views/users/region_user_form_view.py:95
+#: cms/views/users/region_user_form_view.py:97
 #: cms/views/users/user_form_view.py:107
 msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
-#: cms/views/form_views.py:101
+#: cms/views/form_views.py:121
 msgid "{} \"{}\" was successfully saved"
 msgstr "{} \"{}\" wurde erfolgreich gespeichert"
 
-#: cms/views/form_views.py:108
+#: cms/views/form_views.py:128
 msgid "{} \"{}\" was successfully created"
 msgstr "{} \"{}\" wurde erfolgreich erstellt"
 
@@ -6389,15 +6491,15 @@ msgid "Imprint was successfully created"
 msgstr "Impressum wurde erfolgreich erstellt"
 
 #: cms/views/imprint/imprint_form_view.py:289
-#: cms/views/pages/page_form_view.py:400
+#: cms/views/pages/page_form_view.py:438
 #, python-brace-format
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
 
 #: cms/views/imprint/imprint_revision_view.py:72
 #: cms/views/imprint/imprint_revision_view.py:136
-#: cms/views/pages/page_revision_view.py:77
-#: cms/views/pages/page_revision_view.py:136
+#: cms/views/pages/page_revision_view.py:78
+#: cms/views/pages/page_revision_view.py:146
 msgid "This revision does not exist."
 msgstr "Diese Revision existiert nicht."
 
@@ -6408,19 +6510,17 @@ msgstr ""
 "wiederherzustellen."
 
 #: cms/views/imprint/imprint_revision_view.py:154
-#: cms/views/pages/page_revision_view.py:161
 msgid "This revision is identical to the current version of this translation."
 msgstr ""
 "Diese Revision ist identisch mit der aktuellen Version dieser Übersetzung."
 
-#: cms/views/imprint/imprint_revision_view.py:177
-#: cms/views/pages/page_revision_view.py:193
+#: cms/views/imprint/imprint_revision_view.py:179
 msgid "The revision was successfully restored"
 msgstr "Die Revision wurde erfolgreich wiederhergestellt"
 
 #: cms/views/imprint/imprint_sbs_view.py:81
 #: cms/views/imprint/imprint_sbs_view.py:166
-#: cms/views/pages/page_sbs_view.py:59 cms/views/pages/page_sbs_view.py:162
+#: cms/views/pages/page_sbs_view.py:65 cms/views/pages/page_sbs_view.py:168
 #, python-brace-format
 msgid ""
 "You cannot use the side-by-side-view for the region's default language (in "
@@ -6431,7 +6531,7 @@ msgstr ""
 
 #: cms/views/imprint/imprint_sbs_view.py:99
 #: cms/views/imprint/imprint_sbs_view.py:183
-#: cms/views/pages/page_sbs_view.py:78 cms/views/pages/page_sbs_view.py:180
+#: cms/views/pages/page_sbs_view.py:84 cms/views/pages/page_sbs_view.py:186
 #, python-brace-format
 msgid ""
 "You cannot use the side-by-side-view if the source translation (in this case "
@@ -6440,21 +6540,37 @@ msgstr ""
 "Sie können die Side-by-Side-Ansicht nicht verwenden, wenn die Quell-"
 "Übersetzung (in diesem Fall {source_language}) nicht existiert."
 
-#: cms/views/language_tree/language_tree_actions.py:59
+#: cms/views/language_tree/language_tree_actions.py:55
 msgid "A region can only have one root language."
 msgstr "Eine Region kann nur eine Standard-Sprache besitzen."
 
-#: cms/views/language_tree/language_tree_actions.py:68
+#: cms/views/language_tree/language_tree_actions.py:64
 msgid "The language tree node \"{}\" was successfully moved."
 msgstr "Der Sprach-Knoten \"{}\" wurde erfolgreich verschoben."
 
-#: cms/views/language_tree/language_tree_actions.py:139
+#: cms/views/language_tree/language_tree_actions.py:133
 msgid ""
 "The language tree node \"{}\" and all corresponding translations were "
 "successfully deleted."
 msgstr ""
 "Der Sprach-Knoten \"{}\" und alle entsprechenden Übersetzungen wurden "
 "erfolgreich gelöscht."
+
+#: cms/views/language_tree/language_tree_bulk_actions.py:86
+msgid "made visible"
+msgstr "sichtbar gemacht"
+
+#: cms/views/language_tree/language_tree_bulk_actions.py:99
+msgid "hidden"
+msgstr "versteckt"
+
+#: cms/views/language_tree/language_tree_bulk_actions.py:112
+msgid "activated"
+msgstr "aktiviert"
+
+#: cms/views/language_tree/language_tree_bulk_actions.py:125
+msgid "disabled"
+msgstr "deaktiviert"
 
 #: cms/views/language_tree/language_tree_context_mixin.py:30
 msgid "Please confirm that you really want to delete this language node"
@@ -6467,14 +6583,6 @@ msgid ""
 msgstr ""
 "Alle Übersetzungen zu Seiten, Orten, Veranstaltungen und Push-"
 "Benachrichtigungen zu dieser Sprache werden ebenfalls gelöscht."
-
-#: cms/views/language_tree/language_tree_node_form_view.py:113
-msgid "Language tree node for \"{}\" was successfully saved"
-msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich gespeichert"
-
-#: cms/views/language_tree/language_tree_node_form_view.py:121
-msgid "Language tree node for \"{}\" was successfully created"
-msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/linkcheck/linkcheck_list_view.py:180
 msgid "URL was successfully replaced"
@@ -6766,7 +6874,7 @@ msgid "Success: The user \"{}\" cannot publish this page anymore."
 msgstr ""
 "Erfolg: Der Nutzer \"{}\" kann diese Seite nun nicht mehr veröffentlichen"
 
-#: cms/views/pages/page_actions.py:899
+#: cms/views/pages/page_actions.py:896
 msgid "Marked all translations of this page as up-to-date"
 msgstr "Alle Übersetzungen dieser Seite als aktuell markiert."
 
@@ -6798,24 +6906,24 @@ msgstr ""
 "XLIFF Datei für die Übersetzung in die ausgewählten Sprachen wurde "
 "erfolgreich erstellt."
 
-#: cms/views/pages/page_context_mixin.py:38
+#: cms/views/pages/page_context_mixin.py:41
 msgid "Please confirm that you really want to archive this page"
 msgstr "Bitte bestätigen Sie, dass diese Seite archiviert werden soll"
 
-#: cms/views/pages/page_context_mixin.py:41
+#: cms/views/pages/page_context_mixin.py:44
 msgid "All subpages of this page are automatically archived as well."
 msgstr "Alle Unterseiten dieser Seite werden automatisch ebenfalls archiviert."
 
-#: cms/views/pages/page_context_mixin.py:42
-#: cms/views/pages/page_context_mixin.py:52
+#: cms/views/pages/page_context_mixin.py:45
+#: cms/views/pages/page_context_mixin.py:55
 msgid "This affects all translations."
 msgstr "Dies betrifft alle Übersetzungen."
 
-#: cms/views/pages/page_context_mixin.py:45
+#: cms/views/pages/page_context_mixin.py:48
 msgid "Please confirm that you really want to restore this page"
 msgstr "Bitte bestätigen Sie, dass diese Seite wiederhergestellt werden soll"
 
-#: cms/views/pages/page_context_mixin.py:49
+#: cms/views/pages/page_context_mixin.py:52
 msgid ""
 "All subpages of this page that were not already archived before this page "
 "are also restored."
@@ -6823,24 +6931,24 @@ msgstr ""
 "Es werden auch alle Unterseiten dieser Seite wiederhergestellt, die nicht "
 "bereits vor dieser Seite archiviert wurden."
 
-#: cms/views/pages/page_context_mixin.py:51
+#: cms/views/pages/page_context_mixin.py:54
 msgid "Please check the subpages after the process is complete."
 msgstr ""
 "Bitte überprüfen Sie die Unterseiten, nachdem der Vorgang abgeschlossen ist."
 
-#: cms/views/pages/page_context_mixin.py:55
+#: cms/views/pages/page_context_mixin.py:58
 msgid "Please confirm that you really want to delete this page"
 msgstr "Bitte bestätigen Sie, dass diese Seite gelöscht werden soll"
 
-#: cms/views/pages/page_context_mixin.py:58
+#: cms/views/pages/page_context_mixin.py:61
 msgid "All translations of this page will also be deleted."
 msgstr "Alle Übersetzungen dieser Seite werden gelöscht."
 
-#: cms/views/pages/page_form_view.py:80
+#: cms/views/pages/page_form_view.py:81
 msgid "You cannot edit this page because it is archived."
 msgstr "Sie können diese Seite nicht bearbeiten, weil sie archiviert ist."
 
-#: cms/views/pages/page_form_view.py:87
+#: cms/views/pages/page_form_view.py:88
 msgid ""
 "You cannot edit this page, because one of its parent pages is archived and "
 "therefore, this page is archived as well."
@@ -6848,22 +6956,48 @@ msgstr ""
 "Sie können diese Seite nicht bearbeiten, weil eine ihrer übergeordneten "
 "Seiten archiviert ist, und sie dadurch ebenfalls archiviert ist."
 
-#: cms/views/pages/page_form_view.py:96
-#, python-format
-msgid ""
-"The latest changes have only been saved as a draft. Currently, <a "
-"href='%(revision_url)s' class='underline hover:no-underline'>version "
-"%(revision)s</a> of this page is displayed in the app."
-msgstr ""
-"Die letzten Änderungen wurden nur als Entwurf gespeichert. Aktuell wird "
-"Version <a href='%(revision_url)s' class='underline hover:no-"
-"underline'>Version %(revision)s</a> dieser Seite in der App angezeigt."
+#: cms/views/pages/page_form_view.py:104
+msgid "The last changes were saved automatically."
+msgstr "Die letzten Änderungen wurden automatisch gespeichert."
 
-#: cms/views/pages/page_form_view.py:117 cms/views/pages/page_sbs_view.py:96
+#: cms/views/pages/page_form_view.py:105
+msgid "discard"
+msgstr "verwerfen"
+
+#: cms/views/pages/page_form_view.py:107
+msgid "The latest changes are pending review."
+msgstr "Die letzten Änderungen stehen zur Überprüfung aus."
+
+#: cms/views/pages/page_form_view.py:108
+msgid "reject"
+msgstr "ablehnen"
+
+#: cms/views/pages/page_form_view.py:114
+#, python-brace-format
+msgid ""
+"You can {action} these changes in the {link_start}version overview{link_end}."
+msgstr ""
+"Sie können diese Änderungen in der {link_start}Versionsübersicht{link_end} "
+"{action}."
+
+#: cms/views/pages/page_form_view.py:128
+msgid "The latest changes have only been saved as a draft."
+msgstr "Die letzten Änderungen wurden nur als Entwurf gespeichert."
+
+#: cms/views/pages/page_form_view.py:142
+#, python-brace-format
+msgid ""
+"Currently, {link_start}version {version}{link_end} of this page is displayed "
+"in the app."
+msgstr ""
+"Aktuell wird {link_start}Version {version}{link_end} dieser Seite in der App "
+"angezeigt."
+
+#: cms/views/pages/page_form_view.py:155 cms/views/pages/page_sbs_view.py:102
 msgid "You don't have the permission to edit this page."
 msgstr "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten."
 
-#: cms/views/pages/page_form_view.py:124
+#: cms/views/pages/page_form_view.py:162
 msgid ""
 "You don't have the permission to publish this page, but you can propose "
 "changes and submit them for review instead."
@@ -6871,7 +7005,7 @@ msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu veröffentlichen, "
 "aber Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
 
-#: cms/views/pages/page_form_view.py:301
+#: cms/views/pages/page_form_view.py:339
 msgid ""
 "The \"minor edit\" option was disabled because the first version can never "
 "be a minor edit."
@@ -6879,20 +7013,39 @@ msgstr ""
 "Die \"geringfügige Änderung\"-Option wurde deaktiviert, da die erste Version "
 "niemals eine geringfügige Änderung sein kann."
 
-#: cms/views/pages/page_form_view.py:318
+#: cms/views/pages/page_form_view.py:356
 msgid "Page \"{}\" was successfully created"
 msgstr "Seite \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/pages/page_revision_view.py:69
-msgid "You don't have the permission to restore revisions of this page."
+#: cms/views/pages/page_revision_view.py:70
+msgid "You don't have the permission to restore versions of this page."
 msgstr ""
-"Sie haben nicht die nötige Berechtigung, um Revisionen dieser Seite "
+"Sie haben nicht die nötige Berechtigung, um Versionen dieser Seite "
 "wiederherzustellen."
 
-#: cms/views/pages/page_revision_view.py:90
-msgid "You cannot restore revisions of this page because it is archived."
+#: cms/views/pages/page_revision_view.py:91
+msgid "You cannot restore versions of this page because it is archived."
 msgstr ""
-"Sie können Revisionen dieser Seite nicht bearbeiten, weil sie archiviert ist."
+"Sie können Versionen dieser Seite nicht bearbeiten, weil sie archiviert ist."
+
+#: cms/views/pages/page_revision_view.py:170
+msgid "You cannot reject changes if there is no version to return to."
+msgstr ""
+"Sie können keine Änderungen ablehnen, wenn es keine Version gibt, zu der Sie "
+"zurückkehren können."
+
+#: cms/views/pages/page_revision_view.py:193
+msgid "No changes detected, but status changed to published"
+msgstr "Keine Änderungen vorgenommen, aber Status zu veröffentlicht geändert"
+
+#: cms/views/pages/page_revision_view.py:199
+msgid "This version is identical to the current version of this translation."
+msgstr ""
+"Diese Version ist identisch mit der aktuellen Version dieser Übersetzung."
+
+#: cms/views/pages/page_revision_view.py:228
+msgid "The version was successfully restored"
+msgstr "Die Version wurde erfolgreich wiederhergestellt"
 
 #: cms/views/pages/page_tree_view.py:88
 msgid "You don't have the permission to edit or create pages."
@@ -7109,17 +7262,17 @@ msgid "User {} was successfully removed from this region."
 msgstr "Benutzer {} wurde erfolgreich von dieser Region entfernt."
 
 #: cms/views/users/region_user_form_view.py:53
-#: cms/views/users/region_user_form_view.py:128
+#: cms/views/users/region_user_form_view.py:130
 #: cms/views/users/user_form_view.py:51 cms/views/users/user_form_view.py:137
 msgid "Pending account activation"
 msgstr "Aktivierung des Benutzerkontos noch ausstehend"
 
-#: cms/views/users/region_user_form_view.py:109
+#: cms/views/users/region_user_form_view.py:111
 #: cms/views/users/user_form_view.py:119
 msgid "User \"{}\" was successfully created"
 msgstr "Benutzer \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/users/region_user_form_view.py:117
+#: cms/views/users/region_user_form_view.py:119
 #: cms/views/users/user_form_view.py:127
 msgid "User \"{}\" was successfully saved"
 msgstr "Benutzer \"{}\" wurde erfolgreich gespeichert"
@@ -7220,6 +7373,65 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "The selected {} were successfully restored"
+#~ msgstr "Die ausgewählten {} wurden erfolgreich wiederhergestellt"
+
+#~ msgid "Edit language tree node"
+#~ msgstr "Sprach-Knoten bearbeiten"
+
+#~ msgid "Add language"
+#~ msgstr "Sprache hinzufügen"
+
+#~ msgid "Publish changes"
+#~ msgstr "Änderungen veröffentlichen"
+
+#~ msgid "Convert current version to draft"
+#~ msgstr "Aktuelle Version zum Entwurf konvertieren"
+
+#~ msgid "Convert the current auto save to draft"
+#~ msgstr "Die aktuelle automatische Speicherung zum Entwurf konvertieren"
+
+#~ msgid "Publish the current auto save"
+#~ msgstr "Die aktuelle automatische Speicherung veröffentlichen"
+
+#~ msgid "Organization \"{}\" was successfully {}"
+#~ msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
+
+#~ msgid "deleted"
+#~ msgstr "Löschen"
+
+#~ msgid "You don't have the permission to edit or create organizations."
+#~ msgstr ""
+#~ "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten."
+
+#~ msgid "You don't have the permission to edit an organization."
+#~ msgstr ""
+#~ "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten."
+
+#~ msgid "edited"
+#~ msgstr "Bearbeiter"
+
+#~ msgid "created"
+#~ msgstr "Erstellt"
+
+#~ msgid "Language tree node for \"{}\" was successfully saved"
+#~ msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich gespeichert"
+
+#~ msgid "Language tree node for \"{}\" was successfully created"
+#~ msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich erstellt"
+
+#~ msgid "Contents"
+#~ msgstr "Inhalte"
+
+#~ msgid "Organization was successfully deleted"
+#~ msgstr "Organisation wurde erfolgreich gespeichert"
+
+#~ msgid "Organization \"{}\" was successfully created"
+#~ msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
+
+#~ msgid "Organization \"{}\" saved without changes"
+#~ msgstr "Organisation \"{}\" wurde erfolgreich gespeichert"
+
 #~ msgid ""
 #~ "Here you will find a set of tools to check the success and correctness of "
 #~ "your app. Click on the Details button of a tool to get further "
@@ -7231,6 +7443,12 @@ msgstr ""
 
 #~ msgid "currently not publicly visible"
 #~ msgstr "aktuell nicht öffentlich sichtbar"
+
+#~ msgid "Overview of the current translation status"
+#~ msgstr "Hier können Sie den Status der Übersetzungen sehen."
+
+#~ msgid "Words"
+#~ msgstr "Wörter"
 
 #~ msgid "Export selected pages for %(language_translated_name)s translation"
 #~ msgstr ""
@@ -7257,9 +7475,6 @@ msgstr ""
 
 #~ msgid "Add to publishers"
 #~ msgstr "Erlaubnis zum Veröffentlichen erteilen"
-
-#~ msgid "Publishers"
-#~ msgstr "Veröffentlicher"
 
 #~ msgid "Locations on Map"
 #~ msgstr "Orte auf Karte"
@@ -7478,12 +7693,6 @@ msgstr ""
 
 #~ msgid "Region \"{}\" was successfully created"
 #~ msgstr "Region \"{}\" wurde erfolgreich erstellt"
-
-#~ msgid "Organization \"{}\" was successfully saved"
-#~ msgstr "Organisation \"{}\" wurde erfolgreich gespeichert"
-
-#~ msgid "Organization \"{}\" was successfully created"
-#~ msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
 
 #~ msgid "Promo team"
 #~ msgstr "Promo-Team"
@@ -7854,9 +8063,6 @@ msgstr ""
 #~ msgid "Content of the page"
 #~ msgstr "Inhalt der Seite"
 
-#~ msgid "No change"
-#~ msgstr "Keine Änderungen vorgenommen."
-
 #~ msgid "key"
 #~ msgstr "Schlüssel"
 
@@ -7908,9 +8114,6 @@ msgstr ""
 #~ msgid "Translations outdated"
 #~ msgstr "Veraltete Übersetzungen"
 
-#~ msgid "Translations missing"
-#~ msgstr "Fehlende Übersetzungen"
-
 #~ msgid "Translation Coverage"
 #~ msgstr "Abdeckung der Übersetzungen"
 
@@ -7946,9 +8149,6 @@ msgstr ""
 
 #~ msgid "Offer template was successfully created"
 #~ msgstr "Angebots-Vorlage wurde erfolgreich erstellt"
-
-#~ msgid "Organization was successfully saved"
-#~ msgstr "Organisation wurde erfolgreich gespeichert"
 
 #~ msgid "Error while saving Push Notification"
 #~ msgstr "Fehler während des Speicherns der Push-Benachrichtigung"
@@ -8217,9 +8417,6 @@ msgstr ""
 #~ msgid "Imprint Page"
 #~ msgstr "Impressum"
 
-#~ msgid "Object"
-#~ msgstr "Objekt"
-
 #~ msgid "Extra template saved successfully"
 #~ msgstr "Extra-Vorlage wurde erfolgreich gespeichert."
 
@@ -8392,9 +8589,6 @@ msgstr ""
 
 #~ msgid "parent language node"
 #~ msgstr "übergeordneter Sprach-Knoten"
-
-#~ msgid "Activate language"
-#~ msgstr "Sprache aktivieren"
 
 #~ msgid "The IETF BCP 47 language tag"
 #~ msgstr "Das IETF BCP 47 Sprach-Tag"
@@ -8778,9 +8972,6 @@ msgstr ""
 
 #~ msgid "User"
 #~ msgstr "Benutzer"
-
-#~ msgid "Publish this translation"
-#~ msgstr "Diese Übersetzung veröffentlichen"
 
 #~ msgid "User saved successfully."
 #~ msgstr "Benutzer wurde erfolgreich gespeichert."

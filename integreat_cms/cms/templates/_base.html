@@ -121,6 +121,13 @@
                     <i data-feather="check-circle"></i>
                     {% trans 'Translation Report' %}
                 </a>
+                {% if perms.cms.view_feedback %}
+                <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
+                   class="{% if current_menu_item == 'region_feedback' %} active{% endif %}">
+                    <i data-feather="thumbs-up"></i>
+                    {% trans 'Feedback' %}
+                </a>
+                {% endif %}
                 <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}"
                 class="{% if current_menu_item == 'linkcheck' %} active{% endif %}">
                     <i data-feather="link"></i>
@@ -129,7 +136,7 @@
                 <!-- Content Section -->
                 <div class="min-h-3 pl-2">
                     <p class="font-bold">
-                        {% trans "Contents" %}
+                        {% trans "Content" %}
                     </p>
                 </div>
                 {% if perms.cms.view_directory and perms.cms.view_mediafile %}
@@ -163,13 +170,6 @@
                         </a>
                     </div>
                 {% endif %}
-                {% if perms.cms.view_feedback %}
-                    <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
-                       class="{% if current_menu_item == 'region_feedback' %} active{% endif %}">
-                        <i data-feather="thumbs-up"></i>
-                        {% trans 'Feedback' %}
-                    </a>
-                {% endif %}
                 {% if FCM_ENABLED and request.region.push_notifications_enabled and perms.cms.view_pushnotification %}
                     <div class="{% if current_menu_item|in_list:'push_notifications,push_notifications_form' %} active {% endif %}">
                         <a href="{% url 'push_notifications' region_slug=request.region.slug %}">
@@ -193,6 +193,13 @@
                         </p>
                     </div>
                 {% endif %}
+                {% if perms.cms.view_organization %}
+                <a href="{% url 'organizations' region_slug=request.region.slug %}"
+                   class="{% if current_menu_item == 'organizations' %} active{% endif %}">
+                    <i data-feather="umbrella"></i>
+                    {% trans 'Organizations' %}
+                </a>
+                {% endif %}
                 {% if perms.cms.view_user %}
                     <div class="{% if current_menu_item|in_list:'region_users,region_user_form' %} active {% endif %}">
                         <a href="{% url 'region_users' region_slug=request.region.slug %}">
@@ -202,7 +209,7 @@
                     </div>
                 {% endif %}
                 {% if perms.cms.view_languagetreenode %}
-                    <a href="{% url 'language_tree' region_slug=request.region.slug %}"
+                    <a href="{% url 'languagetreenodes' region_slug=request.region.slug %}"
                        class="{% if current_menu_item|in_list:'languagetreenodes,language_tree_form' %} active {% endif %}">
                         <i data-feather="flag"></i>
                         {% trans 'Language Tree' %}
@@ -248,13 +255,6 @@
                        class="{% if current_menu_item == 'roles' %} active{% endif %}">
                         <i data-feather="key"></i>
                         {% trans 'Roles' %}
-                    </a>
-                {% endif %}
-                {% if perms.cms.view_organization %}
-                    <a href="{% url 'organizations' %}"
-                       class="{% if current_menu_item == 'organizations' %} active{% endif %}">
-                        <i data-feather="umbrella"></i>
-                        {% trans 'Organizations' %}
                     </a>
                 {% endif %}
                 {% if perms.cms.view_offer_template %}

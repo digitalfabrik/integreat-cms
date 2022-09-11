@@ -75,6 +75,7 @@ MANAGEMENT_PERMISSIONS = EDITOR_PERMISSIONS + [
     "change_imprintpage",
     "change_pushnotification",
     "change_user",
+    "change_chatmessage",
     "delete_directory",
     "delete_feedback",
     "delete_mediafile",
@@ -88,6 +89,7 @@ MANAGEMENT_PERMISSIONS = EDITOR_PERMISSIONS + [
 
 #: The permissions of the marketing team
 MARKETING_TEAM_PERMISSIONS = [
+    "change_chatmessage",
     "view_directory",
     "view_event",
     "view_feedback",
@@ -140,6 +142,8 @@ SERVICE_TEAM_PERMISSIONS = APP_TEAM_PERMISSIONS + [
     "delete_offertemplate",
     "delete_page",
     "delete_poi",
+    "delete_pushnotification",
+    "delete_region",
     "delete_user",
     "grant_page_permissions",
 ]

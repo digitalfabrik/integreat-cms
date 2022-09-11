@@ -32,6 +32,7 @@ window.addEventListener("load", () => {
 function updateRoleField(staffCheckbox: HTMLInputElement) {
     const userRoles = document.getElementById("id_role") as HTMLInputElement;
     const userStaffRoles = document.getElementById("id_staff_role") as HTMLInputElement;
+    const userOrganization = document.getElementById("id_organization") as HTMLInputElement;
     userRoles.required = !staffCheckbox.checked;
     userStaffRoles.required = staffCheckbox.checked;
     // Show/hide all elements which are just meant for (non-)staff users
@@ -41,6 +42,7 @@ function updateRoleField(staffCheckbox: HTMLInputElement) {
         showForNonStaff.forEach(element => element.classList.add("hidden"));
         showForStaff.forEach(element => element.classList.remove("hidden"));
         userRoles.value = "";
+        userOrganization.value = "";
     } else {
         showForStaff.forEach(element => element.classList.add("hidden"));
         showForNonStaff.forEach(element => element.classList.remove("hidden"));

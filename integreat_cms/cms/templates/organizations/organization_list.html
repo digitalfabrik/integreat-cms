@@ -6,7 +6,7 @@
     <div class="flex flex-wrap justify-between">
         <h1 class="heading">{% trans 'Manage Organizations' %}</h1>
         {% if perms.cms.change_organization %}
-            <a href="{% url 'new_organization' %}" class="btn">
+            <a href="{% url 'new_organization' region_slug=request.region.slug %}" class="btn">
 	            {% trans 'Create organization' %}
             </a>
         {% endif %}

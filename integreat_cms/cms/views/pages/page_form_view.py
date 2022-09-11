@@ -13,9 +13,10 @@ from ...constants import status, text_directions
 from ...decorators import permission_required
 from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation
-from .page_context_mixin import PageContextMixin
+from ...utils.translation_utils import ugettext_many_lazy as __
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
+from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +38,7 @@ class PageFormView(
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`)
     back_url_name = "pages"
 
-    # pylint: disable=too-many-locals
+    # pylint: disable=too-many-locals, too-many-branches
     def get(self, request, *args, **kwargs):
         r"""
         Render :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm`
@@ -62,7 +63,7 @@ class PageFormView(
             kwargs.get("language_slug"), only_active=True
         )
 
-        # get page and translation objects if they exist
+        # Get page and translation objects if they exist
         page = (
             region.pages.filter(id=kwargs.get("page_id"))
             .prefetch_translations()
@@ -87,27 +88,64 @@ class PageFormView(
                         "You cannot edit this page, because one of its parent pages is archived and therefore, this page is archived as well."
                     ),
                 )
-            # Show information if latest changes are only saved as draft
-            public_translation = page.get_public_translation(language.slug)
-            if public_translation and page_translation != public_translation:
-                messages.info(
-                    request,
-                    _(
-                        "The latest changes have only been saved as a draft. Currently, <a href='%(revision_url)s' class='underline hover:no-underline'>version %(revision)s</a> of this page is displayed in the app."
+            # If the page is not public, check whether we need additional messages to prevent confusion
+            if page_translation.status != status.PUBLIC:
+                # Indicate autosaves and changes pending review
+                if page_translation.status in [status.AUTO_SAVE, status.REVIEW]:
+                    revision_url = reverse(
+                        "page_revisions",
+                        kwargs={
+                            "region_slug": region.slug,
+                            "language_slug": language.slug,
+                            "page_id": page.id,
+                        },
                     )
-                    % {
-                        "revision_url": reverse(
-                            "page_revisions",
-                            kwargs={
-                                "region_slug": region.slug,
-                                "language_slug": language.slug,
-                                "page_id": page.id,
-                                "selected_revision": public_translation.version,
-                            },
+                    if page_translation.status == status.AUTO_SAVE:
+                        status_message = _("The last changes were saved automatically.")
+                        action = _("discard")
+                    else:
+                        status_message = _("The latest changes are pending review.")
+                        action = _("reject")
+                    # If the user has the permission to reject/discard, show another message
+                    if request.user.has_perm("cms.publish_page_object", page):
+                        status_message = __(
+                            status_message,
+                            _(
+                                "You can {action} these changes in the {link_start}version overview{link_end}."
+                            ).format(
+                                action=action,
+                                link_start=f"<a href='{revision_url}' class='underline hover:no-underline'>",
+                                link_end="</a>",
+                            ),
+                        )
+                    messages.warning(request, status_message)
+                # Show information if a public translation exists even if the latest version is not public
+                public_translation = page.get_public_translation(language.slug)
+                if public_translation:
+                    if page_translation.status == status.DRAFT:
+                        messages.warning(
+                            request,
+                            _("The latest changes have only been saved as a draft."),
+                        )
+                    revision_url = reverse(
+                        "page_revisions",
+                        kwargs={
+                            "region_slug": region.slug,
+                            "language_slug": language.slug,
+                            "page_id": page.id,
+                            "selected_revision": public_translation.version,
+                        },
+                    )
+                    messages.info(
+                        request,
+                        _(
+                            "Currently, {link_start}version {version}{link_end} of this page is displayed in the app."
+                        ).format(
+                            link_start=f" <a href='{revision_url}' class='underline hover:no-underline'>",
+                            version=public_translation.version,
+                            link_end="</a>",
                         ),
-                        "revision": public_translation.version,
-                    },
-                )
+                    )
 
         # Make form disabled if user has no permission to edit the page
         if not request.user.has_perm("cms.change_page_object", page):
@@ -299,7 +337,7 @@ class PageFormView(
                     request,
                     _(
                         'The "minor edit" option was disabled because the first version can never be a minor edit.'
-                    ).format(page_translation_form.instance.title),
+                    ),
                 )
             # When a version is published and a minor edit, also publish the past versions
             # (to make sure the translation state is updated correctly)

@@ -35,12 +35,10 @@ VIEWS = [
             ("mediacenter_get_directory_content", STAFF_ROLES),
             ("new_language", STAFF_ROLES),
             ("new_offertemplate", STAFF_ROLES),
-            ("new_organization", STAFF_ROLES),
             ("new_region", STAFF_ROLES),
             ("new_role", [ROOT]),
             ("new_user", STAFF_ROLES),
             ("offertemplates", STAFF_ROLES),
-            ("organizations", STAFF_ROLES),
             ("regions", STAFF_ROLES),
             ("roles", [ROOT]),
             ("user_settings", STAFF_ROLES),
@@ -53,13 +51,13 @@ VIEWS = [
     (
         [
             ("dashboard", ROLES),
-            ("language_tree", STAFF_ROLES),
+            ("languagetreenodes", STAFF_ROLES),
             ("media", ROLES),
             ("mediacenter_directory_path", ROLES),
             ("mediacenter_get_directory_content", ROLES),
-            ("new_language_tree_node", STAFF_ROLES),
+            ("new_languagetreenode", STAFF_ROLES),
             (
-                "new_language_tree_node",
+                "new_languagetreenode",
                 HIGH_PRIV_STAFF_ROLES,
                 {
                     "language": 5,
@@ -70,6 +68,26 @@ VIEWS = [
                     "active": True,
                 },
             ),
+            (
+                "bulk_make_languagetreenodes_visible",
+                HIGH_PRIV_STAFF_ROLES,
+                {"selected_ids[]": [1, 2, 3]},
+            ),
+            (
+                "bulk_hide_languagetreenodes",
+                HIGH_PRIV_STAFF_ROLES,
+                {"selected_ids[]": [1, 2, 3]},
+            ),
+            (
+                "bulk_activate_languagetreenodes",
+                HIGH_PRIV_STAFF_ROLES,
+                {"selected_ids[]": [1, 2, 3]},
+            ),
+            (
+                "bulk_disable_languagetreenodes",
+                HIGH_PRIV_STAFF_ROLES,
+                {"selected_ids[]": [1, 2, 3]},
+            ),
             ("new_region_user", STAFF_ROLES + [MANAGEMENT]),
             (
                 "new_region_user",
@@ -79,6 +97,8 @@ VIEWS = [
             ("region_feedback", STAFF_ROLES + [MANAGEMENT]),
             ("region_users", STAFF_ROLES + [MANAGEMENT]),
             ("translation_coverage", ROLES),
+            ("organizations", STAFF_ROLES),
+            ("new_organization", STAFF_ROLES),
             ("user_settings", ROLES),
             ("authenticate_modify_mfa", ROLES),
         ],
@@ -88,13 +108,13 @@ VIEWS = [
     (
         [
             ("dashboard", STAFF_ROLES),
-            ("language_tree", STAFF_ROLES),
+            ("languagetreenodes", STAFF_ROLES),
             ("media", STAFF_ROLES),
             ("mediacenter_directory_path", STAFF_ROLES),
             ("mediacenter_get_directory_content", STAFF_ROLES),
-            ("new_language_tree_node", STAFF_ROLES),
+            ("new_languagetreenode", STAFF_ROLES),
             (
-                "new_language_tree_node",
+                "new_languagetreenode",
                 HIGH_PRIV_STAFF_ROLES,
                 {
                     "language": 5,
@@ -113,6 +133,8 @@ VIEWS = [
             ),
             ("region_feedback", STAFF_ROLES),
             ("region_users", STAFF_ROLES),
+            ("organizations", STAFF_ROLES),
+            ("new_organization", STAFF_ROLES),
             ("translation_coverage", STAFF_ROLES),
             ("user_settings", STAFF_ROLES),
             ("authenticate_modify_mfa", STAFF_ROLES),
@@ -387,6 +409,120 @@ VIEWS = [
         {"region_slug": "nurnberg", "parent_id": 7},
     ),
     (
+        [
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"revision": 1, "submit_review": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_draft": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_public": True},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 1},
+    ),
+    (
+        [
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"revision": 1, "submit_review": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_draft": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_public": True},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 3},
+    ),
+    (
+        [
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"revision": 1, "submit_review": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_draft": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_reject": True},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 14},
+    ),
+    (
+        [
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"revision": 1, "submit_review": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 1, "submit_draft": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_public": True},
+            ),
+            (
+                "page_revisions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {"revision": 2, "submit_reject": True},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 15},
+    ),
+    (
         [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "parent_id": 1, "page_id": 2},
@@ -557,9 +693,9 @@ VIEWS = [
     ),
     (
         [
-            ("edit_language_tree_node", STAFF_ROLES),
+            ("edit_languagetreenode", STAFF_ROLES),
             (
-                "edit_language_tree_node",
+                "edit_languagetreenode",
                 HIGH_PRIV_STAFF_ROLES,
                 {
                     "language": 3,
@@ -570,7 +706,7 @@ VIEWS = [
             ),
         ],
         # The kwargs for these views
-        {"region_slug": "augsburg", "language_tree_node_id": 3},
+        {"region_slug": "augsburg", "pk": 3},
     ),
     (
         [

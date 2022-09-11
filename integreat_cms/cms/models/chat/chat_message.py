@@ -79,4 +79,4 @@ class ChatMessage(AbstractBaseModel):
         #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["-sent_datetime"]
         #: The default permissions for this model
-        default_permissions = ("delete",)
+        default_permissions = ("delete", "change")

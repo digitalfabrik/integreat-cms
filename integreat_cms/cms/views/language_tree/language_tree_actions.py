@@ -23,9 +23,7 @@ logger = logging.getLogger(__name__)
 @require_POST
 @permission_required("cms.change_languagetreenode")
 @transaction.atomic
-def move_language_tree_node(
-    request, region_slug, language_tree_node_id, target_id, target_position
-):
+def move_language_tree_node(request, region_slug, pk, target_id, target_position):
     """
     This action moves the given language tree node to the given position relative to the given target.
 
@@ -35,8 +33,8 @@ def move_language_tree_node(
     :param region_slug: The slug of the region which language tree should be modified
     :type region_slug: str
 
-    :param language_tree_node_id: The id of the language tree node which should be moved
-    :type language_tree_node_id: int
+    :param pk: The id of the language tree node which should be moved
+    :type pk: int
 
     :param target_id: The id of the target language tree node
     :type target_id: int
@@ -49,9 +47,7 @@ def move_language_tree_node(
     """
 
     region = request.region
-    language_tree_node = get_object_or_404(
-        region.language_tree_nodes, id=language_tree_node_id
-    )
+    language_tree_node = get_object_or_404(region.language_tree_nodes, id=pk)
     target = get_object_or_404(region.language_tree_nodes, id=target_id)
 
     try:
@@ -60,7 +56,7 @@ def move_language_tree_node(
         language_tree_node.move(target, target_position)
         # Call the save method on the (reloaded) node in order to trigger possible signal handlers etc.
         # (The move()-method executes raw sql which might cause problems if the instance isn't fetched again)
-        language_tree_node = LanguageTreeNode.objects.get(id=language_tree_node_id)
+        language_tree_node = LanguageTreeNode.objects.get(id=pk)
         language_tree_node.save()
         manually_invalidate_models(region)
         messages.success(
@@ -80,13 +76,13 @@ def move_language_tree_node(
         messages.error(request, e)
         logger.exception(e)
 
-    return redirect("language_tree", **{"region_slug": region_slug})
+    return redirect("languagetreenodes", **{"region_slug": region_slug})
 
 
 @require_POST
 @permission_required("cms.delete_languagetreenode")
 @transaction.atomic
-def delete_language_tree_node(request, region_slug, language_tree_node_id):
+def delete_language_tree_node(request, region_slug, pk):
     """
     Deletes the language node of distinct region
     and all page translations for this language
@@ -97,8 +93,8 @@ def delete_language_tree_node(request, region_slug, language_tree_node_id):
     :param region_slug: The slug of the region which language node should be deleted
     :type region_slug: str
 
-    :param language_tree_node_id: The id of the language tree node which should be deleted
-    :type language_tree_node_id: int
+    :param pk: The id of the language tree node which should be deleted
+    :type pk: int
 
     :return: A redirection to the language tree
     :rtype: ~django.http.HttpResponseRedirect
@@ -106,9 +102,7 @@ def delete_language_tree_node(request, region_slug, language_tree_node_id):
     # get current region
     region = request.region
     # get current selected language node
-    language_node = get_object_or_404(
-        region.language_tree_nodes, id=language_tree_node_id
-    )
+    language_node = get_object_or_404(region.language_tree_nodes, id=pk)
     # get all page translation assigned to the language node
     page_translations = language_node.language.page_translations
     # filter those translation that belong to the region and delete them
@@ -139,7 +133,7 @@ def delete_language_tree_node(request, region_slug, language_tree_node_id):
             'The language tree node "{}" and all corresponding translations were successfully deleted.'
         ).format(language_node.translated_name),
     )
-    return redirect("language_tree", **{"region_slug": region_slug})
+    return redirect("languagetreenodes", **{"region_slug": region_slug})
 
 
 def manually_invalidate_models(region):
