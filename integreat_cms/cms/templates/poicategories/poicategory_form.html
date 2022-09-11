@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<form method="post" data-unsaved-warning>
+    {% csrf_token %}
+    <div class="flex justify-between mb-4">
+        <h1 class="heading">
+            {% if form.instance.id %}
+                {% blocktrans with poi_category_name=form.instance.name %}Edit location category "{{ poi_category_name }}"{% endblocktrans %}
+            {% else %}
+                {% trans 'Create new location category' %}
+            {% endif %}
+        </h1>
+        {% if perms.cms.change_poicategory %}
+            <button class="btn">{% trans 'Save' %}</button>
+        {% endif %}
+    </div>
+    <div class="flex flex-wrap">
+	    <div class="w-full">
+		    <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+				<div class="w-full p-4 rounded bg-water-500">
+					<h3 class="heading font-bold text-black"><i data-feather="tag" class="mr-2"></i> {% trans 'Category name' %}</h3>
+				</div>
+                <div class="px-4 pb-4">
+                    {% for form in formset %}
+                        {{ form.category.as_hidden }}
+                        {{ form.language.as_hidden }}
+                        {{ form.id.as_hidden }}
+                        {{ form.name.label_tag }}
+                        {% render_field form.name|add_error_class:"border-red-500" %}
+                    {% endfor %}
+                    {{ formset.management_form }}
+				</div>
+			</div>
+		</div>
+</div>
+</form>
+{% endblock content %}

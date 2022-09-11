@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from ..abstract_content_model import AbstractContentModel
 from ..media.media_file import MediaFile
 from ..pois.poi_translation import POITranslation
+from ..poi_categories.poi_category import POICategory
 
 
 class POI(AbstractContentModel):
@@ -57,6 +58,14 @@ class POI(AbstractContentModel):
     )
     phone_number = models.CharField(
         max_length=250, blank=True, verbose_name=_("phone number")
+    )
+    category = models.ForeignKey(
+        POICategory,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="pois",
+        verbose_name=_("category"),
     )
 
     @property

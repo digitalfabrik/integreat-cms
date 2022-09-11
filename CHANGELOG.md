@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#951](https://github.com/digitalfabrik/integreat-cms/issues/951) ] Add possibility to create categories for POIs
+
 
 2022.10.0
 ---------

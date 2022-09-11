@@ -199,6 +199,21 @@
                 <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
+                            <i data-feather="tag" class="pb-1"></i>
+                            {{ poi_form.category.label }}
+                        </h3>
+                    </div>
+                    <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
+                        <div>
+                            <label for="{{ poi_form.category.id_for_label }}">{{ poi_form.category.label }}</label>
+                            {% render_field poi_form.category|add_error_class:"border-red-500" %}
+                            <div class="help-text">{{ poi_form.category.help_text }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                    <div class="rounded p-4 bg-water-500">
+                        <h3 class="heading font-bold text-black">
                             <i data-feather="image" class="pb-1"></i>
                             {{ poi_form.icon.label }}
                         </h3>
