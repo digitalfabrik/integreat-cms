@@ -126,7 +126,7 @@ class AbstractContentModel(AbstractBaseModel):
         """
         # Check if fallback translation should be used
         if self.fallback_translations_enabled:
-            all_languages = self.region.active_languages
+            all_languages = self.region.visible_languages
         else:
             all_languages = self.public_languages
 
@@ -139,13 +139,17 @@ class AbstractContentModel(AbstractBaseModel):
     def public_languages(self):
         """
         This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to
-        which a translation exists.
+        which a public translation exists and which are visible in this region.
 
         :return: The existing languages of this content object
         :rtype: list
         """
         translations = self.prefetched_public_translations_by_language_slug.values()
-        return [translation.language for translation in translations]
+        return [
+            translation.language
+            for translation in translations
+            if translation.language in self.region.visible_languages
+        ]
 
     def get_prefetched_translations_by_language_slug(
         self, attr="prefetched_translations", **filters
