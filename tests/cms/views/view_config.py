@@ -558,6 +558,17 @@ VIEWS = [
             ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
             (
                 "edit_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {
+                    "title": "new title",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 21,
+                    "_position": "first-child",
+                    "submit_review": True,
+                },
+            ),
+            (
+                "edit_page",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {
                     "title": "new title",
@@ -605,6 +616,48 @@ VIEWS = [
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "en", "page_id": 1},
+    ),
+    (
+        [
+            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            (
+                "edit_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {
+                    "title": "new title",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 3,
+                    "_position": "first-child",
+                    "submit_review": True,
+                },
+            ),
+            (
+                "edit_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {
+                    "title": "new title",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 3,
+                    "_position": "first-child",
+                    "submit_draft": True,
+                },
+            ),
+            (
+                "edit_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {
+                    "title": "new title",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 3,
+                    "_position": "first-child",
+                    "submit_public": True,
+                },
+            ),
+            ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "en", "page_id": 2},
     ),
     (
         [
