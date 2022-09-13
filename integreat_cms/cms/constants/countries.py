@@ -3,10 +3,12 @@ This module contains a mapping from ISO 3166-1 alpha-2 country codes to their na
 Data based on: https://github.com/SmileyChris/django-countries/blob/master/django_countries/data.py
 """
 from django.utils.translation import ugettext_lazy as _
+from ..utils.translation_utils import ugettext_many_lazy as __
 
 
 #: Choices which can be used as primary countries for language objects
 CHOICES = (
+    ("ab", __(_("Arabic"), _("(non-political)"))),
     ("ad", _("Andorra")),
     ("ae", _("United Arab Emirates")),
     ("af", _("Afghanistan")),
@@ -58,6 +60,7 @@ CHOICES = (
     ("er", _("Eritrea")),
     ("es", _("Spain")),
     ("et", _("Ethiopia")),
+    ("fa", __(_("Farsi"), _("(non-political)"))),
     ("fi", _("Finland")),
     ("fr", _("France")),
     ("ga", _("Gabon")),

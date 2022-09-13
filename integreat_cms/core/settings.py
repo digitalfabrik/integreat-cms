@@ -109,6 +109,11 @@ DEFAULT_BOUNDING_BOX = BoundingBox(
     longitude_max=15.0169958839,
 )
 
+#: The default timeout in seconds for retrieving external APIs etc.
+DEFAULT_REQUEST_TIMEOUT = int(
+    os.environ.get("INTEGREAT_CMS_DEFAULT_REQUEST_TIMEOUT", 10)
+)
+
 
 ###############################
 # Firebase Push Notifications #
