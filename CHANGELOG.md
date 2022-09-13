@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.9.1
+--------
+
 * [ [#1470](https://github.com/digitalfabrik/integreat-cms/issues/1470) ] Add non-political flags for Arabic and Farsi
 * [ [#1678](https://github.com/digitalfabrik/integreat-cms/issues/1678) ] Fix error when creating new page translations
 
