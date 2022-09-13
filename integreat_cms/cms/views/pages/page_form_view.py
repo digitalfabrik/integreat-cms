@@ -89,7 +89,7 @@ class PageFormView(
                     ),
                 )
             # If the page is not public, check whether we need additional messages to prevent confusion
-            if page_translation.status != status.PUBLIC:
+            if page_translation and page_translation.status != status.PUBLIC:
                 # Indicate autosaves and changes pending review
                 if page_translation.status in [status.AUTO_SAVE, status.REVIEW]:
                     revision_url = reverse(
