@@ -73,11 +73,13 @@ Contributing
     :hidden:
 
     issue-reporting
+    pull-request-review-guide
     code-style
     git-flow
     code-of-conduct
 
 * :doc:`issue-reporting`: Rug Reporting and Feature Request Guidelines
+* :doc:`pull-request-review-guide`: Tips for reviewing pull requests
 * :doc:`code-style`: Coding Conventions
 * :doc:`git-flow`: GitHub Workflow model
 * :doc:`code-of-conduct`: Contributor Covenant Code of Conduct
