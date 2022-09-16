@@ -12,9 +12,11 @@ from django.db.models import Q
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 
+from ..utils.slug_utils import generate_unique_slug_helper
 from ..constants import status
 from ..models import MediaFile
 from .custom_model_form import CustomModelForm
+
 
 logger = logging.getLogger(__name__)
 
@@ -25,10 +27,50 @@ class CustomContentModelForm(CustomModelForm):
     """
 
     def __init__(self, **kwargs):
+        r"""
+        Initialize custom content model form
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+        """
+        # Pop kwarg to make sure the super class does not get this param
+        self.region = kwargs.pop("region", None)
+        self.language = kwargs.pop("language", None)
+
+        # To set the status value through the submit button, we have to overwrite the field value for status.
+        # We could also do this in the save() function, but this would mean that it is not recognized in changed_data.
+        # Check if POST data was submitted
+        if "data" in kwargs:
+            # Copy QueryDict because it is immutable
+            data = kwargs.pop("data").copy()
+            previous_value = data.get("status")
+            # Update the POST field with the status corresponding to the submitted button
+            if "submit_auto" in data:
+                data["status"] = status.AUTO_SAVE
+            elif "submit_draft" in data:
+                data["status"] = status.DRAFT
+            elif "submit_review" in data:
+                data["status"] = status.REVIEW
+            elif "submit_public" in data:
+                data["status"] = status.PUBLIC
+            # Set the kwargs to updated POST data again
+            kwargs["data"] = data
+            if previous_value != data.get("status"):
+                logger.debug(
+                    "Changed POST data 'status' manually to %r",
+                    data.get("status"),
+                )
+
+        # Handle content edit lock
         self.changed_by_user = kwargs.pop("changed_by_user", None)
         self.locked_by_user = kwargs.pop("locked_by_user", None)
 
+        # Instantiate CustomModelForm
         super().__init__(**kwargs)
+
+        # The slug is not required because it will be auto-generated if left blank
+        if "slug" in self.fields:
+            self.fields["slug"].required = False
 
         if not self.locked_by_user:
             try:
@@ -115,6 +157,44 @@ class CustomContentModelForm(CustomModelForm):
                 image.attrib["alt"] = media_file.alt_text
 
         return tostring(content, with_tail=False).decode("utf-8")
+
+    def clean_slug(self):
+        """
+        Validate the slug field (see :ref:`overriding-modelform-clean-method`)
+
+        :return: A unique slug based on the input value
+        :rtype: str
+        """
+        unique_slug = generate_unique_slug_helper(
+            self, self._meta.model.foreign_field()
+        )
+        self.data = self.data.copy()
+        self.data["slug"] = unique_slug
+        return unique_slug
+
+    # pylint: disable=arguments-differ
+    def save(self, commit=True):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param commit: Whether or not the changes should be written to the database
+        :type commit: bool
+
+        :return: The saved page translation object
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
+        """
+
+        # Create new version if content changed
+        if not {"slug", "title", "content"}.isdisjoint(self.changed_data):
+            # Delete now outdated link objects
+            self.instance.links.all().delete()
+            # Save new version
+            self.instance.version += 1
+            self.instance.pk = None
+
+        # Save CustomModelForm
+        return super().save(commit=commit)
 
     def add_success_message(self, request):
         """
