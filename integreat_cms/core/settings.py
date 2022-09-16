@@ -269,6 +269,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "integreat_cms.core.context_processors.version_processor",
                 "integreat_cms.core.context_processors.settings_processor",
+                "integreat_cms.core.context_processors.constants_processor",
             ],
             "debug": DEBUG,
         },

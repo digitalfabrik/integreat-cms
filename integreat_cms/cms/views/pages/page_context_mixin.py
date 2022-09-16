@@ -3,7 +3,7 @@ import logging
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import ContextMixin
 
-from ...constants import translation_status, status
+from ...constants import translation_status
 from ...utils.translation_utils import ugettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
@@ -31,10 +31,6 @@ class PageContextMixin(ContextMixin):
             {
                 "current_menu_item": "pages",
                 "translation_status": translation_status,
-                "PUBLIC": status.PUBLIC,
-                "DRAFT": status.DRAFT,
-                "REVIEW": status.REVIEW,
-                "AUTO_SAVE": status.AUTO_SAVE,
                 "archive_dialog_title": _(
                     "Please confirm that you really want to archive this page"
                 ),

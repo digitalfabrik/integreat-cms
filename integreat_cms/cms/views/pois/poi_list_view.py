@@ -8,7 +8,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import status
 from ...decorators import permission_required
 from ...models import POITranslation
 from ...forms import ObjectSearchForm
@@ -30,10 +29,7 @@ class POIListView(TemplateView, POIContextMixin):
     #: Template for list of archived POIs
     template_archived = "pois/poi_list_archived.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    extra_context = {
-        "current_menu_item": "pois",
-        "PUBLIC": status.PUBLIC,
-    }
+    extra_context = {"current_menu_item": "pois"}
     #: Whether or not to show archived POIs
     archived = False
 

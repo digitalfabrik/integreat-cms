@@ -58,8 +58,8 @@
                     </button>
                     {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
                     {% if can_publish_page %}
-                        <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
-                        <button name="submit_public" class="btn whitespace-nowrap">
+                        <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% trans 'Save as draft' %}</button>
+                        <button name="status" value="{{ PUBLIC }}" class="btn whitespace-nowrap">
                             {% if page_translation_form.instance.status == PUBLIC %}
                                 {% trans 'Update' %}
                             {% else %}
@@ -67,7 +67,7 @@
                             {% endif %}
                         </button>
                     {% elif can_edit_page %}
-                        <button name="submit_review" class="btn">{% trans 'Submit for review' %}</button>
+                        <button name="status" value="{{ REVIEW }}" class="btn">{% trans 'Submit for review' %}</button>
                     {% endif %}
                 </div>
             {% endif %}

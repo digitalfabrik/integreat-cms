@@ -32,30 +32,6 @@ class CustomContentModelForm(CustomModelForm):
         self.region = kwargs.pop("region", None)
         self.language = kwargs.pop("language", None)
 
-        # To set the status value through the submit button, we have to overwrite the field value for status.
-        # We could also do this in the save() function, but this would mean that it is not recognized in changed_data.
-        # Check if POST data was submitted
-        if "data" in kwargs:
-            # Copy QueryDict because it is immutable
-            data = kwargs.pop("data").copy()
-            previous_value = data.get("status")
-            # Update the POST field with the status corresponding to the submitted button
-            if "submit_auto" in data:
-                data["status"] = status.AUTO_SAVE
-            elif "submit_draft" in data:
-                data["status"] = status.DRAFT
-            elif "submit_review" in data:
-                data["status"] = status.REVIEW
-            elif "submit_public" in data:
-                data["status"] = status.PUBLIC
-            # Set the kwargs to updated POST data again
-            kwargs["data"] = data
-            if previous_value != data.get("status"):
-                logger.debug(
-                    "Changed POST data 'status' manually to %r",
-                    data.get("status"),
-                )
-
         # Handle content edit lock
         self.changed_by_user = kwargs.pop("changed_by_user", None)
         self.locked_by_user = kwargs.pop("locked_by_user", None)
@@ -81,7 +57,10 @@ class CustomContentModelForm(CustomModelForm):
         :return: The cleaned data (see :ref:`overriding-modelform-clean-method`)
         :rtype: dict
         """
-        force_update = self.cleaned_data["status"] == status.AUTO_SAVE
+        # Validate CustomModelForm
+        cleaned_data = super().clean()
+
+        force_update = cleaned_data.get("status") == status.AUTO_SAVE
         if (
             not force_update
             and self.changed_by_user
@@ -98,7 +77,7 @@ class CustomContentModelForm(CustomModelForm):
                 ),
             )
 
-        return super().clean()
+        return cleaned_data
 
     def clean_content(self):
         """

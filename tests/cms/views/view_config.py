@@ -4,6 +4,8 @@ This modules contains the config for the view tests
 from django.conf import settings
 from django.urls import reverse
 
+from integreat_cms.cms.constants import status
+
 from ...conftest import (
     ALL_ROLES,
     AUTHOR,
@@ -151,7 +153,7 @@ VIEWS = [
             (
                 "edit_imprint",
                 PRIV_STAFF_ROLES + [MANAGEMENT],
-                {"title": "imprint", "submit_draft": True},
+                {"title": "imprint", "status": status.DRAFT},
             ),
             ("events", ROLES),
             ("events_archived", ROLES),
@@ -164,7 +166,7 @@ VIEWS = [
                     "start_date": "2030-01-01",
                     "end_date": "2030-01-01",
                     "is_all_day": True,
-                    "submit_draft": True,
+                    "status": status.DRAFT,
                 },
             ),
             ("new_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
@@ -176,7 +178,7 @@ VIEWS = [
                     "mirrored_page_region": "",
                     "_ref_node_id": 1,
                     "_position": "first-child",
-                    "submit_draft": True,
+                    "status": status.DRAFT,
                 },
             ),
             (
@@ -187,7 +189,7 @@ VIEWS = [
                     "mirrored_page_region": "",
                     "_ref_node_id": 1,
                     "_position": "first-child",
-                    "submit_public": True,
+                    "status": status.PUBLIC,
                 },
             ),
             ("new_poi", ROLES),
@@ -203,7 +205,7 @@ VIEWS = [
                     "country": "Deutschland",
                     "longitude": 1,
                     "latitude": 1,
-                    "submit_draft": True,
+                    "status": status.DRAFT,
                 },
             ),
             ("pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
@@ -250,7 +252,7 @@ VIEWS = [
             (
                 "edit_imprint",
                 PRIV_STAFF_ROLES,
-                {"title": "imprint", "submit_draft": True},
+                {"title": "imprint", "status": status.DRAFT},
             ),
             ("events", STAFF_ROLES),
             ("events_archived", STAFF_ROLES),
@@ -263,7 +265,7 @@ VIEWS = [
                     "start_date": "2030-01-01",
                     "end_date": "2030-01-01",
                     "is_all_day": True,
-                    "submit_draft": True,
+                    "status": status.DRAFT,
                 },
             ),
             ("new_page", STAFF_ROLES),
@@ -275,7 +277,7 @@ VIEWS = [
                     "mirrored_page_region": "",
                     "_ref_node_id": 7,
                     "_position": "first-child",
-                    "submit_draft": True,
+                    "status": status.DRAFT,
                 },
             ),
             ("new_poi", STAFF_ROLES),
@@ -291,7 +293,7 @@ VIEWS = [
                     "country": "Deutschland",
                     "longitude": 1,
                     "latitude": 1,
-                    "submit_draft": True,
+                    "status": status.DRAFT,
                 },
             ),
             ("pages", STAFF_ROLES),
@@ -413,22 +415,22 @@ VIEWS = [
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
-                {"revision": 1, "submit_review": True},
+                {"revision": 1, "status": status.REVIEW},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 1, "submit_public": True},
+                {"revision": 1, "status": status.PUBLIC},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 1, "submit_draft": True},
+                {"revision": 1, "status": status.DRAFT},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 2, "submit_public": True},
+                {"revision": 2, "status": status.PUBLIC},
             ),
         ],
         # The kwargs for these views
@@ -439,22 +441,22 @@ VIEWS = [
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
-                {"revision": 1, "submit_review": True},
+                {"revision": 1, "status": status.REVIEW},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 1, "submit_public": True},
+                {"revision": 1, "status": status.PUBLIC},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 1, "submit_draft": True},
+                {"revision": 1, "status": status.DRAFT},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 2, "submit_public": True},
+                {"revision": 2, "status": status.PUBLIC},
             ),
         ],
         # The kwargs for these views
@@ -465,27 +467,27 @@ VIEWS = [
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
-                {"revision": 1, "submit_review": True},
+                {"revision": 1, "status": status.REVIEW},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 1, "submit_public": True},
+                {"revision": 1, "status": status.PUBLIC},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 1, "submit_draft": True},
+                {"revision": 1, "status": status.DRAFT},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 2, "submit_public": True},
+                {"revision": 2, "status": status.PUBLIC},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 2, "submit_reject": True},
+                {"revision": 2},
             ),
         ],
         # The kwargs for these views
@@ -496,27 +498,27 @@ VIEWS = [
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
-                {"revision": 1, "submit_review": True},
+                {"revision": 1, "status": status.REVIEW},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 1, "submit_public": True},
+                {"revision": 1, "status": status.PUBLIC},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 1, "submit_draft": True},
+                {"revision": 1, "status": status.DRAFT},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 2, "submit_public": True},
+                {"revision": 2, "status": status.PUBLIC},
             ),
             (
                 "page_revisions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
-                {"revision": 2, "submit_reject": True},
+                {"revision": 2},
             ),
         ],
         # The kwargs for these views
@@ -564,7 +566,7 @@ VIEWS = [
                     "mirrored_page_region": "",
                     "_ref_node_id": 21,
                     "_position": "first-child",
-                    "submit_review": True,
+                    "status": status.REVIEW,
                 },
             ),
             (
@@ -575,7 +577,7 @@ VIEWS = [
                     "mirrored_page_region": "",
                     "_ref_node_id": 21,
                     "_position": "first-child",
-                    "submit_draft": True,
+                    "status": status.DRAFT,
                 },
             ),
             (
@@ -586,7 +588,7 @@ VIEWS = [
                     "mirrored_page_region": "",
                     "_ref_node_id": 24,  # Archived ref node
                     "_position": "right",
-                    "submit_draft": True,
+                    "status": status.DRAFT,
                 },
             ),
             (
@@ -597,7 +599,7 @@ VIEWS = [
                     "mirrored_page_region": "",
                     "_ref_node_id": 21,
                     "_position": "first-child",
-                    "submit_public": True,
+                    "status": status.PUBLIC,
                 },
             ),
             ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
@@ -629,7 +631,7 @@ VIEWS = [
                     "mirrored_page_region": "",
                     "_ref_node_id": 3,
                     "_position": "first-child",
-                    "submit_review": True,
+                    "status": status.REVIEW,
                 },
             ),
             (
@@ -640,7 +642,7 @@ VIEWS = [
                     "mirrored_page_region": "",
                     "_ref_node_id": 3,
                     "_position": "first-child",
-                    "submit_draft": True,
+                    "status": status.DRAFT,
                 },
             ),
             (
@@ -651,7 +653,7 @@ VIEWS = [
                     "mirrored_page_region": "",
                     "_ref_node_id": 3,
                     "_position": "first-child",
-                    "submit_public": True,
+                    "status": status.PUBLIC,
                 },
             ),
             ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
@@ -709,7 +711,7 @@ VIEWS = [
                     "start_date": "2030-01-01",
                     "end_date": "2030-01-01",
                     "is_all_day": True,
-                    "submit_draft": True,
+                    "status": status.DRAFT,
                 },
             ),
             ("archive_event", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
@@ -734,7 +736,7 @@ VIEWS = [
                     "country": "Deutschland",
                     "longitude": 1,
                     "latitude": 1,
-                    "submit_draft": True,
+                    "status": status.DRAFT,
                 },
             ),
             ("archive_poi", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),

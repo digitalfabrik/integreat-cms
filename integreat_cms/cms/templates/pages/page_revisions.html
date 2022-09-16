@@ -97,27 +97,27 @@
             {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
             {% if can_publish_page %}
                 <!-- Reject buttons for latest version  -->
-                <button name="submit_reject" class="btn btn-red hidden" data-status="{{ AUTO_SAVE }}" data-max>{% trans 'Discard auto save' %}</button>
-                <button name="submit_reject" class="btn btn-red hidden" data-status="{{ REVIEW }}" data-max>{% trans 'Reject changes' %}</button>
+                <button name="status" class="btn btn-red hidden" data-status="{{ AUTO_SAVE }}" data-max>{% trans 'Discard auto save' %}</button>
+                <button name="status" class="btn btn-red hidden" data-status="{{ REVIEW }}" data-max>{% trans 'Reject changes' %}</button>
                 <!-- Draft buttons -->
-                <button name="submit_draft" class="btn btn-gray hidden" data-status="{{ PUBLIC }}">{% trans 'Restore as draft' %}</button>
-                <button name="submit_draft" class="btn btn-gray hidden" data-status="{{ DRAFT }}">{% trans 'Restore as draft' %}</button>
-                <button name="submit_draft" class="btn btn-gray hidden" data-status="{{ AUTO_SAVE }}">{% trans 'Restore auto save as draft' %}</button>
-                <button name="submit_draft" class="btn btn-gray hidden" data-status="{{ REVIEW }}">{% trans 'Accept and restore changes as draft' %}</button>
+                <button name="status" value="{{ DRAFT }}" class="btn btn-gray hidden" data-status="{{ PUBLIC }}">{% trans 'Restore as draft' %}</button>
+                <button name="status" value="{{ DRAFT }}" class="btn btn-gray hidden" data-status="{{ DRAFT }}">{% trans 'Restore as draft' %}</button>
+                <button name="status" value="{{ DRAFT }}" class="btn btn-gray hidden" data-status="{{ AUTO_SAVE }}">{% trans 'Restore auto save as draft' %}</button>
+                <button name="status" value="{{ DRAFT }}" class="btn btn-gray hidden" data-status="{{ REVIEW }}">{% trans 'Accept and restore changes as draft' %}</button>
                 <!-- Draft buttons for latest version -->
-                <button name="submit_draft" class="btn btn-gray hidden" data-status="{{ REVIEW }}" data-max>{% trans 'Accept current changes as draft' %}</button>
+                <button name="status" value="{{ DRAFT }}" class="btn btn-gray hidden" data-status="{{ REVIEW }}" data-max>{% trans 'Accept current changes as draft' %}</button>
                 <!-- Publish buttons -->
-                <button name="submit_public" class="btn hidden" data-status="{{ PUBLIC }}">{% trans 'Restore and publish' %}</button>
-                <button name="submit_public" class="btn hidden" data-status="{{ DRAFT }}">{% trans 'Restore and publish' %}</button>
-                <button name="submit_public" class="btn hidden" data-status="{{ AUTO_SAVE }}">{% trans 'Restore and publish auto save' %}</button>
-                <button name="submit_public" class="btn hidden" data-status="{{ REVIEW }}">{% trans 'Accept, restore and publish changes' %}</button>
+                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ PUBLIC }}">{% trans 'Restore and publish' %}</button>
+                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ DRAFT }}">{% trans 'Restore and publish' %}</button>
+                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ AUTO_SAVE }}">{% trans 'Restore and publish auto save' %}</button>
+                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ REVIEW }}">{% trans 'Accept, restore and publish changes' %}</button>
                 <!-- Publish buttons for latest version  -->
-                <button name="submit_public" class="btn hidden" data-status="{{ PUBLIC }}" data-max>{% trans 'Refresh date' %}</button>
-                <button name="submit_public" class="btn hidden" data-status="{{ DRAFT }}" data-max>{% trans 'Publish the current draft' %}</button>
-                <button name="submit_public" class="btn hidden" data-status="{{ AUTO_SAVE }}" data-max>{% trans 'Publish auto save' %}</button>
-                <button name="submit_public" class="btn hidden" data-status="{{ REVIEW }}" data-max>{% trans 'Accept and publish the current changes' %}</button>
+                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ PUBLIC }}" data-max>{% trans 'Refresh date' %}</button>
+                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ DRAFT }}" data-max>{% trans 'Publish the current draft' %}</button>
+                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ AUTO_SAVE }}" data-max>{% trans 'Publish auto save' %}</button>
+                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ REVIEW }}" data-max>{% trans 'Accept and publish the current changes' %}</button>
             {% elif can_edit_page %}
-                <button name="submit_review" class="btn">{% trans 'Restore this version and submit for review' %}</button>
+                <button name="status" value="{{ REVIEW }}" class="btn">{% trans 'Restore this version and submit for review' %}</button>
             {% endif %}
         {% endif %}
     </div>
