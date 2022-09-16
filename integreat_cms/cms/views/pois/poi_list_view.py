@@ -32,9 +32,7 @@ class POIListView(TemplateView, POIContextMixin):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {
         "current_menu_item": "pois",
-        "WEBAPP_URL": settings.WEBAPP_URL,
         "PUBLIC": status.PUBLIC,
-        "DEEPL_ENABLED": settings.DEEPL_ENABLED,
     }
     #: Whether or not to show archived POIs
     archived = False

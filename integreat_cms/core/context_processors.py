@@ -20,17 +20,22 @@ def version_processor(request):
 
 
 # pylint: disable=unused-variable
-def push_notification_processor(request):
+def settings_processor(request):
     """
-    This context processor injects the setting :attr:`~integreat_cms.core.settings.FCM_ENABLED` into the template context.
+    This context processor injects a few settings into the template context.
 
     :param request: The current http request
     :type request: ~django.http.HttpRequest
 
-    :return: The currently installed version of this package
+    :return: A few of our settings
     :rtype: dict
     """
-    return {"FCM_ENABLED": settings.FCM_ENABLED}
+    return {
+        "FCM_ENABLED": settings.FCM_ENABLED,
+        "BRANDING": settings.BRANDING,
+        "WEBAPP_URL": settings.WEBAPP_URL,
+        "DEEPL_ENABLED": settings.DEEPL_ENABLED,
+    }
 
 
 # pylint: disable=unused-variable

@@ -31,7 +31,6 @@ class ImprintFormView(TemplateView, MediaContextMixin):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {
         "current_menu_item": "imprint",
-        "WEBAPP_URL": settings.WEBAPP_URL,
         "IMPRINT_SLUG": settings.IMPRINT_SLUG,
         "translation_status": translation_status,
         "PUBLIC": status.PUBLIC,
