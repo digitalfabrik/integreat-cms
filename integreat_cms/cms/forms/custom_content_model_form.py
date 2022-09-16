@@ -1,5 +1,3 @@
-import logging
-
 from urllib.parse import urlparse
 
 from lxml.etree import LxmlError
@@ -16,9 +14,6 @@ from ..utils.slug_utils import generate_unique_slug_helper
 from ..constants import status
 from ..models import MediaFile
 from .custom_model_form import CustomModelForm
-
-
-logger = logging.getLogger(__name__)
 
 
 class CustomContentModelForm(CustomModelForm):
@@ -124,24 +119,28 @@ class CustomContentModelForm(CustomModelForm):
         # Convert heading 1 to heading 2
         for heading in content.iter("h1"):
             heading.tag = "h2"
-            logger.debug("Replaced heading 1 with heading 2: %r", tostring(heading))
+            self.logger.debug(
+                "Replaced heading 1 with heading 2: %r", tostring(heading)
+            )
 
         # Convert pre and code tags to p tags
         for monospaced in content.iter("pre", "code"):
             tag_type = monospaced.tag
             monospaced.tag = "p"
-            logger.debug(
+            self.logger.debug(
                 "Replaced %r tag with p tag: %r", tag_type, tostring(monospaced)
             )
 
         # Remove external links
         for link in content.iter("a"):
             link.attrib.pop("target", None)
-            logger.debug("Removed target attribute from link: %r", tostring(link))
+            self.logger.debug("Removed target attribute from link: %r", tostring(link))
 
         # Scan for media files in content and replace alt texts
         for image in content.iter("img"):
-            logger.debug("Image tag found in content (src: %s)", image.attrib["src"])
+            self.logger.debug(
+                "Image tag found in content (src: %s)", image.attrib["src"]
+            )
             # Remove host
             relative_url = urlparse(image.attrib["src"]).path
             # Remove media url prefix if exists
@@ -153,7 +152,7 @@ class CustomContentModelForm(CustomModelForm):
             ).first()
             # Replace alternative text
             if media_file and media_file.alt_text:
-                logger.debug("Image alt text replaced: %r", media_file.alt_text)
+                self.logger.debug("Image alt text replaced: %r", media_file.alt_text)
                 image.attrib["alt"] = media_file.alt_text
 
         return tostring(content, with_tail=False).decode("utf-8")
@@ -185,13 +184,17 @@ class CustomContentModelForm(CustomModelForm):
         :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
 
-        # Create new version if content changed
-        if not {"slug", "title", "content"}.isdisjoint(self.changed_data):
-            # Delete now outdated link objects
-            self.instance.links.all().delete()
-            # Save new version
-            self.instance.version += 1
-            self.instance.pk = None
+        # Delete now outdated link objects
+        self.instance.links.all().delete()
+
+        # If none of the text content fields changed, treat as minor edit (even if checkbox isn't clicked)
+        if {"title", "short_description", "content"}.isdisjoint(self.changed_data):
+            self.logger.debug("Set 'minor_edit=True' since the content did not change")
+            self.instance.minor_edit = True
+
+        # Save new version
+        self.instance.version += 1
+        self.instance.pk = None
 
         # Save CustomModelForm
         return super().save(commit=commit)
