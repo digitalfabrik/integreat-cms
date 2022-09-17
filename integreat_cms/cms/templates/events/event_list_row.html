@@ -2,7 +2,6 @@
 {% load rules %}
 {% load content_filters %}
 {% load poi_filters %}
-
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4">
         <input type="checkbox" name="selected_ids[]" value="{{ event.id }}" form="bulk-action-form" class="bulk-select-item" />
@@ -82,10 +81,10 @@
         {% endif %}
     </td>
     <td class="py-3 pr-2">
-        <span class="whitespace-nowrap"><i data-feather="calendar"></i> {{ event.start_date|date:'d.m.Y' }}</span>{% if not event.is_all_day %} <span class="whitespace-nowrap"><i data-feather="clock"></i> {{ event.start_time|time:'H:i' }}</span>{% endif %}
+        <span class="whitespace-nowrap"><i data-feather="calendar"></i> {{ event.start_local|date:'d.m.Y' }}</span>{% if not event.is_all_day %} <span class="whitespace-nowrap"><i data-feather="clock"></i> {{ event.start_local|date:'H:i' }}</span>{% endif %}
     </td>
     <td class="py-3 pr-2">
-        <span class="whitespace-nowrap"><i data-feather="calendar"></i> {{ event.end_date|date:'d.m.Y' }}</span>{% if not event.is_all_day %} <span class="whitespace-nowrap"><i data-feather="clock"></i> {{ event.end_time|time:'H:i' }}</span>{% endif %}
+        <span class="whitespace-nowrap"><i data-feather="calendar"></i> {{ event.end_local|date:'d.m.Y' }}</span>{% if not event.is_all_day %} <span class="whitespace-nowrap"><i data-feather="clock"></i> {{ event.end_local|date:'H:i' }}</span>{% endif %}
     </td>
     <td class="py-3 pr-2 whitespace-nowrap">
         {% if event.recurrence_rule %}

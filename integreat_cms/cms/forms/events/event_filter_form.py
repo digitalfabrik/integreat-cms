@@ -1,9 +1,9 @@
 """
 Form for submitting filter requests
 """
-from datetime import date, time
+from datetime import date, time, datetime
 import logging
-
+import zoneinfo
 from django import forms
 
 from ..custom_filter_form import CustomFilterForm
@@ -94,9 +94,14 @@ class EventFilterForm(CustomFilterForm):
             pass
         elif events_time_range.CUSTOM in cleaned_time_range:
             # Filter events for their start and end
-            events = events.filter_upcoming(
-                self.cleaned_data["date_from"] or date.min
-            ).filter(end_date__lte=self.cleaned_data["date_to"] or date.max)
+            tzinfo = zoneinfo.ZoneInfo(region.timezone)
+            from_local = datetime.combine(
+                self.cleaned_data["date_from"] or date.min, time.min, tzinfo=tzinfo
+            )
+            to_local = datetime.combine(
+                self.cleaned_data["date_to"] or date.max, time.max, tzinfo=tzinfo
+            )
+            events = events.filter_upcoming(from_local).filter(end__lte=to_local)
         elif events_time_range.UPCOMING in cleaned_time_range:
             # Only upcoming events
             events = events.filter_upcoming()

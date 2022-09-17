@@ -4,7 +4,7 @@ This module includes functions related to the locations/POIs API endpoint.
 from distutils.util import strtobool
 from django.conf import settings
 from django.http import JsonResponse
-
+from django.utils import timezone
 from ..decorators import json_response
 
 
@@ -62,7 +62,8 @@ def transform_poi_translation(poi_translation):
         "url": settings.BASE_URL + poi_translation.get_absolute_url(),
         "path": poi_translation.get_absolute_url(),
         "title": poi.default_translation.title,
-        "modified_gmt": poi_translation.last_updated.strftime("%Y-%m-%d %H:%M:%S"),
+        "modified_gmt": poi_translation.last_updated,  # deprecated field in the future
+        "last_updated": timezone.localtime(poi_translation.last_updated),
         "excerpt": poi_translation.short_description,
         "content": poi_translation.content,
         "available_languages": poi_translation.available_languages_dict,

@@ -5,6 +5,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 from ...constants import frequency, status
 from ...utils.slug_utils import generate_unique_slug
@@ -35,9 +36,9 @@ class EventQuerySet(ContentQuerySet):
         :return: The Queryset of events after the given date
         :rtype: ~integreat_cms.cms.models.events.event.EventQuerySet
         """
-        from_date = from_date or date.today()
+        from_date = from_date or timezone.now().date()
         return self.filter(
-            Q(end_date__gte=from_date)
+            Q(end__gte=from_date)
             | Q(
                 recurrence_rule__isnull=False,
                 recurrence_rule__recurrence_end_date__isnull=True,
@@ -62,9 +63,9 @@ class EventQuerySet(ContentQuerySet):
         :return: The Queryset of events before the given date
         :rtype: ~integreat_cms.cms.models.events.event.EventQuerySet
         """
-        to_date = to_date or date.today()
+        to_date = to_date or timezone.now().date()
         return self.filter(
-            Q(recurrence_rule__isnull=True, end_date__lt=to_date)
+            Q(recurrence_rule__isnull=True, end__lt=to_date)
             | Q(
                 recurrence_rule__isnull=False,
                 recurrence_rule__recurrence_end_date__lt=to_date,
@@ -85,10 +86,8 @@ class Event(AbstractContentModel):
         on_delete=models.PROTECT,
         verbose_name=_("location"),
     )
-    start_date = models.DateField(verbose_name=_("start date"))
-    start_time = models.TimeField(blank=True, verbose_name=_("start time"))
-    end_date = models.DateField(verbose_name=_("end date"))
-    end_time = models.TimeField(blank=True, verbose_name=_("end time"))
+    start = models.DateTimeField(verbose_name=_("start"))
+    end = models.DateTimeField(verbose_name=_("end"))
     #: If the event is recurring, the recurrence rule contains all necessary information on the frequency, interval etc.
     #: which is needed to calculate the single instances of a recurring event
     recurrence_rule = models.OneToOneField(
@@ -149,9 +148,43 @@ class Event(AbstractContentModel):
         :return: Whether event takes place all day
         :rtype: bool
         """
-        return self.start_time == time.min and self.end_time == time.max.replace(
-            second=0, microsecond=0
+        return (
+            self.start_local.time() == time.min
+            and self.end_local.time() == time.max.replace(second=0, microsecond=0)
         )
+
+    @cached_property
+    def timezone(self):
+        """
+        The timezone of this event's region
+
+        :return: The timezone of this event
+        :rtype: str
+        """
+        return self.region.timezone
+
+    @cached_property
+    def start_local(self):
+        """
+        Convert the start to local time
+
+        :return: The start of the event in local time
+        :rtype: datetime.datetime
+        """
+        timezone.activate(self.timezone)
+        return timezone.localtime(self.start)
+
+    @cached_property
+    def end_local(self):
+        """
+        Convert the end to local time
+
+        :return: The end of the event in local time
+        :rtype: datetime.datetime
+        """
+        # Activate the timezone of the event's region
+        timezone.activate(self.timezone)
+        return timezone.localtime(self.end)
 
     @cached_property
     def has_location(self):
@@ -177,12 +210,8 @@ class Event(AbstractContentModel):
         :return: start datetimes of occurrences of the event that are in the given timeframe
         :rtype: list [ ~datetime.datetime ]
         """
-        event_start = datetime.combine(
-            self.start_date, self.start_time if self.start_time else time.min
-        )
-        event_end = datetime.combine(
-            self.end_date, self.end_time if self.end_time else time.max
-        )
+        event_start = self.start
+        event_end = self.end
         event_span = event_end - event_start
         recurrence = self.recurrence_rule
         if recurrence is not None:
@@ -293,7 +322,7 @@ class Event(AbstractContentModel):
         #: The name that will be used by default for the relation from a related object back to this one
         default_related_name = "events"
         #: The fields which are used to sort the returned objects of a QuerySet
-        ordering = ["start_date", "start_time"]
+        ordering = ["start"]
         #: The default permissions for this model
         default_permissions = ("change", "delete", "view")
         #: The custom permissions for this model
