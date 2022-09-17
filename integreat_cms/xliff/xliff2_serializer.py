@@ -141,7 +141,7 @@ class Serializer(base_serializer.Serializer):
         source_translation = (
             obj.public_source_translation
             if self.only_public
-            else obj.source_translation
+            else obj.public_or_draft_source_translation
         )
         if not source_translation:
             raise base.SerializationError(

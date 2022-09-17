@@ -139,7 +139,9 @@ def page_to_xliff(page, target_language, dir_name, only_public=False):
     if only_public:
         target_page_translation = page.get_public_translation(target_language.slug)
     else:
-        target_page_translation = page.get_translation(target_language.slug)
+        target_page_translation = page.get_public_or_draft_translation(
+            target_language.slug
+        )
     if not target_page_translation:
         # Create temporary target translation
         target_page_translation = PageTranslation(
@@ -149,7 +151,7 @@ def page_to_xliff(page, target_language, dir_name, only_public=False):
     source_translation = (
         target_page_translation.public_source_translation
         if only_public
-        else target_page_translation.source_translation
+        else target_page_translation.public_or_draft_source_translation
     )
     if not source_translation:
         source_language = page.region.get_source_language(target_language.slug)
