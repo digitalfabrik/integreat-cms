@@ -778,6 +778,11 @@ LEGACY_FILE_UPLOAD = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_LEGACY_FILE_UPLOAD", "False"))
 )
 
+#: The maximum size of media files in bytes
+MEDIA_MAX_UPLOAD_SIZE = int(
+    os.environ.get("INTEGREAT_CMS_MEDIA_MAX_UPLOAD_SIZE", 3 * 1024 * 1024)
+)
+
 
 #########
 # CACHE #
