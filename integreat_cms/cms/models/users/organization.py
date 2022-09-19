@@ -61,6 +61,23 @@ class Organization(AbstractBaseModel):
         """
         return f"<Organization (id: {self.id}, slug: {self.slug}, region: {self.region.slug})>"
 
+    @property
+    def num_pages(self):
+        """
+
+        :return: the current number of maintained pages of an organization object
+        :rtype: int
+        """
+        return self.pages.count()
+
+    @property
+    def num_members(self):
+        """
+        :return: the current number of members of an organization object
+        :rtype: int
+        """
+        return self.members.count()
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("organization")

@@ -8,7 +8,12 @@
     </td>
 	<td>
         <a href="{% url 'edit_organization' region_slug=request.region.slug slug=organization.slug %}" class="block py-3 px-2 text-gray-800">
-            {{ organization.slug }}
+            {{ organization.num_members }}
+        </a>
+	</td>
+    <td>
+        <a href="{% url 'edit_organization' region_slug=request.region.slug slug=organization.slug %}" class="block py-3 px-2 text-gray-800">
+            {{ organization.num_pages }}
         </a>
 	</td>
 	<td class="pr-2">
