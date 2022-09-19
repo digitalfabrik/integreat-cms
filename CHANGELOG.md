@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.9.2
+--------
+
 * [ [#1011](https://github.com/digitalfabrik/integreat-cms/issues/1011) ] Use ISO format for datetime objects/fields
 * [ [#1599](https://github.com/digitalfabrik/integreat-cms/issues/1599) ] Exclude automatic saves and pending reviews from XLIFF export
 
