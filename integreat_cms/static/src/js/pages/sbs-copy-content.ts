@@ -36,7 +36,7 @@ window.addEventListener("load", () => {
   }
 
   const toggleButton = document.getElementById("toggle-translation-diff");
-  toggleButton.addEventListener("click", (event) => {
+  toggleButton?.addEventListener("click", (event) => {
     event.preventDefault();
 
     // Update Button text

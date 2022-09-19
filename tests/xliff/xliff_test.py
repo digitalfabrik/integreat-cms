@@ -61,7 +61,9 @@ def test_xliff_export(
     export_xliff = reverse(
         view, kwargs={"region_slug": "augsburg", "language_slug": "en"}
     )
-    response = client.post(export_xliff, data={"selected_ids[]": [1, 2, 3]})
+    response = client.post(
+        export_xliff, data={"selected_ids[]": [1, 2, 3, 4, 5, 14, 15]}
+    )
     print(response.headers)
     if role in STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]:
         # If the role should be allowed to access the view, we expect a successful result

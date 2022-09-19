@@ -6,7 +6,7 @@ import logging
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils.html import strip_tags
-
+from django.utils import timezone
 from ..decorators import json_response
 
 logger = logging.getLogger(__name__)
@@ -28,7 +28,8 @@ def transform_imprint(imprint_translation):
         "url": settings.BASE_URL + absolute_url,
         "path": absolute_url,
         "title": imprint_translation.title,
-        "modified_gmt": imprint_translation.last_updated,
+        "modified_gmt": imprint_translation.last_updated,  # deprecated field in the future
+        "last_updated": timezone.localtime(imprint_translation.last_updated),
         "excerpt": strip_tags(imprint_translation.content),
         "content": imprint_translation.content,
         "parent": None,

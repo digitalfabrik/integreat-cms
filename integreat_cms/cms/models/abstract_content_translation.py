@@ -291,6 +291,23 @@ class AbstractContentTranslation(AbstractBaseModel):
         return None
 
     @cached_property
+    def public_or_draft_source_translation(self):
+        """
+        This property returns the public and draft translation which was used to create the ``self`` translation.
+        It derives this information from the :class:`~integreat_cms.cms.models.regions.region.Region`'s root
+        :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode`.
+
+        :return: The content translation in the source :class:`~integreat_cms.cms.models.languages.language.Language`
+                 (:obj:`None` if no public source translation exists)
+        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+        """
+        if self.source_language:
+            return self.foreign_object.get_public_or_draft_translation(
+                self.source_language.slug
+            )
+        return None
+
+    @cached_property
     def major_public_source_translation(self):
         """
         This property returns the latest major public version of the translation which was used to create the ``self``

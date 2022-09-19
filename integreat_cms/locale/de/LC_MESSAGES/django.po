@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-11 14:22+0000\n"
+"POT-Creation-Date: 2022-09-17 08:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1455,7 +1455,7 @@ msgstr "Rechts nach Links"
 #: cms/templates/_form_language_tabs.html:35
 #: cms/templates/_form_language_tabs.html:81
 #: cms/templates/events/event_list_archived_row.html:51
-#: cms/templates/events/event_list_row.html:51
+#: cms/templates/events/event_list_row.html:50
 #: cms/templates/imprint/imprint_sbs.html:45
 #: cms/templates/imprint/imprint_sbs.html:102
 #: cms/templates/pages/page_sbs.html:51 cms/templates/pages/page_sbs.html:119
@@ -1469,8 +1469,8 @@ msgstr "Übersetzung ist aktuell"
 #: cms/templates/_form_language_tabs.html:18
 #: cms/templates/_form_language_tabs.html:73
 #: cms/templates/events/event_list_archived_row.html:43
-#: cms/templates/events/event_list_row.html:43
-#: cms/templates/events/event_list_row.html:65
+#: cms/templates/events/event_list_row.html:42
+#: cms/templates/events/event_list_row.html:64
 #: cms/templates/imprint/imprint_sbs.html:41
 #: cms/templates/imprint/imprint_sbs.html:98
 #: cms/templates/pages/page_sbs.html:47 cms/templates/pages/page_sbs.html:115
@@ -1487,7 +1487,7 @@ msgstr "Wird derzeit übersetzt"
 #: cms/templates/_form_language_tabs.html:31
 #: cms/templates/_form_language_tabs.html:77
 #: cms/templates/events/event_list_archived_row.html:47
-#: cms/templates/events/event_list_row.html:47
+#: cms/templates/events/event_list_row.html:46
 #: cms/templates/imprint/imprint_sbs.html:37
 #: cms/templates/imprint/imprint_sbs.html:94
 #: cms/templates/pages/page_sbs.html:43 cms/templates/pages/page_sbs.html:111
@@ -1501,7 +1501,7 @@ msgstr "Übersetzung ist veraltet"
 #: cms/templates/_form_language_tabs.html:43
 #: cms/templates/_form_language_tabs.html:85
 #: cms/templates/events/event_list_archived_row.html:56
-#: cms/templates/events/event_list_row.html:59
+#: cms/templates/events/event_list_row.html:58
 #: cms/templates/pages/page_tree_archived_node.html:68
 #: cms/templates/pages/page_tree_node.html:83
 #: cms/templates/pois/poi_list_row.html:56
@@ -1601,29 +1601,45 @@ msgstr "Diese Veranstaltung hat keinen Veranstaltungsort"
 msgid "Determines whether the event is assigned to a physical location."
 msgstr "Legt fest, ob zu der Veranstaltung ein Ort gespeichert wurde."
 
-#: cms/forms/events/event_form.py:64
+#: cms/forms/events/event_form.py:38
+msgid "start date"
+msgstr "Start-Datum"
+
+#: cms/forms/events/event_form.py:42
+msgid "end date"
+msgstr "End-Datum"
+
+#: cms/forms/events/event_form.py:46
+msgid "start time"
+msgstr "Start-Uhrzeit"
+
+#: cms/forms/events/event_form.py:51
+msgid "end time"
+msgstr "End-Uhrzeit"
+
+#: cms/forms/events/event_form.py:78
 msgid "Either disable the event location or provide a valid location"
 msgstr ""
 "Entweder muss der Veranstaltungsort deaktiviert werden oder es muss ein "
 "gültiger Ort angegeben werden"
 
-#: cms/forms/events/event_form.py:110
+#: cms/forms/events/event_form.py:127
 msgid "If the event is not all-day, the start time is required"
 msgstr ""
 "Wenn die Veranstaltung nicht ganztägig ist, muss eine Start-Uhrzeit "
 "angegeben werden"
 
-#: cms/forms/events/event_form.py:118
+#: cms/forms/events/event_form.py:135
 msgid "If the event is not all-day, the end time is required"
 msgstr ""
 "Wenn die Veranstaltung nicht ganztägig ist, muss eine End-Uhrzeit angegeben "
 "werden"
 
-#: cms/forms/events/event_form.py:134 cms/forms/events/event_form.py:148
+#: cms/forms/events/event_form.py:151 cms/forms/events/event_form.py:165
 msgid "The end of the event can't be before the start of the event"
 msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
 
-#: cms/forms/events/event_form.py:158
+#: cms/forms/events/event_form.py:175
 msgid ""
 "The maximum duration for events is 7 days. Consider using recurring events "
 "if the event is not continuous."
@@ -2016,7 +2032,7 @@ msgstr "Sie haben Ihr bisheriges Passwort falsch eingegeben."
 msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
-#: cms/models/abstract_content_model.py:97 cms/models/abstract_tree_node.py:35
+#: cms/models/abstract_content_model.py:96 cms/models/abstract_tree_node.py:35
 #: cms/models/feedback/feedback.py:60 cms/models/media/directory.py:24
 #: cms/models/media/media_file.py:138
 #: cms/models/push_notifications/push_notification.py:21
@@ -2024,7 +2040,7 @@ msgstr "Die Passwörter stimmen nicht überein."
 msgid "region"
 msgstr "Region"
 
-#: cms/models/abstract_content_model.py:100 cms/models/feedback/feedback.py:96
+#: cms/models/abstract_content_model.py:99 cms/models/feedback/feedback.py:96
 #: cms/models/languages/language.py:87
 #: cms/models/languages/language_tree_node.py:39
 #: cms/models/media/directory.py:36 cms/models/offers/offer_template.py:56
@@ -2143,50 +2159,42 @@ msgstr "Chat-Nachricht"
 msgid "chat messages"
 msgstr "Chat-Nachrichten"
 
-#: cms/models/events/event.py:86 cms/models/pois/poi.py:84
+#: cms/models/events/event.py:87 cms/models/pois/poi.py:84
 #: cms/models/pois/poi_translation.py:27
 msgid "location"
 msgstr "Ort"
 
-#: cms/models/events/event.py:88
-msgid "start date"
-msgstr "Start-Datum"
-
 #: cms/models/events/event.py:89
-msgid "start time"
-msgstr "Start-Uhrzeit"
+msgid "start"
+msgstr "Beginn"
 
 #: cms/models/events/event.py:90
-msgid "end date"
-msgstr "End-Datum"
+msgid "end"
+msgstr "Ende"
 
-#: cms/models/events/event.py:91
-msgid "end time"
-msgstr "End-Uhrzeit"
-
-#: cms/models/events/event.py:99 cms/models/events/recurrence_rule.py:206
+#: cms/models/events/event.py:98 cms/models/events/recurrence_rule.py:206
 msgid "recurrence rule"
 msgstr "Wiederholungs-Regel"
 
-#: cms/models/events/event.py:103 cms/models/pages/page.py:134
+#: cms/models/events/event.py:102 cms/models/pages/page.py:134
 #: cms/models/pois/poi.py:43
 msgid "icon"
 msgstr "Icon"
 
-#: cms/models/events/event.py:108 cms/models/pois/poi.py:50
+#: cms/models/events/event.py:107 cms/models/pois/poi.py:50
 #: cms/views/bulk_action_views.py:223
 msgid "archived"
 msgstr "archiviert"
 
-#: cms/models/events/event.py:264
+#: cms/models/events/event.py:293
 msgid "copy"
 msgstr "Kopie"
 
-#: cms/models/events/event.py:290 cms/models/events/event_translation.py:27
+#: cms/models/events/event.py:319 cms/models/events/event_translation.py:27
 msgid "event"
 msgstr "Veranstaltung"
 
-#: cms/models/events/event.py:292
+#: cms/models/events/event.py:321
 msgid "events"
 msgstr "Veranstaltungen"
 
@@ -3484,7 +3492,7 @@ msgstr ""
 "Bearbeitung gehindert."
 
 #: cms/templates/_form_language_tabs.html:39
-#: cms/templates/events/event_list_row.html:55
+#: cms/templates/events/event_list_row.html:54
 #: cms/templates/pois/poi_list_row.html:52
 msgid "Default language is duplicated"
 msgstr "Standard-Sprache wird dupliziert"
@@ -3632,7 +3640,7 @@ msgstr "Ein Serverfehler ist aufgetreten."
 #: cms/templates/analytics/_broken_links_widget.html:26
 #: cms/templates/chat/_chat_widget.html:30
 #: cms/templates/statistics/_statistics_widget.html:23
-#: cms/templates/statistics/statistics_overview.html:19 xliff/utils.py:261
+#: cms/templates/statistics/statistics_overview.html:19 xliff/utils.py:263
 msgid "Please contact the administrator."
 msgstr "Bitte kontaktieren Sie einen Administrator."
 
@@ -4104,7 +4112,7 @@ msgid "Restore this event"
 msgstr "Diese Veranstaltung wiederherstellen"
 
 #: cms/templates/events/event_form.html:347
-#: cms/templates/events/event_list_row.html:116
+#: cms/templates/events/event_list_row.html:115
 msgid "Archive event"
 msgstr "Veranstaltung archivieren"
 
@@ -4114,7 +4122,7 @@ msgstr "Diese Veranstaltung archivieren"
 
 #: cms/templates/events/event_form.html:362
 #: cms/templates/events/event_list_archived_row.html:100
-#: cms/templates/events/event_list_row.html:125
+#: cms/templates/events/event_list_row.html:124
 msgid "Delete event"
 msgstr "Veranstaltung löschen"
 
@@ -4264,8 +4272,8 @@ msgstr "Veranstaltungen wiederherstellen"
 
 #: cms/templates/events/event_list_archived_row.html:17
 #: cms/templates/events/event_list_archived_row.html:31
-#: cms/templates/events/event_list_row.html:17
-#: cms/templates/events/event_list_row.html:31
+#: cms/templates/events/event_list_row.html:16
+#: cms/templates/events/event_list_row.html:30
 #: cms/templates/pages/page_tree_archived_node.html:31
 #: cms/templates/pages/page_tree_archived_node.html:41
 #: cms/templates/pages/page_tree_node.html:38
@@ -4278,26 +4286,26 @@ msgid "Translation not available"
 msgstr "Übersetzung nicht verfügbar"
 
 #: cms/templates/events/event_list_archived_row.html:72
-#: cms/templates/events/event_list_row.html:81
+#: cms/templates/events/event_list_row.html:80
 msgid "Not specified"
 msgstr "Nicht festgelegt"
 
 #: cms/templates/events/event_list_archived_row.html:85
-#: cms/templates/events/event_list_row.html:94
+#: cms/templates/events/event_list_row.html:93
 msgid "One-time"
 msgstr "Einmalig"
 
-#: cms/templates/events/event_list_row.html:100
+#: cms/templates/events/event_list_row.html:99
 msgid "Open event in web app"
 msgstr "Veranstaltung in der Web-App öffnen"
 
-#: cms/templates/events/event_list_row.html:104
+#: cms/templates/events/event_list_row.html:103
 msgid "This event cannot be opened in the web app, because it is not public."
 msgstr ""
 "Diese Veranstaltung kann nicht in der Web-App geöffnet werden, weil sie "
 "nicht veröffentlicht ist."
 
-#: cms/templates/events/event_list_row.html:112
+#: cms/templates/events/event_list_row.html:111
 msgid "Copy event"
 msgstr "Veranstaltung kopieren"
 
@@ -4995,7 +5003,7 @@ msgstr "Vorschau"
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: cms/templates/pages/_page_xliff_import_diff.html:80 xliff/utils.py:509
+#: cms/templates/pages/_page_xliff_import_diff.html:80 xliff/utils.py:511
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
@@ -5203,7 +5211,7 @@ msgstr "Automatische Speicherung als Entwurf wiederherstellen"
 
 #: cms/templates/pages/page_revisions.html:106
 msgid "Accept and restore changes as draft"
-msgstr "Änderung akzeptieren und als Entwurf wiederherstellen"
+msgstr "Änderungen akzeptieren und als Entwurf wiederherstellen"
 
 #: cms/templates/pages/page_revisions.html:108
 msgid "Accept current changes as draft"
@@ -5232,7 +5240,7 @@ msgstr "Automatische Speicherung veröffentlichen"
 
 #: cms/templates/pages/page_revisions.html:118
 msgid "Accept and publish the current changes"
-msgstr "Die aktuellen Änderungen akzeptieren und veröffentlichen"
+msgstr "Aktuelle Änderungen akzeptieren und veröffentlichen"
 
 #: cms/templates/pages/page_revisions.html:120
 msgid "Restore this version and submit for review"
@@ -6390,17 +6398,17 @@ msgstr "Bitte bestätigen Sie, dass dieses Event gelöscht werden soll"
 msgid "All translations of this event will also be deleted."
 msgstr "Alle Übersetzungen dieses Events werden gelöscht."
 
-#: cms/views/events/event_form_view.py:83
+#: cms/views/events/event_form_view.py:88
 msgid "You cannot edit this event because it is archived."
 msgstr ""
 "Sie können diese Veranstaltung nicht bearbeiten, weil sie archiviert ist."
 
-#: cms/views/events/event_form_view.py:88
+#: cms/views/events/event_form_view.py:93
 msgid "You don't have the permission to edit events."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten."
 
-#: cms/views/events/event_form_view.py:97
+#: cms/views/events/event_form_view.py:102
 msgid ""
 "You don't have the permission to publish events, but you can propose changes "
 "and submit them for review instead."
@@ -6409,17 +6417,17 @@ msgstr ""
 "veröffentlichen, aber Sie können Änderungen vornehmen und diese zur "
 "Überprüfung vorlegen."
 
-#: cms/views/events/event_form_view.py:199
+#: cms/views/events/event_form_view.py:208
 #: cms/views/imprint/imprint_form_view.py:217
 #: cms/views/pages/page_form_view.py:309 cms/views/pois/poi_form_view.py:168
 msgid "No changes detected, autosave skipped"
 msgstr "Keine Änderungen vorgenommen, automatisches Speichern übersprungen"
 
-#: cms/views/events/event_form_view.py:230
+#: cms/views/events/event_form_view.py:242
 msgid "Event \"{}\" was successfully created"
 msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/events/event_form_view.py:239
+#: cms/views/events/event_form_view.py:251
 #: cms/views/pages/page_form_view.py:363
 #: cms/views/pages/page_revision_view.py:189
 #: cms/views/pois/poi_form_view.py:192
@@ -7330,7 +7338,7 @@ msgstr "{} \"{}\" wurde erfolgreich übersetzt"
 msgid "{} \"{}\" could not be automatically translated."
 msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
 
-#: xliff/utils.py:164
+#: xliff/utils.py:166
 msgid ""
 "Page {} does not have a {}source translation in {} and therefore cannot be "
 "exported as XLIFF for translation to {}."
@@ -7338,48 +7346,48 @@ msgstr ""
 "Die Seite {} hat keine {}Quell-Übersetzung auf {} und kann deshalb nicht als "
 "XLIFF für die Übersetzung nach {} exportiert werden."
 
-#: xliff/utils.py:168
+#: xliff/utils.py:170
 msgid "published"
 msgstr "veröffentliche"
 
-#: xliff/utils.py:189
+#: xliff/utils.py:191
 msgid "An unexpected error has occurred while exporting page {}."
 msgstr ""
 "Es ist ein unerwarteter Fehler beim Exportieren der Seite {} aufgetreten."
 
-#: xliff/utils.py:192 xliff/utils.py:279
+#: xliff/utils.py:194 xliff/utils.py:281
 msgid "Please try again or contact the administrator."
 msgstr ""
 "Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator."
 
-#: xliff/utils.py:259
+#: xliff/utils.py:261
 msgid "The page referenced in XLIFF file \"{}\" could not be found."
 msgstr "Die Seite der XLIFF-Datei \"{}\" konnte nicht gefunden werden."
 
-#: xliff/utils.py:277
+#: xliff/utils.py:279
 msgid "An unexpected error has occurred while importing XLIFF file \"{}\"."
 msgstr ""
 "Es ist ein unerwarteter Fehler beim Importieren der XLIFF-Datei \"{}\" "
 "aufgetreten."
 
-#: xliff/utils.py:388
+#: xliff/utils.py:390
 msgid "Page {} could not be imported successfully because of the errors: {}"
 msgstr "Die Seite {} konnte nicht importiert werden aufgrund der Fehler: {}"
 
-#: xliff/utils.py:405
+#: xliff/utils.py:407
 msgid "Page {} was imported without changes."
 msgstr "Seite {} wurde ohne Änderungen importiert."
 
-#: xliff/utils.py:425
+#: xliff/utils.py:427
 msgid "Page {} was imported successfully."
 msgstr "Seite {} wurde erfolgreich importiert."
 
-#: xliff/utils.py:458
+#: xliff/utils.py:460
 msgid "You don't have the permission to import this page."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu importieren."
 
-#: xliff/utils.py:467
+#: xliff/utils.py:469
 msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "

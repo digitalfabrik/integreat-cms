@@ -3,7 +3,6 @@ This module includes functions related to the push notification that are sent vi
 """
 from django.conf import settings
 from django.http import JsonResponse
-from django.utils.formats import date_format
 from django.utils import timezone
 
 from ...cms.models import PushNotificationTranslation
@@ -25,7 +24,6 @@ def sent_push_notifications(request, region_slug, language_slug):
     :return: JSON object according to APIv3 push notifications definition
     :rtype: ~django.http.JsonResponse
     """
-
     channel = request.GET.get("channel", "all")
     query_result = (
         PushNotificationTranslation.objects.filter(
@@ -58,6 +56,7 @@ def transform_notification(pnt):
         "id": str(pnt.pk),
         "title": pnt.title,
         "message": pnt.text,
-        "timestamp": date_format(timezone.localtime(pnt.last_updated), "Y-m-d H:i:s"),
+        "timestamp": pnt.last_updated,  # deprecated field in the future
+        "last_updated": timezone.localtime(pnt.last_updated),
         "channel": pnt.push_notification.channel,
     }

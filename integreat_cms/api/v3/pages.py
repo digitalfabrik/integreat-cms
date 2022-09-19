@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.html import strip_tags
 from django.utils.text import slugify
-
+from django.utils import timezone
 from ...cms.models import Page
 from ...cms.forms import PageTranslationForm
 from ..decorators import json_response, matomo_tracking
@@ -69,7 +69,8 @@ def transform_page(page_translation):
         "url": settings.BASE_URL + absolute_url,
         "path": absolute_url,
         "title": page_translation.title,
-        "modified_gmt": page_translation.combined_last_updated,
+        "modified_gmt": page_translation.combined_last_updated,  # deprecated field in the future
+        "last_updated": timezone.localtime(page_translation.combined_last_updated),
         "excerpt": strip_tags(page_translation.combined_text),
         "content": page_translation.combined_text,
         "parent": parent,
