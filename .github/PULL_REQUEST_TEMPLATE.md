@@ -22,7 +22,6 @@
 Fixes: #
 
 
-<hr>
-
+__________________________________________________
 <!-- Keep this link for the potential reviewer -->
 [Pull Request Review Guidelines](https://digitalfabrik.github.io/integreat-cms/pull-request-review-guide.html)
