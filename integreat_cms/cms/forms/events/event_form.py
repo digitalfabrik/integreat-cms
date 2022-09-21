@@ -177,15 +177,16 @@ class EventForm(CustomModelForm):
                         code="invalid",
                     ),
                 )
-
-        tzinfo = zoneinfo.ZoneInfo(self.instance.timezone)
-        cleaned_data["start"] = datetime.combine(
-            cleaned_data["start_date"],
-            cleaned_data["start_time"],
-        ).replace(tzinfo=tzinfo)
-        cleaned_data["end"] = datetime.combine(
-            cleaned_data["end_date"],
-            cleaned_data["end_time"],
-        ).replace(tzinfo=tzinfo)
+        # If everything looks good until now, combine the dates and times into timezone-aware datetimes
+        if not self.errors:
+            tzinfo = zoneinfo.ZoneInfo(self.instance.timezone)
+            cleaned_data["start"] = datetime.combine(
+                cleaned_data["start_date"],
+                cleaned_data["start_time"],
+            ).replace(tzinfo=tzinfo)
+            cleaned_data["end"] = datetime.combine(
+                cleaned_data["end_date"],
+                cleaned_data["end_time"],
+            ).replace(tzinfo=tzinfo)
         logger.debug("EventForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data
