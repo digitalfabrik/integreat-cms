@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.9.3
+--------
+
 * [ [#1705](https://github.com/digitalfabrik/integreat-cms/issues/1705) ] Fix error messages in event validation
 
 
