@@ -16,7 +16,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy as _
 
 from ..nominatim_api.utils import BoundingBox
-from .logging_formatter import ColorFormatter
+from .logging_formatter import ColorFormatter, RequestFormatter
 
 
 ###################
@@ -429,6 +429,7 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "console": {
+            "()": RequestFormatter,
             "format": "{asctime} \x1b[1m{levelname}\x1b[0m {name} - {message}",
             "datefmt": "%b %d %H:%M:%S",
             "style": "{",
@@ -440,6 +441,7 @@ LOGGING = {
             "style": "{",
         },
         "logfile": {
+            "()": RequestFormatter,
             "format": "{asctime} {levelname:7} {name} - {message}",
             "datefmt": "%b %d %H:%M:%S",
             "style": "{",
