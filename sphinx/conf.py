@@ -160,6 +160,8 @@ nitpick_ignore = [
     ("py:class", "django.forms.models.ModelFormMetaclass"),
     ("py:class", "django.forms.widgets.LanguageTreeNodeForm"),
     ("py:class", "django.forms.widgets.PageForm"),
+    ("py:class", "django.test.client.AsyncClient"),
+    ("py:class", "django.test.client.Client"),
     ("py:func", "django.utils.text.capfirst"),
     ("py:class", "django.utils.xmlutils.SimplerXMLGenerator"),
     ("py:class", "linkcheck.apps.LinkcheckConfig"),

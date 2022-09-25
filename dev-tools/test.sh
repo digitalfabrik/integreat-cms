@@ -12,6 +12,9 @@ rm -rf "${BASE_DIR:?}/htmlcov/"
 require_installed
 require_database
 
+# Set dummy key to enable SUMM.AI during testing
+export INTEGREAT_CMS_SUMM_AI_API_KEY="dummy"
+
 deescalate_privileges pipenv run pytest --disable-warnings --quiet --numprocesses=auto --cov=integreat_cms --cov-report html
 echo "✔ Tests successfully completed " | print_success
 
