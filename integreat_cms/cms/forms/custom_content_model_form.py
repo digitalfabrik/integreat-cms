@@ -1,5 +1,3 @@
-import logging
-
 from urllib.parse import urlparse
 
 from lxml.etree import LxmlError
@@ -12,11 +10,10 @@ from django.db.models import Q
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 
+from ..utils.slug_utils import generate_unique_slug_helper
 from ..constants import status
 from ..models import MediaFile
 from .custom_model_form import CustomModelForm
-
-logger = logging.getLogger(__name__)
 
 
 class CustomContentModelForm(CustomModelForm):
@@ -25,10 +22,26 @@ class CustomContentModelForm(CustomModelForm):
     """
 
     def __init__(self, **kwargs):
+        r"""
+        Initialize custom content model form
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+        """
+        # Pop kwarg to make sure the super class does not get this param
+        self.region = kwargs.pop("region", None)
+        self.language = kwargs.pop("language", None)
+
+        # Handle content edit lock
         self.changed_by_user = kwargs.pop("changed_by_user", None)
         self.locked_by_user = kwargs.pop("locked_by_user", None)
 
+        # Instantiate CustomModelForm
         super().__init__(**kwargs)
+
+        # The slug is not required because it will be auto-generated if left blank
+        if "slug" in self.fields:
+            self.fields["slug"].required = False
 
         if not self.locked_by_user:
             try:
@@ -44,7 +57,10 @@ class CustomContentModelForm(CustomModelForm):
         :return: The cleaned data (see :ref:`overriding-modelform-clean-method`)
         :rtype: dict
         """
-        force_update = self.cleaned_data["status"] == status.AUTO_SAVE
+        # Validate CustomModelForm
+        cleaned_data = super().clean()
+
+        force_update = cleaned_data.get("status") == status.AUTO_SAVE
         if (
             not force_update
             and self.changed_by_user
@@ -61,7 +77,7 @@ class CustomContentModelForm(CustomModelForm):
                 ),
             )
 
-        return super().clean()
+        return cleaned_data
 
     def clean_content(self):
         """
@@ -82,24 +98,28 @@ class CustomContentModelForm(CustomModelForm):
         # Convert heading 1 to heading 2
         for heading in content.iter("h1"):
             heading.tag = "h2"
-            logger.debug("Replaced heading 1 with heading 2: %r", tostring(heading))
+            self.logger.debug(
+                "Replaced heading 1 with heading 2: %r", tostring(heading)
+            )
 
         # Convert pre and code tags to p tags
         for monospaced in content.iter("pre", "code"):
             tag_type = monospaced.tag
             monospaced.tag = "p"
-            logger.debug(
+            self.logger.debug(
                 "Replaced %r tag with p tag: %r", tag_type, tostring(monospaced)
             )
 
         # Remove external links
         for link in content.iter("a"):
             link.attrib.pop("target", None)
-            logger.debug("Removed target attribute from link: %r", tostring(link))
+            self.logger.debug("Removed target attribute from link: %r", tostring(link))
 
         # Scan for media files in content and replace alt texts
         for image in content.iter("img"):
-            logger.debug("Image tag found in content (src: %s)", image.attrib["src"])
+            self.logger.debug(
+                "Image tag found in content (src: %s)", image.attrib["src"]
+            )
             # Remove host
             relative_url = urlparse(image.attrib["src"]).path
             # Remove media url prefix if exists
@@ -111,10 +131,52 @@ class CustomContentModelForm(CustomModelForm):
             ).first()
             # Replace alternative text
             if media_file and media_file.alt_text:
-                logger.debug("Image alt text replaced: %r", media_file.alt_text)
+                self.logger.debug("Image alt text replaced: %r", media_file.alt_text)
                 image.attrib["alt"] = media_file.alt_text
 
         return tostring(content, with_tail=False).decode("utf-8")
+
+    def clean_slug(self):
+        """
+        Validate the slug field (see :ref:`overriding-modelform-clean-method`)
+
+        :return: A unique slug based on the input value
+        :rtype: str
+        """
+        unique_slug = generate_unique_slug_helper(
+            self, self._meta.model.foreign_field()
+        )
+        self.data = self.data.copy()
+        self.data["slug"] = unique_slug
+        return unique_slug
+
+    # pylint: disable=arguments-differ
+    def save(self, commit=True):
+        """
+        This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
+        which are not directly determined by input fields.
+
+        :param commit: Whether or not the changes should be written to the database
+        :type commit: bool
+
+        :return: The saved page translation object
+        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
+        """
+
+        # Delete now outdated link objects
+        self.instance.links.all().delete()
+
+        # If none of the text content fields changed, treat as minor edit (even if checkbox isn't clicked)
+        if {"title", "short_description", "content"}.isdisjoint(self.changed_data):
+            self.logger.debug("Set 'minor_edit=True' since the content did not change")
+            self.instance.minor_edit = True
+
+        # Save new version
+        self.instance.version += 1
+        self.instance.pk = None
+
+        # Save CustomModelForm
+        return super().save(commit=commit)
 
     def add_success_message(self, request):
         """

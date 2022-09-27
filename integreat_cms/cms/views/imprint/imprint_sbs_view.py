@@ -11,7 +11,6 @@ from django.views.generic import TemplateView
 from ...decorators import permission_required
 from ...forms import ImprintTranslationForm
 from ...models import Language, ImprintPage
-from ...constants import status
 
 logger = logging.getLogger(__name__)
 
@@ -28,9 +27,7 @@ class ImprintSideBySideView(TemplateView):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {
         "current_menu_item": "imprint",
-        "WEBAPP_URL": settings.WEBAPP_URL,
         "IMPRINT_SLUG": settings.IMPRINT_SLUG,
-        "PUBLIC": status.PUBLIC,
     }
 
     def get(self, request, *args, **kwargs):

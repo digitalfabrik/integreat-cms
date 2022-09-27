@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1653](https://github.com/digitalfabrik/integreat-cms/issues/1653) ] Create new versions even if content did not change to preserve translation
+
 
 2022.9.3
 --------
