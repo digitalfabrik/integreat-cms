@@ -13,6 +13,7 @@ from ..forms import (
     RegionForm,
     EventTranslationForm,
     POITranslationForm,
+    PageTranslationForm,
 )
 from ..models import Event, Language, OfferTemplate, Organization, Page, POI, Role
 
@@ -715,6 +716,14 @@ urlpatterns = [
                                             name="bulk_restore_pages",
                                         ),
                                         path(
+                                            "auto-translate-easy-german/",
+                                            bulk_action_views.BulkActionEasyGermanView.as_view(
+                                                model=Page,
+                                                form=PageTranslationForm,
+                                            ),
+                                            name="auto_translate_easy_german_pages",
+                                        ),
+                                        path(
                                             "<int:page_id>/",
                                             include(
                                                 [
@@ -918,6 +927,14 @@ urlpatterns = [
                                             name="automatic_translation_events",
                                         ),
                                         path(
+                                            "auto-translate-easy-german/",
+                                            bulk_action_views.BulkActionEasyGermanView.as_view(
+                                                model=Event,
+                                                form=EventTranslationForm,
+                                            ),
+                                            name="auto_translate_easy_german_events",
+                                        ),
+                                        path(
                                             "bulk-archive/",
                                             bulk_action_views.BulkArchiveView.as_view(
                                                 model=Event
@@ -999,6 +1016,14 @@ urlpatterns = [
                                                 model=POI, form=POITranslationForm
                                             ),
                                             name="automatic_translation_pois",
+                                        ),
+                                        path(
+                                            "auto-translate-easy-german/",
+                                            bulk_action_views.BulkActionEasyGermanView.as_view(
+                                                model=POI,
+                                                form=POITranslationForm,
+                                            ),
+                                            name="auto_translate_easy_german_pois",
                                         ),
                                         path(
                                             "bulk-archive/",

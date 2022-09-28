@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -61,7 +62,7 @@ class ImprintRevisionView(TemplateView):
                 **{
                     "region_slug": region.slug,
                     "language_slug": language.slug,
-                }
+                },
             )
 
         selected_revision = imprint_translations.filter(
@@ -75,7 +76,7 @@ class ImprintRevisionView(TemplateView):
                 **{
                     "region_slug": region.slug,
                     "language_slug": language.slug,
-                }
+                },
             )
 
         # Show warning if user has no permission to manage the imprint
@@ -116,6 +117,8 @@ class ImprintRevisionView(TemplateView):
 
         :raises ~django.http.Http404: If no imprint exists for the region
 
+        :raises ~django.core.exceptions.PermissionDenied: If user tries to restore a page with an invalid status
+
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
         """
@@ -139,7 +142,7 @@ class ImprintRevisionView(TemplateView):
                 **{
                     "region_slug": region.slug,
                     "language_slug": language.slug,
-                }
+                },
             )
 
         current_revision = imprint.get_translation(language.slug)
@@ -159,7 +162,7 @@ class ImprintRevisionView(TemplateView):
                 **{
                     "region_slug": region.slug,
                     "language_slug": language.slug,
-                }
+                },
             )
 
         revision.pk = None
@@ -167,13 +170,14 @@ class ImprintRevisionView(TemplateView):
         # Reset author to current user
         revision.creator = request.user
 
-        if "submit_draft" in request.POST:
-            revision.status = status.DRAFT
-        elif "submit_review" in request.POST:
-            revision.status = status.REVIEW
-        elif "submit_public" in request.POST:
-            revision.status = status.PUBLIC
+        desired_status = request.POST.get("status")
 
+        if desired_status not in dict(status.CHOICES):
+            raise PermissionDenied(
+                f"{request.user!r} tried to restore {revision!r} of {imprint!r} with invalid status {desired_status!r}"
+            )
+
+        revision.status = desired_status
         revision.save()
 
         messages.success(request, _("The revision was successfully restored"))

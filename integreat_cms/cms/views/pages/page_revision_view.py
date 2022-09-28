@@ -153,13 +153,9 @@ class PageRevisionView(PageContextMixin, TemplateView):
 
         current_revision = page.get_translation(language.slug)
 
-        if "submit_draft" in request.POST:
-            desired_status = status.DRAFT
-        elif "submit_review" in request.POST:
-            desired_status = status.REVIEW
-        elif "submit_public" in request.POST:
-            desired_status = status.PUBLIC
-        elif "submit_reject" in request.POST:
+        desired_status = request.POST.get("status")
+
+        if not desired_status:
             # If the current version should be rejected, return to the latest version that is neither an auto save nor in review
             revision = page.translations.filter(
                 language=language, status__in=[status.DRAFT, status.PUBLIC]
@@ -171,9 +167,9 @@ class PageRevisionView(PageContextMixin, TemplateView):
                 )
                 return redirect_to_page_revisions
             desired_status = revision.status
-        else:
+        elif desired_status not in dict(status.CHOICES):
             raise PermissionDenied(
-                f"{request.user!r} tried to restore {revision!r} of {page!r} without status"
+                f"{request.user!r} tried to restore {revision!r} of {page!r} with invalid status {desired_status!r}"
             )
 
         # Assume that changing to an older revision is not a minor change by default

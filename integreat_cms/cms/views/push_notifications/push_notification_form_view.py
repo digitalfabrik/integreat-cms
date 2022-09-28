@@ -124,7 +124,6 @@ class PushNotificationFormView(TemplateView):
                 "pnt_formset": pnt_formset,
                 "language": language,
                 "languages": region.active_languages,
-                "WEBAPP_URL": settings.WEBAPP_URL,
             },
         )
 
@@ -291,6 +290,5 @@ class PushNotificationFormView(TemplateView):
                 "pnt_formset": pnt_formset,
                 "language": language,
                 "languages": region.active_languages,
-                "WEBAPP_URL": settings.WEBAPP_URL,
             },
         )

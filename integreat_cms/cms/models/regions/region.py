@@ -298,6 +298,14 @@ class Region(AbstractBaseModel):
         ),
     )
 
+    summ_ai_enabled = models.BooleanField(
+        default=False,
+        verbose_name=_("activate automatic translations via SUMM.AI"),
+        help_text=_(
+            "Whether automatic translations into Easy German with SUMM.AI are enabled"
+        ),
+    )
+
     #: Custom model manager :class:`~integreat_cms.cms.models.regions.region.RegionManager` for region objects
     objects = RegionManager()
 

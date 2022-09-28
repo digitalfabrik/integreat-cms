@@ -8,12 +8,10 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...constants import (
-    status,
-    translation_status,
-)
+from ...constants import translation_status
 from ...decorators import permission_required
 from ...forms import EventFilterForm
+from ..mixins import SummAiContextMixin
 from .event_context_mixin import EventContextMixin
 
 from ....deepl_api.utils import DeepLApi
@@ -22,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
-class EventListView(TemplateView, EventContextMixin):
+class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
     """
     View for listing events (either non-archived or archived events depending on
     :attr:`~integreat_cms.cms.views.events.event_list_view.EventListView.archived`)
@@ -33,12 +31,7 @@ class EventListView(TemplateView, EventContextMixin):
     #: Template for list of archived events
     template_archived = "events/event_list_archived.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    extra_context = {
-        "current_menu_item": "events",
-        "WEBAPP_URL": settings.WEBAPP_URL,
-        "PUBLIC": status.PUBLIC,
-        "DEEPL_ENABLED": settings.DEEPL_ENABLED,
-    }
+    extra_context = {"current_menu_item": "events"}
     #: Whether or not to show archived events
     archived = False
 

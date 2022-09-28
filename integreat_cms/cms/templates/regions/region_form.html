@@ -182,6 +182,17 @@
                         <label for="{{ form.fallback_translations_enabled.id_for_label }}" class="!inline">{{ form.fallback_translations_enabled.label }}</label>
                         <div class="help-text">{{ form.fallback_translations_enabled.help_text }}</div>
                     </div>
+                    <div class="pt-2">
+                        <!-- Options related to SUMM.AI -->
+                        {% render_field form.summ_ai_enabled class+='inline-block' %}
+                        <label for="{{ form.summ_ai_enabled.id_for_label }}" class="!inline">{{ form.summ_ai_enabled.label }}</label>
+                        <div class="help-text">{{ form.summ_ai_enabled.help_text }}</div>
+                        {% if form.summ_ai_enabled.field.disabled %}
+                            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-3" role="alert">
+                                <p>{% trans 'Currently SUMM.AI is globally deactivated' %}</p>
+                            </div>
+                        {% endif %}
+                    </div>
                     <div>
                         <!-- Options related to tunews -->
                         {% render_field form.tunews_enabled %}

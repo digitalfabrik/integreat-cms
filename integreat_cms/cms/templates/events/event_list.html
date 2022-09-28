@@ -130,6 +130,11 @@
                         </option>
                     {% endif %}
                 {% endif %}
+                {% if SUMM_AI_ENABLED %}
+                    <option  data-bulk-action="{% url 'auto_translate_easy_german_events' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% trans 'Automatically translate this event into Easy German' %}
+                    </option>
+                {% endif %}
             </select>
             <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
         </div>

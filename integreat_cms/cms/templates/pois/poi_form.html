@@ -32,8 +32,8 @@
             </h1>
             {% if not poi_form.instance.archived and perms.cms.change_poi %}
                 <div class="flex flex-wrap gap-4 ml-auto mr-0">
-                    <button name="submit_draft" class="btn btn-gray">{% trans 'Save as draft' %}</button>
-                    <button name="submit_public" class="btn">
+                    <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% trans 'Save as draft' %}</button>
+                    <button name="status" value="{{ PUBLIC }}" class="btn">
                         {% if poi_translation_form.instance.status == PUBLIC %}
                             {% trans 'Update' %}
                         {% else %}
