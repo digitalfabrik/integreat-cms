@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.9.5
+--------
+
 * [ [#1720](https://github.com/digitalfabrik/integreat-cms/issues/1720) ] Fix translation of empty tags with SUMM.AI API for Easy German
 
 
