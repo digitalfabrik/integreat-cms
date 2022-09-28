@@ -50,7 +50,7 @@ class TextField:
         :type text: str
         """
         self.name = name
-        self.text = getattr(translation, name, "")
+        self.text = getattr(translation, name, "").strip()
 
     def translate(self, translated_text):
         """
@@ -100,7 +100,7 @@ class HTMLSegment(TextField):
         # Strip all inner tags
         strip_tags(self.segment, "*")
         # Unescape to convert umlauts etc. to unicode
-        self.text = unescape(self.segment.text_content())
+        self.text = unescape(self.segment.text_content()).strip()
 
     def translate(self, translated_text):
         """
@@ -287,11 +287,15 @@ class TranslationHelper:
         if not self.valid:
             return []
         text_fields = list(
-            itertools.chain(
-                # Get all plain text fields
-                [text_field for text_field in self.text_fields if text_field.text],
-                # Get all segments of all HTML fields
-                *[html_field.segments for html_field in self.html_fields],
+            filter(
+                # Filter out empty texts
+                lambda x: x.text,
+                itertools.chain(
+                    # Get all plain text fields
+                    self.text_fields,
+                    # Get all segments of all HTML fields
+                    *[html_field.segments for html_field in self.html_fields],
+                ),
             )
         )
         logger.debug(
