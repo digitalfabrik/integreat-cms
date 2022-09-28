@@ -33,3 +33,36 @@ class ColorFormatter(logging.Formatter):
         # pylint: disable=protected-access
         self._style._fmt = color + fmt + "\x1b[0m"
         return super().format(record)
+
+
+class RequestFormatter(logging.Formatter):
+    """
+    Logging Formatter to log the GET parameters of a failed HTTP request
+    """
+
+    def format(self, record):
+        """
+        Format the specified record including the request if possible (see :meth:`python:logging.Formatter.format`).
+
+        :param record: The log record
+        :type record: ~logging.LogRecord
+
+        :return: The formatted logging message
+        :rtype: str
+        """
+        message = super().format(record)
+        # Check whether this record belongs to a request
+        if record.name == "django.request":
+            # Prepend HTTP status code to the message
+            message = message.replace(
+                "django.request - ", f"django.request - {record.status_code} "
+            )
+            # Append the GET query string to the message
+            if query := record.request.META["QUERY_STRING"]:
+                if "\n" in message:
+                    # If the string is multi-line (e.g. because the traceback follows), only append to first line
+                    message = message.replace("\n", f"?{query}\n", 1)
+                else:
+                    # If the string consists of one single line, just append it to the end
+                    message += f"?{query}"
+        return message
