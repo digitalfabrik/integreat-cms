@@ -816,7 +816,7 @@ if settings.FCM_ENABLED:
                         "form-0-language": 1,
                         "form-1-title": "",
                         "form-1-text": "",
-                        "form-1-language": 2,
+                        "form-1-language": 6,
                         "channel": "news",
                         "mode": "ONLY_AVAILABLE",
                     },

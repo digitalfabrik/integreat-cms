@@ -1,6 +1,7 @@
 """
 This module contains mixins for our views
 """
+from django.conf import settings
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 from django.utils.translation import ugettext as _
@@ -103,5 +104,35 @@ class ContentEditLockMixin(ContextMixin):
                     },
                 )
             }
+        )
+        return context
+
+
+# pylint: disable=too-few-public-methods
+class SummAiContextMixin(ContextMixin):
+    """
+    This mixin provides extra context for SUMM.AI bulk action views
+    """
+
+    def get_context_data(self, **kwargs):
+        r"""
+        Returns a dictionary representing the template context
+        (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
+
+        :param \**kwargs: The given keyword arguments
+        :type \**kwargs: dict
+
+        :return: The template context
+        :rtype: dict
+        """
+        context = super().get_context_data(**kwargs)
+        context["SUMM_AI_ENABLED"] = (
+            settings.SUMM_AI_ENABLED
+            and self.request.region.summ_ai_enabled
+            and kwargs.get("language_slug")
+            in [
+                settings.SUMM_AI_GERMAN_LANGUAGE_SLUG,
+                settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
+            ]
         )
         return context

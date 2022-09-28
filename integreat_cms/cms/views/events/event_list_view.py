@@ -11,6 +11,7 @@ from django.views.generic import TemplateView
 from ...constants import translation_status
 from ...decorators import permission_required
 from ...forms import EventFilterForm
+from ..mixins import SummAiContextMixin
 from .event_context_mixin import EventContextMixin
 
 from ....deepl_api.utils import DeepLApi
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
-class EventListView(TemplateView, EventContextMixin):
+class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
     """
     View for listing events (either non-archived or archived events depending on
     :attr:`~integreat_cms.cms.views.events.event_list_view.EventListView.archived`)

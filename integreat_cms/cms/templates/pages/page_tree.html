@@ -152,6 +152,11 @@
                     <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
                         {% trans 'Archive pages' %}
                     </option>
+                    {% if SUMM_AI_ENABLED %}
+                        <option  data-bulk-action="{% url 'auto_translate_easy_german_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                            {% trans 'Automatically translate this page into Easy German' %}
+                        </option>
+                    {% endif %}
                     <option id="pdf-export-option"
                             data-bulk-action="{% url 'export_pdf' region_slug=request.region.slug language_slug=language.slug %}"
                             data-target="_blank"
