@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.9.4
+--------
+
 * [ [#1653](https://github.com/digitalfabrik/integreat-cms/issues/1653) ] Create new versions even if content did not change to preserve translation
 * [ [#1450](https://github.com/digitalfabrik/integreat-cms/issues/1450) ] Add API from SUMM.AI to create easy-understable German
 * [ [#1532](https://github.com/digitalfabrik/integreat-cms/issues/1532) ] Fix PDF table of contents in cyrillic alphabets
