@@ -144,7 +144,10 @@ class RegionForm(CustomModelForm):
         # Do not require coordinates because they might be automatically filled
         self.fields["latitude"].required = False
         self.fields["longitude"].required = False
-        if not settings.SUMM_AI_ENABLED:
+        # Disable SUMM.AI option if locally and globally disabled
+        if not settings.SUMM_AI_ENABLED and not (
+            self.instance and self.instance.summ_ai_enabled
+        ):
             self.fields["summ_ai_enabled"].disabled = True
 
     def save(self, commit=True):
