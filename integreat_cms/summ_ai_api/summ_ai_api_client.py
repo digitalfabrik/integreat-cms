@@ -97,7 +97,7 @@ class SummAiApiClient:
                 # Let the field handle the translated text
                 text_field.translate(response_data["translated_text"])
                 return text_field
-        except (aiohttp.ClientError, SummAiException) as e:
+        except (aiohttp.ClientError, asyncio.TimeoutError, SummAiException) as e:
             logger.error(
                 "SUMM.AI translation of %r failed because of %s: %s",
                 text_field,
