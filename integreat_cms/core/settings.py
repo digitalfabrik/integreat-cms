@@ -699,6 +699,9 @@ SUMM_AI_TEST_MODE = strtobool(
     os.environ.get("INTEGREAT_CMS_SUMM_AI_TEST_MODE", str(DEBUG))
 )
 
+#: The timeout in minutes for requests to the SUMM.AI API
+SUMM_AI_TIMEOUT = 10
+
 #: The language slugs for German
 SUMM_AI_GERMAN_LANGUAGE_SLUG = os.environ.get(
     "INTEGREAT_CMS_SUMM_AI_GERMAN_LANGUAGE_SLUG", "de"
