@@ -8,7 +8,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 echo "Extracting dependency versions..." | print_info
 # Use pipenv to extract the exact dependency versions from the Pipfile.lock and remove all lines with start with a space, # or -
-DEPENDENCY_VERSIONS=$(pipenv lock -r | sed "/^[#-]/d")
+DEPENDENCY_VERSIONS=$(pipenv requirements | sed "/^[#-]/d")
 echo "${DEPENDENCY_VERSIONS}"
 
 # Use python to write the dependencies into the setup.cfg config file
