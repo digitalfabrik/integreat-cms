@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.10.0
+---------
+
 * [ [#1734](https://github.com/digitalfabrik/integreat-cms/issues/1734) ] Increase timeout for SUMM.AI API client
 
 
