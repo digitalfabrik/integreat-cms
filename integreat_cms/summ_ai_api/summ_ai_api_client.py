@@ -97,7 +97,7 @@ class SummAiApiClient:
                 # Let the field handle the translated text
                 text_field.translate(response_data["translated_text"])
                 return text_field
-        except (aiohttp.ClientError, SummAiException) as e:
+        except (aiohttp.ClientError, asyncio.TimeoutError, SummAiException) as e:
             logger.error(
                 "SUMM.AI translation of %r failed because of %s: %s",
                 text_field,
@@ -122,7 +122,9 @@ class SummAiApiClient:
         :returns: The list of completed text fields
         :rtype: list [ ~integreat_cms.summ_ai_api.utils.TextField ]
         """
-        async with aiohttp.ClientSession() as session:
+        # Set a custom SUMM.AI timeout
+        timeout = aiohttp.ClientTimeout(total=60 * settings.SUMM_AI_TIMEOUT)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
             # Create tasks for each text field
             tasks = [
                 loop.create_task(self.translate_text_field(session, text_field))
