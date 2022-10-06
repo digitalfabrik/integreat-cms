@@ -240,6 +240,7 @@ function wait_for_docker_container {
 # This function creates a new postgres database docker container
 function create_docker_container {
     echo "Creating new PostgreSQL database docker container..." | print_info
+    mkdir -p "${BASE_DIR}/.postgres"
     # Run new container
     docker run -d --name "${DOCKER_CONTAINER_NAME}" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "${BASE_DIR}/.postgres:/var/lib/postgresql" -p 5433:5432 postgres > /dev/null
     wait_for_docker_container
