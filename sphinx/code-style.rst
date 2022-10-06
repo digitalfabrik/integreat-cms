@@ -18,6 +18,18 @@ If you want to apply the formatting without committing, use our developer tool :
     ./dev-tools/black.sh
 
 
+.. _djlint:
+
+DjLint
+------
+
+We use `djlint <https://www.djlint.com/>`__ to format our Django HTML templates.
+
+If you want to apply the formatting, use our developer tool :github-source:`dev-tools/djlint.sh`::
+
+    ./dev-tools/djlint.sh
+
+
 .. _prettier-code-style:
 
 Prettier

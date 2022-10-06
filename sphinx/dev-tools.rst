@@ -98,11 +98,15 @@ Automatically apply our CSS/JS style with :github-source:`dev-tools/prettier.sh`
 
     ./dev-tools/prettier.sh
 
+Automatically apply our HTML formatting with :github-source:`dev-tools/djlint.sh`::
+
+    ./dev-tools/djlint.sh
+
 Check the code for semantic correctness with :github-source:`dev-tools/pylint.sh`::
 
     ./dev-tools/pylint.sh
 
-Execute all three tools at once with :github-source:`dev-tools/code_style.sh`::
+Execute all tools at once with :github-source:`dev-tools/code_style.sh`::
 
     ./dev-tools/code_style.sh
 
