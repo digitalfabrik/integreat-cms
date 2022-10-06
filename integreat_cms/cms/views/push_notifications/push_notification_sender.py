@@ -142,7 +142,12 @@ class PushNotificationSender:
         for pnt in self.prepared_pnts:
             res = self.send_pn(pnt)
             if res.status_code == 200:
-                logger.info("%r sent, FCM id: %r", pnt, res.json()["message_id"])
+                if "message_id" in res.json():
+                    logger.info("%r sent, FCM id: %r", pnt, res.json()["message_id"])
+                else:
+                    logger.warning(
+                        "%r sent, but unexpected API response: %r", pnt, res.json()
+                    )
             else:
                 status = False
                 logger.error(
