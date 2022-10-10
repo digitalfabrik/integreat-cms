@@ -140,6 +140,7 @@
                     <div class="flex flex-col flex-auto px-4 pb-4 divide-y divide-gray-200 space-y-2">
                         <div>
                             <label>{% trans 'Address' %}</label>
+                            <div id="nominatim-error" class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2 hidden" role="alert"></div>
                             <label for="{{ poi_form.address.id_for_label }}" class="secondary">{{ poi_form.address.label }}</label>
                             {% render_field poi_form.address|add_error_class:"border-red-500" %}
                             <label for="{{ poi_form.postcode.id_for_label }}" class="secondary">{{ poi_form.postcode.label }}</label>
@@ -156,9 +157,13 @@
                         </div>
                         <div>
                             <label>{% trans 'Position' %}</label>
-                            <div class="help-text">
-                                {% trans 'If you leave these fields blank, they are automatically derived from the address.' %}
+                            <div>
+                                <input type="checkbox" id="auto-fill-coordinates" data-url="{% url 'auto_complete_poi_address' %}" checked>
+                                <label for="auto-fill-coordinates" class="secondary !inline">
+                                    {% trans 'Derive coordinates automatically from address' %}
+                                </label>
                             </div>
+
                             <label for="{{ poi_form.latitude.id_for_label }}" class="secondary">{{ poi_form.latitude.label }}</label>
                             {% render_field poi_form.latitude|add_error_class:"border-red-500" %}
                             <div class="help-text">{{ poi_form.latitude.help_text }}</div>
