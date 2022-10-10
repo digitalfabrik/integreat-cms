@@ -13,6 +13,22 @@ class AbstractBaseModel(models.Model):
     Abstract base class for all models
     """
 
+    @classmethod
+    def get_model_name_plural(cls):
+        """
+        Get the plural representation of this model name
+
+        :returns: The plural model name
+        :rtype: str
+        """
+        model_name = cls._meta.model_name
+        # Build correct plural of models ending with "y"
+        if model_name.endswith("y"):
+            model_name_plural = f"{model_name[:-1]}ies"
+        else:
+            model_name_plural = f"{model_name}s"
+        return model_name_plural
+
     def get_repr(self):
         """
         Returns the canonical string representation of the content object

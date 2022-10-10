@@ -46,7 +46,7 @@ class CustomModelDeleteMixin(
         kwargs = {}
         if self.request.region:
             kwargs["region_slug"] = self.request.region.slug
-        return reverse(f"{self.object._meta.model_name}s", kwargs=kwargs)
+        return reverse(self.object.get_model_name_plural(), kwargs=kwargs)
 
     def delete(self, request, *args, **kwargs):
         r"""

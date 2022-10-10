@@ -15,7 +15,16 @@ from ..forms import (
     POITranslationForm,
     PageTranslationForm,
 )
-from ..models import Event, Language, OfferTemplate, Organization, Page, POI, Role
+from ..models import (
+    Event,
+    Language,
+    OfferTemplate,
+    Organization,
+    Page,
+    POI,
+    POICategory,
+    Role,
+)
 
 from ..views import (
     analytics,
@@ -40,6 +49,7 @@ from ..views import (
     users,
     utils,
     feedback,
+    poi_categories,
 )
 
 #: The media library ajax url patterns are reused twice (for the admin media library and the region media library)
@@ -273,6 +283,45 @@ urlpatterns = [
                                 "resend-activation-link",
                                 users.resend_activation_link,
                                 name="resend_activation_link",
+                            ),
+                        ]
+                    ),
+                ),
+            ]
+        ),
+    ),
+    path(
+        "location-categories/",
+        include(
+            [
+                path(
+                    "",
+                    list_views.ModelListView.as_view(
+                        model=POICategory,
+                        extra_context={"languages": Language.objects.all()},
+                    ),
+                    name="poicategories",
+                ),
+                path(
+                    "new/",
+                    poi_categories.POICategoryCreateView.as_view(),
+                    name="new_poicategory",
+                ),
+                path(
+                    "<int:pk>/",
+                    include(
+                        [
+                            path(
+                                "edit/",
+                                poi_categories.POICategoryUpdateView.as_view(),
+                                name="edit_poicategory",
+                            ),
+                            path(
+                                "delete/",
+                                delete_views.CustomDeleteView.as_view(
+                                    model=POICategory,
+                                ),
+                                name="delete_poicategory",
                             ),
                         ]
                     ),

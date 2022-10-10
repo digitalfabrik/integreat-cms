@@ -92,6 +92,12 @@
             {{ poi.country }}
         </a>
     </td>
+    <td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
+            {% trans 'No category assigned' as no_category_text %}
+            {% firstof poi.category no_category_text %}
+        </a>
+    </td>
     <td class="pl-2 pr-4 py-3 min text-right flex flex-nowrap gap-2">
         {% if poi_translation.status == PUBLIC %}
             <a href="{{ WEBAPP_URL }}{{ poi_translation.get_absolute_url }}"

@@ -44,6 +44,7 @@ class POIForm(CustomModelForm):
             "website",
             "email",
             "phone_number",
+            "category",
         ]
         #: The widgets which are used in this form
         widgets = {

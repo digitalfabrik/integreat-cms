@@ -64,7 +64,7 @@ class ModelListView(
         :return: The name of the objects in this list view
         :rtype: str
         """
-        return f"{self.model._meta.model_name}s"
+        return self.model.get_model_name_plural()
 
     def get_context_data(self, **kwargs):
         r"""
@@ -78,7 +78,7 @@ class ModelListView(
         :rtype: dict
         """
         context = super().get_context_data(**kwargs)
-        context["current_menu_item"] = f"{self.model._meta.model_name}s"
+        context["current_menu_item"] = self.model.get_model_name_plural()
         return context
 
     def get_permission_required(self):

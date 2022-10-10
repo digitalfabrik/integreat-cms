@@ -271,6 +271,13 @@
                         {% trans 'Feedback' %}
                     </a>
                 {% endif %}
+                {% if perms.cms.view_poicategory %}
+                    <a href="{% url 'poicategories' %}"
+                       class="{% if current_menu_item == 'poicategories' %} active{% endif %}">
+                        <i data-feather="tag"></i>
+                        {% trans 'Location Categories' %}
+                    </a>
+                {% endif %}
             {% endif %}
         </div>
         <div class="p-2 text-center absolute inset-x-0 bottom-0 bg-gray-600">{% trans 'Version' %}: {{ version }}</div>

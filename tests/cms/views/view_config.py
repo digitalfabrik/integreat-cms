@@ -41,6 +41,7 @@ VIEWS = [
             ("new_role", [ROOT]),
             ("new_user", STAFF_ROLES),
             ("offertemplates", STAFF_ROLES),
+            ("poicategories", STAFF_ROLES),
             ("regions", STAFF_ROLES),
             ("roles", [ROOT]),
             ("user_settings", STAFF_ROLES),
@@ -359,6 +360,35 @@ VIEWS = [
         [("edit_offertemplate", STAFF_ROLES)],
         # The kwargs for these views
         {"slug": "ihk-lehrstellenboerse"},
+    ),
+    (
+        [("edit_poicategory", STAFF_ROLES)],
+        # The kwargs for these views
+        {"pk": 1},
+    ),
+    (
+        [
+            (
+                "edit_poicategory",
+                HIGH_PRIV_STAFF_ROLES,
+                {
+                    "translations-TOTAL_FORMS": 2,
+                    "translations-INITIAL_FORMS": 2,
+                    "translations-MIN_NUM_FORMS": 2,
+                    "translations-MAX_NUM_FORMS": 2,
+                    "translations-0-id": 1,
+                    "translations-0-category": 1,
+                    "translations-0-language": 1,
+                    "translations-0-name": "Test Kategorie",
+                    "translations-1-id": 2,
+                    "translations-1-category": 1,
+                    "translations-1-language": 2,
+                    "translations-1-name": "Test category",
+                },
+            )
+        ],
+        # The kwargs for these views
+        {"pk": 1},
     ),
     (
         [("linkcheck", ROLES)],

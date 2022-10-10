@@ -47,3 +47,6 @@ from .users.user import User
 from .users.organization import Organization
 from .users.role import Role
 from .users.user_mfa_key import UserMfaKey
+
+from .poi_categories.poi_category import POICategory
+from .poi_categories.poi_category_translation import POICategoryTranslation

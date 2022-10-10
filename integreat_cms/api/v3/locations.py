@@ -5,7 +5,9 @@ from distutils.util import strtobool
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
+
 from ..decorators import json_response
+from .location_categories import transform_location_category
 
 
 def transform_poi(poi):
@@ -72,6 +74,9 @@ def transform_poi_translation(poi_translation):
         "website": poi.website if poi.website else None,
         "email": poi.email if poi.email else None,
         "phone_number": poi.phone_number if poi.phone_number else None,
+        "category": transform_location_category(
+            poi.category, poi_translation.language.slug
+        ),
         "location": transform_poi(poi),
         "hash": None,
     }

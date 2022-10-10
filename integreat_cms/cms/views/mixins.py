@@ -42,7 +42,8 @@ class ModelTemplateResponseMixin(TemplateResponseMixin):
         :rtype: str
         """
         model_name = self.model._meta.model_name
-        return f"{model_name}s/{model_name}{self.template_name_suffix}.html"
+        model_name_plural = self.model.get_model_name_plural()
+        return f"{model_name_plural}/{model_name}{self.template_name_suffix}.html"
 
 
 # pylint: disable=too-few-public-methods
