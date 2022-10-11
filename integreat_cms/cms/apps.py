@@ -1,4 +1,6 @@
 import logging
+import os
+import sys
 
 from django.apps import AppConfig
 from django.contrib.auth.signals import (
@@ -21,12 +23,25 @@ class CmsConfig(AppConfig):
     :type name: str
     """
 
+    #: The name of this app config
     name = "integreat_cms.cms"
+
+    #: Whether the availability of external APIs should be checked
+    test_external_apis = False
 
     # pylint: disable=unused-import,import-outside-toplevel
     def ready(self):
         # Implicitly connect a signal handlers decorated with @receiver.
         from .signals import feedback_signals
+
+        # Determine whether the availability of external APIs should be checked
+        self.test_external_apis = (
+            # Either the dev server is started with the "runserver" command,
+            # but it's not the main process (to ignore autoreloads)
+            ("runserver" in sys.argv and "RUN_MAIN" not in os.environ)
+            # or the prod server is started via wsgi
+            or "APACHE_PID_FILE" in os.environ
+        )
 
 
 authlog = logging.getLogger("auth")

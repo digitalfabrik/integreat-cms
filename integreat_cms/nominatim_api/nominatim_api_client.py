@@ -77,7 +77,7 @@ class NominatimApiClient:
                 logger.debug("Nominatim API did not return a match")
             return result
         except GeopyError as e:
-            logger.exception(e)
+            logger.error(e)
             logger.error("Nominatim API call failed")
             return None
 
@@ -91,8 +91,7 @@ class NominatimApiClient:
                 "Nominatim API is available at: %r",
                 settings.NOMINATIM_API_URL,
             )
-        except (GeopyError, AssertionError) as e:
-            logger.exception(e)
+        except AssertionError:
             logger.error(
                 "Nominatim API unavailable. You won't be able to "
                 "automatically import location coordinates."
