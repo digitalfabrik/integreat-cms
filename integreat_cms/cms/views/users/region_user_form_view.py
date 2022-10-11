@@ -126,9 +126,6 @@ class RegionUserFormView(TemplateView):
                 user_id=region_user_form.instance.id,
             )
 
-        if not region_user_form.instance.is_active:
-            messages.info(request, _("Pending account activation"))
-
         return render(
             request,
             self.template_name,
