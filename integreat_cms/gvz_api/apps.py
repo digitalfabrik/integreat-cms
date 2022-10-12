@@ -1,12 +1,11 @@
 """
 Configuration of GVZ API app
 """
-import os
-import sys
 import logging
 import json
 import requests
-from django.apps import AppConfig
+
+from django.apps import apps, AppConfig
 from django.conf import settings
 
 logger = logging.getLogger(__name__)
@@ -25,7 +24,7 @@ class GvzApiConfig(AppConfig):
         Checking if API is available
         """
         # Only check availability if running a server
-        if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
+        if apps.get_app_config("cms").test_external_apis:
             if settings.GVZ_API_ENABLED:
                 try:
                     response = requests.get(f"{settings.GVZ_API_URL}/api/", timeout=3)
@@ -39,7 +38,7 @@ class GvzApiConfig(AppConfig):
                     requests.exceptions.Timeout,
                     AssertionError,
                 ) as e:
-                    logger.exception(e)
+                    logger.error(e)
                     logger.error(
                         "GVZ API is unavailable. You won't be able to "
                         "automatically import region coordinates and aliases."

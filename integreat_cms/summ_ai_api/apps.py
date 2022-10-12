@@ -2,11 +2,9 @@
 Configuration of SUMM.AI API app
 """
 import logging
-import os
-import sys
 
 from django.conf import settings
-from django.apps import AppConfig
+from django.apps import apps, AppConfig
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +21,7 @@ class SummAiApiConfig(AppConfig):
         Inform about the SUMM.AI configuration
         """
         # Only check if running a server
-        if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
+        if apps.get_app_config("cms").test_external_apis:
             if not settings.SUMM_AI_ENABLED:
                 logger.info("SUMM.AI API is disabled")
             elif settings.SUMM_AI_TEST_MODE:

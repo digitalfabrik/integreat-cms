@@ -1,13 +1,11 @@
 """
 Configuration of DeepL API app
 """
-import os
-import sys
 import logging
 
 from deepl.exceptions import DeepLException
 
-from django.apps import AppConfig
+from django.apps import apps, AppConfig
 from django.conf import settings
 
 from .utils import DeepLApi
@@ -29,7 +27,7 @@ class DeepLApiConfig(AppConfig):
         Checking if API is available
         """
         # Only check availability if running a server
-        if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
+        if apps.get_app_config("cms").test_external_apis:
             if settings.DEEPL_ENABLED:
                 try:
                     deepl = DeepLApi()
@@ -56,7 +54,7 @@ class DeepLApiConfig(AppConfig):
                         "DeepL API is available at: %r", deepl.translator._server_url
                     )
                 except (DeepLException, AssertionError) as e:
-                    logger.exception(e)
+                    logger.error(e)
                     logger.error(
                         "DeepL API is unavailable. You won't be able to "
                         "automatically translate events and locations."
