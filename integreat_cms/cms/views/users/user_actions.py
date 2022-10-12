@@ -21,7 +21,7 @@ def delete_user(request, user_id):
     This view deletes a user
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param user_id: The id of the user which should be deleted
     :type user_id: int
@@ -46,7 +46,7 @@ def resend_activation_link(request, user_id):
     Resends an activation link to an user
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param user_id: users id to send the activation link
     :type user_id: int

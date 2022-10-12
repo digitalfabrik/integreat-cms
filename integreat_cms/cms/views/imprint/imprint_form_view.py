@@ -40,7 +40,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
         Render :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm`
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

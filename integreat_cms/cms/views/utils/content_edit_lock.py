@@ -18,7 +18,7 @@ def content_edit_lock_heartbeat(request, region_slug=None):
     who is editing some content.
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region, unused
     :type region_slug: str
@@ -60,7 +60,7 @@ def content_edit_lock_release(request, region_slug=None):
     This function handles unlock requests
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region, unused
     :type region_slug: str

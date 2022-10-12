@@ -29,7 +29,7 @@ class RegionUserListView(TemplateView):
         Render region user list
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -78,7 +78,7 @@ class RegionUserListView(TemplateView):
         Apply the query and filter the rendered users
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
         :param \*args: The supplied arguments
         :type \*args: list
         :param \**kwargs: The supplied keyword arguments

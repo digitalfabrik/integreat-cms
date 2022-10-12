@@ -28,7 +28,7 @@ def move_language_tree_node(request, region_slug, pk, target_id, target_position
     This action moves the given language tree node to the given position relative to the given target.
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the region which language tree should be modified
     :type region_slug: str
@@ -88,7 +88,7 @@ def delete_language_tree_node(request, region_slug, pk):
     and all page translations for this language
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the region which language node should be deleted
     :type region_slug: str

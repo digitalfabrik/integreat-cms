@@ -22,7 +22,7 @@ class PartialPageTreeView(TemplateView, PageContextMixin):
         Retrieve the rendered subtree of a given root page
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

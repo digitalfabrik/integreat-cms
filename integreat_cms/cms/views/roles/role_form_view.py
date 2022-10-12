@@ -30,7 +30,7 @@ class RoleFormView(TemplateView):
         Render :class:`~integreat_cms.cms.forms.roles.role_form.RoleForm`
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -64,7 +64,7 @@ class RoleFormView(TemplateView):
         Submit :class:`~integreat_cms.cms.forms.roles.role_form.RoleForm` and save :class:`~django.contrib.auth.models.Group` object
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

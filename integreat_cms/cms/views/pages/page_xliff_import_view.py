@@ -61,7 +61,7 @@ class PageXliffImportView(TemplateView, PageContextMixin):
         Redirect to page tree if XLIFF directory does not exist
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -101,7 +101,7 @@ class PageXliffImportView(TemplateView, PageContextMixin):
         Confirm the xliff import
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

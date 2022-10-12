@@ -35,7 +35,7 @@ def archive_page(request, page_id, region_slug, language_slug):
     Archive page object
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param page_id: The id of the page which should be archived
     :type page_id: int
@@ -85,7 +85,7 @@ def restore_page(request, page_id, region_slug, language_slug):
     Restore page object (set ``archived=False``)
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param page_id: The id of the page which should be restored
     :type page_id: int
@@ -160,7 +160,7 @@ def preview_page_ajax(request, page_id, region_slug, language_slug):
     Preview page object
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param page_id: The id of the page which should be viewed
     :type page_id: int
@@ -208,7 +208,7 @@ def get_page_content_ajax(request, region_slug, language_slug, page_id):
     Get content of a page translation based on language slug
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str
@@ -240,7 +240,7 @@ def delete_page(request, page_id, region_slug, language_slug):
     Delete page object
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param page_id: The id of the page which should be deleted
     :type page_id: int
@@ -356,7 +356,7 @@ def upload_xliff(request, region_slug, language_slug):
     Upload and import an XLIFF file
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str
@@ -461,7 +461,7 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
     Move a page object in the page tree
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str
@@ -527,7 +527,7 @@ def grant_page_permission_ajax(request, region_slug):
     Grant a user editing or publishing permissions on a specific page object
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str
@@ -643,7 +643,7 @@ def revoke_page_permission_ajax(request, region_slug):
     Remove a page permission for a given user and page
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str
@@ -754,7 +754,7 @@ def get_page_order_table_ajax(request, region_slug, parent_id=None, page_id=None
     This is used in the page form to change the order of a page relative to its siblings.
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str
@@ -806,7 +806,7 @@ def render_mirrored_page_field(request, region_slug, language_slug):
     Retrieve the rendered mirrored page field template
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str
@@ -851,7 +851,7 @@ def refresh_date(
     Refresh the date for all translations of a corresponding page
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param page_id: The id of the page of the current page form
     :type page_id: int

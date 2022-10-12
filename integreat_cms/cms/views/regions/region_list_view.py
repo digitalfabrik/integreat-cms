@@ -29,7 +29,7 @@ class RegionListView(TemplateView):
         Render region list
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -70,7 +70,7 @@ class RegionListView(TemplateView):
         Apply the query and filter the rendered regions
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

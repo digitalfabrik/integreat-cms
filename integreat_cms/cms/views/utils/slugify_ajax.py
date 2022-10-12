@@ -13,7 +13,7 @@ def slugify_ajax(request, region_slug, language_slug, model_type):
     """checks the current user input for title and generates unique slug for permalink
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
     :param region_slug: region identifier
     :type region_slug: str
     :param language_slug: language slug
