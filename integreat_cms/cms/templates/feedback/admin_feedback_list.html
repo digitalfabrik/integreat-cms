@@ -61,34 +61,34 @@
                     <td class="pr-2 feedback-comment max-w-[75px] xl:max-w-[200px] 2xl:max-w-[300px] 3xl:max-w-[500px] 4xl:max-w-[800px]"
                         title="{{ feedback.comment }}">
                         {% if not feedback.comment %}
-                            <i data-feather="minus" class="pr-1"></i>
+                            <i icon-name="minus" class="pr-1"></i>
                         {% else %}
                             <div class="flex">
                                 <div class="feedback-comment-preview truncate grow">{{ feedback.comment }}</div>
-                                <i data-feather="chevron-down"
+                                <i icon-name="chevron-down"
                                     class="toggle-feedback-comment transform cursor-pointer hover:scale-125 flex-none"></i>
                             </div>
                             <div class="hidden">
-                                <span class="feedback-comment-full">{{ feedback.comment }}</span> <i data-feather="chevron-up"
+                                <span class="feedback-comment-full">{{ feedback.comment }}</span> <i icon-name="chevron-up"
                                 class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
                             </div>
                         {% endif %}
                     </td>
                     <td class="pr-2">
                         {% if feedback.rating == True %}
-                            <i data-feather="thumbs-up" class="pr-1"></i>
+                            <i icon-name="thumbs-up" class="pr-1"></i>
                         {% elif feedback.rating == False %}
-                            <i data-feather="thumbs-down" class="pr-1"></i>
+                            <i icon-name="thumbs-down" class="pr-1"></i>
                         {% elif feedback.rating == None %}
-                            <i data-feather="minus" class="pr-1"></i>
+                            <i icon-name="minus" class="pr-1"></i>
                         {% endif %}
                     </td>
                     <td class="pr-2">
                         <span class="{% if not feedback.rating_sum_positive %}invisible{% endif %}">
-                            <i data-feather="thumbs-up" class="pr-1"></i> {{ feedback.rating_sum_positive }}
+                            <i icon-name="thumbs-up" class="pr-1"></i> {{ feedback.rating_sum_positive }}
                     </span>
                     <span class="{% if not feedback.rating_sum_negative %}invisible{% endif %}">
-                        <i data-feather="thumbs-down" class="pl-1"></i> {{ feedback.rating_sum_negative }}
+                        <i icon-name="thumbs-down" class="pl-1"></i> {{ feedback.rating_sum_negative }}
                 </span>
             </td>
             <td class="pr-2">

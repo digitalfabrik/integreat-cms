@@ -35,7 +35,7 @@
         {% if perms.cms.delete_language %}
             {% if language.language_tree_nodes.exists %}
                 <button title="{% trans 'You cannot delete a language that is used in at least one region.' %}" class="btn-icon" disabled>
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% else %}
                 <button title="{% trans 'Delete language' %}" class="confirmation-button btn-icon"
@@ -43,7 +43,7 @@
                         data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ language.translated_name }}"
                         data-action="{% url 'delete_language' slug=language.slug %}">
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% endif %}
         {% endif %}

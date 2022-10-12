@@ -382,7 +382,7 @@ def xliff_import_confirm(request, xliff_dir):
                     )
                     error_list = "<ul>"
                     for error in errors:
-                        error_list += f"<li><i data-feather='alert-triangle' class='pb-1'></i> {error['message']}</li>"
+                        error_list += f"<li><i icon-name='alert-triangle' class='pb-1'></i> {error['message']}</li>"
                     error_list += "</ul>"
                     messages.error(
                         request,

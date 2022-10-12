@@ -2,8 +2,7 @@
  * The functionality to fetch subpages
  */
 
-import feather from "feather-icons";
-
+import { create_icons_at } from "../utils/create-icons";
 import { setBulkActionEventListeners } from "../bulk-actions";
 import { setToggleSubpagesEventListeners } from "./toggle-subpages";
 import { addDragAndDropListeners } from "../tree-drag-and-drop";
@@ -17,8 +16,6 @@ window.addEventListener("load", () => {
     console.debug("Loading all subpages");
     Promise.all(rootPages.map(fetchSubpages)).then(() => {
       console.debug("Finished loading all subpages");
-      // Render icons for recently added DOM elements
-      feather.replace({ class: 'inline-block' });
       // Set event handlers
       setToggleSubpagesEventListeners();
       setBulkActionEventListeners();
@@ -65,6 +62,8 @@ export async function fetchSubpages(collapseSpan: HTMLElement): Promise<number[]
         directChildrenIds.push(descendantId);
       }
     }
+    // render icons
+    create_icons_at(rowToInsert);
     // Insert child into DOM tree
     currentRow.after(rowToInsert);
     // Update point to insert next child

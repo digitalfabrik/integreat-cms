@@ -41,20 +41,20 @@
                     {% if other_translation %}
                         {% if other_translation.currently_in_translation %}
                             <span title="{% trans 'Currently in translation' %}">
-                                <i data-feather="clock" class="{% if other_language == language %}text-blue-500{% endif %}"></i>
+                                <i icon-name="clock" class="{% if other_language == language %}text-blue-500{% endif %}"></i>
                             </span>
                         {% elif other_translation.is_outdated %}
                             <span title="{% trans 'Translation outdated' %}">
-                                <i data-feather="alert-triangle" class="{% if other_language == language %}text-yellow-500{% endif %}"></i>
+                                <i icon-name="alert-triangle" class="{% if other_language == language %}text-yellow-500{% endif %}"></i>
                             </span>
                         {% else %}
                             <span title="{% trans 'Translation up-to-date' %}">
-                                <i data-feather="check" class="{% if other_language == language %}text-green-500{% endif %}"></i>
+                                <i icon-name="check" class="{% if other_language == language %}text-green-500{% endif %}"></i>
                             </span>
                         {% endif %}
                     {% else %}
                         <span title="{% trans 'Translation missing' %}">
-                            <i data-feather="x" class="{% if other_language == language %}text-red-500{% endif %}"></i>
+                            <i icon-name="x" class="{% if other_language == language %}text-red-500{% endif %}"></i>
                         </span>
                     {% endif %}
                 </a>
@@ -73,16 +73,16 @@
         {% endif %}
     </td>
     <td class="py-3 pr-2">
-        <i data-feather="calendar"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
+        <i icon-name="calendar"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i icon-name="clock" class="ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
     </td>
     <td class="py-3 pr-2">
-        <i data-feather="calendar"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i data-feather="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
+        <i icon-name="calendar"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i icon-name="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
     </td>
     <td class="py-3 pr-2">
         {% if event.recurrence_rule %}
-        <i data-feather="repeat"></i> {{ event.recurrence_rule.get_frequency_display }}
+        <i icon-name="repeat"></i> {{ event.recurrence_rule.get_frequency_display }}
         {% else %}
-        <i data-feather="calendar"></i> {% trans 'One-time' %}
+        <i icon-name="calendar"></i> {% trans 'One-time' %}
         {% endif %}
     </td>
     <td class="pr-4 py-3 flex flex-nowrap justify-end gap-2">
@@ -93,7 +93,7 @@
                 data-confirmation-text="{{ restore_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}"
                 data-action="{% url 'restore_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
-                <i data-feather="refresh-ccw"></i>
+                <i icon-name="refresh-ccw"></i>
             </button>
         {% endif %}
         {% if perms.cms.delete_event %}
@@ -102,7 +102,7 @@
                 data-confirmation-text="{{ delete_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}"
                 data-action="{% url 'delete_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
-                <i data-feather="trash-2"></i>
+                <i icon-name="trash-2"></i>
             </button>
         {% endif %}
     </td>

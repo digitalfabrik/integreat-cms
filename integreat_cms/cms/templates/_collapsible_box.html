@@ -2,14 +2,14 @@
 <div class="rounded shadow-2xl border border-blue-500 bg-white mb-3">
     <div class="collapsible cursor-pointer rounded p-4 bg-water-500 text-black font-bold flex justify-between">
         <span>
-            <i data-feather="{% spaceless %}{% block collapsible_box_icon %}{% endblock collapsible_box_icon %}{% endspaceless %}"
+            <i icon-name="{% spaceless %}{% block collapsible_box_icon %}{% endblock collapsible_box_icon %}{% endspaceless %}"
                class="pb-1"></i>
             {% block collapsible_box_title %}
             {% endblock collapsible_box_title %}
         </span>
-        <i data-feather="chevron-up"
+        <i icon-name="chevron-up"
            class="up-arrow {% if collapsed %}hidden{% endif %}"></i>
-        <i data-feather="chevron-down"
+        <i icon-name="chevron-down"
            class="down-arrow {% if not collapsed %}hidden{% endif %}"></i>
     </div>
     <div class="collapsible-content transition-all duration-200 ease-in-out overflow-hidden {% if collapsed %}h-0{% endif %}">

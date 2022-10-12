@@ -1,7 +1,7 @@
 /*
  * The functionality to toggle subpages
  */
-import feather from "feather-icons";
+import { create_icons_at } from "../utils/create-icons";
 
 window.addEventListener("load", () => {
   // On the page tree, the event listeners are set after all subpages have been loaded
@@ -53,15 +53,14 @@ export async function toggleSubpages(event: Event) {
   toggleSubpagesRecursive(children);
   // Change icon and title
   let icon = collapseSpan.querySelector("svg");
-  if (icon.classList.contains("feather-chevron-down")) {
-    collapseSpan.innerHTML = '<i data-feather="chevron-right"></i>';
+  if (icon.classList.contains("lucide-chevron-down")) {
+    collapseSpan.innerHTML = '<i icon-name="chevron-right"></i>';
     collapseSpan.title = collapseSpan.getAttribute("data-expand-title");
   } else {
-    collapseSpan.innerHTML = '<i data-feather="chevron-down"></i>';
+    collapseSpan.innerHTML = '<i icon-name="chevron-down"></i>';
     collapseSpan.title = collapseSpan.getAttribute("data-collapse-title");
   }
-  // Trigger icon replacement
-  feather.replace({ class: 'inline-block' });
+  create_icons_at(collapseSpan);
 }
 
 /**
@@ -90,7 +89,7 @@ function toggleSubpagesRecursive(childrenIds: Array<number>) {
     if (collapseSpan) {
       // The icon will be null if the page is a leaf node
       const icon = collapseSpan.querySelector("svg");
-      if (icon.classList.contains("feather-chevron-down")) {
+      if (icon.classList.contains("lucide-chevron-down")) {
         // This means the children are not yet collapsed and have to be hidden as well
         const grandChildren: number[] = JSON.parse(
           collapseSpan.getAttribute("data-page-children")
@@ -119,13 +118,12 @@ async function collapseAllPages() {
     const span = page.querySelector(".toggle-subpages") as HTMLElement;
     if (span) {
       // Change icon
-      span.innerHTML = '<i data-feather="chevron-right"></i>';
+      span.innerHTML = '<i icon-name="chevron-right"></i>';
       // Toggle title
       span.title = span.getAttribute("data-expand-title");
+      create_icons_at(span);
     }
   });
-  // Trigger icon replacement
-  feather.replace({ class: 'inline-block' });
 }
 
 /**
@@ -143,11 +141,10 @@ async function expandAllPages() {
     const span = page.querySelector(".toggle-subpages") as HTMLElement;
     if (span) {
       // Change icon
-      span.innerHTML = '<i data-feather="chevron-down"></i>';
+      span.innerHTML = '<i icon-name="chevron-down"></i>';
       // Toggle title
       span.title = span.getAttribute("data-collapse-title");
+      create_icons_at(span);
     }
   });
-  // Trigger icon replacement
-  feather.replace({ class: 'inline-block' });
 }

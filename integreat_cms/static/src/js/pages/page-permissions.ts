@@ -1,7 +1,7 @@
 /**
  * This file contains all event handlers and functions which are needed for granting and revoking permissions on individual pages.
  */
-import feather from "feather-icons";
+import { create_icons_at } from "../utils/create-icons";
 import {getCsrfToken} from "../utils/csrf-token";
 
 document.addEventListener("DOMContentLoaded", setPagePermissionEventListeners);
@@ -78,6 +78,6 @@ async function updatePagePermission(
     // set new event listeners
     setPagePermissionEventListeners();
     // trigger icon replacement
-    feather.replace({ class: 'inline-block' });
+    create_icons_at(document.getElementById("page_permission_table"));
   }
 }

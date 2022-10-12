@@ -1,4 +1,4 @@
-import feather from "feather-icons";
+import { create_icons_at } from "../utils/create-icons"
 import { getCsrfToken } from "../utils/csrf-token";
 
 window.addEventListener("load", () => {
@@ -39,10 +39,10 @@ async function queryPois(
 
   if (data) {
     // Set and display new data
-    document.getElementById("poi-query-result").classList.remove("hidden");
-    document.getElementById("poi-query-result").innerHTML = data;
-    // trigger icon replacement
-    feather.replace({ class: 'inline-block' });
+    const query_result = document.getElementById("poi-query-result");
+    query_result.classList.remove("hidden");
+    query_result.innerHTML = data;
+    create_icons_at(query_result);
   }
 
   document.querySelectorAll(".option-new-poi").forEach((node) => {

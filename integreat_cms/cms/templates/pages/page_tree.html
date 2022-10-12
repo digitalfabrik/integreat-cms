@@ -11,12 +11,12 @@
                 <h1 class="heading">
                     {% trans 'Page Tree' %}
                     <button data-show-tutorial="page-tree" class="hover:text-blue-500">
-                        <i data-feather="help-circle" class="align-baseline"></i>
+                        <i icon-name="help-circle" class="align-baseline"></i>
                     </button>
                 </h1>
                 <a href="{% url 'archived_pages' region_slug=request.region.slug language_slug=language.slug %}"
                    class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
-                    <span><i data-feather="archive" class="align-top h-5"></i> {% trans 'Archived pages' %}</span>
+                    <span><i icon-name="archive" class="align-top h-5"></i> {% trans 'Archived pages' %}</span>
                 </a>
             </div>
             <div class="flex flex-wrap justify-between gap-4">
@@ -125,7 +125,7 @@
                 {% if not filter_form.is_enabled %}
                     <a id="expand-all-pages" class="text-blue-500 !cursor-wait">
                         {% spaceless %}
-                            <i data-feather="chevron-down"
+                            <i icon-name="chevron-down"
                                class="align-sub h-5 rounded-full group-hover:bg-blue-500 group-hover:text-white"></i>
                             {% trans 'Expand all' %}
                         {% endspaceless %}
@@ -133,7 +133,7 @@
                     <span class="text-gray-600 font-default">|</span>
                     <a id="collapse-all-pages" class="text-blue-500 !cursor-wait">
                         {% spaceless %}
-                            <i data-feather="chevron-up"
+                            <i icon-name="chevron-up"
                                class="align-sub h-5 rounded-full group-hover:bg-blue-500 group-hover:text-white"></i>
                             {% trans 'Collapse all' %}
                         {% endspaceless %}
@@ -206,7 +206,7 @@
                     <label id="xliff_file_label"
                            for="xliff_file"
                            class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 m-0 rounded">
-                        <i data-feather="upload" class="inline-block pr-1"></i>
+                        <i icon-name="upload" class="inline-block pr-1"></i>
                         {% trans 'Select files' %}
                     </label>
                     <span id="xliff_file_label_multiple" class="hidden">{% trans 'and {} other files' %}</span>

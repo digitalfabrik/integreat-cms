@@ -10,7 +10,7 @@
     <div class="flex flex-wrap w-full xl:w-1/2 xl:pr-4">
         <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="font-bold text-black"><i data-feather="flag" class="mr-2"></i> {% trans 'My Language Preference' %}</h3>
+                <h3 class="font-bold text-black"><i icon-name="flag" class="mr-2"></i> {% trans 'My Language Preference' %}</h3>
             </div>
             <div class="px-4 pb-4">
                 <form action="{% url 'i18n:set_language' %}" method="post" class="w-full">
@@ -37,7 +37,7 @@
         </div>
         <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="font-bold text-black"><i data-feather="mail" class="mr-2"></i> {% trans 'My E-mail-address' %}</h3>
+                <h3 class="font-bold text-black"><i icon-name="mail" class="mr-2"></i> {% trans 'My E-mail-address' %}</h3>
             </div>
             <div class="px-4 pb-4">
                 <form method="post">
@@ -53,7 +53,7 @@
     <div class="w-full xl:w-1/2">
         <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="heading font-bold text-black"><i data-feather="lock" class="mr-2"></i> {% trans 'My Password' %}</h3>
+                <h3 class="heading font-bold text-black"><i icon-name="lock" class="mr-2"></i> {% trans 'My Password' %}</h3>
             </div>
             <div class="px-4 pb-4">
                 <form method="post">
@@ -77,7 +77,7 @@
     </div>
         <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-xl bg-white flex flex-wrap">
             <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="heading font-bold text-black"><i data-feather="key" class="mr-2"></i> {% trans 'My 2-Factor-Authentication Keys' %}</h3>
+                <h3 class="heading font-bold text-black"><i icon-name="key" class="mr-2"></i> {% trans 'My 2-Factor-Authentication Keys' %}</h3>
             </div>
             <div class="p-4">
                 {% trans "You can use your FIDO2 keys to secure your account. Once you added a key to your account you won't be able to log in without using the key." %}<br>
@@ -107,7 +107,7 @@
                                            {% url 'delete_mfa_key' key_id=key.id %}
                                        {% endif %}
                                    {% endspaceless %}">
-                                    <i data-feather="trash-2" class="text-white"></i>
+                                    <i icon-name="trash-2" class="text-white"></i>
                                 </a>
                             </td>
                         </tr>
