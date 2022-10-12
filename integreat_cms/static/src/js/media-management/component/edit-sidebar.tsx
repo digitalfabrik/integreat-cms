@@ -215,6 +215,10 @@ export default function EditSidebar({
             <label class="secondary my-0">{mediaTranslations.label_file_uploaded}</label>
             <p>{file.uploadedDate}</p>
           </div>
+          <div className="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
+            <label className="secondary my-0">{mediaTranslations.label_file_modified}</label>
+            <p>{file.lastModified}</p>
+          </div>
           {expertMode && (
             <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
               <label class="secondary my-0">{mediaTranslations.label_url}</label>

@@ -1,12 +1,12 @@
 import logging
 import mimetypes
 from os.path import splitext
-from datetime import datetime
 
 import magic
 
 from django import forms
 from django.conf import settings
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 
 from ...constants import allowed_media
@@ -141,7 +141,7 @@ class UploadMediaFileForm(CustomModelForm):
         # Add the calculated file_size and the modification date to the form data
         if cleaned_data.get("file"):
             cleaned_data["file_size"] = cleaned_data.get("file").size
-        cleaned_data["last_modified"] = datetime.now()
+        cleaned_data["last_modified"] = timezone.now()
 
         logger.debug(
             "UploadMediaFileForm validated [2] with cleaned data %r", cleaned_data

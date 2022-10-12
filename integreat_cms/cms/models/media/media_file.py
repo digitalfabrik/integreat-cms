@@ -195,6 +195,7 @@ class MediaFile(AbstractBaseModel):
             "url": self.url,
             "fileSize": filesizeformat(self.file_size),
             "uploadedDate": localize(timezone.localtime(self.uploaded_date)),
+            "lastModified": localize(timezone.localtime(self.last_modified)),
             "isGlobal": not self.region,
         }
 
