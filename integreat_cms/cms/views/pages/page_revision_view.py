@@ -31,7 +31,7 @@ class PageRevisionView(PageContextMixin, TemplateView):
         Render page revision slider
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -110,7 +110,7 @@ class PageRevisionView(PageContextMixin, TemplateView):
         Restore a previous revision of a page translation
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

@@ -24,7 +24,7 @@ def archive_poi(request, poi_id, region_slug, language_slug):
     Archive POI object
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param poi_id: The id of the POI which should be archived
     :type poi_id: int
@@ -65,7 +65,7 @@ def restore_poi(request, poi_id, region_slug, language_slug):
     Restore POI object (set ``archived=False``)
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param poi_id: The id of the POI which should be restored
     :type poi_id: int
@@ -108,7 +108,7 @@ def delete_poi(request, poi_id, region_slug, language_slug):
     Delete POI object
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param poi_id: The id of the POI which should be deleted
     :type poi_id: int
@@ -144,7 +144,7 @@ def view_poi(request, poi_id, region_slug, language_slug):
     View POI object
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param poi_id: The id of the POI which should be viewed
     :type poi_id: int

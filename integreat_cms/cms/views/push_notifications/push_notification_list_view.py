@@ -124,7 +124,7 @@ class PushNotificationListView(TemplateView):
         Apply the query and filter the rendered push notifications
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
         :param \*args: The supplied arguments
         :type \*args: list
         :param \**kwargs: The supplied keyword arguments

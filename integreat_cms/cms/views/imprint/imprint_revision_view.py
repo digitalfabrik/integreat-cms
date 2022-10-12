@@ -31,7 +31,7 @@ class ImprintRevisionView(TemplateView):
         Render imprint page revision slider
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -107,7 +107,7 @@ class ImprintRevisionView(TemplateView):
         Restore a previous revision of an imprint page translation
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

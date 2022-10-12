@@ -30,7 +30,7 @@ class RegionUserFormView(TemplateView):
         Render :class:`~integreat_cms.cms.forms.users.user_form.UserForm` for region users
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -68,7 +68,7 @@ class RegionUserFormView(TemplateView):
         object for region users
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

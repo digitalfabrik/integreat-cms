@@ -107,7 +107,7 @@ class POICategoryMixin(
         Check whether the formset is valid and delegate to the respective function
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -207,7 +207,7 @@ class POICategoryUpdateView(POICategoryMixin, UpdateView):
         object and save the formset
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

@@ -112,7 +112,7 @@ class BulkAutoTranslateView(BulkActionView):
         Translate multiple objects automatically
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -158,7 +158,7 @@ class BulkActionEasyGermanView(BulkActionView):
         Translate multiple objects automatically to Easy German
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -221,7 +221,7 @@ class BulkUpdateBooleanFieldView(BulkActionView):
         Update the fields of the selected objects and redirect
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
