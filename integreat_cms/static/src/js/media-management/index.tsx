@@ -42,6 +42,7 @@ export interface File {
   typeDisplay: string;
   thumbnailUrl: string | null;
   uploadedDate: Date;
+  lastModified: Date;
   isGlobal: boolean;
 }
 

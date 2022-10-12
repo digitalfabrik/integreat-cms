@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#951](https://github.com/digitalfabrik/integreat-cms/issues/951) ] Add possibility to create categories for POIs
+* [ [#1742](https://github.com/digitalfabrik/integreat-cms/issues/1742) ] Add last modified date to media sidebar
 
 
 2022.10.0
