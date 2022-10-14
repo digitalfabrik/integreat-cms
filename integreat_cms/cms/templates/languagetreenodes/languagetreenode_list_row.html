@@ -10,7 +10,7 @@
     </td>
     <td class="hierarchy single_icon">
 		<span data-drag-id="{{ node.id }}" data-node-descendants="{{ node|get_descendant_ids }}" class="drag text-gray-800 block py-1.5 px-2 cursor-move" draggable="true">
-            <i data-feather="move" class="text-gray-800"></i>
+            <i icon-name="move" class="text-gray-800"></i>
         </span>
     </td>
 	<td>
@@ -34,18 +34,18 @@
 	<td>
 		<div class="flex justify-center">
 			{% if node.active %}
-				<i data-feather="check" class="text-green-500"></i>
+				<i icon-name="check" class="text-green-500"></i>
 			{% else %}
-				<i data-feather="x" class="text-red-500"></i>
+				<i icon-name="x" class="text-red-500"></i>
 			{% endif %}
 		</div>
 	</td>
 	<td>
 		<div class="flex justify-center">
 			{% if node.visible %}
-				<i data-feather="check" class="text-green-500"></i>
+				<i icon-name="check" class="text-green-500"></i>
 			{% else %}
-				<i data-feather="x" class="text-red-500"></i>
+				<i icon-name="x" class="text-red-500"></i>
 			{% endif %}
 		</div>
 	</td>
@@ -58,7 +58,7 @@
 				data-confirmation-text="{{ delete_dialog_text }}"
 				data-confirmation-subject="{{ node.translated_name }}"
 				data-action="{% url 'delete_languagetreenode' region_slug=request.region.slug pk=node.pk %}">
-				<i data-feather="trash-2" class="{% if not node.is_leaf %}text-gray-400{% else %}text-gray-800{% endif %}"></i>
+				<i icon-name="trash-2" class="{% if not node.is_leaf %}text-gray-400{% else %}text-gray-800{% endif %}"></i>
 			</button>
 		{% endif %}
 	</td>

@@ -83,22 +83,22 @@
                                href="{{ url_link }}{{ poi_translation_form.instance.slug }}/"
                                class="text-blue-500 hover:underline">{{ url_link }}{{ poi_translation_form.instance.slug }}</a>
                             <a id="edit-slug-btn" title="{% trans 'Edit' %}" class="mx-2 btn-icon">
-                                <i data-feather="edit-3"></i>
+                                <i icon-name="edit-3"></i>
                             </a>
                             <a id="copy-slug-btn"
                                title="{% trans 'Copy to clipboard' %}"
                                class="btn-icon">
-                                <i data-feather="copy"></i>
+                                <i icon-name="copy"></i>
                             </a>
                             <div class="slug-field hidden">
                                 <label for="{{ poi_translation_form.slug.id_for_label }}">{{ url_link }}</label>
                                 {% render_field poi_translation_form.slug|add_error_class:"slug-error" %}
                             </div>
                             <a id="save-slug-btn" class="mx-2 btn-icon hidden">
-                                <i data-feather="save"></i>
+                                <i icon-name="save"></i>
                             </a>
                             <a id="restore-slug-btn" class="btn-icon hidden">
-                                <i data-feather="x-circle"></i>
+                                <i icon-name="x-circle"></i>
                             </a>
                         </div>
                         <label for="{{ poi_translation_form.short_description.id_for_label }}">
@@ -115,7 +115,7 @@
                     <div class="rounded border border-blue-500 shadow-2xl bg-white">
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">
-                                <i data-feather="feather" class="pb-1"></i>
+                                <i icon-name="feather" class="pb-1"></i>
                                 {% trans "Minor edit" %}
                             </h3>
                         </div>
@@ -133,7 +133,7 @@
                 <div class="flex flex-col flex-auto rounded border border-blue-500 shadow-2xl bg-white">
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
-                            <i data-feather="map-pin" class="h-5"></i>
+                            <i icon-name="map-pin" class="h-5"></i>
                             {% trans 'Position' %}
                         </h3>
                     </div>
@@ -173,7 +173,7 @@
                 <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
-                            <i data-feather="phone" class="pb-1"></i>
+                            <i icon-name="phone" class="pb-1"></i>
                             {% trans 'Contact details' %}
                         </h3>
                     </div>
@@ -199,7 +199,7 @@
                 <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
-                            <i data-feather="tag" class="pb-1"></i>
+                            <i icon-name="tag" class="pb-1"></i>
                             {{ poi_form.category.label }}
                         </h3>
                     </div>
@@ -214,7 +214,7 @@
                 <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
-                            <i data-feather="image" class="pb-1"></i>
+                            <i icon-name="image" class="pb-1"></i>
                             {{ poi_form.icon.label }}
                         </h3>
                     </div>
@@ -229,7 +229,7 @@
                     <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">
-                                <i data-feather="tool" class="pb-1"></i>
+                                <i icon-name="wrench" class="pb-1"></i>
                                 {% trans 'Actions' %}
                             </h3>
                         </div>
@@ -245,7 +245,7 @@
                                             data-confirmation-text="{{ restore_dialog_text }}"
                                             data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
                                             data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                        <i data-feather="refresh-ccw" class="mr-2"></i> {% trans 'Restore this location' %}
+                                        <i icon-name="refresh-ccw" class="mr-2"></i> {% trans 'Restore this location' %}
                                 </button>
                             {% else %}
                                 <label>
@@ -257,7 +257,7 @@
                                         data-confirmation-text="{{ archive_dialog_text }}"
                                         data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
                                         data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                    <i data-feather="archive" class="mr-2"></i> {% trans 'Archive this location' %}
+                                    <i icon-name="archive" class="mr-2"></i> {% trans 'Archive this location' %}
                             </button>
                         {% endif %}
                     </div>
@@ -282,7 +282,7 @@
                                 {% for event in poi_form.instance.events.all %}
                                     <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
                                        class="block pt-2 hover:underline">
-                                        <i data-feather="edit" class="mr-2"></i> {{ event.best_translation.title }}
+                                        <i icon-name="edit" class="mr-2"></i> {{ event.best_translation.title }}
                                 </a>
                             {% endfor %}
                         {% else %}
@@ -292,7 +292,7 @@
                                     data-confirmation-text="{{ delete_dialog_text }}"
                                     data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
                                     data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                <i data-feather="trash-2" class="mr-2"></i> {% trans 'Delete this location' %}
+                                <i icon-name="trash-2" class="mr-2"></i> {% trans 'Delete this location' %}
                         </button>
                     {% endif %}
                 </div>

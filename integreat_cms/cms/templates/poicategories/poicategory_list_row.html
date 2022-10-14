@@ -14,11 +14,11 @@
                     {% get_translation poi_category language.slug as poi_category_translation %}
                             {% if poi_category_translation %}
                                 <span title="{{ poi_category_translation.name }}">
-                                    <i data-feather="check" class="text-green-500"></i>
+                                    <i icon-name="check" class="text-green-500"></i>
                                 </span>
                             {% else %}
                                 <span title="{% trans 'Translation missing' %}" class="no-trans">
-                                    <i data-feather="x" class="text-red-500"></i>
+                                    <i icon-name="x" class="text-red-500"></i>
                                 </span>     
                             {% endif %}
                 {% endfor %}
@@ -32,7 +32,7 @@
         {% if perms.cms.delete_poicategory %}
             {% if poi_category.pois.exists %}
                 <button title="{% trans 'You cannot delete a location category that is used in at least one location.' %}" class="btn-icon" disabled>
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% else %}
                 <button title="{% trans 'Delete location category' %}" class="confirmation-button btn-icon"
@@ -40,7 +40,7 @@
                         data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ language.translated_name }}"
                         data-action="{% url 'delete_poicategory' pk=poi_category.pk %}">
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% endif %}
         {% endif %}

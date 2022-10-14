@@ -16,32 +16,32 @@
                         {% endif %}
                         {% if other_status == translation_status.IN_TRANSLATION %}
                             <span {% if other_language == language %} id="currently-in-translation-state" {% endif %} title="{% trans 'Currently in translation' %}">
-                                <i data-feather="clock"></i>
+                                <i icon-name="clock"></i>
                             </span>
                             {# For the current language, provide fallback icons in case translation process is cancelled #}
                             {% if other_language == language %}
                                 <span id="reset-translation-state-{{ translation_status.OUTDATED }}" title="{% trans 'Translation outdated' %}" class="hidden">
-                                    <i data-feather="alert-triangle"></i>
+                                    <i icon-name="alert-triangle"></i>
                                 </span>
                                 <span id="reset-translation-state-{{ translation_status.UP_TO_DATE }}" title="{% trans 'Translation up-to-date' %}" class="hidden">
-                                    <i data-feather="check"></i>
+                                    <i icon-name="check"></i>
                                 </span>
                             {% endif %}
                         {% elif other_status == translation_status.OUTDATED %}
                             <span title="{% trans 'Translation outdated' %}">
-                                <i data-feather="alert-triangle"></i>
+                                <i icon-name="alert-triangle"></i>
                             </span>
                         {% elif other_status == translation_status.UP_TO_DATE  %}
                             <span title="{% trans 'Translation up-to-date' %}">
-                                <i data-feather="check"></i>
+                                <i icon-name="check"></i>
                             </span>
                         {% elif other_status == translation_status.FALLBACK %}
                             <span title="{% trans 'Default language is duplicated' %}">
-                                <i data-feather="copy"></i>
+                                <i icon-name="copy"></i>
                             </span>
                         {% elif other_status == translation_status.MISSING  %}
                             <span title="{% trans 'Translation missing' %}" class="no-trans">
-                                <i data-feather="x"></i>
+                                <i icon-name="x"></i>
                             </span>
                         {% endif %}
                         {{ other_language.translated_name }}
@@ -63,7 +63,7 @@
                 <div id="language-switcher" class="flex flex-col text-black">
                     <div id="language-switcher-current" class="font-bold text-right bg-water-500 py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t cursor-default">
                         {% trans 'Other Languages' %}
-                        <i data-feather="chevron-down"></i>
+                        <i icon-name="chevron-down"></i>
                     </div>
                     <div id="language-switcher-list" class="h-0 hidden z-10">
                         {% for other_language, other_status in sorted_translation_states|slice:"4:" %}
@@ -71,19 +71,19 @@
                             <div>
                                 {% if other_status == translation_status.IN_TRANSLATION %}
                                     <span title="{% trans 'Currently in translation' %}">
-                                        <i data-feather="clock"></i>
+                                        <i icon-name="clock"></i>
                                     </span>
                                 {% elif other_status == translation_status.OUTDATED %}
                                     <span title="{% trans 'Translation outdated' %}">
-                                        <i data-feather="alert-triangle"></i>
+                                        <i icon-name="alert-triangle"></i>
                                     </span>
                                 {% elif other_status == translation_status.UP_TO_DATE  %}
                                     <span title="{% trans 'Translation up-to-date' %}">
-                                        <i data-feather="check"></i>
+                                        <i icon-name="check"></i>
                                     </span>
                                 {% elif other_status == translation_status.MISSING  %}
                                     <span title="{% trans 'Translation missing' %}" class="no-trans">
-                                        <i data-feather="x"></i>
+                                        <i icon-name="x"></i>
                                     </span>
                                 {% endif %}
                                 <span class="px-2 max-w-max truncate">

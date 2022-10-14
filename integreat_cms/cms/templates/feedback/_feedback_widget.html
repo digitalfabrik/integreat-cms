@@ -36,24 +36,24 @@
                 <td class="pr-2 feedback-comment max-w-[75px] lg:max-w-[300px] xl:max-w-[75px] 3xl:max-w-[300px] 4xl:max-w-[500px]"
                     title="{{ feedback.comment }}">
                     {% if not feedback.comment %}
-                        <i data-feather="minus" class="pr-1"></i>
+                        <i icon-name="minus" class="pr-1"></i>
                     {% else %}
                         <div class="flex">
                             <div class="feedback-comment-preview truncate grow">{{ feedback.comment }}</div>
-                            <i data-feather="chevron-down"
+                            <i icon-name="chevron-down"
                                 class="toggle-feedback-comment transform cursor-pointer hover:scale-125 flex-none"></i>
                         </div>
                         <div class="hidden">
-                            <span class="feedback-comment-full">{{ feedback.comment }}</span> <i data-feather="chevron-up"
+                            <span class="feedback-comment-full">{{ feedback.comment }}</span> <i icon-name="chevron-up"
                             class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
                         </div>
                     {% endif %}
                 </td>
                 <td class="pr-2">
                     {% if feedback.rating == True %}
-                        <i data-feather="thumbs-up"></i>
+                        <i icon-name="thumbs-up"></i>
                     {% elif feedback.rating == False %}
-                        <i data-feather="thumbs-down"></i>
+                        <i icon-name="thumbs-down"></i>
                     {% endif %}
                 </td>
                 <td class="pr-2">

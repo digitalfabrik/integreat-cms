@@ -24,7 +24,7 @@
       <div class="w-full xl:w-1/2">
         <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="font-bold text-black"><i data-feather="flag" class="mr-2"></i> {% trans 'Name' %}</h3>
+                <h3 class="font-bold text-black"><i icon-name="flag" class="mr-2"></i> {% trans 'Name' %}</h3>
             </div>
             <div class="w-full p-4">
                 <label for="{{ form.native_name.id_for_label }}" class="block mb-2">{{ form.native_name.label }}</label>
@@ -37,7 +37,7 @@
         </div>
         <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="font-bold text-black"><i data-feather="tag" class="mr-2"></i> {% trans 'Identifier' %}</h3>
+                <h3 class="font-bold text-black"><i icon-name="tag" class="mr-2"></i> {% trans 'Identifier' %}</h3>
             </div>
             <div class="w-full p-4">
                 <label for="{{ form.slug.id_for_label }}" class="block mb-2">{{ form.slug.label }}</label>
@@ -52,7 +52,7 @@
     <div class="w-full xl:w-1/2 xl:pl-4">
         <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="font-bold text-black"><i data-feather="globe" class="mr-2"></i> {% trans 'Translations' %}</h3>
+                <h3 class="font-bold text-black"><i icon-name="globe" class="mr-2"></i> {% trans 'Translations' %}</h3>
             </div>
             <div class="w-full p-4">
                 <label for="{{ form.table_of_contents.id_for_label }}" class="font-bold block mt-4 mb-2 cursor-pointer">{{ form.table_of_contents.label }}</label>
@@ -71,7 +71,7 @@
         <div class="w-full">
             <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="w-full p-4 rounded bg-water-500">
-                    <h3 class="font-bold text-black"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
+                    <h3 class="font-bold text-black"><i icon-name="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
                 </div>
                 <div class="w-full p-4">
                     <label for="{{ form.text_direction.id_for_label }}" class="block mb-2">{{ form.text_direction.label }}</label>
@@ -100,7 +100,7 @@
     {% if form.instance.id and perms.cms.delete_language %}
         {% if form.instance.language_tree_nodes.exists %}
             <button title="{% trans 'You cannot delete a language that is used in at least one region.' %}" class="btn" disabled>
-                <i data-feather="trash-2"></i>
+                <i icon-name="trash-2"></i>
                 {% trans 'Delete this language' %}
             </button>
         {% else %}
@@ -109,7 +109,7 @@
                     data-confirmation-text="{{ delete_dialog_text }}"
                     data-confirmation-subject="{{ form.instance.translated_name }}"
                     data-action="{% url 'delete_language' slug=form.instance.slug %}">
-                <i data-feather="trash-2"></i>
+                <i icon-name="trash-2"></i>
                 {% trans 'Delete this language' %}
             </button>
         {% endif %}

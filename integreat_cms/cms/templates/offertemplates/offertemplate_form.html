@@ -27,7 +27,7 @@
     <div class="grid xl:grid-cols-2 gap-4">
 		<div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
 			<div class="p-4 rounded bg-water-500">
-				<h3 class="heading font-bold text-black"><i data-feather="star" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+				<h3 class="heading font-bold text-black"><i icon-name="star" class="mr-2"></i> {% trans 'General Settings' %}</h3>
 			</div>
 			<div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
 				<div>
@@ -54,7 +54,7 @@
 		</div>
 		<div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
 			<div class="p-4 rounded bg-water-500">
-				<h3 class="heading font-bold text-black"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
+				<h3 class="heading font-bold text-black"><i icon-name="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
 			</div>
 			<div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
 				<div>
@@ -77,7 +77,7 @@
 	{% if form.instance.id and perms.cms.delete_offertemplate %}
 		{% if form.instance.regions.exists %}
 			<button title="{% trans 'This offer template cannot be deleted because it is used in at least one region.' %}" class="btn" disabled>
-				<i data-feather="trash-2"></i>
+				<i icon-name="trash-2"></i>
 				{% trans 'Delete this offer templates' %}
 			</button>
 		{% else %}
@@ -86,7 +86,7 @@
 					data-confirmation-text="{{ delete_dialog_text }}"
 					data-confirmation-subject="{{ form.instance.name }}"
 					data-action="{% url 'delete_offertemplate' slug=form.instance.slug %}">
-				<i data-feather="trash-2"></i>
+				<i icon-name="trash-2"></i>
 				{% trans 'Delete this offer templates' %}
 			</button>
 		{% endif %}

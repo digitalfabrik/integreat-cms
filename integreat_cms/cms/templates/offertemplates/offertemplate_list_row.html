@@ -25,7 +25,7 @@
         {% if perms.cms.delete_offertemplate %}
             {% if offer_template.regions.exists %}
                 <button title="{% trans 'This offer template cannot be deleted because it is used in at least one region.' %}" class="btn-icon" disabled>
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% else %}
                 <button title="{% trans 'Delete offer templates' %}" class="confirmation-button btn-icon"
@@ -33,7 +33,7 @@
                         data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ offer_template.name }}"
                         data-action="{% url 'delete_offertemplate' slug=offer_template.slug %}">
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% endif %}
         {% endif %}

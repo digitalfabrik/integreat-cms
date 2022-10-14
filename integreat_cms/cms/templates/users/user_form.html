@@ -23,7 +23,7 @@
     <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
         <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="p-4 rounded bg-water-500">
-                <h3 class="heading font-bold text-black"><i data-feather="user" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+                <h3 class="heading font-bold text-black"><i icon-name="user" class="mr-2"></i> {% trans 'General Settings' %}</h3>
             </div>
             <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                 <!-- General Options for user management -->
@@ -47,7 +47,7 @@
 		</div>
         <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="p-4 rounded bg-water-500">
-                <h3 class="heading font-bold text-black"><i data-feather="lock" class="mr-2"></i> {% trans 'Login' %}</h3>
+                <h3 class="heading font-bold text-black"><i icon-name="lock" class="mr-2"></i> {% trans 'Login' %}</h3>
             </div>
             <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                 <div>
@@ -76,7 +76,7 @@
         </div>
         <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
 			<div class="p-4 rounded bg-water-500">
-				<h3 class="heading font-bold text-black"><i data-feather="key" class="mr-2"></i> {% trans 'Permissions' %}</h3>
+				<h3 class="heading font-bold text-black"><i icon-name="key" class="mr-2"></i> {% trans 'Permissions' %}</h3>
 			</div>
 			<div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                 <div class="divide-y divide-gray-200">
@@ -131,7 +131,7 @@
                     data-confirmation-text="{% trans 'This cannot be reversed.' %}"
                     data-confirmation-subject="{{ user_form.username.value }}"
                     data-action="{% url 'delete_user' user_id=user_form.instance.id %}">
-                <i data-feather="trash-2" class="mr-2"></i>
+                <i icon-name="trash-2" class="mr-2"></i>
                 {% trans 'Delete this user' %}
             </button>
         </div>

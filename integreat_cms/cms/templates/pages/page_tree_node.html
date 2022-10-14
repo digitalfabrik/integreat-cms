@@ -16,7 +16,7 @@
                   class="drag cursor-move text-gray-800 inline-block pl-4 align-middle"
                   draggable="true"
                   title="{% trans 'Change the order and position of the pages with drag & drop.' %}">
-                <i data-feather="move"></i>
+                <i icon-name="move"></i>
             </span>
             {% if not page.parent_id and not page.is_leaf or page.parent_id and page.cached_children|length > 0 %}
                 <span class="toggle-subpages inline-block align-middle cursor-wait transform"
@@ -25,7 +25,7 @@
                       data-page-id="{{ page.id }}"
                       data-page-children="{{ page|get_children_ids }}"
                       data-page-descendants-url="{% url 'get_page_tree_ajax' region_slug=request.region.slug language_slug=language.slug tree_id=page.tree_id %}">
-                    <i data-feather="chevron-right"></i>
+                    <i icon-name="chevron-right"></i>
                 </span>
             {% endif %}
         </td>
@@ -69,25 +69,25 @@
                             <div id="translation-icon">
                                 {% if other_status == translation_status.IN_TRANSLATION %}
                                     <span title="{% trans 'Currently in translation' %}">
-                                        <i data-feather="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i icon-name="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% elif other_status == translation_status.OUTDATED %}
                                     <span title="{% trans 'Translation outdated' %}">
-                                        <i data-feather="alert-triangle" class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i icon-name="alert-triangle" class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% elif other_status == translation_status.UP_TO_DATE %}
                                     <span title="{% trans 'Translation up-to-date' %}">
-                                        <i data-feather="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i icon-name="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% elif other_status == translation_status.MISSING %}
                                     <span title="{% trans 'Translation missing' %}" class="no-trans">
-                                        <i data-feather="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i icon-name="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% endif %}
                             </div>
                             <div id="ajax-icon" class="hidden">
                                 <span title="{% trans 'Currently in translation' %}">
-                                    <i data-feather="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                    <i icon-name="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                                 </span>
                             </div>
                         </a>
@@ -113,7 +113,7 @@
                 data-preview-page="{% url 'preview_page_ajax' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
                 title="{% trans 'View page as preview' %}"
                 class="btn-icon">
-                <i data-feather="eye"></i>
+                <i icon-name="eye"></i>
             </button>
         {% else %}
             <button
@@ -121,21 +121,21 @@
                 title="{% trans 'You cannot preview an empty page.' %}"
                 class="btn-icon"
                 disabled>
-                <i data-feather="eye"></i>
+                <i icon-name="eye"></i>
             </button>
         {% endif %}
         {% if page_translation.status == PUBLIC %}
             <a href="{{ WEBAPP_URL }}{{ page_translation.get_absolute_url }}"
                 rel="noopener noreferrer" target="_blank" title="{% trans 'Open page in web app' %}" class="btn-icon">
-                <i data-feather="external-link"></i>
+                <i icon-name="external-link"></i>
             </a>
         {% else %}
             <button title="{% trans 'This page cannot be opened in the web app, because it is not public.' %}" class="btn-icon" disabled>
-                <i data-feather="external-link"></i>
+                <i icon-name="external-link"></i>
             </button>
         {% endif %}
         <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" title="{% trans 'Edit page' %}" class="btn-icon">
-            <i data-feather="edit"></i>
+            <i icon-name="edit"></i>
         </a>
 
         <button title="{% trans 'Archive page' %}" class="confirmation-button btn-icon"
@@ -143,16 +143,16 @@
                 data-confirmation-text="{{ archive_dialog_text }}"
                 data-confirmation-subject="{{ page.best_translation.title }}"
                 data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-            <i data-feather="archive"></i>
+            <i icon-name="archive"></i>
         </button>
         {% if perms.cms.delete_page %}
             {% if not page.is_leaf %}
                 <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}" class="btn-icon" disabled>
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% elif page.mirroring_pages.exists %}
                 <button title="{% trans 'This page cannot be deleted because it was embedded as live content from another page.' %}&#013;{% trans 'You can however archive this page.' %}" class="btn-icon" disabled>
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% else %}
                 <button title="{% trans 'Delete page' %}" class="confirmation-button btn-icon"
@@ -160,18 +160,18 @@
                         data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ page.best_translation.title }}"
                         data-action="{% url 'delete_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% endif %}
         {% endif %}
         {% if request.region.short_urls_enabled and request.user.expert_mode %}
             {% if page_translation %}
             <button data-copy-to-clipboard="{{ page_translation.short_url }}" title="{% trans 'Copy short link' %}" class="btn-icon">
-                <i data-feather="copy"></i>
+                <i icon-name="copy"></i>
             </button>
             {% else %}
             <button title="{% trans 'You cannot copy a short link of a page which has no translation.' %}" class="btn-icon" disabled>
-                <i data-feather="copy"></i>
+                <i icon-name="copy"></i>
             </button>
             {% endif %}
         {% endif %}

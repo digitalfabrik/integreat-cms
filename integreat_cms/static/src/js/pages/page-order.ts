@@ -1,4 +1,4 @@
-import feather from "feather-icons";
+import { create_icons_at } from "../utils/create-icons";
 import { off, on } from "../utils/wrapped-events";
 
 let initialPageTitle: string;
@@ -70,7 +70,7 @@ async function getPageOrderTable({ target }: Event) {
     // Update the modified page title
     updatePageTitle();
     // Trigger icon replacement
-    feather.replace({ class: 'inline-block' });
+    create_icons_at(document.getElementById("page_order_table"));
     // Register event handlers
     registerEventHandlers();
   } catch (error: any) {
