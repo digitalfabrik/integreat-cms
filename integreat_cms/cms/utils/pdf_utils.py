@@ -2,7 +2,7 @@ import hashlib
 import logging
 import os
 
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
@@ -155,7 +155,9 @@ def link_callback(uri, rel):
             uri = f"/media/regions/{uri.partition(LEGACY_MEDIA_URL)[2]}"
     if uri.startswith(settings.MEDIA_URL):
         # Get absolute path for media files
-        path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+        path = unquote(
+            os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+        )
         # make sure that file exists
         if not os.path.isfile(path):
             logger.exception(
