@@ -12,18 +12,18 @@
                         {% blocktrans %}Edit user "{{ user_name }}"{% endblocktrans %}
                     {% endwith %}
                 {% else %}
-                    {% trans 'Create new user' %}
+                    {% trans "Create new user" %}
                 {% endif %}
             </h1>
             {% if perms.cms.change_user %}
-                <button class="btn">{% trans 'Save' %}</button>
+                <button class="btn">{% trans "Save" %}</button>
             {% endif %}
         </div>
         <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
             <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
                     <h3 class="heading font-bold text-black">
-                        <i icon-name="user" class="mr-2"></i> {% trans 'General Settings' %}
+                        <i icon-name="user" class="mr-2"></i> {% trans "General Settings" %}
                     </h3>
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
@@ -49,7 +49,7 @@
             <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
                     <h3 class="heading font-bold text-black">
-                        <i icon-name="lock" class="mr-2"></i> {% trans 'Login' %}
+                        <i icon-name="lock" class="mr-2"></i> {% trans "Login" %}
                     </h3>
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
@@ -77,7 +77,7 @@
             <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
                     <h3 class="heading font-bold text-black">
-                        <i icon-name="key" class="mr-2"></i> {% trans 'Permissions' %}
+                        <i icon-name="key" class="mr-2"></i> {% trans "Permissions" %}
                     </h3>
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
@@ -93,7 +93,7 @@
                                 {{ user_form.is_staff.label }}
                                 <span class="inline-block ml-2 h-5 w-5 align-text-top bg-integreat-icon bg-contain bg-center bg-no-repeat"></span>
                             </label>
-                            <div class="help-text">{% trans 'Designates whether the user has access to the network management.' %}</div>
+                            <div class="help-text">{% trans "Designates whether the user has access to the network management." %}</div>
                         </div>
                         <div>
                             {% render_field user_form.expert_mode %}
@@ -113,10 +113,10 @@
                     </div>
                     <div>
                         <label for="{{ user_form.regions.id_for_label }}" class="show-for-non-staff">{{ user_form.regions.label }}</label>
-                        <label for="{{ user_form.regions.id_for_label }}" class="show-for-staff">{% trans 'Preferred regions' %}</label>
+                        <label for="{{ user_form.regions.id_for_label }}" class="show-for-staff">{% trans "Preferred regions" %}</label>
                         {% render_field user_form.regions|add_error_class:"border-red-500" %}
                         <div class="help-text show-for-non-staff">{{ user_form.regions.help_text }}</div>
-                        <div class="help-text show-for-staff">{% trans 'The regions to which the user has quick access' %}</div>
+                        <div class="help-text show-for-staff">{% trans "The regions to which the user has quick access" %}</div>
                     </div>
                     <div class="show-for-non-staff">
                         <label for="{{ user_form.organization.id_for_label }}">{{ user_form.organization.label }}</label>
@@ -130,14 +130,14 @@
         </div>
         {% if user_form.instance.id and perms.cms.delete_user %}
             <div class="pt-2 pb-4">
-                <button title="{% trans 'Delete user' %}"
+                <button title='{% trans "Delete user" %}'
                         class="btn confirmation-button btn-red"
-                        data-confirmation-title="{% trans 'Please confirm that you really want to delete this user' %}"
-                        data-confirmation-text="{% trans 'This cannot be reversed.' %}"
+                        data-confirmation-title='{% trans "Please confirm that you really want to delete this user" %}'
+                        data-confirmation-text='{% trans "This cannot be reversed." %}'
                         data-confirmation-subject="{{ user_form.username.value }}"
                         data-action="{% url 'delete_user' user_id=user_form.instance.id %}">
                     <i icon-name="trash-2" class="mr-2"></i>
-                    {% trans 'Delete this user' %}
+                    {% trans "Delete this user" %}
                 </button>
             </div>
         {% endif %}

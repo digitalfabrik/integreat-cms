@@ -17,7 +17,7 @@
             {% if event_translation %}
                 {{ event_translation.title|truncatechars:35 }}
             {% else %}
-                <i>{% trans 'Translation not available' %}</i>
+                <i>{% trans "Translation not available" %}</i>
             {% endif %}
         </a>
     </td>
@@ -31,7 +31,7 @@
                 {% if event.backend_translation %}
                     {{ event.backend_translation.title|truncatechars:35 }}
                 {% else %}
-                    <i>{% trans 'Translation not available' %}</i>
+                    <i>{% trans "Translation not available" %}</i>
                 {% endif %}
             </a>
         </td>
@@ -43,34 +43,34 @@
                    class="{{ other_language.slug }}">
                     <div id="translation-icon">
                         {% if other_status == translation_status.IN_TRANSLATION %}
-                            <span title="{% trans 'Currently in translation' %}">
+                            <span title='{% trans "Currently in translation" %}'>
                                 <i icon-name="clock"
                                    class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
                         {% elif other_status == translation_status.OUTDATED %}
-                            <span title="{% trans 'Translation outdated' %}">
+                            <span title='{% trans "Translation outdated" %}'>
                                 <i icon-name="alert-triangle"
                                    class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
                         {% elif other_status == translation_status.UP_TO_DATE %}
-                            <span title="{% trans 'Translation up-to-date' %}">
+                            <span title='{% trans "Translation up-to-date" %}'>
                                 <i icon-name="check"
                                    class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
                         {% elif other_status == translation_status.FALLBACK %}
-                            <span title="{% trans 'Default language is duplicated' %}">
+                            <span title='{% trans "Default language is duplicated" %}'>
                                 <i icon-name="copy"
                                    class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
                         {% elif other_status == translation_status.MISSING %}
-                            <span title="{% trans 'Translation missing' %}" class="no-trans">
+                            <span title='{% trans "Translation missing" %}' class="no-trans">
                                 <i icon-name="x"
                                    class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
                         {% endif %}
                     </div>
                     <div id="ajax-icon" class="hidden">
-                        <span title="{% trans 'Currently in translation' %}">
+                        <span title='{% trans "Currently in translation" %}'>
                             <i icon-name="clock"
                                class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                         </span>
@@ -85,7 +85,7 @@
             {% get_language LANGUAGE_CODE as current_language %}
             <i icon-name="map-pin"></i> {{ event.location|poi_translation_title:current_language }}
         {% else %}
-            {% trans 'Not specified' %}
+            {% trans "Not specified" %}
         {% endif %}
     </td>
     <td class="py-3 pr-2">
@@ -104,7 +104,7 @@
         {% if event.recurrence_rule %}
             <i icon-name="repeat"></i> {{ event.recurrence_rule.get_frequency_display }}
         {% else %}
-            <i icon-name="calendar"></i> {% trans 'One-time' %}
+            <i icon-name="calendar"></i> {% trans "One-time" %}
         {% endif %}
     </td>
     <td class="pr-4 py-3 flex flex-nowrap justify-end gap-2">
@@ -112,12 +112,12 @@
             <a href="{{ WEBAPP_URL }}{{ event_translation.get_absolute_url }}"
                rel="noopener noreferrer"
                target="_blank"
-               title="{% trans 'Open event in web app' %}"
+               title='{% trans "Open event in web app" %}'
                class="btn-icon">
                 <i icon-name="external-link"></i>
             </a>
         {% else %}
-            <button title="{% trans 'This event cannot be opened in the web app, because it is not public.' %}"
+            <button title='{% trans "This event cannot be opened in the web app, because it is not public." %}'
                     class="btn-icon"
                     disabled>
                 <i icon-name="external-link"></i>
@@ -128,11 +128,11 @@
             <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
                   method="post">
                 {% csrf_token %}
-                <button class="btn-icon" title="{% trans 'Copy event' %}">
+                <button class="btn-icon" title='{% trans "Copy event" %}'>
                     <i icon-name="copy"></i>
                 </button>
             </form>
-            <button title="{% trans 'Archive event' %}"
+            <button title='{% trans "Archive event" %}'
                     class="confirmation-button btn-icon"
                     data-confirmation-title="{{ archive_dialog_title }}"
                     data-confirmation-text="{{ archive_dialog_text }}"
@@ -142,7 +142,7 @@
             </button>
         {% endif %}
         {% if perms.cms.delete_event %}
-            <button title="{% trans 'Delete event' %}"
+            <button title='{% trans "Delete event" %}'
                     class="confirmation-button btn-icon"
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"

@@ -12,11 +12,11 @@
                         {% blocktrans %}Edit language "{{ translated_language_name }}"{% endblocktrans %}
                     {% endwith %}
                 {% else %}
-                    {% trans 'Create new language' %}
+                    {% trans "Create new language" %}
                 {% endif %}
             </h1>
             {% if perms.cms.change_language %}
-                <button class="btn ml-auto mr-0">{% trans 'Save' %}</button>
+                <button class="btn ml-auto mr-0">{% trans "Save" %}</button>
             {% endif %}
         </div>
         <div class="flex flex-wrap">
@@ -24,7 +24,7 @@
                 <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="w-full p-4 rounded bg-water-500">
                         <h3 class="font-bold text-black">
-                            <i icon-name="flag" class="mr-2"></i> {% trans 'Name' %}
+                            <i icon-name="flag" class="mr-2"></i> {% trans "Name" %}
                         </h3>
                     </div>
                     <div class="w-full p-4">
@@ -39,16 +39,16 @@
                 <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="w-full p-4 rounded bg-water-500">
                         <h3 class="font-bold text-black">
-                            <i icon-name="tag" class="mr-2"></i> {% trans 'Identifier' %}
+                            <i icon-name="tag" class="mr-2"></i> {% trans "Identifier" %}
                         </h3>
                     </div>
                     <div class="w-full p-4">
                         <label for="{{ form.slug.id_for_label }}" class="block mb-2">{{ form.slug.label }}</label>
                         {% render_field form.slug|add_error_class:"border-red-500" %}
                         <div class="mb-2 text-s text-gray-600">
-                            {{ form.slug.help_text }} {% trans 'This is in many cases a single (macro-)language tag, according to the' %} <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry"
+                            {{ form.slug.help_text }} {% trans "This is in many cases a single (macro-)language tag, according to the" %} <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry"
     target="_blank"
-    class="underline">IANA Subtag Registry</a> {% trans 'or' %} <a href="https://iso639-3.sil.org/code_tables/639/data"
+    class="underline">IANA Subtag Registry</a> {% trans "or" %} <a href="https://iso639-3.sil.org/code_tables/639/data"
     class="underline"
     target="_blank">ISO 639</a>.
                         </div>
@@ -62,7 +62,7 @@
                 <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="w-full p-4 rounded bg-water-500">
                         <h3 class="font-bold text-black">
-                            <i icon-name="globe" class="mr-2"></i> {% trans 'Translations' %}
+                            <i icon-name="globe" class="mr-2"></i> {% trans "Translations" %}
                         </h3>
                     </div>
                     <div class="w-full p-4">
@@ -90,7 +90,7 @@
                     <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                         <div class="w-full p-4 rounded bg-water-500">
                             <h3 class="font-bold text-black">
-                                <i icon-name="settings" class="mr-2"></i> {% trans 'Extended Settings' %}
+                                <i icon-name="settings" class="mr-2"></i> {% trans "Extended Settings" %}
                             </h3>
                         </div>
                         <div class="w-full p-4">
@@ -127,21 +127,21 @@
         </div>
         {% if form.instance.id and perms.cms.delete_language %}
             {% if form.instance.language_tree_nodes.exists %}
-                <button title="{% trans 'You cannot delete a language that is used in at least one region.' %}"
+                <button title='{% trans "You cannot delete a language that is used in at least one region." %}'
                         class="btn"
                         disabled>
                     <i icon-name="trash-2"></i>
-                    {% trans 'Delete this language' %}
+                    {% trans "Delete this language" %}
                 </button>
             {% else %}
-                <button title="{% trans 'Delete language' %}"
+                <button title='{% trans "Delete language" %}'
                         class="btn confirmation-button btn-red"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ form.instance.translated_name }}"
                         data-action="{% url 'delete_language' slug=form.instance.slug %}">
                     <i icon-name="trash-2"></i>
-                    {% trans 'Delete this language' %}
+                    {% trans "Delete this language" %}
                 </button>
             {% endif %}
         {% endif %}

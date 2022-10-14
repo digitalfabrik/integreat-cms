@@ -10,11 +10,11 @@
                 {% if form.instance.id %}
                     {% blocktrans with poi_category_name=form.instance.name %}Edit location category "{{ poi_category_name }}"{% endblocktrans %}
                 {% else %}
-                    {% trans 'Create new location category' %}
+                    {% trans "Create new location category" %}
                 {% endif %}
             </h1>
             {% if perms.cms.change_poicategory %}
-                <button class="btn">{% trans 'Save' %}</button>
+                <button class="btn">{% trans "Save" %}</button>
             {% endif %}
         </div>
         <div class="flex flex-wrap">
@@ -22,7 +22,7 @@
                 <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="w-full p-4 rounded bg-water-500">
                         <h3 class="heading font-bold text-black">
-                            <i icon-name="tag" class="mr-2"></i> {% trans 'Category name' %}
+                            <i icon-name="tag" class="mr-2"></i> {% trans "Category name" %}
                         </h3>
                     </div>
                     <div class="px-4 pb-4">

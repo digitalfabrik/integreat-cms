@@ -15,26 +15,26 @@
                         {% blocktrans %}Edit organization "{{ organization_name }}"{% endblocktrans %}
                     {% endwith %}
                 {% else %}
-                    {% trans 'Create new organization' %}
+                    {% trans "Create new organization" %}
                 {% endif %}
             </h1>
             <div class="flex flex-wrap justify-between gap-4">
                 {% if form.instance.id and perms.cms.delete_organization %}
                     <div class="flex flex-wrap gap-4">
-                        <button title="{% trans 'Delete organization' %}"
+                        <button title="{% trans "Delete organization" %}"
                                 class="btn confirmation-button btn-red"
                                 data-confirmation-title="{{ delete_dialog_title }}"
                                 data-confirmation-text="{{ delete_dialog_text }}"
                                 data-confirmation-subject="{{ form.name.value }}"
-                                data-action="{% url 'delete_organization' region_slug=request.region.slug slug=form.instance.slug %}">
+                                data-action="{% url "delete_organization" region_slug=request.region.slug slug=form.instance.slug %}">
                             <i icon-name="trash-2" class="mr-2"></i>
-                            {% trans 'Delete' %}
+                            {% trans "Delete" %}
                         </button>
                     </div>
                 {% endif %}
                 {% if perms.cms.change_organization %}
                     <div class="flex flex-wrap gap-4">
-                        <button class="btn">{% trans 'Save' %}</button>
+                        <button class="btn">{% trans "Save" %}</button>
                     </div>
                 {% endif %}
             </div>
@@ -43,7 +43,7 @@
             <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
                     <h3 class="heading font-bold text-black">
-                        <i icon-name="umbrella" class="mr-2"></i> {% trans 'General Settings' %}
+                        <i icon-name="umbrella" class="mr-2"></i> {% trans "General Settings" %}
                     </h3>
                 </div>
                 <div class="px-4 pb-4">
@@ -55,7 +55,7 @@
             <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
                     <h3 class="heading font-bold text-black">
-                        <i icon-name="settings" class="mr-2"></i> {% trans 'Extended Settings' %}
+                        <i icon-name="settings" class="mr-2"></i> {% trans "Extended Settings" %}
                     </h3>
                 </div>
                 <div class="px-4 pb-4">
@@ -97,15 +97,15 @@
                                         <tr class="border-b border-solid border-gray-200 hover:bg-gray-100">
                                             {% if page_translation %}
                                                 <td class="text-sm text-left py-3 pl-4 pr-2">
-                                                    <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=region_default_language.slug %}"
+                                                    <a href="{% url "edit_page" page_id=page.id region_slug=request.region.slug language_slug=region_default_language.slug %}"
                                                        class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
-                                                       title="{% trans 'View page' %}">
+                                                       title="{% trans "View page" %}">
                                                         {{ page_translation.title }}
                                                     </a>
                                                 </td>
                                             {% else %}
                                                 <td class="text-sm text-left py-3 pl-4 pr-2">
-                                                    <i>{% trans 'Translation not available' %}</i>
+                                                    <i>{% trans "Translation not available" %}</i>
                                                 </td>
                                             {% endif %}
                                             {% if region_default_language != backend_language %}
@@ -113,13 +113,13 @@
                                                     <td class="text-sm text-left py-3 pl-4 pr-2">
                                                         <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=backend_language.slug %}"
                                                            class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
-                                                           title="{% trans 'View page' %}">
+                                                           title="{% trans "View page" %}">
                                                             {{ backendlang_page_translation.title }}
                                                         </a>
                                                     </td>
                                                 {% else %}
                                                     <td class="text-sm text-left py-3 pl-4 pr-2">
-                                                        <i>{% trans 'Translation not available' %}</i>
+                                                        <i>{% trans "Translation not available" %}</i>
                                                     </td>
                                                 {% endif %}
                                             {% endif %}

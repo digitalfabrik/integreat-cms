@@ -8,7 +8,7 @@
                name="query"
                autocomplete="off"
                id="table-search-input"
-               placeholder="{% trans 'Search' %}"
+               placeholder='{% trans "Search" %}'
                class="default-value rounded-r-none"
                data-url="{% if region_slug and language_slug %}{% url 'search_content_ajax' region_slug language_slug %}{% elif region_slug %}{% url 'search_content_ajax' region_slug %}{% else %}{% url 'search_content_ajax' %}{% endif %}"
                data-object-type="{{ object_type }}"
@@ -19,12 +19,12 @@
     </div>
     {% if search_query %}
         <button id="search-reset-btn"
-                title="{% trans 'Reset search' %}"
+                title='{% trans "Reset search" %}'
                 class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-3">
             <i icon-name="x" class="w-5"></i>
         </button>
     {% endif %}
-    <button id="search-submit-btn" title="{% trans 'Search' %}" {% if related_form %}form={{ related_form }}{% endif %} class="bg-blue-500 hover:bg-blue-600 text-white rounded-r py-2 px-3">
+    <button id="search-submit-btn" title='{% trans "Search" %}' {% if related_form %}form={{ related_form }}{% endif %} class="bg-blue-500 hover:bg-blue-600 text-white rounded-r py-2 px-3">
         <i icon-name="search" class="w-5"></i>
     </button>
 </div>

@@ -7,16 +7,16 @@
 {% block content %}
     <div>
         <div class="mb-4">
-            <h1 class="heading">{% trans 'Review XLIFF Import' %}</h1>
-            <p class="pb-4">{% trans 'Please review the changes that will be applied to the page translations below.' %}</p>
+            <h1 class="heading">{% trans "Review XLIFF Import" %}</h1>
+            <p class="pb-4">{% trans "Please review the changes that will be applied to the page translations below." %}</p>
             <form method="POST">
                 {% csrf_token %}
                 <input type="submit"
-                       value="{% trans 'Confirm' %}"
+                       value='{% trans "Confirm" %}'
                        class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white h-full font-bold py-3 px-4 rounded mr-2">
                 <a href="{% url 'pages' region_slug=request.region.slug language_slug=language.slug %}"
                    class="inline-block bg-red-500 hover:bg-red-600 text-white h-full font-bold py-3 px-4 rounded">
-                    {% trans 'Abort' %}
+                    {% trans "Abort" %}
                 </a>
                 <input type="hidden" value={{ upload_dir }} name="upload_dir">
             </form>

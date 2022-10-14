@@ -63,7 +63,7 @@
     </td>
     <td class="pl-2 pr-4 py-1.5 text-right">
         {% if perms.cms.delete_languagetreenode %}
-            <button title="{% if not node.is_leaf %}{% trans 'You cannot delete a node which has children.' %}{% else %}{% trans 'Delete entire language node' %}{% endif %}"
+            <button title="{% if not node.is_leaf %}{% trans "You cannot delete a node which has children." %}{% else %}{% trans "Delete entire language node" %}{% endif %}"
                     class="btn-icon confirmation-button"
                     {% if not node.is_leaf %}disabled{% endif %}
                     data-confirmation-title="{{ delete_dialog_title }}"
