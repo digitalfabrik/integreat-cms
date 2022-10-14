@@ -57,19 +57,19 @@
                     <div class="px-4 pb-4 rounded bg-white">
                         <label class="inline-block mt-4 mb-2 font-bold">{% trans "Version" %}:</label>
                         {{ source_page_translation.version }}
-                        <br>
+                        <br />
                         <label class="inline-block mb-2 font-bold">{% trans "Status" %}:</label>
                         {{ source_page_translation.get_status_display }}
                         <label>{{ page_translation_form.slug.label }}</label>
                         <div class="slug-field">
                             <label>{{ source_page_translation.base_link }}</label>
-                            <input type="text" value="{{ source_page_translation.slug }}" disabled>
+                            <input type="text" value="{{ source_page_translation.slug }}" disabled />
                         </div>
                         <label>{{ page_translation_form.title.label }}</label>
                         <input id="source_translation_title"
                                type="text"
                                value="{{ source_page_translation.title }}"
-                               disabled>
+                               disabled/>
                         <div>
                             <label class="block font-bold">{{ page_translation_form.content.label }}</label>
                             <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea" disabled data-old="{{ old_translation_content }}" data-new="{{ source_page_translation.content }}">
@@ -124,13 +124,13 @@
                         {% if page_translation_form.instance.id %}
                             <label class="inline-block mt-4 mb-2 font-bold">{% trans "Version" %}:</label>
                             {{ page_translation_form.instance.version }}
-                            <br>
+                            <br />
                             <label class="inline-block mb-2 font-bold">{% trans "Status" %}:</label>
                             {{ page_translation_form.instance.get_status_display }}
                         {% else %}
                             <label class="inline-block mt-4 mb-2 font-bold">{% trans "Version" %}:</label>
                             {% trans "New" %}
-                            <br>
+                            <br />
                             <label class="inline-block mb-2 font-bold">{% trans "Status" %}:</label>
                             {% trans "Not saved yet" %}
                         {% endif %}

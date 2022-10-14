@@ -51,10 +51,10 @@
                     <div class="px-4 pb-4 rounded">
                         <label class="inline-block">{% trans "Version" %}:</label>
                         {{ source_imprint_translation.version }}
-                        <br>
+                        <br />
                         <label class="inline-block">{% trans "Status" %}:</label>
                         {{ source_imprint_translation.get_status_display }}
-                        <br>
+                        <br />
                         <label class="inline-block">{% trans "Link to the imprint" %}:</label>
                         <a href="{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}"
                            target="_blank"
@@ -66,12 +66,12 @@
                            class="px-2 text-gray-800 hover:text-blue-600">
                             <i icon-name="copy"></i>
                         </a>
-                        <br>
+                        <br />
                         <label>{{ imprint_translation_form.title.label }}</label>
                         <input id="source_translation_title"
                                type="text"
                                value="{{ source_imprint_translation.title }}"
-                               disabled>
+                               disabled/>
                         <div class="mt-4">
                             <label class="block mt-4 font-bold">{{ imprint_translation_form.content.label }}</label>
                             <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea bg-gray-200 w-full p-2" disabled>{{ source_imprint_translation.content }}</textarea>
@@ -115,10 +115,10 @@
                         {% if imprint_translation_form.instance.id %}
                             <label class="inline-block">{% trans "Version" %}:</label>
                             {{ imprint_translation_form.instance.version }}
-                            <br>
+                            <br />
                             <label class="inline-block">{% trans "Status" %}:</label>
                             {{ imprint_translation_form.instance.get_status_display }}
-                            <br>
+                            <br />
                             <label class="inline-block">{% trans "Link to the imprint" %}:</label>
                             <a href="{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}"
                                target="_blank"
@@ -130,17 +130,17 @@
                                class="px-2 text-gray-800 hover:text-blue-600">
                                 <i icon-name="copy"></i>
                             </a>
-                            <br>
+                            <br />
                         {% else %}
                             <label class="inline-block">{% trans "Version" %}:</label>
                             {% trans "New" %}
-                            <br>
+                            <br />
                             <label class="inline-block">{% trans "Status" %}:</label>
                             {% trans "Not saved yet" %}
-                            <br>
+                            <br />
                             <label class="inline-block">{% trans "Link to the imprint" %}:</label>
                             {% trans "Not saved yet" %}
-                            <br>
+                            <br />
                         {% endif %}
                         <label for="{{ imprint_translation_form.title.id_for_label }}">{{ imprint_translation_form.title.label }}</label>
                         {% render_field imprint_translation_form.title|add_error_class:"border-red-500" id="target_translation_title" %}

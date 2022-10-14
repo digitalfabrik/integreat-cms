@@ -15,7 +15,7 @@
                 <div class="px-4 pb-4">
                     <form action="{% url 'i18n:set_language' %}" method="post" class="w-full">
                         {% csrf_token %}
-                        <input name="next" type="hidden" value="{{ redirect_to }}">
+                        <input name="next" type="hidden" value="{{ redirect_to }}" />
                         <label for="language">{% trans "Choose language:" %}</label>
                         <div class="mb-2">{% trans "This setting only affects this device." %}</div>
                         <select name="language">
@@ -86,7 +86,7 @@
             </div>
             <div class="p-4">
                 {% trans "You can use your FIDO2 keys to secure your account. Once you added a key to your account you won't be able to log in without using the key." %}
-                <br>
+                <br />
                 {% trans "To make sure that you don't loose access to your account when you loose your FIDO2 key it is recommended to add multiple keys. Just make sure to keep at least one key at a secure place." %}
             </div>
             <div class="w-full p-4 table-listing">
