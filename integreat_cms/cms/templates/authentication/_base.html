@@ -10,7 +10,8 @@
             </a>
             <div class="bg-white shadow-md rounded p-6 mb-4">
                 <h1 class="heading text-center mb-4">
-                    {% block heading %}{% endblock %}
+                    {% block heading %}
+                    {% endblock heading %}
                 </h1>
                 {% include "messages.html" %}
                 {% block content %}
@@ -27,4 +28,4 @@
             </p>
         </div>
     </div>
-{% endblock %}
+{% endblock raw_content %}

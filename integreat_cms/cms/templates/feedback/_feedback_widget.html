@@ -2,10 +2,12 @@
 {% load i18n %}
 {% load static %}
 {% load text_filters %}
-{% block collapsible_box_icon %}trello{% endblock %}
+{% block collapsible_box_icon %}
+    trello
+{% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
     {% trans "Unread technical feedback" %}
-{% endblock %}
+{% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="mb-1 text-s text-gray-600">{% trans "The five most recent entries are listed." %}</div>
     <table class="w-full rounded border border-solid border-gray-200 shadow bg-white mb-4">
@@ -61,4 +63,4 @@
         {% endfor %}
     </table>
     <a href="{% url 'admin_feedback' %}" class="btn">{% trans "Open feedback list" %}</a>
-{% endblock %}
+{% endblock collapsible_box_content %}

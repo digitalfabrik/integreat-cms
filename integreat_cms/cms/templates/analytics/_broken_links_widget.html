@@ -1,10 +1,12 @@
 {% extends "_collapsible_box.html" %}
 {% load i18n %}
 {% load static %}
-{% block collapsible_box_icon %}link{% endblock %}
+{% block collapsible_box_icon %}
+    link
+{% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
     {% trans "Broken Links" %}
-{% endblock %}
+{% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
         <p class="py-3">{% trans "The list below shows all detected errors related to links." %}</p>
@@ -49,4 +51,4 @@
             </tbody>
         </table>
     </div>
-{% endblock %}
+{% endblock collapsible_box_content %}

@@ -4,7 +4,7 @@
 {% load widget_tweaks %}
 {% block heading %}
     {% trans "Authentication" %}
-{% endblock %}
+{% endblock heading %}
 {% block content %}
     <form method="post">
         {% csrf_token %}
@@ -29,4 +29,4 @@
             <button class="btn w-full">{% trans "Log in" %}</button>
         </div>
     </form>
-{% endblock %}
+{% endblock content %}

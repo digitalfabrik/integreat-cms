@@ -1,10 +1,12 @@
 {% extends "_collapsible_box.html" %}
 {% load i18n %}
 {% load static %}
-{% block collapsible_box_icon %}trending-up{% endblock %}
+{% block collapsible_box_icon %}
+    trending-up
+{% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
     {% trans "Statistics" %}
-{% endblock %}
+{% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
         <p class="py-3">{% trans "Number of online accesses over the last 14 days." %}</p>
@@ -30,4 +32,4 @@
         <canvas id="statistics"
                 data-statistics-url="{% url 'statistics_total_visits' region_slug=request.region.slug %}"></canvas>
     </div>
-{% endblock %}
+{% endblock collapsible_box_content %}

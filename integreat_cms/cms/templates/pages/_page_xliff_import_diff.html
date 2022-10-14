@@ -7,10 +7,10 @@
     {% else %}
         check-circle
     {% endif %}
-{% endblock %}
+{% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
     {% trans "File" %}: {{ diff.file }}
-{% endblock %}
+{% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="w-full flex flex-col">{% include "messages.html" with messages=diff.errors %}</div>
     <div class="flex flex-wrap xl:flex-row-reverse">
@@ -85,4 +85,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock collapsible_box_content %}

@@ -2,10 +2,12 @@
 {% load i18n %}
 {% load static %}
 {% load parse_struct_time %}
-{% block collapsible_box_icon %}trello{% endblock %}
+{% block collapsible_box_icon %}
+    trello
+{% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
     {% trans "Integreat News" %}
-{% endblock %}
+{% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="rss-feed " data-feed-url="{{ feed_url }}">
         <div id="feed-loading" class="px-4 hidden">
@@ -23,4 +25,4 @@
     <button id="read-more" class="btn hidden">
         <i icon-name="book-open"></i> {% trans "Continue reading" %}
     </button>
-{% endblock %}
+{% endblock collapsible_box_content %}

@@ -14,11 +14,13 @@
               href="{% static 'logos/'|add:BRANDING|add:'/'|add:BRANDING|add:'-icon.svg' %}">
         {% render_bundle 'main' 'js' %}
         {% render_bundle 'main' 'css' %}
-        {% block javascript_head %}{% endblock %}
+        {% block javascript_head %}
+        {% endblock javascript_head %}
     </head>
     <body class="font-default">
         {% block raw_content %}
         {% endblock raw_content %}
-        {% block javascript %}{% endblock %}
+        {% block javascript %}
+        {% endblock javascript %}
     </body>
 </html>

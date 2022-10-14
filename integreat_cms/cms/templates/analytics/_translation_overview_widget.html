@@ -1,10 +1,12 @@
 {% extends "_collapsible_box.html" %}
 {% load i18n %}
 {% load static %}
-{% block collapsible_box_icon %}check-circle{% endblock %}
+{% block collapsible_box_icon %}
+    check-circle
+{% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
     {% trans "Translation Status" %}
-{% endblock %}
+{% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
         <p class="py-3">{% trans "The list below shows the current status of the translations." %}</p>
@@ -14,4 +16,4 @@
     <div class="p-3 w-full">
         <!-- TODO -->
     </div>
-{% endblock %}
+{% endblock collapsible_box_content %}

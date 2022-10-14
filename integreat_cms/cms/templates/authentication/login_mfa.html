@@ -4,7 +4,7 @@
 {% load widget_tweaks %}
 {% block heading %}
     {% trans "Authentication" %}
-{% endblock %}
+{% endblock heading %}
 {% block content %}
     <div data-mfa-login
          data-mfa-login-assert-url="{% url 'public:login_mfa_assert' %}"
@@ -15,4 +15,4 @@
         </div>
         <div class="mb-3">{% trans "Please authenticate using your 2FA key by following your browser instructions" %}</div>
     </div>
-{% endblock %}
+{% endblock content %}
