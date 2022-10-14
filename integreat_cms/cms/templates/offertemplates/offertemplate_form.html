@@ -79,14 +79,14 @@
         </div>
         {% if form.instance.id and perms.cms.delete_offertemplate %}
             {% if form.instance.regions.exists %}
-                <button title='{% trans "This offer template cannot be deleted because it is used in at least one region." %}'
+                <button title="{% trans "This offer template cannot be deleted because it is used in at least one region." %}"
                         class="btn"
                         disabled>
                     <i icon-name="trash-2"></i>
                     {% trans "Delete this offer templates" %}
                 </button>
             {% else %}
-                <button title='{% trans "Delete language" %}'
+                <button title="{% trans "Delete language" %}"
                         class="btn confirmation-button btn-red"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"

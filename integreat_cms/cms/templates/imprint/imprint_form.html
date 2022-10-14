@@ -68,7 +68,7 @@
                                        class="text-blue-500 hover:underline">{{ imprint_translation_form.instance.short_url }}</a>
                                     <a href="#"
                                        data-copy-to-clipboard="{{ imprint_translation_form.instance.short_url }}"
-                                       title='{% trans "Copy to clipboard" %}'
+                                       title="{% trans "Copy to clipboard" %}"
                                        class="mx-2 text-gray-800 hover:text-blue-500">
                                         <i icon-name="copy"></i>
                                     </a>
@@ -83,7 +83,7 @@
                                class="text-blue-500 hover:underline">{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}</a>
                             <a href="#"
                                data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}"
-                               title='{% trans "Copy to clipboard" %}'
+                               title="{% trans "Copy to clipboard" %}"
                                class="px-2 text-gray-800 hover:text-blue-500">
                                 <i icon-name="copy"></i>
                             </a>
@@ -122,10 +122,10 @@
                             </div>
                             <div class="px-4 pb-4">
                                 <label>{% trans "Delete imprint" %}</label>
-                                <button title='{% trans "Delete imprint" %}'
+                                <button title="{% trans "Delete imprint" %}"
                                         class="btn btn-red confirmation-button w-full"
-                                        data-confirmation-title='{% trans "Please confirm that you really want to delete the imprint" %}'
-                                        data-confirmation-text='{% trans "All translations of the imprint will also be deleted." %}'
+                                        data-confirmation-title="{% trans "Please confirm that you really want to delete the imprint" %}"
+                                        data-confirmation-text="{% trans "All translations of the imprint will also be deleted." %}"
                                         data-confirmation-subject="{{ imprint_translation_form.instance.title }}"
                                         data-action="{% url 'delete_imprint' region_slug=request.region.slug %}">
                                     <i icon-name="trash-2" class="mr-2"></i>

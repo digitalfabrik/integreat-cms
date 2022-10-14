@@ -127,14 +127,14 @@
         </div>
         {% if form.instance.id and perms.cms.delete_language %}
             {% if form.instance.language_tree_nodes.exists %}
-                <button title='{% trans "You cannot delete a language that is used in at least one region." %}'
+                <button title="{% trans "You cannot delete a language that is used in at least one region." %}"
                         class="btn"
                         disabled>
                     <i icon-name="trash-2"></i>
                     {% trans "Delete this language" %}
                 </button>
             {% else %}
-                <button title='{% trans "Delete language" %}'
+                <button title="{% trans "Delete language" %}"
                         class="btn confirmation-button btn-red"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"

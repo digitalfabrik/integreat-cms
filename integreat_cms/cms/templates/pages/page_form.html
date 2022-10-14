@@ -118,7 +118,7 @@
                                        class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
                                     <a href="#"
                                        data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}"
-                                       title='{% trans "Copy to clipboard" %}'
+                                       title="{% trans "Copy to clipboard" %}"
                                        class="mx-2 text-gray-800 hover:text-blue-500">
                                         <i icon-name="copy"></i>
                                     </a>
@@ -133,11 +133,11 @@
                             <a id="slug-link"
                                href="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}"
                                class="text-blue-500 hover:underline">{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}</a>
-                            <a id="edit-slug-btn" title='{% trans "Edit" %}' class="mx-2 btn-icon">
+                            <a id="edit-slug-btn" title="{% trans "Edit" %}" class="mx-2 btn-icon">
                                 <i icon-name="edit-3"></i>
                             </a>
                             <a id="copy-slug-btn"
-                               title='{% trans "Copy to clipboard" %}'
+                               title="{% trans "Copy to clipboard" %}"
                                class="btn-icon">
                                 <i icon-name="copy"></i>
                             </a>
@@ -227,12 +227,12 @@
                                     <div class="flex my-2">
                                         {% render_field page_form.api_token|add_error_class:"border-red-500" class+="flex-grow text-ellipsis pointer-events-none !rounded-none !rounded-l" %}
                                         <button id="copy-api-token"
-                                                title='{% trans "Copy to clipboard" %}'
+                                                title="{% trans "Copy to clipboard" %}"
                                                 class="bg-blue-500 hover:bg-blue-600 text-white px-3 rounded-r">
                                             <i icon-name="copy" class="w-5 align-bottom"></i>
                                         </button>
                                         <button id="copy-api-token-success"
-                                                title='{% trans "Access token was successfully copied to clipboard" %}'
+                                                title="{% trans "Access token was successfully copied to clipboard" %}"
                                                 class="bg-green-500 text-white px-3 rounded-r hidden"
                                                 disabled>
                                             <i icon-name="check-circle" class="w-5 align-middle"></i>
@@ -286,7 +286,7 @@
                                     <label>
                                         {% trans "Refresh date" %}
                                     </label>
-                                    <button title='{% trans "Mark this page as up-to-date" %}'
+                                    <button title="{% trans "Mark this page as up-to-date" %}"
                                             form="refresh_date_form"
                                             name="refresh_page"
                                             class="btn text-center w-full">
@@ -298,7 +298,7 @@
                                     <label>
                                         {% trans "Restore page" %}
                                     </label>
-                                    <button title='{% trans "Restore page" %}'
+                                    <button title="{% trans "Restore page" %}"
                                             class="btn confirmation-button w-full"
                                             data-confirmation-title="{{ restore_dialog_title }}"
                                             data-confirmation-text="{{ restore_dialog_text }}"
@@ -330,7 +330,7 @@
                                     <label>
                                         {% trans "Archive page" %}
                                     </label>
-                                    <button title='{% trans "Archive page" %}'
+                                    <button title="{% trans "Archive page" %}"
                                             class="btn confirmation-button w-full"
                                             data-confirmation-title="{{ archive_dialog_title }}"
                                             data-confirmation-text="{{ archive_dialog_text }}"
@@ -402,7 +402,7 @@
                                             {% endfor %}
                                         {% endwith %}
                                     {% else %}
-                                        <button title='{% trans "Delete page" %}'
+                                        <button title="{% trans "Delete page" %}"
                                                 class="btn confirmation-button btn-red w-full"
                                                 data-confirmation-title="{{ delete_dialog_title }}"
                                                 data-confirmation-text="{{ delete_dialog_text }}"

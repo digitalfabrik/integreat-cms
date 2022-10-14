@@ -173,13 +173,13 @@
         </button>
         {% if perms.cms.delete_page %}
             {% if not page.is_leaf %}
-                <button title='{% trans "You cannot delete a page which has subpages." %}&#013;{% trans "This also involves archived subpages." %}'
+                <button title="{% trans "You cannot delete a page which has subpages." %}&#013;{% trans "This also involves archived subpages." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% elif page.mirroring_pages.exists %}
-                <button title='{% trans "This page cannot be deleted because it was embedded as live content from another page." %}&#013;{% trans "You can however archive this page." %}'
+                <button title="{% trans "This page cannot be deleted because it was embedded as live content from another page." %}&#013;{% trans "You can however archive this page." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="trash-2"></i>

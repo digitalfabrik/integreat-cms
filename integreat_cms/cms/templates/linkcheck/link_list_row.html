@@ -33,7 +33,7 @@
         <div class="max-h-12 overflow-hidden text-ellipsis">
             {% if show_source_link %}
                 <a href="{{ url.region_links.0.content_object.backend_edit_link }}"
-                   title='{% trans "Go to source" %}'
+                   title="{% trans "Go to source" %}"
                    class="hover:underline">
                     {{ url.region_links.0.content_object.title }}
                 </a>
@@ -44,7 +44,7 @@
     </td>
     <td class="text-right pr-2">{{ url.region_links|length }}</td>
     <td class="text-right pr-4">
-        <a title='{% trans "Replace URL globally" %}'
+        <a title="{% trans "Replace URL globally" %}"
            href="{% url 'edit_url' url_id=url.id url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}#replace-url"
            class="btn-icon">
             <i icon-name="edit"></i>

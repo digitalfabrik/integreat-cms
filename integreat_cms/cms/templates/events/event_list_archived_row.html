@@ -43,23 +43,23 @@
                     {% get_translation event other_language.slug as other_translation %}
                     {% if other_translation %}
                         {% if other_translation.currently_in_translation %}
-                            <span title='{% trans "Currently in translation" %}'>
+                            <span title="{% trans "Currently in translation" %}">
                                 <i icon-name="clock"
                                    class="{% if other_language == language %}text-blue-500{% endif %}"></i>
                             </span>
                         {% elif other_translation.is_outdated %}
-                            <span title='{% trans "Translation outdated" %}'>
+                            <span title="{% trans "Translation outdated" %}">
                                 <i icon-name="alert-triangle"
                                    class="{% if other_language == language %}text-yellow-500{% endif %}"></i>
                             </span>
                         {% else %}
-                            <span title='{% trans "Translation up-to-date" %}'>
+                            <span title="{% trans "Translation up-to-date" %}">
                                 <i icon-name="check"
                                    class="{% if other_language == language %}text-green-500{% endif %}"></i>
                             </span>
                         {% endif %}
                     {% else %}
-                        <span title='{% trans "Translation missing" %}'>
+                        <span title="{% trans "Translation missing" %}">
                             <i icon-name="x"
                                class="{% if other_language == language %}text-red-500{% endif %}"></i>
                         </span>
@@ -95,7 +95,7 @@
     <td class="pr-4 py-3 flex flex-nowrap justify-end gap-2">
         {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if can_edit_event %}
-            <button title='{% trans "Restore event" %}'
+            <button title="{% trans "Restore event" %}"
                     class="confirmation-button btn-icon"
                     data-confirmation-title="{{ restore_dialog_title }}"
                     data-confirmation-text="{{ restore_dialog_text }}"
@@ -105,7 +105,7 @@
             </button>
         {% endif %}
         {% if perms.cms.delete_event %}
-            <button title='{% trans "Delete event" %}'
+            <button title="{% trans "Delete event" %}"
                     class="confirmation-button btn-icon"
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"
