@@ -4,7 +4,7 @@ This module contains view actions for media related objects.
 import logging
 
 from django.db.models import Q, ProtectedError
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
@@ -151,10 +151,10 @@ def upload_file_ajax(request, region_slug=None):
     media_file_form.instance.region = region
 
     if not media_file_form.is_valid():
-        return JsonResponse(
-            {
-                "messages": media_file_form.get_error_messages(),
-            },
+        return HttpResponse(
+            ". ".join(
+                message["text"] for message in media_file_form.get_error_messages()
+            ),
             status=400,
         )
 
