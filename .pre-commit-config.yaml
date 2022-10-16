@@ -8,6 +8,12 @@ repos:
     rev: 22.3.0
     hooks:
       - id: black
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.7.1
+    hooks:
+      - id: prettier
+        files: integreat_cms/static/src
+        args: [--print-width=120, --tab-width=4]
   - repo: local
     hooks:
       - id: translations

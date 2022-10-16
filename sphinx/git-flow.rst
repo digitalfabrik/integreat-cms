@@ -95,6 +95,7 @@ At the moment, the following hooks are configured:
 
 * ``shellcheck``: a static analysis tool for shell scripts  (see: :ref:`shellcheck` and `ShellCheck wiki <https://github.com/koalaman/shellcheck/wiki>`_)
 * ``black``: A formatter which applies automatic code formatting to Python files (see :ref:`black-code-style`)
+* ``prettier``: A formatter which applies automatic code formatting to CSS/JS files (see :ref:`prettier-code-style`)
 * ``translations`` A script which checks whether the translation file is up-to-date (see: :doc:`internationalization` and :ref:`translations`)
 
 
