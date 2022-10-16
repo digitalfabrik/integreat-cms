@@ -30,7 +30,7 @@
                 <br />
                 <b>{% trans "Date" %}:</b> <span id="revision-date"></span>
             </output>
-            <datalist id ="steplist" class="w-full flex font-mono">
+            <datalist id="steplist" class="w-full flex font-mono">
                 {% for imprint_translation in imprint_translations reversed %}
                     <option style=" {% if imprint_translation.version > 1 %} margin-left: -webkit-calc(((100% - 25.6px) / ({{ imprint_translations.count }} - 1)) - 25.6px); margin-left: -moz-calc(((100% - 25.6px) / ({{ imprint_translations.count }} - 1)) - 25.6px); margin-left: calc(((100% - 25.6px) / ({{ imprint_translations.count }} - 1)) - 25.6px); {% endif %} {% if imprint_translation.version > 9 %} padding-left: 3.2px; padding-right: 3.2px;{% endif %} ">
                         {{ imprint_translation.version }}

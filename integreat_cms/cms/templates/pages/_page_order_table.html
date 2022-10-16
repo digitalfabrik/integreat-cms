@@ -5,6 +5,7 @@
     <table data-activate-page-order
            class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white table-auto cursor-default break-all">
         <tbody>
+            {# djlint:off H020 #}
             {% for sibling in siblings %}
                 {% if sibling == page %}
                     <tr class="border-2 border-blue-500 hover:bg-gray-100">
@@ -95,6 +96,7 @@
                     </tr>
                 {% endif %}
             {% endif %}
+            {# djlint:on #}
         </tbody>
     </table>
 </div>

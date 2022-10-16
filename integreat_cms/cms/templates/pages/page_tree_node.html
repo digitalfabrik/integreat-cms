@@ -9,7 +9,9 @@
     class="drop {% if not parent_id %} drop-between{% endif %} h-3 -m-3 hidden level-{{ page.relative_depth }}">
     <td colspan="9">
         <div>
+            {# djlint:off H020 #}
             <span></span>
+            {# djlint:on #}
         </div>
     </td>
 </tr>
@@ -172,6 +174,7 @@
             <i icon-name="archive"></i>
         </button>
         {% if perms.cms.delete_page %}
+            {# djlint:off H023 #}
             {% if not page.is_leaf %}
                 <button title="{% trans "You cannot delete a page which has subpages." %}&#013;{% trans "This also involves archived subpages." %}"
                         class="btn-icon"
@@ -194,6 +197,7 @@
                     <i icon-name="trash-2"></i>
                 </button>
             {% endif %}
+            {# djlint:on #}
         {% endif %}
         {% if request.region.short_urls_enabled and request.user.expert_mode %}
             {% if page_translation %}

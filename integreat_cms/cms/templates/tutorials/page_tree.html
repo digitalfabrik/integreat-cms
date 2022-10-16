@@ -22,9 +22,11 @@
         </ul>
         {% get_current_language as LANGUAGE_CODE %}
         {% with "images/page_tree_tutorial_"|add:LANGUAGE_CODE|add:'.gif' as image_static %}
+            {# djlint:off H006 #}
             <img alt="page tutorial"
                  src="{% static image_static %}"
                  class="m-auto my-4 object-cover"/>
+            {# djlint:on #}
         {% endwith %}
     </div>
 {% endblock content %}

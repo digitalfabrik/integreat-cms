@@ -11,6 +11,7 @@
     See https://github.com/xhtml2pdf/xhtml2pdf/issues/498 for more information.
     Once this issue is fixed, we can use tailwind in the pdf context.
 {% endcomment %}
+{# djlint:off H016,H030,H031 #}
 <html>
     <head>
         <!-- these style settings are only set to pdf exported pages
@@ -64,8 +65,8 @@
             <div>
                 <pdf:language name="arabic" />
             </div>
-            <div class="right-to-left">
-            {% endif %}
+        {% endif %}
+        <div class="{% if right_to_left %}right-to-left{% endif %}">
             {% if amount_pages > 1 %}
                 <!-- if the user selected several pages, additionally insert table of content -->
                 <h1 id="title_page">{{ language.table_of_contents }}</h1>
@@ -92,6 +93,7 @@
                     </ul>
                 {% endfor %}
             {% endfor %}
-            {% if right_to_left %}</div>{% endif %}
-        </body>
-    </html>
+        </div>
+    </body>
+</html>
+{# djlint:on #}

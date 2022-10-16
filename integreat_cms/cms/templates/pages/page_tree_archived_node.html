@@ -138,11 +138,13 @@
         {% endif %}
         {% if perms.cms.delete_page %}
             {% if not page.is_leaf %}
+                {# djlint:off H023 #}
                 <a title="{% trans "You cannot delete a page which has subpages." %}&#013;{% trans "This also involves non-archived subpages." %}"
                    class="btn-icon"
                    disabled>
                     <i icon-name="trash-2"></i>
                 </a>
+                {# djlint:on #}
             {% elif page.mirroring_pages.exists %}
                 <button title="{% trans "This page cannot be deleted because it was embedded as live content from another page." %}"
                         class="btn-icon"

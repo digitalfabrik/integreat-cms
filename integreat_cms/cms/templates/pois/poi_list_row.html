@@ -139,11 +139,13 @@
         </button>
         {% if perms.cms.delete_poi %}
             {% if poi.events.exists %}
+                {# djlint:off H023 #}
                 <button title="{% trans "You cannot delete a location which is used by an event." %}&#013;{% trans "This also involves archived events." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="trash-2"></i>
                 </button>
+                {# djlint:on #}
             {% else %}
                 <button title="{% trans "Delete location" %}"
                         class="confirmation-button btn-icon"

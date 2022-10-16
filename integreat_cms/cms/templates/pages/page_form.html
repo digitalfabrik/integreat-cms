@@ -13,7 +13,7 @@
     {% if page_form.instance.id and can_edit_page and not page.archived %}
         <form enctype="multipart/form-data"
               method="post"
-              action="{% url 'refresh_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug  %}"
+              action="{% url 'refresh_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}"
               id="refresh_date_form">
             {% csrf_token %}
         </form>

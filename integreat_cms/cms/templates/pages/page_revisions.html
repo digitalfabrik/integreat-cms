@@ -34,7 +34,7 @@
                 <br />
                 <b>{% trans "Date" %}:</b> <span id="revision-date"></span>
             </output>
-            <datalist id ="steplist" class="w-full flex font-mono">
+            <datalist id="steplist" class="w-full flex font-mono">
                 {% for page_translation in page_translations reversed %}
                     <option style=" {% if page_translation.version > 1 %} margin-left: -webkit-calc(((100% - 25.6px) / ({{ page_translations.count }} - 1)) - 25.6px); margin-left: -moz-calc(((100% - 25.6px) / ({{ page_translations.count }} - 1)) - 25.6px); margin-left: calc(((100% - 25.6px) / ({{ page_translations.count }} - 1)) - 25.6px); {% endif %} {% if page_translation.version > 9 %} padding-left: 3.2px; padding-right: 3.2px;{% endif %} ">
                         {{ page_translation.version }}

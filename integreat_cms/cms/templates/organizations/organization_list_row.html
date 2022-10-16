@@ -21,9 +21,11 @@
     <td class="pr-2">
         {% if organization.icon %}
             <a href="{% url 'edit_organization' region_slug=request.region.slug slug=organization.slug %}">
+                {# djlint:off H006 #}
                 <img src="{{ organization.icon.url }}"
                      alt="{{ organization.icon.url }}"
-                     style="max-height:48px"/>
+                     class="max-h-12"/>
+                {# djlint:on #}
             </a>
         {% else %}
             <i icon-name="x" class="text-red-500"></i>
