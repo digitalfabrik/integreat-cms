@@ -25,7 +25,10 @@ DjLint
 
 We use `djlint <https://www.djlint.com/>`__ to format our Django HTML templates.
 
-If you want to apply the formatting, use our developer tool :github-source:`dev-tools/djlint.sh`::
+We use a `pre-commit-hook <https://pre-commit.com/>`_ to apply this style before committing, so you don't have to bother about formatting.
+Just code how you feel comfortable and let the tool do the work for you (see :ref:`pre-commit-hooks`).
+
+If you want to apply the formatting without committing, use our developer tool :github-source:`dev-tools/djlint.sh`::
 
     ./dev-tools/djlint.sh
 
