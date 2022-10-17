@@ -1,9 +1,11 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 from ..abstract_base_model import AbstractBaseModel
 from ..languages.language import Language
 from .push_notification import PushNotification
+from ...constants import push_notifications as pnt_const
 
 
 class PushNotificationTranslation(AbstractBaseModel):
@@ -11,10 +13,7 @@ class PushNotificationTranslation(AbstractBaseModel):
     Data model representing a push notification translation
     """
 
-    title = models.CharField(
-        max_length=250,
-        verbose_name=_("title"),
-    )
+    title = models.CharField(max_length=250, blank=True, verbose_name=_("title"))
     text = models.TextField(
         max_length=250,
         blank=True,
@@ -55,6 +54,43 @@ class PushNotificationTranslation(AbstractBaseModel):
             language__slug=language_slug,
             title__icontains=query,
         )
+
+    def get_title(self):
+        """
+        Get the title of the notification translation.
+
+        :return: A title for the push notification
+        :rtype: str
+        """
+        if (
+            self.push_notification.mode == pnt_const.USE_MAIN_LANGUAGE
+            and self.title == ""
+            and self.push_notification.default_translation
+        ):
+            return self.push_notification.default_translation.title
+        return self.title
+
+    def get_text(self):
+        """
+        Get the text of the notification. Construct a fallback text if possible.
+
+        :return: A text for the push notification
+        :rtype: str
+        """
+        if (
+            self.push_notification.mode == pnt_const.USE_MAIN_LANGUAGE
+            and self.text == ""
+        ):
+            translations = "\n".join(
+                [
+                    f"{translation.language.native_name}: {settings.WEBAPP_URL}{translation.get_absolute_url()}"
+                    for translation in self.push_notification.translations.exclude(
+                        text=""
+                    )
+                ]
+            )
+            return f"{self.language.message_content_not_available}\n{translations}"
+        return self.text
 
     def get_absolute_url(self):
         """

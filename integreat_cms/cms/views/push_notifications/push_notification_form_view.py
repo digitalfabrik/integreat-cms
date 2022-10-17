@@ -5,13 +5,13 @@ from datetime import datetime
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied, ImproperlyConfigured
+from django.forms import inlineformset_factory
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
-from django.forms import modelformset_factory
 
-from .push_notification_sender import PushNotificationSender
+from ...utils.push_notification_sender import PushNotificationSender
 from ...decorators import permission_required
 from ...forms import (
     PushNotificationForm,
@@ -76,9 +76,6 @@ class PushNotificationFormView(TemplateView):
         push_notification = PushNotification.objects.filter(
             id=kwargs.get("push_notification_id")
         ).first()
-        push_notification_translations = PushNotificationTranslation.objects.filter(
-            push_notification=push_notification
-        )
 
         if push_notification and push_notification.sent_date:
             messages.info(
@@ -96,17 +93,17 @@ class PushNotificationFormView(TemplateView):
         push_notification_form = PushNotificationForm(instance=push_notification)
 
         num_languages = len(region.active_languages)
-        PNTFormset = modelformset_factory(
-            PushNotificationTranslation,
+        PushNotificationTranslationFormSet = inlineformset_factory(
+            parent_model=PushNotification,
+            model=PushNotificationTranslation,
             form=PushNotificationTranslationForm,
-            min_num=1,  # Require at least the first form to be valid
+            min_num=num_languages,
             max_num=num_languages,
-            extra=num_languages - push_notification_translations.count(),
         )
         existing_languages = push_notification.languages if push_notification else []
-        pnt_formset = PNTFormset(
-            # Add queryset for all translations which exist already
-            queryset=push_notification_translations,
+        pnt_formset = PushNotificationTranslationFormSet(
+            # The push notification instance to which we want to create translations
+            instance=push_notification,
             # Add initial data for all languages which do not yet have a translation
             initial=[
                 {"language": language}
@@ -114,6 +111,8 @@ class PushNotificationFormView(TemplateView):
                 if language not in existing_languages
             ],
         )
+        # Make title of default language required
+        pnt_formset[0].fields["title"].required = True
 
         return render(
             request,
@@ -127,7 +126,7 @@ class PushNotificationFormView(TemplateView):
             },
         )
 
-    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-branches,too-many-statements
     def post(self, request, *args, **kwargs):
         r"""
         Save and show form for creating or editing a push notification. Send push notification
@@ -154,9 +153,6 @@ class PushNotificationFormView(TemplateView):
         push_notification_instance = PushNotification.objects.filter(
             id=kwargs.get("push_notification_id")
         ).first()
-        push_notification_translations = PushNotificationTranslation.objects.filter(
-            push_notification=push_notification_instance
-        )
 
         if not request.user.has_perm("cms.change_pushnotification"):
             logger.warning(
@@ -175,20 +171,20 @@ class PushNotificationFormView(TemplateView):
         )
 
         num_languages = len(region.active_languages)
-        PNTFormset = modelformset_factory(
-            PushNotificationTranslation,
+        PushNotificationTranslationFormSet = inlineformset_factory(
+            parent_model=PushNotification,
+            model=PushNotificationTranslation,
             form=PushNotificationTranslationForm,
-            min_num=1,  # Require at least the first form to be valid
+            min_num=num_languages,
             max_num=num_languages,
-            extra=num_languages - push_notification_translations.count(),
         )
         existing_languages = (
             push_notification_instance.languages if push_notification_instance else []
         )
-        pnt_formset = PNTFormset(
+        pnt_formset = PushNotificationTranslationFormSet(
             data=request.POST,
-            # Add queryset for all translations which exist already
-            queryset=push_notification_translations,
+            # The push notification instance to which we want to create translations
+            instance=push_notification_instance,
             # Add initial data for all languages which do not yet have a translation
             initial=[
                 {"language": language}
@@ -196,6 +192,9 @@ class PushNotificationFormView(TemplateView):
                 if language not in existing_languages
             ],
         )
+        # Make title of default language required
+        pnt_formset[0].fields["title"].required = True
+
         if not pn_form.is_valid():
             # Add error messages
             pn_form.add_error_messages(request)
@@ -212,9 +211,10 @@ class PushNotificationFormView(TemplateView):
                     form.add_error_messages(request)
         else:
             # Save forms
-            pn_form.save()
-            for form in pnt_formset:
-                form.instance.push_notification = pn_form.instance
+            pnt_formset.instance = pn_form.save()
+            if not push_notification_instance:
+                for form in pnt_formset:
+                    form.instance.push_notification = pnt_formset.instance
             pnt_formset.save()
 
             # Add the success message

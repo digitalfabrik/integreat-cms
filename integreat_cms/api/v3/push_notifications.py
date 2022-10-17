@@ -54,8 +54,8 @@ def transform_notification(pnt):
     """
     return {
         "id": str(pnt.pk),
-        "title": pnt.title,
-        "message": pnt.text,
+        "title": pnt.get_title(),
+        "message": pnt.get_text(),
         "timestamp": pnt.last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(pnt.last_updated),
         "channel": pnt.push_notification.channel,
