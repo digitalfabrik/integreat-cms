@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-15 23:05+0000\n"
+"POT-Creation-Date: 2022-10-17 12:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1391,12 +1391,12 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: cms/constants/region_status.py:17 cms/models/regions/region.py:697
+#: cms/constants/region_status.py:17 cms/models/regions/region.py:705
 msgid "Hidden"
 msgstr "Versteckt"
 
 #: cms/constants/region_status.py:18 cms/models/pages/page.py:323
-#: cms/models/regions/region.py:700 cms/templates/events/event_form.html:76
+#: cms/models/regions/region.py:708 cms/templates/events/event_form.html:76
 #: cms/templates/pages/page_form.html:109
 #: cms/templates/pages/page_tree_archived_node.html:81
 #: cms/templates/pois/poi_form.html:66
@@ -1877,17 +1877,17 @@ msgstr "Keine Inhalte übernehmen"
 msgid "Timezone area"
 msgstr "Region der Zeitzone"
 
-#: cms/forms/regions/region_form.py:202
+#: cms/forms/regions/region_form.py:207
 msgid "Statistics can only be enabled when a valid access token is supplied."
 msgstr ""
 "Statistiken können nur aktiviert werden, wenn ein gültiges Zugangstoken "
 "eingegeben wurde."
 
-#: cms/forms/regions/region_form.py:214
+#: cms/forms/regions/region_form.py:219
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
 
-#: cms/forms/regions/region_form.py:242 cms/forms/regions/region_form.py:252
+#: cms/forms/regions/region_form.py:247 cms/forms/regions/region_form.py:257
 msgid ""
 "Could not retrieve the coordinates automatically, please fill the field "
 "manually."
@@ -1895,23 +1895,23 @@ msgstr ""
 "Die Koordinaten konnten nicht automatisch abgerufen werden, bitte füllen Sie "
 "das Feld manuell aus."
 
-#: cms/forms/regions/region_form.py:325
+#: cms/forms/regions/region_form.py:330
 msgid "'{}' is already selected as administrative division."
 msgstr "'{}' ist bereits als Verwaltungseinheit ausgewählt."
 
-#: cms/forms/regions/region_form.py:330
+#: cms/forms/regions/region_form.py:335
 msgid "Please select '{}' as administrative division."
 msgstr "Bitte wählen Sie '{}' als Verwaltungseinheit."
 
-#: cms/forms/regions/region_form.py:341
+#: cms/forms/regions/region_form.py:346
 msgid "Please set {} as default language for this region."
 msgstr "Bitte setzen Sie '{}' als Standard-Sprache für diese Region."
 
-#: cms/forms/regions/region_form.py:347
+#: cms/forms/regions/region_form.py:352
 msgid "Please enable '{}'."
 msgstr "Bitte aktivieren Sie '{}'."
 
-#: cms/forms/regions/region_form.py:362
+#: cms/forms/regions/region_form.py:367
 msgid ""
 "You cannot include the administrative division into the name and use a "
 "custom prefix at the same time."
@@ -1919,14 +1919,18 @@ msgstr ""
 "Sie können nicht gleichzeitig die Verwaltungseinheit dem Namen hinzufügen "
 "und ein benutzerdefiniertes Präfix verwenden."
 
-#: cms/forms/regions/region_form.py:380
+#: cms/forms/regions/region_form.py:385
 msgid "Enter a valid JSON."
 msgstr "Bitte ein gültiges JSON-Objekt eingeben."
 
-#: cms/forms/regions/region_form.py:393
+#: cms/forms/regions/region_form.py:398
 #: cms/templates/regions/region_form.html:192
 msgid "Currently SUMM.AI is globally deactivated"
 msgstr "Derzeit ist SUMM.AI global deaktiviert"
+
+#: cms/forms/regions/region_form.py:414
+msgid "No Textlab API key is set on this system."
+msgstr "Es wurde kein Textlab API-Schlüssel für dieses System gesetzt."
 
 #: cms/forms/statistics/statistics_filter_form.py:41
 msgid "Evaluation"
@@ -2068,7 +2072,7 @@ msgstr "Die Passwörter stimmen nicht überein."
 #: cms/models/feedback/feedback.py:60 cms/models/media/directory.py:24
 #: cms/models/media/media_file.py:158
 #: cms/models/push_notifications/push_notification.py:21
-#: cms/models/regions/region.py:716 cms/models/users/organization.py:38
+#: cms/models/regions/region.py:724 cms/models/users/organization.py:38
 msgid "region"
 msgstr "Region"
 
@@ -3292,19 +3296,31 @@ msgid ""
 "Whether or not events and locations are shown in default language as fallback"
 msgstr ""
 "Ob Veranstaltungen und Orte als Fallback in der Standardsprache angezeigt "
-"werden sollen oder nicht"
+"werden sollen oder nicht."
 
 #: cms/models/regions/region.py:303
+msgid "Activate HIX analysis"
+msgstr "HIX-Analyse aktivieren"
+
+#: cms/models/regions/region.py:305
+msgid ""
+"Allow users of this region to analyze understandability of text content via "
+"TextLab API."
+msgstr ""
+"Erlaubt den Nutzern dieser Region, Inhalte mittels der TextLab API auf "
+"Textverständlichkeit zu untersuchen."
+
+#: cms/models/regions/region.py:311
 msgid "activate automatic translations via SUMM.AI"
 msgstr "Automatische Übersetzungen über SUMM.AI aktivieren"
 
-#: cms/models/regions/region.py:305
+#: cms/models/regions/region.py:313
 msgid ""
 "Whether automatic translations into Easy German with SUMM.AI are enabled"
 msgstr ""
 "Ob automatische Übersetzungen in Leichte Sprache mit SUMM.AI aktiviert sind"
 
-#: cms/models/regions/region.py:718 cms/models/users/user.py:56
+#: cms/models/regions/region.py:726 cms/models/users/user.py:56
 msgid "regions"
 msgstr "Regionen"
 
@@ -3451,7 +3467,7 @@ msgstr "Mein Dashboard"
 msgid "Analytics"
 msgstr "Analyse"
 
-#: cms/templates/_base.html:116 cms/templates/regions/region_form.html:227
+#: cms/templates/_base.html:116 cms/templates/regions/region_form.html:239
 #: cms/templates/statistics/_statistics_widget.html:11
 #: cms/templates/statistics/statistics_overview.html:10
 #: cms/templates/statistics/statistics_overview.html:49
@@ -3635,7 +3651,7 @@ msgid "Group"
 msgstr "Gruppe"
 
 #: cms/templates/_tinymce_config.html:43
-#: cms/templates/events/event_form.html:44
+#: cms/templates/events/event_form.html:44 cms/templates/hix_widget.html:40
 #: cms/templates/imprint/imprint_form.html:29
 #: cms/templates/imprint/imprint_sbs.html:25
 #: cms/templates/languagetreenodes/languagetreenode_form.html:23
@@ -3731,6 +3747,7 @@ msgstr "Bitte kontaktieren Sie einen Administrator."
 
 #: cms/templates/analytics/_broken_links_widget.html:29
 #: cms/templates/dashboard/_news_widget.html:17
+#: cms/templates/hix_widget.html:14
 #: cms/templates/statistics/_statistics_widget.html:24
 #: cms/templates/statistics/statistics_overview.html:20
 msgid "Loading..."
@@ -4134,13 +4151,13 @@ msgstr "Bearbeiten"
 #: cms/templates/imprint/imprint_sbs.html:129
 #: cms/templates/pages/page_form.html:130
 #: cms/templates/pages/page_form.html:149
-#: cms/templates/pages/page_form.html:236 cms/templates/pois/poi_form.html:89
+#: cms/templates/pages/page_form.html:240 cms/templates/pois/poi_form.html:89
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
 
 #: cms/templates/events/event_form.html:122
 #: cms/templates/imprint/imprint_form.html:102
-#: cms/templates/pages/page_form.html:175
+#: cms/templates/pages/page_form.html:179
 #: cms/templates/pages/page_revisions.html:68
 #: cms/templates/pois/poi_form.html:119
 msgid "Minor edit"
@@ -4180,7 +4197,7 @@ msgstr "Auf Google Maps öffnen"
 
 #: cms/templates/events/event_form.html:328
 #: cms/templates/imprint/imprint_form.html:120
-#: cms/templates/pages/page_form.html:285 cms/templates/pages/page_sbs.html:87
+#: cms/templates/pages/page_form.html:289 cms/templates/pages/page_sbs.html:87
 #: cms/templates/poicategories/poicategory_list.html:31
 #: cms/templates/pois/poi_form.html:238
 #: cms/templates/regions/region_list.html:25
@@ -4509,6 +4526,44 @@ msgstr "Nie wieder anzeigen"
 msgid "Understood"
 msgstr "Verstanden"
 
+#: cms/templates/hix_widget.html:8
+msgid "HIX Value"
+msgstr "HIX-Wert"
+
+#: cms/templates/hix_widget.html:16
+msgid "Improve the understandability of the page content."
+msgstr "Verbessern Sie die Textverständlichkeit der Seite."
+
+#: cms/templates/hix_widget.html:23
+msgid "HIX value is up to date."
+msgstr "Der HIX-Wert ist aktuell."
+
+#: cms/templates/hix_widget.html:27
+msgid "HIX value is outdated."
+msgstr "Der HIX-Wert ist veraltet."
+
+#: cms/templates/hix_widget.html:31
+msgid "Some error occurred. Please try again later."
+msgstr "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+
+#: cms/templates/hix_widget.html:35
+msgid "There is no page content."
+msgstr "Es gibt keinen Seiteninhalt."
+
+#: cms/templates/hix_widget.html:43
+msgid ""
+"Simple words, short and meaningful sentences and as less enumerations as "
+"possible can help a lot to improve the understandability of a text. Find "
+"more information:"
+msgstr ""
+"Einfache Wörter, kurze und präzise Sätze sowie das Vermeiden von "
+"Aufzählungen können die Textverständlichkeit verbessern. Weitere "
+"Informationen finden Sie unter:"
+
+#: cms/templates/hix_widget.html:44
+msgid "https://wiki.tuerantuer.org/write-texts"
+msgstr "https://wiki.integreat-app.de/texte_verfassen"
+
 #: cms/templates/icon_widget.html:15
 #, python-format
 msgid "Set %(label)s"
@@ -4580,7 +4635,7 @@ msgid "Side-by-Side view"
 msgstr "Side-by-Side-Ansicht"
 
 #: cms/templates/imprint/imprint_form.html:145
-#: cms/templates/pages/page_form.html:437
+#: cms/templates/pages/page_form.html:441
 msgid "Direction of translation"
 msgstr "Übersetzungsrichtung"
 
@@ -5125,31 +5180,31 @@ msgstr "Übersetzungsprozess abbrechen"
 msgid "Archived, because a parent page is archived"
 msgstr "Archiviert, weil eine übergeordnete Seite archiviert ist"
 
-#: cms/templates/pages/page_form.html:193
+#: cms/templates/pages/page_form.html:197
 msgid "Settings of the page"
 msgstr "Einstellungen der Seite"
 
-#: cms/templates/pages/page_form.html:202
+#: cms/templates/pages/page_form.html:206
 msgid "Positioning"
 msgstr "Anordnung"
 
-#: cms/templates/pages/page_form.html:207
+#: cms/templates/pages/page_form.html:211
 msgid "Order"
 msgstr "Reihenfolge"
 
-#: cms/templates/pages/page_form.html:211
+#: cms/templates/pages/page_form.html:215
 msgid "Embed live content"
 msgstr "Live-Inhalte einbinden"
 
-#: cms/templates/pages/page_form.html:241
+#: cms/templates/pages/page_form.html:245
 msgid "Access token was successfully copied to clipboard"
 msgstr "Zugangs-Token wurde erfolgreich in die Zwischenablage kopiert."
 
-#: cms/templates/pages/page_form.html:254
+#: cms/templates/pages/page_form.html:258
 msgid "Additional permissions for this page"
 msgstr "Zusätzliche Berechtigungen für diese Seite"
 
-#: cms/templates/pages/page_form.html:256
+#: cms/templates/pages/page_form.html:260
 msgid ""
 "This affects only users, who don't have the permission to change arbitrary "
 "pages anyway."
@@ -5157,28 +5212,28 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: cms/templates/pages/page_form.html:291
+#: cms/templates/pages/page_form.html:295
 #: cms/templates/pages/page_revisions.html:115
 msgid "Refresh date"
 msgstr "Datum aktualisieren"
 
-#: cms/templates/pages/page_form.html:293
-#: cms/templates/pages/page_form.html:299
+#: cms/templates/pages/page_form.html:297
+#: cms/templates/pages/page_form.html:303
 msgid "Mark this page as up-to-date"
 msgstr "Seite als aktuell markieren"
 
-#: cms/templates/pages/page_form.html:304
-#: cms/templates/pages/page_form.html:306
-#: cms/templates/pages/page_form.html:316
+#: cms/templates/pages/page_form.html:308
+#: cms/templates/pages/page_form.html:310
+#: cms/templates/pages/page_form.html:320
 #: cms/templates/pages/page_tree_archived_node.html:113
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html:312
+#: cms/templates/pages/page_form.html:316
 msgid "Restore this page"
 msgstr "Diese Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html:321
+#: cms/templates/pages/page_form.html:325
 msgid "To restore this page, you have to restore its parent page:"
 msgid_plural ""
 "To restore this page, you have to restore all its archived parent pages:"
@@ -5189,31 +5244,31 @@ msgstr[1] ""
 "Um diese Seite wiederherzustellen, müssen Sie alle ihre archivierten "
 "übergeordneten Seiten wiederherstellen:"
 
-#: cms/templates/pages/page_form.html:336
-#: cms/templates/pages/page_form.html:338
+#: cms/templates/pages/page_form.html:340
+#: cms/templates/pages/page_form.html:342
 #: cms/templates/pages/page_tree_node.html:141
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: cms/templates/pages/page_form.html:345
+#: cms/templates/pages/page_form.html:349
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
-#: cms/templates/pages/page_form.html:350
-#: cms/templates/pages/page_form.html:414
+#: cms/templates/pages/page_form.html:354
+#: cms/templates/pages/page_form.html:418
 #: cms/templates/pages/page_tree_archived_node.html:135
 #: cms/templates/pages/page_tree_node.html:158
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: cms/templates/pages/page_form.html:357
+#: cms/templates/pages/page_form.html:361
 #: cms/templates/pages/page_tree_archived_node.html:127
 #: cms/templates/pages/page_tree_node.html:150
 #: cms/views/pages/page_actions.py:262
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
-#: cms/templates/pages/page_form.html:359
+#: cms/templates/pages/page_form.html:363
 msgid "To delete this page, you have to delete or move its subpage first:"
 msgid_plural ""
 "To delete this page, you have to delete or move its subpages first:"
@@ -5224,7 +5279,7 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie zuerst ihre Unterseiten löschen oder "
 "verschieben:"
 
-#: cms/templates/pages/page_form.html:378
+#: cms/templates/pages/page_form.html:382
 #: cms/templates/pages/page_tree_archived_node.html:131
 #: cms/templates/pages/page_tree_node.html:154
 #: cms/views/pages/page_actions.py:267
@@ -5235,7 +5290,7 @@ msgstr ""
 "Diese Seite kann nicht gelöscht werden, da sie von einer anderen Seite als "
 "Live-Inhalt eingebunden wurde."
 
-#: cms/templates/pages/page_form.html:382
+#: cms/templates/pages/page_form.html:386
 msgid ""
 "To delete this page, you have to remove the embedded live content from this "
 "page first:"
@@ -5249,15 +5304,15 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie den eingebetteten Live-Inhalt von "
 "dieser Seiten entfernen:"
 
-#: cms/templates/pages/page_form.html:421
+#: cms/templates/pages/page_form.html:425
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
-#: cms/templates/pages/page_form.html:432
+#: cms/templates/pages/page_form.html:436
 msgid "Translator view"
 msgstr "Übersetzeransicht"
 
-#: cms/templates/pages/page_form.html:452
+#: cms/templates/pages/page_form.html:456
 msgid "Show translator view"
 msgstr "Übersetzeransicht anzeigen"
 
@@ -5861,38 +5916,42 @@ msgstr ""
 msgid "Features"
 msgstr "Funktionen"
 
-#: cms/templates/regions/region_form.html:257
+#: cms/templates/regions/region_form.html:203
+msgid "Currently HIX is globally deactivated"
+msgstr "Derzeit ist HIX global deaktiviert"
+
+#: cms/templates/regions/region_form.html:269
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: cms/templates/regions/region_form.html:260
+#: cms/templates/regions/region_form.html:272
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: cms/templates/regions/region_form.html:269
+#: cms/templates/regions/region_form.html:281
 msgid "Delete region"
 msgstr "Region löschen"
 
-#: cms/templates/regions/region_form.html:270
+#: cms/templates/regions/region_form.html:282
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: cms/templates/regions/region_form.html:271
+#: cms/templates/regions/region_form.html:283
 msgid "This can not be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: cms/templates/regions/region_form.html:271
+#: cms/templates/regions/region_form.html:283
 msgid "All pages, events and locations of this region will also be deleted."
 msgstr ""
 "Alle Seiten, Veranstaltungen und Orte dieser Region werden ebenfalls "
 "gelöscht."
 
-#: cms/templates/regions/region_form.html:271
+#: cms/templates/regions/region_form.html:283
 msgid "Users, who only have access to this region, will be removed as well."
 msgstr ""
 "Benutzer, die nur Zugriff auf diese Region besitzen, werden auch entfernt."
 
-#: cms/templates/regions/region_form.html:275
+#: cms/templates/regions/region_form.html:287
 msgid "Delete this region"
 msgstr "Diese Region löschen"
 
@@ -7474,15 +7533,15 @@ msgid "Superuser permissions need to be set by another superuser."
 msgstr ""
 "Administratorrechte müssen von einem anderen Administrator vergeben werden."
 
-#: core/settings.py:617
+#: core/settings.py:639
 msgid "German"
 msgstr "Deutsch"
 
-#: core/settings.py:618
+#: core/settings.py:640
 msgid "English"
 msgstr "Englisch"
 
-#: core/settings.py:619
+#: core/settings.py:641
 msgid "Dutch"
 msgstr "Niederländisch"
 
@@ -7622,6 +7681,15 @@ msgstr ""
 
 #~ msgid "The english name of the POI category."
 #~ msgstr "Der Name der Kategorie auf English."
+
+#~ msgid ""
+#~ "The latest changes have only been saved as a draft. Currently, <a "
+#~ "href='%(revision_url)s' class='underline hover:no-underline'>version "
+#~ "%(revision)s</a> of this page is displayed in the app."
+#~ msgstr ""
+#~ "Die letzten Änderungen wurden nur als Entwurf gespeichert. Aktuell wird "
+#~ "Version <a href='%(revision_url)s' class='underline hover:no-"
+#~ "underline'>Version %(revision)s</a> dieser Seite in der App angezeigt."
 
 #~ msgid "The automatic translation into Easy German has been started."
 #~ msgstr "Die automatische Übersetzung ins Leichte Deutsch wurde gestartet."
@@ -8367,6 +8435,9 @@ msgstr ""
 #~ msgid "Translations outdated"
 #~ msgstr "Veraltete Übersetzungen"
 
+#~ msgid "Translations missing"
+#~ msgstr "Fehlende Übersetzungen"
+
 #~ msgid "Translation Coverage"
 #~ msgstr "Abdeckung der Übersetzungen"
 
@@ -8747,9 +8818,6 @@ msgstr ""
 
 #~ msgid "Enter push notification channels here"
 #~ msgstr "Push-Benachrichtigungskanäle hier eingeben"
-
-#~ msgid "Activate statistics"
-#~ msgstr "Statistiken aktivieren"
 
 #~ msgid "Activate SSL verification for Matomo"
 #~ msgstr "SSL-Verifikation für Matomo aktivieren"

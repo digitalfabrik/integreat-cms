@@ -195,9 +195,13 @@ window.addEventListener("load", () => {
       readonly: !!tinymceConfig.getAttribute("data-readonly"),
       init_instance_callback: function (editor: Editor) {
         editor.on("StoreDraft", autosaveEditor);
-        // when the editor becomes dirty, send an input event, so that the unsaved warning can be shown
+        // When the editor becomes dirty, send an input event, so that the unsaved warning can be shown
         editor.on("dirty", () => document.querySelectorAll("[data-unsaved-warning]").forEach((element) => {
           element.dispatchEvent(new Event("input"))
+        }));
+        // Create an event every time the content changes
+        editor.on('keyup', () => document.querySelectorAll("[data-content-changed]").forEach((element) => {
+          element.dispatchEvent(new Event("contentChanged"));
         }));
       },
     });

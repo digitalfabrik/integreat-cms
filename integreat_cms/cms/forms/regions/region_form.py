@@ -119,6 +119,7 @@ class RegionForm(CustomModelForm):
             "timezone",
             "fallback_translations_enabled",
             "summ_ai_enabled",
+            "hix_enabled",
         ]
         #: The widgets which are used in this form
         widgets = {
@@ -149,6 +150,10 @@ class RegionForm(CustomModelForm):
             self.instance and self.instance.summ_ai_enabled
         ):
             self.fields["summ_ai_enabled"].disabled = True
+        if not settings.TEXTLAB_API_ENABLED and not (
+            self.instance and self.instance.hix_enabled
+        ):
+            self.fields["hix_enabled"].disabled = True
 
     def save(self, commit=True):
         """
@@ -394,6 +399,21 @@ class RegionForm(CustomModelForm):
             )
             return False
         return self.cleaned_data.get("summ_ai_enabled")
+
+    def clean_hix_enabled(self):
+        """
+        Validate the hix_enabled field (see :ref:`overriding-modelform-clean-method`).
+
+        :return: The validated field
+        :rtype: bool
+        """
+        cleaned_hix_enabled = self.cleaned_data["hix_enabled"]
+        # Check whether someone tries to activate hix when no API key is set
+        if cleaned_hix_enabled and not settings.TEXTLAB_API_ENABLED:
+            self.add_error(
+                "hix_enabled", _("No Textlab API key is set on this system.")
+            )
+        return cleaned_hix_enabled
 
     @staticmethod
     def autofill_bounding_box(cleaned_data):
