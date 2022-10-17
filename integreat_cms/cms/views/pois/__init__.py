@@ -7,5 +7,6 @@ from .poi_actions import (
     archive_poi,
     restore_poi,
     delete_poi,
+    auto_complete_address,
 )
 from .poi_list_view import POIListView

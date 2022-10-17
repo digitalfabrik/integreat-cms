@@ -5,6 +5,7 @@ UNRELEASED
 * [ [#1742](https://github.com/digitalfabrik/integreat-cms/issues/1742) ] Add last modified date to media sidebar
 * [ [#1703](https://github.com/digitalfabrik/integreat-cms/issues/1703) ] Remove pending account activation warning when user form is submitted with errors
 * [ [#1684](https://github.com/digitalfabrik/integreat-cms/issues/1684) ] Set filesize limit for uploads to 3MB
+* [ [#1000](https://github.com/digitalfabrik/integreat-cms/issues/1000) ] Auto-complete address and coordinates of locations
 
 
 2022.10.0

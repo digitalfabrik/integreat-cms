@@ -429,6 +429,11 @@ urlpatterns = [
             [
                 path("", include(media_ajax_urlpatterns)),
                 path(
+                    "locations/auto-complete-address/",
+                    pois.auto_complete_address,
+                    name="auto_complete_poi_address",
+                ),
+                path(
                     "chat/",
                     include(
                         [
