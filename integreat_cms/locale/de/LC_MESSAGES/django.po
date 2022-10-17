@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-17 14:48+0000\n"
+"POT-Creation-Date: 2022-10-17 15:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1815,6 +1815,14 @@ msgstr ""
 "Die Datei kann nicht in einem Verzeichnis einer anderen Region hochgeladen "
 "werden."
 
+#: cms/forms/organizations/organization_form.py:74
+msgid ""
+"An organization with the same name already exists in this region. Please "
+"choose another name."
+msgstr ""
+"Eine Organisation mit diesem Namen existiert bereits in dieser Region. Bitte "
+"wählen Sie einen anderen Namen."
+
 #: cms/forms/pages/page_filter_form.py:18
 msgid "Translation status"
 msgstr "Übersetzungsstatus"
@@ -1955,6 +1963,7 @@ msgid "Email"
 msgstr "Email"
 
 #: cms/forms/users/user_filter_form.py:21 cms/forms/users/user_form.py:27
+#: cms/templates/organizations/organization_form.html:159
 #: cms/templates/users/region_user_list.html:25
 #: cms/templates/users/user_list.html:34
 msgid "Role"
@@ -3324,11 +3333,11 @@ msgstr ""
 msgid "regions"
 msgstr "Regionen"
 
-#: cms/models/users/organization.py:66 cms/models/users/user.py:65
+#: cms/models/users/organization.py:83 cms/models/users/user.py:65
 msgid "organization"
 msgstr "Organisation"
 
-#: cms/models/users/organization.py:70
+#: cms/models/users/organization.py:87
 msgid "organizations"
 msgstr "Organisationen"
 
@@ -3504,6 +3513,7 @@ msgid "Media Library"
 msgstr "Medienbibliothek"
 
 #: cms/templates/_base.html:153
+#: cms/templates/organizations/organization_form.html:73
 msgid "Pages"
 msgstr "Seiten"
 
@@ -4291,7 +4301,7 @@ msgstr "Wiederholung"
 #: cms/templates/languages/language_list.html:30
 #: cms/templates/linkcheck/links_by_filter.html:64
 #: cms/templates/offertemplates/offertemplate_list.html:26
-#: cms/templates/organizations/organization_list.html:23
+#: cms/templates/organizations/organization_list.html:24
 #: cms/templates/pages/page_tree.html:90
 #: cms/templates/pages/page_tree_archived.html:69
 #: cms/templates/pois/poi_list.html:73
@@ -4381,6 +4391,8 @@ msgstr "Veranstaltungen wiederherstellen"
 #: cms/templates/events/event_list_archived_row.html:31
 #: cms/templates/events/event_list_row.html:16
 #: cms/templates/events/event_list_row.html:30
+#: cms/templates/organizations/organization_form.html:109
+#: cms/templates/organizations/organization_form.html:125
 #: cms/templates/pages/page_tree_archived_node.html:31
 #: cms/templates/pages/page_tree_archived_node.html:41
 #: cms/templates/pages/page_tree_node.html:38
@@ -4497,6 +4509,7 @@ msgstr "Als ungelesen markieren"
 #: cms/templates/feedback/admin_feedback_list.html:141
 #: cms/templates/feedback/region_feedback_list.html:133
 #: cms/templates/languagetreenodes/languagetreenode_list.html:31
+#: cms/templates/organizations/organization_form.html:31
 msgid "Delete"
 msgstr "Löschen"
 
@@ -4744,7 +4757,7 @@ msgstr "Neue Sprache erstellen"
 #: cms/templates/languages/language_form.html:19
 #: cms/templates/linkcheck/link_list_row.html:66
 #: cms/templates/offertemplates/offertemplate_form.html:20
-#: cms/templates/organizations/organization_form.html:19
+#: cms/templates/organizations/organization_form.html:37
 #: cms/templates/poicategories/poicategory_form.html:19
 #: cms/templates/push_notifications/push_notification_form.html:23
 #: cms/templates/regions/region_form.html:22
@@ -4781,7 +4794,7 @@ msgstr "Übersetzungen"
 
 #: cms/templates/languages/language_form.html:74
 #: cms/templates/offertemplates/offertemplate_form.html:57
-#: cms/templates/organizations/organization_form.html:38
+#: cms/templates/organizations/organization_form.html:55
 #: cms/templates/regions/region_form.html:78
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
@@ -4823,7 +4836,6 @@ msgstr "Nativer Name"
 #: cms/templates/languages/language_list.html:23
 #: cms/templates/languagetreenodes/languagetreenode_list.html:25
 #: cms/templates/offertemplates/offertemplate_list.html:21
-#: cms/templates/organizations/organization_list.html:21
 msgid "Slug"
 msgstr "URL-Parameter"
 
@@ -5017,7 +5029,7 @@ msgid "Create new offer template"
 msgstr "Neue Angebots-Vorlage erstellen"
 
 #: cms/templates/offertemplates/offertemplate_form.html:30
-#: cms/templates/organizations/organization_form.html:25
+#: cms/templates/organizations/organization_form.html:45
 #: cms/templates/regions/region_form.html:29
 #: cms/templates/users/region_user_form.html:29
 #: cms/templates/users/user_form.html:26
@@ -5054,23 +5066,48 @@ msgstr "Noch keine Angebots-Vorlagen vorhanden."
 msgid "Delete offer templates"
 msgstr "Angebots-Vorlage löschen"
 
-#: cms/templates/organizations/organization_form.html:12
+#: cms/templates/organizations/organization_form.html:16
 #, python-format
 msgid "Edit organization \"%(organization_name)s\""
 msgstr "Organisation \"%(organization_name)s\" bearbeiten"
 
-#: cms/templates/organizations/organization_form.html:15
+#: cms/templates/organizations/organization_form.html:19
 msgid "Create new organization"
 msgstr "Neue Organisation erstellen"
 
-#: cms/templates/organizations/organization_form.html:48
-#: cms/templates/organizations/organization_list_row.html:25
+#: cms/templates/organizations/organization_form.html:25
+#: cms/templates/organizations/organization_list_row.html:30
 msgid "Delete organization"
 msgstr "Organisation löschen"
 
-#: cms/templates/organizations/organization_form.html:54
-msgid "Delete this organization"
-msgstr "Diese Organisation löschen"
+#: cms/templates/organizations/organization_form.html:84
+#: cms/templates/organizations/organization_form.html:89
+msgid "Name in "
+msgstr "Name auf"
+
+#: cms/templates/organizations/organization_form.html:103
+#: cms/templates/organizations/organization_form.html:116
+msgid "View page"
+msgstr "Weitere Seiten-Infos"
+
+#: cms/templates/organizations/organization_form.html:134
+msgid "This organization currently has no maintained pages."
+msgstr "Von dieser Organisation werden zur Zeit keine Seiten verwaltet."
+
+#: cms/templates/organizations/organization_form.html:148
+#: cms/templates/organizations/organization_list.html:21
+msgid "Members"
+msgstr "Mitglieder"
+
+#: cms/templates/organizations/organization_form.html:156
+#: cms/templates/users/region_user_list.html:21
+#: cms/templates/users/user_list.html:29
+msgid "Username"
+msgstr "Benutzername"
+
+#: cms/templates/organizations/organization_form.html:178
+msgid "This organization currently has no members."
+msgstr "Diese Organisation hat zur Zeit keine Mitglieder."
 
 #: cms/templates/organizations/organization_list.html:7
 msgid "Manage Organizations"
@@ -5081,10 +5118,14 @@ msgid "Create organization"
 msgstr "Organisation erstellen"
 
 #: cms/templates/organizations/organization_list.html:22
+msgid "Maintained Pages"
+msgstr "Anzahl an verwaltenten Seiten"
+
+#: cms/templates/organizations/organization_list.html:23
 msgid "Logo"
 msgstr "Logo"
 
-#: cms/templates/organizations/organization_list.html:32
+#: cms/templates/organizations/organization_list.html:33
 msgid "No organizations available yet."
 msgstr "Noch keine Organisationen vorhanden."
 
@@ -6275,11 +6316,6 @@ msgstr "Nutzerverwaltung"
 #: cms/templates/users/user_list.html:16
 msgid "Create user"
 msgstr "Benutzer erstellen"
-
-#: cms/templates/users/region_user_list.html:21
-#: cms/templates/users/user_list.html:29
-msgid "Username"
-msgstr "Benutzername"
 
 #: cms/templates/users/region_user_list.html:22
 #: cms/templates/users/user_list.html:30
@@ -7640,6 +7676,9 @@ msgstr ""
 #~ "Wenn Sie diese Felder leer lassen, werden sie automatisch aus der Adresse "
 #~ "abgeleitet."
 
+#~ msgid "Delete this organization"
+#~ msgstr "Diese Organisation löschen"
+
 #~ msgid "No POI categories found with these filters."
 #~ msgstr "Keine POI kategorie mit diesen Filtern gefunden."
 
@@ -7696,6 +7735,16 @@ msgstr ""
 
 #~ msgid "The selected {} were successfully archived"
 #~ msgstr "Die ausgewählten {} wurden erfolgreich archiviert"
+
+#~ msgid "Number of Members"
+#~ msgstr "Mitgliederanzahl"
+
+#~ msgid "Name in Englisch"
+#~ msgstr "Name auf Englisch"
+
+#~| msgid "Delete this organization"
+#~ msgid "Currently no users belong to this organization"
+#~ msgstr "Diese Organisation löschen"
 
 #~ msgid "The selected {} were successfully restored"
 #~ msgstr "Die ausgewählten {} wurden erfolgreich wiederhergestellt"
@@ -8919,9 +8968,6 @@ msgstr ""
 
 #~ msgid "table of contents caption"
 #~ msgstr "Überschrift des Inhaltsverzeichnis"
-
-#~ msgid "Name in English"
-#~ msgstr "Name auf Englisch"
 
 #~ msgid "Enter the language's name in english here"
 #~ msgstr "Name der Sprache auf Englisch hier eingeben"

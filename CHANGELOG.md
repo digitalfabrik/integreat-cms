@@ -13,6 +13,7 @@ UNRELEASED
 * [ [#1710](https://github.com/digitalfabrik/integreat-cms/issues/1710) ] Add spacing to sidebar to improve view on small screens
 * [ [#1526](https://github.com/digitalfabrik/integreat-cms/issues/1526)] Fix sending push notifications in one language
 * [ [#1630](https://github.com/digitalfabrik/integreat-cms/issues/1630)] Fix not recognized sent status of push notifications
+* [ [#1683](https://github.com/digitalfabrik/integreat-cms/issues/1683) ] Improve organization management
 
 
 2022.10.0

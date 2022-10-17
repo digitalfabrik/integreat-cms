@@ -11,7 +11,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: pipenv-{{ checksum "Pipfile.lock" }}-v1
+          key: pipenv-{{ checksum "Pipfile.lock" }}-v2
       - run:
           name: Install pip dependencies
           command: |
@@ -26,7 +26,7 @@ jobs:
               fi
             fi
       - save_cache:
-          key: pipenv-{{ checksum "Pipfile.lock" }}-v1
+          key: pipenv-{{ checksum "Pipfile.lock" }}-v2
           paths:
             - .venv
             - integreat_cms.egg-info
@@ -97,7 +97,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - npm-{{ checksum "package-lock.json" }}-v1
+            - npm-{{ checksum "package-lock.json" }}-v2
       - run:
           name: Install npm dependencies
           command: |
@@ -112,7 +112,7 @@ jobs:
               fi
             fi
       - save_cache:
-          key: npm-{{ checksum "package-lock.json" }}-v1
+          key: npm-{{ checksum "package-lock.json" }}-v2
           paths:
             - node_modules
       - run:
