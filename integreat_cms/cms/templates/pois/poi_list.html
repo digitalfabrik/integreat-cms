@@ -12,7 +12,7 @@
             <a href="{% url 'archived_pois' region_slug=request.region.slug language_slug=language.slug %}"
                class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
                 <span>
-                    <i data-feather="archive" class="align-top h-5"></i>
+                    <i icon-name="archive" class="align-top h-5"></i>
                     {% trans 'Archived locations' %}
                     ({{ archived_count }})
                 </span>
@@ -69,6 +69,7 @@
                     <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Postal Code' %}</th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'City' %}</th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Country' %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Category' %}</th>
                     <th class="text-sm text-right uppercase py-3 pr-4 min">{% trans 'Options' %}</th>
                 </tr>
             </thead>

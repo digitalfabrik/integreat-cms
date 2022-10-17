@@ -9,9 +9,9 @@
     <td class="pl-2 pr-2">
         <a href="{% url 'edit_role' role_id=role.id %}" class="block py-3 px-2 text-gray-800">
             {% if role.staff_role %}
-                <i data-feather="check"></i>
+                <i icon-name="check"></i>
             {% else %}
-                <i data-feather="x"></i>
+                <i icon-name="x"></i>
             {% endif %}
         </a>
     </td>
@@ -21,7 +21,7 @@
                 data-confirmation-text="{{ delete_dialog_text }}"
                 data-confirmation-subject="{{ role.name }}"
                 data-action="#" disabled> <!-- TODO: delete roles -->
-            <i data-feather="trash-2"></i>
+            <i icon-name="trash-2"></i>
         </button>
     </td>
 </tr>

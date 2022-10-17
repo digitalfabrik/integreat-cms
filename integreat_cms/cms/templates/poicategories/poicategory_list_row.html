@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load content_filters %}
+
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+    <td class="pl-2 pr-2">
+        <a href="{% url 'edit_poicategory' pk=poi_category.pk %}" class="block py-3 px-2 text-gray-800">
+            {{ poi_category.name }}
+        </a>
+    </td>
+    <td class="whitespace-nowrap">
+        <div class="text-sm text-left uppercase py-3 pl-4 pr-2 text-gray-800">
+            <div class="lang-grid">
+                {% for language in languages %}
+                    {% get_translation poi_category language.slug as poi_category_translation %}
+                            {% if poi_category_translation %}
+                                <span title="{{ poi_category_translation.name }}">
+                                    <i icon-name="check" class="text-green-500"></i>
+                                </span>
+                            {% else %}
+                                <span title="{% trans 'Translation missing' %}" class="no-trans">
+                                    <i icon-name="x" class="text-red-500"></i>
+                                </span>     
+                            {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </td>
+    <td class="pr-2 text-right">
+        {{ poi_category.pois.count }}
+    </td>
+    <td class="pl-2 pr-4 text-right min">
+        {% if perms.cms.delete_poicategory %}
+            {% if poi_category.pois.exists %}
+                <button title="{% trans 'You cannot delete a location category that is used in at least one location.' %}" class="btn-icon" disabled>
+                    <i icon-name="trash-2"></i>
+                </button>
+            {% else %}
+                <button title="{% trans 'Delete location category' %}" class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ delete_dialog_title }}"
+                        data-confirmation-text="{{ delete_dialog_text }}"
+                        data-confirmation-subject="{{ language.translated_name }}"
+                        data-action="{% url 'delete_poicategory' pk=poi_category.pk %}">
+                    <i icon-name="trash-2"></i>
+                </button>
+            {% endif %}
+        {% endif %}
+    </td>
+</tr>

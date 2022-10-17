@@ -70,7 +70,7 @@
                                        data-copy-to-clipboard="{{ imprint_translation_form.instance.short_url }}"
                                        title="{% trans 'Copy to clipboard' %}"
                                        class="mx-2 text-gray-800 hover:text-blue-500">
-                                        <i data-feather="copy"></i>
+                                        <i icon-name="copy"></i>
                                     </a>
                                 </div>
                             {% endif %}
@@ -85,7 +85,7 @@
                                data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}"
                                title="{% trans 'Copy to clipboard' %}"
                                class="px-2 text-gray-800 hover:text-blue-500">
-                                <i data-feather="copy"></i>
+                                <i icon-name="copy"></i>
                             </a>
                         </div>
                         <label for="{{ imprint_translation_form.content.id_for_label }}">{{ imprint_translation_form.content.label }}</label>
@@ -98,7 +98,7 @@
                     <div class="rounded border border-blue-500 shadow-2xl bg-white">
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold">
-                                <i data-feather="feather" class="pb-1"></i>
+                                <i icon-name="feather" class="pb-1"></i>
                                 {% trans "Minor edit" %}
                             </h3>
                         </div>
@@ -116,7 +116,7 @@
                         <div class="rounded border border-blue-500 shadow-2xl bg-white">
                             <div class="rounded p-4 bg-water-500">
                                 <h3 class="heading font-bold text-black">
-                                    <i data-feather="tool" class="pb-1"></i>
+                                    <i icon-name="wrench" class="pb-1"></i>
                                     {% trans "Actions" %}
                                 </h3>
                             </div>
@@ -128,7 +128,7 @@
                                         data-confirmation-text="{% trans 'All translations of the imprint will also be deleted.' %}"
                                         data-confirmation-subject="{{ imprint_translation_form.instance.title }}"
                                         data-action="{% url 'delete_imprint' region_slug=request.region.slug %}">
-                                    <i data-feather="trash-2" class="mr-2"></i>
+                                    <i icon-name="trash-2" class="mr-2"></i>
                                     {% trans 'Delete the imprint' %}
                                 </button>
                             </div>
@@ -137,7 +137,7 @@
                     <div class="rounded border border-blue-500 shadow-2xl bg-white">
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">
-                                <i data-feather="columns" class="pb-1"></i>
+                                <i icon-name="columns" class="pb-1"></i>
                                 {% trans 'Side-by-Side view' %}
                             </h3>
                         </div>
@@ -155,7 +155,7 @@
                                 {% endfor %}
                             </select>
                             <a id="side-by-side-link" class="btn mt-4" disabled="disabled">
-                                <i data-feather="external-link"></i>
+                                <i icon-name="external-link"></i>
                                 {% trans 'Show translations side by side' %}
                             </a>
                         </div>

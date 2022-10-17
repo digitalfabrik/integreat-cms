@@ -35,7 +35,7 @@ class ImprintSideBySideView(TemplateView):
         Render :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` on the side by side view
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -126,7 +126,7 @@ class ImprintSideBySideView(TemplateView):
         :class:`~integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation` object
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

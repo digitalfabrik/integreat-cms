@@ -24,7 +24,7 @@ def delete_imprint(request, region_slug):
     Delete imprint object
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str
@@ -61,7 +61,7 @@ def expand_imprint_translation_id(request, imprint_translation_id):
     Searches for an imprint translation with corresponding ID and redirects browser to web app
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param imprint_translation_id: The id of the requested imprint translation
     :type imprint_translation_id: int

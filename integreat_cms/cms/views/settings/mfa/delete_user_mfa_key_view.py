@@ -28,7 +28,7 @@ class DeleteUserMfaKeyView(TemplateView):
         Render mfa-deletion view
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -75,7 +75,7 @@ class DeleteUserMfaKeyView(TemplateView):
         Delete a multi-factor-authentication key
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \**kwargs: The supplied keyword arguments
         :type \**kwargs: dict

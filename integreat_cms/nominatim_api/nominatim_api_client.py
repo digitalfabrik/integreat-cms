@@ -42,7 +42,9 @@ class NominatimApiClient:
             logger.exception(e)
             logger.error("Nominatim API client could not be initialized")
 
-    def search(self, query_str=None, exactly_one=True, **query_dict):
+    def search(
+        self, query_str=None, exactly_one=True, addressdetails=False, **query_dict
+    ):
         r"""
         Search for a given query, either by string or by dict.
         ``query_str`` and ``query_dict`` are mutually exclusive.
@@ -54,6 +56,9 @@ class NominatimApiClient:
 
         :param exactly_one: Whether only one result should be returned
         :type exactly_one: bool
+
+        :param addressdetails: Whether address details should be returned
+        :type addressdetails: bool
 
         :param \**query_dict: The query as dictionary
         :type \**query_dict: dict
@@ -70,6 +75,7 @@ class NominatimApiClient:
             result = self.geolocator.geocode(
                 query,
                 exactly_one=exactly_one,
+                addressdetails=addressdetails,
             )
             if result:
                 logger.debug("Nominatim API search result: %r", result.raw)
@@ -77,7 +83,7 @@ class NominatimApiClient:
                 logger.debug("Nominatim API did not return a match")
             return result
         except GeopyError as e:
-            logger.exception(e)
+            logger.error(e)
             logger.error("Nominatim API call failed")
             return None
 
@@ -91,8 +97,7 @@ class NominatimApiClient:
                 "Nominatim API is available at: %r",
                 settings.NOMINATIM_API_URL,
             )
-        except (GeopyError, AssertionError) as e:
-            logger.exception(e)
+        except AssertionError:
             logger.error(
                 "Nominatim API unavailable. You won't be able to "
                 "automatically import location coordinates."

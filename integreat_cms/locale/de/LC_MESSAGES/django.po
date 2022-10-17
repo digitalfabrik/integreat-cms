@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-01 23:35+0000\n"
+"POT-Creation-Date: 2022-10-17 15:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1391,12 +1391,12 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: cms/constants/region_status.py:17 cms/models/regions/region.py:697
+#: cms/constants/region_status.py:17 cms/models/regions/region.py:705
 msgid "Hidden"
 msgstr "Versteckt"
 
 #: cms/constants/region_status.py:18 cms/models/pages/page.py:323
-#: cms/models/regions/region.py:700 cms/templates/events/event_form.html:76
+#: cms/models/regions/region.py:708 cms/templates/events/event_form.html:76
 #: cms/templates/pages/page_form.html:109
 #: cms/templates/pages/page_tree_archived_node.html:81
 #: cms/templates/pois/poi_form.html:66
@@ -1516,6 +1516,7 @@ msgstr "Übersetzung ist veraltet"
 #: cms/templates/events/event_list_row.html:58
 #: cms/templates/pages/page_tree_archived_node.html:68
 #: cms/templates/pages/page_tree_node.html:83
+#: cms/templates/poicategories/poicategory_list_row.html:20
 #: cms/templates/pois/poi_list_row.html:56
 msgid "Translation missing"
 msgstr "Übersetzung fehlt"
@@ -1716,6 +1717,8 @@ msgstr "Alle Kategorien"
 #: cms/forms/feedback/region_feedback_filter_form.py:29
 #: cms/templates/feedback/admin_feedback_list.html:33
 #: cms/templates/feedback/region_feedback_list.html:33
+#: cms/templates/pois/poi_list.html:72
+#: cms/templates/pois/poi_list_archived.html:38
 msgid "Category"
 msgstr "Kategorie"
 
@@ -1812,6 +1815,14 @@ msgstr ""
 "Die Datei kann nicht in einem Verzeichnis einer anderen Region hochgeladen "
 "werden."
 
+#: cms/forms/organizations/organization_form.py:74
+msgid ""
+"An organization with the same name already exists in this region. Please "
+"choose another name."
+msgstr ""
+"Eine Organisation mit diesem Namen existiert bereits in dieser Region. Bitte "
+"wählen Sie einen anderen Namen."
+
 #: cms/forms/pages/page_filter_form.py:18
 msgid "Translation status"
 msgstr "Übersetzungsstatus"
@@ -1841,7 +1852,19 @@ msgstr "Quell-Region für Live-Inhalte"
 msgid "Enable write access via API for this page"
 msgstr "Schreib-Zugriff via API für diese Seite aktivieren"
 
-#: cms/forms/pois/poi_form.py:91 cms/forms/pois/poi_form.py:102
+#: cms/forms/poi_categories/poi_category_translation_form.py:38
+msgid "Enter name in {} here"
+msgstr "Name auf {} hier eingeben"
+
+#: cms/forms/poi_categories/poi_category_translation_form.py:40
+msgid "Translation in {}"
+msgstr "Übersetzung auf {}"
+
+#: cms/forms/poi_categories/poi_category_translation_form.py:108
+msgid "At least one translation is required."
+msgstr "Mindestens eine Übersetzung ist erforderlich."
+
+#: cms/forms/pois/poi_form.py:92 cms/forms/pois/poi_form.py:103
 msgid ""
 "Could not derive the coordinates from the address, please fill the field "
 "manually if the location is to be displayed on the map."
@@ -1862,17 +1885,17 @@ msgstr "Keine Inhalte übernehmen"
 msgid "Timezone area"
 msgstr "Region der Zeitzone"
 
-#: cms/forms/regions/region_form.py:202
+#: cms/forms/regions/region_form.py:207
 msgid "Statistics can only be enabled when a valid access token is supplied."
 msgstr ""
 "Statistiken können nur aktiviert werden, wenn ein gültiges Zugangstoken "
 "eingegeben wurde."
 
-#: cms/forms/regions/region_form.py:214
+#: cms/forms/regions/region_form.py:219
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
 
-#: cms/forms/regions/region_form.py:242 cms/forms/regions/region_form.py:252
+#: cms/forms/regions/region_form.py:247 cms/forms/regions/region_form.py:257
 msgid ""
 "Could not retrieve the coordinates automatically, please fill the field "
 "manually."
@@ -1880,23 +1903,23 @@ msgstr ""
 "Die Koordinaten konnten nicht automatisch abgerufen werden, bitte füllen Sie "
 "das Feld manuell aus."
 
-#: cms/forms/regions/region_form.py:325
+#: cms/forms/regions/region_form.py:330
 msgid "'{}' is already selected as administrative division."
 msgstr "'{}' ist bereits als Verwaltungseinheit ausgewählt."
 
-#: cms/forms/regions/region_form.py:330
+#: cms/forms/regions/region_form.py:335
 msgid "Please select '{}' as administrative division."
 msgstr "Bitte wählen Sie '{}' als Verwaltungseinheit."
 
-#: cms/forms/regions/region_form.py:341
+#: cms/forms/regions/region_form.py:346
 msgid "Please set {} as default language for this region."
 msgstr "Bitte setzen Sie '{}' als Standard-Sprache für diese Region."
 
-#: cms/forms/regions/region_form.py:347
+#: cms/forms/regions/region_form.py:352
 msgid "Please enable '{}'."
 msgstr "Bitte aktivieren Sie '{}'."
 
-#: cms/forms/regions/region_form.py:362
+#: cms/forms/regions/region_form.py:367
 msgid ""
 "You cannot include the administrative division into the name and use a "
 "custom prefix at the same time."
@@ -1904,14 +1927,18 @@ msgstr ""
 "Sie können nicht gleichzeitig die Verwaltungseinheit dem Namen hinzufügen "
 "und ein benutzerdefiniertes Präfix verwenden."
 
-#: cms/forms/regions/region_form.py:380
+#: cms/forms/regions/region_form.py:385
 msgid "Enter a valid JSON."
 msgstr "Bitte ein gültiges JSON-Objekt eingeben."
 
-#: cms/forms/regions/region_form.py:393
+#: cms/forms/regions/region_form.py:398
 #: cms/templates/regions/region_form.html:192
 msgid "Currently SUMM.AI is globally deactivated"
 msgstr "Derzeit ist SUMM.AI global deaktiviert"
+
+#: cms/forms/regions/region_form.py:414
+msgid "No Textlab API key is set on this system."
+msgstr "Es wurde kein Textlab API-Schlüssel für dieses System gesetzt."
 
 #: cms/forms/statistics/statistics_filter_form.py:41
 msgid "Evaluation"
@@ -1936,6 +1963,7 @@ msgid "Email"
 msgstr "Email"
 
 #: cms/forms/users/user_filter_form.py:21 cms/forms/users/user_form.py:27
+#: cms/templates/organizations/organization_form.html:159
 #: cms/templates/users/region_user_list.html:25
 #: cms/templates/users/user_list.html:34
 msgid "Role"
@@ -2051,9 +2079,9 @@ msgstr "Die Passwörter stimmen nicht überein."
 
 #: cms/models/abstract_content_model.py:96 cms/models/abstract_tree_node.py:35
 #: cms/models/feedback/feedback.py:60 cms/models/media/directory.py:24
-#: cms/models/media/media_file.py:138
-#: cms/models/push_notifications/push_notification.py:21
-#: cms/models/regions/region.py:716 cms/models/users/organization.py:38
+#: cms/models/media/media_file.py:158
+#: cms/models/push_notifications/push_notification.py:24
+#: cms/models/regions/region.py:724 cms/models/users/organization.py:38
 msgid "region"
 msgstr "Region"
 
@@ -2061,7 +2089,7 @@ msgstr "Region"
 #: cms/models/languages/language.py:87
 #: cms/models/languages/language_tree_node.py:39
 #: cms/models/media/directory.py:36 cms/models/offers/offer_template.py:56
-#: cms/models/push_notifications/push_notification.py:45
+#: cms/models/push_notifications/push_notification.py:48
 #: cms/models/regions/region.py:197 cms/models/users/organization.py:41
 #: cms/models/users/user_mfa_key.py:39
 msgid "creation date"
@@ -2099,14 +2127,15 @@ msgstr "Status"
 
 #: cms/models/abstract_content_translation.py:38
 #: cms/models/chat/chat_message.py:43
-#: cms/models/push_notifications/push_notification_translation.py:21
+#: cms/models/push_notifications/push_notification_translation.py:20
 msgid "content"
 msgstr "Inhalt"
 
 #: cms/models/abstract_content_translation.py:42
 #: cms/models/feedback/feedback.py:66 cms/models/languages/language.py:183
 #: cms/models/languages/language_tree_node.py:23
-#: cms/models/push_notifications/push_notification_translation.py:27
+#: cms/models/poi_categories/poi_category_translation.py:24
+#: cms/models/push_notifications/push_notification_translation.py:26
 msgid "language"
 msgstr "Sprache"
 
@@ -2141,7 +2170,7 @@ msgstr ""
 #: cms/models/languages/language.py:91
 #: cms/models/languages/language_tree_node.py:43
 #: cms/models/offers/offer_template.py:60
-#: cms/models/push_notifications/push_notification_translation.py:37
+#: cms/models/push_notifications/push_notification_translation.py:36
 #: cms/models/regions/region.py:201 cms/models/users/organization.py:34
 msgid "modification date"
 msgstr "Änderungsdatum"
@@ -2164,7 +2193,7 @@ msgid "sender"
 msgstr "Absender"
 
 #: cms/models/chat/chat_message.py:46
-#: cms/models/push_notifications/push_notification.py:40
+#: cms/models/push_notifications/push_notification.py:43
 msgid "sent date"
 msgstr "Sendedatum"
 
@@ -2176,7 +2205,7 @@ msgstr "Chat-Nachricht"
 msgid "chat messages"
 msgstr "Chat-Nachrichten"
 
-#: cms/models/events/event.py:87 cms/models/pois/poi.py:84
+#: cms/models/events/event.py:87 cms/models/pois/poi.py:93
 #: cms/models/pois/poi_translation.py:27
 msgid "location"
 msgstr "Ort"
@@ -2194,11 +2223,11 @@ msgid "recurrence rule"
 msgstr "Wiederholungs-Regel"
 
 #: cms/models/events/event.py:102 cms/models/pages/page.py:134
-#: cms/models/pois/poi.py:43
+#: cms/models/pois/poi.py:44
 msgid "icon"
 msgstr "Icon"
 
-#: cms/models/events/event.py:107 cms/models/pois/poi.py:50
+#: cms/models/events/event.py:107 cms/models/pois/poi.py:51
 #: cms/views/bulk_action_views.py:267
 msgid "archived"
 msgstr "archiviert"
@@ -2223,7 +2252,7 @@ msgstr "Veranstaltungslink"
 msgid "title of the event"
 msgstr "Titel der Veranstaltung"
 
-#: cms/models/events/event_translation.py:16 cms/models/media/media_file.py:141
+#: cms/models/events/event_translation.py:16 cms/models/media/media_file.py:161
 #: cms/models/pois/poi_translation.py:16
 msgid "description"
 msgstr "Beschreibung"
@@ -2582,13 +2611,13 @@ msgstr "Sprach-Knoten"
 msgid "language tree nodes"
 msgstr "Sprach-Knoten"
 
-#: cms/models/media/directory.py:17 cms/models/media/media_file.py:123
+#: cms/models/media/directory.py:17 cms/models/media/media_file.py:143
 #: cms/models/offers/offer_template.py:17 cms/models/regions/region.py:67
 #: cms/models/users/organization.py:15 cms/models/users/role.py:20
 msgid "name"
 msgstr "Name"
 
-#: cms/models/media/directory.py:32 cms/models/media/media_file.py:130
+#: cms/models/media/directory.py:32 cms/models/media/media_file.py:150
 msgid "parent directory"
 msgstr "Elternverzeichnis"
 
@@ -2604,45 +2633,49 @@ msgstr "Medien-Verzeichnis"
 msgid "media directories"
 msgstr "Medien-Verzeichnisse"
 
-#: cms/models/media/media_file.py:109
+#: cms/models/media/media_file.py:112
+msgid "File too large. Size should not exceed {}."
+msgstr "Datei zu groß. Die Größe sollte {} nicht überschreiten."
+
+#: cms/models/media/media_file.py:128
 msgid "file"
 msgstr "Datei"
 
-#: cms/models/media/media_file.py:114
+#: cms/models/media/media_file.py:134
 msgid "thumbnail file"
 msgstr "Vorschaubild-Datei"
 
-#: cms/models/media/media_file.py:117
+#: cms/models/media/media_file.py:137
 msgid "file size"
 msgstr "Dateigröße"
 
-#: cms/models/media/media_file.py:121
+#: cms/models/media/media_file.py:141
 msgid "file type"
 msgstr "Dateityp"
 
-#: cms/models/media/media_file.py:145
+#: cms/models/media/media_file.py:165
 msgid "uploaded date"
 msgstr "Upload-Datum"
 
-#: cms/models/media/media_file.py:146
+#: cms/models/media/media_file.py:166
 msgid "The date and time when the media file was uploaded"
 msgstr "Das Datum und die Uhrzeit, zu der die Medien-Datei hochgeladen wurde"
 
-#: cms/models/media/media_file.py:149
+#: cms/models/media/media_file.py:169
 msgid "last modified"
 msgstr "Zuletzt geändert"
 
-#: cms/models/media/media_file.py:150
+#: cms/models/media/media_file.py:170
 msgid "The date and time when the physical media file was last modified"
 msgstr ""
 "Das Datum und die Uhrzeit, zu der die physische Medien-Datei zuletzt "
 "geändert wurde"
 
-#: cms/models/media/media_file.py:247
+#: cms/models/media/media_file.py:268
 msgid "media file"
 msgstr "Medien-Datei"
 
-#: cms/models/media/media_file.py:249
+#: cms/models/media/media_file.py:270
 msgid "media files"
 msgstr "Medien-Dateien"
 
@@ -2864,63 +2897,96 @@ msgstr "Live-Inhalt"
 msgid "Empty"
 msgstr "Leer"
 
-#: cms/models/pois/poi.py:17
+#: cms/models/poi_categories/poi_category.py:23
+msgid "POI category"
+msgstr "Ortskategorie"
+
+#: cms/models/poi_categories/poi_category.py:82
+msgid "location category"
+msgstr "Ortskategorie"
+
+#: cms/models/poi_categories/poi_category.py:84
+msgid "location categories"
+msgstr "Ortskategorien"
+
+#: cms/models/poi_categories/poi_category_translation.py:18
+#: cms/models/pois/poi.py:68
+msgid "category"
+msgstr "Kategorie"
+
+#: cms/models/poi_categories/poi_category_translation.py:28
+msgid "category name"
+msgstr "Kategoriename"
+
+#: cms/models/poi_categories/poi_category_translation.py:29
+msgid "The name of the POI category."
+msgstr "Der Name der POI Kategorie"
+
+#: cms/models/poi_categories/poi_category_translation.py:54
+msgid "location category translation"
+msgstr "Ortskategorie-Übersetzung"
+
+#: cms/models/poi_categories/poi_category_translation.py:56
+msgid "location category translations"
+msgstr "Ortskategorie-Übersetzungen"
+
+#: cms/models/pois/poi.py:18
 msgid "street and house number"
 msgstr "Straße und Hausnummer"
 
-#: cms/models/pois/poi.py:19 cms/models/regions/region.py:180
+#: cms/models/pois/poi.py:20 cms/models/regions/region.py:180
 msgid "postal code"
 msgstr "Postleitzahl"
 
-#: cms/models/pois/poi.py:20
+#: cms/models/pois/poi.py:21
 msgid "city"
 msgstr "Stadt"
 
-#: cms/models/pois/poi.py:21
+#: cms/models/pois/poi.py:22
 msgid "country"
 msgstr "Land"
 
-#: cms/models/pois/poi.py:25 cms/models/regions/region.py:142
+#: cms/models/pois/poi.py:26 cms/models/regions/region.py:142
 msgid "latitude"
 msgstr "Geographische Breite"
 
-#: cms/models/pois/poi.py:26
+#: cms/models/pois/poi.py:27
 msgid "The latitude coordinate"
 msgstr "Die Breitengrad-Koordinate"
 
-#: cms/models/pois/poi.py:32 cms/models/regions/region.py:147
+#: cms/models/pois/poi.py:33 cms/models/regions/region.py:147
 msgid "longitude"
 msgstr "Geographische Länge"
 
-#: cms/models/pois/poi.py:33
+#: cms/models/pois/poi.py:34
 msgid "The longitude coordinate"
 msgstr "Die Längengrad-Koordinate"
 
-#: cms/models/pois/poi.py:38
+#: cms/models/pois/poi.py:39
 msgid "Show this location on map"
 msgstr "Diesen Ort auf Karte zeigen"
 
-#: cms/models/pois/poi.py:39
+#: cms/models/pois/poi.py:40
 msgid "Tick if you want to show this location on map"
 msgstr "Kreuzen Sie an, wenn dieser Ort auf der Karte gezeigt werden soll."
 
-#: cms/models/pois/poi.py:51
+#: cms/models/pois/poi.py:52
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
-#: cms/models/pois/poi.py:53
+#: cms/models/pois/poi.py:54
 msgid "website"
 msgstr "Webseite"
 
-#: cms/models/pois/poi.py:56
+#: cms/models/pois/poi.py:57
 msgid "email address"
 msgstr "E-Mail-Adresse"
 
-#: cms/models/pois/poi.py:59
+#: cms/models/pois/poi.py:60
 msgid "phone number"
 msgstr "Telefonnummer"
 
-#: cms/models/pois/poi.py:86
+#: cms/models/pois/poi.py:95
 msgid "locations"
 msgstr "Orte"
 
@@ -2940,49 +3006,49 @@ msgstr "Kurzbeschreibung"
 msgid "location translations"
 msgstr "Orts-Übersetzungen"
 
-#: cms/models/push_notifications/push_notification.py:27
+#: cms/models/push_notifications/push_notification.py:30
 msgid "channel"
 msgstr "Kanal"
 
-#: cms/models/push_notifications/push_notification.py:31
+#: cms/models/push_notifications/push_notification.py:34
 msgid "draft"
 msgstr "Entwurf"
 
-#: cms/models/push_notifications/push_notification.py:33
+#: cms/models/push_notifications/push_notification.py:36
 msgid "Whether or not the push notification is a draft (drafts cannot be sent)"
 msgstr ""
 "Ob die Push-Benachrichtigung ein Entwurf ist oder nicht (Entwürfe können "
 "nicht gesendet werden)"
 
-#: cms/models/push_notifications/push_notification.py:41
+#: cms/models/push_notifications/push_notification.py:44
 msgid "The date and time when the push notification was sent."
 msgstr "Datum und Uhrzeit, als die Push-Benachrichtigung gesendet wurde"
 
-#: cms/models/push_notifications/push_notification.py:51
+#: cms/models/push_notifications/push_notification.py:54
 msgid "mode"
 msgstr "Modus"
 
-#: cms/models/push_notifications/push_notification.py:53
+#: cms/models/push_notifications/push_notification.py:56
 msgid ""
 "Sets behavior for dealing with not existing push notification translations"
 msgstr ""
 "Legt das Verhalten für den Umgang mit nicht vorhandenen Übersetzungen von "
 "Push-Benachrichtigungen fest"
 
-#: cms/models/push_notifications/push_notification.py:130
-#: cms/models/push_notifications/push_notification_translation.py:33
+#: cms/models/push_notifications/push_notification.py:133
+#: cms/models/push_notifications/push_notification_translation.py:32
 msgid "push notification"
 msgstr "Push-Benachrichtigung"
 
-#: cms/models/push_notifications/push_notification.py:132
+#: cms/models/push_notifications/push_notification.py:135
 msgid "push notifications"
 msgstr "Push-Benachrichtigungen"
 
-#: cms/models/push_notifications/push_notification_translation.py:90
+#: cms/models/push_notifications/push_notification_translation.py:126
 msgid "push notification translation"
 msgstr "Push-Benachrichtigungs-Übersetzung"
 
-#: cms/models/push_notifications/push_notification_translation.py:92
+#: cms/models/push_notifications/push_notification_translation.py:128
 msgid "push notification translations"
 msgstr "Push-Benachrichtigungs-Übersetzungen"
 
@@ -3239,27 +3305,39 @@ msgid ""
 "Whether or not events and locations are shown in default language as fallback"
 msgstr ""
 "Ob Veranstaltungen und Orte als Fallback in der Standardsprache angezeigt "
-"werden sollen oder nicht"
+"werden sollen oder nicht."
 
 #: cms/models/regions/region.py:303
+msgid "Activate HIX analysis"
+msgstr "HIX-Analyse aktivieren"
+
+#: cms/models/regions/region.py:305
+msgid ""
+"Allow users of this region to analyze understandability of text content via "
+"TextLab API."
+msgstr ""
+"Erlaubt den Nutzern dieser Region, Inhalte mittels der TextLab API auf "
+"Textverständlichkeit zu untersuchen."
+
+#: cms/models/regions/region.py:311
 msgid "activate automatic translations via SUMM.AI"
 msgstr "Automatische Übersetzungen über SUMM.AI aktivieren"
 
-#: cms/models/regions/region.py:305
+#: cms/models/regions/region.py:313
 msgid ""
 "Whether automatic translations into Easy German with SUMM.AI are enabled"
 msgstr ""
 "Ob automatische Übersetzungen in Leichte Sprache mit SUMM.AI aktiviert sind"
 
-#: cms/models/regions/region.py:718 cms/models/users/user.py:56
+#: cms/models/regions/region.py:726 cms/models/users/user.py:56
 msgid "regions"
 msgstr "Regionen"
 
-#: cms/models/users/organization.py:66 cms/models/users/user.py:65
+#: cms/models/users/organization.py:83 cms/models/users/user.py:65
 msgid "organization"
 msgstr "Organisation"
 
-#: cms/models/users/organization.py:70
+#: cms/models/users/organization.py:87
 msgid "organizations"
 msgstr "Organisationen"
 
@@ -3398,7 +3476,7 @@ msgstr "Mein Dashboard"
 msgid "Analytics"
 msgstr "Analyse"
 
-#: cms/templates/_base.html:116 cms/templates/regions/region_form.html:227
+#: cms/templates/_base.html:116 cms/templates/regions/region_form.html:239
 #: cms/templates/statistics/_statistics_widget.html:11
 #: cms/templates/statistics/statistics_overview.html:10
 #: cms/templates/statistics/statistics_overview.html:49
@@ -3435,6 +3513,7 @@ msgid "Media Library"
 msgstr "Medienbibliothek"
 
 #: cms/templates/_base.html:153
+#: cms/templates/organizations/organization_form.html:73
 msgid "Pages"
 msgstr "Seiten"
 
@@ -3487,7 +3566,12 @@ msgstr "Rollen"
 msgid "Offer Templates"
 msgstr "Angebots-Vorlagen"
 
-#: cms/templates/_base.html:276 cms/templates/events/event_form.html:68
+#: cms/templates/_base.html:278
+#: cms/templates/poicategories/poicategory_list.html:8
+msgid "Location Categories"
+msgstr "Ortskategorien"
+
+#: cms/templates/_base.html:283 cms/templates/events/event_form.html:68
 #: cms/templates/imprint/imprint_form.html:49
 #: cms/templates/imprint/imprint_revisions.html:20
 #: cms/templates/imprint/imprint_sbs.html:52
@@ -3577,7 +3661,7 @@ msgid "Group"
 msgstr "Gruppe"
 
 #: cms/templates/_tinymce_config.html:43
-#: cms/templates/events/event_form.html:44
+#: cms/templates/events/event_form.html:44 cms/templates/hix_widget.html:40
 #: cms/templates/imprint/imprint_form.html:29
 #: cms/templates/imprint/imprint_sbs.html:25
 #: cms/templates/languagetreenodes/languagetreenode_form.html:23
@@ -3644,7 +3728,7 @@ msgstr "Detailansicht"
 #: cms/templates/chat/_chat_widget.html:29
 #: cms/templates/statistics/_statistics_widget.html:22
 #: cms/templates/statistics/statistics_overview.html:18
-#: cms/views/media/media_context_mixin.py:84
+#: cms/views/media/media_context_mixin.py:85
 msgid "A network error has occurred."
 msgstr "Ein Netzwerkfehler ist aufgetreten."
 
@@ -3652,8 +3736,8 @@ msgstr "Ein Netzwerkfehler ist aufgetreten."
 #: cms/templates/chat/_chat_widget.html:29
 #: cms/templates/statistics/_statistics_widget.html:22
 #: cms/templates/statistics/statistics_overview.html:18
-#: cms/views/media/media_context_mixin.py:81
-#: cms/views/media/media_context_mixin.py:86
+#: cms/views/media/media_context_mixin.py:82
+#: cms/views/media/media_context_mixin.py:87
 msgid "Please try again later."
 msgstr "Bitte versuchen Sie es später erneut."
 
@@ -3673,6 +3757,7 @@ msgstr "Bitte kontaktieren Sie einen Administrator."
 
 #: cms/templates/analytics/_broken_links_widget.html:29
 #: cms/templates/dashboard/_news_widget.html:17
+#: cms/templates/hix_widget.html:14
 #: cms/templates/statistics/_statistics_widget.html:24
 #: cms/templates/statistics/statistics_overview.html:20
 msgid "Loading..."
@@ -4076,13 +4161,13 @@ msgstr "Bearbeiten"
 #: cms/templates/imprint/imprint_sbs.html:129
 #: cms/templates/pages/page_form.html:130
 #: cms/templates/pages/page_form.html:149
-#: cms/templates/pages/page_form.html:236 cms/templates/pois/poi_form.html:89
+#: cms/templates/pages/page_form.html:240 cms/templates/pois/poi_form.html:89
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
 
 #: cms/templates/events/event_form.html:122
 #: cms/templates/imprint/imprint_form.html:102
-#: cms/templates/pages/page_form.html:175
+#: cms/templates/pages/page_form.html:179
 #: cms/templates/pages/page_revisions.html:68
 #: cms/templates/pois/poi_form.html:119
 msgid "Minor edit"
@@ -4122,8 +4207,9 @@ msgstr "Auf Google Maps öffnen"
 
 #: cms/templates/events/event_form.html:328
 #: cms/templates/imprint/imprint_form.html:120
-#: cms/templates/pages/page_form.html:285 cms/templates/pages/page_sbs.html:87
-#: cms/templates/pois/poi_form.html:218
+#: cms/templates/pages/page_form.html:289 cms/templates/pages/page_sbs.html:87
+#: cms/templates/poicategories/poicategory_list.html:31
+#: cms/templates/pois/poi_form.html:238
 #: cms/templates/regions/region_list.html:25
 #: cms/templates/settings/user_settings.html:93
 msgid "Actions"
@@ -4215,11 +4301,11 @@ msgstr "Wiederholung"
 #: cms/templates/languages/language_list.html:30
 #: cms/templates/linkcheck/links_by_filter.html:64
 #: cms/templates/offertemplates/offertemplate_list.html:26
-#: cms/templates/organizations/organization_list.html:23
+#: cms/templates/organizations/organization_list.html:24
 #: cms/templates/pages/page_tree.html:90
 #: cms/templates/pages/page_tree_archived.html:69
-#: cms/templates/pois/poi_list.html:72
-#: cms/templates/pois/poi_list_archived.html:38
+#: cms/templates/pois/poi_list.html:73
+#: cms/templates/pois/poi_list_archived.html:39
 #: cms/templates/roles/role_list.html:20
 msgid "Options"
 msgstr "Optionen"
@@ -4244,8 +4330,8 @@ msgstr "Veranstaltungen ausgewählt"
 #: cms/templates/linkcheck/links_by_filter.html:98
 #: cms/templates/pages/page_tree.html:150
 #: cms/templates/pages/page_tree_archived.html:92
-#: cms/templates/pois/poi_list.html:103
-#: cms/templates/pois/poi_list_archived.html:58
+#: cms/templates/pois/poi_list.html:104
+#: cms/templates/pois/poi_list_archived.html:59
 msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
@@ -4254,20 +4340,20 @@ msgid "Archive events"
 msgstr "Veranstaltungen archivieren"
 
 #: cms/templates/events/event_list.html:120
-#: cms/templates/pois/poi_list.html:110
+#: cms/templates/pois/poi_list.html:111
 msgid "You cannot translate into the default language"
 msgstr "Sie können nicht in die Standard-Sprache übersetzen"
 
 #: cms/templates/events/event_list.html:121
 #: cms/templates/events/event_list.html:125
 #: cms/templates/events/event_list.html:129
-#: cms/templates/pois/poi_list.html:111 cms/templates/pois/poi_list.html:115
-#: cms/templates/pois/poi_list.html:119
+#: cms/templates/pois/poi_list.html:112 cms/templates/pois/poi_list.html:116
+#: cms/templates/pois/poi_list.html:120
 msgid "Create missing translations automatically"
 msgstr "Fehlende Übersetzungen automatisch erstellen"
 
 #: cms/templates/events/event_list.html:128
-#: cms/templates/pois/poi_list.html:118
+#: cms/templates/pois/poi_list.html:119
 msgid "This language is not supported by DeepL"
 msgstr "Diese Sprache wird von DeepL nicht unterstützt"
 
@@ -4284,8 +4370,8 @@ msgstr "Diese Veranstaltung automatisch in Leichte Sprache übersetzen"
 #: cms/templates/pages/_page_xliff_export_overlay.html:42
 #: cms/templates/pages/page_tree.html:195
 #: cms/templates/pages/page_tree_archived.html:98
-#: cms/templates/pois/poi_list.html:129
-#: cms/templates/pois/poi_list_archived.html:63
+#: cms/templates/pois/poi_list.html:130
+#: cms/templates/pois/poi_list_archived.html:64
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -4305,6 +4391,8 @@ msgstr "Veranstaltungen wiederherstellen"
 #: cms/templates/events/event_list_archived_row.html:31
 #: cms/templates/events/event_list_row.html:16
 #: cms/templates/events/event_list_row.html:30
+#: cms/templates/organizations/organization_form.html:109
+#: cms/templates/organizations/organization_form.html:125
 #: cms/templates/pages/page_tree_archived_node.html:31
 #: cms/templates/pages/page_tree_archived_node.html:41
 #: cms/templates/pages/page_tree_node.html:38
@@ -4421,6 +4509,7 @@ msgstr "Als ungelesen markieren"
 #: cms/templates/feedback/admin_feedback_list.html:141
 #: cms/templates/feedback/region_feedback_list.html:133
 #: cms/templates/languagetreenodes/languagetreenode_list.html:31
+#: cms/templates/organizations/organization_form.html:31
 msgid "Delete"
 msgstr "Löschen"
 
@@ -4449,6 +4538,44 @@ msgstr "Nie wieder anzeigen"
 #: cms/templates/generic_tutorial_dialog.html:16
 msgid "Understood"
 msgstr "Verstanden"
+
+#: cms/templates/hix_widget.html:8
+msgid "HIX Value"
+msgstr "HIX-Wert"
+
+#: cms/templates/hix_widget.html:16
+msgid "Improve the understandability of the page content."
+msgstr "Verbessern Sie die Textverständlichkeit der Seite."
+
+#: cms/templates/hix_widget.html:23
+msgid "HIX value is up to date."
+msgstr "Der HIX-Wert ist aktuell."
+
+#: cms/templates/hix_widget.html:27
+msgid "HIX value is outdated."
+msgstr "Der HIX-Wert ist veraltet."
+
+#: cms/templates/hix_widget.html:31
+msgid "Some error occurred. Please try again later."
+msgstr "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+
+#: cms/templates/hix_widget.html:35
+msgid "There is no page content."
+msgstr "Es gibt keinen Seiteninhalt."
+
+#: cms/templates/hix_widget.html:43
+msgid ""
+"Simple words, short and meaningful sentences and as less enumerations as "
+"possible can help a lot to improve the understandability of a text. Find "
+"more information:"
+msgstr ""
+"Einfache Wörter, kurze und präzise Sätze sowie das Vermeiden von "
+"Aufzählungen können die Textverständlichkeit verbessern. Weitere "
+"Informationen finden Sie unter:"
+
+#: cms/templates/hix_widget.html:44
+msgid "https://wiki.tuerantuer.org/write-texts"
+msgstr "https://wiki.integreat-app.de/texte_verfassen"
 
 #: cms/templates/icon_widget.html:15
 #, python-format
@@ -4521,7 +4648,7 @@ msgid "Side-by-Side view"
 msgstr "Side-by-Side-Ansicht"
 
 #: cms/templates/imprint/imprint_form.html:145
-#: cms/templates/pages/page_form.html:437
+#: cms/templates/pages/page_form.html:441
 msgid "Direction of translation"
 msgstr "Übersetzungsrichtung"
 
@@ -4630,7 +4757,8 @@ msgstr "Neue Sprache erstellen"
 #: cms/templates/languages/language_form.html:19
 #: cms/templates/linkcheck/link_list_row.html:66
 #: cms/templates/offertemplates/offertemplate_form.html:20
-#: cms/templates/organizations/organization_form.html:19
+#: cms/templates/organizations/organization_form.html:37
+#: cms/templates/poicategories/poicategory_form.html:19
 #: cms/templates/push_notifications/push_notification_form.html:23
 #: cms/templates/regions/region_form.html:22
 #: cms/templates/roles/role_form.html:19
@@ -4642,6 +4770,7 @@ msgstr "Speichern"
 #: cms/templates/languages/language_form.html:27
 #: cms/templates/offertemplates/offertemplate_list.html:20
 #: cms/templates/organizations/organization_list.html:20
+#: cms/templates/poicategories/poicategory_list.html:20
 #: cms/templates/regions/region_list.html:21
 #: cms/templates/roles/role_list.html:18
 msgid "Name"
@@ -4665,7 +4794,7 @@ msgstr "Übersetzungen"
 
 #: cms/templates/languages/language_form.html:74
 #: cms/templates/offertemplates/offertemplate_form.html:57
-#: cms/templates/organizations/organization_form.html:38
+#: cms/templates/organizations/organization_form.html:55
 #: cms/templates/regions/region_form.html:78
 msgid "Extended Settings"
 msgstr "Erweiterte Einstellungen"
@@ -4707,7 +4836,6 @@ msgstr "Nativer Name"
 #: cms/templates/languages/language_list.html:23
 #: cms/templates/languagetreenodes/languagetreenode_list.html:25
 #: cms/templates/offertemplates/offertemplate_list.html:21
-#: cms/templates/organizations/organization_list.html:21
 msgid "Slug"
 msgstr "URL-Parameter"
 
@@ -4901,7 +5029,7 @@ msgid "Create new offer template"
 msgstr "Neue Angebots-Vorlage erstellen"
 
 #: cms/templates/offertemplates/offertemplate_form.html:30
-#: cms/templates/organizations/organization_form.html:25
+#: cms/templates/organizations/organization_form.html:45
 #: cms/templates/regions/region_form.html:29
 #: cms/templates/users/region_user_form.html:29
 #: cms/templates/users/user_form.html:26
@@ -4938,23 +5066,48 @@ msgstr "Noch keine Angebots-Vorlagen vorhanden."
 msgid "Delete offer templates"
 msgstr "Angebots-Vorlage löschen"
 
-#: cms/templates/organizations/organization_form.html:12
+#: cms/templates/organizations/organization_form.html:16
 #, python-format
 msgid "Edit organization \"%(organization_name)s\""
 msgstr "Organisation \"%(organization_name)s\" bearbeiten"
 
-#: cms/templates/organizations/organization_form.html:15
+#: cms/templates/organizations/organization_form.html:19
 msgid "Create new organization"
 msgstr "Neue Organisation erstellen"
 
-#: cms/templates/organizations/organization_form.html:48
-#: cms/templates/organizations/organization_list_row.html:25
+#: cms/templates/organizations/organization_form.html:25
+#: cms/templates/organizations/organization_list_row.html:30
 msgid "Delete organization"
 msgstr "Organisation löschen"
 
-#: cms/templates/organizations/organization_form.html:54
-msgid "Delete this organization"
-msgstr "Diese Organisation löschen"
+#: cms/templates/organizations/organization_form.html:84
+#: cms/templates/organizations/organization_form.html:89
+msgid "Name in "
+msgstr "Name auf"
+
+#: cms/templates/organizations/organization_form.html:103
+#: cms/templates/organizations/organization_form.html:116
+msgid "View page"
+msgstr "Weitere Seiten-Infos"
+
+#: cms/templates/organizations/organization_form.html:134
+msgid "This organization currently has no maintained pages."
+msgstr "Von dieser Organisation werden zur Zeit keine Seiten verwaltet."
+
+#: cms/templates/organizations/organization_form.html:148
+#: cms/templates/organizations/organization_list.html:21
+msgid "Members"
+msgstr "Mitglieder"
+
+#: cms/templates/organizations/organization_form.html:156
+#: cms/templates/users/region_user_list.html:21
+#: cms/templates/users/user_list.html:29
+msgid "Username"
+msgstr "Benutzername"
+
+#: cms/templates/organizations/organization_form.html:178
+msgid "This organization currently has no members."
+msgstr "Diese Organisation hat zur Zeit keine Mitglieder."
 
 #: cms/templates/organizations/organization_list.html:7
 msgid "Manage Organizations"
@@ -4965,10 +5118,14 @@ msgid "Create organization"
 msgstr "Organisation erstellen"
 
 #: cms/templates/organizations/organization_list.html:22
+msgid "Maintained Pages"
+msgstr "Anzahl an verwaltenten Seiten"
+
+#: cms/templates/organizations/organization_list.html:23
 msgid "Logo"
 msgstr "Logo"
 
-#: cms/templates/organizations/organization_list.html:32
+#: cms/templates/organizations/organization_list.html:33
 msgid "No organizations available yet."
 msgstr "Noch keine Organisationen vorhanden."
 
@@ -5064,31 +5221,31 @@ msgstr "Übersetzungsprozess abbrechen"
 msgid "Archived, because a parent page is archived"
 msgstr "Archiviert, weil eine übergeordnete Seite archiviert ist"
 
-#: cms/templates/pages/page_form.html:193
+#: cms/templates/pages/page_form.html:197
 msgid "Settings of the page"
 msgstr "Einstellungen der Seite"
 
-#: cms/templates/pages/page_form.html:202
+#: cms/templates/pages/page_form.html:206
 msgid "Positioning"
 msgstr "Anordnung"
 
-#: cms/templates/pages/page_form.html:207
+#: cms/templates/pages/page_form.html:211
 msgid "Order"
 msgstr "Reihenfolge"
 
-#: cms/templates/pages/page_form.html:211
+#: cms/templates/pages/page_form.html:215
 msgid "Embed live content"
 msgstr "Live-Inhalte einbinden"
 
-#: cms/templates/pages/page_form.html:241
+#: cms/templates/pages/page_form.html:245
 msgid "Access token was successfully copied to clipboard"
 msgstr "Zugangs-Token wurde erfolgreich in die Zwischenablage kopiert."
 
-#: cms/templates/pages/page_form.html:254
+#: cms/templates/pages/page_form.html:258
 msgid "Additional permissions for this page"
 msgstr "Zusätzliche Berechtigungen für diese Seite"
 
-#: cms/templates/pages/page_form.html:256
+#: cms/templates/pages/page_form.html:260
 msgid ""
 "This affects only users, who don't have the permission to change arbitrary "
 "pages anyway."
@@ -5096,28 +5253,28 @@ msgstr ""
 "Dies betrifft nur Benutzer, die nicht ohnehin die Berechtigung haben, "
 "beliebige Seiten zu ändern."
 
-#: cms/templates/pages/page_form.html:291
+#: cms/templates/pages/page_form.html:295
 #: cms/templates/pages/page_revisions.html:115
 msgid "Refresh date"
 msgstr "Datum aktualisieren"
 
-#: cms/templates/pages/page_form.html:293
-#: cms/templates/pages/page_form.html:299
+#: cms/templates/pages/page_form.html:297
+#: cms/templates/pages/page_form.html:303
 msgid "Mark this page as up-to-date"
 msgstr "Seite als aktuell markieren"
 
-#: cms/templates/pages/page_form.html:304
-#: cms/templates/pages/page_form.html:306
-#: cms/templates/pages/page_form.html:316
+#: cms/templates/pages/page_form.html:308
+#: cms/templates/pages/page_form.html:310
+#: cms/templates/pages/page_form.html:320
 #: cms/templates/pages/page_tree_archived_node.html:113
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html:312
+#: cms/templates/pages/page_form.html:316
 msgid "Restore this page"
 msgstr "Diese Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html:321
+#: cms/templates/pages/page_form.html:325
 msgid "To restore this page, you have to restore its parent page:"
 msgid_plural ""
 "To restore this page, you have to restore all its archived parent pages:"
@@ -5128,31 +5285,31 @@ msgstr[1] ""
 "Um diese Seite wiederherzustellen, müssen Sie alle ihre archivierten "
 "übergeordneten Seiten wiederherstellen:"
 
-#: cms/templates/pages/page_form.html:336
-#: cms/templates/pages/page_form.html:338
+#: cms/templates/pages/page_form.html:340
+#: cms/templates/pages/page_form.html:342
 #: cms/templates/pages/page_tree_node.html:141
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: cms/templates/pages/page_form.html:345
+#: cms/templates/pages/page_form.html:349
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
-#: cms/templates/pages/page_form.html:350
-#: cms/templates/pages/page_form.html:414
+#: cms/templates/pages/page_form.html:354
+#: cms/templates/pages/page_form.html:418
 #: cms/templates/pages/page_tree_archived_node.html:135
 #: cms/templates/pages/page_tree_node.html:158
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: cms/templates/pages/page_form.html:357
+#: cms/templates/pages/page_form.html:361
 #: cms/templates/pages/page_tree_archived_node.html:127
 #: cms/templates/pages/page_tree_node.html:150
 #: cms/views/pages/page_actions.py:262
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
-#: cms/templates/pages/page_form.html:359
+#: cms/templates/pages/page_form.html:363
 msgid "To delete this page, you have to delete or move its subpage first:"
 msgid_plural ""
 "To delete this page, you have to delete or move its subpages first:"
@@ -5163,7 +5320,7 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie zuerst ihre Unterseiten löschen oder "
 "verschieben:"
 
-#: cms/templates/pages/page_form.html:378
+#: cms/templates/pages/page_form.html:382
 #: cms/templates/pages/page_tree_archived_node.html:131
 #: cms/templates/pages/page_tree_node.html:154
 #: cms/views/pages/page_actions.py:267
@@ -5174,7 +5331,7 @@ msgstr ""
 "Diese Seite kann nicht gelöscht werden, da sie von einer anderen Seite als "
 "Live-Inhalt eingebunden wurde."
 
-#: cms/templates/pages/page_form.html:382
+#: cms/templates/pages/page_form.html:386
 msgid ""
 "To delete this page, you have to remove the embedded live content from this "
 "page first:"
@@ -5188,15 +5345,15 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie den eingebetteten Live-Inhalt von "
 "dieser Seiten entfernen:"
 
-#: cms/templates/pages/page_form.html:421
+#: cms/templates/pages/page_form.html:425
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
-#: cms/templates/pages/page_form.html:432
+#: cms/templates/pages/page_form.html:436
 msgid "Translator view"
 msgstr "Übersetzeransicht"
 
-#: cms/templates/pages/page_form.html:452
+#: cms/templates/pages/page_form.html:456
 msgid "Show translator view"
 msgstr "Übersetzeransicht anzeigen"
 
@@ -5519,6 +5676,46 @@ msgstr "Abbrechen"
 msgid "Number of entries per page"
 msgstr "Anzahl Einträge pro Seite"
 
+#: cms/templates/poicategories/poicategory_form.html:13
+#, python-format
+msgid "Edit location category \"%(poi_category_name)s\""
+msgstr "Ortskategorie \"%(poi_category_name)s\" bearbeiten"
+
+#: cms/templates/poicategories/poicategory_form.html:15
+msgid "Create new location category"
+msgstr "Neue Ortskategorie erstellen"
+
+#: cms/templates/poicategories/poicategory_form.html:26
+msgid "Category name"
+msgstr "Name der Kategorie"
+
+#: cms/templates/poicategories/poicategory_list.html:11
+msgid "Create location category"
+msgstr "Ortskategorie erstellen"
+
+#: cms/templates/poicategories/poicategory_list.html:30
+msgid "Number of locations with this category"
+msgstr "Anzahl an Orten mit dieser Kategorie"
+
+#: cms/templates/poicategories/poicategory_list.html:30
+msgid "Number of locations"
+msgstr "Anzahl an Orten"
+
+#: cms/templates/poicategories/poicategory_list.html:40
+msgid "No POI categories available yet."
+msgstr "Noch keine POI Kategorien vorhanden."
+
+#: cms/templates/poicategories/poicategory_list_row.html:34
+msgid ""
+"You cannot delete a location category that is used in at least one location."
+msgstr ""
+"Diese Kategorie kann nicht gelöscht werden, da sie von mindestens einem Ort "
+"verwendet wird."
+
+#: cms/templates/poicategories/poicategory_list_row.html:38
+msgid "Delete location category"
+msgstr "Ortskategorie löschen"
+
 #: cms/templates/pois/poi_form.html:20
 #, python-format
 msgid "Edit location \"%(poi_title)s\""
@@ -5536,58 +5733,54 @@ msgstr "Neuen Ort erstellen"
 msgid "The name is currently displayed to users only in the default language"
 msgstr "Der Name wird Benutzern momentan nur in der Standardsprache angezeigt"
 
-#: cms/templates/pois/poi_form.html:137 cms/templates/pois/poi_form.html:158
+#: cms/templates/pois/poi_form.html:137 cms/templates/pois/poi_form.html:159
 msgid "Position"
 msgstr "Position"
 
-#: cms/templates/pois/poi_form.html:160
-msgid ""
-"If you leave these fields blank, they are automatically derived from the "
-"address."
-msgstr ""
-"Wenn Sie diese Felder leer lassen, werden sie automatisch aus der Adresse "
-"abgeleitet."
+#: cms/templates/pois/poi_form.html:163
+msgid "Derive coordinates automatically from address"
+msgstr "Koordinaten automatisch aus der Adresse ableiten"
 
-#: cms/templates/pois/poi_form.html:177
+#: cms/templates/pois/poi_form.html:182
 msgid "Contact details"
 msgstr "Kontaktdaten"
 
-#: cms/templates/pois/poi_form.html:225 cms/templates/pois/poi_form.html:227
-#: cms/templates/pois/poi_list_archived_row.html:59
+#: cms/templates/pois/poi_form.html:245 cms/templates/pois/poi_form.html:247
+#: cms/templates/pois/poi_list_archived_row.html:65
 msgid "Restore location"
 msgstr "Ort wiederherstellen"
 
-#: cms/templates/pois/poi_form.html:233
+#: cms/templates/pois/poi_form.html:253
 msgid "Restore this location"
 msgstr "Diesen Ort wiederherstellen"
 
-#: cms/templates/pois/poi_form.html:237 cms/templates/pois/poi_form.html:239
-#: cms/templates/pois/poi_list_row.html:106
+#: cms/templates/pois/poi_form.html:257 cms/templates/pois/poi_form.html:259
+#: cms/templates/pois/poi_list_row.html:112
 msgid "Archive location"
 msgstr "Ort archivieren"
 
-#: cms/templates/pois/poi_form.html:245
+#: cms/templates/pois/poi_form.html:265
 msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
-#: cms/templates/pois/poi_form.html:252 cms/templates/pois/poi_form.html:274
-#: cms/templates/pois/poi_list_archived_row.html:72
-#: cms/templates/pois/poi_list_row.html:119
+#: cms/templates/pois/poi_form.html:272 cms/templates/pois/poi_form.html:294
+#: cms/templates/pois/poi_list_archived_row.html:78
+#: cms/templates/pois/poi_list_row.html:125
 msgid "Delete location"
 msgstr "Ort löschen"
 
-#: cms/templates/pois/poi_form.html:258
+#: cms/templates/pois/poi_form.html:278
 msgid "You cannot delete a location which is referenced by an event."
 msgstr ""
 "Der Ort kann nicht gelöscht werden, da er von einem Event verwendet wird."
 
-#: cms/templates/pois/poi_form.html:260
+#: cms/templates/pois/poi_form.html:280
 msgid "To delete this location, you have to delete this event first:"
 msgid_plural "To delete this location, you have to delete these events first:"
 msgstr[0] "Löschen Sie zuerst diese Veranstaltung, um den Ort zu löschen:"
 msgstr[1] "Löschen Sie zuerst diese Veranstaltungen, um den Ort zu löschen:"
 
-#: cms/templates/pois/poi_form.html:280
+#: cms/templates/pois/poi_form.html:300
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
 
@@ -5622,51 +5815,56 @@ msgstr "Postleitzahl"
 msgid "Country"
 msgstr "Land"
 
-#: cms/templates/pois/poi_list.html:83
+#: cms/templates/pois/poi_list.html:84
 msgid "No locations found with these filters."
 msgstr "Keine Orte mit diesen Filtern gefunden."
 
-#: cms/templates/pois/poi_list.html:85
+#: cms/templates/pois/poi_list.html:86
 msgid "No locations available yet."
 msgstr "Noch keine Orte vorhanden."
 
-#: cms/templates/pois/poi_list.html:96
+#: cms/templates/pois/poi_list.html:97
 msgid "Locations selected"
 msgstr "Orte ausgewählt"
 
-#: cms/templates/pois/poi_list.html:106
+#: cms/templates/pois/poi_list.html:107
 msgid "Archive locations"
 msgstr "Orte archivieren"
 
-#: cms/templates/pois/poi_list.html:125
+#: cms/templates/pois/poi_list.html:126
 msgid "Automatically translate this location into Easy German"
 msgstr "Diesen Ort automatisch in Leichte Sprache übersetzen"
 
-#: cms/templates/pois/poi_list_archived.html:48
+#: cms/templates/pois/poi_list_archived.html:49
 msgid "No locations archived yet."
 msgstr "Noch keine Orte archiviert."
 
-#: cms/templates/pois/poi_list_archived.html:60
+#: cms/templates/pois/poi_list_archived.html:61
 msgid "Restore locations"
 msgstr "Orte wiederherstellen"
 
-#: cms/templates/pois/poi_list_archived_row.html:68
-#: cms/templates/pois/poi_list_row.html:115
+#: cms/templates/pois/poi_list_archived_row.html:60
+#: cms/templates/pois/poi_list_row.html:97
+msgid "No category assigned"
+msgstr "Keine Kategorie zugewiesen"
+
+#: cms/templates/pois/poi_list_archived_row.html:74
+#: cms/templates/pois/poi_list_row.html:121
 msgid "You cannot delete a location which is used by an event."
 msgstr ""
 "Der Ort kann nicht gelöscht werden, da er von einer Veranstaltung verwendet "
 "wird."
 
-#: cms/templates/pois/poi_list_archived_row.html:68
-#: cms/templates/pois/poi_list_row.html:115
+#: cms/templates/pois/poi_list_archived_row.html:74
+#: cms/templates/pois/poi_list_row.html:121
 msgid "This also involves archived events."
 msgstr "Dies betrifft auch archivierte Veranstaltungen."
 
-#: cms/templates/pois/poi_list_row.html:98
+#: cms/templates/pois/poi_list_row.html:104
 msgid "Open location in web app"
 msgstr "Ort in der Web-App öffnen"
 
-#: cms/templates/pois/poi_list_row.html:102
+#: cms/templates/pois/poi_list_row.html:108
 msgid ""
 "This location cannot be opened in the web app, because it is not public."
 msgstr ""
@@ -5759,38 +5957,42 @@ msgstr ""
 msgid "Features"
 msgstr "Funktionen"
 
-#: cms/templates/regions/region_form.html:257
+#: cms/templates/regions/region_form.html:203
+msgid "Currently HIX is globally deactivated"
+msgstr "Derzeit ist HIX global deaktiviert"
+
+#: cms/templates/regions/region_form.html:269
 msgid "Duplicate content of another region"
 msgstr "Inhalte aus einer anderen Region duplizieren"
 
-#: cms/templates/regions/region_form.html:260
+#: cms/templates/regions/region_form.html:272
 msgid "Copy languages, pages and media from another region"
 msgstr "Sprachen, Seiten und Medien aus einer anderen Region kopieren"
 
-#: cms/templates/regions/region_form.html:269
+#: cms/templates/regions/region_form.html:281
 msgid "Delete region"
 msgstr "Region löschen"
 
-#: cms/templates/regions/region_form.html:270
+#: cms/templates/regions/region_form.html:282
 msgid "Please confirm that you really want to delete this region."
 msgstr "Bitte bestätigen Sie, dass diese Region gelöscht werden soll"
 
-#: cms/templates/regions/region_form.html:271
+#: cms/templates/regions/region_form.html:283
 msgid "This can not be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: cms/templates/regions/region_form.html:271
+#: cms/templates/regions/region_form.html:283
 msgid "All pages, events and locations of this region will also be deleted."
 msgstr ""
 "Alle Seiten, Veranstaltungen und Orte dieser Region werden ebenfalls "
 "gelöscht."
 
-#: cms/templates/regions/region_form.html:271
+#: cms/templates/regions/region_form.html:283
 msgid "Users, who only have access to this region, will be removed as well."
 msgstr ""
 "Benutzer, die nur Zugriff auf diese Region besitzen, werden auch entfernt."
 
-#: cms/templates/regions/region_form.html:275
+#: cms/templates/regions/region_form.html:287
 msgid "Delete this region"
 msgstr "Diese Region löschen"
 
@@ -6074,7 +6276,7 @@ msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
 
 #: cms/templates/users/region_user_form.html:109
-#: cms/templates/users/user_form.html:131 cms/views/mixins.py:71
+#: cms/templates/users/user_form.html:131 cms/views/mixins.py:72
 msgid "This cannot be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
@@ -6114,11 +6316,6 @@ msgstr "Nutzerverwaltung"
 #: cms/templates/users/user_list.html:16
 msgid "Create user"
 msgstr "Benutzer erstellen"
-
-#: cms/templates/users/region_user_list.html:21
-#: cms/templates/users/user_list.html:29
-msgid "Username"
-msgstr "Benutzername"
 
 #: cms/templates/users/region_user_list.html:22
 #: cms/templates/users/user_list.html:30
@@ -6233,7 +6430,7 @@ msgid "No valid pages selected for PDF generation."
 msgstr ""
 "Es wurden keine gültigen Seiten zur Erzeugung der PDF-Datei ausgewählt."
 
-#: cms/utils/pdf_utils.py:127
+#: cms/utils/pdf_utils.py:135
 msgid "The PDF could not be successfully generated."
 msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 
@@ -6505,7 +6702,9 @@ msgid "Feedback was successfully deleted"
 msgstr "Feedback wurde erfolgreich gelöscht"
 
 #: cms/views/form_views.py:117 cms/views/imprint/imprint_sbs_view.py:206
-#: cms/views/pages/page_sbs_view.py:214 cms/views/roles/role_form_view.py:93
+#: cms/views/pages/page_sbs_view.py:214
+#: cms/views/poi_categories/poi_category_form_view.py:238
+#: cms/views/roles/role_form_view.py:93
 #: cms/views/settings/user_settings_view.py:91
 #: cms/views/settings/user_settings_view.py:108
 #: cms/views/users/region_user_form_view.py:97
@@ -6514,10 +6713,12 @@ msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
 #: cms/views/form_views.py:121
+#: cms/views/poi_categories/poi_category_form_view.py:243
 msgid "{} \"{}\" was successfully saved"
 msgstr "{} \"{}\" wurde erfolgreich gespeichert"
 
 #: cms/views/form_views.py:128
+#: cms/views/poi_categories/poi_category_form_view.py:188
 msgid "{} \"{}\" was successfully created"
 msgstr "{} \"{}\" wurde erfolgreich erstellt"
 
@@ -6809,47 +7010,51 @@ msgid "File uploaded on:"
 msgstr "Datei hochgeladen am:"
 
 #: cms/views/media/media_context_mixin.py:63
+msgid "File modified on:"
+msgstr "Datei zuletzt geändert am:"
+
+#: cms/views/media/media_context_mixin.py:64
 msgid "Directory created on:"
 msgstr "Verzeichnis erstellt am:"
 
-#: cms/views/media/media_context_mixin.py:64
+#: cms/views/media/media_context_mixin.py:65
 msgid "Alternative text:"
 msgstr "Alternativer Text:"
 
-#: cms/views/media/media_context_mixin.py:65
+#: cms/views/media/media_context_mixin.py:66
 msgid "Enter directory name here"
 msgstr "Verzeichnisname hier eingeben"
 
-#: cms/views/media/media_context_mixin.py:66
+#: cms/views/media/media_context_mixin.py:67
 msgid "This file is read-only and cannot be edited."
 msgstr "Diese Datei ist schreibgeschützt und kann nicht bearbeitet werden."
 
-#: cms/views/media/media_context_mixin.py:68
+#: cms/views/media/media_context_mixin.py:69
 msgid "This directory is read-only and cannot be edited."
 msgstr ""
 "Dieses Verzeichnis ist schreibgeschützt und kann nicht bearbeitet werden."
 
-#: cms/views/media/media_context_mixin.py:70
+#: cms/views/media/media_context_mixin.py:71
 msgid "Only images can be selected as an icon."
 msgstr "Es können nur Bilder als Icon ausgewählt werden."
 
-#: cms/views/media/media_context_mixin.py:72
+#: cms/views/media/media_context_mixin.py:73
 msgid "Please confirm that you really want to delete this file"
 msgstr "Bitte bestätigen Sie, dass diese Datei gelöscht werden soll"
 
-#: cms/views/media/media_context_mixin.py:75
+#: cms/views/media/media_context_mixin.py:76
 msgid "Please confirm that you really want to delete this directory"
 msgstr "Bitte bestätigen Sie, dass dieses Verzeichnis gelöscht werden soll"
 
-#: cms/views/media/media_context_mixin.py:78
+#: cms/views/media/media_context_mixin.py:79
 msgid "This file type is not supported. Supported types are:"
 msgstr "Dieser Dateityp wird nicht unterstützt. Unterstützte Typen sind:"
 
-#: cms/views/media/media_context_mixin.py:81
+#: cms/views/media/media_context_mixin.py:82
 msgid "An error has occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
-#: cms/views/mixins.py:69
+#: cms/views/mixins.py:70
 msgid "Please confirm that you really want to delete this {}"
 msgstr "Bitte bestätigen Sie, dass diese {} gelöscht werden soll"
 
@@ -7120,17 +7325,25 @@ msgstr ""
 msgid "This XLIFF import is no longer available."
 msgstr "Dieser XLIFF Import ist nicht länger verfügbar."
 
-#: cms/views/pois/poi_actions.py:50
+#: cms/views/pois/poi_actions.py:55
 msgid "Location was successfully archived"
 msgstr "Ort wurde erfolgreich archiviert"
 
-#: cms/views/pois/poi_actions.py:93
+#: cms/views/pois/poi_actions.py:98
 msgid "Location was successfully restored"
 msgstr "Ort wurde erfolgreich wiederhergestellt"
 
-#: cms/views/pois/poi_actions.py:129
+#: cms/views/pois/poi_actions.py:134
 msgid "Location was successfully deleted"
 msgstr "Ort wurde erfolgreich gelöscht"
+
+#: cms/views/pois/poi_actions.py:198
+msgid "Location service is disabled"
+msgstr "Ortung ist deaktiviert"
+
+#: cms/views/pois/poi_actions.py:214
+msgid "Address could not be found"
+msgstr "Adresse konnte nicht gefunden werden"
 
 #: cms/views/pois/poi_context_mixin.py:32
 msgid "Please confirm that you really want to archive this location"
@@ -7191,7 +7404,7 @@ msgstr "Push-Benachrichtigungen sind deaktiviert."
 msgid "Push notifications are disabled in this region."
 msgstr "Push-Benachrichtigungen sind in dieser Region deaktiviert."
 
-#: cms/views/push_notifications/push_notification_form_view.py:88
+#: cms/views/push_notifications/push_notification_form_view.py:85
 msgid ""
 "This news message has already been sent as push notification to mobile "
 "devices."
@@ -7199,7 +7412,7 @@ msgstr ""
 "Diese Nachricht wurde bereits als Push-Benachrichtigung an mobile Geräte "
 "gesendet."
 
-#: cms/views/push_notifications/push_notification_form_view.py:91
+#: cms/views/push_notifications/push_notification_form_view.py:88
 msgid ""
 "Subsequent changes are displayed in the \"News\" area of the app, but have "
 "no effect on the push notification sent."
@@ -7325,8 +7538,7 @@ msgid "User {} was successfully removed from this region."
 msgstr "Benutzer {} wurde erfolgreich von dieser Region entfernt."
 
 #: cms/views/users/region_user_form_view.py:53
-#: cms/views/users/region_user_form_view.py:130
-#: cms/views/users/user_form_view.py:51 cms/views/users/user_form_view.py:137
+#: cms/views/users/user_form_view.py:51
 msgid "Pending account activation"
 msgstr "Aktivierung des Benutzerkontos noch ausstehend"
 
@@ -7357,15 +7569,15 @@ msgid "Superuser permissions need to be set by another superuser."
 msgstr ""
 "Administratorrechte müssen von einem anderen Administrator vergeben werden."
 
-#: core/settings.py:617
+#: core/settings.py:639
 msgid "German"
 msgstr "Deutsch"
 
-#: core/settings.py:618
+#: core/settings.py:640
 msgid "English"
 msgstr "Englisch"
 
-#: core/settings.py:619
+#: core/settings.py:641
 msgid "Dutch"
 msgstr "Niederländisch"
 
@@ -7381,21 +7593,21 @@ msgstr "{} \"{}\" wurde erfolgreich übersetzt"
 msgid "{} \"{}\" could not be automatically translated."
 msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
 
-#: summ_ai_api/utils.py:251
+#: summ_ai_api/utils.py:253
 msgid "No German translation could be found for {} \"{}\"."
 msgstr "Es konnte keine Deutsche Übersetzung für {} \"{}\" gefunden werden."
 
-#: summ_ai_api/utils.py:323 summ_ai_api/utils.py:364
+#: summ_ai_api/utils.py:325 summ_ai_api/utils.py:366
 msgid "{} \"{}\" could not be automatically translated into Easy German."
 msgstr ""
 "{} \"{}\" konnte nicht automatisch in Leichte Sprache übersetzt werden."
 
-#: summ_ai_api/utils.py:328
+#: summ_ai_api/utils.py:330
 msgid "Please try again later or contact an administrator"
 msgstr ""
 "Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator."
 
-#: summ_ai_api/utils.py:379
+#: summ_ai_api/utils.py:381
 msgid "{} \"{}\" has been successfully translated into Easy German."
 msgstr "{} \"{}\" wurde erfolgreich in Leichte Sprache übersetzt."
 
@@ -7454,11 +7666,85 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "No coordinates found for this address"
+#~ msgstr "Keine Koordinaten für diese Adresse gefunden"
+
+#~ msgid ""
+#~ "If you leave these fields blank, they are automatically derived from the "
+#~ "address."
+#~ msgstr ""
+#~ "Wenn Sie diese Felder leer lassen, werden sie automatisch aus der Adresse "
+#~ "abgeleitet."
+
+#~ msgid "Delete this organization"
+#~ msgstr "Diese Organisation löschen"
+
+#~ msgid "No POI categories found with these filters."
+#~ msgstr "Keine POI kategorie mit diesen Filtern gefunden."
+
+#~ msgid "Deleting POI categories is not implemented yet."
+#~ msgstr "Das Löschen von POI Kategorien ist noch nicht implementiert."
+
+#~ msgid "POI Category \"{}\" was successfully created"
+#~ msgstr "POI Kategorie \"{}\" wurde erfolgreich erstellt"
+
+#~ msgid "POI Category \"{}\" was successfully saved"
+#~ msgstr "POI Kategorie \"{}\" wurde erfolgreich gespeichert"
+
+#~ msgid "poi_category_translation"
+#~ msgstr "POI Kategorie Übersetzung"
+
+#~ msgid "poi_category_translations"
+#~ msgstr "POI kategorie Übersetzungen"
+
+#~ msgid "Translation exists"
+#~ msgstr "Übersetzung verfügbar"
+
+#~ msgid "poi_categories"
+#~ msgstr "POI Kategorien"
+
+#~ msgid "Create new POI Category"
+#~ msgstr "Neue POI Kategorie erstellen"
+
+#~ msgid "Category settings"
+#~ msgstr "Kategorien-Einstellungen"
+
+#~ msgid "Create POI Category"
+#~ msgstr "POI Kategorie erstellen"
+
+#~ msgid "English Name"
+#~ msgstr "Name auf Englisch"
+
+#~ msgid "english category name"
+#~ msgstr "Name auf English"
+
+#~ msgid "The english name of the POI category."
+#~ msgstr "Der Name der Kategorie auf English."
+
+#~ msgid ""
+#~ "The latest changes have only been saved as a draft. Currently, <a "
+#~ "href='%(revision_url)s' class='underline hover:no-underline'>version "
+#~ "%(revision)s</a> of this page is displayed in the app."
+#~ msgstr ""
+#~ "Die letzten Änderungen wurden nur als Entwurf gespeichert. Aktuell wird "
+#~ "Version <a href='%(revision_url)s' class='underline hover:no-"
+#~ "underline'>Version %(revision)s</a> dieser Seite in der App angezeigt."
+
 #~ msgid "The automatic translation into Easy German has been started."
 #~ msgstr "Die automatische Übersetzung ins Leichte Deutsch wurde gestartet."
 
 #~ msgid "The selected {} were successfully archived"
 #~ msgstr "Die ausgewählten {} wurden erfolgreich archiviert"
+
+#~ msgid "Number of Members"
+#~ msgstr "Mitgliederanzahl"
+
+#~ msgid "Name in Englisch"
+#~ msgstr "Name auf Englisch"
+
+#~| msgid "Delete this organization"
+#~ msgid "Currently no users belong to this organization"
+#~ msgstr "Diese Organisation löschen"
 
 #~ msgid "The selected {} were successfully restored"
 #~ msgstr "Die ausgewählten {} wurden erfolgreich wiederhergestellt"
@@ -7774,9 +8060,6 @@ msgstr ""
 
 #~ msgid "Offer template \"{}\" was successfully saved"
 #~ msgstr "Angebots-Vorlage \"{}\" wurde erfolgreich gespeichert"
-
-#~ msgid "Region \"{}\" was successfully saved"
-#~ msgstr "Region \"{}\" wurde erfolgreich gespeichert"
 
 #~ msgid "Region \"{}\" was successfully created"
 #~ msgstr "Region \"{}\" wurde erfolgreich erstellt"
@@ -8201,6 +8484,9 @@ msgstr ""
 #~ msgid "Translations outdated"
 #~ msgstr "Veraltete Übersetzungen"
 
+#~ msgid "Translations missing"
+#~ msgstr "Fehlende Übersetzungen"
+
 #~ msgid "Translation Coverage"
 #~ msgstr "Abdeckung der Übersetzungen"
 
@@ -8582,9 +8868,6 @@ msgstr ""
 #~ msgid "Enter push notification channels here"
 #~ msgstr "Push-Benachrichtigungskanäle hier eingeben"
 
-#~ msgid "Activate statistics"
-#~ msgstr "Statistiken aktivieren"
-
 #~ msgid "Activate SSL verification for Matomo"
 #~ msgstr "SSL-Verifikation für Matomo aktivieren"
 
@@ -8685,9 +8968,6 @@ msgstr ""
 
 #~ msgid "table of contents caption"
 #~ msgstr "Überschrift des Inhaltsverzeichnis"
-
-#~ msgid "Name in English"
-#~ msgstr "Name auf Englisch"
 
 #~ msgid "Enter the language's name in english here"
 #~ msgstr "Name der Sprache auf Englisch hier eingeben"
@@ -8868,9 +9148,6 @@ msgstr ""
 #~ msgid "All POIs"
 #~ msgstr "Alle POIs"
 
-#~ msgid "Create POI"
-#~ msgstr "POI erstellen"
-
 #~ msgid "Create POI with title \"%(poi_query)s\""
 #~ msgstr "POI mit Titel \"%(poi_query)s\" erstellen"
 
@@ -8888,9 +9165,6 @@ msgstr ""
 
 #~ msgid "Delete this POI"
 #~ msgstr "Diesen POI löschen"
-
-#~ msgid "No POIs available yet."
-#~ msgstr "Noch keine POIs vorhanden."
 
 #~ msgid "Yes, archive this POI now."
 #~ msgstr "Ja, diesen POI jetzt archivieren"

@@ -44,7 +44,7 @@ MATOMO_TRACKING = bool(
 IMPRINT_SLUG = "imprint"
 
 #: The slug of the region "Testumgebung" - prevent sending PNs to actual users in development in
-#: :func:`~integreat_cms.cms.views.push_notifications.push_notification_sender.PushNotificationSender.send_pn`
+#: :func:`~integreat_cms.cms.utils.push_notification_sender.PushNotificationSender.send_pn`
 TEST_REGION_SLUG = "testumgebung"
 
 #: URL to the Integreat Website
@@ -163,6 +163,27 @@ NOMINATIM_API_URL = os.environ.get(
 )
 
 
+###############
+# TEXTLAB API #
+###############
+
+#: URL to the Textlab API
+TEXTLAB_API_URL = "https://preview.text-lab.de/api"
+
+#: Key for the Textlab API
+TEXTLAB_API_KEY = os.environ.get("INTEGREAT_CMS_TEXTLAB_API_KEY")
+
+#: Whether the Textlab API is enabled.
+#: This is ``True`` if :attr:`~integreat_cms.core.settings.TEXTLAB_API_KEY` is set, ``False`` otherwise.
+TEXTLAB_API_ENABLED = bool(TEXTLAB_API_KEY)
+
+#: Username for the Textlab API
+TEXTLAB_API_USERNAME = os.environ.get("INTEGREAT_CMS_TEXTLAB_API_USERNAME", "Integreat")
+
+#: Which language slugs are allowed for the Textlab API
+TEXTLAB_API_LANGUAGES = ["de"]
+
+
 ############
 # WEBAUTHN #
 ############
@@ -204,6 +225,7 @@ INSTALLED_APPS = [
     "integreat_cms.deepl_api",
     "integreat_cms.nominatim_api",
     "integreat_cms.summ_ai_api",
+    "integreat_cms.textlab_api",
     "integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig",
     # Installed Django apps
     "django.contrib.auth",
@@ -776,6 +798,11 @@ MEDIA_THUMBNAIL_CROP = False
 #: Enables the possibility to upload further file formats (e.g. DOC, GIF).
 LEGACY_FILE_UPLOAD = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_LEGACY_FILE_UPLOAD", "False"))
+)
+
+#: The maximum size of media files in bytes
+MEDIA_MAX_UPLOAD_SIZE = int(
+    os.environ.get("INTEGREAT_CMS_MEDIA_MAX_UPLOAD_SIZE", 3 * 1024 * 1024)
 )
 
 

@@ -1,8 +1,12 @@
 {% extends "_base.html" %}
 {% load i18n %}
-{% block content %}
 {% load static %}
 {% load widget_tweaks %}
+{% load content_filters %}
+{% load page_filters %}
+{% load tree_filters %}
+
+{% block content %}
 <form method="post" enctype="multipart/form-data" data-unsaved-warning>
     {% csrf_token %}
     <div class="flex justify-between mb-4">
@@ -15,27 +19,40 @@
 				{% trans 'Create new organization' %}
 			{% endif %}
 		</h1>
-		{% if perms.cms.change_organization %}
-			<button class="btn">{% trans 'Save' %}</button>
-		{% endif %}
+		<div class="flex flex-wrap justify-between gap-4"> 
+			{% if form.instance.id and perms.cms.delete_organization %}
+				<div class="flex flex-wrap gap-4">
+					<button title="{% trans 'Delete organization' %}" class="btn confirmation-button btn-red"
+							data-confirmation-title="{{ delete_dialog_title }}"
+							data-confirmation-text="{{ delete_dialog_text }}"
+							data-confirmation-subject="{{ form.name.value }}"
+							data-action="{% url 'delete_organization' region_slug=request.region.slug slug=form.instance.slug %}">
+						<i icon-name="trash-2" class="mr-2"></i>
+						{% trans 'Delete' %}
+					</button>
+				</div>
+			{% endif %}
+			{% if perms.cms.change_organization %}
+				<div class="flex flex-wrap gap-4">
+					<button class="btn">{% trans 'Save' %}</button>
+				</div>
+			{% endif %}
+		</div>
     </div>
     <div class="grid xl:grid-cols-2 gap-4">
 		<div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
 			<div class="p-4 rounded bg-water-500">
-				<h3 class="heading font-bold text-black"><i data-feather="umbrella" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+				<h3 class="heading font-bold text-black"><i icon-name="umbrella" class="mr-2"></i> {% trans 'General Settings' %}</h3>
 			</div>
 			<div class="px-4 pb-4">
 				<!-- General Options for organization management -->
 				<label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
 				{% render_field form.name|add_error_class:"border-red-500" %}
-				<label for="{{ form.slug.id_for_label }}">{{ form.slug.label }}</label>
-				<div class="help-text">{{ form.slug.help_text }}</div>
-				{% render_field form.slug|add_error_class:"border-red-500" %}
 			</div>
 		</div>
 		<div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
 			<div class="p-4 rounded bg-water-500">
-				<h3 class="heading font-bold text-black"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
+				<h3 class="heading font-bold text-black"><i icon-name="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
 			</div>
 			<div class="px-4 pb-4">
 				<label for="{{ form.icon.id_for_label }}">{{ form.icon.label }}</label>
@@ -43,19 +60,135 @@
 			</div>
 		</div>
 	</div>
-	{% if form.instance.id and perms.cms.delete_organization %}
-	<div class="pt-2 pb-4">
-		<button title="{% trans 'Delete organization' %}" class="btn confirmation-button btn-red"
-				data-confirmation-title="{{ delete_dialog_title }}"
-				data-confirmation-text="{{ delete_dialog_text }}"
-				data-confirmation-subject="{{ form.name.value }}"
-				data-action="{% url 'delete_organization' region_slug=request.region.slug slug=form.instance.slug %}">
-			<i data-feather="trash-2" class="mr-2"></i>
-			{% trans 'Delete this organization' %}
-		</button>
+	{% if form.instance.id %}
+
+	{% get_current_language as LANGUAGE_CODE %}
+	{% get_language LANGUAGE_CODE as backend_language %}
+	{% with request.region.default_language as  region_default_language %}
+		<div class="grid xl:grid-cols-2 gap-4">
+			<div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+				<div class="p-4 rounded bg-water-500">
+				<h3 class="heading font-bold text-black">
+				    <i icon-name="layout" class="mr-2"></i>
+					{% trans "Pages" %}
+				</h3>
+				</div>
+				<div class="table-listing w-full p-2">
+
+						
+						<table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+							
+							<thead>
+								<tr class="border-b border-solid border-gray-200">
+									<th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+										{% trans "Name in " %} {{ region_default_language.translated_name }}
+									</th>
+
+									{% if region_default_language != backend_language %}
+										<th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+											{% trans "Name in "%} {{ backend_language.translated_name }}
+										</th>
+									{% endif %}
+								</tr>
+
+							</thead>
+
+							<tbody>
+								{% for page in form.instance.pages.all %}
+									{% get_translation page region_default_language.slug as page_translation %}
+									{% get_translation page backend_language.slug as backendlang_page_translation %}
+									<tr class="border-b border-solid border-gray-200 hover:bg-gray-100">
+										{% if page_translation %}
+											<td class="text-sm text-left py-3 pl-4 pr-2">
+												<a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=region_default_language.slug %}" class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% trans 'View page' %}">
+													{{ page_translation.title }}
+												</a>
+											</td>
+										{% else %}
+											<td class="text-sm text-left py-3 pl-4 pr-2">
+												<i>{% trans 'Translation not available' %}</i>
+											</td>
+										{% endif %}
+
+										{% if region_default_language != backend_language %}
+											{% if backendlang_page_translation %}
+												<td class="text-sm text-left py-3 pl-4 pr-2">
+													<a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=backend_language.slug %}" class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% trans 'View page' %}">
+
+														{{ backendlang_page_translation.title }}
+
+													</a>
+												</td>
+											{% else %}
+												<td class="text-sm text-left py-3 pl-4 pr-2">
+
+													<i>{% trans 'Translation not available' %}</i>
+
+												</td>
+											{% endif %}	
+										{% endif%}
+									</tr>
+								{% empty %}
+								<tr>
+									<td colspan="2" class="px-4 py-3">
+										{% trans "This organization currently has no maintained pages." %}
+									</td>
+								</tr>
+							
+								{% endfor %}
+							</tbody>
+						</table>
+				</div>
+			</div>
+		{% endwith %}
+		<div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+			<div class="p-4 rounded bg-water-500">
+				<h3 class="heading font-bold text-black">
+				    <i icon-name="users" class="mr-2"></i>
+					{% trans "Members" %}
+				</h3>
+			</div>
+				<div class="table-listing w-full p-2">
+					<table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+						<thead>
+							<tr class="border-b border-solid border-gray-200">
+								<th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+									{% trans "Username" %}
+								</th>
+								<th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+									{% trans "Role" %}
+								</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							{% for member in form.instance.members.all %}
+								<tr class="border-b border-solid border-gray-200">
+									<td class="text-sm text-left py-3 pl-4 pr-2 text-ellipsis text-gray-800">
+											{{ member.username }}
+									</td>
+									
+									<td class="text-sm text-left py-3 pl-4 pr-2 text-ellipsis text-gray-800">
+											{{ member.role }}
+									</td>
+								</tr>
+							{% empty %}
+							<tr>
+								<td colspan="6" class="px-4 py-3">
+									{% trans "This organization currently has no members." %}
+								</td>
+							</tr>
+						
+							{% endfor %}
+						</tbody>
+						
+					</table>
+				</div>
+		</div>
 	</div>
 	{% endif %}
 </form>
+
 
 {% include "generic_confirmation_dialog.html" %}
 {{ media_config_data|json_script:"media_config_data" }}

@@ -15,7 +15,7 @@
             <div class="flex flex-wrap grow justify-between gap-2 mb-4">
                 <a href="{% url 'edit_imprint' region_slug=request.region.slug language_slug=target_language.slug %}"
                    class="bg-gray-400 hover:bg-gray-500 text-center cursor-pointer text-white font-bold py-3 px-4 rounded">
-                    <i data-feather="arrow-left-circle" class="align-top"></i> {% trans 'Back to the imprint form' %}
+                    <i icon-name="arrow-left-circle" class="align-top"></i> {% trans 'Back to the imprint form' %}
                 </a>
                 {% if perms.cms.change_imprintpage %}
                     <div class="flex flex-wrap gap-2">
@@ -35,15 +35,15 @@
                     <div class="rounded p-4 bg-water-500 font-bold">
                         {% if source_imprint_translation.is_outdated %}
                             <span title="{% trans 'Translation outdated' %}">
-                                <i data-feather="alert-triangle"></i>
+                                <i icon-name="alert-triangle"></i>
                             </span>
                         {% elif source_imprint_translation.currently_in_translation %}
                             <span title="{% trans 'Currently in translation' %}">
-                                <i data-feather="clock"></i>
+                                <i icon-name="clock"></i>
                             </span>
                         {% else %}
                             <span title="{% trans 'Translation up-to-date' %}">
-                                <i data-feather="check"></i>
+                                <i icon-name="check"></i>
                             </span>
                         {% endif %}
                         {{ source_imprint_translation.language.translated_name }}
@@ -64,7 +64,7 @@
                            data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}"
                            title="{% trans 'Copy to clipboard' %}"
                            class="px-2 text-gray-800 hover:text-blue-600">
-                            <i data-feather="copy"></i>
+                            <i icon-name="copy"></i>
                         </a>
                         <br>
                         <label>{{ imprint_translation_form.title.label }}</label>
@@ -83,7 +83,7 @@
                             {% with source_language=source_imprint_translation.language.translated_name target_language_name=target_language.translated_name %}
                                 {% blocktrans %}Copy content of {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
                             {% endwith %}
-                            <i data-feather="arrow-right-circle" class="mr-2"></i>
+                            <i icon-name="arrow-right-circle" class="mr-2"></i>
                         </button>
                     </div>
                 </div>
@@ -92,20 +92,20 @@
                         {% if imprint_translation_form.instance.id %}
                             {% if imprint_translation_form.instance.is_outdated %}
                                 <span title="{% trans 'Translation outdated' %}">
-                                    <i data-feather="alert-triangle"></i>
+                                    <i icon-name="alert-triangle"></i>
                                 </span>
                             {% elif imprint_translation_form.instance.currently_in_translation %}
                                 <span title="{% trans 'Currently in translation' %}">
-                                    <i data-feather="clock"></i>
+                                    <i icon-name="clock"></i>
                                 </span>
                             {% else %}
                                 <span title="{% trans 'Translation up-to-date' %}">
-                                    <i data-feather="check"></i>
+                                    <i icon-name="check"></i>
                                 </span>
                             {% endif %}
                         {% else %}
                             <span title="{% trans 'Create Translation' %}">
-                                <i data-feather="plus"></i>
+                                <i icon-name="plus"></i>
                             </span>
                         {% endif %}
                         {{ target_language.translated_name }}
@@ -128,7 +128,7 @@
                                data-copy-to-clipboard="{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}"
                                title="{% trans 'Copy to clipboard' %}"
                                class="px-2 text-gray-800 hover:text-blue-600">
-                                <i data-feather="copy"></i>
+                                <i icon-name="copy"></i>
                             </a>
                             <br>
                         {% else %}

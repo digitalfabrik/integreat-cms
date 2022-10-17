@@ -38,7 +38,7 @@ class RegisterUserMfaKeyView(CreateView):
         Called asynchronously by JavaScript.
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

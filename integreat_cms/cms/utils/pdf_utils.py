@@ -2,7 +2,7 @@ import hashlib
 import logging
 import os
 
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
@@ -15,8 +15,8 @@ from django.template.loader import get_template
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
-
 from xhtml2pdf import pisa
+from xhtml2pdf.default import DEFAULT_CSS
 
 
 from .text_utils import truncate_bytewise
@@ -110,10 +110,18 @@ def generate_pdf(region, language_slug, pages):
         html = get_template("pages/page_pdf.html").render(context)
         # Save empty file
         pdf_storage.save(filename, ContentFile(""))
+
+        # Get fixed version of default pdf styling (see https://github.com/digitalfabrik/integreat-cms/issues/1537)
+        fixed_css = DEFAULT_CSS.replace("background-color: transparent;", "", 1)
+
         # Write PDF content into file
         with pdf_storage.open(filename, "w+b") as pdf_file:
             pisa_status = pisa.CreatePDF(
-                html, dest=pdf_file, link_callback=link_callback, encoding="UTF-8"
+                html,
+                dest=pdf_file,
+                link_callback=link_callback,
+                encoding="UTF-8",
+                default_css=fixed_css,
             )
         # pylint: disable=no-member
         if pisa_status.err:
@@ -155,7 +163,9 @@ def link_callback(uri, rel):
             uri = f"/media/regions/{uri.partition(LEGACY_MEDIA_URL)[2]}"
     if uri.startswith(settings.MEDIA_URL):
         # Get absolute path for media files
-        path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+        path = unquote(
+            os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+        )
         # make sure that file exists
         if not os.path.isfile(path):
             logger.exception(

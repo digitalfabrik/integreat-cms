@@ -48,6 +48,7 @@ def check_view_status_code(login_role_user, view_name, kwargs, post_data, roles)
             assert response.status_code == 200
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
+
         assert response.status_code == 302
         assert response.headers.get("location") == f"{settings.LOGIN_URL}?next={url}"
     else:

@@ -78,7 +78,7 @@ class GvzApiWrapper:
         :param child_urls: URLs to REST API children
         :type child_urls: list
 
-        :return: dictionary of cooridnates
+        :return: dictionary of coordinates
         :rtype: dict
         """
         result = {}
@@ -101,7 +101,7 @@ class GvzApiWrapper:
         :param division_type: type of a region
         :type division_type: str
 
-        :return: division categorey identifier
+        :return: division category identifier
         :rtype: int
         """
         result = None

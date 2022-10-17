@@ -10,7 +10,7 @@
     {% if not filter_form.is_enabled %}
         <td class="hierarchy single_icon whitespace-nowrap">
             <span class="cursor-move text-gray-800 inline-block align-middle" title="{% trans 'Drag & drop is disabled for archived pages.' %}">
-                <i data-feather="move"></i>
+                <i icon-name="move"></i>
             </span>
             {% if page.cached_children|length > 0 %}
                 <span class="toggle-subpages cursor-pointer inline-block align-middle"
@@ -18,7 +18,7 @@
                   data-alt-title="{% trans 'Collapse all subpages' %}"
                   data-page-id="{{ page.id }}"
                   data-page-children="{{ page|get_children_ids }}">
-                    <i data-feather="chevron-right"></i>
+                    <i icon-name="chevron-right"></i>
                 </span>
             {% endif %}
         </td>
@@ -53,20 +53,20 @@
                             {% if other_translation %}
                                 {% if other_translation.currently_in_translation %}
                                     <span title="{% trans 'Currently in translation' %}">
-                                        <i data-feather="clock" class="text-gray-800"></i>
+                                        <i icon-name="clock" class="text-gray-800"></i>
                                     </span>
                                 {% elif other_translation.is_outdated %}
                                     <span title="{% trans 'Translation outdated' %}">
-                                        <i data-feather="alert-triangle" class="text-gray-800"></i>
+                                        <i icon-name="alert-triangle" class="text-gray-800"></i>
                                     </span>
                                 {% else %}
                                     <span title="{% trans 'Translation up-to-date' %}">
-                                        <i data-feather="check" class="text-gray-800"></i>
+                                        <i icon-name="check" class="text-gray-800"></i>
                                     </span>
                                 {% endif %}
                             {% else %}
                                 <span title="{% trans 'Translation missing' %}">
-                                    <i data-feather="x" class="text-gray-800"></i>
+                                    <i icon-name="x" class="text-gray-800"></i>
                                 </span>
                             {% endif %}
                         </a>
@@ -98,7 +98,7 @@
                 data-preview-page="{% url 'preview_page_ajax' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
                 title="{% trans 'View page as preview' %}"
                 class="btn-icon">
-                <i data-feather="eye"></i>
+                <i icon-name="eye"></i>
             </button>
         {% else %}
             <button
@@ -106,7 +106,7 @@
                 title="{% trans 'You cannot preview an empty page.' %}"
                 class="btn-icon"
                 disabled>
-                <i data-feather="eye"></i>
+                <i icon-name="eye"></i>
             </button>
         {% endif %}
         {% if page.explicitly_archived %}
@@ -115,21 +115,21 @@
                     data-confirmation-text="{{ restore_dialog_text }}"
                     data-confirmation-subject="{{ page.best_translation.title }}"
                     data-action="{% url 'restore_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                <i data-feather="refresh-ccw"></i>
+                <i icon-name="refresh-ccw"></i>
             </button>
         {% else %}
             <a title="{% trans 'To restore this page, you have to restore its archived parent page.' %}" class="btn-icon" disabled>
-                <i data-feather="refresh-ccw"></i>
+                <i icon-name="refresh-ccw"></i>
             </a>
         {% endif %}
         {% if perms.cms.delete_page %}
             {% if not page.is_leaf %}
                 <a title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves non-archived subpages.' %}" class="btn-icon" disabled>
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </a>
             {% elif page.mirroring_pages.exists %}
                 <button title="{% trans 'This page cannot be deleted because it was embedded as live content from another page.' %}" class="btn-icon" disabled>
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% else %}
                 <button title="{% trans 'Delete page' %}" class="confirmation-button btn-icon"
@@ -137,7 +137,7 @@
                     data-confirmation-text="{{ delete_dialog_text }}"
                     data-confirmation-subject="{{ page.best_translation.title }}"
                     data-action="{% url 'delete_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% endif %}
         {% endif %}

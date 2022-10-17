@@ -22,7 +22,7 @@ def delete_region_user(request, region_slug, user_id):
     This view deletes a region user
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str
@@ -65,7 +65,7 @@ def resend_activation_link_region(request, region_slug, user_id):
     Resends an activation link to a region user
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str

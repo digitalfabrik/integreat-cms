@@ -51,7 +51,7 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
         Render POI list
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -138,7 +138,7 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
         Apply the query and filter the rendered pois
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
         :param \*args: The supplied arguments
         :type \*args: list
         :param \**kwargs: The supplied keyword arguments

@@ -24,7 +24,7 @@ def delete_region(request, *args, **kwargs):
     are manually removed.
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param \*args: The supplied arguments
     :type \*args: list

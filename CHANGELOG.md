@@ -1,6 +1,20 @@
 UNRELEASED
 ----------
 
+* [ [#1759](https://github.com/digitalfabrik/integreat-cms/issues/1759) ] Add line break between images in PDF exports
+* [ [#1537](https://github.com/digitalfabrik/integreat-cms/issues/1537) ] Fix broken inline icons in PDF exports
+* [ [#951](https://github.com/digitalfabrik/integreat-cms/issues/951) ] Add possibility to create categories for POIs
+* [ [#1742](https://github.com/digitalfabrik/integreat-cms/issues/1742) ] Add last modified date to media sidebar
+* [ [#1703](https://github.com/digitalfabrik/integreat-cms/issues/1703) ] Remove pending account activation warning when user form is submitted with errors
+* [ [#1684](https://github.com/digitalfabrik/integreat-cms/issues/1684) ] Set filesize limit for uploads to 3MB
+* [ [#1000](https://github.com/digitalfabrik/integreat-cms/issues/1000) ] Auto-complete address and coordinates of locations
+* [ [#1434](https://github.com/digitalfabrik/integreat-cms/issues/1434) ] Add display of HIX values to nudge users to write easier texts
+* [ [#1770](https://github.com/digitalfabrik/integreat-cms/issues/1770) ] Fix error in SUMM.AI translation if paragraph contains only special characters
+* [ [#1710](https://github.com/digitalfabrik/integreat-cms/issues/1710) ] Add spacing to sidebar to improve view on small screens
+* [ [#1526](https://github.com/digitalfabrik/integreat-cms/issues/1526)] Fix sending push notifications in one language
+* [ [#1630](https://github.com/digitalfabrik/integreat-cms/issues/1630)] Fix not recognized sent status of push notifications
+* [ [#1683](https://github.com/digitalfabrik/integreat-cms/issues/1683) ] Improve organization management
+
 
 2022.10.0
 ---------

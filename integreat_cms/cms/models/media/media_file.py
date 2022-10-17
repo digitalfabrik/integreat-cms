@@ -14,7 +14,7 @@ from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import filesizeformat
-
+from django.core.exceptions import ValidationError
 
 from ...constants import allowed_media
 from ..abstract_base_model import AbstractBaseModel
@@ -97,6 +97,24 @@ def upload_path_thumbnail(instance, filename):
     return path
 
 
+def file_size_limit(value):
+    """
+    This function checks if the uploaded file exceeds the file size limit
+
+    :param value: the size of upload file
+    :type value: int
+
+    :raises ~django.core.exceptions.ValidationError: when the file size exceeds the size given in the settings.
+
+    """
+    if value.size > settings.MEDIA_MAX_UPLOAD_SIZE:
+        raise ValidationError(
+            _("File too large. Size should not exceed {}.").format(
+                filesizeformat(settings.MEDIA_MAX_UPLOAD_SIZE)
+            )
+        )
+
+
 class MediaFile(AbstractBaseModel):
     """
     The MediaFile model is used to store basic information about files which are uploaded to the CMS. This is only a
@@ -106,11 +124,13 @@ class MediaFile(AbstractBaseModel):
 
     file = models.FileField(
         upload_to=upload_path,
+        validators=[file_size_limit],
         verbose_name=_("file"),
         max_length=512,
     )
     thumbnail = models.FileField(
         upload_to=upload_path_thumbnail,
+        validators=[file_size_limit],
         verbose_name=_("thumbnail file"),
         max_length=512,
     )
@@ -195,6 +215,7 @@ class MediaFile(AbstractBaseModel):
             "url": self.url,
             "fileSize": filesizeformat(self.file_size),
             "uploadedDate": localize(timezone.localtime(self.uploaded_date)),
+            "lastModified": localize(timezone.localtime(self.last_modified)),
             "isGlobal": not self.region,
         }
 

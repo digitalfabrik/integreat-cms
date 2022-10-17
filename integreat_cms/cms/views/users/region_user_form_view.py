@@ -30,7 +30,7 @@ class RegionUserFormView(TemplateView):
         Render :class:`~integreat_cms.cms.forms.users.user_form.UserForm` for region users
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -68,7 +68,7 @@ class RegionUserFormView(TemplateView):
         object for region users
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -125,9 +125,6 @@ class RegionUserFormView(TemplateView):
                 region_slug=region.slug,
                 user_id=region_user_form.instance.id,
             )
-
-        if not region_user_form.instance.is_active:
-            messages.info(request, _("Pending account activation"))
 
         return render(
             request,

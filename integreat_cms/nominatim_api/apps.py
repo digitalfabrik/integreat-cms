@@ -1,11 +1,9 @@
 """
 Configuration of Nominatim API app
 """
-import os
-import sys
 import logging
 
-from django.apps import AppConfig
+from django.apps import apps, AppConfig
 from django.conf import settings
 
 from .nominatim_api_client import NominatimApiClient
@@ -25,7 +23,7 @@ class NominatimApiConfig(AppConfig):
         Checking if API is available
         """
         # Only check availability if running a server
-        if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
+        if apps.get_app_config("cms").test_external_apis:
             # If Nominatim API is enabled, check availability
             if settings.NOMINATIM_API_ENABLED:
                 NominatimApiClient().check_availability()

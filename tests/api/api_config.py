@@ -59,6 +59,24 @@ API_ENDPOINTS = [
         404,
     ),
     (
+        "/api/augsburg/de/location-categories/",
+        "/augsburg/de/wp-json/extensions/v3/location-categories/",
+        "tests/api/expected-outputs/augsburg_de_location_categories.json",
+        200,
+    ),
+    (
+        "/api/augsburg/en/location-categories/",
+        "/augsburg/en/wp-json/extensions/v3/location-categories/",
+        "tests/api/expected-outputs/augsburg_en_location_categories.json",
+        200,
+    ),
+    (
+        "/api/augsburg/ar/location-categories/",
+        "/augsburg/ar/wp-json/extensions/v3/location-categories/",
+        "tests/api/expected-outputs/augsburg_ar_location_categories.json",
+        200,
+    ),
+    (
         "/api/augsburg/de/children/",
         "/augsburg/de/wp-json/extensions/v3/children/",
         "tests/api/expected-outputs/augsburg_de_children.json",

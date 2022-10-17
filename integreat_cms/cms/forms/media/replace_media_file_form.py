@@ -1,12 +1,12 @@
 import logging
 import os
-from datetime import datetime
 
 
 import magic
 
 from django import forms
 from django.conf import settings
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 
 from ...constants import allowed_media
@@ -112,7 +112,7 @@ class ReplaceMediaFileForm(CustomModelForm):
         # Add the calculated file_size to the form data
         if cleaned_data.get("file"):
             cleaned_data["file_size"] = cleaned_data.get("file").size
-        cleaned_data["last_modified"] = datetime.now()
+        cleaned_data["last_modified"] = timezone.now()
 
         logger.debug(
             "ReplaceMediaFileForm validated [2] with cleaned data %r", cleaned_data

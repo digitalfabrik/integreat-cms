@@ -39,7 +39,7 @@ class GeneratePdfView(PageBulkActionMixin, BulkActionView):
         Apply the bulk action on every item in the queryset and redirect
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -75,7 +75,7 @@ class ExportXliffView(PageBulkActionMixin, BulkActionView):
         The pages get extracted from request.GET attribute and the request is forwarded to :func:`~integreat_cms.xliff.utils.pages_to_xliff_file`
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list
@@ -137,7 +137,7 @@ class ExportMultiLanguageXliffView(PageBulkActionMixin, BulkActionView):
         The pages get extracted from request.GET attribute and the request is forwarded to :func:`~integreat_cms.xliff.utils.pages_to_xliff_file`
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :param \*args: The supplied arguments
         :type \*args: list

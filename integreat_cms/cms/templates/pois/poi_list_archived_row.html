@@ -55,18 +55,24 @@
             {{ poi.country }}
         </a>
     </td>
+    <td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
+            {% trans 'No category assigned' as no_category_text %}
+            {% firstof poi.category no_category_text %}
+        </a>
+    </td>
     <td class="pl-2 pr-4 py-3 text-right min flex flex-nowrap gap-2">
         <button title="{% trans 'Restore location' %}" class="confirmation-button btn-icon"
             data-confirmation-title="{{ restore_dialog_title }}"
             data-confirmation-text="{{ restore_dialog_text }}"
             data-confirmation-subject="{{ poi_translation.title }}"
             data-action="{% url 'restore_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
-            <i data-feather="refresh-ccw"></i>
+            <i icon-name="refresh-ccw"></i>
         </button>
         {% if perms.cms.delete_poi %}
             {% if poi.events.exists %}
                 <button title="{% trans 'You cannot delete a location which is used by an event.' %}&#013;{% trans 'This also involves archived events.' %}" class="btn-icon" disabled>
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% else %}
                 <button title="{% trans 'Delete location' %}" class="confirmation-button btn-icon"
@@ -74,7 +80,7 @@
                     data-confirmation-text="{{ delete_dialog_text }}"
                     data-confirmation-subject="{{ poi_translation.title }}"
                     data-action="{% url 'delete_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
-                    <i data-feather="trash-2"></i>
+                    <i icon-name="trash-2"></i>
                 </button>
             {% endif %}
         {% endif %}

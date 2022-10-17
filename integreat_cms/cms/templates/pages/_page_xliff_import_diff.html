@@ -34,12 +34,12 @@
             {% trans 'deleted user' as deleted_user_text %}
             <div>
                 <label class="block font-bold text-lg">{% trans 'Last updated' %}:</label>
-                <i data-feather="calendar"></i> {{ diff.existing.last_updated }} {% trans 'by' %}
-                <i data-feather="user"></i> {% firstof diff.existing.creator deleted_user_text %}
+                <i icon-name="calendar"></i> {{ diff.existing.last_updated }} {% trans 'by' %}
+                <i icon-name="user"></i> {% firstof diff.existing.creator deleted_user_text %}
             </div>
             <div>
                 <label class="block font-bold text-lg">{% trans 'Versions' %}:</label>
-                <i data-feather="clock"></i>
+                <i icon-name="clock"></i>
                 <a href="{% url 'page_revisions' page_id=diff.existing.page.id region_slug=diff.existing.page.region.slug language_slug=diff.existing.language.slug %}"
                    class="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
                     {% trans 'Show previous versions' %} ({{ diff.existing.version }})
@@ -52,7 +52,7 @@
                 <li class="xliff-show-preview-diff mr-1 z-10" style="margin-bottom: -2px">
                     <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
                         <div class="border-b-2 border-white p-4">
-                            <i data-feather="layout"></i>
+                            <i icon-name="layout"></i>
                             {% trans 'Preview' %}
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                 <li class="xliff-show-source-code-diff cursor-pointer mr-1" style="margin-bottom: -2px">
                     <div class="bg-white text-blue-500 hover:bg-blue-500 hover:text-white border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
                         <div class="border-b-2 border-white">
-                            <div class="p-4"><i data-feather="code"></i> {% trans 'Source Code' %}</div>
+                            <div class="p-4"><i icon-name="code"></i> {% trans 'Source Code' %}</div>
                         </div>
                     </div>
                 </li>

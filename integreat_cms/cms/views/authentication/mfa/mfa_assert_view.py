@@ -27,7 +27,7 @@ class MfaAssertView(View):
         """
 
         :param request: The current request
-        :type request: ~django.http.HttpResponse
+        :type request: ~django.http.HttpRequest
 
         :return: The mfa challenge as JSON
         :rtype: ~django.http.JsonResponse

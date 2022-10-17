@@ -24,7 +24,7 @@
                 {% spaceless %}
                     {% for other_language in languages %}
                         <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=other_language.slug %}">
-                            <i data-feather="{% if other_language in push_notification.languages %}edit-2{% else %}plus{% endif %}" class="text-gray-800"></i>
+                            <i icon-name="{% if other_language in push_notification.languages %}edit-2{% else %}plus{% endif %}" class="text-gray-800"></i>
                         </a>
                     {% endfor %}
                 {% endspaceless %}
@@ -36,9 +36,9 @@
     </td>
     <td class="px-2 whitespace-nowrap">
         {% if push_notification.sent_date %}
-            <i data-feather="check" class="text-green-500 align-text-top"></i> {{ push_notification.sent_date }}
+            <i icon-name="check" class="text-green-500 align-text-top"></i> {{ push_notification.sent_date }}
         {% else %}
-            <i data-feather="x" class="text-red-500 align-text-top"></i> {% trans 'Message not sent yet' %}
+            <i icon-name="x" class="text-red-500 align-text-top"></i> {% trans 'Message not sent yet' %}
         {% endif %}
     </td>
 </tr>

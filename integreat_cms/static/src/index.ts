@@ -4,7 +4,6 @@ import "regenerator-runtime/runtime";
 import "whatwg-fetch"; // IE11: fetch
 require("element-closest").default(window); // IE11: Element.closest
 
-import feather from 'feather-icons';
 import "./css/style.scss";
 
 import "./js/auto-file-download.ts";
@@ -61,6 +60,8 @@ import "./js/user/user-creation-workflow.ts";
 import "./js/user/user-roles.ts";
 import "./js/user/organization.ts";
 
+import { create_icons_at } from "./js/utils/create-icons";
+
 import "./js/charCounter.ts";
 
 import "./js/media-management/index.tsx";
@@ -73,8 +74,10 @@ import "./js/tutorial-overlay.ts";
 
 import "./js/unsaved-warning";
 
-window.addEventListener('load',() => {
-    feather.replace({ class: 'inline-block' });
-    const event = new Event("icon-load");
-    window.dispatchEvent(event);
+import "./js/pois/poi-actions.ts"
+
+window.addEventListener('DOMContentLoaded', () => {
+  create_icons_at(document.documentElement);
+  const event = new Event("icon-load");
+  window.dispatchEvent(event);
 })

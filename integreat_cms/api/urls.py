@@ -28,6 +28,7 @@ from .v3.pages import (
     push_page_translation_content,
 )
 from .v3.pdf_export import pdf_export
+from .v3.location_categories import location_categories
 from .v3.push_notifications import sent_push_notifications
 from .v3.regions import regions, liveregions, hiddenregions
 from .v3.offers import offers
@@ -39,6 +40,7 @@ app_name = "api"
 content_api_urlpatterns = [
     path("pages/", pages, name="pages"),
     path("locations/", locations, name="locations"),
+    path("location-categories/", location_categories, name="location_categories"),
     path("events/", events, name="events"),
     path("page/", single_page, name="single_page"),
     path("post/", single_page, name="single_page"),

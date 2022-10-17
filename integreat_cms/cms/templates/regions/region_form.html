@@ -26,7 +26,7 @@
     <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
         <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="p-4 rounded bg-water-500">
-                <h3 class="heading font-bold text-black"><i data-feather="map" class="mr-2"></i> {% trans 'General Settings' %}</h3>
+                <h3 class="heading font-bold text-black"><i icon-name="map" class="mr-2"></i> {% trans 'General Settings' %}</h3>
             </div>
             <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                 <div>
@@ -75,7 +75,7 @@
         </div>
         <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
             <div class="p-4 rounded bg-water-500">
-                <h3 class="heading font-bold text-black"><i data-feather="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
+                <h3 class="heading font-bold text-black"><i icon-name="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
             </div>
             <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
                 <div>
@@ -101,7 +101,7 @@
                                     <a href="https://www.openstreetmap.org/?mlat={{ form.instance.latitude }}&mlon={{ form.instance.longitude }}"
                                     class="text-blue-500 hover:underline"
                                     target="_blank" rel="noopener noreferrer">
-                                        <i data-feather="map" class="mr-2"></i>
+                                        <i icon-name="map" class="mr-2"></i>
                                         {% trans 'Preview on map' %}
                                     </a>
                                 </label>
@@ -127,7 +127,7 @@
                                     <a href="https://www.openstreetmap.org/?minlon={{ form.instance.longitude_min }}&minlat={{ form.instance.latitude_min }}&maxlon={{ form.instance.longitude_max }}&maxlat={{ form.instance.latitude_max }}&box=yes"
                                     class="text-blue-500 hover:underline"
                                     target="_blank" rel="noopener noreferrer">
-                                        <i data-feather="map" class="mr-2"></i>
+                                        <i icon-name="map" class="mr-2"></i>
                                         {% trans 'Preview on map' %}
                                     </a>
                                 </label>
@@ -161,7 +161,7 @@
         <div class="grid gap-4">
             <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
-                    <h3 class="heading font-bold text-black"><i data-feather="star" class="mr-2"></i> {% trans 'Features' %}</h3>
+                    <h3 class="heading font-bold text-black"><i icon-name="star" class="mr-2"></i> {% trans 'Features' %}</h3>
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
                     <div>
@@ -194,6 +194,17 @@
                         {% endif %}
                     </div>
                     <div>
+                        <!-- Options related to HIX text analysis -->
+                        {% render_field form.hix_enabled %}
+                        <label for="{{ form.hix_enabled.id_for_label }}">{{ form.hix_enabled.label }}</label>
+                        <div class="help-text">{{ form.hix_enabled.help_text }}</div>
+                        {% if form.hix_enabled.field.disabled %}
+                            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-3" role="alert">
+                                <p>{% trans 'Currently HIX is globally deactivated' %}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
                         <!-- Options related to tunews -->
                         {% render_field form.tunews_enabled %}
                         <label for="{{ form.tunews_enabled.id_for_label }}">{{ form.tunews_enabled.label }}</label>
@@ -218,6 +229,7 @@
                         <div class="help-text">{{ form.page_permissions_enabled.help_text }}</div>
                     </div>
                     <div>
+                        <!-- Options related to URL conventions -->
                         {% render_field form.short_urls_enabled %}
                         <label for="{{ form.short_urls_enabled.id_for_label }}">{{ form.short_urls_enabled.label }}</label>
                         <div class="help-text">{{ form.short_urls_enabled.help_text }}</div>
@@ -245,7 +257,7 @@
             </div>
             <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
-                    <h3 class="heading font-bold text-black"><i data-feather="image" class="mr-2"></i> {{ form.icon.label }}</h3>
+                    <h3 class="heading font-bold text-black"><i icon-name="image" class="mr-2"></i> {{ form.icon.label }}</h3>
                 </div>
                 <div class="p-4">
                     {% render_field form.icon label=form.icon.label %}
@@ -254,7 +266,7 @@
             {% if not form.instance.id %}
             <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
-                    <h3 class="heading font-bold text-black"><i data-feather="copy" class="mr-2"></i> {% trans 'Duplicate content of another region' %}</h3>
+                    <h3 class="heading font-bold text-black"><i icon-name="copy" class="mr-2"></i> {% trans 'Duplicate content of another region' %}</h3>
                 </div>
                 <div class="px-4 pb-4">
                     <label for="{{ form.duplicated_region.id_for_label }}">{% trans 'Copy languages, pages and media from another region' %}</label>
@@ -271,7 +283,7 @@
                     data-confirmation-text="{% trans 'This can not be reversed.' %} {% trans 'All pages, events and locations of this region will also be deleted.' %} {% trans 'Users, who only have access to this region, will be removed as well.' %}"
                     data-confirmation-subject="{{ form.name.value }}"
                     data-action="{% url 'delete_region' slug=form.instance.slug %}">
-                <i data-feather="trash-2"></i>
+                <i icon-name="trash-2"></i>
                 {% trans 'Delete this region' %}
             </button>
         </div>

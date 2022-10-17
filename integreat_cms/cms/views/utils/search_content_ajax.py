@@ -49,7 +49,7 @@ def search_content_ajax(request, region_slug=None, language_slug=None):
     higher than results which only match through their text content.
 
     :param request: The current request
-    :type request: ~django.http.HttpResponse
+    :type request: ~django.http.HttpRequest
 
     :param region_slug: The slug of the current region
     :type region_slug: str

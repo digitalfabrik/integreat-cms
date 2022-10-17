@@ -40,29 +40,29 @@
                     <div id="translation-icon">
                         {% if other_status == translation_status.IN_TRANSLATION %}
                             <span title="{% trans 'Currently in translation' %}">
-                                <i data-feather="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                <i icon-name="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
                         {% elif other_status == translation_status.OUTDATED %}
                             <span title="{% trans 'Translation outdated' %}">
-                                <i data-feather="alert-triangle" class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
+                                <i icon-name="alert-triangle" class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
                         {% elif other_status == translation_status.UP_TO_DATE %}
                             <span title="{% trans 'Translation up-to-date' %}">
-                                <i data-feather="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
+                                <i icon-name="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
                         {% elif other_status == translation_status.FALLBACK %}
                             <span title="{% trans 'Default language is duplicated' %}">
-                                <i data-feather="copy" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                <i icon-name="copy" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
                         {% elif other_status == translation_status.MISSING %}
                             <span title="{% trans 'Translation missing' %}" class="no-trans">
-                                <i data-feather="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
+                                <i icon-name="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
                             </span>
                         {% endif %}
                     </div>
                     <div id="ajax-icon" class="hidden">
                         <span title="{% trans 'Currently in translation' %}">
-                            <i data-feather="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                            <i icon-name="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                         </span>
                     </div>
                 </a>
@@ -75,33 +75,33 @@
     <td class="py-3 pr-2">
         {% if event.location %}
             {% get_language LANGUAGE_CODE as current_language %}
-            <i data-feather="map-pin"></i> {{ event.location|poi_translation_title:current_language }}
+            <i icon-name="map-pin"></i> {{ event.location|poi_translation_title:current_language }}
         {% else %}
             {% trans 'Not specified' %}
         {% endif %}
     </td>
     <td class="py-3 pr-2">
-        <span class="whitespace-nowrap"><i data-feather="calendar"></i> {{ event.start_local|date:'d.m.Y' }}</span>{% if not event.is_all_day %} <span class="whitespace-nowrap"><i data-feather="clock"></i> {{ event.start_local|date:'H:i' }}</span>{% endif %}
+        <span class="whitespace-nowrap"><i icon-name="calendar"></i> {{ event.start_local|date:'d.m.Y' }}</span>{% if not event.is_all_day %} <span class="whitespace-nowrap"><i icon-name="clock"></i> {{ event.start_local|date:'H:i' }}</span>{% endif %}
     </td>
     <td class="py-3 pr-2">
-        <span class="whitespace-nowrap"><i data-feather="calendar"></i> {{ event.end_local|date:'d.m.Y' }}</span>{% if not event.is_all_day %} <span class="whitespace-nowrap"><i data-feather="clock"></i> {{ event.end_local|date:'H:i' }}</span>{% endif %}
+        <span class="whitespace-nowrap"><i icon-name="calendar"></i> {{ event.end_local|date:'d.m.Y' }}</span>{% if not event.is_all_day %} <span class="whitespace-nowrap"><i icon-name="clock"></i> {{ event.end_local|date:'H:i' }}</span>{% endif %}
     </td>
     <td class="py-3 pr-2 whitespace-nowrap">
         {% if event.recurrence_rule %}
-            <i data-feather="repeat"></i> {{ event.recurrence_rule.get_frequency_display }}
+            <i icon-name="repeat"></i> {{ event.recurrence_rule.get_frequency_display }}
         {% else %}
-            <i data-feather="calendar"></i> {% trans 'One-time' %}
+            <i icon-name="calendar"></i> {% trans 'One-time' %}
         {% endif %}
     </td>
     <td class="pr-4 py-3 flex flex-nowrap justify-end gap-2">
         {% if event_translation.status == PUBLIC %}
             <a href="{{ WEBAPP_URL }}{{ event_translation.get_absolute_url }}"
             rel="noopener noreferrer" target="_blank" title="{% trans 'Open event in web app' %}" class="btn-icon">
-                <i data-feather="external-link"></i>
+                <i icon-name="external-link"></i>
             </a>
         {% else %}
             <button title="{% trans 'This event cannot be opened in the web app, because it is not public.' %}" class="btn-icon" disabled>
-                <i data-feather="external-link"></i>
+                <i icon-name="external-link"></i>
             </button>
         {% endif %}
         {% has_perm 'cms.change_event' request.user as can_edit_event %}
@@ -109,7 +109,7 @@
             <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}" method="post">
                 {% csrf_token %}
                 <button class="btn-icon" title="{% trans 'Copy event' %}">
-                    <i data-feather="copy"></i>
+                    <i icon-name="copy"></i>
                 </button>
             </form>
             <button title="{% trans 'Archive event' %}" class="confirmation-button btn-icon"
@@ -117,7 +117,7 @@
                 data-confirmation-text="{{ archive_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}"
                 data-action="{% url 'archive_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
-                <i data-feather="archive"></i>
+                <i icon-name="archive"></i>
             </button>
         {% endif %}
         {% if perms.cms.delete_event %}
@@ -126,7 +126,7 @@
                 data-confirmation-text="{{ delete_dialog_text }}"
                 data-confirmation-subject="{{ event_translation.title }}"
                 data-action="{% url 'delete_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
-                <i data-feather="trash-2"></i>
+                <i icon-name="trash-2"></i>
             </button>
         {% endif %}
     </td>

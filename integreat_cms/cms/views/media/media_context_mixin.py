@@ -60,6 +60,7 @@ class MediaContextMixin(ContextMixin):
                 "label_data_type": _("File format:"),
                 "label_file_size": _("File size:"),
                 "label_file_uploaded": _("File uploaded on:"),
+                "label_file_modified": _("File modified on:"),
                 "label_directory_created": _("Directory created on:"),
                 "label_alt_text": _("Alternative text:"),
                 "text_enter_directory_name": _("Enter directory name here"),

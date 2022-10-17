@@ -1,4 +1,4 @@
-import feather from "feather-icons";
+import { create_icons_at } from "../utils/create-icons";
 import { refreshAjaxConfirmationHandlers } from "../confirmation-popups";
 import { deleteChatMessage } from "./delete-chat-message";
 /**
@@ -53,7 +53,7 @@ async function sendChatMessage(event: Event) {
       // Clear input field
       chatForm.reset();
       // Trigger icon replacement
-      feather.replace({ class: 'inline-block' });
+      create_icons_at(chatHistory);
 
       refreshAjaxConfirmationHandlers(".button-delete-chat-message", deleteChatMessage);
     } else {

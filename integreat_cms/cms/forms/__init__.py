@@ -57,3 +57,8 @@ from .users.user_password_form import UserPasswordForm
 from .users.password_reset_form import CustomPasswordResetForm
 
 from .object_search_form import ObjectSearchForm
+
+from .poi_categories.poi_category_translation_form import (
+    POICategoryTranslationForm,
+    poi_category_translation_formset_factory,
+)
