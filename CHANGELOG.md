@@ -8,6 +8,7 @@ UNRELEASED
 * [ [#1684](https://github.com/digitalfabrik/integreat-cms/issues/1684) ] Set filesize limit for uploads to 3MB
 * [ [#1000](https://github.com/digitalfabrik/integreat-cms/issues/1000) ] Auto-complete address and coordinates of locations
 * [ [#1434](https://github.com/digitalfabrik/integreat-cms/issues/1434) ] Add display of HIX values to nudge users to write easier texts
+* [ [#1770](https://github.com/digitalfabrik/integreat-cms/issues/1770) ] Fix error in SUMM.AI translation if paragraph contains only special characters
 
 
 2022.10.0
