@@ -109,13 +109,15 @@ class HTMLSegment(TextField):
         :param translated_text: The translated text
         :type translated_text: str
         """
-        # Split the text by newlines characters
-        lines = translated_text.splitlines()
-        # Take the first line as initial text
-        self.segment.text = lines[0]
-        # If there are more than one line returned, insert <br> tags
-        for line in lines[1:]:
-            SubElement(self.segment, "br").tail = line
+        # Only do something if response was not empty (otherwise keep original text)
+        if translated_text:
+            # Split the text by newlines characters
+            lines = translated_text.splitlines()
+            # Take the first line as initial text
+            self.segment.text = lines[0]
+            # If there are more than one line returned, insert <br> tags
+            for line in lines[1:]:
+                SubElement(self.segment, "br").tail = line
 
 
 # pylint: disable=too-few-public-methods
