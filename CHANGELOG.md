@@ -9,6 +9,7 @@ UNRELEASED
 * [ [#1749](https://github.com/digitalfabrik/integreat-cms/issues/1749) ] Fix region deletion error if media library has nested structure
 * [ [#1170](https://github.com/digitalfabrik/integreat-cms/issues/1170) ] Add map preview on POI form
 * [ [#1579](https://github.com/digitalfabrik/integreat-cms/issues/1579) ] Fix auto-filling of coordinates for multiple street numbers
+* [ [#1767](https://github.com/digitalfabrik/integreat-cms/issues/1767) ] Revert statistics calculation to original & add online downloads column
 
 
 2022.10.1
