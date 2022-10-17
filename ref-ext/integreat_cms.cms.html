@@ -481,6 +481,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#push-notification-sender">Push Notification Sender</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#text-utils">Text Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#translation-utils">Translation Utils</a></li>
@@ -790,6 +791,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.push_notification_sender">Push Notification Sender</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.text_utils">Text Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.translation_utils">Translation Utils</a></li>
@@ -2616,6 +2618,18 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.link_callback"><code class="docutils literal notranslate"><span class="pre">link_callback()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.push_notification_sender">Push Notification Sender</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.push_notification_sender.PushNotificationSender"><code class="docutils literal notranslate"><span class="pre">PushNotificationSender</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.push_notification_sender.PushNotificationSender.__init__"><code class="docutils literal notranslate"><span class="pre">PushNotificationSender.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.push_notification_sender.PushNotificationSender.fcm_url"><code class="docutils literal notranslate"><span class="pre">PushNotificationSender.fcm_url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.push_notification_sender.PushNotificationSender.is_valid"><code class="docutils literal notranslate"><span class="pre">PushNotificationSender.is_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.push_notification_sender.PushNotificationSender.load_secondary_pnts"><code class="docutils literal notranslate"><span class="pre">PushNotificationSender.load_secondary_pnts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.push_notification_sender.PushNotificationSender.send_all"><code class="docutils literal notranslate"><span class="pre">PushNotificationSender.send_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.push_notification_sender.PushNotificationSender.send_pn"><code class="docutils literal notranslate"><span class="pre">PushNotificationSender.send_pn()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.slug_utils">Slug Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.slug_utils.generate_unique_slug"><code class="docutils literal notranslate"><span class="pre">generate_unique_slug()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper"><code class="docutils literal notranslate"><span class="pre">generate_unique_slug_helper()</span></code></a></li>
@@ -2951,10 +2965,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#module-integreat_cms.cms.views.push_notifications.push_notification_list_view">Push Notification List View</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView"><code class="docutils literal notranslate"><span class="pre">PushNotificationListView</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#module-integreat_cms.cms.views.push_notifications.push_notification_sender">Push Notification Sender</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_sender.PushNotificationSender"><code class="docutils literal notranslate"><span class="pre">PushNotificationSender</span></code></a></li>
 </ul>
 </li>
 </ul>
