@@ -11,6 +11,7 @@ module.exports = {
     editor: "./integreat_cms/static/src/editor.ts", // This contains resources required for the editor UI
     editor_content: "./integreat_cms/static/src/editor_content.ts", // This contains resources for the editor content iframe
     pdf: "./integreat_cms/static/src/pdf.ts",
+    map: "./integreat_cms/static/src/map.ts",
   },
   output: {
     filename: "[name].[contenthash].js",
