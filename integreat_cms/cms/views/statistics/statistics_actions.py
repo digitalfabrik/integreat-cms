@@ -1,6 +1,7 @@
 """
 This module contains view actions related to pages.
 """
+import asyncio
 import logging
 
 from datetime import date, timedelta
@@ -44,6 +45,10 @@ def get_total_visits_ajax(request, region_slug):
             start_date=start_date, end_date=end_date
         )
         return JsonResponse(result)
+    except asyncio.TimeoutError:
+        return JsonResponse(
+            {"error": "Timeout during request to Matomo API"}, status=504
+        )
     except MatomoException as e:
         logger.exception(e)
         return JsonResponse(
@@ -89,6 +94,10 @@ def get_visits_per_language_ajax(request, region_slug):
             period=statistics_form.cleaned_data["period"],
         )
         return JsonResponse(result, safe=False)
+    except asyncio.TimeoutError:
+        return JsonResponse(
+            {"error": "Timeout during request to Matomo API"}, status=504
+        )
     except MatomoException as e:
         logger.exception(e)
         return JsonResponse(
