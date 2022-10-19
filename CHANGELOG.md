@@ -8,6 +8,7 @@ UNRELEASED
 * [ [#1777](https://github.com/digitalfabrik/integreat-cms/issues/1777) ] Fix autocompleting POI address for non-staff users
 * [ [#1749](https://github.com/digitalfabrik/integreat-cms/issues/1749) ] Fix region deletion error if media library has nested structure
 * [ [#1170](https://github.com/digitalfabrik/integreat-cms/issues/1170) ] Add map preview on POI form
+* [ [#1579](https://github.com/digitalfabrik/integreat-cms/issues/1579) ] Fix auto-filling of coordinates for multiple street numbers
 
 
 2022.10.1

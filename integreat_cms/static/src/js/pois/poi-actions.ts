@@ -93,7 +93,7 @@ async function autoCompleteAddress() {
 function updateField(fieldName: string, value: string) {
   let field = document.getElementById(`id_${fieldName}`) as HTMLInputElement;
   // Only fill value if it was changed
-  if (field.value != value) {
+  if (value && field.value != value) {
     field.value = value;
     field.classList.add("!border-green-500");
     // Reset green border after 5 seconds
