@@ -5,6 +5,7 @@ UNRELEASED
 2022.10.1
 ---------
 
+* [ [#1350](https://github.com/digitalfabrik/integreat-cms/issues/1350) ] Fix ListItem styling in PDF exports
 * [ [#1759](https://github.com/digitalfabrik/integreat-cms/issues/1759) ] Add line break between images in PDF exports
 * [ [#1537](https://github.com/digitalfabrik/integreat-cms/issues/1537) ] Fix broken inline icons in PDF exports
 * [ [#951](https://github.com/digitalfabrik/integreat-cms/issues/951) ] Add possibility to create categories for POIs
