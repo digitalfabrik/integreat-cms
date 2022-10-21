@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1350](https://github.com/digitalfabrik/integreat-cms/issues/1350) ] Various small PDF export improvements
+
 
 2022.10.1
 ---------
