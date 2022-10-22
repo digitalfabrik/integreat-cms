@@ -18,6 +18,16 @@ If you want to apply the code without committing, use our developer tool :github
     ./dev-tools/black.sh
 
 
+Prettier
+--------
+
+We use `prettier <https://prettier.io/>`_ to format our static JS and CSS files.
+
+If you want to apply the formatting in the correct directory, use our developer tool :github-source:`dev-tools/prettier.sh`::
+
+    ./dev-tools/prettier.sh
+
+
 .. _pylint:
 
 Linting
