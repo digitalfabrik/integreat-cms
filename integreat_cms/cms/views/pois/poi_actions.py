@@ -180,12 +180,16 @@ def view_poi(request, poi_id, region_slug, language_slug):
 @json_response
 @require_POST
 @permission_required("cms.view_poi")
-def auto_complete_address(request):
+# pylint: disable=unused-argument
+def auto_complete_address(request, region_slug):
     """
     Autocomplete location address and coordinates
 
     :param request: The current request
     :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
 
     :raises ~django.http.Http404: If no location was found for the given address
 

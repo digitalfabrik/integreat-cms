@@ -158,7 +158,7 @@
                         <div>
                             <label>{% trans 'Position' %}</label>
                             <div>
-                                <input type="checkbox" id="auto-fill-coordinates" data-url="{% url 'auto_complete_poi_address' %}" checked>
+                                <input type="checkbox" id="auto-fill-coordinates" data-url="{% url 'auto_complete_poi_address' region_slug=request.region.slug %}" checked>
                                 <label for="auto-fill-coordinates" class="secondary !inline">
                                     {% trans 'Derive coordinates automatically from address' %}
                                 </label>
