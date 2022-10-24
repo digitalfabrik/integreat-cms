@@ -445,6 +445,9 @@ workflows:
           context: codeclimate
           requires:
             - test
+          filters:
+            branches:
+              only: /^(?!pull\/).*$/ 
       - check-translations:
           requires:
             - pipenv-install
