@@ -152,6 +152,21 @@
                     <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
                         {% trans 'Archive pages' %}
                     </option>
+                    {% if DEEPL_ENABLED %}
+                        {% if language == request.region.default_language %}
+                            <option disabled title="{% trans 'You cannot translate into the default language' %}">
+                                {% trans 'Create missing translations automatically' %}
+                            </option>
+                        {% elif DEEPL_AVAILABLE %}
+                            <option data-bulk-action="{% url 'automatic_translation_events' region_slug=request.region.slug language_slug=language.slug %}">
+                                {% trans 'Create missing translations automatically' %}
+                            </option>
+                        {% else %}
+                            <option disabled title="{% trans 'This language is not supported by DeepL' %}">
+                                {% trans 'Create missing translations automatically' %}
+                            </option>
+                        {% endif %}
+                    {% endif %}
                     {% if SUMM_AI_ENABLED %}
                         <option  data-bulk-action="{% url 'auto_translate_easy_german_pages' region_slug=request.region.slug language_slug=language.slug %}">
                             {% trans 'Automatically translate this page into Easy German' %}

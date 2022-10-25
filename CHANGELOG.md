@@ -4,6 +4,7 @@ UNRELEASED
 * [ [#1350](https://github.com/digitalfabrik/integreat-cms/issues/1350) ] Various small PDF export improvements
 * [ [#1777](https://github.com/digitalfabrik/integreat-cms/issues/1777) ] Fix autocompleting POI address for non-staff users
 * [ [#1749](https://github.com/digitalfabrik/integreat-cms/issues/1749) ] Fix region deletion error if media library has nested structure
+* [ [#1727](https://github.com/digitalfabrik/integreat-cms/issues/1727) ] Enable DeepL for pages
 
 
 2022.10.1

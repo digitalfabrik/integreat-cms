@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
+from ....deepl_api.utils import DeepLApi
 from ...decorators import permission_required
 from ...forms import PageFilterForm
 from ..mixins import SummAiContextMixin
@@ -107,6 +108,14 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
 
+        # DeepL available
+
+        if settings.DEEPL_ENABLED:
+            deepl = DeepLApi()
+            DEEPL_AVAILABLE = deepl.check_availability(request, language_slug)
+        else:
+            DEEPL_AVAILABLE = False
+
         return render(
             request,
             self.template_name,
@@ -117,5 +126,6 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
                 "languages": region.active_languages,
                 "filter_form": filter_form,
                 "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
+                "DEEPL_AVAILABLE": DEEPL_AVAILABLE,
             },
         )

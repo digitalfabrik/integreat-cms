@@ -775,6 +775,14 @@ urlpatterns = [
                                             name="bulk_restore_pages",
                                         ),
                                         path(
+                                            "auto-translate/",
+                                            bulk_action_views.BulkAutoTranslateView.as_view(
+                                                model=Page,
+                                                form=PageTranslationForm,
+                                            ),
+                                            name="auto_translate_pages",
+                                        ),
+                                        path(
                                             "auto-translate-easy-german/",
                                             bulk_action_views.BulkActionEasyGermanView.as_view(
                                                 model=Page,
