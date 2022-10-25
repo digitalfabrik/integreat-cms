@@ -40,6 +40,7 @@ jobs:
   black:
     docker:
       - image: cimg/python:3.9
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -50,7 +51,6 @@ jobs:
   pylint:
     docker:
       - image: cimg/python:3.9
-    resource_class: xlarge
     steps:
       - checkout
       - attach_workspace:
@@ -61,6 +61,7 @@ jobs:
   check-translations:
     docker:
       - image: cimg/python:3.9
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -131,6 +132,7 @@ jobs:
           POSTGRES_USER: integreat
           POSTGRES_DB: integreat
           POSTGRES_PASSWORD: password
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -141,6 +143,7 @@ jobs:
   setup-test-reporter:
     docker:
       - image: cimg/base:stable
+    resource_class: small
     steps:
       - attach_workspace:
           at: .
@@ -165,7 +168,6 @@ jobs:
           POSTGRES_DB: integreat
           POSTGRES_PASSWORD: password
     parallelism: 16
-    resource_class: large
     steps:
       - checkout
       - attach_workspace:
@@ -191,6 +193,7 @@ jobs:
   upload-test-coverage:
     docker:
       - image: cimg/base:stable
+    resource_class: small
     steps:
       - attach_workspace:
           at: .
@@ -251,6 +254,7 @@ jobs:
   deploy-documentation:
     docker:
       - image: cimg/python:3.9
+    resource_class: small
     environment:
       BRANCH: gh-pages
       DOC_DIR: docs
@@ -294,6 +298,7 @@ jobs:
   bump-dev-version:
     docker:
       - image: cimg/python:3.9
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -325,6 +330,7 @@ jobs:
   bump-version:
     docker:
       - image: cimg/python:3.9
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -372,6 +378,7 @@ jobs:
   create-release:
     docker:
       - image: cimg/python:3.9
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -392,6 +399,7 @@ jobs:
   notify-mattermost:
     docker:
       - image: cimg/base:stable
+    resource_class: small
     steps:
       - checkout
       - run:
