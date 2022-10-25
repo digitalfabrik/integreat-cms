@@ -42,10 +42,9 @@ def enable_summ_api(region_slug):
     :param region_slug: The slug of the region in which we want to enable SUMM.AI
     :type region_slug: str
     """
-    # Enable SUMM.AI in the test region
-    region = Region.objects.get(slug=region_slug)
-    region.summ_ai_enabled = True
-    region.save()
+    # Enable SUMM.AI in the test region without changing last_updated field
+    # to prevent race conditions with other tests
+    Region.objects.filter(slug=region_slug).update(summ_ai_enabled=True)
 
 
 @sync_to_async
