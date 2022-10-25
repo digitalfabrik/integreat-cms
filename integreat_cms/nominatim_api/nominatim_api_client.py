@@ -37,6 +37,7 @@ class NominatimApiClient:
                 domain=nominatim_url.netloc + nominatim_url.path,
                 scheme=nominatim_url.scheme,
                 user_agent=f"integreat-cms/{__version__} ({settings.HOSTNAME})",
+                timeout=settings.DEFAULT_REQUEST_TIMEOUT,
             )
         except GeopyError as e:
             logger.exception(e)
