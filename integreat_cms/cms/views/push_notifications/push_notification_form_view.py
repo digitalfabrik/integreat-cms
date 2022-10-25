@@ -11,7 +11,10 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...utils.push_notification_sender import PushNotificationSender
+
+from ....push_notification_sender_api.push_notification_sender import (
+    PushNotificationSenderApi,
+)
 from ...decorators import permission_required
 from ...forms import (
     PushNotificationForm,
@@ -242,7 +245,7 @@ class PushNotificationFormView(TemplateView):
                     )
                     raise PermissionDenied
                 try:
-                    push_sender = PushNotificationSender(pn_form.instance)
+                    push_sender = PushNotificationSenderApi(pn_form.instance)
                     if not push_sender.is_valid():
                         messages.error(
                             request,

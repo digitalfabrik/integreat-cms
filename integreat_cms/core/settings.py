@@ -145,6 +145,18 @@ GVZ_API_ENABLED = True
 #: (see :mod:`~integreat_cms.gvz_api` for more information).
 GVZ_API_URL = "https://gvz.integreat-app.de"
 
+###########
+# PUSH_NOTIFICATION_SENDER API #
+###########
+
+#: Whether or not the PushNotificationSender API is enabled. This is used to automatically import coordinates and
+#: region aliases (see :mod:`~integreat_cms.push_notification_sender_api` for more information).
+PUSH_NOTIFICATION_SENDER_API_ENABLED = True
+
+#: The URL to our PushNotificationSender  API. This is used to automatically import coordinates and region aliases
+#: (see :mod:`~integreat_cms.push_notification_sender_api` for more information).
+PUSH_NOTIFICATION_SENDER_API_URL = "https://push_notification_sender.integreat-app.de"
+
 
 #################
 # Nominatim API #
