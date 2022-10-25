@@ -113,33 +113,39 @@
                     {% trans "My Dashboard" %}
                 </a>
                 <!-- Analytics Section -->
-                <div class="min-h-3 pl-2">
-                    <p class="font-bold">{% trans "Analytics" %}</p>
-                </div>
-                {% if request.region.statistics_enabled %}
-                    <a href="{% url 'statistics' region_slug=request.region.slug %}"
-                       class="{% if current_menu_item == 'statistics' %} active{% endif %}">
-                        <i icon-name="trending-up"></i>
-                        {% trans "Statistics" %}
-                    </a>
+                {% if request.region.statistics_enabled and perms.cms.view_statistics or perms.cms.view_translation_report or perms.cms.view_feedback or perms.cms.view_broken_links %}
+                    <div class="min-h-3 pl-2">
+                        <p class="font-bold">{% trans "Analytics" %}</p>
+                    </div>
+                    {% if request.region.statistics_enabled and perms.cms.view_statistics %}
+                        <a href="{% url 'statistics' region_slug=request.region.slug %}"
+                           class="{% if current_menu_item == 'statistics' %} active{% endif %}">
+                            <i icon-name="trending-up"></i>
+                            {% trans "Statistics" %}
+                        </a>
+                    {% endif %}
+                    {% if perms.cms.view_translation_report %}
+                        <a href="{% url 'translation_coverage' region_slug=request.region.slug %}"
+                           class="{% if current_menu_item == 'translation_coverage' %} active{% endif %}">
+                            <i icon-name="check-circle"></i>
+                            {% trans "Translation Report" %}
+                        </a>
+                    {% endif %}
+                    {% if perms.cms.view_feedback %}
+                        <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
+                           class="{% if current_menu_item == 'region_feedback' %} active{% endif %}">
+                            <i icon-name="thumbs-up"></i>
+                            {% trans "Feedback" %}
+                        </a>
+                    {% endif %}
+                    {% if perms.cms.view_broken_links %}
+                        <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}"
+                           class="{% if current_menu_item == 'linkcheck' %} active{% endif %}">
+                            <i icon-name="link"></i>
+                            {% trans "Broken Links" %}
+                        </a>
+                    {% endif %}
                 {% endif %}
-                <a href="{% url 'translation_coverage' region_slug=request.region.slug %}"
-                   class="{% if current_menu_item == 'translation_coverage' %} active{% endif %}">
-                    <i icon-name="check-circle"></i>
-                    {% trans "Translation Report" %}
-                </a>
-                {% if perms.cms.view_feedback %}
-                    <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
-                       class="{% if current_menu_item == 'region_feedback' %} active{% endif %}">
-                        <i icon-name="thumbs-up"></i>
-                        {% trans "Feedback" %}
-                    </a>
-                {% endif %}
-                <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}"
-                   class="{% if current_menu_item == 'linkcheck' %} active{% endif %}">
-                    <i icon-name="link"></i>
-                    {% trans "Broken Links" %}
-                </a>
                 <!-- Content Section -->
                 <div class="min-h-3 pl-2">
                     <p class="font-bold">{% trans "Content" %}</p>

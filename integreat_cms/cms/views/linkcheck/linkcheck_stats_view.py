@@ -2,12 +2,15 @@ import logging
 
 from django.views.generic import View
 from django.http import JsonResponse
+from django.utils.decorators import method_decorator
+from ...decorators import permission_required
 
 from ...utils.linkcheck_utils import get_url_count
 
 logger = logging.getLogger(__name__)
 
 
+@method_decorator(permission_required("cms.view_broken_links"), name="dispatch")
 class LinkcheckStatsView(View):
     """
     Return the linkcheck counter stats

@@ -2,6 +2,8 @@ import logging
 from collections import Counter
 
 from django.views.generic import TemplateView
+from django.utils.decorators import method_decorator
+from ...decorators import permission_required
 
 from ...constants.translation_status import (
     CHOICES,
@@ -15,6 +17,7 @@ from ...constants.translation_status import (
 logger = logging.getLogger(__name__)
 
 
+@method_decorator(permission_required("cms.view_translation_report"), name="dispatch")
 class TranslationCoverageView(TemplateView):
     """
     View to calculate and show the translation coverage statistics (up to date translations, missing translation, etc)
