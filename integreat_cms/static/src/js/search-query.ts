@@ -6,12 +6,7 @@ window.addEventListener("load", () => {
     }
 });
 
-async function queryObjects(
-    url: string,
-    type: String,
-    queryString: string,
-    archived: boolean,
-) {
+async function queryObjects(url: string, type: String, queryString: string, archived: boolean) {
     if (queryString.trim().length == 0) {
         document.getElementById("table-search-suggestions").classList.add("hidden");
         return;
@@ -40,7 +35,7 @@ async function queryObjects(
     suggestion_list.classList.remove("hidden");
 
     if (data) {
-        // Set and display new data        
+        // Set and display new data
         for (const value of data.data) {
             let child = document.createElement("li");
             child.classList.add(
@@ -69,38 +64,35 @@ export function setSearchQueryEventListeners() {
     let table_search_input = document.getElementById("table-search-input") as HTMLInputElement;
 
     // AJAX search
-    table_search_input
-        .addEventListener("keyup", (event) => {
-            event.preventDefault();
+    table_search_input.addEventListener("keyup", (event) => {
+        event.preventDefault();
 
-            // Reschedule function execution on new input
-            if (scheduledFunction != null) {
-                window.clearTimeout(scheduledFunction);
-            }
-            // Schedule function execution
-            scheduledFunction = window.setTimeout(
-                queryObjects,
-                300,
-                table_search_input.getAttribute("data-url"),
-                table_search_input.getAttribute("data-object-type"),
-                table_search_input.value,
-                table_search_input.getAttribute("data-archived") == "true"
-            );
-        });
+        // Reschedule function execution on new input
+        if (scheduledFunction != null) {
+            window.clearTimeout(scheduledFunction);
+        }
+        // Schedule function execution
+        scheduledFunction = window.setTimeout(
+            queryObjects,
+            300,
+            table_search_input.getAttribute("data-url"),
+            table_search_input.getAttribute("data-object-type"),
+            table_search_input.value,
+            table_search_input.getAttribute("data-archived") == "true"
+        );
+    });
 
     let table_search = document.getElementById("table-search");
 
-    table_search
-        .addEventListener("focusout", (event) => {
-            let search_suggestion = document.getElementById("table-search-suggestions");
-            search_suggestion.classList.add("hidden");
-        });
+    table_search.addEventListener("focusout", (event) => {
+        let search_suggestion = document.getElementById("table-search-suggestions");
+        search_suggestion.classList.add("hidden");
+    });
 
-    table_search
-        .addEventListener("focusin", (event) => {
-            let search_suggestion = document.getElementById("table-search-suggestions");
-            search_suggestion.classList.remove("hidden");
-        });
+    table_search.addEventListener("focusin", (event) => {
+        let search_suggestion = document.getElementById("table-search-suggestions");
+        search_suggestion.classList.remove("hidden");
+    });
 
     document.getElementById("table-search-suggestions").addEventListener("mousedown", ({ target }) => {
         let table_search_input = document.getElementById("table-search-input") as HTMLInputElement;
@@ -112,7 +104,7 @@ export function setSearchQueryEventListeners() {
         table_search_input.value = (target as HTMLElement).textContent;
         // Submit the search
         document.getElementById("search-submit-btn").click();
-    })
+    });
 
     // Reset the search
     document.getElementById("search-reset-btn")?.addEventListener("click", (event) => {

@@ -20,7 +20,7 @@ function selectXliffFile({ target }: Event) {
     let label = document.querySelector("#xliff_file_label");
     label.classList.remove("bg-blue-500", "hover:bg-blue-600");
     label.classList.add("bg-gray-500", "hover:bg-gray-600");
-    label.textContent = files[0].name
+    label.textContent = files[0].name;
     if (files.length > 1) {
         // Get translated text for "and {} other files"
         let label_multiple = document.querySelector("#xliff_file_label_multiple");

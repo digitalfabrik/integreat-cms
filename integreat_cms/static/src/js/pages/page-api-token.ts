@@ -7,9 +7,8 @@ import { copyToClipboard } from "../copy-clipboard";
 // Set event handler
 window.addEventListener("load", () => {
     document.getElementById("id_enable_api_token")?.addEventListener("change", setApiToken);
-    document.getElementById("copy-api-token")?.addEventListener("click", copyApiToken)
+    document.getElementById("copy-api-token")?.addEventListener("click", copyApiToken);
 });
-
 
 /**
  * Generate a UUID and set as API token
@@ -20,7 +19,7 @@ function setApiToken({ target }: Event) {
     let checkBox = target as HTMLInputElement;
     let text = document.getElementById("id_api_token") as HTMLInputElement;
     let apiTokenContainer = document.getElementById("api-token-container") as HTMLInputElement;
-    if (checkBox.checked){
+    if (checkBox.checked) {
         text.value = self.crypto.randomUUID();
         apiTokenContainer.classList.remove("hidden");
     } else {
@@ -45,7 +44,7 @@ function copyApiToken(event: Event) {
     copyButton.classList.add("hidden");
     successBox.classList.remove("hidden");
     // Revert button after 3 seconds
-    setTimeout(function() {
+    setTimeout(function () {
         successBox.classList.add("hidden");
         copyButton.classList.remove("hidden");
     }, 3 * 1000);
