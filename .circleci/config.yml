@@ -49,6 +49,17 @@ jobs:
       - run:
           name: Check black code style
           command: pipenv run black --check .
+  djlint:
+    docker:
+      - image: cimg/python:3.9.14
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Check formatting of Django templates
+          command: pipenv run djlint --check --quiet --profile django --lint integreat_cms
   pylint:
     docker:
       - image: cimg/python:3.9.14
@@ -522,6 +533,9 @@ workflows:
           requires:
             - build-dev-package
       - black:
+          requires:
+            - pipenv-install
+      - djlint:
           requires:
             - pipenv-install
       - pylint:

@@ -1,50 +1,49 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% block content %}
-{% load static %}
-<div class="table-header">
-    <div class="flex flex-wrap justify-between">
-        <h1 class="heading">{% trans 'Manage Languages' %}</h1>
-        {% if perms.cms.change_language %}
-            <a href="{% url 'new_language' %}" class="btn">
-                {% trans 'Create language' %}
-            </a>
-        {% endif %}
+    {% load static %}
+    <div class="table-header">
+        <div class="flex flex-wrap justify-between">
+            <h1 class="heading">{% trans "Manage Languages" %}</h1>
+            {% if perms.cms.change_language %}
+                <a href="{% url 'new_language' %}" class="btn">{% trans "Create language" %}</a>
+            {% endif %}
+        </div>
     </div>
-</div>
-
-<div class="table-listing">
-    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
-        <thead>
-            <tr class="border-b border-solid border-gray-200">
-                {% get_current_language as LANGUAGE_CODE %}
-                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans 'Name in' %} {{ LANGUAGE_CODE|language_name_local }}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Native name' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Slug' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'BCP47 Tag' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Country Flags' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Text direction' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Created' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Last updated' %}</th>
-                <th class="text-sm text-right uppercase py-3 pr-2" title="{% trans 'Number of regions where this language is used' %}">{% trans 'Number of regions' %}</th>
-                <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">{% trans 'Options' %}</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for language in languages %}
-            {% include "languages/language_list_row.html" %}
-        {% empty %}
-            <tr>
-                <td colspan="6" class="px-2 py-3">
-                    {% trans 'No languages available yet.' %}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% url "languages" as url %}
-{% include "pagination.html" with chunk=page_obj %}
-
-{% include "../generic_confirmation_dialog.html" %}
-{% endblock %}
+    <div class="table-listing">
+        <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <thead>
+                <tr class="border-b border-solid border-gray-200">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                        {% trans "Name in" %} {{ LANGUAGE_CODE|language_name_local }}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Native name" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Slug" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "BCP47 Tag" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Country Flags" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Text direction" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Created" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Last updated" %}</th>
+                    <th class="text-sm text-right uppercase py-3 pr-2"
+                        title="{% trans "Number of regions where this language is used" %}">
+                        {% trans "Number of regions" %}
+                    </th>
+                    <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">{% trans "Options" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for language in languages %}
+                    {% include "languages/language_list_row.html" %}
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-2 py-3">{% trans "No languages available yet." %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% url "languages" as url %}
+    {% include "pagination.html" with chunk=page_obj %}
+    {% include "../generic_confirmation_dialog.html" %}
+{% endblock content %}

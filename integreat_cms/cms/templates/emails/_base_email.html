@@ -1,10 +1,11 @@
 {% load i18n %}
-
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <style>
+{% get_current_language as LANGUAGE_CODE %}
+{# djlint:off H016,H030,H031 #}
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta charset="utf-8" />
+        <style>
         #content {
             font-family:sans-serif;
             text-align:justify;
@@ -22,26 +23,26 @@
         #logo {
             padding-top: 1rem;
         }
-        #logo img {
-            height:75px;
-        }
-    </style>
-</head>
-<body>
-    <div id="content">
-        {% block content %}{% endblock content %}
-        <br>
-        <br>
-        {% trans 'Best regards' %},
-        <br>
-        {% blocktrans trimmed %}
+        </style>
+    </head>
+    <body>
+        <div id="content">
+            {% block content %}
+            {% endblock content %}
+            <br />
+            <br />
+            {% trans "Best regards" %},
+            <br />
+            {% blocktrans trimmed %}
         Your {{ BRANDING }} team of {{ COMPANY }}
         {% endblocktrans %}
-        <br>
-        <div id="logo">
-            <a href="{{ base_url }}">
-                <img src='cid:logo' alt="">
-            </a>
+            <br />
+            <div id="logo">
+                <a href="{{ base_url }}">
+                    <img src="cid:logo" alt="" height="75px"/>
+                </a>
+            </div>
         </div>
-    </div>
-</body>
+    </body>
+</html>
+{# djlint:on #}

@@ -2,21 +2,30 @@
 {% load i18n %}
 {% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, user-scalable=no" />
-    <title>{{ BRANDING|title }} {% trans 'Editorial System' %}</title>
-    <link rel="shortcut icon" type="image/png" href="{% static 'logos/'|add:BRANDING|add:'/'|add:BRANDING|add:'-icon.svg' %}">
-
-    {% render_bundle 'main' 'js' %}
-    {% render_bundle 'main' 'css' %}
-
-    {% block javascript_head %}{% endblock %}
-</head>
-<body class="font-default">
-    {% block raw_content %}{% endblock raw_content %}
-    {% block javascript %}{% endblock %}
-</body>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, user-scalable=no"/>
+        <meta name="description"
+              content="This content management system helps local integration experts to provide multilingual information for newcomers."/>
+        <meta name="keywords"
+              content="integreat, newcomers, refugees, e-government, content-management-system"/>
+        <title>{{ BRANDING|title }} {% trans "Editorial System" %}</title>
+        <link rel="shortcut icon"
+              type="image/png"
+              href="{% static 'logos/'|add:BRANDING|add:'/'|add:BRANDING|add:'-icon.svg' %}"/>
+        {% render_bundle 'main' 'js' %}
+        {% render_bundle 'main' 'css' %}
+        {% block javascript_head %}
+        {% endblock javascript_head %}
+    </head>
+    <body class="font-default">
+        {% block raw_content %}
+        {% endblock raw_content %}
+        {% block javascript %}
+        {% endblock javascript %}
+    </body>
 </html>

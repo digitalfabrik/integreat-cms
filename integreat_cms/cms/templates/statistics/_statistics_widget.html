@@ -1,28 +1,35 @@
 {% extends "_collapsible_box.html" %}
-
 {% load i18n %}
 {% load static %}
-
 {% block collapsible_box_icon %}
     trending-up
-{% endblock %}
-
+{% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
-    {% trans 'Statistics' %}
-{% endblock %}
-
+    {% trans "Statistics" %}
+{% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
-        <p class="py-3">{% trans 'Number of online accesses over the last 14 days.' %}</p>
-        <a href="{% url 'statistics' region_slug=request.region.slug %}" id="statistics_details" class="btn">
+        <p class="py-3">{% trans "Number of online accesses over the last 14 days." %}</p>
+        <a href="{% url 'statistics' region_slug=request.region.slug %}"
+           id="statistics_details"
+           class="btn">
             {% trans "Details" %}
         </a>
     </div>
     <div class="p-3 w-full text-center">
-        <div id="chart-network-error" class="text-red-500 px-4 hidden"><i icon-name="alert-triangle"></i> {% trans 'A network error has occurred.' %} {% trans 'Please try again later.' %}</div>
-        <div id="chart-heavy-traffic-error" class="text-red-500 px-4 hidden"><i icon-name="alert-triangle"></i> {% trans 'The statistics network is currently experiencing heavy traffic.' %} {% trans 'Please try again later.' %}</div>
-        <div id="chart-server-error" class="text-red-500 px-4 hidden"><i icon-name="alert-triangle"></i> {% trans 'A server error has occurred.' %} {% trans 'Please contact the administrator.' %}</div>
-        <div id="chart-loading" class="px-4 hidden"><i icon-name="loader" class="animate-spin"></i> {% trans 'Loading...' %}</div>
-        <canvas id="statistics" data-statistics-url="{% url 'statistics_total_visits' region_slug=request.region.slug %}"></canvas>
+        <div id="chart-network-error" class="text-red-500 px-4 hidden">
+            <i icon-name="alert-triangle"></i> {% trans "A network error has occurred." %} {% trans "Please try again later." %}
+        </div>
+        <div id="chart-heavy-traffic-error" class="text-red-500 px-4 hidden">
+            <i icon-name="alert-triangle"></i> {% trans "The statistics network is currently experiencing heavy traffic." %} {% trans "Please try again later." %}
+        </div>
+        <div id="chart-server-error" class="text-red-500 px-4 hidden">
+            <i icon-name="alert-triangle"></i> {% trans "A server error has occurred." %} {% trans "Please contact the administrator." %}
+        </div>
+        <div id="chart-loading" class="px-4 hidden">
+            <i icon-name="loader" class="animate-spin"></i> {% trans "Loading..." %}
+        </div>
+        <canvas id="statistics"
+                data-statistics-url="{% url 'statistics_total_visits' region_slug=request.region.slug %}"></canvas>
     </div>
-{% endblock %}
+{% endblock collapsible_box_content %}

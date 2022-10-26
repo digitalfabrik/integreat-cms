@@ -13,7 +13,7 @@
                rel="noopener noreferrer"
                class="relative px-2 pt-4 text-gray-800 hover:bg-gray-200 border-r border-gray-400">
                 <i icon-name="sliders"></i>
-                {% trans 'Django Admin' %}
+                {% trans "Django Admin" %}
             </a>
         {% endif %}
         <a href="{% url 'public:wiki_redirect' %}"
@@ -26,7 +26,7 @@
                  width="21"
                  height="21"
                  src="{% static 'logos/integreat/integreat-icon-flat.svg' %}"/>
-            {% trans 'Documentation (Wiki)' %}
+            {% trans "Documentation (Wiki)" %}
         </a>
         <div id="region-selector"
              class="relative flex flex-col justify-center px-2 cursor-pointer text-gray-800 hover:bg-gray-200 border-r border-gray-400">
@@ -41,7 +41,7 @@
                 {% else %}
                     <a href="{% url 'admin_dashboard' %}" class="block whitespace-nowrap">
                         <i icon-name="grid"></i>
-                        {% trans 'Network Management' %}
+                        {% trans "Network Management" %}
                         {% if request.region_selection or user.is_superuser or user.is_staff %}<i icon-name="chevron-down"></i>{% endif %}
                     </a>
                 {% endif %}
@@ -60,7 +60,7 @@
                         <a href="{% url 'admin_dashboard' %}"
                            class="block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-300 rounded-b">
                             <i icon-name="grid"></i>
-                            {% trans 'Network Management' %}
+                            {% trans "Network Management" %}
                         </a>
                     {% endif %}
                 {% endif %}
@@ -79,12 +79,12 @@
                 <a href="{% if request.region %}{% url 'user_settings' region_slug=request.region.slug %}{% else %}{% url 'user_settings' %}{% endif %}"
                    class="relative block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-400">
                     <i icon-name="settings"></i>
-                    {% trans 'User Settings' %}
+                    {% trans "User Settings" %}
                 </a>
                 <a href="{% url 'public:logout' %}"
                    class="relative block whitespace-nowrap px-4 py-3 text-gray-800 hover:bg-gray-400 rounded-b">
                     <i icon-name="log-out" class="text-red-500"></i>
-                    {% trans 'Log out' %}
+                    {% trans "Log out" %}
                 </a>
             </div>
         </div>
@@ -92,8 +92,9 @@
     <nav id="primary-navigation"
          class="w-56 h-full fixed left-0 inset-y-0 text-gray-200 bg-gray-700 z-50">
         <div class="w-full p-1 h-14 bg-gray-800">
-            <a href="/">
-                <div class="h-full w-full bg-{{ BRANDING }}-logo-white hover:bg-{{ BRANDING }}-logo-hover bg-contain bg-center bg-no-repeat"></div>
+            <a href="{% url 'public:region_selection' %}">
+                <div class="h-full w-full bg-{{ BRANDING }}-logo-white hover:bg-{{ BRANDING }}-logo-hover bg-contain bg-center bg-no-repeat">
+                </div>
             </a>
         </div>
         <div id="menu" class="pb-10 overflow-y-auto {{ BRANDING }}-branding">
@@ -101,56 +102,52 @@
                 <a href="{% url 'dashboard' region_slug=request.region.slug %}"
                    class="{% if current_menu_item == 'region_dashboard' %} active{% endif %}">
                     <i icon-name="grid"></i>
-                    {% trans 'My Dashboard' %}
+                    {% trans "My Dashboard" %}
                 </a>
                 <!-- Analytics Section -->
                 <div class="min-h-3 pl-2">
-                    <p class="font-bold">
-                        {% trans "Analytics" %}
-                    </p>
+                    <p class="font-bold">{% trans "Analytics" %}</p>
                 </div>
                 {% if request.region.statistics_enabled %}
                     <a href="{% url 'statistics' region_slug=request.region.slug %}"
                        class="{% if current_menu_item == 'statistics' %} active{% endif %}">
                         <i icon-name="trending-up"></i>
-                        {% trans 'Statistics' %}
+                        {% trans "Statistics" %}
                     </a>
                 {% endif %}
                 <a href="{% url 'translation_coverage' region_slug=request.region.slug %}"
-                class="{% if current_menu_item == 'translation_coverage' %} active{% endif %}">
+                   class="{% if current_menu_item == 'translation_coverage' %} active{% endif %}">
                     <i icon-name="check-circle"></i>
-                    {% trans 'Translation Report' %}
+                    {% trans "Translation Report" %}
                 </a>
                 {% if perms.cms.view_feedback %}
-                <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
-                   class="{% if current_menu_item == 'region_feedback' %} active{% endif %}">
-                    <i icon-name="thumbs-up"></i>
-                    {% trans 'Feedback' %}
-                </a>
+                    <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
+                       class="{% if current_menu_item == 'region_feedback' %} active{% endif %}">
+                        <i icon-name="thumbs-up"></i>
+                        {% trans "Feedback" %}
+                    </a>
                 {% endif %}
                 <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}"
-                class="{% if current_menu_item == 'linkcheck' %} active{% endif %}">
+                   class="{% if current_menu_item == 'linkcheck' %} active{% endif %}">
                     <i icon-name="link"></i>
-                    {% trans 'Broken Links' %}
+                    {% trans "Broken Links" %}
                 </a>
                 <!-- Content Section -->
                 <div class="min-h-3 pl-2">
-                    <p class="font-bold">
-                        {% trans "Content" %}
-                    </p>
+                    <p class="font-bold">{% trans "Content" %}</p>
                 </div>
                 {% if perms.cms.view_directory and perms.cms.view_mediafile %}
                     <a href="{% url 'media' region_slug=request.region.slug %}"
                        class="{% if current_menu_item == 'media' %} active{% endif %}">
                         <i icon-name='file'></i>
-                        {% trans 'Media Library' %}
+                        {% trans "Media Library" %}
                     </a>
                 {% endif %}
                 {% if perms.cms.view_page %}
                     <div class="{% if current_menu_item|in_list:'pages,new_page' %} active {% endif %}">
                         <a href="{% url 'pages' region_slug=request.region.slug %}">
                             <i icon-name="layout"></i>
-                            {% trans 'Pages' %}
+                            {% trans "Pages" %}
                         </a>
                     </div>
                 {% endif %}
@@ -158,7 +155,7 @@
                     <div class="{% if current_menu_item|in_list:'events,events_form' %} active {% endif %}">
                         <a href="{% url 'events' region_slug=request.region.slug %}">
                             <i icon-name="calendar"></i>
-                            {% trans 'Events' %}
+                            {% trans "Events" %}
                         </a>
                     </div>
                 {% endif %}
@@ -166,7 +163,7 @@
                     <div class="{% if current_menu_item|in_list:'pois,pois_form' %} active {% endif %}">
                         <a href="{% url 'pois' region_slug=request.region.slug %}">
                             <i icon-name="map-pin"></i>
-                            {% trans 'Locations' %}
+                            {% trans "Locations" %}
                         </a>
                     </div>
                 {% endif %}
@@ -174,7 +171,7 @@
                     <div class="{% if current_menu_item|in_list:'push_notifications,push_notifications_form' %} active {% endif %}">
                         <a href="{% url 'push_notifications' region_slug=request.region.slug %}">
                             <i icon-name="send"></i>
-                            {% trans 'News' %}
+                            {% trans "News" %}
                         </a>
                     </div>
                 {% endif %}
@@ -182,29 +179,27 @@
                     <a href="{% url 'edit_imprint' region_slug=request.region.slug %}"
                        class="{% if current_menu_item == 'imprint' %} active{% endif %}">
                         <i icon-name="file-text"></i>
-                        {% trans 'Imprint' %}
+                        {% trans "Imprint" %}
                     </a>
                 {% endif %}
                 {% if perms.cms.view_user or perms.cms.view_languagetreenode %}
                     <!-- Settings Section-->
                     <div class="min-h-3 pl-2">
-                        <p class="font-bold">
-                            {% trans "Settings" %}
-                        </p>
+                        <p class="font-bold">{% trans "Settings" %}</p>
                     </div>
                 {% endif %}
                 {% if perms.cms.view_organization %}
-                <a href="{% url 'organizations' region_slug=request.region.slug %}"
-                   class="{% if current_menu_item == 'organizations' %} active{% endif %}">
-                    <i icon-name="umbrella"></i>
-                    {% trans 'Organizations' %}
-                </a>
+                    <a href="{% url 'organizations' region_slug=request.region.slug %}"
+                       class="{% if current_menu_item == 'organizations' %} active{% endif %}">
+                        <i icon-name="umbrella"></i>
+                        {% trans "Organizations" %}
+                    </a>
                 {% endif %}
                 {% if perms.cms.view_user %}
                     <div class="{% if current_menu_item|in_list:'region_users,region_user_form' %} active {% endif %}">
                         <a href="{% url 'region_users' region_slug=request.region.slug %}">
                             <i icon-name="users"></i>
-                            {% trans 'Users' %}
+                            {% trans "Users" %}
                         </a>
                     </div>
                 {% endif %}
@@ -212,41 +207,41 @@
                     <a href="{% url 'languagetreenodes' region_slug=request.region.slug %}"
                        class="{% if current_menu_item|in_list:'languagetreenodes,language_tree_form' %} active {% endif %}">
                         <i icon-name="flag"></i>
-                        {% trans 'Language Tree' %}
+                        {% trans "Language Tree" %}
                     </a>
                 {% endif %}
             {% else %}
                 <a href="{% url 'admin_dashboard' %}"
                    class="{% if current_menu_item == 'admin_dashboard' %} active{% endif %}">
                     <i icon-name="grid"></i>
-                    {% trans 'Admin Dashboard' %}
+                    {% trans "Admin Dashboard" %}
                 </a>
                 {% if perms.cms.view_region %}
                     <a href="{% url 'regions' %}"
                        class="{% if current_menu_item == 'regions' %} active{% endif %}">
                         <i icon-name="map"></i>
-                        {% trans 'Regions' %}
+                        {% trans "Regions" %}
                     </a>
                 {% endif %}
                 {% if perms.cms.view_directory and perms.cms.view_mediafile %}
                     <a href="{% url 'media_admin' %}"
                        class="{% if current_menu_item == 'media' %} active{% endif %}">
                         <i icon-name='file'></i>
-                        {% trans 'Media Library' %}
+                        {% trans "Media Library" %}
                     </a>
                 {% endif %}
                 {% if perms.cms.view_language %}
                     <a href="{% url 'languages' %}"
                        class="{% if current_menu_item == 'languages' %} active{% endif %}">
                         <i icon-name="flag"></i>
-                        {% trans 'Languages' %}
+                        {% trans "Languages" %}
                     </a>
                 {% endif %}
                 {% if perms.cms.view_user %}
                     <div class="{% if current_menu_item|in_list:'users,user_form' %} active {% endif %}">
                         <a href="{% url 'users' %}">
                             <i icon-name="users"></i>
-                            {% trans 'Users' %}
+                            {% trans "Users" %}
                         </a>
                     </div>
                 {% endif %}
@@ -254,33 +249,33 @@
                     <a href="{% url 'roles' %}"
                        class="{% if current_menu_item == 'roles' %} active{% endif %}">
                         <i icon-name="key"></i>
-                        {% trans 'Roles' %}
+                        {% trans "Roles" %}
                     </a>
                 {% endif %}
                 {% if perms.cms.view_offer_template %}
                     <a href="{% url 'offertemplates' %}"
                        class="{% if current_menu_item == 'offertemplates' %} active{% endif %}">
                         <i icon-name="star"></i>
-                        {% trans 'Offer Templates' %}
+                        {% trans "Offer Templates" %}
                     </a>
                 {% endif %}
                 {% if perms.cms.view_feedback %}
                     <a href="{% url 'admin_feedback' %}"
                        class="{% if current_menu_item == 'admin_feedback' %} active{% endif %}">
                         <i icon-name="thumbs-up"></i>
-                        {% trans 'Feedback' %}
+                        {% trans "Feedback" %}
                     </a>
                 {% endif %}
                 {% if perms.cms.view_poicategory %}
                     <a href="{% url 'poicategories' %}"
                        class="{% if current_menu_item == 'poicategories' %} active{% endif %}">
                         <i icon-name="tag"></i>
-                        {% trans 'Location Categories' %}
+                        {% trans "Location Categories" %}
                     </a>
                 {% endif %}
             {% endif %}
         </div>
-        <div class="p-2 text-center absolute inset-x-0 bottom-0 bg-gray-600">{% trans 'Version' %}: {{ version }}</div>
+        <div class="p-2 text-center absolute inset-x-0 bottom-0 bg-gray-600">{% trans "Version" %}: {{ version }}</div>
     </nav>
     <main class="relative min-h-screen flex pl-56 pt-14 bg-gray-100">
         <div class="flex-1 min-w-0 p-6">

@@ -14,6 +14,10 @@ repos:
       - id: prettier
         files: integreat_cms/static/src
         args: [--print-width=120, --tab-width=4]
+  - repo: https://github.com/Riverside-Healthcare/djLint
+    rev: v1.19.1
+    hooks:
+      - id: djlint-django
   - repo: local
     hooks:
       - id: translations

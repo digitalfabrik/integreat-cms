@@ -1,6 +1,6 @@
 {% load i18n %}
 <!-- generic confirmation popup -->
-<!-- when button with necessary confirmation is triggered, 
+<!-- when button with necessary confirmation is triggered,
     html tags for title, text and subject are populated at runtime,
     their values will be set according to the buttons data- attributes
 -->
@@ -9,18 +9,17 @@
     <div class="content w-full rounded shadow-2xl bg-white">
         <div class="flex items-center font-bold rounded p-4 bg-water-500">
             <i icon-name="alert-triangle" class="text-red-500"></i>
-            <span class="uppercase pl-2">{% trans 'Warning' %}</span>
+            <span class="uppercase pl-2">{% trans "Warning" %}</span>
         </div>
         <div class="w-full p-4 rounded shadow">
             <h2 id="confirmation-title"></h2>
             <h3 id="confirmation-subject" class="text-center mt-4 mb-6 break-words"></h3>
-            <p id="confirmation-text" class="mt-4 mb-6">
-            </p>
+            <p id="confirmation-text" class="mt-4 mb-6"></p>
             <form method="post" action="#">
                 {% csrf_token %}
                 <div class="flex justify-end gap-2">
-                    <button id="close-confirmation-popup" class="btn btn-gray">{% trans 'Cancel' %}</button>
-                    <button class="btn">{% trans 'Confirm' %}</button>
+                    <button id="close-confirmation-popup" class="btn btn-gray">{% trans "Cancel" %}</button>
+                    <button class="btn">{% trans "Confirm" %}</button>
                 </div>
             </form>
         </div>

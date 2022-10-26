@@ -1,42 +1,35 @@
 {% extends "authentication/_base.html" %}
-
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
-
 {% block heading %}
-    {% trans 'Login' %}
-{% endblock %}
-
+    {% trans "Login" %}
+{% endblock heading %}
 {% block content %}
     <form method="post" class="flex flex-col">
         {% csrf_token %}
         {% if form.errors %}
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-4" role="alert">
-                <p>{% trans 'The username or the password is incorrect.' %} {% trans 'Please try again.' %}</p>
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-4"
+                 role="alert">
+                <p>{% trans "The username or the password is incorrect." %} {% trans "Please try again." %}</p>
             </div>
         {% endif %}
         <div class="mb-4">
-            <label for="{{ form.username.id_for_label }}">
-                {% trans 'Username or email address' %}
-            </label>
+            <label for="{{ form.username.id_for_label }}">{% trans "Username or email address" %}</label>
             {% blocktrans asvar username_placeholder %}Enter your username or email address here{% endblocktrans %}
             {% render_field form.username placeholder=username_placeholder %}
         </div>
         <div class="mb-4">
-            <label for="{{ form.password.id_for_label }}">
-                {{ form.password.label }}
-            </label>
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
             {% blocktrans asvar password_placeholder %}Enter your password here{% endblocktrans %}
             {% render_field form.password placeholder=password_placeholder %}
         </div>
-        <button class="btn">
-            {% trans 'Log in' %}
-        </button>
+        <button class="btn">{% trans "Log in" %}</button>
         <div class="text-right mt-4">
-            <a href="{% url 'public:password_reset' %}" class="text-right font-bold text-gray-600 hover:text-gray-200 hover:bg-gray-600 py-2 px-4 rounded">
-                <i icon-name="lock" class="align-top"></i> {% trans 'Forgot your password?' %}
+            <a href="{% url 'public:password_reset' %}"
+               class="text-right font-bold text-gray-600 hover:text-gray-200 hover:bg-gray-600 py-2 px-4 rounded">
+                <i icon-name="lock" class="align-top"></i> {% trans "Forgot your password?" %}
             </a>
         </div>
     </form>
-{% endblock %}
+{% endblock content %}
