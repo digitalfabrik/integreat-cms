@@ -91,7 +91,7 @@ jobs:
           root: .
           paths:
             - integreat_cms/locale/*/LC_MESSAGES/django.mo
-  webpack:
+  npm-install:
     docker:
       - image: 'cimg/node:lts'
     steps:
@@ -116,6 +116,28 @@ jobs:
           key: npm-{{ checksum "package-lock.json" }}-v2
           paths:
             - node_modules
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+  prettier:
+    docker:
+      - image: 'cimg/node:lts'
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Check formatting of CSS & JS files
+          command: npx prettier --print-width 120 --tab-width 4 --check integreat_cms/static/src
+  webpack:
+    docker:
+      - image: 'cimg/node:lts'
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Compile and bundle CSS and JS
           command: npm run prod
@@ -431,10 +453,16 @@ workflows:
           filters:
             branches:
               ignore: main
-      - webpack:
+      - npm-install:
           filters:
             branches:
               ignore: main
+      - prettier:
+          requires:
+            - npm-install
+      - webpack:
+          requires:
+            - npm-install
       - check-migrations:
           requires:
             - pipenv-install
@@ -455,7 +483,7 @@ workflows:
             - test
           filters:
             branches:
-              only: /^(?!pull\/).*$/ 
+              only: /^(?!pull\/).*$/
       - check-translations:
           requires:
             - pipenv-install
@@ -527,13 +555,20 @@ workflows:
               only: /.*/
             branches:
               ignore: /.*/
-      - webpack:
-          name: webpack-deploy
+      - npm-install:
+          name: npm-install-deploy
           filters:
             tags:
               only: /.*/
             branches:
               ignore: /.*/
+      - webpack:
+          name: webpack-deploy
+          requires:
+            - npm-install-deploy
+          filters:
+            tags:
+              only: /.*/
       - compile-translations:
           name: compile-translations-deploy
           requires:
