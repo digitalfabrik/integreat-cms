@@ -221,7 +221,9 @@ def auto_complete_address(request, region_slug):
     return JsonResponse(
         data={
             "postcode": address.get("postcode"),
-            "city": address.get("city"),
+            "city": address.get("city")
+            or address.get("town")
+            or address.get("village"),
             "country": address.get("country"),
             "longitude": result.longitude,
             "latitude": result.latitude,

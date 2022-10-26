@@ -15,6 +15,9 @@ window.addEventListener("load", () => {
       // Reset to initial value
       longitude.value = longitude.dataset.initial;
       latitude.value = latitude.dataset.initial;
+
+      longitude.dispatchEvent(new Event("focusout"));
+      latitude.dispatchEvent(new Event("focusout"));
     }
   });
 
@@ -79,6 +82,12 @@ async function autoCompleteAddress() {
     updateField("longitude", data.longitude);
     updateField("latitude", data.latitude);
   }
+
+  let longitude = document.getElementById("id_longitude") as HTMLInputElement;
+  let latitude = document.getElementById("id_latitude") as HTMLInputElement;
+  
+  longitude.dispatchEvent(new Event("focusout"));
+  latitude.dispatchEvent(new Event("focusout"));
 }
 
 function updateField(fieldName: string, value: string) {
