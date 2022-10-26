@@ -3,6 +3,8 @@ import logging
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
+from html import unescape
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
@@ -48,7 +50,7 @@ class TextlabClient:
 
         :raises urllib.error.HTTPError: if an http error occurred
         """
-        data = {"text": text, "locale_name": "de_DE"}
+        data = {"text": unescape(text), "locale_name": "de_DE"}
         path = "/benchmark/5"
         try:
             response = self.post_request(path, data, self.token)
@@ -76,7 +78,9 @@ class TextlabClient:
         :raises urllib.error.HTTPError: If the request failed
         """
         data = json.dumps(data).encode("utf-8")
-        request = Request(f"{settings.TEXTLAB_API_URL}{path}", data=data, method="POST")
+        request = Request(
+            f"{settings.TEXTLAB_API_URL.rstrip('/')}{path}", data=data, method="POST"
+        )
         if auth_token:
             request.add_header("authorization", f"Bearer {auth_token}")
         request.add_header("Content-Type", "application/json")
