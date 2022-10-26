@@ -6,6 +6,7 @@ jobs:
   pipenv-install:
     docker:
       - image: cimg/python:3.9.14
+    resource_class: small
     environment:
       PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -51,6 +52,7 @@ jobs:
   pylint:
     docker:
       - image: cimg/python:3.9.14
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -75,6 +77,7 @@ jobs:
   compile-translations:
     docker:
       - image: cimg/python:3.9.14
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -94,6 +97,7 @@ jobs:
   npm-install:
     docker:
       - image: 'cimg/node:lts'
+    resource_class: small
     steps:
       - checkout
       - restore_cache:
@@ -189,6 +193,7 @@ jobs:
           POSTGRES_USER: integreat
           POSTGRES_DB: integreat
           POSTGRES_PASSWORD: password
+    resource_class: small
     parallelism: 16
     steps:
       - checkout
@@ -231,6 +236,7 @@ jobs:
   build-package:
     docker:
       - image: cimg/python:3.9.14
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -251,6 +257,7 @@ jobs:
   publish-package:
     docker:
       - image: cimg/python:3.9.14
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
