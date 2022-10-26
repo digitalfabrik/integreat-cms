@@ -2,7 +2,6 @@
  * This file contains the dynamic handling for user roles
  */
 
-
 window.addEventListener("load", () => {
     const superuserCheckbox = document.getElementById("id_is_superuser") as HTMLInputElement;
     const staffCheckbox = document.getElementById("id_is_staff") as HTMLInputElement;
@@ -39,13 +38,13 @@ function updateRoleField(staffCheckbox: HTMLInputElement) {
     const showForStaff = Array.from(document.getElementsByClassName("show-for-staff"));
     const showForNonStaff = Array.from(document.getElementsByClassName("show-for-non-staff"));
     if (staffCheckbox.checked) {
-        showForNonStaff.forEach(element => element.classList.add("hidden"));
-        showForStaff.forEach(element => element.classList.remove("hidden"));
+        showForNonStaff.forEach((element) => element.classList.add("hidden"));
+        showForStaff.forEach((element) => element.classList.remove("hidden"));
         userRoles.value = "";
         userOrganization.value = "";
     } else {
-        showForStaff.forEach(element => element.classList.add("hidden"));
-        showForNonStaff.forEach(element => element.classList.remove("hidden"));
+        showForStaff.forEach((element) => element.classList.add("hidden"));
+        showForNonStaff.forEach((element) => element.classList.remove("hidden"));
         userStaffRoles.value = "";
     }
 }
