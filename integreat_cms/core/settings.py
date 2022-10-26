@@ -168,7 +168,9 @@ NOMINATIM_API_URL = os.environ.get(
 ###############
 
 #: URL to the Textlab API
-TEXTLAB_API_URL = "https://preview.text-lab.de/api"
+TEXTLAB_API_URL = os.environ.get(
+    "INTEGREAT_CMS_TEXTLAB_API_URL", "https://textlab.online/api/"
+)
 
 #: Key for the Textlab API
 TEXTLAB_API_KEY = os.environ.get("INTEGREAT_CMS_TEXTLAB_API_KEY")

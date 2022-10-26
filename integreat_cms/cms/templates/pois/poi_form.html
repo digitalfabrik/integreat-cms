@@ -158,7 +158,7 @@
                         <div>
                             <label>{% trans 'Position' %}</label>
                             <div>
-                                <input type="checkbox" id="auto-fill-coordinates" data-url="{% url 'auto_complete_poi_address' %}" checked>
+                                <input type="checkbox" id="auto-fill-coordinates" data-url="{% url 'auto_complete_poi_address' region_slug=request.region.slug %}" checked>
                                 <label for="auto-fill-coordinates" class="secondary !inline">
                                     {% trans 'Derive coordinates automatically from address' %}
                                 </label>
@@ -170,6 +170,13 @@
                             <label for="{{ poi_form.longitude.id_for_label }}" class="secondary">{{ poi_form.longitude.label }}</label>
                             {% render_field poi_form.longitude|add_error_class:"border-red-500" %}
                             <div class="help-text">{{ poi_form.longitude.help_text }}</div>
+                        </div>
+                        <div>
+                            <label>{% trans 'Map' %}</label>
+                            <div id="no_coordinates_alert" class="bg-blue-100 border-l-4 border-blue-500 text-blue-500 px-4 py-3 my-2 hidden" role="alert">
+                                {% trans 'Map preview will be available when coordinates are given.' %}
+                            </div>
+                            <div id='map' class="aspect-video"></div>
                         </div>
                     </div>
                 </div>
@@ -324,3 +331,7 @@
 {% block javascript %}
     {% render_bundle 'editor' 'js' %}
 {% endblock javascript %}
+{% block javascript_head %}
+    {% render_bundle 'map' 'js' %}
+    {% render_bundle 'map' 'css' %}
+{% endblock %}

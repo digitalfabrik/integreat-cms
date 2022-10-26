@@ -20,3 +20,6 @@ labels: feature
 ### Additional Context
 <!-- Add any other information or screenshots about the feature request here. -->
 
+
+### Design Requirements
+<!-- If the customization includes input from our design team, the detailed requirements will be collected here. Note: These will exist mainly in German to simplify internal communication. -->

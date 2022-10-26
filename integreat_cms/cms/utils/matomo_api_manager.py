@@ -209,7 +209,7 @@ class MatomoApiManager:
                 "labels": self.simplify_date_labels(dataset.keys(), period),
                 "datasets": [
                     {
-                        "label": _("All languages"),
+                        "label": _("Total Accesses"),
                         "borderColor": colors.DEFAULT,
                         "data": list(dataset.values()),
                     }
@@ -249,7 +249,7 @@ class MatomoApiManager:
                     self.fetch(
                         session,
                         **query_params,
-                        segment=f"pageUrl=@/{language.slug}/wp-json/;pageUrl!@/pages/",
+                        segment=f"pageUrl=@/{language.slug}/wp-json/extensions/v3/",
                     )
                 )
                 for language in languages
@@ -257,10 +257,24 @@ class MatomoApiManager:
             # Create separate task to gather offline download hits
             tasks.append(
                 loop.create_task(
-                    self.fetch(session, **query_params, segment="pageUrl=@/pages/"),
+                    self.fetch(
+                        session,
+                        **query_params,
+                        segment="pageUrl=@/wp-json/extensions/v3/pages/",
+                    ),
                 )
             )
-            # Create task for total visits in all languages
+            # Create separate task to gather WebApp download hits
+            tasks.append(
+                loop.create_task(
+                    self.fetch(
+                        session,
+                        **query_params,
+                        segment="pageUrl=@/wp-json/extensions/v3/children/",
+                    ),
+                )
+            )
+            # Create task for all downloads
             tasks.append(
                 loop.create_task(
                     self.fetch(
@@ -322,6 +336,8 @@ class MatomoApiManager:
         logger.debug("All asynchronous fetching tasks have finished.")
         # The last dataset contains the total visits
         total_visits = datasets.pop()
+        # Get the separately created datasets for webapp downloads
+        webapp_downloads = datasets.pop()
         # Get the separately created datasets for offline downloads
         offline_downloads = datasets.pop()
 
@@ -347,15 +363,23 @@ class MatomoApiManager:
                 # The dataset for offline downloads
                 + [
                     {
-                        "label": _("Offline Downloads"),
+                        "label": _("Offline Accesses"),
                         "borderColor": next(color_cycle),
                         "data": list(offline_downloads.values()),
+                    }
+                ]
+                # The dataset for online/web app downloads
+                + [
+                    {
+                        "label": _("WebApp Accesses"),
+                        "borderColor": next(color_cycle),
+                        "data": list(webapp_downloads.values()),
                     }
                 ]
                 # The dataset for total visits
                 + [
                     {
-                        "label": _("All languages"),
+                        "label": _("Total Accesses"),
                         "borderColor": colors.DEFAULT,
                         "data": list(total_visits.values()),
                     }

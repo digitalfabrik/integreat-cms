@@ -40,6 +40,8 @@ def delete_region(request, *args, **kwargs):
     # Remove hierarchy to prevent ProtectedError when children get deleted before their parents
     region.pages.update(parent=None)
     region.language_tree_nodes.update(parent=None)
+    region.media_directories.update(parent=None)
+    region.files.update(parent_directory=None)
     # Prevent ProtectedError when location gets deleted before their events
     region.events.update(location=None)
     # Delete region and cascade delete all contents

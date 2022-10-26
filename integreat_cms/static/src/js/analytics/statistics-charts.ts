@@ -85,12 +85,14 @@ async function updateChart(): Promise<void> {
   // Get HTML elements
   const chartNetworkError = document.getElementById("chart-network-error");
   const chartServerError = document.getElementById("chart-server-error");
+  const chartHeavyTrafficError = document.getElementById("chart-heavy-traffic-error");
   const chartLoading = document.getElementById("chart-loading");
   const chartLabelHelpText = document.getElementById("chart-label-help-text");
 
   // Hide error in case it was shown before
   chartNetworkError.classList.add("hidden");
   chartServerError.classList.add("hidden");
+  chartHeavyTrafficError.classList.add("hidden")
 
   // Initialize default fetch parameters
   let parameters = {};
@@ -146,6 +148,9 @@ async function updateChart(): Promise<void> {
         form_field_error.querySelector("span").textContent = errors.toString();
         form_field_error.classList.remove("hidden");
       }
+    } else if(response.status === 504) {
+      console.error("Server Error (504):", await response.json())
+      chartHeavyTrafficError.classList.remove("hidden")
     } else {
       // Server error - CMS or Matomo server down/malfunctioning
       console.error("Server Error:", await response.json());

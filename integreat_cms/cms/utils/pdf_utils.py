@@ -54,7 +54,7 @@ def generate_pdf(region, language_slug, pages):
     for page in pages:
         # add translation id and last_updated to hash key list if they exist
         page_translation = page.get_public_translation(language_slug)
-        if page_translation:
+        if page_translation and not page.archived:
             # if translation for this language exists
             pdf_key_list.append(page_translation.id)
             pdf_key_list.append(page_translation.last_updated)
