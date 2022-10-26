@@ -1,10 +1,8 @@
 import hashlib
 import logging
 import os
-import re
 
 from urllib.parse import urlparse, unquote
-from lxml.html import fromstring, tostring
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
@@ -109,7 +107,7 @@ def generate_pdf(region, language_slug, pages):
             "prevent_italics": ["ar", "fa"],
             "BRANDING": settings.BRANDING,
         }
-        html = sanitize_for_pdf(get_template("pages/page_pdf.html").render(context))
+        html = get_template("pages/page_pdf.html").render(context)
         # Save empty file
         pdf_storage.save(filename, ContentFile(""))
 
@@ -197,23 +195,3 @@ def link_callback(uri, rel):
             finders.searched_locations,
         )
     return result
-
-
-def sanitize_for_pdf(html):
-    """
-    Helper function for sanitizing HTML for use with xhtml2pdf,
-    which lacks some features commonly found in browsers.
-
-    :param html: rendered HTML page
-    :type html: str
-
-    :return: sanitized version of html param
-    :rtype: str
-    """
-    content = fromstring(html)
-    for element in content.iter():
-        # remove all inline font style definitions
-        style = element.attrib.pop("style", None)
-        if style:
-            element.attrib["style"] = re.sub(r"font-[a-zA-Z]+:[^;]+", "", style)
-    return tostring(content, with_tail=False).decode("utf-8")
