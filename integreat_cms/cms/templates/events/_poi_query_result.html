@@ -1,14 +1,13 @@
 {% load i18n %}
 {% load content_filters %}
 {% load poi_filters %}
-
 {% get_current_language as LANGUAGE_CODE %}
 {% get_language LANGUAGE_CODE as current_language %}
-
 {% if poi_query and request.region %}
     {% if poi_query_result|length > 0 %}
         <label class="secondary">{% trans 'Select existing location' %}</label>
-        <select size="{% if poi_query_result|length > 5 %}5{% elif poi_query_result|length == 1 %}2{% else %}{{ poi_query_result|length }}{% endif %}" class="block w-full bg-none bg-white text-gray-800 border border-gray-500 mb-2 py-2 px-2 {% if poi_query_result|length == 1 %} h-12 {% endif %}">
+        <select size="{% if poi_query_result|length > 5 %}5{% elif poi_query_result|length == 1 %}2{% else %}{{ poi_query_result|length }}{% endif %}"
+                class="block w-full bg-none bg-white text-gray-800 border border-gray-500 mb-2 py-2 px-2 {% if poi_query_result|length == 1 %} h-12{% endif %}">
             {% for poi in poi_query_result %}
                 <option class="option-existing-poi hover:bg-gray-200 cursor-pointer"
                         title="{{ poi.address }}, {{ poi.postcode }} {{ poi.city }}"

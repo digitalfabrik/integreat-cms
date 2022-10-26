@@ -137,92 +137,93 @@
                                class="align-sub h-5 rounded-full group-hover:bg-blue-500 group-hover:text-white"></i>
                             {% trans 'Collapse all' %}
                         {% endspaceless %}
-                        </a>  <span class="text-gray-600 font-default">|</span>
-                    {% endif %}
-                    <div class="inline">
-                        <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% trans "Pages selected" %}</span>
-                    </div>
+                    </a>  <span class="text-gray-600 font-default">|</span>
+                {% endif %}
+                <div class="inline">
+                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% trans "Pages selected" %}</span>
                 </div>
-            {% endif %}
-            <div class="flex flex-wrap gap-2 mt-2">
-                <select id="bulk-action" class="w-auto max-w-full">
-                    <option>
-                        {% trans 'Select bulk action' %}
-                    </option>
-                    <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% trans 'Archive pages' %}
-                    </option>
-                    {% if SUMM_AI_ENABLED %}
-                        <option  data-bulk-action="{% url 'auto_translate_easy_german_pages' region_slug=request.region.slug language_slug=language.slug %}">
-                            {% trans 'Automatically translate this page into Easy German' %}
-                        </option>
-                    {% endif %}
-                    <option id="pdf-export-option"
-                            data-bulk-action="{% url 'export_pdf' region_slug=request.region.slug language_slug=language.slug %}"
-                            data-target="_blank"
-                            data-language-slug="{{ language.slug }}">
-                        {% trans 'Export published pages as PDF' %}
-                    </option>
-                    {% if request.user.expert_mode %}
-                        {% with language_translated_name=language.translated_name %}
-                            {% blocktrans asvar xliff_export_public %}Export published pages for {{ language_translated_name }} translation{% endblocktrans %}
-                            {% blocktrans asvar xliff_export_all %}Export unpublished (⚠️) and published pages for {{ language_translated_name }} translation{% endblocktrans %}
-                            {% if language == request.region.default_language %}
-                                {% blocktrans asvar xliff_export_disabled %}You cannot export XLIFF files for the default language{% endblocktrans %}
-                                <option disabled title="{{ xliff_export_disabled }}">
-                                    {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
-                                </option>
-                                <option disabled title="{{ xliff_export_disabled }}">
-                                    {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
-                                </option>
-                            {% else %}
-                                <option data-bulk-action="{% url 'download_xliff_only_public' region_slug=request.region.slug language_slug=language.slug %}">
-                                    {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
-                                </option>
-                                <option data-bulk-action="{% url 'download_xliff' region_slug=request.region.slug language_slug=language.slug %}">
-                                    {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
-                                </option>
-                            {% endif %}
-                        {% endwith %}
-                    {% endif %}
-                    {% if request.user.is_superuser or request.user.is_staff %}
-                        <option id="xliff-multiple-languages-option" data-show-xliff-export-overlay
-                            data-bulk-action="{% url 'download_xliff_multiple_languages' region_slug=request.region.slug language_slug=language.slug %}">
-                            {% trans 'Export selected pages for multilingual translation' %} ({{ XLIFF_EXPORT_VERSION|upper }})
-                        </option>
-                    {% endif %}
-                </select>
-                <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
-            </div>
-        </form>
-        {% if request.user.expert_mode %}
-            <div class="flex-wrap relative w-auto mt-12">
-                <h3 class="font-bold text-xl">{% trans 'Import XLIFF files' %}</h3>
-                <div class="my-2 text-s text-gray-600">{% trans "Supported file extensions" %}: .zip, .xlf, .xliff</div>
-                <form class="flex flex-wrap h-full mt-2 gap-2"
-                      method="post"
-                      enctype="multipart/form-data"
-                      action="{% url 'upload_xliff' region_slug=request.region.slug language_slug=language.slug %}">
-                    <label id="xliff_file_label"
-                           for="xliff_file"
-                           class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 m-0 rounded">
-                        <i icon-name="upload" class="inline-block pr-1"></i>
-                        {% trans 'Select files' %}
-                    </label>
-                    <span id="xliff_file_label_multiple" class="hidden">{% trans 'and {} other files' %}</span>
-                    <input id="xliff_file"
-                           type="file"
-                           name="xliff_file"
-                           class="hidden"
-                           accept=".zip, .xlf, .xliff"
-                           multiple/>
-                    {% csrf_token %}
-                    <button id="xliff_file_submit" class="btn" disabled>{% trans 'Import' %}</button>
-                </form>
             </div>
         {% endif %}
-        {% include "../generic_confirmation_dialog.html" %}
-        {% include "../tutorials/page_tree.html" with tutorial_id="page-tree" hidden=request.user.page_tree_tutorial_seen %}
-        {% include "pages/_page_preview_overlay.html" %}
-        {% include "pages/_page_xliff_export_overlay.html" %}
-    {% endblock content %}
+        <div class="flex flex-wrap gap-2 mt-2">
+            <select id="bulk-action" class="w-auto max-w-full">
+                <option>
+                    {% trans 'Select bulk action' %}
+                </option>
+                <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                    {% trans 'Archive pages' %}
+                </option>
+                {% if SUMM_AI_ENABLED %}
+                    <option data-bulk-action="{% url 'auto_translate_easy_german_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% trans 'Automatically translate this page into Easy German' %}
+                    </option>
+                {% endif %}
+                <option id="pdf-export-option"
+                        data-bulk-action="{% url 'export_pdf' region_slug=request.region.slug language_slug=language.slug %}"
+                        data-target="_blank"
+                        data-language-slug="{{ language.slug }}">
+                    {% trans 'Export published pages as PDF' %}
+                </option>
+                {% if request.user.expert_mode %}
+                    {% with language_translated_name=language.translated_name %}
+                        {% blocktrans asvar xliff_export_public %}Export published pages for {{ language_translated_name }} translation{% endblocktrans %}
+                        {% blocktrans asvar xliff_export_all %}Export unpublished (⚠️) and published pages for {{ language_translated_name }} translation{% endblocktrans %}
+                        {% if language == request.region.default_language %}
+                            {% blocktrans asvar xliff_export_disabled %}You cannot export XLIFF files for the default language{% endblocktrans %}
+                            <option disabled title="{{ xliff_export_disabled }}">
+                                {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                            </option>
+                            <option disabled title="{{ xliff_export_disabled }}">
+                                {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                            </option>
+                        {% else %}
+                            <option data-bulk-action="{% url 'download_xliff_only_public' region_slug=request.region.slug language_slug=language.slug %}">
+                                {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                            </option>
+                            <option data-bulk-action="{% url 'download_xliff' region_slug=request.region.slug language_slug=language.slug %}">
+                                {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
+                            </option>
+                        {% endif %}
+                    {% endwith %}
+                {% endif %}
+                {% if request.user.is_superuser or request.user.is_staff %}
+                    <option id="xliff-multiple-languages-option"
+                            data-show-xliff-export-overlay
+                            data-bulk-action="{% url 'download_xliff_multiple_languages' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% trans 'Export selected pages for multilingual translation' %} ({{ XLIFF_EXPORT_VERSION|upper }})
+                    </option>
+                {% endif %}
+            </select>
+            <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
+        </div>
+    </form>
+    {% if request.user.expert_mode %}
+        <div class="flex-wrap relative w-auto mt-12">
+            <h3 class="font-bold text-xl">{% trans 'Import XLIFF files' %}</h3>
+            <div class="my-2 text-s text-gray-600">{% trans "Supported file extensions" %}: .zip, .xlf, .xliff</div>
+            <form class="flex flex-wrap h-full mt-2 gap-2"
+                  method="post"
+                  enctype="multipart/form-data"
+                  action="{% url 'upload_xliff' region_slug=request.region.slug language_slug=language.slug %}">
+                <label id="xliff_file_label"
+                       for="xliff_file"
+                       class="inline-block cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 m-0 rounded">
+                    <i icon-name="upload" class="inline-block pr-1"></i>
+                    {% trans 'Select files' %}
+                </label>
+                <span id="xliff_file_label_multiple" class="hidden">{% trans 'and {} other files' %}</span>
+                <input id="xliff_file"
+                       type="file"
+                       name="xliff_file"
+                       class="hidden"
+                       accept=".zip, .xlf, .xliff"
+                       multiple/>
+                {% csrf_token %}
+                <button id="xliff_file_submit" class="btn" disabled>{% trans 'Import' %}</button>
+            </form>
+        </div>
+    {% endif %}
+    {% include "../generic_confirmation_dialog.html" %}
+    {% include "../tutorials/page_tree.html" with tutorial_id="page-tree" hidden=request.user.page_tree_tutorial_seen %}
+    {% include "pages/_page_preview_overlay.html" %}
+    {% include "pages/_page_xliff_export_overlay.html" %}
+{% endblock content %}

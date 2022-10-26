@@ -4,7 +4,8 @@
 {% load model_tags %}
 {% load widget_tweaks %}
 {% object_translation_has_view_perm request.user url.region_links.0.content_object as show_source_link %}
-<tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800" {% if url.id == view.kwargs.url_id %} id="replace-url" {% endif %}>
+<tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800"
+    {% if url.id == view.kwargs.url_id %} id="replace-url"{% endif %}>
     <td class="py-3 pl-4">
         <input type="checkbox"
                name="selected_ids[]"
@@ -21,33 +22,27 @@
     {% if request.user.expert_mode %}
         <td class="pr-2 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[150px] lg:max-w-[200px] xl:max-w-[250px] 2xl:max-w-[300px] 3xl:max-w-[350px] 4xl:max-w-[400px]"
             title="{{ url.message }}">
-            <div class="max-h-12 overflow-hidden text-ellipsis">
-                {{ url.message|linkcheck_status_filter }}
-            </div>
+            <div class="max-h-12 overflow-hidden text-ellipsis">{{ url.message|linkcheck_status_filter }}</div>
         </td>
     {% endif %}
     <td class="pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[150px] xl:max-w-[200px] 2xl:max-w-[300px] 3xl:max-w-[350px] 4xl:max-w-[400px]"
         title="{{ url.region_links.0.text }}">
-        <div class="max-h-12 overflow-hidden text-ellipsis">
-            {{ url.region_links.0.text }}
-        </div>
+        <div class="max-h-12 overflow-hidden text-ellipsis">{{ url.region_links.0.text }}</div>
     </td>
     <td class="pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[150px] xl:max-w-[200px] 2xl:max-w-[300px] 3xl:max-w-[350px] 4xl:max-w-[400px]">
         <div class="max-h-12 overflow-hidden text-ellipsis">
             {% if show_source_link %}
                 <a href="{{ url.region_links.0.content_object.backend_edit_link }}"
-                title="{% trans 'Go to source' %}"
-                class="hover:underline">
-                {{ url.region_links.0.content_object.title }}
+                   title="{% trans 'Go to source' %}"
+                   class="hover:underline">
+                    {{ url.region_links.0.content_object.title }}
                 </a>
             {% else %}
                 {{ url.region_links.0.content_object.title }}
             {% endif %}
         </div>
     </td>
-    <td class="text-right pr-2">
-        {{ url.region_links|length }}
-    </td>
+    <td class="text-right pr-2">{{ url.region_links|length }}</td>
     <td class="text-right pr-4">
         <a title="{% trans 'Replace URL globally' %}"
            href="{% url 'edit_url' url_id=url.id url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}#replace-url"

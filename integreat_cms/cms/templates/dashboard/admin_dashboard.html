@@ -1,25 +1,21 @@
 {% extends "_base.html" %}
-
 {% load i18n %}
 {% load static %}
-
 {% block content %}
-<div class="dashboard">
-    <h1 class="heading">{% trans 'Admin Dashboard' %}</h1>
-    <div class="xl:flex gap-3">
-        <div class="xl:w-1/2">
-            <!-- Chat Widget -->
-            {% if chat_form %}
-                {% include "chat/_chat_widget.html" %}
-            {% endif %}
-        </div>
-        <div class="xl:w-1/2">
-            <!-- Feedback Widget -->
-            {% include "feedback/_feedback_widget.html" %}
+    <div class="dashboard">
+        <h1 class="heading">{% trans 'Admin Dashboard' %}</h1>
+        <div class="xl:flex gap-3">
+            <div class="xl:w-1/2">
+                <!-- Chat Widget -->
+                {% if chat_form %}
+                    {% include "chat/_chat_widget.html" %}
+                {% endif %}
+            </div>
+            <div class="xl:w-1/2">
+                <!-- Feedback Widget -->
+                {% include "feedback/_feedback_widget.html" %}
+            </div>
         </div>
     </div>
-</div>
-
-{% include "../generic_confirmation_dialog.html" %}
-
+    {% include "../generic_confirmation_dialog.html" %}
 {% endblock %}

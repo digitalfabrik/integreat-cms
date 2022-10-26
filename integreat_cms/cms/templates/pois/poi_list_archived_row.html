@@ -1,26 +1,29 @@
 {% load i18n %}
 {% load rules %}
 {% load content_filters %}
-
 <tr class="border-t border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4 pr-2">
-        <input type="checkbox" name="selected_ids[]" value="{{ poi.id }}" form="bulk-action-form" class="bulk-select-item">
+        <input type="checkbox"
+               name="selected_ids[]"
+               value="{{ poi.id }}"
+               form="bulk-action-form"
+               class="bulk-select-item">
     </td>
-	<td class="pr-2">
-		<a title="{% if poi_translation %} {{ poi_translation.title }} {% endif %}"
-           href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" 
+    <td class="pr-2">
+        <a title="{% if poi_translation %} {{ poi_translation.title }}{% endif %}"
+           href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
            class="block">
-			{%  if poi_translation %}
+            {%  if poi_translation %}
                 {{ poi_translation.title|truncatechars:35 }}
             {% else %}
                 <i>{% trans 'Translation not available' %}</i>
             {% endif %}
-		</a>
-	</td>
+        </a>
+    </td>
     {% if backend_language and backend_language != language %}
         <td class="pr-2">
-            <a title="{% if poi.backend_translation %} {{ poi.backend_translation.title }} {% endif %}"
-               href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" 
+            <a title="{% if poi.backend_translation %} {{ poi.backend_translation.title }}{% endif %}"
+               href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}"
                class="block">
                 {% if poi.backend_translation %}
                     {{ poi.backend_translation.title|truncatechars:35 }}
@@ -31,55 +34,65 @@
         </td>
     {% endif %}
     <td class="pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="block">
             {{ poi_translation.get_status_display }}
         </a>
     </td>
-	<td class="pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
+    <td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="block">
             {{ poi.address }}
         </a>
-	</td>
-	<td class="pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
+    </td>
+    <td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="block">
             {{ poi.postcode }}
         </a>
-	</td>
-	<td class="pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
+    </td>
+    <td class="pr-2">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="block">
             {{ poi.city }}
         </a>
-	</td>
+    </td>
     <td class="pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="block">
             {{ poi.country }}
         </a>
     </td>
     <td class="pr-2">
-        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}" class="block">
+        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="block">
             {% trans 'No category assigned' as no_category_text %}
             {% firstof poi.category no_category_text %}
         </a>
     </td>
     <td class="pl-2 pr-4 py-3 text-right min flex flex-nowrap gap-2">
-        <button title="{% trans 'Restore location' %}" class="confirmation-button btn-icon"
-            data-confirmation-title="{{ restore_dialog_title }}"
-            data-confirmation-text="{{ restore_dialog_text }}"
-            data-confirmation-subject="{{ poi_translation.title }}"
-            data-action="{% url 'restore_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
+        <button title="{% trans 'Restore location' %}"
+                class="confirmation-button btn-icon"
+                data-confirmation-title="{{ restore_dialog_title }}"
+                data-confirmation-text="{{ restore_dialog_text }}"
+                data-confirmation-subject="{{ poi_translation.title }}"
+                data-action="{% url 'restore_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
             <i icon-name="refresh-ccw"></i>
         </button>
         {% if perms.cms.delete_poi %}
             {% if poi.events.exists %}
-                <button title="{% trans 'You cannot delete a location which is used by an event.' %}&#013;{% trans 'This also involves archived events.' %}" class="btn-icon" disabled>
+                <button title="{% trans 'You cannot delete a location which is used by an event.' %}&#013;{% trans 'This also involves archived events.' %}"
+                        class="btn-icon"
+                        disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% else %}
-                <button title="{% trans 'Delete location' %}" class="confirmation-button btn-icon"
-                    data-confirmation-title="{{ delete_dialog_title }}"
-                    data-confirmation-text="{{ delete_dialog_text }}"
-                    data-confirmation-subject="{{ poi_translation.title }}"
-                    data-action="{% url 'delete_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
+                <button title="{% trans 'Delete location' %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ delete_dialog_title }}"
+                        data-confirmation-text="{{ delete_dialog_text }}"
+                        data-confirmation-subject="{{ poi_translation.title }}"
+                        data-action="{% url 'delete_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i icon-name="trash-2"></i>
                 </button>
             {% endif %}

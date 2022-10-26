@@ -1,7 +1,7 @@
 {% load i18n %}
-
 <!--HIX widget-->
-<div data-content-changed class="rounded border border-blue-500 shadow-2xl bg-white">
+<div data-content-changed
+     class="rounded border border-blue-500 shadow-2xl bg-white">
     <div class="rounded p-4 bg-water-500">
         <h3 class="heading font-bold text-black">
             <i icon-name="gauge" class="pb-1"></i>
@@ -10,8 +10,11 @@
     </div>
     <div class="w-full px-4 pb-4 rounded shadow bg-white">
         <div class="relative h-full">
-            <div id="hix-loading" class="hidden absolute w-full h-full bg-white bg-opacity-75">
-                <div class="relative top-1/3 m-auto w-1/3"><i icon-name="loader" class="animate-spin"></i> {% trans 'Loading...' %}</div>
+            <div id="hix-loading"
+                 class="hidden absolute w-full h-full bg-white bg-opacity-75">
+                <div class="relative top-1/3 m-auto w-1/3">
+                    <i icon-name="loader" class="animate-spin"></i> {% trans 'Loading...' %}
+                </div>
             </div>
             <label>{% trans 'Improve the understandability of the page content.' %}</label>
             <div id="hix-container">
@@ -35,13 +38,18 @@
                     {% trans 'There is no page content.' %}
                 </div>
             </div>
-            <button id="btn-update-hix-value" class="btn w-full" data-url="{% url 'get_hix_score' %}">
+            <button id="btn-update-hix-value"
+                    class="btn w-full"
+                    data-url="{% url 'get_hix_score' %}">
                 <i icon-name="refresh-ccw"></i>
                 {% trans 'Update' %}
-            </button> 
+            </button>
             <div class="help-text mt-2">
                 {% trans 'Simple words, short and meaningful sentences and as less enumerations as possible can help a lot to improve the understandability of a text. Find more information:' %}
-                <a href="{% trans 'https://wiki.tuerantuer.org/write-texts' %}" rel="nooperner noreferrer" target="_blank" class="text-blue-500 underline">{% trans 'https://wiki.tuerantuer.org/write-texts' %}</a>
+                <a href="{% trans 'https://wiki.tuerantuer.org/write-texts' %}"
+                   rel="nooperner noreferrer"
+                   target="_blank"
+                   class="text-blue-500 underline">{% trans 'https://wiki.tuerantuer.org/write-texts' %}</a>
             </div>
         </div>
     </div>

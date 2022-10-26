@@ -2,12 +2,26 @@
 {% load content_filters %}
 {% load page_filters %}
 {% load tree_filters %}
-
 {% get_translation page language.slug as page_translation %}
-<tr id="page-{{ page.id }}-drop-left" data-drop-id="{{ page.id }}" data-drop-position="left" class="drop {% if not parent_id %} drop-between {% endif %} h-3 -m-3 hidden level-{{ page.relative_depth }}"><td colspan="9"><div><span></span></div></td></tr>
-<tr id="page-{{ page.id }}" data-drop-id="{{ page.id }}" data-drop-position="last-child" class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %} hidden parent-page-{{ parent_id }} {% endif %}">
+<tr id="page-{{ page.id }}-drop-left"
+    data-drop-id="{{ page.id }}"
+    data-drop-position="left"
+    class="drop {% if not parent_id %} drop-between{% endif %} h-3 -m-3 hidden level-{{ page.relative_depth }}">
+    <td colspan="9">
+        <div>
+            <span></span>
+        </div>
+    </td>
+</tr>
+<tr id="page-{{ page.id }}"
+    data-drop-id="{{ page.id }}"
+    data-drop-position="last-child"
+    class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %} hidden parent-page-{{ parent_id }}{% endif %}">
     <td class="pl-4">
-        <input type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item cursor-wait"/>
+        <input type="checkbox"
+               name="selected_ids[]"
+               value="{{ page.id }}"
+               class="bulk-select-item cursor-wait"/>
     </td>
     {% if not filter_form.is_enabled %}
         <td class="hierarchy single_icon whitespace-nowrap">
@@ -31,7 +45,9 @@
         </td>
     {% endif %}
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+           title="{% if page_translation %} {{ page_translation.title }}{% endif %}">
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
@@ -41,7 +57,9 @@
     </td>
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page.backend_translation %} {{ page.backend_translation.title }} {% endif %}">
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}"
+               class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+               title="{% if page.backend_translation %} {{ page.backend_translation.title }}{% endif %}">
                 <div class="translation-title">
                     {% if page.backend_translation %}
                         {{ page.backend_translation.title }}
@@ -65,29 +83,34 @@
                 {% spaceless %}
                     {% for other_language, other_status in page.translation_states.values %}
                         <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language.slug %}"
-                            class="{{ other_language.slug }}">
+                           class="{{ other_language.slug }}">
                             <div id="translation-icon">
                                 {% if other_status == translation_status.IN_TRANSLATION %}
                                     <span title="{% trans 'Currently in translation' %}">
-                                        <i icon-name="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i icon-name="clock"
+                                           class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% elif other_status == translation_status.OUTDATED %}
                                     <span title="{% trans 'Translation outdated' %}">
-                                        <i icon-name="alert-triangle" class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i icon-name="alert-triangle"
+                                           class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% elif other_status == translation_status.UP_TO_DATE %}
                                     <span title="{% trans 'Translation up-to-date' %}">
-                                        <i icon-name="check" class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i icon-name="check"
+                                           class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% elif other_status == translation_status.MISSING %}
                                     <span title="{% trans 'Translation missing' %}" class="no-trans">
-                                        <i icon-name="x" class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
+                                        <i icon-name="x"
+                                           class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
                                     </span>
                                 {% endif %}
                             </div>
                             <div id="ajax-icon" class="hidden">
                                 <span title="{% trans 'Currently in translation' %}">
-                                    <i icon-name="clock" class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                    <i icon-name="clock"
+                                       class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
                                 </span>
                             </div>
                         </a>
@@ -97,9 +120,7 @@
         </div>
     </td>
     <td>
-        <div class="block py-1.5 px-2 text-gray-800">
-            {{ page_translation.get_status_display }}
-        </div>
+        <div class="block py-1.5 px-2 text-gray-800">{{ page_translation.get_status_display }}</div>
     </td>
     <td>
         <div class="block py-1.5 px-2 whitespace-nowrap text-gray-800">
@@ -108,37 +129,42 @@
     </td>
     <td class="pl-2 pr-4 py-1.5 text-right flex flex-nowrap gap-2">
         {% if page_translation.content or page.mirrored_page %}
-            <button
-                type="button"
-                data-preview-page="{% url 'preview_page_ajax' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-                title="{% trans 'View page as preview' %}"
-                class="btn-icon">
+            <button type="button"
+                    data-preview-page="{% url 'preview_page_ajax' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+                    title="{% trans 'View page as preview' %}"
+                    class="btn-icon">
                 <i icon-name="eye"></i>
             </button>
         {% else %}
-            <button
-                type="button"
-                title="{% trans 'You cannot preview an empty page.' %}"
-                class="btn-icon"
-                disabled>
+            <button type="button"
+                    title="{% trans 'You cannot preview an empty page.' %}"
+                    class="btn-icon"
+                    disabled>
                 <i icon-name="eye"></i>
             </button>
         {% endif %}
         {% if page_translation.status == PUBLIC %}
             <a href="{{ WEBAPP_URL }}{{ page_translation.get_absolute_url }}"
-                rel="noopener noreferrer" target="_blank" title="{% trans 'Open page in web app' %}" class="btn-icon">
+               rel="noopener noreferrer"
+               target="_blank"
+               title="{% trans 'Open page in web app' %}"
+               class="btn-icon">
                 <i icon-name="external-link"></i>
             </a>
         {% else %}
-            <button title="{% trans 'This page cannot be opened in the web app, because it is not public.' %}" class="btn-icon" disabled>
+            <button title="{% trans 'This page cannot be opened in the web app, because it is not public.' %}"
+                    class="btn-icon"
+                    disabled>
                 <i icon-name="external-link"></i>
             </button>
         {% endif %}
-        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" title="{% trans 'Edit page' %}" class="btn-icon">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+           title="{% trans 'Edit page' %}"
+           class="btn-icon">
             <i icon-name="edit"></i>
         </a>
-
-        <button title="{% trans 'Archive page' %}" class="confirmation-button btn-icon"
+        <button title="{% trans 'Archive page' %}"
+                class="confirmation-button btn-icon"
                 data-confirmation-title="{{ archive_dialog_title }}"
                 data-confirmation-text="{{ archive_dialog_text }}"
                 data-confirmation-subject="{{ page.best_translation.title }}"
@@ -147,15 +173,20 @@
         </button>
         {% if perms.cms.delete_page %}
             {% if not page.is_leaf %}
-                <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}" class="btn-icon" disabled>
+                <button title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves archived subpages.' %}"
+                        class="btn-icon"
+                        disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% elif page.mirroring_pages.exists %}
-                <button title="{% trans 'This page cannot be deleted because it was embedded as live content from another page.' %}&#013;{% trans 'You can however archive this page.' %}" class="btn-icon" disabled>
+                <button title="{% trans 'This page cannot be deleted because it was embedded as live content from another page.' %}&#013;{% trans 'You can however archive this page.' %}"
+                        class="btn-icon"
+                        disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% else %}
-                <button title="{% trans 'Delete page' %}" class="confirmation-button btn-icon"
+                <button title="{% trans 'Delete page' %}"
+                        class="confirmation-button btn-icon"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ page.best_translation.title }}"
@@ -166,13 +197,17 @@
         {% endif %}
         {% if request.region.short_urls_enabled and request.user.expert_mode %}
             {% if page_translation %}
-            <button data-copy-to-clipboard="{{ page_translation.short_url }}" title="{% trans 'Copy short link' %}" class="btn-icon">
-                <i icon-name="copy"></i>
-            </button>
+                <button data-copy-to-clipboard="{{ page_translation.short_url }}"
+                        title="{% trans 'Copy short link' %}"
+                        class="btn-icon">
+                    <i icon-name="copy"></i>
+                </button>
             {% else %}
-            <button title="{% trans 'You cannot copy a short link of a page which has no translation.' %}" class="btn-icon" disabled>
-                <i icon-name="copy"></i>
-            </button>
+                <button title="{% trans 'You cannot copy a short link of a page which has no translation.' %}"
+                        class="btn-icon"
+                        disabled>
+                    <i icon-name="copy"></i>
+                </button>
             {% endif %}
         {% endif %}
     </td>

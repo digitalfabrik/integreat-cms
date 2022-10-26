@@ -2,14 +2,17 @@
 {% load rules %}
 {% load content_filters %}
 {% load poi_filters %}
-
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4 pr-2">
-        <input type="checkbox" name="selected_ids[]" value="{{ event.id }}" form="bulk-action-form" class="bulk-select-item">
+        <input type="checkbox"
+               name="selected_ids[]"
+               value="{{ event.id }}"
+               form="bulk-action-form"
+               class="bulk-select-item">
     </td>
     <td>
-        <a title="{% if event_translation %} {{ event_translation.title }} {% endif %}"
-           href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug%}" 
+        <a title="{% if event_translation %} {{ event_translation.title }}{% endif %}"
+           href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
            class="py-3 pr-2 text-gray-800">
             {% if event_translation %}
                 {{ event_translation.title|truncatechars:35 }}
@@ -22,8 +25,8 @@
     {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
         <td class="py-3 pr-2 text-gray-800">
-            <a title="{% if event.backend_translation %} {{ event.backend_translation.title }} {% endif %}"
-               href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" 
+            <a title="{% if event.backend_translation %} {{ event.backend_translation.title }}{% endif %}"
+               href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}"
                class="py-3 pr-2 text-gray-800">
                 {% if event.backend_translation %}
                     {{ event.backend_translation.title|truncatechars:35 }}
@@ -41,29 +44,31 @@
                     {% if other_translation %}
                         {% if other_translation.currently_in_translation %}
                             <span title="{% trans 'Currently in translation' %}">
-                                <i icon-name="clock" class="{% if other_language == language %}text-blue-500{% endif %}"></i>
+                                <i icon-name="clock"
+                                   class="{% if other_language == language %}text-blue-500{% endif %}"></i>
                             </span>
                         {% elif other_translation.is_outdated %}
                             <span title="{% trans 'Translation outdated' %}">
-                                <i icon-name="alert-triangle" class="{% if other_language == language %}text-yellow-500{% endif %}"></i>
+                                <i icon-name="alert-triangle"
+                                   class="{% if other_language == language %}text-yellow-500{% endif %}"></i>
                             </span>
                         {% else %}
                             <span title="{% trans 'Translation up-to-date' %}">
-                                <i icon-name="check" class="{% if other_language == language %}text-green-500{% endif %}"></i>
+                                <i icon-name="check"
+                                   class="{% if other_language == language %}text-green-500{% endif %}"></i>
                             </span>
                         {% endif %}
                     {% else %}
                         <span title="{% trans 'Translation missing' %}">
-                            <i icon-name="x" class="{% if other_language == language %}text-red-500{% endif %}"></i>
+                            <i icon-name="x"
+                               class="{% if other_language == language %}text-red-500{% endif %}"></i>
                         </span>
                     {% endif %}
                 </a>
             {% endfor %}
         {% endspaceless %}
     </td>
-    <td class="py-3 pr-2">
-        {{ event_translation.get_status_display }}
-    </td>
+    <td class="py-3 pr-2">{{ event_translation.get_status_display }}</td>
     <td class="py-3 pr-2">
         {% if event.location %}
             {% get_language LANGUAGE_CODE as current_language %}
@@ -73,35 +78,39 @@
         {% endif %}
     </td>
     <td class="py-3 pr-2">
-        <i icon-name="calendar"></i> {{ event.start_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i icon-name="clock" class="ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
+        <i icon-name="calendar"></i> {{ event.start_date|date:'d.m.Y' }}
+        {% if not event.is_all_day %}<i icon-name="clock" class="ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
     </td>
     <td class="py-3 pr-2">
-        <i icon-name="calendar"></i> {{ event.end_date|date:'d.m.Y'}}{% if not event.is_all_day %} <i icon-name="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
+        <i icon-name="calendar"></i> {{ event.end_date|date:'d.m.Y' }}
+        {% if not event.is_all_day %}<i icon-name="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
     </td>
     <td class="py-3 pr-2">
         {% if event.recurrence_rule %}
-        <i icon-name="repeat"></i> {{ event.recurrence_rule.get_frequency_display }}
+            <i icon-name="repeat"></i> {{ event.recurrence_rule.get_frequency_display }}
         {% else %}
-        <i icon-name="calendar"></i> {% trans 'One-time' %}
+            <i icon-name="calendar"></i> {% trans 'One-time' %}
         {% endif %}
     </td>
     <td class="pr-4 py-3 flex flex-nowrap justify-end gap-2">
         {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if can_edit_event %}
-            <button title="{% trans 'Restore event' %}" class="confirmation-button btn-icon"
-                data-confirmation-title="{{ restore_dialog_title }}"
-                data-confirmation-text="{{ restore_dialog_text }}"
-                data-confirmation-subject="{{ event_translation.title }}"
-                data-action="{% url 'restore_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
+            <button title="{% trans 'Restore event' %}"
+                    class="confirmation-button btn-icon"
+                    data-confirmation-title="{{ restore_dialog_title }}"
+                    data-confirmation-text="{{ restore_dialog_text }}"
+                    data-confirmation-subject="{{ event_translation.title }}"
+                    data-action="{% url 'restore_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
                 <i icon-name="refresh-ccw"></i>
             </button>
         {% endif %}
         {% if perms.cms.delete_event %}
-            <button title="{% trans 'Delete event' %}" class="confirmation-button btn-icon"
-                data-confirmation-title="{{ delete_dialog_title }}"
-                data-confirmation-text="{{ delete_dialog_text }}"
-                data-confirmation-subject="{{ event_translation.title }}"
-                data-action="{% url 'delete_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
+            <button title="{% trans 'Delete event' %}"
+                    class="confirmation-button btn-icon"
+                    data-confirmation-title="{{ delete_dialog_title }}"
+                    data-confirmation-text="{{ delete_dialog_text }}"
+                    data-confirmation-subject="{{ event_translation.title }}"
+                    data-action="{% url 'delete_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
                 <i icon-name="trash-2"></i>
             </button>
         {% endif %}

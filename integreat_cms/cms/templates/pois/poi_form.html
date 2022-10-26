@@ -140,7 +140,10 @@
                     <div class="flex flex-col flex-auto px-4 pb-4 divide-y divide-gray-200 space-y-2">
                         <div>
                             <label>{% trans 'Address' %}</label>
-                            <div id="nominatim-error" class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2 hidden" role="alert"></div>
+                            <div id="nominatim-error"
+                                 class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2 hidden"
+                                 role="alert">
+                            </div>
                             <label for="{{ poi_form.address.id_for_label }}" class="secondary">{{ poi_form.address.label }}</label>
                             {% render_field poi_form.address|add_error_class:"border-red-500" %}
                             <label for="{{ poi_form.postcode.id_for_label }}" class="secondary">{{ poi_form.postcode.label }}</label>
@@ -158,25 +161,34 @@
                         <div>
                             <label>{% trans 'Position' %}</label>
                             <div>
-                                <input type="checkbox" id="auto-fill-coordinates" data-url="{% url 'auto_complete_poi_address' region_slug=request.region.slug %}" checked>
+                                <input type="checkbox"
+                                       id="auto-fill-coordinates"
+                                       data-url="{% url 'auto_complete_poi_address' region_slug=request.region.slug %}"
+                                       checked>
                                 <label for="auto-fill-coordinates" class="secondary !inline">
                                     {% trans 'Derive coordinates automatically from address' %}
                                 </label>
                             </div>
-
                             <label for="{{ poi_form.latitude.id_for_label }}" class="secondary">{{ poi_form.latitude.label }}</label>
                             {% render_field poi_form.latitude|add_error_class:"border-red-500" %}
                             <div class="help-text">{{ poi_form.latitude.help_text }}</div>
                             <label for="{{ poi_form.longitude.id_for_label }}" class="secondary">{{ poi_form.longitude.label }}</label>
                             {% render_field poi_form.longitude|add_error_class:"border-red-500" %}
-                            <div class="help-text">{{ poi_form.longitude.help_text }}</div>
+                            <div class="help-text">
+                                {{ poi_form.longitude.help_text }}
+                            </div>
                         </div>
                         <div>
-                            <label>{% trans 'Map' %}</label>
-                            <div id="no_coordinates_alert" class="bg-blue-100 border-l-4 border-blue-500 text-blue-500 px-4 py-3 my-2 hidden" role="alert">
+                            <label>
+                                {% trans 'Map' %}
+                            </label>
+                            <div id="no_coordinates_alert"
+                                 class="bg-blue-100 border-l-4 border-blue-500 text-blue-500 px-4 py-3 my-2 hidden"
+                                 role="alert">
                                 {% trans 'Map preview will be available when coordinates are given.' %}
                             </div>
-                            <div id='map' class="aspect-video"></div>
+                            <div id='map' class="aspect-video">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -191,7 +203,9 @@
                     </div>
                     <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
                         <div>
-                            <label for="{{ poi_form.website.id_for_label }}">{{ poi_form.website.label }}</label>
+                            <label for="{{ poi_form.website.id_for_label }}">
+                                {{ poi_form.website.label }}
+                            </label>
                             {% render_field poi_form.website|add_error_class:"border-red-500" %}
                         </div>
                         <div>
@@ -217,9 +231,13 @@
                     </div>
                     <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
                         <div>
-                            <label for="{{ poi_form.category.id_for_label }}">{{ poi_form.category.label }}</label>
+                            <label for="{{ poi_form.category.id_for_label }}">
+                                {{ poi_form.category.label }}
+                            </label>
                             {% render_field poi_form.category|add_error_class:"border-red-500" %}
-                            <div class="help-text">{{ poi_form.category.help_text }}</div>
+                            <div class="help-text">
+                                {{ poi_form.category.help_text }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -258,75 +276,75 @@
                                             data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
                                             data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                         <i icon-name="refresh-ccw" class="mr-2"></i> {% trans 'Restore this location' %}
-                                </button>
-                            {% else %}
-                                <label>
-                                    {% trans 'Archive location' %}
-                                </label>
-                                <button title="{% trans 'Archive location' %}"
-                                        class="btn confirmation-button w-full"
-                                        data-confirmation-title="{{ archive_dialog_title }}"
-                                        data-confirmation-text="{{ archive_dialog_text }}"
-                                        data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
-                                        data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                    <i icon-name="archive" class="mr-2"></i> {% trans 'Archive this location' %}
-                            </button>
-                        {% endif %}
-                    </div>
-                    {% if perms.cms.delete_poi %}
-                        <div>
-                            <label>
-                                {% trans 'Delete location' %}
-                            </label>
-                            {% if poi_form.instance.events.exists %}
-                                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
-                                     role="alert">
-                                    <p>
-                                        {% trans 'You cannot delete a location which is referenced by an event.' %}
-                                        <br />
-                                        {% blocktrans count counter=poi_form.instance.events.count trimmed %}
+                                    </button>
+                                {% else %}
+                                    <label>
+                                        {% trans 'Archive location' %}
+                                    </label>
+                                    <button title="{% trans 'Archive location' %}"
+                                            class="btn confirmation-button w-full"
+                                            data-confirmation-title="{{ archive_dialog_title }}"
+                                            data-confirmation-text="{{ archive_dialog_text }}"
+                                            data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
+                                            data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                                        <i icon-name="archive" class="mr-2"></i> {% trans 'Archive this location' %}
+                                    </button>
+                                {% endif %}
+                            </div>
+                            {% if perms.cms.delete_poi %}
+                                <div>
+                                    <label>
+                                        {% trans 'Delete location' %}
+                                    </label>
+                                    {% if poi_form.instance.events.exists %}
+                                        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+                                             role="alert">
+                                            <p>
+                                                {% trans 'You cannot delete a location which is referenced by an event.' %}
+                                                <br />
+                                                {% blocktrans count counter=poi_form.instance.events.count trimmed %}
                                         To delete this location, you have to delete this event first:
                                         {% plural %}
                                         To delete this location, you have to delete these events first:
                                         {% endblocktrans %}
-                                    </p>
+                                            </p>
+                                        </div>
+                                        {% for event in poi_form.instance.events.all %}
+                                            <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
+                                               class="block pt-2 hover:underline">
+                                                <i icon-name="edit" class="mr-2"></i> {{ event.best_translation.title }}
+                                            </a>
+                                        {% endfor %}
+                                    {% else %}
+                                        <button title="{% trans 'Delete location' %}"
+                                                class="btn confirmation-button w-full btn-red"
+                                                data-confirmation-title="{{ delete_dialog_title }}"
+                                                data-confirmation-text="{{ delete_dialog_text }}"
+                                                data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
+                                                data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                                            <i icon-name="trash-2" class="mr-2"></i> {% trans 'Delete this location' %}
+                                        </button>
+                                    {% endif %}
                                 </div>
-                                {% for event in poi_form.instance.events.all %}
-                                    <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
-                                       class="block pt-2 hover:underline">
-                                        <i icon-name="edit" class="mr-2"></i> {{ event.best_translation.title }}
-                                </a>
-                            {% endfor %}
-                        {% else %}
-                            <button title="{% trans 'Delete location' %}"
-                                    class="btn confirmation-button w-full btn-red"
-                                    data-confirmation-title="{{ delete_dialog_title }}"
-                                    data-confirmation-text="{{ delete_dialog_text }}"
-                                    data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
-                                    data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                <i icon-name="trash-2" class="mr-2"></i> {% trans 'Delete this location' %}
-                        </button>
-                    {% endif %}
-                </div>
-            {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
         </div>
-    </div>
-{% endif %}
-</div>
-</div>
-</form>
-{{ media_config_data|json_script:"media_config_data" }}
-{% if poi_form.instance.id and poi_form.instance.archived %}
-    {% include '../_tinymce_config.html' with readonly=1 %}
-{% else %}
-    {% include '../_tinymce_config.html' %}
-    {% if poi_form.instance.id %}
-        {% include '../_content_edit_lock.html' with lock_key=poi_form.instance.edit_lock_key %}
+    </form>
+    {{ media_config_data|json_script:"media_config_data" }}
+    {% if poi_form.instance.id and poi_form.instance.archived %}
+        {% include '../_tinymce_config.html' with readonly=1 %}
+    {% else %}
+        {% include '../_tinymce_config.html' %}
+        {% if poi_form.instance.id %}
+            {% include '../_content_edit_lock.html' with lock_key=poi_form.instance.edit_lock_key %}
+        {% endif %}
     {% endif %}
-{% endif %}
-{% if poi_form.instance.id %}
-    {% include '../generic_confirmation_dialog.html' %}
-{% endif %}
+    {% if poi_form.instance.id %}
+        {% include '../generic_confirmation_dialog.html' %}
+    {% endif %}
 {% endblock content %}
 {% block javascript %}
     {% render_bundle 'editor' 'js' %}

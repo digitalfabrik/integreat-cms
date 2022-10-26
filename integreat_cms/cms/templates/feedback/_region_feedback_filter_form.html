@@ -5,7 +5,6 @@
 <form id='region-feedback-filter-form'>
     {% get_current_language as LANGUAGE_CODE %}
     {% get_language LANGUAGE_CODE as current_language %}
-
     {% include "../_keep_pagination_data.html" %}
     <div class="flex flex-wrap p-4 pb-0 items-start">
         <div class="w-2/5 pr-6">
@@ -37,9 +36,7 @@
         </div>
     </div>
     <div class="w-full flex p-4 justify-end gap-4">
-        <a id="filter-reset" class="btn btn-gray">
-            {% trans 'Reset filter' %}
-        </a>
+        <a id="filter-reset" class="btn btn-gray">{% trans 'Reset filter' %}</a>
         <button name="filter" class="btn">{% trans 'Apply filter' %}</button>
     </div>
 </form>

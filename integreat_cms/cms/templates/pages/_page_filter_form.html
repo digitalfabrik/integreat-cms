@@ -1,17 +1,12 @@
 {% load i18n %}
 {% load widget_tweaks %}
-
 <form class="p-4" id="page-filter-form">
     <label for="{{ filter_form.translation_status.id_for_label }}">
         {{ filter_form.translation_status.label }} ({{ language.translated_name }})
     </label>
     {% render_field filter_form.translation_status %}
     <div class="flex justify-end gap-4">
-        <a id="filter-reset" class="btn btn-light-blue">
-            {% trans 'Reset filter' %}
-        </a>
-        <button class="btn">
-            {% trans 'Apply filter' %}
-        </button>
+        <a id="filter-reset" class="btn btn-light-blue">{% trans 'Reset filter' %}</a>
+        <button class="btn">{% trans 'Apply filter' %}</button>
     </div>
 </form>

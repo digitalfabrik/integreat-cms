@@ -42,11 +42,16 @@
         </span>
     </a>
     {% if view.kwargs.url_id %}
-        <form action="{{ request.path }}{{ pagination_params }}" method="post" id="edit-url-form">
+        <form action="{{ request.path }}{{ pagination_params }}"
+              method="post"
+              id="edit-url-form">
             {% csrf_token %}
         </form>
     {% endif %}
-    <form action="{{ request.path }}{{ pagination_params }}" method="post" id="bulk-action-form" class="table-listing">
+    <form action="{{ request.path }}{{ pagination_params }}"
+          method="post"
+          id="bulk-action-form"
+          class="table-listing">
         {% csrf_token %}
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
@@ -87,8 +92,7 @@
         {% if filtered_urls %}
             <div class="pt-2 px-2">
                 <div class="inline">
-                    <span class="text-gray-800 font-bold"
-                    data-list-selection-count>0</span> <span class="text-gray-600">{% trans "Links selected" %}</span>
+                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% trans "Links selected" %}</span>
                 </div>
             </div>
         {% endif %}

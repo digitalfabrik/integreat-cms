@@ -1,27 +1,22 @@
 {% extends "_collapsible_box.html" %}
-
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
-
-
-{% block collapsible_box_icon %}
-    message-circle
-{% endblock %}
-
+{% block collapsible_box_icon %}message-circle{% endblock %}
 {% block collapsible_box_title %}
     {% trans 'Chat' %}
 {% endblock %}
-
 {% block collapsible_box_content %}
-    <div id="chat-history" class="flex flex-col-reverse break-words border-gray-300 border max-h-116 overflow-y-auto">
+    <div id="chat-history"
+         class="flex flex-col-reverse break-words border-gray-300 border max-h-116 overflow-y-auto">
         {% include "chat/_chat_messages.html" %}
     </div>
-    <form id="chat-form" method="post" class="pt-4"
+    <form id="chat-form"
+          method="post"
+          class="pt-4"
           action="{% spaceless %} {% if request.region %} {% url 'send_chat_message' region_slug=request.region.slug %} {% else %} {% url 'send_chat_message' %} {% endif %} {% endspaceless %}">
         {% csrf_token %}
         {% render_field chat_form.text rows="2" class="mb-2" %}
-
         <button id="send-chat-message" class="btn">
             <i icon-name="send"></i> {% trans "Send message" %}
         </button>

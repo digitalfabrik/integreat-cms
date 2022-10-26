@@ -1,17 +1,11 @@
 {% extends "_collapsible_box.html" %}
-
 {% load i18n %}
 {% load static %}
 {% load text_filters %}
-
-{% block collapsible_box_icon %}
-    trello
-{% endblock %}
-
+{% block collapsible_box_icon %}trello{% endblock %}
 {% block collapsible_box_title %}
     {% trans 'Unread technical feedback' %}
 {% endblock %}
-
 {% block collapsible_box_content %}
     <div class="mb-1 text-s text-gray-600">{% trans 'The five most recent entries are listed.' %}</div>
     <table class="w-full rounded border border-solid border-gray-200 shadow bg-white mb-4">
@@ -24,11 +18,10 @@
         </tr>
         {% for feedback in admin_feedback %}
             <tr class="border-t border-solid border-yellow-200 bg-yellow-100">
-                <td class="px-2 py-3 border-l-4 border-yellow-400 truncate max-w-[75px] 3xl:max-w-[150px]" title="{{ feedback.object_name }}">
+                <td class="px-2 py-3 border-l-4 border-yellow-400 truncate max-w-[75px] 3xl:max-w-[150px]"
+                    title="{{ feedback.object_name }}">
                     {% if feedback.object_url %}
-                        <a href="{{ feedback.object_url }}">
-                            {{ feedback.object_name }}
-                        </a>
+                        <a href="{{ feedback.object_url }}">{{ feedback.object_name }}</a>
                     {% else %}
                         {{ feedback.object_name }}
                     {% endif %}
@@ -41,11 +34,11 @@
                         <div class="flex">
                             <div class="feedback-comment-preview truncate grow">{{ feedback.comment }}</div>
                             <i icon-name="chevron-down"
-                                class="toggle-feedback-comment transform cursor-pointer hover:scale-125 flex-none"></i>
+                               class="toggle-feedback-comment transform cursor-pointer hover:scale-125 flex-none"></i>
                         </div>
                         <div class="hidden">
                             <span class="feedback-comment-full">{{ feedback.comment }}</span> <i icon-name="chevron-up"
-                            class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
+    class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
                         </div>
                     {% endif %}
                 </td>
@@ -57,17 +50,15 @@
                     {% endif %}
                 </td>
                 <td class="pr-2">
-                    <a href="{% url 'dashboard' region_slug=feedback.region.slug %}">
-                        {{ feedback.region.name }}
-                    </a>
+                    <a href="{% url 'dashboard' region_slug=feedback.region.slug %}">{{ feedback.region.name }}</a>
                 </td>
                 <td class="pr-2 text-right">{{ feedback.created_date }}</td>
             </tr>
         {% empty %}
-            <tr><td colspan="6" class="px-2 py-3">{% trans 'No Feedback available yet.' %} </td></tr>
+            <tr>
+                <td colspan="6" class="px-2 py-3">{% trans 'No Feedback available yet.' %}</td>
+            </tr>
         {% endfor %}
     </table>
-    <a href="{% url 'admin_feedback'%}" class="btn">
-        {% trans 'Open feedback list' %}
-    </a>
+    <a href="{% url 'admin_feedback' %}" class="btn">{% trans 'Open feedback list' %}</a>
 {% endblock %}

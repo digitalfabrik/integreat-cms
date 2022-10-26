@@ -72,15 +72,7 @@
                                disabled>
                         <div>
                             <label class="block font-bold">{{ page_translation_form.content.label }}</label>
-                            <textarea
-                                id="source_translation_tinymce"
-                                cols="40"
-                                rows="10"
-                                class="tinymce_textarea"
-                                disabled
-                                data-old="{{ old_translation_content }}"
-                                data-new="{{ source_page_translation.content }}"
-                            >
+                            <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea" disabled data-old="{{ old_translation_content }}" data-new="{{ source_page_translation.content }}">
                                 {{source_page_translation.content}}
                             </textarea>
                         </div>
@@ -164,7 +156,6 @@
             </div>
         </div>
     </form>
-
     {{ media_config_data|json_script:"media_config_data" }}
     {% if not can_edit_page or page_translation_form.instance.id and page_translation_form.instance.page.archived %}
         {% include '../_tinymce_config.html' with readonly=1 language=target_language %}

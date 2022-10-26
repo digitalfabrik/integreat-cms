@@ -1,5 +1,4 @@
 {% extends "_base.html" %}
-
 {% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
@@ -8,19 +7,17 @@
 {% load page_filters %}
 {% load rules %}
 {% load render_bundle from webpack_loader %}
-
 {% block content %}
     {% get_current_language as LANGUAGE_CODE %}
     {% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
     {% if page_form.instance.id and can_edit_page and not page.archived %}
-    <form enctype="multipart/form-data"
-          method="post"
-          action="{% url 'refresh_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug  %}"
-          id="refresh_date_form">
-        {% csrf_token %}
-    </form>
+        <form enctype="multipart/form-data"
+              method="post"
+              action="{% url 'refresh_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug  %}"
+              id="refresh_date_form">
+            {% csrf_token %}
+        </form>
     {% endif %}
-
     <form enctype="multipart/form-data"
           method="post"
           id="content_form"
@@ -47,13 +44,7 @@
             </h1>
             {% if not page_form.instance.id or not page_form.instance.archived %}
                 <div class="flex flex-wrap grow justify-end gap-2">
-                    <button
-                        name="preview_page"
-                        type="button"
-                        data-preview-page
-                        data-edit-page-mode
-                        data-right-to-left={{ right_to_left }}
-                        class="btn btn-gray">
+                    <button name="preview_page" type="button" data-preview-page data-edit-page-mode data-right-to-left={{ right_to_left }} class="btn btn-gray">
                         {% trans 'Preview' %}
                     </button>
                     {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
@@ -83,10 +74,10 @@
                                 <label class="inline-block mb-2 font-bold">{% trans 'Warning' %}:</label>
                                 {% trans 'Translation in progress' %}
                                 (<a href="#"
-                                data-cancel-translation-process
-                                data-url="{% url 'cancel_translation_process_ajax' region_slug=request.region.slug language_slug=page_translation_form.instance.language.slug page_id=page.id %}"
-                                id="cancel-translation"
-                                class="text-blue-500 hover:underline">{% trans 'Cancel translation process' %}</a>)
+   data-cancel-translation-process
+   data-url="{% url 'cancel_translation_process_ajax' region_slug=request.region.slug language_slug=page_translation_form.instance.language.slug page_id=page.id %}"
+   id="cancel-translation"
+   class="text-blue-500 hover:underline">{% trans 'Cancel translation process' %}</a>)
                                 <br />
                             </div>
                         {% endif %}
@@ -101,7 +92,7 @@
                                     <div>
                                         {{ page_translation_form.instance.version }}
                                         (<a href="{% url 'page_revisions' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-                                        class="text-blue-500 hover:underline">{% trans 'Show' %}</a>)
+   class="text-blue-500 hover:underline">{% trans 'Show' %}</a>)
                                     </div>
                                     <div class="font-bold pr-2">{% trans 'Status' %}:</div>
                                     <div>
@@ -170,7 +161,6 @@
                 {% if language.slug in TEXTLAB_API_LANGUAGES and request.region.hix_enabled and TEXTLAB_API_ENABLED %}
                     {% include "../hix_widget.html" %}
                 {% endif %}
-
                 {% if page %}
                     <div class="rounded border border-blue-500 shadow-2xl bg-white">
                         <div class="rounded p-4 bg-water-500">
@@ -255,7 +245,9 @@
                             </div>
                             {% if perms.cms.grant_page_permissions and request.region.page_permissions_enabled %}
                                 <div>
-                                    <label>{% trans 'Additional permissions for this page' %}</label>
+                                    <label>
+                                        {% trans 'Additional permissions for this page' %}
+                                    </label>
                                     <p class="italic">
                                         {% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}
                                     </p>
@@ -297,8 +289,7 @@
                                     <button title="{% trans 'Mark this page as up-to-date' %}"
                                             form="refresh_date_form"
                                             name="refresh_page"
-                                            class="btn text-center w-full"
-                                            >
+                                            class="btn text-center w-full">
                                         <i icon-name="check-circle" class="mr-2"></i>
                                         {% trans 'Mark this page as up-to-date' %}
                                     </button>
@@ -396,9 +387,7 @@
                                                        class="block pt-2 hover:underline">
                                                         <i icon-name="edit" class="mr-2"></i>
                                                         {{ mirroring_page.best_translation.title }}
-                                                        {% if mirroring_page.region != request.region %}
-                                                            ({{ mirroring_page.region }})
-                                                        {% endif %}
+                                                        {% if mirroring_page.region != request.region %}({{ mirroring_page.region }}){% endif %}
                                                     </a>
                                                 {% else %}
                                                     <a href="{{ WEBAPP_URL }}{{ mirroring_page.best_translation.get_absolute_url }}"
@@ -407,9 +396,7 @@
                                                        rel="noopener noreferrer">
                                                         <i icon-name="external-link" class="mr-2"></i>
                                                         {{ mirroring_page.best_translation.title }}
-                                                        {% if mirroring_page.region != request.region %}
-                                                            ({{ mirroring_page.region }})
-                                                        {% endif %}
+                                                        {% if mirroring_page.region != request.region %}({{ mirroring_page.region }}){% endif %}
                                                     </a>
                                                 {% endif %}
                                             {% endfor %}

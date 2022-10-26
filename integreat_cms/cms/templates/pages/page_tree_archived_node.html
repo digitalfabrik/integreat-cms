@@ -2,29 +2,36 @@
 {% load content_filters %}
 {% load page_filters %}
 {% load tree_filters %}
-
-<tr id="page-{{ page.id }}" class="border-t border-b border-solid border-gray-200 hover:bg-gray-100 {% if page.relative_depth > 1 %} level-{{page.relative_depth}} {% if not filter_form.is_enabled and page.parent.archived %} hidden {% endif %} {% endif %}">
+<tr id="page-{{ page.id }}"
+    class="border-t border-b border-solid border-gray-200 hover:bg-gray-100 {% if page.relative_depth > 1 %} level-{{ page.relative_depth }} {% if not filter_form.is_enabled and page.parent.archived %} hidden{% endif %} {% endif %}">
     <td class="pl-4">
-        <input form="bulk-action-form" type="checkbox" name="selected_ids[]" value="{{ page.id }}" class="bulk-select-item">
+        <input form="bulk-action-form"
+               type="checkbox"
+               name="selected_ids[]"
+               value="{{ page.id }}"
+               class="bulk-select-item">
     </td>
     {% if not filter_form.is_enabled %}
         <td class="hierarchy single_icon whitespace-nowrap">
-            <span class="cursor-move text-gray-800 inline-block align-middle" title="{% trans 'Drag & drop is disabled for archived pages.' %}">
+            <span class="cursor-move text-gray-800 inline-block align-middle"
+                  title="{% trans 'Drag & drop is disabled for archived pages.' %}">
                 <i icon-name="move"></i>
             </span>
             {% if page.cached_children|length > 0 %}
                 <span class="toggle-subpages cursor-pointer inline-block align-middle"
-                  title="{% trans 'Expand all subpages' %}"
-                  data-alt-title="{% trans 'Collapse all subpages' %}"
-                  data-page-id="{{ page.id }}"
-                  data-page-children="{{ page|get_children_ids }}">
+                      title="{% trans 'Expand all subpages' %}"
+                      data-alt-title="{% trans 'Collapse all subpages' %}"
+                      data-page-id="{{ page.id }}"
+                      data-page-children="{{ page|get_children_ids }}">
                     <i icon-name="chevron-right"></i>
                 </span>
             {% endif %}
         </td>
     {% endif %}
     <td>
-        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-2 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page_translation %} {{ page_translation.title }} {% endif %}">
+        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="block py-2 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+           title="{% if page_translation %} {{ page_translation.title }}{% endif %}">
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
@@ -34,7 +41,9 @@
     </td>
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}" class="block py-2 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800" title="{% if page.backend_translation %} {{ page.backend_translation.title }} {% endif %}">
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}"
+               class="block py-2 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+               title="{% if page.backend_translation %} {{ page.backend_translation.title }}{% endif %}">
                 {% if page.backend_translation %}
                     {{ page.backend_translation.title }}
                 {% else %}
@@ -77,11 +86,15 @@
     </td>
     <td>
         {% if page.explicitly_archived %}
-            <div  title="{% trans 'This page is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-2 pl-2 text-gray-800">
+            <div title="{% trans 'This page is archived.' %}"
+                 href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+                 class="block py-2 pl-2 text-gray-800">
                 {% trans 'Archived' %}
             </div>
         {% else %}
-            <div  title="{% trans 'This page is archived, because at least one of its parent pages is archived.' %}" href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="block py-2 pl-2 text-gray-800">
+            <div title="{% trans 'This page is archived, because at least one of its parent pages is archived.' %}"
+                 href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+                 class="block py-2 pl-2 text-gray-800">
                 {% trans 'Archived, because a parent page is archived' %}
             </div>
         {% endif %}
@@ -93,24 +106,23 @@
     </td>
     <td class="pl-2 pr-4 py-2 flex flex-nowrap justify-end gap-2">
         {% if page_translation.content or page.mirrored_page %}
-            <button
-                type="button"
-                data-preview-page="{% url 'preview_page_ajax' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-                title="{% trans 'View page as preview' %}"
-                class="btn-icon">
+            <button type="button"
+                    data-preview-page="{% url 'preview_page_ajax' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+                    title="{% trans 'View page as preview' %}"
+                    class="btn-icon">
                 <i icon-name="eye"></i>
             </button>
         {% else %}
-            <button
-                type="button"
-                title="{% trans 'You cannot preview an empty page.' %}"
-                class="btn-icon"
-                disabled>
+            <button type="button"
+                    title="{% trans 'You cannot preview an empty page.' %}"
+                    class="btn-icon"
+                    disabled>
                 <i icon-name="eye"></i>
             </button>
         {% endif %}
         {% if page.explicitly_archived %}
-            <button title="{% trans 'Restore page' %}" class="confirmation-button btn-icon"
+            <button title="{% trans 'Restore page' %}"
+                    class="confirmation-button btn-icon"
                     data-confirmation-title="{{ restore_dialog_title }}"
                     data-confirmation-text="{{ restore_dialog_text }}"
                     data-confirmation-subject="{{ page.best_translation.title }}"
@@ -118,25 +130,32 @@
                 <i icon-name="refresh-ccw"></i>
             </button>
         {% else %}
-            <a title="{% trans 'To restore this page, you have to restore its archived parent page.' %}" class="btn-icon" disabled>
+            <a title="{% trans 'To restore this page, you have to restore its archived parent page.' %}"
+               class="btn-icon"
+               disabled>
                 <i icon-name="refresh-ccw"></i>
             </a>
         {% endif %}
         {% if perms.cms.delete_page %}
             {% if not page.is_leaf %}
-                <a title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves non-archived subpages.' %}" class="btn-icon" disabled>
+                <a title="{% trans 'You cannot delete a page which has subpages.' %}&#013;{% trans 'This also involves non-archived subpages.' %}"
+                   class="btn-icon"
+                   disabled>
                     <i icon-name="trash-2"></i>
                 </a>
             {% elif page.mirroring_pages.exists %}
-                <button title="{% trans 'This page cannot be deleted because it was embedded as live content from another page.' %}" class="btn-icon" disabled>
+                <button title="{% trans 'This page cannot be deleted because it was embedded as live content from another page.' %}"
+                        class="btn-icon"
+                        disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% else %}
-                <button title="{% trans 'Delete page' %}" class="confirmation-button btn-icon"
-                    data-confirmation-title="{{ delete_dialog_title }}"
-                    data-confirmation-text="{{ delete_dialog_text }}"
-                    data-confirmation-subject="{{ page.best_translation.title }}"
-                    data-action="{% url 'delete_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+                <button title="{% trans 'Delete page' %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ delete_dialog_title }}"
+                        data-confirmation-text="{{ delete_dialog_text }}"
+                        data-confirmation-subject="{{ page.best_translation.title }}"
+                        data-action="{% url 'delete_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
                     <i icon-name="trash-2"></i>
                 </button>
             {% endif %}

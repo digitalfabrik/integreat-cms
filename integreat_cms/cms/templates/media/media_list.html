@@ -1,12 +1,9 @@
 {% extends "_base.html" %}
 {% load i18n %}
-
 {% block content %}
-
-<integreat-media-management 
+    <integreat-media-management
     class="flex w-full h-full"
-></integreat-media-management>
-{{ media_config_data|json_script:"media_config_data" }}
-
-{% include "../generic_confirmation_dialog.html" %}
+    ></integreat-media-management>
+    {{ media_config_data|json_script:"media_config_data" }}
+    {% include "../generic_confirmation_dialog.html" %}
 {% endblock %}

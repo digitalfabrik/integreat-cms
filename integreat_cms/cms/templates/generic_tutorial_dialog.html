@@ -1,16 +1,22 @@
 {% load i18n %}
-
-<div class="fixed items-center justify-center overflow-scroll inset-0 bg-opacity-75 bg-gray-800 z-50 cursor-pointer {% if hidden %}hidden{% else %}flex{% endif %}" data-tutorial-overlay="{{ tutorial_id }}">
+<div class="fixed items-center justify-center overflow-scroll inset-0 bg-opacity-75 bg-gray-800 z-50 cursor-pointer {% if hidden %}hidden{% else %}flex{% endif %}"
+     data-tutorial-overlay="{{ tutorial_id }}">
     <div class="cursor-auto flex flex-col justify-center max-h-fit max-w-5xl w-auto px-10 z-50 m-auto">
         <div class="bg-white opacity-100 content rounded shadow-md w-full">
             {% block content %}{% endblock %}
             {% if tutorial_id %}
-                <form method="post" data-tutorial-overlay-form class="p-2"
+                <form method="post"
+                      data-tutorial-overlay-form
+                      class="p-2"
                       action="{% url 'dismiss_tutorial' region_slug=request.region.slug slug=tutorial_id %}">
                     {% csrf_token %}
                     <div class="flex px-2 gap-2 justify-between">
-                        <label for="dismiss-tutorial" class="flex font-normal text-s text-gray-600 items-center">
-                            <input id="dismiss-tutorial" type="checkbox" name="dismiss-tutorial" {% if request.user.page_tree_tutorial_seen %}checked{% endif %} />
+                        <label for="dismiss-tutorial"
+                               class="flex font-normal text-s text-gray-600 items-center">
+                            <input id="dismiss-tutorial"
+                                   type="checkbox"
+                                   name="dismiss-tutorial"
+                                   {% if request.user.page_tree_tutorial_seen %}checked{% endif %}/>
                             {% trans "Don't show again" %}
                         </label>
                         <button type="submit" class="btn">{% trans 'Understood' %}</button>

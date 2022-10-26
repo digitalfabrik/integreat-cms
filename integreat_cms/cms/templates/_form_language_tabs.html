@@ -2,7 +2,6 @@
 <!--please set variable "target" when including this code-->
 {% load i18n %}
 {% load content_filters %}
-
 {% with translation_states|sort_translation_states:language as sorted_translation_states %}
     <ul class="flex flex-wrap items-end px-4">
         {% for other_language, other_status in sorted_translation_states|slice:":4" %}
@@ -11,47 +10,53 @@
                     <div class="border-b-2 border-white">
                         {% if other_language == language %}
                             <div class="py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t text-blue-500 cursor-default">
-                        {% else %}
-                            <a class="block py-[calc(0.75rem+2px)] px-4 bg-water-500 border-l border-t border-r border-blue-500 rounded-t text-black hover:bg-white hover:text-blue-500" href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}">
-                        {% endif %}
-                        {% if other_status == translation_status.IN_TRANSLATION %}
-                            <span {% if other_language == language %} id="currently-in-translation-state" {% endif %} title="{% trans 'Currently in translation' %}">
-                                <i icon-name="clock"></i>
-                            </span>
-                            {# For the current language, provide fallback icons in case translation process is cancelled #}
-                            {% if other_language == language %}
-                                <span id="reset-translation-state-{{ translation_status.OUTDATED }}" title="{% trans 'Translation outdated' %}" class="hidden">
-                                    <i icon-name="alert-triangle"></i>
-                                </span>
-                                <span id="reset-translation-state-{{ translation_status.UP_TO_DATE }}" title="{% trans 'Translation up-to-date' %}" class="hidden">
-                                    <i icon-name="check"></i>
-                                </span>
-                            {% endif %}
-                        {% elif other_status == translation_status.OUTDATED %}
-                            <span title="{% trans 'Translation outdated' %}">
-                                <i icon-name="alert-triangle"></i>
-                            </span>
-                        {% elif other_status == translation_status.UP_TO_DATE  %}
-                            <span title="{% trans 'Translation up-to-date' %}">
-                                <i icon-name="check"></i>
-                            </span>
-                        {% elif other_status == translation_status.FALLBACK %}
-                            <span title="{% trans 'Default language is duplicated' %}">
-                                <i icon-name="copy"></i>
-                            </span>
-                        {% elif other_status == translation_status.MISSING  %}
-                            <span title="{% trans 'Translation missing' %}" class="no-trans">
-                                <i icon-name="x"></i>
-                            </span>
-                        {% endif %}
-                        {{ other_language.translated_name }}
-                        <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
-                        {% if other_language.secondary_country_code %}
-                            <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                        {% endif %}
-                        {% if other_language != language %}
-                            </a>
-                        {% else %}
+                            {% else %}
+                                <a class="block py-[calc(0.75rem+2px)] px-4 bg-water-500 border-l border-t border-r border-blue-500 rounded-t text-black hover:bg-white hover:text-blue-500"
+                                   href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}">
+                                {% endif %}
+                                {% if other_status == translation_status.IN_TRANSLATION %}
+                                    <span {% if other_language == language %} id="currently-in-translation-state"{% endif %}
+                                          title="{% trans 'Currently in translation' %}">
+                                        <i icon-name="clock"></i>
+                                    </span>
+                                    {# For the current language, provide fallback icons in case translation process is cancelled #}
+                                    {% if other_language == language %}
+                                        <span id="reset-translation-state-{{ translation_status.OUTDATED }}"
+                                              title="{% trans 'Translation outdated' %}"
+                                              class="hidden">
+                                            <i icon-name="alert-triangle"></i>
+                                        </span>
+                                        <span id="reset-translation-state-{{ translation_status.UP_TO_DATE }}"
+                                              title="{% trans 'Translation up-to-date' %}"
+                                              class="hidden">
+                                            <i icon-name="check"></i>
+                                        </span>
+                                    {% endif %}
+                                {% elif other_status == translation_status.OUTDATED %}
+                                    <span title="{% trans 'Translation outdated' %}">
+                                        <i icon-name="alert-triangle"></i>
+                                    </span>
+                                {% elif other_status == translation_status.UP_TO_DATE  %}
+                                    <span title="{% trans 'Translation up-to-date' %}">
+                                        <i icon-name="check"></i>
+                                    </span>
+                                {% elif other_status == translation_status.FALLBACK %}
+                                    <span title="{% trans 'Default language is duplicated' %}">
+                                        <i icon-name="copy"></i>
+                                    </span>
+                                {% elif other_status == translation_status.MISSING  %}
+                                    <span title="{% trans 'Translation missing' %}" class="no-trans">
+                                        <i icon-name="x"></i>
+                                    </span>
+                                {% endif %}
+                                {{ other_language.translated_name }}
+                                <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                {% if other_language.secondary_country_code %}
+                                    <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                {% endif %}
+                                {% if other_language != language %}
+                                </a>
+                            {% else %}
                             </div>
                         {% endif %}
                     </div>
@@ -61,42 +66,42 @@
         {% if instance and sorted_translation_states|length > 4 %}
             <li class="ml-auto z-10">
                 <div id="language-switcher" class="flex flex-col text-black">
-                    <div id="language-switcher-current" class="font-bold text-right bg-water-500 py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t cursor-default">
+                    <div id="language-switcher-current"
+                         class="font-bold text-right bg-water-500 py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t cursor-default">
                         {% trans 'Other Languages' %}
                         <i icon-name="chevron-down"></i>
                     </div>
                     <div id="language-switcher-list" class="h-0 hidden z-10">
                         {% for other_language, other_status in sorted_translation_states|slice:"4:" %}
-                        <a href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}" class="flex justify-between font-bold whitespace-nowrap {% if forloop.last %} rounded-b border-b {% endif %} py-2 px-3 border-l border-r border-t border-blue-500 hover:bg-water-500 bg-white">
-                            <div>
-                                {% if other_status == translation_status.IN_TRANSLATION %}
-                                    <span title="{% trans 'Currently in translation' %}">
-                                        <i icon-name="clock"></i>
-                                    </span>
-                                {% elif other_status == translation_status.OUTDATED %}
-                                    <span title="{% trans 'Translation outdated' %}">
-                                        <i icon-name="alert-triangle"></i>
-                                    </span>
-                                {% elif other_status == translation_status.UP_TO_DATE  %}
-                                    <span title="{% trans 'Translation up-to-date' %}">
-                                        <i icon-name="check"></i>
-                                    </span>
-                                {% elif other_status == translation_status.MISSING  %}
-                                    <span title="{% trans 'Translation missing' %}" class="no-trans">
-                                        <i icon-name="x"></i>
-                                    </span>
-                                {% endif %}
-                                <span class="px-2 max-w-max truncate">
-                                    {{ other_language.translated_name }}
-                                </span>
-                            </div>
-                            <div>
-                                <span class="fp fp-rounded fp-{{ other_language.primary_country_code }} ml-2"></span>
-                                {% if other_language.secondary_country_code %}
-                                    <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                                {% endif %}
-                            </div>
-                        </a>
+                            <a href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}"
+                               class="flex justify-between font-bold whitespace-nowrap {% if forloop.last %} rounded-b border-b{% endif %} py-2 px-3 border-l border-r border-t border-blue-500 hover:bg-water-500 bg-white">
+                                <div>
+                                    {% if other_status == translation_status.IN_TRANSLATION %}
+                                        <span title="{% trans 'Currently in translation' %}">
+                                            <i icon-name="clock"></i>
+                                        </span>
+                                    {% elif other_status == translation_status.OUTDATED %}
+                                        <span title="{% trans 'Translation outdated' %}">
+                                            <i icon-name="alert-triangle"></i>
+                                        </span>
+                                    {% elif other_status == translation_status.UP_TO_DATE  %}
+                                        <span title="{% trans 'Translation up-to-date' %}">
+                                            <i icon-name="check"></i>
+                                        </span>
+                                    {% elif other_status == translation_status.MISSING  %}
+                                        <span title="{% trans 'Translation missing' %}" class="no-trans">
+                                            <i icon-name="x"></i>
+                                        </span>
+                                    {% endif %}
+                                    <span class="px-2 max-w-max truncate">{{ other_language.translated_name }}</span>
+                                </div>
+                                <div>
+                                    <span class="fp fp-rounded fp-{{ other_language.primary_country_code }} ml-2"></span>
+                                    {% if other_language.secondary_country_code %}
+                                        <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                    {% endif %}
+                                </div>
+                            </a>
                         {% endfor %}
                     </div>
                 </div>

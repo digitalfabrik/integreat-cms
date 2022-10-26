@@ -1,7 +1,5 @@
 {% extends "emails/_base_email.html" %}
-
 {% load i18n %}
-
 {% block content %}
     {% trans 'Welcome' %} {{ user.full_user_name }},
     <br>
@@ -21,7 +19,7 @@
         {% trans 'Please click the link below to log in with your password and to your account.' %}
         <br>
         <br>
-        <a href="{{ base_url }}"> {{ base_url }} </a>
+        <a href="{{ base_url }}">{{ base_url }}</a>
     {% endif %}
     <br>
     <br>

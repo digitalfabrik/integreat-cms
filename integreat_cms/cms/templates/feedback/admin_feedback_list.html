@@ -50,7 +50,8 @@
                                class="bulk-select-item"/>
                     </td>
                     <td class="pr-2 whitespace-nowrap">{{ feedback.category }}</td>
-                    <td class="pr-2 truncate max-w-[75px] 2xl:max-w-[200px]" title="{{ feedback.object_name }}">
+                    <td class="pr-2 truncate max-w-[75px] 2xl:max-w-[200px]"
+                        title="{{ feedback.object_name }}">
                         {% if feedback.object_url %}
                             <a href="{{ feedback.object_url }}" class="hover:underline">{{ feedback.object_name }}</a>
                         {% else %}
@@ -66,11 +67,11 @@
                             <div class="flex">
                                 <div class="feedback-comment-preview truncate grow">{{ feedback.comment }}</div>
                                 <i icon-name="chevron-down"
-                                    class="toggle-feedback-comment transform cursor-pointer hover:scale-125 flex-none"></i>
+                                   class="toggle-feedback-comment transform cursor-pointer hover:scale-125 flex-none"></i>
                             </div>
                             <div class="hidden">
                                 <span class="feedback-comment-full">{{ feedback.comment }}</span> <i icon-name="chevron-up"
-                                class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
+    class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
                             </div>
                         {% endif %}
                     </td>
@@ -86,64 +87,64 @@
                     <td class="pr-2">
                         <span class="{% if not feedback.rating_sum_positive %}invisible{% endif %}">
                             <i icon-name="thumbs-up" class="pr-1"></i> {{ feedback.rating_sum_positive }}
-                    </span>
-                    <span class="{% if not feedback.rating_sum_negative %}invisible{% endif %}">
-                        <i icon-name="thumbs-down" class="pl-1"></i> {{ feedback.rating_sum_negative }}
-                </span>
-            </td>
-            <td class="pr-2">
-                <a href="{% url 'dashboard' region_slug=feedback.region.slug %}"
-                   class="hover:underline">
-                    {{ feedback.region.get_administrative_division_display }} {{ feedback.region.name }}
-                </a>
-            </td>
-            <td class="pr-2">
-                {% if feedback.read_by.email %}<a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">{% endif %}
-                {{ feedback.read_by.full_user_name }}
-                {% if feedback.read_by.email %}</a>{% endif %}
-            </td>
-            <td class="pr-2 text-right whitespace-nowrap">{{ feedback.created_date }}</td>
-        </tr>
-    {% empty %}
-        <tr>
-            <td colspan="9" class="px-2 py-3 text-center">
-                {% if filter_form.has_changed %}
-                    {% trans 'No technical feedback found with these filters.' %}
-                {% else %}
-                    {% trans 'No technical feedback available yet.' %}
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
-</table>
-{% if admin_feedback %}
-    <div class="pt-2 px-2">
-        <div class="inline">
-            <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% trans "Feedback entries selected" %}</span>
+                        </span>
+                        <span class="{% if not feedback.rating_sum_negative %}invisible{% endif %}">
+                            <i icon-name="thumbs-down" class="pl-1"></i> {{ feedback.rating_sum_negative }}
+                        </span>
+                    </td>
+                    <td class="pr-2">
+                        <a href="{% url 'dashboard' region_slug=feedback.region.slug %}"
+                           class="hover:underline">
+                            {{ feedback.region.get_administrative_division_display }} {{ feedback.region.name }}
+                        </a>
+                    </td>
+                    <td class="pr-2">
+                        {% if feedback.read_by.email %}<a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">{% endif %}
+                        {{ feedback.read_by.full_user_name }}
+                        {% if feedback.read_by.email %}</a>{% endif %}
+                    </td>
+                    <td class="pr-2 text-right whitespace-nowrap">{{ feedback.created_date }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="9" class="px-2 py-3 text-center">
+                        {% if filter_form.has_changed %}
+                            {% trans 'No technical feedback found with these filters.' %}
+                        {% else %}
+                            {% trans 'No technical feedback available yet.' %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% if admin_feedback %}
+            <div class="pt-2 px-2">
+                <div class="inline">
+                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% trans "Feedback entries selected" %}</span>
+                </div>
+            </div>
+        {% endif %}
+        <div class="flex flex-col">
+            {% include "pagination.html" with chunk=admin_feedback %}
+            <div class="flex self-start gap-2 mt-2">
+                <select id="bulk-action">
+                    <option>
+                        {% trans 'Select bulk action' %}
+                    </option>
+                    <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">
+                        {% trans 'Mark as read' %}
+                    </option>
+                    <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">
+                        {% trans 'Mark as unread' %}
+                    </option>
+                    {% if perms.cms.delete_feedback %}
+                        <option data-bulk-action="{% url 'delete_admin_feedback' %}">
+                            {% trans 'Delete' %}
+                        </option>
+                    {% endif %}
+                </select>
+                <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
+            </div>
         </div>
-    </div>
-{% endif %}
-<div class="flex flex-col">
-    {% include "pagination.html" with chunk=admin_feedback %}
-    <div class="flex self-start gap-2 mt-2">
-        <select id="bulk-action">
-            <option>
-                {% trans 'Select bulk action' %}
-            </option>
-            <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">
-                {% trans 'Mark as read' %}
-            </option>
-            <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">
-                {% trans 'Mark as unread' %}
-            </option>
-            {% if perms.cms.delete_feedback %}
-                <option data-bulk-action="{% url 'delete_admin_feedback' %}">
-                    {% trans 'Delete' %}
-                </option>
-            {% endif %}
-        </select>
-        <button id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
-    </div>
-</div>
-</form>
+    </form>
 {% endblock content %}
