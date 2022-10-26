@@ -1,4 +1,5 @@
 import logging
+import re
 
 from django.http import JsonResponse, Http404
 
@@ -67,10 +68,11 @@ def event_feedback_internal(data, region, language, comment, rating, is_technica
     :return: JSON object according to APIv3 single page feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    event_translation_slug = data.get("slug")
+    # Remove date from the slug for recurrung events
+    event_translation_slug = re.sub(r"\$\d{4}-\d{2}-\d{2}$", "", data.get("slug"))
 
     events = region.events.filter(
-        translations__slug=data.get("slug"),
+        translations__slug=event_translation_slug,
         translations__language=language,
     ).distinct()
 
