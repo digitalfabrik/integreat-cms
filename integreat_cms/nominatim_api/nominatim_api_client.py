@@ -1,4 +1,5 @@
 import logging
+import re
 
 from urllib.parse import urlparse
 
@@ -70,6 +71,17 @@ class NominatimApiClient:
         if query_str and query_dict:
             raise RuntimeError(
                 "You can either specify query_str or pass additional keyword arguments, not both."
+            )
+        if "street" in query_dict:
+            # This expression matches a number optionally followed by a whitespace and one character
+            street_number = r"\d+( ?[a-zA-Z])?"
+            # This expression matches possible delimiters between multiple street numbers
+            delimiter = r" ?[/,\-–] ?"
+            # If multiple street numbers are given, only take the first one
+            query_dict["street"] = re.sub(
+                rf"({street_number})({delimiter}{street_number})+",
+                r"\1",
+                query_dict["street"],
             )
         query = query_str or query_dict
         try:
