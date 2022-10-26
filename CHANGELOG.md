@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.10.2
+---------
+
 * [ [#1808](https://github.com/digitalfabrik/integreat-cms/issues/1808) ] Improve calculation of HIX values via Textlab
 * [ [#1800](https://github.com/digitalfabrik/integreat-cms/issues/1800) ] Exclude archived pages from PDF exports
 * [ [#1802](https://github.com/digitalfabrik/integreat-cms/issues/1802) ] Reenable table of contents and page numbers in PDFs
