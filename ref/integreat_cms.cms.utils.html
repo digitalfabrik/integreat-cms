@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-10-26T10:52:21+00:00" />
+    <meta property="article:modified_time" content="2022-10-26T12:10:19+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2022.10.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -458,6 +458,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#model-tags">Model Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#page-filters">Page Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#pdf-filters">PDF Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#poi-filters">POI Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
@@ -767,6 +768,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.model_tags">Model Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.page_filters">Page Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.pdf_filters">PDF Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
@@ -1873,7 +1875,7 @@ defaults to <a class="reference internal" href="../ref-ext/integreat_cms.core.ht
 <h2>PDF Utils<a class="headerlink" href="#pdf-utils" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">generate_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/pdf_utils.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">generate_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/pdf_utils.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function for handling a pdf export request for pages.
 The pages were either selected by cms user or by API request (see <a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pdf_export" title="integreat_cms.api.v3.pdf_export"><code class="xref py py-func docutils literal notranslate"><span class="pre">pdf_export()</span></code></a>)
 For more information on xhtml2pdf, see <a class="reference external" href="https://xhtml2pdf.readthedocs.io/en/latest/index.html" title="(in xhtml2pdf v0.2.7)"><span>Welcome to xhtml2pdf’s documentation!</span></a></p>
@@ -1896,7 +1898,7 @@ For more information on xhtml2pdf, see <a class="reference external" href="https
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">link_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/pdf_utils.py#L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">link_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/pdf_utils.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>According to xhtml2pdf documentation (see <a class="reference external" href="https://xhtml2pdf.readthedocs.io/en/latest/usage.html" title="(in xhtml2pdf v0.2.7)"><span>Usage</span></a>),
 this function is necessary for resolving the django static files references.
 It returns the absolute paths to the files on the file system.</p>
@@ -1909,24 +1911,6 @@ It returns the absolute paths to the files on the file system.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The absolute path on the file system according to django’s static file settings</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.pdf_utils.</span></span><span class="sig-name descname"><span class="pre">sanitize_for_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/pdf_utils.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Helper function for sanitizing HTML for use with xhtml2pdf,
-which lacks some features commonly found in browsers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>html</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – rendered HTML page</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>sanitized version of html param</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>

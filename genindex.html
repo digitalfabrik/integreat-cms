@@ -454,6 +454,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#model-tags">Model Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#page-filters">Page Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#parse-struct-time">Parse Struct Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#pdf-filters">PDF Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#poi-filters">POI Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
@@ -763,6 +764,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.model_tags">Model Tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.page_filters">Page Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.parse_struct_time">Parse Struct Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.pdf_filters">PDF Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
@@ -12427,12 +12429,21 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.cms.templatetags.pdf_filters
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.pdf_filters">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.cms.templatetags.poi_filters
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.poi_filters">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.templatetags.push_notification_filters
 
@@ -12440,8 +12451,6 @@
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.push_notification_filters">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.templatetags.settings_tags
 
@@ -15390,6 +15399,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.parse_struct_time">integreat_cms.cms.templatetags.parse_struct_time</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.pdf_filters">integreat_cms.cms.templatetags.pdf_filters</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.poi_filters">integreat_cms.cms.templatetags.poi_filters</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.templatetags.html#module-integreat_cms.cms.templatetags.push_notification_filters">integreat_cms.cms.templatetags.push_notification_filters</a>
@@ -17206,6 +17217,8 @@
       <li><a href="ref-ext/integreat_cms.api.v3.html#integreat_cms.api.v3.pdf_export.pdf_export">pdf_export() (in module integreat_cms.api.v3.pdf_export)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PDF_ROOT">PDF_ROOT (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.pdf_filters.pdf_strip_fontstyles">pdf_strip_fontstyles() (in module integreat_cms.cms.templatetags.pdf_filters)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PDF_URL">PDF_URL (in module integreat_cms.core.settings)</a>
 </li>
@@ -19642,8 +19655,6 @@
       <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.auth.WPBCryptPasswordHasher.salt">salt() (integreat_cms.cms.auth.WPBCryptPasswordHasher method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.auth.WPBCryptPasswordHasher.salt_entropy">salt_entropy (integreat_cms.cms.auth.WPBCryptPasswordHasher attribute)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.pdf_utils.sanitize_for_pdf">sanitize_for_pdf() (in module integreat_cms.cms.utils.pdf_utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.weekdays.SATURDAY">SATURDAY (in module integreat_cms.cms.constants.weekdays)</a>
 </li>
