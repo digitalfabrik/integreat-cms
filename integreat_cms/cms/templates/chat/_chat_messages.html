@@ -9,9 +9,12 @@
         <span class="font-bold">{{ message.sender.full_user_name }}</span>
         {% if message.sender.email %}({{ message.sender.email|urlize }}){% endif %}
         {% has_perm 'cms.delete_chat_message_object' request.user message as can_delete_message %}
-        <button title="{% trans "Delete chat message" %}" class="{% if not can_delete_message %} invisible{% endif %} button-delete-chat-message btn-icon float-right ml-2" data-confirmation-title="{% trans "Please confirm that you really want to delete this chat message:" %}" data-confirmation-text='{% trans "Sender:" %} {{ message.sender.full_user_name }}
-            <br />
-            {% trans "Sent on:" %} {{ message.sent_datetime }}' data-confirmation-subject="{{ message.text }}" data-action="{% spaceless %} {% if request.region %} {% url "delete_chat_message" region_slug=request.region.slug message_id=message.id %} {% else %} {% url "delete_chat_message" message_id=message.id %} {% endif %} {% endspaceless %}">
+        <button title="{% trans "Delete chat message" %}"
+                class="{% if not can_delete_message %} invisible{% endif %} button-delete-chat-message btn-icon float-right ml-2"
+                data-confirmation-title="{% trans "Please confirm that you really want to delete this chat message:" %}"
+                data-confirmation-text='{% trans "Sender:" %} {{ message.sender.full_user_name }} &#010 {% trans "Sent on:" %} {{ message.sent_datetime }}'
+                data-confirmation-subject="{{ message.text }}"
+                data-action="{% spaceless %} {% if request.region %} {% url "delete_chat_message" region_slug=request.region.slug message_id=message.id %} {% else %} {% url "delete_chat_message" message_id=message.id %} {% endif %} {% endspaceless %}">
             <i icon-name="trash-2"></i>
         </button>
         <span class="text-gray-600 float-right">{{ message.sent_datetime }}</span>
