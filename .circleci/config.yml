@@ -5,13 +5,13 @@ orbs:
 jobs:
   pipenv-install:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     environment:
       PIPENV_VENV_IN_PROJECT: true
     steps:
       - checkout
       - restore_cache:
-          key: pipenv-{{ checksum "Pipfile.lock" }}-v2
+          key: pipenv-{{ checksum "Pipfile.lock" }}-v1
       - run:
           name: Install pip dependencies
           command: |
@@ -26,7 +26,7 @@ jobs:
               fi
             fi
       - save_cache:
-          key: pipenv-{{ checksum "Pipfile.lock" }}-v2
+          key: pipenv-{{ checksum "Pipfile.lock" }}-v1
           paths:
             - .venv
             - integreat_cms.egg-info
@@ -39,7 +39,7 @@ jobs:
             - integreat_cms.egg-info
   black:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     resource_class: small
     steps:
       - checkout
@@ -50,7 +50,7 @@ jobs:
           command: pipenv run black --check .
   pylint:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     steps:
       - checkout
       - attach_workspace:
@@ -60,7 +60,7 @@ jobs:
           command: pipenv run pylint_runner
   check-translations:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     resource_class: small
     steps:
       - checkout
@@ -74,7 +74,7 @@ jobs:
           command: ./dev-tools/check_translations.sh
   compile-translations:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     steps:
       - checkout
       - attach_workspace:
@@ -126,7 +126,7 @@ jobs:
             - integreat_cms/webpack-stats.json
   check-migrations:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
       - image: cimg/postgres:14.1
         environment:
           POSTGRES_USER: integreat
@@ -161,7 +161,7 @@ jobs:
             - cc-test-reporter
   test:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
       - image: cimg/postgres:14.1
         environment:
           POSTGRES_USER: integreat
@@ -208,7 +208,7 @@ jobs:
             ./cc-test-reporter sum-coverage -o - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
   build-package:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     steps:
       - checkout
       - attach_workspace:
@@ -228,7 +228,7 @@ jobs:
             - dist
   publish-package:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     steps:
       - checkout
       - attach_workspace:
@@ -238,7 +238,7 @@ jobs:
           command: pipenv run twine upload --non-interactive ./dist/integreat-cms-*.tar.gz
   build-documentation:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     resource_class: large
     steps:
       - checkout
@@ -253,7 +253,7 @@ jobs:
             - docs
   deploy-documentation:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     resource_class: small
     environment:
       BRANCH: gh-pages
@@ -297,7 +297,7 @@ jobs:
             git push origin $BRANCH
   bump-dev-version:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     resource_class: small
     steps:
       - checkout
@@ -329,7 +329,7 @@ jobs:
             - integreat_cms/__init__.py
   bump-version:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     resource_class: small
     steps:
       - checkout
@@ -377,7 +377,7 @@ jobs:
           command: git checkout develop && git merge main --commit --no-edit && git push
   create-release:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.14
     resource_class: small
     steps:
       - checkout
