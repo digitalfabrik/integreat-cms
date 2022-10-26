@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load content_filters %}
+{% load pdf_filters %}
 {% load render_bundle from webpack_loader %}
 
 {% comment %}
@@ -85,7 +86,7 @@
                 {{ page_translation.title }}
             </h1>
             <div class="content" style="padding-bottom: 30px;">
-                {{ page_translation.content|safe }}
+                {{ page_translation.content|pdf_strip_fontstyles|safe }}
             </div>
             {% for close in info.close %}
                 </li></ul>

@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1800](https://github.com/digitalfabrik/integreat-cms/issues/1800) ] Exclude archived pages from PDF exports
+* [ [#1802](https://github.com/digitalfabrik/integreat-cms/issues/1802) ] Reenable table of contents and page numbers in PDFs
 * [ [#1350](https://github.com/digitalfabrik/integreat-cms/issues/1350) ] Various small PDF export improvements
 * [ [#1777](https://github.com/digitalfabrik/integreat-cms/issues/1777) ] Fix autocompleting POI address for non-staff users
 * [ [#1749](https://github.com/digitalfabrik/integreat-cms/issues/1749) ] Fix region deletion error if media library has nested structure
