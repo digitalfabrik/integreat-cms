@@ -51,10 +51,22 @@ def poi_feedback(data, region, language, comment, rating, is_technical):
             pois,
         )
         return JsonResponse({"error": "Internal Server Error"}, status=500)
-    if len(pois) == 0:
+
+    poi = None
+    if len(pois) == 1:
+        poi = pois[0]
+    elif region.fallback_translations_enabled:
+        poi = region.pois.filter(
+            translations__slug=data.get("slug"),
+            translations__language=region.default_language,
+        ).first()
+
+    if not poi:
         raise Http404("No matching location found for slug.")
-    poi = pois[0]
-    poi_translation = poi.get_translation(language.slug)
+
+    poi_translation = poi.get_translation(language.slug) or poi.get_translation(
+        region.default_language.slug
+    )
 
     POIFeedback.objects.create(
         poi_translation=poi_translation,
