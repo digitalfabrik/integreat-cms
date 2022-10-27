@@ -12,7 +12,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: pipenv-{{ checksum "Pipfile.lock" }}-v1
+          key: pipenv-{{ .Environment.PYTHON_VERSION }}-{{ checksum "Pipfile.lock" }}-v1
       - run:
           name: Install pip dependencies
           command: |
@@ -27,7 +27,7 @@ jobs:
               fi
             fi
       - save_cache:
-          key: pipenv-{{ checksum "Pipfile.lock" }}-v1
+          key: pipenv-{{ .Environment.PYTHON_VERSION }}-{{ checksum "Pipfile.lock" }}-v1
           paths:
             - .venv
             - integreat_cms.egg-info
