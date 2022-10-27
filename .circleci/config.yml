@@ -11,6 +11,7 @@ jobs:
       PIPENV_VENV_IN_PROJECT: true
     steps:
       - checkout
+      - run: echo "export PYTHON_VERSION=$(python --version)" >> $BASH_ENV
       - restore_cache:
           key: pipenv-{{ .Environment.PYTHON_VERSION }}-{{ checksum "Pipfile.lock" }}-v1
       - run:
