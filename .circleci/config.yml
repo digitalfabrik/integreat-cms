@@ -5,7 +5,7 @@ orbs:
 jobs:
   pipenv-install:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     environment:
       PIPENV_VENV_IN_PROJECT: true
@@ -40,7 +40,7 @@ jobs:
             - integreat_cms.egg-info
   black:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     steps:
       - checkout
@@ -51,7 +51,7 @@ jobs:
           command: pipenv run black --check .
   djlint:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     steps:
       - checkout
@@ -62,7 +62,7 @@ jobs:
           command: pipenv run djlint --check --quiet --profile django --lint integreat_cms
   pylint:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     steps:
       - checkout
@@ -73,7 +73,7 @@ jobs:
           command: pipenv run pylint_runner
   check-translations:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     steps:
       - checkout
@@ -81,13 +81,13 @@ jobs:
           at: .
       - run:
           name: Install translation requirements
-          command: sudo apt-get update && sudo apt-get install gettext pcregrep
+          command: sudo apt-get update && sudo apt-get install gettext pcregrep libmagic
       - run:
           name: Check translation file for missing or empty entries
           command: ./dev-tools/check_translations.sh
   compile-translations:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     steps:
       - checkout
@@ -95,7 +95,7 @@ jobs:
           at: .
       - run:
           name: Install gettext
-          command: sudo apt-get update && sudo apt-get install gettext
+          command: sudo apt-get update && sudo apt-get install gettext libmagic
       - run:
           name: Compile translation file
           command: |
@@ -163,7 +163,7 @@ jobs:
             - integreat_cms/webpack-stats.json
   check-migrations:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
       - image: cimg/postgres:14.1
         environment:
           POSTGRES_USER: integreat
@@ -198,7 +198,7 @@ jobs:
             - cc-test-reporter
   test:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
       - image: cimg/postgres:14.1
         environment:
           POSTGRES_USER: integreat
@@ -210,6 +210,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
+      - run:
+          name: Install requirements
+          command: sudo apt-get update && sudo apt-get install libmagic
       - run:
           name: Migrate database
           command: pipenv run integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
@@ -246,7 +249,7 @@ jobs:
             ./cc-test-reporter sum-coverage -o - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
   build-package:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     steps:
       - checkout
@@ -267,7 +270,7 @@ jobs:
             - dist
   publish-package:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     steps:
       - checkout
@@ -278,7 +281,7 @@ jobs:
           command: pipenv run twine upload --non-interactive ./dist/integreat-cms-*.tar.gz
   build-documentation:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: large
     steps:
       - checkout
@@ -293,7 +296,7 @@ jobs:
             - docs
   deploy-documentation:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     environment:
       BRANCH: gh-pages
@@ -337,7 +340,7 @@ jobs:
             git push origin $BRANCH
   bump-dev-version:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     steps:
       - checkout
@@ -369,7 +372,7 @@ jobs:
             - integreat_cms/__init__.py
   bump-version:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     steps:
       - checkout
@@ -417,7 +420,7 @@ jobs:
           command: git checkout develop && git merge main --commit --no-edit && git push
   create-release:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9
     resource_class: small
     steps:
       - checkout
