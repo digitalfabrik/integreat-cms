@@ -4,6 +4,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
     "use strict";
 
     const tinymceConfig = document.getElementById("tinymce-config-options");
+    const internal_urls = tinymceConfig.getAttribute("data-internal-urls");
 
     async function getCompletions(query, id) {
         const url = tinymceConfig.getAttribute("data-link-ajax-url");
@@ -34,6 +35,11 @@ import { getCsrfToken } from "../../utils/csrf-token";
             return "https://" + url;
         }
         return url;
+    }
+
+    function isExternalUrl(url) {
+        console.log(internal_urls);
+        return !internal_urls.split(" ").some((e) => url.includes(e));
     }
 
     function updateLink(editor, anchorElm, text, linkAttrs) {
@@ -253,9 +259,16 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     // Either insert a new link or update the existing one
                     let anchor = getAnchor();
                     if (!anchor) {
-                        editor.insertContent(`<a href=${real_url}>${text}</a>`);
+                        if (isExternalUrl(real_url)) {
+                            editor.insertContent(`<a href=${real_url} class="link-external">${text}</a>`);
+                        } else {
+                            editor.insertContent(`<a href=${real_url}>${text}</a>`);
+                        }
                     } else {
-                        updateLink(editor, anchor, text, { href: real_url });
+                        updateLink(editor, anchor, text, {
+                            href: real_url,
+                            class: isExternalUrl(real_url) ? "link-external" : "",
+                        });
                     }
                 },
                 onChange: updateDialog,
@@ -301,7 +314,10 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         if (url) {
                             const real_url = checkUrlHttps(url);
                             const anchor = getAnchor();
-                            updateLink(editor, anchor, null, { href: real_url });
+                            updateLink(editor, anchor, null, {
+                                href: real_url,
+                                class: isExternalUrl(real_url) ? "link-external" : "",
+                            });
                         }
                         formApi.hide();
                     },
