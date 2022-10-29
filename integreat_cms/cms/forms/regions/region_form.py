@@ -6,13 +6,17 @@ from copy import deepcopy
 from zoneinfo import available_timezones
 from django import forms
 from django.conf import settings
+from django.db.models import Q
 from django.utils.translation import override, ugettext_lazy as _
 from django.apps import apps
+
+from linkcheck.listeners import disable_listeners
+from linkcheck.models import Link
 
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ....gvz_api.utils import GvzRegion
 from ...constants import status
-from ...models import Region, Page, LanguageTreeNode
+from ...models import Region, Page, PageTranslation, LanguageTreeNode
 from ...utils.matomo_api_manager import MatomoException
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -180,14 +184,18 @@ class RegionForm(CustomModelForm):
             # Duplicate language tree
             logger.info("Duplicating language tree of %r to %r", source_region, region)
             duplicate_language_tree(source_region, region)
-            # Duplicate pages
-            logger.info("Duplicating page tree of %r to %r", source_region, region)
-            duplicate_pages(source_region, region)
-            # Duplicate Imprint
-            logger.info("Duplicating imprint of %r to %r", source_region, region)
-            duplicate_imprint(source_region, region)
+            # Disable linkcheck listeners to prevent links to be created for outdated versions
+            with disable_listeners():
+                # Duplicate pages
+                logger.info("Duplicating page tree of %r to %r", source_region, region)
+                duplicate_pages(source_region, region)
+                # Duplicate Imprint
+                logger.info("Duplicating imprint of %r to %r", source_region, region)
+                duplicate_imprint(source_region, region)
             # Duplicate media content
             duplicate_media(source_region, region)
+            # Create links for the most recent versions of all translations manually
+            find_links(region)
 
         return region
 
@@ -724,3 +732,24 @@ def duplicate_media(source_region, target_region):
 
     """
     # TODO: implement duplication of all media files
+
+
+def find_links(region):
+    """
+    Find all link objects in the latest versions of the region's page translations
+
+    :param region: The region which should be scanned for links
+    :type region: ~integreat_cms.cms.models.regions.region.Region
+    """
+    logger.info("Scanning for broken links in region %r", region)
+    # Get the latest page translations of the region
+    translations = PageTranslation.objects.filter(page__region=region).distinct(
+        "page_id", "language_id"
+    )
+    # Trigger post-save signal to create link objects
+    for translation in translations:
+        translation.save(update_timestamp=False)
+    # Check whether finding links succeeded
+    logger.debug(
+        "Found links: %r", Link.objects.filter(Q(page_translation__page__region=region))
+    )
