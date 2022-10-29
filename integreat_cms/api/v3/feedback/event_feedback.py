@@ -81,10 +81,22 @@ def event_feedback_internal(data, region, language, comment, rating, is_technica
             events,
         )
         return JsonResponse({"error": "Internal Server Error"}, status=500)
-    if len(events) == 0:
-        raise Http404("No matching event found for slug.")
-    event = events[0]
-    event_translation = event.get_translation(language.slug)
+
+    event = None
+    if len(events) == 1:
+        event = events[0]
+    elif region.fallback_translations_enabled:
+        event = region.events.filter(
+            translations__slug=data.get("slug"),
+            translations__language=region.default_language,
+        ).first()
+
+    if not event:
+        raise Http404("No matching location found for slug.")
+
+    event_translation = event.get_translation(language.slug) or event.get_translation(
+        region.default_language.slug
+    )
 
     EventFeedback.objects.create(
         event_translation=event_translation,

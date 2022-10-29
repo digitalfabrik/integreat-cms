@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1718](https://github.com/digitalfabrik/integreat-cms/issues/1718) ] Enable submitting feedback about fallback translations of events and pois
+
 
 2022.10.2
 ---------
