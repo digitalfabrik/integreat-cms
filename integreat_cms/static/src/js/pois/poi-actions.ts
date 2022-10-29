@@ -90,7 +90,7 @@ async function autoCompleteAddress() {
     latitude.dispatchEvent(new Event("focusout"));
 }
 
-function updateField(fieldName: string, value: string) {
+export function updateField(fieldName: string, value: string) {
     let field = document.getElementById(`id_${fieldName}`) as HTMLInputElement;
     // Only fill value if it was changed
     if (value && field.value != value) {

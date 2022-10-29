@@ -8,5 +8,6 @@ from .poi_actions import (
     restore_poi,
     delete_poi,
     auto_complete_address,
+    get_address_from_coordinates,
 )
 from .poi_list_view import POIListView

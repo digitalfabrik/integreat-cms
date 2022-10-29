@@ -8,6 +8,7 @@ UNRELEASED
 * [ [#1513](https://github.com/digitalfabrik/integreat-cms/issues/1513) ] Fix link scanning when cloning regions
 * [ [#1816](https://github.com/digitalfabrik/integreat-cms/issues/1816) ] Make menu sidebar responsive
 * [ [#1746](https://github.com/digitalfabrik/integreat-cms/issues/1746) ] Hide analytics section (partially) for author, editor and event manager
+* [ [#1035](https://github.com/digitalfabrik/integreat-cms/issues/1035) ] Enable setting POI position via drag & drop on map
 
 
 2022.10.2
