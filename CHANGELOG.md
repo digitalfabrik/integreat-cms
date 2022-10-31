@@ -3,6 +3,8 @@ UNRELEASED
 
 * [ [#1827](https://github.com/digitalfabrik/integreat-cms/issues/1827) ] Make Multi-language-XLIFF export popup scrollable
 * [ [#1521](https://github.com/digitalfabrik/integreat-cms/issues/1521) ] Show warning when user entered slug got changed
+* [ [#1807](https://github.com/digitalfabrik/integreat-cms/issues/1807) ] Remove short description field from POI form
+* [ [#522](https://github.com/digitalfabrik/integreat-cms/issues/522) ] Add region setting to activate SEO section, add SEO section to POI form
 
 
 2022.11.2

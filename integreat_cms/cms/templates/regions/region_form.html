@@ -311,6 +311,16 @@
                     </div>
                 </div>
                 <div>
+                    <!-- Options related to SEO section -->
+                    {% render_field form.seo_enabled %}
+                    <label for="{{ form.seo_enabled.id_for_label }}">
+                        {{ form.seo_enabled.label }}
+                    </label>
+                    <div class="help-text">
+                        {{ form.seo_enabled.help_text }}
+                    </div>
+                </div>
+                <div>
                     <!-- Options related to Tracking -->
                     <label>
                         {% trans "Statistics" %}

@@ -735,7 +735,7 @@ SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG = os.environ.get(
 SUMM_AI_SEPARATOR = os.environ.get("INTEGREAT_CMS_SUMM_AI_SEPARATOR", "hyphen")
 
 #: All plain text fields of the content models which should be translated
-SUMM_AI_TEXT_FIELDS = ["short_description"]
+SUMM_AI_TEXT_FIELDS = ["meta_description"]
 
 #: All HTML fields of the content models which should be translated
 SUMM_AI_HTML_FIELDS = ["content"]

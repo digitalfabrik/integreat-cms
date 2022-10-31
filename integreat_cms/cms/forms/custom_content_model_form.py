@@ -167,7 +167,7 @@ class CustomContentModelForm(CustomModelForm):
         self.instance.links.all().delete()
 
         # If none of the text content fields changed, treat as minor edit (even if checkbox isn't clicked)
-        if {"title", "short_description", "content"}.isdisjoint(self.changed_data):
+        if {"title", "content"}.isdisjoint(self.changed_data):
             self.logger.debug("Set 'minor_edit=True' since the content did not change")
             self.instance.minor_edit = True
 

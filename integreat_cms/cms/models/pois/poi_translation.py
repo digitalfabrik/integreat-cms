@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from linkcheck.models import Link
 
+from ...utils.translation_utils import ugettext_many_lazy as __
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
 
@@ -26,8 +27,16 @@ class POITranslation(AbstractContentTranslation):
         related_name="translations",
         verbose_name=_("location"),
     )
-    short_description = models.CharField(
-        max_length=2048, verbose_name=_("short description")
+    meta_description = models.CharField(
+        max_length=2048,
+        blank=True,
+        verbose_name=_("meta description"),
+        help_text=__(
+            _("Describe the location in one or two short sentences."),
+            _(
+                "This text will be displayed in the Google search results below the title."
+            ),
+        ),
     )
     links = GenericRelation(Link, related_query_name="poi_translation")
 

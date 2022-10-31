@@ -199,7 +199,7 @@ VIEWS = [
                 PRIV_STAFF_ROLES + REGION_ROLES,
                 {
                     "title": "new poi",
-                    "short_description": "short description",
+                    "meta_description": "meta description",
                     "address": "Test-Straße 5",
                     "postcode": "54321",
                     "city": "Augsburg",
@@ -287,7 +287,7 @@ VIEWS = [
                 PRIV_STAFF_ROLES,
                 {
                     "title": "new poi",
-                    "short_description": "short description",
+                    "meta_description": "meta description",
                     "address": "Test-Straße 5",
                     "postcode": "54321",
                     "city": "Augsburg",
@@ -759,7 +759,7 @@ VIEWS = [
                 PRIV_STAFF_ROLES + REGION_ROLES,
                 {
                     "title": "new title",
-                    "short_description": "short description",
+                    "meta_description": "meta description",
                     "address": "Test-Straße 5",
                     "postcode": "54321",
                     "city": "Augsburg",
