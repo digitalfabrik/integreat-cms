@@ -5,7 +5,7 @@ import requests
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
-from ..cms.forms.push_notifications.push_notification_translation_form import PushNotificationTranslation, PushNotificationTranslationForm
+from ..cms.forms.push_notifications.push_notification_translation_form import PushNotificationTranslation
 from ..cms.constants import push_notifications as pnt_const
 from ..cms.models import Region
 
@@ -32,7 +32,7 @@ class PushNotificationSenderApi:
         """
         self.push_notification = push_notification
         self.prepared_pnts = []
-        self.primary_pnt = PushNotificationTranslationForm.objects.get(
+        self.primary_pnt = PushNotificationTranslation.objects.get(
             push_notification=push_notification,
             language=push_notification.region.default_language,
         )
