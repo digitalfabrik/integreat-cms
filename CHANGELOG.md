@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1718](https://github.com/digitalfabrik/integreat-cms/issues/1718) ] Enable submitting feedback about fallback translations of events and pois
+* [ [#1793](https://github.com/digitalfabrik/integreat-cms/issues/1793) ] Fix sending feedback for recurring events
 
 
 2022.10.2
