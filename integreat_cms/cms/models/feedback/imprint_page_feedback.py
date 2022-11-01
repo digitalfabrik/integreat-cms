@@ -20,7 +20,11 @@ class ImprintPageFeedback(Feedback):
         :rtype: str
         """
         try:
-            return self.region.imprint.get_translation(self.language.slug).title
+            translation = (
+                self.region.imprint.get_translation(self.language.slug)
+                or self.region.imprint.default_translation
+            )
+            return translation
         except ImprintPage.DoesNotExist:
             return _("Imprint")
 
