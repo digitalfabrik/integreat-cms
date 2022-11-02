@@ -15,7 +15,7 @@ cd "${PACKAGE_DIR}" || exit 1
 TRANSLATION_FILE="locale/de/LC_MESSAGES/django.po"
 
 # Re-generating translation file
-pipenv run integreat-cms-cli makemessages -l de > /dev/null
+pipenv run integreat-cms-cli makemessages -l de --add-location file > /dev/null
 
 # Check if translation file is up to date
 TRANSLATION_DIFF=$(git diff --shortstat $TRANSLATION_FILE)
