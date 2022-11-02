@@ -1,11 +1,8 @@
 import pytest
 from integreat_cms.api_client_firebase.push_notification_sender import PushNotificationSender
-from integreat_cms.cms.forms.push_notifications.push_notification_form import PushNotificationForm
 from integreat_cms.cms.models.push_notifications.push_notification import PushNotification
 from integreat_cms.cms.constants.push_notifications import ONLY_AVAILABLE
 from django.core.exceptions import ImproperlyConfigured
-
-from integreat_cms.cms.forms.push_notifications.push_notification_translation_form import PushNotificationTranslation
 
 class TestApiClientFirebase:
     def __get_notification(self, settings):
