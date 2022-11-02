@@ -8,11 +8,10 @@ from django.core.exceptions import ImproperlyConfigured
 from ..cms.forms.push_notifications.push_notification_translation_form import PushNotificationTranslation
 from ..cms.constants import push_notifications as pnt_const
 from ..cms.models import Region
-
-
 logger = logging.getLogger(__name__)
 
-class PushNotificationSenderApi:
+# Firebase Push Notifications / Firebase Cloud Messaging #
+class PushNotificationSender:
     """
     Sends push notifications via FCM HTTP API.
     Definition: https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json

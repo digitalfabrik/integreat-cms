@@ -115,9 +115,9 @@ DEFAULT_REQUEST_TIMEOUT = int(
 )
 
 
-###############################
-# Firebase Push Notifications #
-###############################
+##############################################################
+# Firebase Push Notifications (Firebase Cloud Messaging FCM) #
+##############################################################
 
 #: Authentication token for the Firebase API. This needs to be set for a correct usage of the messages feature.
 FCM_KEY = os.environ.get("INTEGREAT_CMS_FCM_KEY")
@@ -144,18 +144,6 @@ GVZ_API_ENABLED = True
 #: The URL to our GVZ (Gemeindeverzeichnis) API. This is used to automatically import coordinates and region aliases
 #: (see :mod:`~integreat_cms.gvz_api` for more information).
 GVZ_API_URL = "https://gvz.integreat-app.de"
-
-###########
-# PUSH_NOTIFICATION_SENDER API #
-###########
-
-#: Whether or not the PushNotificationSender API is enabled. This is used to automatically import coordinates and
-#: region aliases (see :mod:`~integreat_cms.push_notification_sender_api` for more information).
-PUSH_NOTIFICATION_SENDER_API_ENABLED = True
-
-#: The URL to our PushNotificationSender  API. This is used to automatically import coordinates and region aliases
-#: (see :mod:`~integreat_cms.push_notification_sender_api` for more information).
-PUSH_NOTIFICATION_SENDER_API_URL = "https://push_notification_sender.integreat-app.de"
 
 
 #################
