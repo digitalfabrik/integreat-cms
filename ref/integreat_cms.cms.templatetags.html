@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-10-26T14:23:00+00:00" />
+    <meta property="article:modified_time" content="2022-11-02T15:16:46+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Templatetags &mdash; integreat-cms 2022.10.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -959,6 +959,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.IMPRINT_SLUG"><code class="docutils literal notranslate"><span class="pre">IMPRINT_SLUG</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INSTALLED_APPS"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_IPS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_IPS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INTERNAL_URLS"><code class="docutils literal notranslate"><span class="pre">INTERNAL_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LANGUAGES"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LANGUAGE_CODE"><code class="docutils literal notranslate"><span class="pre">LANGUAGE_CODE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LEGACY_FILE_UPLOAD"><code class="docutils literal notranslate"><span class="pre">LEGACY_FILE_UPLOAD</span></code></a></li>
@@ -1824,7 +1825,7 @@ objects.</p>
 <p>This contains tags for accessing settings</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.settings_tags.</span></span><span class="sig-name descname"><span class="pre">get_base_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/settings_tags.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.settings_tags.</span></span><span class="sig-name descname"><span class="pre">get_base_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/settings_tags.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the <code class="docutils literal notranslate"><span class="pre">BASE_URL</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1838,7 +1839,22 @@ objects.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.settings_tags.</span></span><span class="sig-name descname"><span class="pre">get_webapp_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/settings_tags.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.settings_tags.</span></span><span class="sig-name descname"><span class="pre">get_internal_urls</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/settings_tags.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This tag returns the stringified list of url names
+which should be treated as internal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>stringified list of internal url names</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.settings_tags.</span></span><span class="sig-name descname"><span class="pre">get_webapp_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/settings_tags.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This tag returns the <code class="docutils literal notranslate"><span class="pre">WEBAPP_URL</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -2013,7 +2029,7 @@ this filter reduced the output when display in list view</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 26, 2022.
+      <span class="lastupdated">Last updated on Nov 02, 2022.
       </span></p>
   </div>
 
