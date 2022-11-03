@@ -3,6 +3,12 @@ from integreat_cms.api_client_firebase.push_notification_sender import PushNotif
 from integreat_cms.cms.models.push_notifications.push_notification import PushNotification
 from django.core.exceptions import ImproperlyConfigured
 
+#######################################################################
+# Test for api_client_firebase / push_notification_sender-class (pns) 
+# @TODO
+# def test_pns_send_pn()
+# def test_pns_send_all()
+#######################################################################
 class TestApiClientFirebase:
     def __get_notification(self, settings):
         pn_instance = PushNotification.objects.first()
@@ -36,43 +42,3 @@ class TestApiClientFirebase:
         pns = PushNotificationSender(notification)
         pns.prepared_pnts[0].title = ""
         assert pns.is_valid() == False
-    
-
-    # to test the function firestore local emulator should be used: 
-    # how to initialize it? 
-    @pytest.mark.django_db
-    def test_pns_send_pn(self, settings):
-        # self.__start_firebase_emulator()
-        settings.FCM_ENABLED = True
-        settings.FCM_KEY = 'firebase_emulater_key'
-        pns = PushNotificationSender(self.__get_notification)
-        pns.fcm_url = 'firebase_emulator_url/localhost:port'
-    #   pns.send_pn()
-    #   local_firebase_notification = self.__get_notification_from_firebase_emulator()
-
-    #     settings.FCM_ENABLED = True
-    #     notification = self.__get_notification(settings)
-    #     pns = PushNotificationSender(notification)
-    #     pnt = pns.prepared_pnts[0]
-    #     requestValue = pns.send_pn(pnt)
-        assert 0 == 1
-    
-    @pytest.mark.django_db
-    def test_pns_send_all(self, settings):
-        assert 0 == 1    
-
-    #@todo: rename all api-clients to api_client_name
-
-
-
-
-
- 
-
-
-
-     
-
-
-
-        
