@@ -25,6 +25,9 @@ def main():
         "changelog", metavar="CHANGELOG", help="changelog of the release"
     )
     parser.add_argument(
+        "contributors", metavar="CONTRIBUTORS", help="contributors of the release"
+    )
+    parser.add_argument(
         "assets", metavar="ASSET", help="uploadable asset file", nargs="*"
     )
     args = parser.parse_args()
@@ -36,6 +39,7 @@ def main():
         f"### ![]({logo_url}) integreat-cms `{args.tag}`"
         f"\n\n### Changelog\n\n{args.changelog}\n\n"
         f"Compare changes: [{args.prev_tag} → {args.tag}]({compare_url}/{args.prev_tag}...{args.tag})"
+        f"\n\n### Contributors\n\n{args.contributors}"
     )
 
     # Create release
