@@ -335,15 +335,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 #: This is a security measure to prevent HTTP Host header attacks, which are possible even under many seemingly-safe
 #: web server configurations (see :setting:`django:ALLOWED_HOSTS` and :ref:`django:host-headers-virtual-hosting`)
-ALLOWED_HOSTS = [HOSTNAME, ".localhost", "127.0.0.1", "[::1]"] + list(
-    filter(
-        None,
-        (
-            x.strip()
-            for x in os.environ.get("INTEGREAT_CMS_ALLOWED_HOSTS", "").splitlines()
-        ),
-    )
-)
+ALLOWED_HOSTS = [HOSTNAME, ".localhost", "127.0.0.1", "[::1]"] + [
+    x.strip()
+    for x in os.environ.get("INTEGREAT_CMS_ALLOWED_HOSTS", "").splitlines()
+    if x
+]
 
 #: A list of IP addresses, as strings, that allow the :func:`~django.template.context_processors.debug` context
 #: processor to add some variables to the template context.
@@ -885,6 +881,22 @@ LINKCHECK_IGNORED_URL_TYPES = [
 #:    $ INTEGREAT_CMS_LINKCHECK_EXCLUDE_ARCHIVED_PAGES=1 integreat-cms-cli findlinks
 LINKCHECK_EXCLUDE_ARCHIVED_PAGES = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_EXCLUDE_ARCHIVED_PAGES", "False"))
+)
+
+
+#################
+# INTERNAL URLS #
+#################
+
+#: The URLs which are treated as internal in TinyMCE custom link plugin
+INTERNAL_URLS = (
+    ALLOWED_HOSTS
+    + [WEBAPP_URL, WEBSITE_URL]
+    + [
+        x.strip()
+        for x in os.environ.get("INTEGREAT_CMS_INTERNAL_URLS", "").splitlines()
+        if x
+    ]
 )
 
 
