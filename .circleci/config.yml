@@ -410,7 +410,7 @@ jobs:
           command: |
             # Get most recent changelog (split by 3 sequential new lines and print the second record except the first three lines)
             CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4 | sed --regexp-extended 's|\[#([0-9]+)\]\(https://github\.com/digitalfabrik/integreat-cms/issues/([0-9]+)\)|#\1|')
-            git tag --annotate "${CURRENT_VERSION}" --message "${CHANGELOG}"
+            git tag --annotate "${CURRENT_VERSION}" --message "Changelog:" --message "${CHANGELOG}"
             git push origin --follow-tags "${CURRENT_VERSION}" HEAD
       - run:
           name: Merge version bump into develop
