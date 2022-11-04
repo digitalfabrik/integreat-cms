@@ -427,15 +427,23 @@ jobs:
           name: Request installation access token to authorize as Deliverino app
           command: echo "export DELIVERINO_ACCESS_TOKEN=$(pipenv run ./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
       - run:
-          name: Assemble release body
+          name: Get previous version tag
           command: |
             PREV_TAG=$(git describe --abbrev=0 --tags "${CIRCLE_TAG}^") || true
-            CHANGELOG+=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
             echo "export PREV_TAG=\"${PREV_TAG}\"" >> $BASH_ENV
+      - run:
+          name: Get changelog
+          command: |
+            CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
             echo "export CHANGELOG=\"${CHANGELOG}\"" >> $BASH_ENV
       - run:
+          name: Get contributors
+          command: |
+            CONTRIBUTORS=$(pipenv run ./.circleci/scripts/get_contributors.py "${DELIVERINO_ACCESS_TOKEN}" "${PREV_TAG}" "${CIRCLE_TAG}" -v)
+            echo "export CONTRIBUTORS=\"${CONTRIBUTORS}\"" >> $BASH_ENV
+      - run:
           name: Create release as Deliverino app
-          command: pipenv run ./.circleci/scripts/create_release.py "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" ./dist/integreat-cms-*.tar.gz
+          command: pipenv run ./.circleci/scripts/create_release.py "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" "${CONTRIBUTORS}" ./dist/integreat-cms-*.tar.gz
   notify-mattermost:
     docker:
       - image: cimg/base:stable
