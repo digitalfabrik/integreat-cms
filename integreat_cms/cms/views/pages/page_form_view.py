@@ -221,7 +221,7 @@ class PageFormView(
         )
 
     @transaction.atomic
-    # pylint: disable=too-many-branches,unused-argument
+    # pylint: disable=too-many-branches,unused-argument,too-many-statements
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and
@@ -286,6 +286,7 @@ class PageFormView(
             },
             changed_by_user=request.user,
         )
+        user_slug = page_translation_form.data.get("slug")
 
         if not page_form.is_valid() or not page_translation_form.is_valid():
             # Add error messages
@@ -317,6 +318,33 @@ class PageFormView(
                 page_translation_form.instance.page = page_form.save()
             # Save page translation form
             page_translation_form.save()
+
+            # Show a message that the slug was changed if it was not unique
+            if user_slug and user_slug != page_translation_form.cleaned_data["slug"]:
+                other_translation = PageTranslation.objects.filter(
+                    page__region=region, slug=user_slug, language=language
+                ).first()
+                other_translation_link = reverse(
+                    "page_revisions",
+                    kwargs={
+                        "page_id": other_translation.page.id,
+                        "language_slug": language.slug,
+                        "region_slug": region.slug,
+                        "selected_revision": other_translation.version,
+                    },
+                )
+                messages.warning(
+                    request,
+                    _(
+                        "The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' is already used by <a href='{link}' class='underline hover:no-underline'>{translation}</a>"
+                    ).format(
+                        user_slug=user_slug,
+                        slug=page_translation_form.cleaned_data["slug"],
+                        link=other_translation_link,
+                        translation=other_translation,
+                    ),
+                )
+
             # If any source translation changes to draft, set all depending translations/versions to draft
             if page_translation_form.instance.status == status.DRAFT:
                 language_tree_node = region.language_node_by_slug.get(language.slug)
