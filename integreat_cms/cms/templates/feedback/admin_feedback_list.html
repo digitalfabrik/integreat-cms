@@ -26,7 +26,7 @@
                data-enable-row-checkbox-toggle>
             <tr class="border-b border-solid border-gray-200">
                 <th class="text-sm text-left uppercase py-3 pr-2"
-                    style="padding-left: 10px;"
+                    style="padding-left: 10px"
                     title="{% trans "Select all" %}">
                     <input type="checkbox" id="bulk-select-all"/>
                 </th>
@@ -43,7 +43,7 @@
             {% for feedback in admin_feedback %}
                 <tr class="border-t border-solid border-gray-200 hover:bg-gray-200 {% if not feedback.read %}bg-yellow-100 border-yellow-200 hover:border-gray-200{% endif %}">
                     <td class="py-3 {% if not feedback.read %}border-l-4 border-yellow-400{% endif %}"
-                        style="padding-left: {% if feedback.read %}10{% else %}8{% endif %}px;">
+                        style="padding-left: {% if feedback.read %}10{% else %}8{% endif %}px">
                         <input type="checkbox"
                                name="selected_ids[]"
                                value="{{ feedback.id }}"
