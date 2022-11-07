@@ -10,14 +10,14 @@ from ..cms.constants import push_notifications as pnt_const
 from ..cms.models import Region
 logger = logging.getLogger(__name__)
 
-# Firebase Push Notifications / Firebase Cloud Messaging #
+# Firebase Push Notifications / Firebase Cloud Messaging                 #
+# ! we use legacy HTTP-API - Migration to HTTP v1-API will be necessary !#
+# https://firebase.google.com/docs/cloud-messaging/migrate-v1            #                               #
 class PushNotificationSender:
     """
     Sends push notifications via FCM HTTP API.
     Definition: https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json
     """
-
-    fcm_url = "https://fcm.googleapis.com/fcm/send"
 
     def __init__(self, push_notification):
         """
@@ -30,6 +30,7 @@ class PushNotificationSender:
                                                               mode but the test region does not exist.
         """
         self.push_notification = push_notification
+        self.fcm_url = settings.FCM_URL
         self.prepared_pnts = []
         self.primary_pnt = PushNotificationTranslation.objects.get(
             push_notification=push_notification,

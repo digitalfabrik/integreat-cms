@@ -126,6 +126,9 @@ FCM_KEY = os.environ.get("INTEGREAT_CMS_FCM_KEY")
 #: This is ``True`` if :attr:`~integreat_cms.core.settings.FCM_KEY` is set, ``False`` otherwise.
 FCM_ENABLED = bool(FCM_KEY)
 
+#: API Url
+FCM_URL = "https://fcm.googleapis.com/fcm/send"
+
 #: The available push notification channels
 FCM_CHANNELS = (("news", _("News")),)
 

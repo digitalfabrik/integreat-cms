@@ -27,7 +27,7 @@ class PushNotificationSenderApiConfig(AppConfig):
         """
         # Only check availability if running a server
         if apps.get_app_config("cms").test_external_apis:
-            if settings.PUSH_NOTIFICATION_SENDER_API_ENABLED:
+            if settings.FCM_ENABLED:
                 try:
                     response = requests.get(
                         f"{settings.PUSH_NOTIFICATION_SENDER_API_URL}/api/", timeout=3
