@@ -63,7 +63,7 @@
                 </div>
             {% endif %}
         </div>
-        <div class="grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] {% if page %} 4xl:grid-cols-[minmax(0px,_1fr)_400px_400px]{% endif %} gap-4">
+        <div class="md:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] {% if page %} 4xl:grid-cols-[minmax(0px,_1fr)_400px_400px]{% endif %} gap-4">
             <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col flex-auto">
                 {% include "_form_language_tabs.html" with target="edit_page" instance=page_form.instance content_field="page_id" %}
                 <div class="w-full rounded border border-blue-500 bg-white shadow-2xl flex flex-col flex-auto">
@@ -162,7 +162,7 @@
                     {% include "../hix_widget.html" %}
                 {% endif %}
                 {% if page %}
-                    <div class="rounded border border-blue-500 shadow-2xl bg-white">
+                    <div class="mt-4 lg:mt-0 rounded border border-blue-500 shadow-2xl bg-white">
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">
                                 <i icon-name="feather" class="pb-1"></i>
@@ -272,7 +272,7 @@
                 </div>
             </div>
             {% if page %}
-                <div class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col gap-4">
+                <div class="mt-4 lg:mt-0 3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col gap-4">
                     {% if can_edit_page %}
                         <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                             <div class="rounded p-4 bg-water-500">

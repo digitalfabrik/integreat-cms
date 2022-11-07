@@ -6,6 +6,7 @@ UNRELEASED
 * [ [#1793](https://github.com/digitalfabrik/integreat-cms/issues/1793) ] Fix sending feedback for recurring events
 * [ [#1717](https://github.com/digitalfabrik/integreat-cms/issues/1717) ] Provide fallback translations for imprint feedbacks
 * [ [#1513](https://github.com/digitalfabrik/integreat-cms/issues/1513) ] Fix link scanning when cloning regions
+* [ [#1816](https://github.com/digitalfabrik/integreat-cms/issues/1816) ] Make menu sidebar responsive
 
 
 2022.10.2

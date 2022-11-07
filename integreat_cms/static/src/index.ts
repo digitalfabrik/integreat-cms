@@ -76,6 +76,8 @@ import "./js/unsaved-warning";
 
 import "./js/pois/poi-actions.ts";
 
+import "./js/menu.ts";
+
 window.addEventListener("DOMContentLoaded", () => {
     create_icons_at(document.documentElement);
     const event = new Event("icon-load");
