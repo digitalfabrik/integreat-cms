@@ -29,3 +29,9 @@ CHOICES = (
     (SATURDAY, _("Saturday")),
     (SUNDAY, _("Sunday")),
 )
+
+#: Working days: Monday to Friday
+WORKING_DAYS = [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY]
+
+#: Weekend: Saturday and Sunday
+WEEKEND = [SATURDAY, SUNDAY]

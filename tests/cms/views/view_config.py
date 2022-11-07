@@ -1,10 +1,13 @@
 """
 This modules contains the config for the view tests
 """
+import json
+
 from django.conf import settings
 from django.urls import reverse
 
 from integreat_cms.cms.constants import status
+from integreat_cms.cms.models.pois.poi import get_default_opening_hours
 
 from ...conftest import (
     ALL_ROLES,
@@ -207,6 +210,7 @@ VIEWS = [
                     "longitude": 1,
                     "latitude": 1,
                     "status": status.DRAFT,
+                    "opening_hours": json.dumps(get_default_opening_hours()),
                 },
             ),
             ("pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
@@ -295,6 +299,7 @@ VIEWS = [
                     "longitude": 1,
                     "latitude": 1,
                     "status": status.DRAFT,
+                    "opening_hours": json.dumps(get_default_opening_hours()),
                 },
             ),
             ("pages", STAFF_ROLES),
@@ -767,6 +772,7 @@ VIEWS = [
                     "longitude": 1,
                     "latitude": 1,
                     "status": status.DRAFT,
+                    "opening_hours": json.dumps(get_default_opening_hours()),
                 },
             ),
             ("archive_poi", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
