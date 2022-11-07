@@ -8,7 +8,7 @@
         <div class="xl:flex gap-3 pt-2">
             <div class="xl:w-1/2">
                 <!-- Statistic Widget -->
-                {% if request.region.statistics_enabled %}
+                {% if request.region.statistics_enabled and perms.cms.view_statistics %}
                     {% include "statistics/_statistics_widget.html" %}
                 {% endif %}
                 <!-- Chat Widget -->
@@ -20,7 +20,9 @@
             </div>
             <div class="xl:w-1/2">
                 <!-- Broken Link Widget -->
-                {% include "analytics/_broken_links_widget.html" %}
+                {% if perms.cms.view_broken_links %}
+                    {% include "analytics/_broken_links_widget.html" %}
+                {% endif %}
                 <!-- News Widget -->
                 {% include "dashboard/_news_widget.html" %}
             </div>

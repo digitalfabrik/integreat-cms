@@ -219,3 +219,9 @@ class User(AbstractUser, AbstractBaseModel):
         default_permissions = ("change", "delete", "view")
         #: The fields which are used to sort the returned objects of a QuerySet
         ordering = ["username"]
+        #: Permissions that are not related to real models
+        permissions = (
+            ("view_translation_report", "view_translation_report"),
+            ("view_broken_links", "view_broken_links"),
+            ("view_statistics", "view_statistics"),
+        )

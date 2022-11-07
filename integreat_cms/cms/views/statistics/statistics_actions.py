@@ -8,6 +8,8 @@ from datetime import date, timedelta
 
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.utils.decorators import method_decorator
+from ...decorators import permission_required
 
 from ...forms import StatisticsFilterForm
 from ...utils.matomo_api_manager import MatomoException
@@ -15,6 +17,7 @@ from ...utils.matomo_api_manager import MatomoException
 logger = logging.getLogger(__name__)
 
 
+@method_decorator(permission_required("cms.view_statistics"), name="dispatch")
 # pylint: disable=unused-argument
 def get_total_visits_ajax(request, region_slug):
     """
