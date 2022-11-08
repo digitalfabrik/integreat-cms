@@ -13,9 +13,39 @@ We use the `black <https://github.com/psf/black>`_ coding style, a flavour of `P
 We use a `pre-commit-hook <https://pre-commit.com/>`_ to apply this style before committing, so you don't have to bother about formatting.
 Just code how you feel comfortable and let the tool do the work for you (see :ref:`pre-commit-hooks`).
 
-If you want to apply the code without committing, use our developer tool :github-source:`dev-tools/black.sh`::
+If you want to apply the formatting without committing, use our developer tool :github-source:`dev-tools/black.sh`::
 
     ./dev-tools/black.sh
+
+
+.. _djlint:
+
+DjLint
+------
+
+We use `djlint <https://www.djlint.com/>`__ to format our Django HTML templates.
+
+We use a `pre-commit-hook <https://pre-commit.com/>`_ to apply this style before committing, so you don't have to bother about formatting.
+Just code how you feel comfortable and let the tool do the work for you (see :ref:`pre-commit-hooks`).
+
+If you want to apply the formatting without committing, use our developer tool :github-source:`dev-tools/djlint.sh`::
+
+    ./dev-tools/djlint.sh
+
+
+.. _prettier-code-style:
+
+Prettier
+--------
+
+We use `prettier <https://prettier.io/>`_ to format our static JS and CSS files.
+
+We use a `pre-commit-hook <https://pre-commit.com/>`_ to apply this style before committing, so you don't have to bother about formatting.
+Just code how you feel comfortable and let the tool do the work for you (see :ref:`pre-commit-hooks`).
+
+If you want to apply the formatting without committing, use our developer tool :github-source:`dev-tools/prettier.sh`::
+
+    ./dev-tools/prettier.sh
 
 
 .. _pylint:

@@ -1,125 +1,208 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% block content %}
-{% load static %}
-{% load widget_tweaks %}
-{% load rules %}
-
-<div class="mb-6">
-    <h1 class="heading">
-        {% with page_translations.first.title as page_title %}
-            {% blocktrans %}Page versions of "{{ page_title }}"{% endblocktrans %}
-        {% endwith %}
-    </h1>
-    <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}" class="btn btn-gray">
-        <i icon-name="arrow-left-circle" class="align-top"></i> {% trans 'Back to the page form' %}
-    </a>
-</div>
-
-<form method="post" action="{% url 'page_revisions' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-    {% csrf_token %}
-    <div class="w-3/5 m-auto mb-28 relative">
-        <input class="relative z-10 pt-1" type="range" name="revision" min="1" max="{{ page_translations.count }}" value="{{ selected_revision.version }}" id="revision-slider" list="steplist">
-        <output id="revision-info" class="whitespace-nowrap">
-            <b>{% trans 'Version' %}:</b> <span id="revision-number"></span><br>
-            <b>{% trans 'Author' %}:</b> <span id="revision-editor"></span><br>
-            <b>{% trans 'Date' %}:</b> <span id="revision-date"></span>
-        </output>
-        <datalist id ="steplist" class="w-full flex font-mono">
-            {% for page_translation in page_translations reversed %}
-                <option style="
-                    {% if page_translation.version > 1 %}
-                        margin-left: -webkit-calc(((100% - 25.6px) / ({{ page_translations.count }} - 1)) - 25.6px);
-                        margin-left: -moz-calc(((100% - 25.6px) / ({{ page_translations.count }} - 1)) - 25.6px);
-                        margin-left: calc(((100% - 25.6px) / ({{ page_translations.count }} - 1)) - 25.6px);
-                    {% endif %}
-                    {% if page_translation.version > 9 %}
-                        padding-left: 3.2px;
-                        padding-right: 3.2px;
-                    {% endif %}
-                    ">
+    {% load static %}
+    {% load widget_tweaks %}
+    {% load rules %}
+    <div class="mb-6">
+        <h1 class="heading">
+            {% with page_translations.first.title as page_title %}
+                {% blocktrans %}Page versions of "{{ page_title }}"{% endblocktrans %}
+            {% endwith %}
+        </h1>
+        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="btn btn-gray">
+            <i icon-name="arrow-left-circle" class="align-top"></i> {% trans "Back to the page form" %}
+        </a>
+    </div>
+    <form method="post"
+          action="{% url 'page_revisions' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+        {% csrf_token %}
+        <div class="w-3/5 m-auto mb-28 relative">
+            <input class="relative z-10 pt-1"
+                   type="range"
+                   name="revision"
+                   min="1"
+                   max="{{ page_translations.count }}"
+                   value="{{ selected_revision.version }}"
+                   id="revision-slider"
+                   list="steplist"/>
+            <output id="revision-info" class="whitespace-nowrap">
+                <b>{% trans "Version" %}:</b> <span id="revision-number"></span>
+                <br />
+                <b>{% trans "Author" %}:</b> <span id="revision-editor"></span>
+                <br />
+                <b>{% trans "Date" %}:</b> <span id="revision-date"></span>
+            </output>
+            <datalist id="steplist" class="w-full flex font-mono">
+                {% for page_translation in page_translations reversed %}
+                    <option style="{% if page_translation.version > 1 %} margin-left: -webkit-calc(((100% - 25.6px) / ({{ page_translations.count }} - 1)) - 25.6px);
+                                   margin-left: -moz-calc(((100% - 25.6px) / ({{ page_translations.count }} - 1)) - 25.6px);
+                                   margin-left: calc(((100% - 25.6px) / ({{ page_translations.count }} - 1)) - 25.6px);
+                                   {% endif %} {% if page_translation.version > 9 %} padding-left: 3.2px;
+                                   padding-right: 3.2px;
+                                   {% endif %}">
                         {{ page_translation.version }}
-                </option>
-            {% endfor %}
-        </datalist>
-    </div>
-
-    {% trans 'deleted user' as deleted_user_text %}
-    {% for page_translation in page_translations %}
-    <div class="w-full hidden revision-wrapper"
-         id="revision-{{ page_translation.version }}"
-         data-date="{{ page_translation.last_updated }}"
-         data-editor="{% firstof page_translation.creator deleted_user_text %}"
-         data-status="{{ page_translation.status }}">
-        <label class="inline-block">{% trans 'Status' %}:</label>
-        {{ page_translation.get_status_display }}
-        {% if page_translation == api_revision %}
-            ({% trans 'This is the version shown in the apps.' %})
-        {% elif forloop.first %}
-            {% if api_revision %}
-                {% with api_revision.version as version %}
-                    ({% blocktrans %}This version is <b>not</b> displayed in the apps - but version {{ version }} instead{% endblocktrans %})
-                {% endwith %}
-            {% else %}
-                ({% trans 'This translation is <b>not</b> shown in the apps' %})
+                    </option>
+                {% endfor %}
+            </datalist>
+        </div>
+        {% trans "deleted account" as deleted_user_text %}
+        {% for page_translation in page_translations %}
+            <div class="w-full hidden revision-wrapper"
+                 id="revision-{{ page_translation.version }}"
+                 data-date="{{ page_translation.last_updated }}"
+                 data-editor="{% firstof page_translation.creator deleted_user_text %}"
+                 data-status="{{ page_translation.status }}">
+                <label class="inline-block">{% trans "Status" %}:</label>
+                {{ page_translation.get_status_display }}
+                {% if page_translation == api_revision %}
+                    ({% trans "This is the version shown in the apps." %})
+                {% elif forloop.first %}
+                    {% if api_revision %}
+                        {% with api_revision.version as version %}
+                            ({% blocktrans %}This version is <b>not</b> displayed in the apps - but version {{ version }} instead{% endblocktrans %})
+                        {% endwith %}
+                    {% else %}
+                        ({% trans "This translation is <b>not</b> shown in the apps" %})
+                    {% endif %}
+                {% endif %}
+                {% if page_translation.minor_edit %}
+                    - <i>{% trans "Minor edit" %}</i>
+                {% endif %}
+                <span class="float-right">
+                    <label class="inline-block">{% trans "Author" %}:</label>
+                    {% firstof page_translation.creator deleted_user_text %}
+                </span>
+                <div class="revision-plain hidden">
+                    <label>{% trans "Permalink" %}:</label>
+                    {{ page_translation.get_absolute_url }}
+                    <label>{% trans "Title" %}</label>
+                    <h1>{{ page_translation.title }}</h1>
+                    <label>{% trans "Content" %}</label>
+                    {{ page_translation.content|safe }}
+                </div>
+                <div class="revision-diff w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white"></div>
+            </div>
+        {% endfor %}
+        <div id="revision-0" class="hidden">
+            <div class="revision-plain">
+                <label>{% trans "Permalink" %}:</label>
+                <label>{% trans "Title" %}</label>
+                <label>{% trans "Content" %}</label>
+            </div>
+        </div>
+        <div class="w-full p-4 flex justify-end gap-4 action-buttons">
+            {% if not page.archived %}
+                {% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
+                {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
+                {% if can_publish_page %}
+                    <!-- Reject buttons for latest version  -->
+                    <button name="status"
+                            class="btn btn-red hidden"
+                            data-status="{{ AUTO_SAVE }}"
+                            data-max>
+                        {% trans "Discard auto save" %}
+                    </button>
+                    <button name="status"
+                            class="btn btn-red hidden"
+                            data-status="{{ REVIEW }}"
+                            data-max>
+                        {% trans "Reject changes" %}
+                    </button>
+                    <!-- Draft buttons -->
+                    <button name="status"
+                            value="{{ DRAFT }}"
+                            class="btn btn-gray hidden"
+                            data-status="{{ PUBLIC }}">
+                        {% trans "Restore as draft" %}
+                    </button>
+                    <button name="status"
+                            value="{{ DRAFT }}"
+                            class="btn btn-gray hidden"
+                            data-status="{{ DRAFT }}">
+                        {% trans "Restore as draft" %}
+                    </button>
+                    <button name="status"
+                            value="{{ DRAFT }}"
+                            class="btn btn-gray hidden"
+                            data-status="{{ AUTO_SAVE }}">
+                        {% trans "Restore auto save as draft" %}
+                    </button>
+                    <button name="status"
+                            value="{{ DRAFT }}"
+                            class="btn btn-gray hidden"
+                            data-status="{{ REVIEW }}">
+                        {% trans "Accept and restore changes as draft" %}
+                    </button>
+                    <!-- Draft buttons for latest version -->
+                    <button name="status"
+                            value="{{ DRAFT }}"
+                            class="btn btn-gray hidden"
+                            data-status="{{ REVIEW }}"
+                            data-max>
+                        {% trans "Accept current changes as draft" %}
+                    </button>
+                    <!-- Publish buttons -->
+                    <button name="status"
+                            value="{{ PUBLIC }}"
+                            class="btn hidden"
+                            data-status="{{ PUBLIC }}">
+                        {% trans "Restore and publish" %}
+                    </button>
+                    <button name="status"
+                            value="{{ PUBLIC }}"
+                            class="btn hidden"
+                            data-status="{{ DRAFT }}">
+                        {% trans "Restore and publish" %}
+                    </button>
+                    <button name="status"
+                            value="{{ PUBLIC }}"
+                            class="btn hidden"
+                            data-status="{{ AUTO_SAVE }}">
+                        {% trans "Restore and publish auto save" %}
+                    </button>
+                    <button name="status"
+                            value="{{ PUBLIC }}"
+                            class="btn hidden"
+                            data-status="{{ REVIEW }}">
+                        {% trans "Accept, restore and publish changes" %}
+                    </button>
+                    <!-- Publish buttons for latest version  -->
+                    <button name="status"
+                            value="{{ PUBLIC }}"
+                            class="btn hidden"
+                            data-status="{{ PUBLIC }}"
+                            data-max>
+                        {% trans "Refresh date" %}
+                    </button>
+                    <button name="status"
+                            value="{{ PUBLIC }}"
+                            class="btn hidden"
+                            data-status="{{ DRAFT }}"
+                            data-max>
+                        {% trans "Publish the current draft" %}
+                    </button>
+                    <button name="status"
+                            value="{{ PUBLIC }}"
+                            class="btn hidden"
+                            data-status="{{ AUTO_SAVE }}"
+                            data-max>
+                        {% trans "Publish auto save" %}
+                    </button>
+                    <button name="status"
+                            value="{{ PUBLIC }}"
+                            class="btn hidden"
+                            data-status="{{ REVIEW }}"
+                            data-max>
+                        {% trans "Accept and publish the current changes" %}
+                    </button>
+                {% elif can_edit_page %}
+                    <button name="status" value="{{ REVIEW }}" class="btn">
+                        {% trans "Restore this version and submit for review" %}
+                    </button>
+                {% endif %}
             {% endif %}
-        {% endif %}
-        {% if page_translation.minor_edit %}
-            - <i>{% trans 'Minor edit' %}</i>
-        {% endif %}
-        <span class="float-right">
-            <label class="inline-block">{% trans 'Author' %}:</label>
-            {% firstof page_translation.creator deleted_user_text %}
-        </span>
-        <div class="revision-plain hidden">
-            <label>{% trans 'Permalink' %}:</label>
-            {{ page_translation.get_absolute_url }}
-            <label>{% trans 'Title' %}</label>
-            <h1>{{ page_translation.title }}</h1>
-            <label>{% trans 'Content' %}</label>
-            {{ page_translation.content|safe }}
         </div>
-        <div class="revision-diff w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white">
-        </div>
-    </div>
-    {% endfor %}
-
-    <div id="revision-0" class="hidden">
-        <div class="revision-plain">
-            <label>{% trans 'Permalink' %}:</label>
-            <label>{% trans 'Title' %}</label>
-            <label>{% trans 'Content' %}</label>
-        </div>
-    </div>
-    <div class="w-full p-4 flex justify-end gap-4 action-buttons">
-        {% if not page.archived %}
-            {% has_perm 'cms.change_page_object' request.user page as can_edit_page %}
-            {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
-            {% if can_publish_page %}
-                <!-- Reject buttons for latest version  -->
-                <button name="status" class="btn btn-red hidden" data-status="{{ AUTO_SAVE }}" data-max>{% trans 'Discard auto save' %}</button>
-                <button name="status" class="btn btn-red hidden" data-status="{{ REVIEW }}" data-max>{% trans 'Reject changes' %}</button>
-                <!-- Draft buttons -->
-                <button name="status" value="{{ DRAFT }}" class="btn btn-gray hidden" data-status="{{ PUBLIC }}">{% trans 'Restore as draft' %}</button>
-                <button name="status" value="{{ DRAFT }}" class="btn btn-gray hidden" data-status="{{ DRAFT }}">{% trans 'Restore as draft' %}</button>
-                <button name="status" value="{{ DRAFT }}" class="btn btn-gray hidden" data-status="{{ AUTO_SAVE }}">{% trans 'Restore auto save as draft' %}</button>
-                <button name="status" value="{{ DRAFT }}" class="btn btn-gray hidden" data-status="{{ REVIEW }}">{% trans 'Accept and restore changes as draft' %}</button>
-                <!-- Draft buttons for latest version -->
-                <button name="status" value="{{ DRAFT }}" class="btn btn-gray hidden" data-status="{{ REVIEW }}" data-max>{% trans 'Accept current changes as draft' %}</button>
-                <!-- Publish buttons -->
-                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ PUBLIC }}">{% trans 'Restore and publish' %}</button>
-                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ DRAFT }}">{% trans 'Restore and publish' %}</button>
-                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ AUTO_SAVE }}">{% trans 'Restore and publish auto save' %}</button>
-                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ REVIEW }}">{% trans 'Accept, restore and publish changes' %}</button>
-                <!-- Publish buttons for latest version  -->
-                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ PUBLIC }}" data-max>{% trans 'Refresh date' %}</button>
-                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ DRAFT }}" data-max>{% trans 'Publish the current draft' %}</button>
-                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ AUTO_SAVE }}" data-max>{% trans 'Publish auto save' %}</button>
-                <button name="status" value="{{ PUBLIC }}" class="btn hidden" data-status="{{ REVIEW }}" data-max>{% trans 'Accept and publish the current changes' %}</button>
-            {% elif can_edit_page %}
-                <button name="status" value="{{ REVIEW }}" class="btn">{% trans 'Restore this version and submit for review' %}</button>
-            {% endif %}
-        {% endif %}
-    </div>
-</form>
-{% endblock %}
+    </form>
+{% endblock content %}

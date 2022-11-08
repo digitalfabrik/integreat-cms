@@ -1,13 +1,11 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% block content %}
-{% load static %}
-
-<integreat-media-management 
+    {% load static %}
+    <integreat-media-management
     class="flex w-full h-full"
     data-enable-global-edit
-></integreat-media-management>
-{{ media_config_data|json_script:"media_config_data" }}
-
-{% include "../generic_confirmation_dialog.html" %}
-{% endblock %}
+    ></integreat-media-management>
+    {{ media_config_data|json_script:"media_config_data" }}
+    {% include "../generic_confirmation_dialog.html" %}
+{% endblock content %}

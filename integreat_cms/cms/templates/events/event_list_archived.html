@@ -2,89 +2,93 @@
 {% load i18n %}
 {% load static %}
 {% load content_filters %}
-
 {% block content %}
     {% with filter_form.filters_visible as filters_visible %}
-    <div class="table-header">
-        <h1 class="heading">{% trans 'Archived events' %}</h1>
-        <div class="flex flex-wrap justify-between gap-4">
-            <div class="flex flex-wrap gap-4">
-                {% include "generic_language_switcher.html" with target='events_archived' %}
-                {% include "_search_input.html" with object_type='event' object_archived=True related_form='event-filter-form' %}
+        <div class="table-header">
+            <h1 class="heading">{% trans "Archived events" %}</h1>
+            <div class="flex flex-wrap justify-between gap-4">
+                <div class="flex flex-wrap gap-4">
+                    {% include "generic_language_switcher.html" with target="events_archived" %}
+                    {% include "_search_input.html" with object_type="event" object_archived=True related_form="event-filter-form" %}
+                </div>
+                <button id="filter-toggle" class="btn btn-light-blue">
+                    <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans "Show filters" %}</span>
+                    <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans "Hide filters" %}</span>
+                </button>
             </div>
-            <button id="filter-toggle" class="btn btn-light-blue">
-                <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans 'Show filters' %}</span>
-                <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans 'Hide filters' %}</span>
-            </button>
         </div>
-    </div>
-    <div id="filter-form-container" class="{% if not filters_visible %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
-        {% include 'events/_event_filter_form.html' %}
-    </div>
+        <div id="filter-form-container"
+             class="{% if not filters_visible %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+            {% include "events/_event_filter_form.html" %}
+        </div>
     {% endwith %}
     <div class="table-listing">
         <form id="bulk-action-form" method="post">
             {% csrf_token %}
         </form>
-        <table id="event-list" class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <table id="event-list"
+               class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
-            <tr class="border-b border-solid border-gray-200">
-                <th class="py-3 pl-4 pr-2 min">
-                    <input form="bulk-action-form" type="checkbox" id="bulk-select-all">
-                </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
-                {% get_current_language as LANGUAGE_CODE %}
-                {% get_language LANGUAGE_CODE as backend_language %}
-                {% if backend_language and backend_language != language %}
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
-                {% endif %}
-                <th class="text-sm text-left uppercase py-3 px-2">
-                    <div class="lang-grid flags whitespace-nowrap">
-                        {% spaceless %}
-                            {% for lang in languages %}
-                                <a href="{% url 'events' region_slug=request.region.slug language_slug=lang.slug %}">
-                                    <span class="fp fp-rounded fp-{{ lang.primary_country_code }}" title="{{ lang.translated_name }}"></span>
-                                </a>
-                            {% endfor %}
-                        {% endspaceless %}
-                    </div>
-                </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Event location' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Start' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'End' %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Recurrence' %}</th>
-                <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% trans 'Options' %}</th>
-            </tr>
+                <tr class="border-b border-solid border-gray-200">
+                    <th class="py-3 pl-4 pr-2 min">
+                        <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Title in" %} {{ language.translated_name }}</th>
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_language LANGUAGE_CODE as backend_language %}
+                    {% if backend_language and backend_language != language %}
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Title in" %} {{ backend_language.translated_name }}</th>
+                    {% endif %}
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        <div class="lang-grid flags whitespace-nowrap">
+                            {% spaceless %}
+                                {% for lang in languages %}
+                                    <a href="{% url 'events' region_slug=request.region.slug language_slug=lang.slug %}">
+                                        <span class="fp fp-rounded fp-{{ lang.primary_country_code }}"
+                                              title="{{ lang.translated_name }}"></span>
+                                    </a>
+                                {% endfor %}
+                            {% endspaceless %}
+                        </div>
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Status" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Event location" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Start" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "End" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Recurrence" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% trans "Options" %}</th>
+                </tr>
             </thead>
             <tbody>
-            {% if events %}
-                {% for event in events %}
-                    {% get_translation event language.slug as event_translation %}
-                    {% include "events/event_list_archived_row.html" with event=event event_translation=event_translation %}
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="8" class="pl-4 pr-2 py-3">
-                        {% if filter_form.has_changed %}
-                            {% trans 'No archived events found with these filters.' %}
-                        {% else %}
-                            {% trans 'No upcoming events archived.' %}
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endif %}
+                {% if events %}
+                    {% for event in events %}
+                        {% get_translation event language.slug as event_translation %}
+                        {% include "events/event_list_archived_row.html" with event=event event_translation=event_translation %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="pl-4 pr-2 py-3">
+                            {% if filter_form.has_changed %}
+                                {% trans "No archived events found with these filters." %}
+                            {% else %}
+                                {% trans "No upcoming events archived." %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>
     <div class="flex flex-wrap gap-2 mt-4">
         <select id="bulk-action" class="w-auto max-w-full">
-            <option>{% trans 'Select bulk action' %}</option>
+            <option>
+                {% trans "Select bulk action" %}
+            </option>
             <option data-bulk-action="{% url 'bulk_restore_events' region_slug=request.region.slug language_slug=language.slug %}">
-                {% trans 'Restore events' %}
+                {% trans "Restore events" %}
             </option>
         </select>
-        <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
+        <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% trans "Execute" %}</button>
     </div>
     {% include "../generic_confirmation_dialog.html" %}
     {% url "events" as url %}

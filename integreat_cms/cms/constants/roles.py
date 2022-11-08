@@ -15,7 +15,7 @@ EVENT_MANAGER = "EVENT_MANAGER"
 
 #: Choices for non-staff roles
 ROLES = [
-    (MANAGEMENT, _("Management")),
+    (MANAGEMENT, _("Manager")),
     (EDITOR, _("Editor")),
     (AUTHOR, _("Author")),
     (EVENT_MANAGER, _("Event manager")),
@@ -67,6 +67,8 @@ AUTHOR_PERMISSIONS = EVENT_MANAGER_PERMISSIONS + [
 #: The permissions of the editor role
 EDITOR_PERMISSIONS = AUTHOR_PERMISSIONS + [
     "publish_page",
+    "view_translation_report",
+    "view_broken_links",
 ]
 
 #: The permissions of the management role
@@ -88,6 +90,7 @@ MANAGEMENT_PERMISSIONS = EDITOR_PERMISSIONS + [
     "view_organization",
     "view_pushnotification",
     "view_user",
+    "view_statistics",
 ]
 
 #: The permissions of the marketing team
@@ -108,6 +111,9 @@ MARKETING_TEAM_PERMISSIONS = [
     "view_pushnotification",
     "view_region",
     "view_user",
+    "view_translation_report",
+    "view_broken_links",
+    "view_statistics",
 ]
 
 #: The permissions of the app team

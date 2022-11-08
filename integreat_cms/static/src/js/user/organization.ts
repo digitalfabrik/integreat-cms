@@ -18,7 +18,7 @@ function updateOrganizationChoices(event: Event) {
     const regionIds = Array.from(regions.selectedOptions).map(({ value }) => value);
     const organization = document.getElementById("id_organization") as HTMLSelectElement;
     // Hide/show the adjusted organization options
-    Array.from(organization.options).forEach(function(element) {
+    Array.from(organization.options).forEach(function (element) {
         if (element.dataset.regionId) {
             if (regionIds.includes(element.dataset.regionId)) {
                 element.classList.remove("hidden");

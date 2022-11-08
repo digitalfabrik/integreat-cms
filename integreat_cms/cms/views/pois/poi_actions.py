@@ -229,3 +229,51 @@ def auto_complete_address(request, region_slug):
             "latitude": result.latitude,
         }
     )
+
+
+@json_response
+@require_POST
+@permission_required("cms.view_poi")
+# pylint: disable=unused-argument
+def get_address_from_coordinates(request, region_slug):
+    """
+    Derive address from the coordinates (map pin position)
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :raises ~django.http.Http404: If no address was found for the given coordinates
+
+    :return: The address of the location
+    :rtype: ~django.http.JsonResponse
+    """
+    if not settings.NOMINATIM_API_ENABLED:
+        return HttpResponse(_("Location service is disabled"), status_code=503)
+
+    data = json.loads(request.body.decode("utf-8"))
+
+    nominatim_api_client = NominatimApiClient()
+
+    result = nominatim_api_client.get_address(
+        data.get("latitude"), data.get("longitude")
+    )
+
+    if not result:
+        raise Http404(_("Address could not be found"))
+
+    address = result.raw.get("address", {})
+
+    return JsonResponse(
+        data={
+            "number": address.get("house_number"),
+            "street": address.get("road"),
+            "postcode": address.get("postcode"),
+            "city": address.get("city")
+            or address.get("town")
+            or address.get("village"),
+            "country": address.get("country"),
+        }
+    )

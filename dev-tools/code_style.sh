@@ -12,5 +12,11 @@ ensure_not_root
 # Run black
 bash "${DEV_TOOL_DIR}/black.sh"
 
+# Run prettier
+bash "${DEV_TOOL_DIR}/prettier.sh"
+
+# Run djlint
+bash "${DEV_TOOL_DIR}/djlint.sh"
+
 # Run pylint
 bash "${DEV_TOOL_DIR}/pylint.sh"

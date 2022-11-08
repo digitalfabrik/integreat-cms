@@ -3,9 +3,7 @@
  */
 
 window.addEventListener("load", () => {
-  document
-    .querySelectorAll(".slug-error")
-    .forEach((node) =>
-      node.closest("#slug-div").classList.add("border-red-500")
-    );
+    document
+        .querySelectorAll(".slug-error")
+        .forEach((node) => node.closest("#slug-div").classList.add("border-red-500"));
 });

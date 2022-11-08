@@ -1,119 +1,150 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% block content %}
-{% load static %}
-{% load widget_tweaks %}
-<form method="post" data-unsaved-warning>
-    {% csrf_token %}
-    <div class="flex flex-wrap mb-4 justify-between">
-        <h1 class="heading overflow-hidden text-ellipsis">
-          {% if form.instance.id %}
-            {% with form.instance.translated_name as translated_language_name %}
-            {% blocktrans %}Edit language "{{ translated_language_name }}"{% endblocktrans %}
-            {% endwith %}
-          {% else %}
-            {% trans 'Create new language' %}
-          {% endif %}
-        </h1>
-        {% if perms.cms.change_language %}
-            <button class="btn ml-auto mr-0">{% trans 'Save' %}</button>
-        {% endif %}
-    </div>
-
-    <div class="flex flex-wrap">
-      <div class="w-full xl:w-1/2">
-        <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
-            <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="font-bold text-black"><i icon-name="flag" class="mr-2"></i> {% trans 'Name' %}</h3>
-            </div>
-            <div class="w-full p-4">
-                <label for="{{ form.native_name.id_for_label }}" class="block mb-2">{{ form.native_name.label }}</label>
-                {% render_field form.native_name|add_error_class:"border-red-500" %}
-                <div class="mb-2 text-s text-gray-600">{{ form.native_name.help_text }}</div>
-                <label for="{{ form.english_name.id_for_label }}" class="block mb-2">{{ form.english_name.label }}</label>
-                {% render_field form.english_name|add_error_class:"border-red-500" %}
-                <div class="mb-2 text-s text-gray-600">{{ form.english_name.help_text }}</div>
-            </div>
+    {% load static %}
+    {% load widget_tweaks %}
+    <form method="post" data-unsaved-warning>
+        {% csrf_token %}
+        <div class="flex flex-wrap mb-4 justify-between">
+            <h1 class="heading overflow-hidden text-ellipsis">
+                {% if form.instance.id %}
+                    {% with form.instance.translated_name as translated_language_name %}
+                        {% blocktrans %}Edit language "{{ translated_language_name }}"{% endblocktrans %}
+                    {% endwith %}
+                {% else %}
+                    {% trans "Create new language" %}
+                {% endif %}
+            </h1>
+            {% if perms.cms.change_language %}
+                <button class="btn ml-auto mr-0">{% trans "Save" %}</button>
+            {% endif %}
         </div>
-        <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
-            <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="font-bold text-black"><i icon-name="tag" class="mr-2"></i> {% trans 'Identifier' %}</h3>
-            </div>
-            <div class="w-full p-4">
-                <label for="{{ form.slug.id_for_label }}" class="block mb-2">{{ form.slug.label }}</label>
-                {% render_field form.slug|add_error_class:"border-red-500" %}
-                <div class="mb-2 text-s text-gray-600">{{ form.slug.help_text }} {% trans 'This is in many cases a single (macro-)language tag, according to the' %} <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" class="underline">IANA Subtag Registry</a> {% trans 'or' %} <a href="https://iso639-3.sil.org/code_tables/639/data" class="underline" target="_blank">ISO 639</a>.</div>
-                <label for="{{ form.bcp47_tag.id_for_label }}" class="block mb-2">{{ form.bcp47_tag.label }}</label>
-                {% render_field form.bcp47_tag|add_error_class:"border-red-500" %}
-                <div class="mb-2 text-s text-gray-600">{{ form.bcp47_tag.help_text }}</div>
-            </div>
-        </div>
-    </div>
-    <div class="w-full xl:w-1/2 xl:pl-4">
-        <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
-            <div class="w-full p-4 rounded bg-water-500">
-                <h3 class="font-bold text-black"><i icon-name="globe" class="mr-2"></i> {% trans 'Translations' %}</h3>
-            </div>
-            <div class="w-full p-4">
-                <label for="{{ form.table_of_contents.id_for_label }}" class="font-bold block mt-4 mb-2 cursor-pointer">{{ form.table_of_contents.label }}</label>
-                {% render_field form.table_of_contents|add_error_class:"border-red-500" %}
-                <div class="mb-2 text-s text-gray-600">{{ form.table_of_contents.help_text }}</div>
-
-                <label for="{{ form.message_content_not_available.id_for_label }}" class="font-bold block mt-4 mb-2 cursor-pointer">{{ form.message_content_not_available.label }}</label>
-                {% render_field form.message_content_not_available|add_error_class:"border-red-500" %}
-                <div class="mb-2 text-s text-gray-600">{{ form.message_content_not_available.help_text }}</div>
-
-                <label for="{{ form.message_partial_live_content_not_available.id_for_label }}" class="font-bold block mt-4 mb-2 cursor-pointer">{{ form.message_partial_live_content_not_available.label }}</label>
-                {% render_field form.message_partial_live_content_not_available|add_error_class:"border-red-500" %}
-                <div class="mb-2 text-s text-gray-600">{{ form.message_partial_live_content_not_available.help_text }}</div>
-            </div>
-        </div>
-        <div class="w-full">
-            <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
-                <div class="w-full p-4 rounded bg-water-500">
-                    <h3 class="font-bold text-black"><i icon-name="settings" class="mr-2"></i> {% trans 'Extended Settings' %}</h3>
-                </div>
-                <div class="w-full p-4">
-                    <label for="{{ form.text_direction.id_for_label }}" class="block mb-2">{{ form.text_direction.label }}</label>
-                    {% render_field form.text_direction|add_error_class:"border-red-500" %}                
-                    <label for="{{ form.primary_country_code.label }}" class="font-bold block mb-1 cursor-pointer">{{ form.primary_country_code.label }}</label>
-                    <div class="flex my-2">
-                        <span class="country-flag fp fp-{{ form.instance.primary_country_code }} w-16 rounded-l {% if not form.instance.primary_country_code %} hidden {% endif %}" title="{{ form.instance.translated_name }}"></span>
-                        <div class="relative flex-grow">
-                            {% render_field form.primary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
-                       </div>
+        <div class="flex flex-wrap">
+            <div class="w-full xl:w-1/2">
+                <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                    <div class="w-full p-4 rounded bg-water-500">
+                        <h3 class="font-bold text-black">
+                            <i icon-name="flag" class="mr-2"></i> {% trans "Name" %}
+                        </h3>
                     </div>
-                    <div class="mb-2 text-s text-gray-600">{{ form.primary_country_code.help_text }}</div>
-                    <label for="{{ form.secondary_country_code.label }}" class="font-bold block mb-1 cursor-pointer">{{ form.secondary_country_code.label }}</label>
-                    <div class="flex my-2">
-                        <span class="country-flag fp fp-{{ form.instance.secondary_country_code }} w-16 rounded-l {% if not form.instance.secondary_country_code %} hidden {% endif %}" title="{{ form.instance.translated_name }}"></span>
-                        <div class="flex-grow">
-                            {% render_field form.secondary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
+                    <div class="w-full p-4">
+                        <label for="{{ form.native_name.id_for_label }}" class="block mb-2">{{ form.native_name.label }}</label>
+                        {% render_field form.native_name|add_error_class:"border-red-500" %}
+                        <div class="mb-2 text-s text-gray-600">{{ form.native_name.help_text }}</div>
+                        <label for="{{ form.english_name.id_for_label }}" class="block mb-2">{{ form.english_name.label }}</label>
+                        {% render_field form.english_name|add_error_class:"border-red-500" %}
+                        <div class="mb-2 text-s text-gray-600">{{ form.english_name.help_text }}</div>
+                    </div>
+                </div>
+                <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                    <div class="w-full p-4 rounded bg-water-500">
+                        <h3 class="font-bold text-black">
+                            <i icon-name="tag" class="mr-2"></i> {% trans "Identifier" %}
+                        </h3>
+                    </div>
+                    <div class="w-full p-4">
+                        <label for="{{ form.slug.id_for_label }}" class="block mb-2">{{ form.slug.label }}</label>
+                        {% render_field form.slug|add_error_class:"border-red-500" %}
+                        <div class="mb-2 text-s text-gray-600">
+                            {{ form.slug.help_text }} {% trans "This is in many cases a single (macro-)language tag, according to the" %} <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry"
+    target="_blank"
+    class="underline">IANA Subtag Registry</a> {% trans "or" %} <a href="https://iso639-3.sil.org/code_tables/639/data"
+    class="underline"
+    target="_blank">ISO 639</a>.
+                        </div>
+                        <label for="{{ form.bcp47_tag.id_for_label }}" class="block mb-2">{{ form.bcp47_tag.label }}</label>
+                        {% render_field form.bcp47_tag|add_error_class:"border-red-500" %}
+                        <div class="mb-2 text-s text-gray-600">{{ form.bcp47_tag.help_text }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full xl:w-1/2 xl:pl-4">
+                <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                    <div class="w-full p-4 rounded bg-water-500">
+                        <h3 class="font-bold text-black">
+                            <i icon-name="globe" class="mr-2"></i> {% trans "Translations" %}
+                        </h3>
+                    </div>
+                    <div class="w-full p-4">
+                        <label for="{{ form.table_of_contents.id_for_label }}"
+                               class="font-bold block mt-4 mb-2 cursor-pointer">
+                            {{ form.table_of_contents.label }}
+                        </label>
+                        {% render_field form.table_of_contents|add_error_class:"border-red-500" %}
+                        <div class="mb-2 text-s text-gray-600">{{ form.table_of_contents.help_text }}</div>
+                        <label for="{{ form.message_content_not_available.id_for_label }}"
+                               class="font-bold block mt-4 mb-2 cursor-pointer">
+                            {{ form.message_content_not_available.label }}
+                        </label>
+                        {% render_field form.message_content_not_available|add_error_class:"border-red-500" %}
+                        <div class="mb-2 text-s text-gray-600">{{ form.message_content_not_available.help_text }}</div>
+                        <label for="{{ form.message_partial_live_content_not_available.id_for_label }}"
+                               class="font-bold block mt-4 mb-2 cursor-pointer">
+                            {{ form.message_partial_live_content_not_available.label }}
+                        </label>
+                        {% render_field form.message_partial_live_content_not_available|add_error_class:"border-red-500" %}
+                        <div class="mb-2 text-s text-gray-600">{{ form.message_partial_live_content_not_available.help_text }}</div>
+                    </div>
+                </div>
+                <div class="w-full">
+                    <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                        <div class="w-full p-4 rounded bg-water-500">
+                            <h3 class="font-bold text-black">
+                                <i icon-name="settings" class="mr-2"></i> {% trans "Extended Settings" %}
+                            </h3>
+                        </div>
+                        <div class="w-full p-4">
+                            <label for="{{ form.text_direction.id_for_label }}" class="block mb-2">{{ form.text_direction.label }}</label>
+                            {% render_field form.text_direction|add_error_class:"border-red-500" %}
+                            <label for="{{ form.primary_country_code.label }}"
+                                   class="font-bold block mb-1 cursor-pointer">
+                                {{ form.primary_country_code.label }}
+                            </label>
+                            <div class="flex my-2">
+                                <span class="country-flag fp fp-{{ form.instance.primary_country_code }} w-16 rounded-l {% if not form.instance.primary_country_code %} hidden{% endif %}"
+                                      title="{{ form.instance.translated_name }}"></span>
+                                <div class="relative flex-grow">
+                                    {% render_field form.primary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
+                                </div>
+                            </div>
+                            <div class="mb-2 text-s text-gray-600">{{ form.primary_country_code.help_text }}</div>
+                            <label for="{{ form.secondary_country_code.label }}"
+                                   class="font-bold block mb-1 cursor-pointer">
+                                {{ form.secondary_country_code.label }}
+                            </label>
+                            <div class="flex my-2">
+                                <span class="country-flag fp fp-{{ form.instance.secondary_country_code }} w-16 rounded-l {% if not form.instance.secondary_country_code %} hidden{% endif %}"
+                                      title="{{ form.instance.translated_name }}"></span>
+                                <div class="flex-grow">
+                                    {% render_field form.secondary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
+                                </div>
+                            </div>
+                            <div class="mb-2 text-s text-gray-600">{{ form.secondary_country_code.help_text }}</div>
                         </div>
                     </div>
-                    <div class="mb-2 text-s text-gray-600">{{ form.secondary_country_code.help_text }}</div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    {% if form.instance.id and perms.cms.delete_language %}
-        {% if form.instance.language_tree_nodes.exists %}
-            <button title="{% trans 'You cannot delete a language that is used in at least one region.' %}" class="btn" disabled>
-                <i icon-name="trash-2"></i>
-                {% trans 'Delete this language' %}
-            </button>
-        {% else %}
-            <button title="{% trans 'Delete language' %}" class="btn confirmation-button btn-red"
-                    data-confirmation-title="{{ delete_dialog_title }}"
-                    data-confirmation-text="{{ delete_dialog_text }}"
-                    data-confirmation-subject="{{ form.instance.translated_name }}"
-                    data-action="{% url 'delete_language' slug=form.instance.slug %}">
-                <i icon-name="trash-2"></i>
-                {% trans 'Delete this language' %}
-            </button>
+        {% if form.instance.id and perms.cms.delete_language %}
+            {% if form.instance.language_tree_nodes.exists %}
+                <button title="{% trans "You cannot delete a language that is used in at least one region." %}"
+                        class="btn"
+                        disabled>
+                    <i icon-name="trash-2"></i>
+                    {% trans "Delete this language" %}
+                </button>
+            {% else %}
+                <button title="{% trans "Delete language" %}"
+                        class="btn confirmation-button btn-red"
+                        data-confirmation-title="{{ delete_dialog_title }}"
+                        data-confirmation-text="{{ delete_dialog_text }}"
+                        data-confirmation-subject="{{ form.instance.translated_name }}"
+                        data-action="{% url 'delete_language' slug=form.instance.slug %}">
+                    <i icon-name="trash-2"></i>
+                    {% trans "Delete this language" %}
+                </button>
+            {% endif %}
         {% endif %}
-    {% endif %}
-</form>
-{% include "../generic_confirmation_dialog.html" %}
+    </form>
+    {% include "../generic_confirmation_dialog.html" %}
 {% endblock content %}

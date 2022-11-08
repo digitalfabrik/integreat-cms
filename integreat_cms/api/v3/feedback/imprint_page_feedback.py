@@ -73,7 +73,7 @@ def imprint_page_feedback_internal(
     :return: JSON object according to APIv3 imprint feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    if region.imprint:
+    if region.imprint and language in region.visible_languages:
         ImprintPageFeedback.objects.create(
             region=region,
             language=language,
@@ -88,4 +88,6 @@ def imprint_page_feedback_internal(
         region,
         language,
     )
-    raise Http404("The imprint does not exist in this region")
+    raise Http404(
+        "The imprint does not exist in this region for the selected language."
+    )

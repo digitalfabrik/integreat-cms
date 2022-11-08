@@ -1,66 +1,64 @@
 {% extends "_collapsible_box.html" %}
-
 {% load i18n %}
 {% load static %}
-
 {% block collapsible_box_icon %}
     {% if diff.errors %}
         alert-triangle
     {% else %}
         check-circle
     {% endif %}
-{% endblock %}
-
+{% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
-    {% trans 'File' %}: {{ diff.file }}
-{% endblock %}
-
+    {% trans "File" %}: {{ diff.file }}
+{% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
-    <div class="w-full flex flex-col">
-        {% include "messages.html" with messages=diff.errors %}
-    </div>
+    <div class="w-full flex flex-col">{% include "messages.html" with messages=diff.errors %}</div>
     <div class="flex flex-wrap xl:flex-row-reverse">
         <div class="w-full pb-4 xl:w-1/3 xl:pl-4 xl:pb-0 flex flex-wrap xl:block gap-x-8 gap-y-4 xl:mt-14">
             <div>
-                <label class="block font-bold text-lg">{% trans 'Page' %}: </label>
+                <label class="block font-bold text-lg">{% trans "Page" %}:</label>
                 {{ diff.existing.page.best_translation.title }}
                 <span class="font-bold">(ID: {{ diff.existing.page.id }})</span>
             </div>
             <div>
-                <label class="block font-bold text-lg">{% trans 'Language' %}:</label>
+                <label class="block font-bold text-lg">{% trans "Language" %}:</label>
                 {{ diff.existing.language }}
             </div>
             {% if diff.existing.id %}
-            {% trans 'deleted user' as deleted_user_text %}
-            <div>
-                <label class="block font-bold text-lg">{% trans 'Last updated' %}:</label>
-                <i icon-name="calendar"></i> {{ diff.existing.last_updated }} {% trans 'by' %}
-                <i icon-name="user"></i> {% firstof diff.existing.creator deleted_user_text %}
-            </div>
-            <div>
-                <label class="block font-bold text-lg">{% trans 'Versions' %}:</label>
-                <i icon-name="clock"></i>
-                <a href="{% url 'page_revisions' page_id=diff.existing.page.id region_slug=diff.existing.page.region.slug language_slug=diff.existing.language.slug %}"
-                   class="text-blue-500 hover:underline" target="_blank" rel="noopener noreferrer">
-                    {% trans 'Show previous versions' %} ({{ diff.existing.version }})
-                </a>
-            </div>
+                {% trans "deleted account" as deleted_user_text %}
+                <div>
+                    <label class="block font-bold text-lg">{% trans "Last updated" %}:</label>
+                    <i icon-name="calendar"></i> {{ diff.existing.last_updated }} {% trans "by" %}
+                    <i icon-name="user"></i> {% firstof diff.existing.creator deleted_user_text %}
+                </div>
+                <div>
+                    <label class="block font-bold text-lg">{% trans "Versions" %}:</label>
+                    <i icon-name="clock"></i>
+                    <a href="{% url 'page_revisions' page_id=diff.existing.page.id region_slug=diff.existing.page.region.slug language_slug=diff.existing.language.slug %}"
+                       class="text-blue-500 hover:underline"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        {% trans "Show previous versions" %} ({{ diff.existing.version }})
+                    </a>
+                </div>
             {% endif %}
         </div>
         <div class="w-full xl:w-2/3 flex flex-col">
             <ul class="flex flex-wrap pl-4">
-                <li class="xliff-show-preview-diff mr-1 z-10" style="margin-bottom: -2px">
+                <li class="xliff-show-preview-diff mr-1 z-10 mb-[-2px]">
                     <div class="bg-white text-blue-500 border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
                         <div class="border-b-2 border-white p-4">
                             <i icon-name="layout"></i>
-                            {% trans 'Preview' %}
+                            {% trans "Preview" %}
                         </div>
                     </div>
                 </li>
-                <li class="xliff-show-source-code-diff cursor-pointer mr-1" style="margin-bottom: -2px">
+                <li class="xliff-show-source-code-diff cursor-pointer mr-1 mb-[-2px]">
                     <div class="bg-white text-blue-500 hover:bg-blue-500 hover:text-white border-l-2 border-t-2 border-r-2 border-blue-500 font-bold rounded-t-lg">
                         <div class="border-b-2 border-white">
-                            <div class="p-4"><i icon-name="code"></i> {% trans 'Source Code' %}</div>
+                            <div class="p-4">
+                                <i icon-name="code"></i> {% trans "Source Code" %}
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -74,15 +72,16 @@
                     <h1 class="font-default">{{ diff.import.title }}</h1>
                     {{ diff.import.content|safe }}
                 </div>
-                <div class="xliff-diff-preview-rendered {% if diff.existing.language.slug == 'zh-CN' %} font-content-sc {% elif diff.right_to_left %} font-content-rtl text-right {% else %} font-content {% endif %}"></div>
+                <div class="xliff-diff-preview-rendered {% if diff.existing.language.slug == 'zh-CN' %} font-content-sc {% elif diff.right_to_left %} font-content-rtl text-right {% else %} font-content {% endif %}">
+                </div>
             </div>
             <div class="xliff-diff-source-code w-full p-4 rounded border-2 border-blue-500 bg-white flex-auto hidden">
-                {% trans 'No changes detected.' as no_change_text %}
-                <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
+                {% trans "No changes detected." as no_change_text %}
+                <label class="block mb-2 font-bold">{% trans "Title" %}</label>
                 <p class="whitespace-pre-wrap font-mono">{% firstof diff.source_diff.title no_change_text %}</p>
-                <label class="block mb-2 mt-4 font-bold">{% trans 'Content' %}</label>
+                <label class="block mb-2 mt-4 font-bold">{% trans "Content" %}</label>
                 <p class="whitespace-pre-wrap font-mono">{% firstof diff.source_diff.content no_change_text %}</p>
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock collapsible_box_content %}

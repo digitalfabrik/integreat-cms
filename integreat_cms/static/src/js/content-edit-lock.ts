@@ -1,5 +1,5 @@
 /**
- * If the content-edit-lock-data div exists, this file provides some functionality to periodically send heartbeats to the 
+ * If the content-edit-lock-data div exists, this file provides some functionality to periodically send heartbeats to the
  * server to acquire and keep the content editing look.
  * This file also registers an unload handler to quickly release the lock when not required anymore.
  */
@@ -55,14 +55,15 @@ async function send_heartbeat(heartbeat_data: HTMLElement) {
             popup_subject,
             num_heartbeats == 0 ? popup_title_locked : popup_title_takeover,
             popup_text,
-            (_) => send_take_over_message(url, payload).then(() => {
-                window.removeEventListener("unload", unload_event_listener);
-                // window.location.reload() does not correctly work if the view is rendered after a post request, because then
-                // the browser tries to re-send the post request
-                window.location.href = window.location.href
-            }),
-            (_) => window.location.href = cancel_url,
-        )
+            (_) =>
+                send_take_over_message(url, payload).then(() => {
+                    window.removeEventListener("unload", unload_event_listener);
+                    // window.location.reload() does not correctly work if the view is rendered after a post request, because then
+                    // the browser tries to re-send the post request
+                    window.location.href = window.location.href;
+                }),
+            (_) => (window.location.href = cancel_url)
+        );
     } else {
         // Sends a heartbeat every 10 seconds
         heartbeat_interval = setInterval(() => send_heartbeat(heartbeat_data), 10_000);
@@ -71,7 +72,7 @@ async function send_heartbeat(heartbeat_data: HTMLElement) {
 }
 
 async function send_take_over_message(url: string, payload: string) {
-    await send_message(url, JSON.stringify({ key: payload, force: true }))
+    await send_message(url, JSON.stringify({ key: payload, force: true }));
 }
 
 async function send_message(url: string, payload: string): Promise<any> {

@@ -99,7 +99,7 @@ VIEWS = [
             ),
             ("region_feedback", STAFF_ROLES + [MANAGEMENT]),
             ("region_users", STAFF_ROLES + [MANAGEMENT]),
-            ("translation_coverage", ROLES),
+            ("translation_coverage", STAFF_ROLES + [MANAGEMENT, EDITOR]),
             ("organizations", STAFF_ROLES + [MANAGEMENT]),
             ("new_organization", STAFF_ROLES + [MANAGEMENT]),
             ("user_settings", ROLES),
@@ -391,7 +391,7 @@ VIEWS = [
         {"pk": 1},
     ),
     (
-        [("linkcheck", ROLES)],
+        [("linkcheck", STAFF_ROLES + [MANAGEMENT, EDITOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "url_filter": "valid"},
     ),
@@ -401,7 +401,7 @@ VIEWS = [
         {"region_slug": "nurnberg", "url_filter": "valid"},
     ),
     (
-        [("linkcheck", ROLES)],
+        [("linkcheck", STAFF_ROLES + [MANAGEMENT, EDITOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "url_filter": "unchecked"},
     ),
@@ -411,7 +411,7 @@ VIEWS = [
         {"region_slug": "nurnberg", "url_filter": "unchecked"},
     ),
     (
-        [("linkcheck", ROLES)],
+        [("linkcheck", STAFF_ROLES + [MANAGEMENT, EDITOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "url_filter": "ignored"},
     ),
@@ -421,7 +421,7 @@ VIEWS = [
         {"region_slug": "nurnberg", "url_filter": "ignored"},
     ),
     (
-        [("linkcheck", ROLES)],
+        [("linkcheck", STAFF_ROLES + [MANAGEMENT, EDITOR])],
         # The kwargs for these views
         {"region_slug": "augsburg", "url_filter": "invalid"},
     ),
@@ -890,7 +890,7 @@ REDIRECT_VIEWS = [
         [
             (
                 "statistics",
-                ROLES,
+                STAFF_ROLES + [MANAGEMENT],
                 reverse("dashboard", kwargs={"region_slug": "augsburg"}),
             ),
             (
@@ -905,7 +905,7 @@ REDIRECT_VIEWS = [
             ),
             (
                 "linkcheck_landing",
-                STAFF_ROLES,
+                STAFF_ROLES + [MANAGEMENT, EDITOR],
                 reverse(
                     "linkcheck",
                     kwargs={"region_slug": "augsburg", "url_filter": "invalid"},

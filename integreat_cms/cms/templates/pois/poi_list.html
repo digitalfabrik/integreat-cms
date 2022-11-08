@@ -8,33 +8,31 @@
     {% get_language LANGUAGE_CODE as backend_language %}
     <div class="table-header">
         <div class="flex flex-wrap justify-between">
-            <h1 class="heading">{% trans 'Locations' %}</h1>
+            <h1 class="heading">{% trans "Locations" %}</h1>
             <a href="{% url 'archived_pois' region_slug=request.region.slug language_slug=language.slug %}"
                class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
                 <span>
                     <i icon-name="archive" class="align-top h-5"></i>
-                    {% trans 'Archived locations' %}
+                    {% trans "Archived locations" %}
                     ({{ archived_count }})
                 </span>
             </a>
         </div>
         <div class="flex flex-wrap justify-between gap-4">
             <div class="flex flex-wrap gap-4">
-                {% include "generic_language_switcher.html" with target='pois' %}
+                {% include "generic_language_switcher.html" with target="pois" %}
                 {% include "search_input_form.html" with object_type="poi" %}
             </div>
             {% if request.region.default_language == language and perms.cms.change_poi %}
                 <a href="{% url 'new_poi' region_slug=request.region.slug language_slug=language.slug %}"
                    class="btn">
-                    {% trans 'Create location' %}
+                    {% trans "Create location" %}
                 </a>
             {% else %}
                 {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
                     You can only create locations in the default language ({{ default_language }}).
                 {% endblocktrans %}
-                <button title="{{ disabled_button_title }}" class="btn" disabled>
-                    {% trans 'Create location' %}
-                </button>
+                <button title="{{ disabled_button_title }}" class="btn" disabled>{% trans "Create location" %}</button>
             {% endif %}
         </div>
     </div>
@@ -48,9 +46,9 @@
                     <th class="py-3 pl-4 pr-2 min">
                         <input form="bulk-action-form" type="checkbox" id="bulk-select-all"/>
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ language.translated_name }}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Title in" %} {{ language.translated_name }}</th>
                     {% if backend_language and backend_language != language %}
-                        <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Title in' %} {{ backend_language.translated_name }}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Title in" %} {{ backend_language.translated_name }}</th>
                     {% endif %}
                     <th class="text-sm text-left uppercase py-3 pr-2">
                         <div class="lang-grid flags whitespace-nowrap">
@@ -64,13 +62,13 @@
                             {% endspaceless %}
                         </div>
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Status' %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Street' %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Postal Code' %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'City' %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Country' %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans 'Category' %}</th>
-                    <th class="text-sm text-right uppercase py-3 pr-4 min">{% trans 'Options' %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Status" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Street" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Postal Code" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "City" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Country" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Category" %}</th>
+                    <th class="text-sm text-right uppercase py-3 pr-4 min">{% trans "Options" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,9 +79,9 @@
                     <tr>
                         <td colspan="7" class="px-4 py-3">
                             {% if search_query %}
-                                {% trans 'No locations found with these filters.' %}
+                                {% trans "No locations found with these filters." %}
                             {% else %}
-                                {% trans 'No locations available yet.' %}
+                                {% trans "No locations available yet." %}
                             {% endif %}
                         </td>
                     </tr>
@@ -101,33 +99,35 @@
     <div class="flex flex-wrap gap-2 mt-4">
         <select id="bulk-action" class="w-auto max-w-full">
             <option>
-                {% trans 'Select bulk action' %}
+                {% trans "Select bulk action" %}
             </option>
             <option data-bulk-action="{% url 'bulk_archive_pois' region_slug=request.region.slug language_slug=language.slug %}">
-                {% trans 'Archive locations' %}
+                {% trans "Archive locations" %}
             </option>
             {% if DEEPL_ENABLED %}
                 {% if language == request.region.default_language %}
-                    <option disabled title="{% trans 'You cannot translate into the default language' %}">
-                        {% trans 'Create missing translations automatically' %}
+                    <option disabled
+                            title="{% trans "You cannot translate into the default language" %}">
+                        {% trans "Create missing translations automatically" %}
                     </option>
                 {% elif DEEPL_AVAILABLE %}
                     <option data-bulk-action="{% url 'automatic_translation_pois' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% trans 'Create missing translations automatically' %}
+                        {% trans "Create missing translations automatically" %}
                     </option>
                 {% else %}
-                    <option disabled title="{% trans 'This language is not supported by DeepL' %}">
-                        {% trans 'Create missing translations automatically' %}
+                    <option disabled
+                            title="{% trans "This language is not supported by DeepL" %}">
+                        {% trans "Create missing translations automatically" %}
                     </option>
                 {% endif %}
             {% endif %}
             {% if SUMM_AI_ENABLED %}
-                <option  data-bulk-action="{% url 'auto_translate_easy_german_pois' region_slug=request.region.slug language_slug=language.slug %}">
-                    {% trans 'Automatically translate this location into Easy German' %}
+                <option data-bulk-action="{% url 'auto_translate_easy_german_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                    {% trans "Automatically translate this location into Easy German" %}
                 </option>
             {% endif %}
         </select>
-        <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% trans 'Execute' %}</button>
+        <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% trans "Execute" %}</button>
     </div>
     {% include "../generic_confirmation_dialog.html" %}
     {% url "pois" as url %}

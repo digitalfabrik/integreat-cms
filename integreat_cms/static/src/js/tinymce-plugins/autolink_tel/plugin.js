@@ -1,11 +1,11 @@
 /**
  * This is a fork of the original autolink plugin of the TinyMCE (see: https://github.com/tinymce/tinymce-dist/), which is licensed under the LGPL.
- * 
+ *
  * The changes are aiming to add an automatic detection of phone numbers with the specific pattern of a leading zero and at least 5 more digits
  * that might be separated by a slash.
  *
  * Author of the changes: Jan-Ulrich Holtgrave (holtgrave@integreat-app.de)
- * 
+ *
  * Copyright (c) Tiny Technologies, Inc. All rights reserved.
  * Licensed under the LGPL or a commercial license.
  * For LGPL see License.txt in the project root for license information.
@@ -14,33 +14,36 @@
  * Version: 5.7.0 (2021-02-10)
  */
 (function () {
-    'use strict';
+    "use strict";
 
-    var global = tinymce.util.Tools.resolve('tinymce.PluginManager');
+    var global = tinymce.util.Tools.resolve("tinymce.PluginManager");
 
-    var global$1 = tinymce.util.Tools.resolve('tinymce.Env');
+    var global$1 = tinymce.util.Tools.resolve("tinymce.Env");
 
     var getAutoLinkPattern = function (editor) {
-        return editor.getParam('autolink_pattern', /^(https?:\/\/|ssh:\/\/|ftp:\/\/|file:\/|www\.|(?:mailto:)?[A-Z0-9._%+\-]+@(?!.*@))(.+)$/i);
+        return editor.getParam(
+            "autolink_pattern",
+            /^(https?:\/\/|ssh:\/\/|ftp:\/\/|file:\/|www\.|(?:mailto:)?[A-Z0-9._%+\-]+@(?!.*@))(.+)$/i
+        );
     };
     var getDefaultLinkTarget = function (editor) {
-        return editor.getParam('default_link_target', false);
+        return editor.getParam("default_link_target", false);
     };
     var getDefaultLinkProtocol = function (editor) {
-        return editor.getParam('link_default_protocol', 'http', 'string');
+        return editor.getParam("link_default_protocol", "http", "string");
     };
 
     var rangeEqualsDelimiterOrSpace = function (rangeString, delimiter) {
-        return rangeString === delimiter || rangeString === ' ' || rangeString.charCodeAt(0) === 160;
+        return rangeString === delimiter || rangeString === " " || rangeString.charCodeAt(0) === 160;
     };
     var handleEclipse = function (editor) {
-        parseCurrentLine(editor, -1, '(');
+        parseCurrentLine(editor, -1, "(");
     };
     var handleSpacebar = function (editor) {
-        parseCurrentLine(editor, 0, '');
+        parseCurrentLine(editor, 0, "");
     };
     var handleEnter = function (editor) {
-        parseCurrentLine(editor, -1, '');
+        parseCurrentLine(editor, -1, "");
     };
     var scopeIndex = function (container, index) {
         if (index < 0) {
@@ -72,7 +75,7 @@
         var end, endContainer, bookmark, text, prev, len, rngText;
         var autoLinkPattern = getAutoLinkPattern(editor);
         var defaultLinkTarget = getDefaultLinkTarget(editor);
-        if (editor.selection.getNode().tagName === 'A') {
+        if (editor.selection.getNode().tagName === "A") {
             return;
         }
         var rng = editor.selection.getRng().cloneRange();
@@ -115,7 +118,13 @@
             setEnd(rng, endContainer, end >= 1 ? end - 1 : 0);
             end -= 1;
             rngText = rng.toString();
-        } while (rngText !== ' ' && rngText !== '' && rngText.charCodeAt(0) !== 160 && end - 2 >= 0 && rngText !== delimiter);
+        } while (
+            rngText !== " " &&
+            rngText !== "" &&
+            rngText.charCodeAt(0) !== 160 &&
+            end - 2 >= 0 &&
+            rngText !== delimiter
+        );
         if (rangeEqualsDelimiterOrSpace(rng.toString(), delimiter)) {
             setStart(rng, endContainer, end);
             setEnd(rng, endContainer, start);
@@ -128,34 +137,34 @@
             setEnd(rng, endContainer, start);
         }
         text = rng.toString();
-        if (text.charAt(text.length - 1) === '.') {
+        if (text.charAt(text.length - 1) === ".") {
             setEnd(rng, endContainer, start - 1);
         }
         text = rng.toString().trim();
         var matches = text.match(autoLinkPattern);
-        var phone_matches = text.match("(0[0-9\/]{6,20})");
+        var phone_matches = text.match("(0[0-9/]{6,20})");
         var protocol = getDefaultLinkProtocol(editor);
         if (matches) {
-            if (matches[1] === 'www.') {
-                matches[1] = protocol + '://www.';
+            if (matches[1] === "www.") {
+                matches[1] = protocol + "://www.";
             } else if (/@$/.test(matches[1]) && !/^mailto:/.test(matches[1])) {
-                matches[1] = 'mailto:' + matches[1];
+                matches[1] = "mailto:" + matches[1];
             }
             bookmark = editor.selection.getBookmark();
             editor.selection.setRng(rng);
-            editor.execCommand('createlink', false, matches[1] + matches[2]);
+            editor.execCommand("createlink", false, matches[1] + matches[2]);
             if (defaultLinkTarget !== false) {
-                editor.dom.setAttrib(editor.selection.getNode(), 'target', defaultLinkTarget);
+                editor.dom.setAttrib(editor.selection.getNode(), "target", defaultLinkTarget);
             }
             editor.selection.moveToBookmark(bookmark);
             editor.nodeChanged();
         } else if (phone_matches) {
-            phone_matches[1] = 'tel:' + phone_matches[1];
+            phone_matches[1] = "tel:" + phone_matches[1];
             bookmark = editor.selection.getBookmark();
             editor.selection.setRng(rng);
-            editor.execCommand('createlink', false, phone_matches[1]);
+            editor.execCommand("createlink", false, phone_matches[1]);
             if (defaultLinkTarget !== false) {
-                editor.dom.setAttrib(editor.selection.getNode(), 'target', defaultLinkTarget);
+                editor.dom.setAttrib(editor.selection.getNode(), "target", defaultLinkTarget);
             }
             editor.selection.moveToBookmark(bookmark);
             editor.nodeChanged();
@@ -163,29 +172,28 @@
     };
     var setup = function (editor) {
         var autoUrlDetectState;
-        editor.on('keydown', function (e) {
+        editor.on("keydown", function (e) {
             if (e.keyCode === 13) {
                 return handleEnter(editor);
             }
         });
         if (global$1.browser.isIE()) {
-            editor.on('focus', function () {
+            editor.on("focus", function () {
                 if (!autoUrlDetectState) {
                     autoUrlDetectState = true;
                     try {
-                        editor.execCommand('AutoUrlDetect', false, true);
-                    } catch (ex) {
-                    }
+                        editor.execCommand("AutoUrlDetect", false, true);
+                    } catch (ex) {}
                 }
             });
             return;
         }
-        editor.on('keypress', function (e) {
+        editor.on("keypress", function (e) {
             if (e.keyCode === 41) {
                 return handleEclipse(editor);
             }
         });
-        editor.on('keyup', function (e) {
+        editor.on("keyup", function (e) {
             if (e.keyCode === 32) {
                 return handleSpacebar(editor);
             }
@@ -193,11 +201,10 @@
     };
 
     function Plugin() {
-        global.add('autolink_tel', function (editor) {
+        global.add("autolink_tel", function (editor) {
             setup(editor);
         });
     }
 
     Plugin();
-
-}());
+})();

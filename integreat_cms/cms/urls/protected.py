@@ -638,6 +638,11 @@ urlpatterns = [
                                 pois.auto_complete_address,
                                 name="auto_complete_poi_address",
                             ),
+                            path(
+                                "locations/get-address-from-coordinates/",
+                                pois.get_address_from_coordinates,
+                                name="get_address_from_coordinates",
+                            ),
                         ]
                     ),
                 ),

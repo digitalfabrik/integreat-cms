@@ -1,27 +1,23 @@
 {% extends "_collapsible_box.html" %}
-
 {% load i18n %}
 {% load static %}
-
 {% block collapsible_box_icon %}
     package
-{% endblock %}
-
+{% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
-    {% trans 'Size of the App' %}
-{% endblock %}
-
+    {% trans "Size of the App" %}
+{% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
         <p class="py-3">
             {% blocktrans trimmed with BRANDING=BRANDING|title %}
             The chart below shows the current size of the {{ BRANDING }} app.
             {% endblocktrans %}
-            <a href="{% url 'app_size' region_slug=request.region.slug %}" class="btn">
-                {% trans "Details" %}
-            </a>
+            <a href="{% url 'app_size' region_slug=request.region.slug %}"
+               class="btn">{% trans "Details" %}</a>
+        </p>
     </div>
     <div class="p-3 w-full">
         <!-- TODO -->
     </div>
-{% endblock %}
+{% endblock collapsible_box_content %}

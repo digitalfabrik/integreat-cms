@@ -1,6 +1,17 @@
 UNRELEASED
 ----------
 
+* [ [#1333](https://github.com/digitalfabrik/integreat-cms/issues/1333) ] Mark external links with special class
+* [ [#1718](https://github.com/digitalfabrik/integreat-cms/issues/1718) ] Enable submitting feedback about fallback translations of events and pois
+* [ [#1793](https://github.com/digitalfabrik/integreat-cms/issues/1793) ] Fix sending feedback for recurring events
+* [ [#1717](https://github.com/digitalfabrik/integreat-cms/issues/1717) ] Provide fallback translations for imprint feedbacks
+* [ [#1513](https://github.com/digitalfabrik/integreat-cms/issues/1513) ] Fix link scanning when cloning regions
+* [ [#1816](https://github.com/digitalfabrik/integreat-cms/issues/1816) ] Make menu sidebar responsive
+* [ [#1746](https://github.com/digitalfabrik/integreat-cms/issues/1746) ] Hide analytics section (partially) for author, editor and event manager
+* [ [#1035](https://github.com/digitalfabrik/integreat-cms/issues/1035) ] Enable setting POI position via drag & drop on map
+* [ [#1456](https://github.com/digitalfabrik/integreat-cms/issues/1456) ] Use gender sensitive language
+* [ [#1806](https://github.com/digitalfabrik/integreat-cms/issues/1806) ] Mark POI category as not visible in app
+
 
 2022.10.2
 ---------

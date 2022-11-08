@@ -3,7 +3,6 @@
 {% load content_filters %}
 {% load pdf_filters %}
 {% load render_bundle from webpack_loader %}
-
 {% comment %}
     These file does not inherit from _raw.html,
     because xhtml2pdf does not work in combination with tailwind css,
@@ -12,6 +11,7 @@
     See https://github.com/xhtml2pdf/xhtml2pdf/issues/498 for more information.
     Once this issue is fixed, we can use tailwind in the pdf context.
 {% endcomment %}
+{# djlint:off H016,H030,H031 #}
 <html>
     <head>
         <!-- these style settings are only set to pdf exported pages
@@ -42,7 +42,9 @@
             <!-- make sure that image size fits in static frame to avoid problems -->
             <!-- only applicable if icon is present -->
             {% if region.icon and region.icon.file %}
-                <img src="{% get_media_prefix %}{{ region.icon.file.name }}" height="32" alt="{{ region.icon.alt_text }}">
+                <img src="{% get_media_prefix %}{{ region.icon.file.name }}"
+                     height="32"
+                     alt="{{ region.icon.alt_text }}"/>
             {% endif %}
         </div>
         <div id="footer">
@@ -51,49 +53,47 @@
                     <td id="first-footer">
                         <pdf:pagenumber/>
                     </td>
-                    <td id="second-footer">
-                        {{ region.full_name }}
-                    </td>
+                    <td id="second-footer">{{ region.full_name }}</td>
                     <td id="third-footer">
-                        <img src="{% static 'logos/'|add:BRANDING|add:'/'|add:BRANDING|add:'-logo.png' %}" height="40">
+                        <img src="{% static 'logos/'|add:BRANDING|add:'/'|add:BRANDING|add:'-logo.png' %}"
+                             height="40"/>
                     </td>
                 </tr>
             </table>
         </div>
         {% if right_to_left %}
-            <div><pdf:language name="arabic" /></div>
-            <div class="right-to-left">
+            <div>
+                <pdf:language name="arabic" />
+            </div>
         {% endif %}
-        {% if amount_pages > 1 %}
-            <!-- if the user selected several pages, additionally insert table of content -->
-            <h1 id="title_page">{{ language.table_of_contents }}</h1>
-            <!-- according to xhtml2pdf documentation all custom tags like <pdf:toc/>, <pdf:nextpage>, etc.
+        <div class="{% if right_to_left %}right-to-left{% endif %}">
+            {% if amount_pages > 1 %}
+                <!-- if the user selected several pages, additionally insert table of content -->
+                <h1 id="title_page">{{ language.table_of_contents }}</h1>
+                <!-- according to xhtml2pdf documentation all custom tags like <pdf:toc/>, <pdf:nextpage>, etc.
                 should be wrapped inside block tags like <div> to avoid problems -->
-            <div class="toc">
-                <pdf:toc/>
-            </div>
-            <div><pdf:nextpage/></div>
-        {% endif %}
-
-        {% for page, info in annotated_pages %}
-            {% if info.open %}
-                <ul><li>
-            {% else %}
-                </li><li>
+                <div class="toc">
+                    <pdf:toc/>
+                </div>
+                <div>
+                    <pdf:nextpage/>
+                </div>
             {% endif %}
-            {% get_public_translation page language.slug as page_translation %}
-            <h1 class="level-{{ page.depth|add:"-1" }}">
-                {{ page_translation.title }}
-            </h1>
-            <div class="content" style="padding-bottom: 30px;">
-                {{ page_translation.content|pdf_strip_fontstyles|safe }}
-            </div>
-            {% for close in info.close %}
-                </li></ul>
+            {% for page, info in annotated_pages %}
+                {% if info.open %}
+                    <ul>
+                        <li>{% else %}</li>
+                        <li>
+                        {% endif %}
+                        {% get_public_translation page language.slug as page_translation %}
+                        <h1 class="level-{{ page.depth|add:"-1" }}">{{ page_translation.title }}</h1>
+                        <div class="content" style="padding-bottom: 30px;">{{ page_translation.content|pdf_strip_fontstyles|safe }}</div>
+                        {% for close in info.close %}
+                        </li>
+                    </ul>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
-        {% if right_to_left %}
-            </div>
-        {% endif %}
+        </div>
     </body>
 </html>
+{# djlint:on #}

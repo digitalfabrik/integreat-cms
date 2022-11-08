@@ -5,13 +5,15 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
-
+from django.utils.decorators import method_decorator
+from ...decorators import permission_required
 
 from ...forms import StatisticsFilterForm
 
 logger = logging.getLogger(__name__)
 
 
+@method_decorator(permission_required("cms.view_statistics"), name="dispatch")
 class AnalyticsView(TemplateView):
     """
     View for the statistics overview.

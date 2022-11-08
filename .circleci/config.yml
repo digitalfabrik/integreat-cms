@@ -6,6 +6,7 @@ jobs:
   pipenv-install:
     docker:
       - image: cimg/python:3.9.14
+    resource_class: small
     environment:
       PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -48,9 +49,21 @@ jobs:
       - run:
           name: Check black code style
           command: pipenv run black --check .
+  djlint:
+    docker:
+      - image: cimg/python:3.9.14
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Check formatting of Django templates
+          command: pipenv run djlint --check --profile django --lint integreat_cms
   pylint:
     docker:
       - image: cimg/python:3.9.14
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -58,6 +71,17 @@ jobs:
       - run:
           name: Run pylint
           command: pipenv run pylint_runner
+  check-changelog:
+    docker:
+      - image: cimg/python:3.9.14
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Check changelog format
+          command: ./dev-tools/check_changelog.sh
   check-translations:
     docker:
       - image: cimg/python:3.9.14
@@ -75,6 +99,7 @@ jobs:
   compile-translations:
     docker:
       - image: cimg/python:3.9.14
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -91,9 +116,10 @@ jobs:
           root: .
           paths:
             - integreat_cms/locale/*/LC_MESSAGES/django.mo
-  webpack:
+  npm-install:
     docker:
       - image: 'cimg/node:lts'
+    resource_class: small
     steps:
       - checkout
       - restore_cache:
@@ -116,6 +142,28 @@ jobs:
           key: npm-{{ checksum "package-lock.json" }}-v2
           paths:
             - node_modules
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+  prettier:
+    docker:
+      - image: 'cimg/node:lts'
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Check formatting of CSS & JS files
+          command: npx prettier --print-width 120 --tab-width 4 --check integreat_cms/static/src
+  webpack:
+    docker:
+      - image: 'cimg/node:lts'
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Compile and bundle CSS and JS
           command: npm run prod
@@ -167,6 +215,7 @@ jobs:
           POSTGRES_USER: integreat
           POSTGRES_DB: integreat
           POSTGRES_PASSWORD: password
+    resource_class: small
     parallelism: 16
     steps:
       - checkout
@@ -209,6 +258,7 @@ jobs:
   build-package:
     docker:
       - image: cimg/python:3.9.14
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -229,6 +279,7 @@ jobs:
   publish-package:
     docker:
       - image: cimg/python:3.9.14
+    resource_class: small
     steps:
       - checkout
       - attach_workspace:
@@ -370,7 +421,7 @@ jobs:
           command: |
             # Get most recent changelog (split by 3 sequential new lines and print the second record except the first three lines)
             CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4 | sed --regexp-extended 's|\[#([0-9]+)\]\(https://github\.com/digitalfabrik/integreat-cms/issues/([0-9]+)\)|#\1|')
-            git tag --annotate "${CURRENT_VERSION}" --message "${CHANGELOG}"
+            git tag --annotate "${CURRENT_VERSION}" --message "Changelog:" --message "${CHANGELOG}"
             git push origin --follow-tags "${CURRENT_VERSION}" HEAD
       - run:
           name: Merge version bump into develop
@@ -387,15 +438,23 @@ jobs:
           name: Request installation access token to authorize as Deliverino app
           command: echo "export DELIVERINO_ACCESS_TOKEN=$(pipenv run ./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
       - run:
-          name: Assemble release body
+          name: Get previous version tag
           command: |
             PREV_TAG=$(git describe --abbrev=0 --tags "${CIRCLE_TAG}^") || true
-            CHANGELOG+=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
             echo "export PREV_TAG=\"${PREV_TAG}\"" >> $BASH_ENV
+      - run:
+          name: Get changelog
+          command: |
+            CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
             echo "export CHANGELOG=\"${CHANGELOG}\"" >> $BASH_ENV
       - run:
+          name: Get contributors
+          command: |
+            CONTRIBUTORS=$(pipenv run ./.circleci/scripts/get_contributors.py "${DELIVERINO_ACCESS_TOKEN}" "${PREV_TAG}" "${CIRCLE_TAG}" -v)
+            echo "export CONTRIBUTORS=\"${CONTRIBUTORS}\"" >> $BASH_ENV
+      - run:
           name: Create release as Deliverino app
-          command: pipenv run ./.circleci/scripts/create_release.py "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" ./dist/integreat-cms-*.tar.gz
+          command: pipenv run ./.circleci/scripts/create_release.py "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" "${CONTRIBUTORS}" ./dist/integreat-cms-*.tar.gz
   notify-mattermost:
     docker:
       - image: cimg/base:stable
@@ -431,10 +490,16 @@ workflows:
           filters:
             branches:
               ignore: main
-      - webpack:
+      - npm-install:
           filters:
             branches:
               ignore: main
+      - prettier:
+          requires:
+            - npm-install
+      - webpack:
+          requires:
+            - npm-install
       - check-migrations:
           requires:
             - pipenv-install
@@ -455,7 +520,10 @@ workflows:
             - test
           filters:
             branches:
-              only: /^(?!pull\/).*$/ 
+              only: /^(?!pull\/).*$/
+      - check-changelog:
+          requires:
+            - pipenv-install
       - check-translations:
           requires:
             - pipenv-install
@@ -487,6 +555,9 @@ workflows:
           requires:
             - build-dev-package
       - black:
+          requires:
+            - pipenv-install
+      - djlint:
           requires:
             - pipenv-install
       - pylint:
@@ -527,13 +598,20 @@ workflows:
               only: /.*/
             branches:
               ignore: /.*/
-      - webpack:
-          name: webpack-deploy
+      - npm-install:
+          name: npm-install-deploy
           filters:
             tags:
               only: /.*/
             branches:
               ignore: /.*/
+      - webpack:
+          name: webpack-deploy
+          requires:
+            - npm-install-deploy
+          filters:
+            tags:
+              only: /.*/
       - compile-translations:
           name: compile-translations-deploy
           requires:
