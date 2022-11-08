@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-10-26T14:23:00+00:00" />
+    <meta property="article:modified_time" content="2022-11-08T08:53:33+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nominatim API &mdash; integreat-cms 2022.10.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1396,13 +1396,13 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 <span id="nominatim-api-client"></span><h2>Nominatim API Client<a class="headerlink" href="#module-integreat_cms.nominatim_api.nominatim_api_client" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.nominatim_api.nominatim_api_client.</span></span><span class="sig-name descname"><span class="pre">NominatimApiClient</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.nominatim_api.nominatim_api_client.</span></span><span class="sig-name descname"><span class="pre">NominatimApiClient</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Client to interact with the Nominatim API.
 For documentation about the underlying library, see <a class="reference external" href="https://geopy.readthedocs.io/en/stable/index.html" title="(in GeoPy v2.2.0)"><span class="xref std std-doc">GeoPy</span></a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize the Nominatim client</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
@@ -1413,13 +1413,33 @@ For documentation about the underlying library, see <a class="reference external
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.check_availability">
-<span class="sig-name descname"><span class="pre">check_availability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.check_availability" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">check_availability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.check_availability" title="Permalink to this definition"></a></dt>
 <dd><p>Check if Nominatim API is available</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_address">
+<span class="sig-name descname"><span class="pre">get_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L246"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_address" title="Permalink to this definition"></a></dt>
+<dd><p>Get coordinates for given address</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>latitude</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The requested latitude</p></li>
+<li><p><strong>longitude</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The requested longitude</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The address at these coordinates</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_bounding_box">
-<span class="sig-name descname"><span class="pre">get_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">administrative_division</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aliases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L140"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_bounding_box" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">administrative_division</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aliases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>Get the bounding box for a given region</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1440,7 +1460,7 @@ For documentation about the underlying library, see <a class="reference external
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_city_and_district_bounding_box">
-<span class="sig-name descname"><span class="pre">get_city_and_district_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_city_and_district_bounding_box" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_city_and_district_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_city_and_district_bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>Get the bounding box for a given city and district</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1457,7 +1477,7 @@ For documentation about the underlying library, see <a class="reference external
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_city_bounding_box">
-<span class="sig-name descname"><span class="pre">get_city_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L172"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_city_bounding_box" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_city_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_city_bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>Get the bounding box for a given city</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1474,7 +1494,7 @@ For documentation about the underlying library, see <a class="reference external
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_coordinates">
-<span class="sig-name descname"><span class="pre">get_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">street</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postalcode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">city</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_coordinates" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">street</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">postalcode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">city</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_coordinates" title="Permalink to this definition"></a></dt>
 <dd><p>Get coordinates for given address</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1495,7 +1515,7 @@ For documentation about the underlying library, see <a class="reference external
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_district_bounding_box">
-<span class="sig-name descname"><span class="pre">get_district_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">administrative_division</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L204"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_district_bounding_box" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_district_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">administrative_division</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L205"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_district_bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>Get the bounding box for a given district</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1515,7 +1535,7 @@ For documentation about the underlying library, see <a class="reference external
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_region_bounding_box">
-<span class="sig-name descname"><span class="pre">get_region_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aliases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L223"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_region_bounding_box" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_region_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aliases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L224"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.get_region_bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>Get the bounding box for a given region and all its aliases</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1535,7 +1555,7 @@ For documentation about the underlying library, see <a class="reference external
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.search">
-<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exactly_one</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addressdetails</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">query_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.search" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exactly_one</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addressdetails</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">query_dict</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.nominatim_api.nominatim_api_client.NominatimApiClient.search" title="Permalink to this definition"></a></dt>
 <dd><p>Search for a given query, either by string or by dict.
 <code class="docutils literal notranslate"><span class="pre">query_str</span></code> and <code class="docutils literal notranslate"><span class="pre">query_dict</span></code> are mutually exclusive.</p>
 <dl class="field-list simple">
@@ -1666,7 +1686,7 @@ For documentation about the underlying library, see <a class="reference external
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 26, 2022.
+      <span class="lastupdated">Last updated on Nov 08, 2022.
       </span></p>
   </div>
 
