@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1840](https://github.com/digitalfabrik/integreat-cms/issues/1840) ] Fix statistics widget on dashboard
+
 
 2022.11.0
 ---------
