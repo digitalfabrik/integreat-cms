@@ -1,13 +1,15 @@
-
 import logging
 import requests
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
-from ..cms.forms.push_notifications.push_notification_translation_form import PushNotificationTranslation
+from ..cms.forms.push_notifications.push_notification_translation_form import (
+    PushNotificationTranslation,
+)
 from ..cms.constants import push_notifications as pnt_const
 from ..cms.models import Region
+
 logger = logging.getLogger(__name__)
 
 # Firebase Push Notifications / Firebase Cloud Messaging                 #

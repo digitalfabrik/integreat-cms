@@ -6,7 +6,6 @@ import logging
 import requests
 
 
-
 from django.apps import apps, AppConfig
 from django.conf import settings
 
