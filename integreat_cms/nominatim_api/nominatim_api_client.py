@@ -9,6 +9,7 @@ from django.utils.translation import override
 
 from geopy.geocoders import Nominatim
 from geopy.exc import GeopyError
+from geopy.point import Point
 
 from integreat_cms import __version__
 
@@ -241,3 +242,32 @@ class NominatimApiClient:
         for alias in aliases.keys():
             bounding_boxes.append(BoundingBox.from_result(self.search(city=alias)))
         return BoundingBox.merge(*bounding_boxes)
+
+    def get_address(self, latitude, longitude):
+        """
+        Get coordinates for given address
+
+        :param latitude: The requested latitude
+        :type latitude: str
+
+        :param longitude: The requested longitude
+        :type longitude: str
+
+        :return: The address at these coordinates
+        :rtype: dict
+        """
+        coordinates = Point(latitude, longitude)
+        try:
+            result = self.geolocator.reverse(coordinates)
+            if result:
+                logger.debug("Nominatim API reverse search result: %r", result.raw)
+            else:
+                logger.debug(
+                    "Nominatim API did not return an address at coordinates %r",
+                    coordinates,
+                )
+            return result
+        except GeopyError as e:
+            logger.error(e)
+            logger.error("Nominatim API call failed")
+            return None
