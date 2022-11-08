@@ -15,9 +15,9 @@ class RegionPermissionRequiredMixing(UserPassesTestMixin):
 
     def test_func(self):
         """
-        The test the user has to pass
+        The test this account has to pass
 
-        :return: Whether the user has passed the test
+        :return: Whether this account has passed the test
         :rtype: bool
         """
         # Superusers and staff have permissions for all regions

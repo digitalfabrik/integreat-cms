@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 class UserSettingsView(TemplateView):
     """
-    View for the individual user settings
+    View for the individual account settings
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)

@@ -32,7 +32,7 @@ def permission_required(permission):
 
         :raises ~django.core.exceptions.PermissionDenied: If user doesn't have the given permission
 
-        :return: Whether the user has the permission or not
+        :return: Whether this account has the permission or not
         :rtype: bool
         """
 

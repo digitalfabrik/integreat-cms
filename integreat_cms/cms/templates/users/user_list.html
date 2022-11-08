@@ -3,7 +3,7 @@
 {% load static %}
 {% block content %}
     <div class="table-header">
-        <h1 class="heading">{% trans "User Management" %}</h1>
+        <h1 class="heading">{% trans "Account Management" %}</h1>
         <div class="flex justify-between gap-4">
             {% include "_search_input.html" with object_type="user" related_form="user-filter-form" search_query=filter_form.cleaned_data.query %}
             <div class="flex flex-wrap gap-4">
@@ -12,7 +12,7 @@
                     <span class="filter-toggle-text {% if not filter_form.filters_visible %}hidden{% endif %}">{% trans "Hide filters" %}</span>
                 </button>
                 {% if perms.cms.change_user %}
-                    <a href="{% url 'new_user' %}" class="btn">{% trans "Create user" %}</a>
+                    <a href="{% url 'new_user' %}" class="btn">{% trans "Create account" %}</a>
                 {% endif %}
             </div>
         </div>

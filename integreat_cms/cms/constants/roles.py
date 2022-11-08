@@ -15,7 +15,7 @@ EVENT_MANAGER = "EVENT_MANAGER"
 
 #: Choices for non-staff roles
 ROLES = [
-    (MANAGEMENT, _("Management")),
+    (MANAGEMENT, _("Manager")),
     (EDITOR, _("Editor")),
     (AUTHOR, _("Author")),
     (EVENT_MANAGER, _("Event manager")),

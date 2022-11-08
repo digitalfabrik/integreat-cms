@@ -34,7 +34,7 @@ def delete_user(request, user_id):
     logger.info("%r deleted %r", request.user, user)
     user.delete()
 
-    messages.success(request, _("User was successfully deleted"))
+    messages.success(request, _("Account was successfully deleted"))
 
     return redirect("users")
 
