@@ -10,6 +10,7 @@ UNRELEASED
 * [ [#1746](https://github.com/digitalfabrik/integreat-cms/issues/1746) ] Hide analytics section (partially) for author, editor and event manager
 * [ [#1035](https://github.com/digitalfabrik/integreat-cms/issues/1035) ] Enable setting POI position via drag & drop on map
 * [ [#1456](https://github.com/digitalfabrik/integreat-cms/issues/1456) ] Use gender sensitive language
+* [ [#1806](https://github.com/digitalfabrik/integreat-cms/issues/1806) ] Mark POI category as not visible in app
 
 
 2022.10.2
