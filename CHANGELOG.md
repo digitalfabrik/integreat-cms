@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1827](https://github.com/digitalfabrik/integreat-cms/issues/1827) ] Make Multi-language-XLIFF export popup scrollable
+
 
 2022.11.2
 ---------
