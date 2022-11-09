@@ -1,6 +1,7 @@
 UNRELEASED
 ----------
 
+* [ [#1824](https://github.com/digitalfabrik/integreat-cms/issues/1824) ] Tests for the firebase-api / pushNotificationSender
 * [ [#1333](https://github.com/digitalfabrik/integreat-cms/issues/1333) ] Mark external links with special class
 * [ [#1718](https://github.com/digitalfabrik/integreat-cms/issues/1718) ] Enable submitting feedback about fallback translations of events and pois
 * [ [#1793](https://github.com/digitalfabrik/integreat-cms/issues/1793) ] Fix sending feedback for recurring events
