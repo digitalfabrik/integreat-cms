@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.11.2
+---------
+
 * [ [#1843](https://github.com/digitalfabrik/integreat-cms/issues/1843) ] Fix region selection after login
 
 
