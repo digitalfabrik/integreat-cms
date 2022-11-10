@@ -44,7 +44,8 @@ MATOMO_TRACKING = bool(
 IMPRINT_SLUG = "imprint"
 
 #: The slug of the region "Testumgebung" - prevent sending PNs to actual users in development in
-#: :func:`~integreat_cms.cms.utils.push_notification_sender.PushNotificationSender.send_pn`
+#: :func:`~integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient.send_pn`
+
 TEST_REGION_SLUG = "testumgebung"
 
 #: URL to the Integreat Website
@@ -114,9 +115,13 @@ DEFAULT_REQUEST_TIMEOUT = int(
     os.environ.get("INTEGREAT_CMS_DEFAULT_REQUEST_TIMEOUT", 10)
 )
 
-###############################
-# Firebase Push Notifications #
-###############################
+
+##############################################################
+# Firebase Push Notifications (Firebase Cloud Messaging FCM) #
+##############################################################
+
+#: FCM API Url
+FCM_URL = "https://fcm.googleapis.com/fcm/send"
 
 #: Authentication token for the Firebase API. This needs to be set for a correct usage of the messages feature.
 FCM_KEY = os.environ.get("INTEGREAT_CMS_FCM_KEY")
@@ -222,8 +227,9 @@ DEBUG = bool(strtobool(os.environ.get("INTEGREAT_CMS_DEBUG", "False")))
 INSTALLED_APPS = [
     # Installed custom apps
     "integreat_cms.cms",
-    "integreat_cms.gvz_api",
     "integreat_cms.deepl_api",
+    "integreat_cms.firebase_api",
+    "integreat_cms.gvz_api",
     "integreat_cms.nominatim_api",
     "integreat_cms.summ_ai_api",
     "integreat_cms.textlab_api",

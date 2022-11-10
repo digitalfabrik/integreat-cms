@@ -11,12 +11,9 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
-from ...utils.push_notification_sender import PushNotificationSender
+from ....firebase_api.firebase_api_client import FirebaseApiClient
 from ...decorators import permission_required
-from ...forms import (
-    PushNotificationForm,
-    PushNotificationTranslationForm,
-)
+from ...forms import PushNotificationForm, PushNotificationTranslationForm
 from ...models import Language, PushNotification, PushNotificationTranslation
 from ...utils.translation_utils import ugettext_many_lazy as __
 
@@ -242,7 +239,7 @@ class PushNotificationFormView(TemplateView):
                     )
                     raise PermissionDenied
                 try:
-                    push_sender = PushNotificationSender(pn_form.instance)
+                    push_sender = FirebaseApiClient(pn_form.instance)
                     if not push_sender.is_valid():
                         messages.error(
                             request,

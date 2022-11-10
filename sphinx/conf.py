@@ -78,7 +78,8 @@ intersphinx_mapping = {
     "pytest-cov": ("https://pytest-cov.readthedocs.io/en/latest/", None),
     "pytest-django": ("https://pytest-django.readthedocs.io/en/latest/", None),
     "pytest-xdist": ("https://pytest-xdist.readthedocs.io/en/latest/", None),
-    # "requests": ("https://docs.python-requests.org/en/master/", None),
+    "requests": ("https://requests.readthedocs.io/en/latest/", None),
+    "requests-mock": ("https://requests-mock.readthedocs.io/en/latest/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
     "sphinx-rtd-theme": (
         "https://sphinx-rtd-theme.readthedocs.io/en/latest/",
@@ -180,8 +181,7 @@ nitpick_ignore = [
     ("py:attr", "linkcheck.models.Link.poi_translation"),
     ("py:class", "polymorphic.query.PolymorphicQuerySet"),
     ("py:class", "PolymorphicQuerySet"),
-    ("py:mod", "requests"),
-    ("py:class", "requests.Response"),
+    ("py:class", "requests_mock.mocker.Mocker"),
     ("py:class", "webauthn.WebAuthnUser"),
     ("py:class", "xml.dom.minidom.Element"),
 ]
