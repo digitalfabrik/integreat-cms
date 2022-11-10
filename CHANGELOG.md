@@ -8,6 +8,7 @@ UNRELEASED
 ---------
 
 * [ [#1843](https://github.com/digitalfabrik/integreat-cms/issues/1843) ] Fix region selection after login
+* [ [#1844](https://github.com/digitalfabrik/integreat-cms/issues/1844) ] Use gender sensitive language in user form
 
 
 2022.11.1
