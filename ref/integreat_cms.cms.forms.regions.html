@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-11-08T15:52:56+00:00" />
+    <meta property="article:modified_time" content="2022-11-10T14:06:06+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Regions &mdash; integreat-cms 2022.11.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1370,6 +1370,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">administrative_division_included</span></code>: Include administrative division into name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">offers</span></code>: Offers (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelMultipleChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMultipleChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">short_urls_enabled</span></code>: Activate short urls (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">seo_enabled</span></code>: Activate SEO section (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">custom_prefix</span></code>: Custom prefix (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tunews_enabled</span></code>: Enable tunews (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">timezone</span></code>: Timezone (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
@@ -1381,7 +1382,7 @@
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Initialize region form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1395,7 +1396,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">autofill_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cleaned_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L426"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">autofill_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cleaned_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L427"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Automatically fill the bounding box coordinates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1412,7 +1413,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L203"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1426,7 +1427,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">clean_aliases</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L380"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">clean_aliases</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L381"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate the aliases field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1440,7 +1441,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">clean_custom_prefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L286"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">clean_custom_prefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L287"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate the custom prefix field. (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1454,7 +1455,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">clean_hix_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L411"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">clean_hix_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L412"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate the hix_enabled field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1468,7 +1469,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">clean_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L277"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">clean_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate the slug field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1482,7 +1483,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">clean_summ_ai_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L397"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">clean_summ_ai_enabled</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L398"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Validate the summ_ai_enabled field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1502,7 +1503,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L162"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
@@ -1522,7 +1523,7 @@ which are not directly determined by input fields.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">duplicate_imprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L685"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">duplicate_imprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L686"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to duplicate the imprint from one region to another.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1536,7 +1537,7 @@ which are not directly determined by input fields.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">duplicate_language_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L459"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">duplicate_language_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L460"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to duplicate the language tree of one region to another.</p>
 <p>Usage: duplicate_language_tree(source_region, target_region)</p>
 <p>This is a recursive function to walk the whole language tree. It starts at root level with the default parent None.
@@ -1556,7 +1557,7 @@ The recursion is necessary because the new nodes need their correct (also duplic
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">duplicate_media</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L723"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">duplicate_media</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L724"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to duplicate all media of one region to another.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1570,7 +1571,7 @@ The recursion is necessary because the new nodes need their correct (also duplic
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">duplicate_page_translations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging_prefix</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L643"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">duplicate_page_translations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging_prefix</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L644"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Duplicate all translations of a given source page to a given target page</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1585,7 +1586,7 @@ The recursion is necessary because the new nodes need their correct (also duplic
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">duplicate_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L548"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">duplicate_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L549"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Function to duplicate all pages of one region to another.</p>
 <p>Usage: duplicate_pages(source_region, target_region)</p>
 <p>This is a recursive function to walk the whole page tree. It starts at root level with the default parent None.
@@ -1605,7 +1606,7 @@ The recursion is necessary because the new pages need their correct (also duplic
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">find_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L737"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.regions.region_form.</span></span><span class="sig-name descname"><span class="pre">find_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/regions/region_form.py#L738"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Find all link objects in the latest versions of the region’s page translations</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1661,7 +1662,7 @@ It displays the general area of a country or city. Often the continent.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 08, 2022.
+      <span class="lastupdated">Last updated on Nov 10, 2022.
       </span></p>
   </div>
 
