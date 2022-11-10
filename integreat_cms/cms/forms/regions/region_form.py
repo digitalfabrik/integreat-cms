@@ -118,6 +118,7 @@ class RegionForm(CustomModelForm):
             "administrative_division_included",
             "offers",
             "short_urls_enabled",
+            "seo_enabled",
             "custom_prefix",
             "tunews_enabled",
             "timezone",

@@ -97,10 +97,10 @@ class DeepLApi:
                     source_lang=source_language.slug,
                     target_lang=target_language_key,
                 )
-            # for pois adds a short description
-            if hasattr(source_translation, "short_description"):
-                data["short_description"] = self.translator.translate_text(
-                    source_translation.short_description,
+            # for pois adds a meta description
+            if hasattr(source_translation, "meta_description"):
+                data["meta_description"] = self.translator.translate_text(
+                    source_translation.meta_description,
                     source_lang=source_language.slug,
                     target_lang=target_language_key,
                 )

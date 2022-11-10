@@ -206,6 +206,13 @@ class Region(AbstractBaseModel):
         verbose_name=_("activate statistics"),
         help_text=_("Whether or not statistics are enabled for the region"),
     )
+    seo_enabled = models.BooleanField(
+        default=False,
+        verbose_name=_("activate SEO section"),
+        help_text=_(
+            "Enable possibility to fill meta description for pages, events and locations"
+        ),
+    )
     matomo_id = models.PositiveSmallIntegerField(
         null=True,
         blank=True,
