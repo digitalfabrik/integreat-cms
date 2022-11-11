@@ -13,6 +13,7 @@ from integreat_cms.cms.constants.roles import (
     EDITOR,
     AUTHOR,
     EVENT_MANAGER,
+    OBSERVER,
     SERVICE_TEAM,
     CMS_TEAM,
     APP_TEAM,
@@ -24,8 +25,10 @@ ROOT = "ROOT"
 #: A role identifier for anonymous users
 ANONYMOUS = "ANONYMOUS"
 
+#: All roles with editing permissions
+WRITE_ROLES = [MANAGEMENT, EDITOR, AUTHOR, EVENT_MANAGER]
 #: All roles of region users
-REGION_ROLES = [MANAGEMENT, EDITOR, AUTHOR, EVENT_MANAGER]
+REGION_ROLES = WRITE_ROLES + [OBSERVER]
 #: All roles of staff users
 STAFF_ROLES = [ROOT, SERVICE_TEAM, CMS_TEAM, APP_TEAM, MARKETING_TEAM]
 #: All roles of staff users that don't just have read-only permissions
