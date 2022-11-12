@@ -17,13 +17,13 @@ First Steps
     installation
     dev-server
     tutorials
-    dev-tools
+    tools
     troubleshooting
 
 * :doc:`installation`: Installation guide
 * :doc:`dev-server`: Run local development server
 * :doc:`tutorials`: Step-by-step guides
-* :doc:`dev-tools`: Scripts for developers
+* :doc:`tools`: Scripts for developers
 * :doc:`troubleshooting`: General problem solving guide
 
 

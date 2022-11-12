@@ -3,7 +3,7 @@
 # This script can be used to check the translation file for missing or empty entries.
 
 # Import utility functions
-# shellcheck source=./dev-tools/_functions.sh
+# shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed
@@ -33,7 +33,7 @@ if [[ -n "${TRANSLATION_DIFF}" ]] || [ $EMPTY_ENTRIES -eq 0 ] || [ $FUZZY_ENTRIE
         if [[ -z "$CIRCLECI" ]]; then
             echo -e "Please add the current changes to your commit:\n" | print_error
         else
-            echo -e "Please run ./dev-tools/translate.sh and add the add the resulting changes to your commit:\n" | print_error
+            echo -e "Please run ./tools/translate.sh and add the add the resulting changes to your commit:\n" | print_error
         fi
         git --no-pager diff --color $TRANSLATION_FILE | print_with_borders
     fi

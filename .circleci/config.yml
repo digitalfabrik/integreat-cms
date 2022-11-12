@@ -70,7 +70,7 @@ jobs:
           at: .
       - run:
           name: Run pylint
-          command: ./dev-tools/pylint.sh
+          command: ./tools/pylint.sh
   check-changelog:
     docker:
       - image: cimg/python:3.9.16
@@ -81,7 +81,7 @@ jobs:
           at: .
       - run:
           name: Check changelog format
-          command: ./dev-tools/check_changelog.sh
+          command: ./tools/check_changelog.sh
   check-translations:
     docker:
       - image: cimg/python:3.9.16
@@ -95,7 +95,7 @@ jobs:
           command: sudo apt-get update && sudo apt-get install gettext pcregrep
       - run:
           name: Check translation file for missing or empty entries
-          command: ./dev-tools/check_translations.sh
+          command: ./tools/check_translations.sh
   compile-translations:
     docker:
       - image: cimg/python:3.9.16
@@ -320,7 +320,7 @@ jobs:
           at: .
       - run:
           name: Generate documentation
-          command: ./dev-tools/generate_documentation.sh
+          command: ./tools/generate_documentation.sh
       - persist_to_workspace:
           root: .
           paths:
@@ -599,7 +599,7 @@ workflows:
           requires:
             - npm-install
       - shellcheck/check:
-          dir: ./dev-tools
+          dir: ./tools
           external_sources: true
           filters:
             branches:

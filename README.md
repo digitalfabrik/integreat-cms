@@ -30,13 +30,13 @@ Following packages are required before installing the project (install them with
 ````
 git clone git@github.com:digitalfabrik/integreat-cms.git
 cd integreat-cms
-./dev-tools/install.sh
+./tools/install.sh
 ````
 
 ### Run development server
 
 ````
-./dev-tools/run.sh
+./tools/run.sh
 ````
 
 * Go to your browser and open the URL `http://localhost:8000`
@@ -48,7 +48,7 @@ For detailed instructions, tutorials and the source code reference have a look a
 
 <p align="center">:notebook: https://digitalfabrik.github.io/integreat-cms/</p>
 
-Alternatively, you can generate it yourself using the `dev-tools/generate_documentation.sh` script.
+Alternatively, you can generate it yourself using the `tools/generate_documentation.sh` script.
 
 
 ## Project Architecture / Reference

@@ -122,9 +122,9 @@ Clone the project, either
 Install dependencies and local package
 ======================================
 
-And install it using our developer tool :github-source:`dev-tools/install.sh`::
+And install it using our developer tool :github-source:`tools/install.sh`::
 
-    ./dev-tools/install.sh
+    ./tools/install.sh
 
 .. Note::
 

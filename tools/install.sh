@@ -4,7 +4,7 @@
 # A Postgres SQL server is needed to run the CMS (optionally inside a docker container).
 
 # Import utility functions
-# shellcheck source=./dev-tools/_functions.sh
+# shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 ensure_not_root

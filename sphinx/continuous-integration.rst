@@ -80,7 +80,7 @@ This job joins all separate coverage data files generated from the previous step
 check-translations
 ------------------
 
-This job uses the dev-tool ``./dev-tools/check_translations.sh`` to check whether the translation file is up to date and
+This job uses the dev-tool ``./tools/check_translations.sh`` to check whether the translation file is up to date and
 does not contain any empty or fuzzy entries.
 
 .. _circleci-compile-translations:
@@ -118,7 +118,7 @@ build-documentation
 -------------------
 
 This job checks whether the documentation can be generated without any errors by running
-``./dev-tools/generate_documentation.sh``.
+``./tools/generate_documentation.sh``.
 It passes the html documentation in ``docs`` to the :ref:`circleci-deploy-documentation` job.
 
 .. _circleci-deploy-documentation:
@@ -136,7 +136,7 @@ shellcheck/check
 ----------------
 
 This job makes use of the `ShellCheck CircleCI Orb <https://circleci.com/developer/orbs/orb/circleci/shellcheck>`_ and
-executes the pre-defined job ``shellcheck/check``. It is configured to check the directory :github-source:`dev-tools`
+executes the pre-defined job ``shellcheck/check``. It is configured to check the directory :github-source:`tools`
 and to allow external sources because all dev tools source one common function script. Also see :ref:`shellcheck`.
 
 

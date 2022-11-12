@@ -9,7 +9,7 @@ trap "kill 0" EXIT
 KILL_TRAP=1
 
 # Import utility functions
-# shellcheck source=./dev-tools/_functions.sh
+# shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 # Require that integreat-cms is installed

@@ -76,14 +76,14 @@ To actually see the translated strings in the backend UI, compile the django.po 
 Developer Tools
 ===============
 
-To do ``makemessages`` and ``compilemessages`` in one step, use :github-source:`dev-tools/translate.sh`::
+To do ``makemessages`` and ``compilemessages`` in one step, use :github-source:`tools/translate.sh`::
 
-    ./dev-tools/translate.sh
+    ./tools/translate.sh
 
-If you run into merge/rebase conflicts inside the translation file, use :github-source:`dev-tools/resolve_translation_conflicts.sh`::
+If you run into merge/rebase conflicts inside the translation file, use :github-source:`tools/resolve_translation_conflicts.sh`::
 
-    ./dev-tools/resolve_translation_conflicts.sh
+    ./tools/resolve_translation_conflicts.sh
 
-If you want to check, whether your translations is up-to-date or if there are any actions required, run :github-source:`dev-tools/check_translations.sh`::
+If you want to check, whether your translations is up-to-date or if there are any actions required, run :github-source:`tools/check_translations.sh`::
 
-    ./dev-tools/check_translations.sh
+    ./tools/check_translations.sh

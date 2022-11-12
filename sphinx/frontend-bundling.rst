@@ -12,7 +12,7 @@ Webpack is being used to generate frontend bundles based on TypeScript code that
 To get started with adding new code go to :github-source:`integreat_cms/static/src` and open the bundle you want to edit.
 In this file you can import any TypeScript or JavaScript file or library that is needed for the application.
 Generated assets will be stored in ``integreat_cms/static/dist``.
-When running :github-source:`dev-tools/run.sh`, ``webpack-dev-server`` is being used to generate JavaScript that includes CSS as well as SourceMaps to help debugging the output.
+When running :github-source:`tools/run.sh`, ``webpack-dev-server`` is being used to generate JavaScript that includes CSS as well as SourceMaps to help debugging the output.
 For a production build one should run ``npm run prod``.
 This will generate minified js and css files in the same target directory.
 

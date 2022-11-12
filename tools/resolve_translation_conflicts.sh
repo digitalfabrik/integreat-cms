@@ -3,7 +3,7 @@
 # This script can be used to resolve git merge/rebase conflicts of the translation file
 
 # Import utility functions
-# shellcheck source=./dev-tools/_functions.sh
+# shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed

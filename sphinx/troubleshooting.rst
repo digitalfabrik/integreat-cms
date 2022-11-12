@@ -8,8 +8,8 @@ Troubleshooting
 
     If you are experiencing problems of any kind, make sure you have a clean working environment by executing::
 
-        ./dev-tools/install.sh --clean
-        ./dev-tools/prune_database.sh
+        ./tools/install.sh --clean
+        ./tools/prune_database.sh
 
     before trying anything else.
 
@@ -111,4 +111,4 @@ Webpack Compilation Errors
 .. admonition:: Solution
     :class: hint
 
-    There may be remnants of old JavaScript libraries in your installation. Run ``./dev-tools/install --clean`` to remove ``node_modules/`` and ``integreat_cms/static/dist/`` or clean these directories manually.
+    There may be remnants of old JavaScript libraries in your installation. Run ``./tools/install --clean`` to remove ``node_modules/`` and ``integreat_cms/static/dist/`` or clean these directories manually.

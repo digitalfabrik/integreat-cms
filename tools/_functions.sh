@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This file contains utility functions which can be used in the dev-tools.
+# This file contains utility functions which can be used in the tools.
 
 # Do not continue execution if one of the commands fail
 set -eo pipefail -o functrace
@@ -109,7 +109,7 @@ function colorize_number {
 # Check if the --help option is given
 if [[ "$*" == *"--help"* ]] || [[ "$*" == *"-h"* ]]; then
     echo -e "For usage details, see documentation:\n" | print_info
-    echo -e "\thttps://digitalfabrik.github.io/integreat-cms/dev-tools.html\n" | print_bold
+    echo -e "\thttps://digitalfabrik.github.io/integreat-cms/tools.html\n" | print_bold
     exit
 fi
 

@@ -105,7 +105,7 @@ Activation
 
 To activate the pre-commit hooks, either install the CMS with the command::
 
-    ./dev-tools/install.sh --pre-commit
+    ./tools/install.sh --pre-commit
 
 or execute::
 

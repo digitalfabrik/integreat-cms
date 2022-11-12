@@ -3,7 +3,7 @@
 # This script can be used to re-generate the translation file and compile it. It is also executed in run.sh
 
 # Import utility functions
-# shellcheck source=./dev-tools/_functions.sh
+# shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed

@@ -3,7 +3,7 @@
 # This script can be used to check whether the changelog file is in the correct format.
 
 # Import utility functions
-# shellcheck source=./dev-tools/_functions.sh
+# shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed

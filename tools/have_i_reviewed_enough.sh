@@ -3,7 +3,7 @@
 # This script retrieves stats about the pull request reviews from GitHub
 
 # Import utility functions
-# shellcheck source=./dev-tools/_functions.sh
+# shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 # Check if requirements are satisfied

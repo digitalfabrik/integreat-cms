@@ -31,15 +31,15 @@ Two different types of local database servers are supported:
 
 .. Note::
 
-    If you want to remove all contents of your database, use :github-source:`dev-tools/prune_database.sh`.
+    If you want to remove all contents of your database, use :github-source:`tools/prune_database.sh`.
 
 
 Webserver
 =========
 
-Run the inbuilt local webserver with :github-source:`dev-tools/run.sh`::
+Run the inbuilt local webserver with :github-source:`tools/run.sh`::
 
-    ./dev-tools/run.sh
+    ./tools/run.sh
 
 This is a convenience script which also performs the following actions:
 
@@ -50,7 +50,7 @@ This is a convenience script which also performs the following actions:
 
 If you want to speed up this process and don't need the extra functionality, you might also use::
 
-    ./dev-tools/run.sh --fast
+    ./tools/run.sh --fast
 
 or directly::
 
@@ -66,4 +66,4 @@ After that, open your browser and navigate to http://localhost:8000/.
 
 .. Note::
 
-    If you want to use another port than ``8000``, start the server with ``integreat-cms-cli`` and choose another port, or edit :github-source:`dev-tools/_functions.sh`.
+    If you want to use another port than ``8000``, start the server with ``integreat-cms-cli`` and choose another port, or edit :github-source:`tools/_functions.sh`.
