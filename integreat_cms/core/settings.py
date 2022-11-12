@@ -230,6 +230,7 @@ DEBUG = bool(strtobool(os.environ.get("INTEGREAT_CMS_DEBUG", "False")))
 INSTALLED_APPS = [
     # Installed custom apps
     "integreat_cms.cms",
+    "integreat_cms.core",
     "integreat_cms.deepl_api",
     "integreat_cms.firebase_api",
     "integreat_cms.gvz_api",

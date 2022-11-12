@@ -3,6 +3,7 @@ from urllib.error import URLError
 
 from django.apps import apps, AppConfig
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from .textlab_api_client import TextlabClient
 
@@ -14,14 +15,17 @@ class TextlabApiConfig(AppConfig):
     Textlab api config inheriting the django AppConfig
     """
 
+    #: Full Python path to the application
     name = "integreat_cms.textlab_api"
+    #: Human-readable name for the application
+    verbose_name = _("TextLab API")
 
     def ready(self):
         """
         Checking if api is available
         """
         # Only check availability if running a server
-        if apps.get_app_config("cms").test_external_apis:
+        if apps.get_app_config("core").test_external_apis:
             # If Textlab API is enabled, check availability
             if settings.TEXTLAB_API_ENABLED:
                 try:
