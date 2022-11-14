@@ -89,12 +89,12 @@ def event_feedback_internal(data, region, language, comment, rating, is_technica
         event = events[0]
     elif region.fallback_translations_enabled:
         event = region.events.filter(
-            translations__slug=data.get("slug"),
+            translations__slug=event_translation_slug,
             translations__language=region.default_language,
         ).first()
 
     if not event:
-        raise Http404("No matching location found for slug.")
+        raise Http404("No matching event found for slug.")
 
     event_translation = event.get_translation(language.slug) or event.get_translation(
         region.default_language.slug
