@@ -1,6 +1,9 @@
 UNRELEASED
 ----------
 
+* [ [#1756](https://github.com/digitalfabrik/integreat-cms/issues/1756) ] Add media library, content-edit-lock and diff-view to imprint sbs-view
+* [ [#1870](https://github.com/digitalfabrik/integreat-cms/issues/1870) ] Fix copy source content in imprint sbs-view
+
 
 2022.12.0
 ---------

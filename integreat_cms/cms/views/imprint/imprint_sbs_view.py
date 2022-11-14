@@ -6,7 +6,10 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
+from django.urls import reverse
 from django.views.generic import TemplateView
+
+from ..media.media_context_mixin import MediaContextMixin
 
 from ...decorators import permission_required
 from ...forms import ImprintTranslationForm
@@ -17,18 +20,43 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(permission_required("cms.view_imprintpage"), name="dispatch")
 @method_decorator(permission_required("cms.change_imprintpage"), name="post")
-class ImprintSideBySideView(TemplateView):
+class ImprintSideBySideView(TemplateView, MediaContextMixin):
     """
     View for the imprint side by side form
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "imprint/imprint_sbs.html"
+
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {
         "current_menu_item": "imprint",
         "IMPRINT_SLUG": settings.IMPRINT_SLUG,
     }
+
+    def get_context_data(self, **kwargs):
+        r"""
+        Returns a dictionary representing the template context
+        (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
+
+        :param \**kwargs: The given keyword arguments
+        :type \**kwargs: dict
+
+        :return: The template context
+        :rtype: dict
+        """
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "back_url": reverse(
+                    "dashboard",
+                    kwargs={
+                        "region_slug": kwargs["region_slug"],
+                    },
+                )
+            }
+        )
+        return context
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -108,6 +136,10 @@ class ImprintSideBySideView(TemplateView):
             instance=target_imprint_translation, disabled=disabled
         )
 
+        old_translation_content = get_old_source_content(
+            imprint, source_language_node.language, target_language
+        )
+
         return render(
             request,
             self.template_name,
@@ -116,6 +148,7 @@ class ImprintSideBySideView(TemplateView):
                 "imprint_translation_form": imprint_translation_form,
                 "source_imprint_translation": source_imprint_translation,
                 "target_language": target_language,
+                "old_translation_content": old_translation_content,
             },
         )
 
@@ -217,6 +250,10 @@ class ImprintSideBySideView(TemplateView):
                 },
             )
 
+        old_translation_content = get_old_source_content(
+            imprint, source_language_node.language, target_language
+        )
+
         return render(
             request,
             self.template_name,
@@ -225,5 +262,43 @@ class ImprintSideBySideView(TemplateView):
                 "imprint_translation_form": imprint_translation_form,
                 "source_imprint_translation": source_imprint_translation,
                 "target_language": target_language,
+                "old_translation_content": old_translation_content,
             },
         )
+
+
+def get_old_source_content(imprint, source_language, target_language):
+    """
+    This function returns the content of the source language translation that was up to date when the latest (no minor edit)
+    target language translation was created.
+
+    :param imprint: The imprint
+    :type imprint: ~integreat_cms.cms.models.pages.imprint_page.ImprintPage
+
+    :param source_language: The source language of the imprint
+    :type source_language: ~integreat_cms.cms.models.languages.language.Language
+
+    :param target_language: The target language of the imprint
+    :type target_language: ~integreat_cms.cms.models.languages.language.Language
+
+    :return: The content of the translation
+    :rtype: str
+    """
+    # For the text diff, use the latest source translation that was created before the latest no minor edit target translation
+    major_target_imprint_translation = imprint.translations.filter(
+        language__slug=target_language.slug, minor_edit=False
+    ).first()
+
+    if major_target_imprint_translation:
+        source_previous_translation = (
+            imprint.translations.filter(
+                language=source_language,
+                last_updated__lte=major_target_imprint_translation.last_updated,
+            )
+            .order_by("-last_updated")
+            .first()
+        )
+        if source_previous_translation:
+            return source_previous_translation.content
+
+    return ""
