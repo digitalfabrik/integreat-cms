@@ -10,6 +10,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from cacheops import invalidate_model
 
+from linkcheck.models import Link
+
 from treebeard.ns_tree import NS_NodeQuerySet
 
 from ...utils.translation_utils import ugettext_many_lazy as __
@@ -245,6 +247,26 @@ class Page(AbstractTreeNode, AbstractBasePage):
         """
         return self.explicitly_archived or self.implicitly_archived
 
+    def get_non_archived_children(self):
+        """
+        This method returns all children of this page that are neither explicitly archived nor implicitly archived
+
+        :return: The non-archived children
+        :rtype: Iterator[ ~integreat_cms.cms.models.pages.page.Page ]
+        """
+        # Keep track of archived parents to exclude their implicitly archived children
+        archived_parents = set()
+
+        for child_page in Page.get_tree(parent=self):
+            # Check if page is either explicitly archived or has an archived ancestor in the list
+            if (
+                child_page.explicitly_archived
+                or child_page.parent_id in archived_parents
+            ):
+                archived_parents.add(child_page.id)
+            else:
+                yield child_page
+
     @classmethod
     def get_root_pages(cls, region_slug):
         """
@@ -302,6 +324,33 @@ class Page(AbstractTreeNode, AbstractBasePage):
         """
         super().move(target, pos)
         invalidate_model(PageTranslation)
+
+    def archive(self):
+        """
+        Archives the page and removes all links of this page and all its subpages from the linkchecker
+        """
+        # Delete related link objects as they are no longer required
+        for child_page in Page.get_tree(parent=self).exclude(explicitly_archived=True):
+            Link.objects.filter(page_translation__page=child_page).delete()
+
+        self.explicitly_archived = True
+        self.save()
+
+    def restore(self):
+        """
+        Restores the page and adds all links of this page and its now non-archived subpages back
+        """
+        self.explicitly_archived = False
+        self.save()
+
+        if not self.implicitly_archived:
+            # Restore related link objects
+            for child_page in self.get_non_archived_children():
+                for translation in child_page.translations.distinct(
+                    "page__pk", "language__pk"
+                ):
+                    # The post_save signal will create link objects from the content
+                    translation.save(update_timestamp=False)
 
     def __str__(self):
         """
