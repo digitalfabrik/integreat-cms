@@ -5,6 +5,7 @@ UNRELEASED
 * [ [#1502](https://github.com/digitalfabrik/integreat-cms/issues/1502) ] Hide links on archived pages in broken link checker
 * [ [#1791](https://github.com/digitalfabrik/integreat-cms/issues/1791) ] Render live content in pdfs
 * [ [#1869](https://github.com/digitalfabrik/integreat-cms/issues/1869) ] Fix error in imprint side by side view
+* [ [#1786](https://github.com/digitalfabrik/integreat-cms/issues/1786) ] Remove texblock option in editor, add button to clear all formatting
 
 
 2022.11.3
