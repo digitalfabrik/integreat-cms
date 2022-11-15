@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.11.3
+---------
+
 * [ [#1827](https://github.com/digitalfabrik/integreat-cms/issues/1827) ] Make Multi-language-XLIFF export popup scrollable
 * [ [#1844](https://github.com/digitalfabrik/integreat-cms/issues/1844) ] Use gender sensitive language in user form
 * [ [#1521](https://github.com/digitalfabrik/integreat-cms/issues/1521) ] Show warning when user entered slug got changed
