@@ -14,7 +14,7 @@ from ...constants import status
 from ...decorators import permission_required
 from ...forms import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Language
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import translate_link, ugettext_many_lazy as __
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .poi_context_mixin import POIContextMixin
@@ -184,15 +184,22 @@ class POIFormView(
                     poi__region=region, slug=user_slug, language=language
                 ).first()
                 other_translation_link = other_translation.backend_edit_link
+                message = _(
+                    "The slug was changed from '{user_slug}' to '{slug}', "
+                    "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
+                ).format(
+                    user_slug=user_slug,
+                    slug=poi_translation_form.cleaned_data["slug"],
+                    translation=other_translation,
+                )
                 messages.warning(
                     request,
-                    _(
-                        "The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' is already used by <a href='{link}' class='underline hover:no-underline'>{translation}</a> or one of its previous versions"
-                    ).format(
-                        user_slug=user_slug,
-                        slug=poi_translation_form.cleaned_data["slug"],
-                        link=other_translation_link,
-                        translation=other_translation,
+                    translate_link(
+                        message,
+                        attributes={
+                            "href": other_translation_link,
+                            "class": "underline hover:no-underline",
+                        },
                     ),
                 )
 
