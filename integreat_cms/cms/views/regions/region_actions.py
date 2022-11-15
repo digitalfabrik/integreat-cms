@@ -6,11 +6,12 @@ import logging
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, redirect
+from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
 from ...decorators import permission_required
-from ...models import Region
+from ...models import Region, Page
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +38,51 @@ def delete_region(request, *args, **kwargs):
     """
 
     region = get_object_or_404(Region, slug=kwargs.get("slug"))
+
+    # Check whether region can be safely deleted
+    mirrored_pages = Page.objects.filter(
+        region=region, mirroring_pages__isnull=False
+    ).distinct()
+    if len(mirrored_pages) > 0:
+        messages.error(
+            request,
+            format_html(
+                "{}<ul class='list-disc pl-4'>{}</ul>",
+                _(
+                    "Region could not be deleted, because the following pages are mirrored in other regions:"
+                ),
+                format_html_join(
+                    "\n",
+                    "<li><a href='{}' class='underline hover:no-underline'>{}</a> ({} {})</li>",
+                    [
+                        (
+                            page.best_translation.backend_edit_link,
+                            page.best_translation.title,
+                            _("is mirrored here:"),
+                            format_html_join(
+                                ", ",
+                                "<a href='{}' class='underline hover:no-underline'>{}</a>",
+                                [
+                                    (
+                                        mirrored_page.best_translation.backend_edit_link,
+                                        mirrored_page.best_translation.title,
+                                    )
+                                    for mirrored_page in page.mirroring_pages.all()
+                                ],
+                            ),
+                        )
+                        for page in mirrored_pages
+                    ],
+                ),
+            ),
+        )
+        return redirect(
+            "edit_region",
+            **{
+                "slug": region.slug,
+            },
+        )
+
     # Remove hierarchy to prevent ProtectedError when children get deleted before their parents
     region.pages.update(parent=None)
     region.language_tree_nodes.update(parent=None)
