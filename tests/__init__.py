@@ -6,6 +6,7 @@ In addition, we use the following plugins:
 * :doc:`pytest-cov <pytest-cov:index>`: This plugin produces coverage reports.
 * :doc:`pytest-django <pytest-django:index>`: Provide a few helpers for Django
 * :doc:`pytest-xdist:index`: Enable distributing tests across multiple CPUs to speed up test execution
+* :doc:`requests-mock:index`: Mocking requests to external APIs
 
 For more information, see :doc:`django:topics/testing/index` and :doc:`django:topics/testing/overview`.
 """

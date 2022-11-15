@@ -5,6 +5,7 @@ from distutils.util import strtobool
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
+from django.utils.html import strip_tags
 
 from ..decorators import json_response
 from .location_categories import transform_location_category
@@ -66,7 +67,8 @@ def transform_poi_translation(poi_translation):
         "title": poi.default_translation.title,
         "modified_gmt": poi_translation.last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(poi_translation.last_updated),
-        "excerpt": poi_translation.short_description,
+        "meta_description": poi_translation.meta_description,
+        "excerpt": strip_tags(poi_translation.content),
         "content": poi_translation.content,
         "available_languages": poi_translation.available_languages_dict,
         "icon": poi.icon.url if poi.icon else None,

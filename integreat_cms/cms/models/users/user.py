@@ -15,6 +15,7 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from .organization import Organization
 from ..abstract_base_model import AbstractBaseModel
 from ..chat.chat_message import ChatMessage
+from ..decorators import modify_fields
 from ..regions.region import Region
 
 logger = logging.getLogger(__name__)
@@ -44,6 +45,21 @@ class CustomUserManager(UserManager):
         )
 
 
+@modify_fields(
+    username={"verbose_name": _("username")},
+    is_active={
+        "help_text": _(
+            "Designates whether this account should be treated as active. "
+            "Unselect this instead of deleting accounts."
+        )
+    },
+    is_superuser={
+        "help_text": _(
+            "Designates that this account has all permissions "
+            "without explicitly assigning them."
+        )
+    },
+)
 class User(AbstractUser, AbstractBaseModel):
     """
     A custom User model that replaces the default Django User model

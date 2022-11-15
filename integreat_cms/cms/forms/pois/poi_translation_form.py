@@ -23,7 +23,7 @@ class POITranslationForm(CustomContentModelForm):
         #: The fields of the model which should be handled by this form
         fields = [
             "title",
-            "short_description",
+            "meta_description",
             "status",
             "content",
             "slug",

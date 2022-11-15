@@ -100,6 +100,7 @@ Reference
   - :doc:`ref/integreat_cms.api`: This is the app which contains all API routes and Classes which maps the cms models to API JSON responses. This is not the API documentation itself, but the Django developer documentation. A link to the API documentation will follow soon.
   - :doc:`ref/integreat_cms.cms`: This is the content management system for backend users which contains all database models, views, forms and templates.
   - :doc:`ref/integreat_cms.core`: This is the project's main app which contains all configuration files.
+  - :doc:`ref/integreat_cms.firebase_api`: This is the app to communicate with the Firebase API to send push notifications
   - :doc:`ref/integreat_cms.gvz_api`: This is the app to communicate with our Gemeindeverzeichnis API to automatically import coordinates and region aliases
   - :doc:`ref/integreat_cms.nominatim_api`: This is the app to communicate with our Nominatim API to automatically import region bounding boxes
   - :doc:`ref/integreat_cms.sitemap`: This is the app to dynamically generate a sitemap.xml for the webapp

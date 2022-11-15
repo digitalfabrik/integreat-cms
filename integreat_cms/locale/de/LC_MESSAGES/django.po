@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-08 15:35+0000\n"
+"POT-Creation-Date: 2022-11-10 17:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -2928,8 +2928,19 @@ msgid "name of the location"
 msgstr "Name des Ortes"
 
 #: cms/models/pois/poi_translation.py
-msgid "short description"
-msgstr "Kurzbeschreibung"
+msgid "meta description"
+msgstr "Meta-Beschreibung"
+
+#: cms/models/pois/poi_translation.py
+msgid "Describe the location in one or two short sentences."
+msgstr "Beschreiben Sie den Ort in ein oder zwei kurzen Sätzen."
+
+#: cms/models/pois/poi_translation.py
+msgid ""
+"This text will be displayed in the Google search results below the title."
+msgstr ""
+"Dieser Text wird in den Google-Suchergebnissen unterhalb des Titels "
+"angezeigt."
 
 #: cms/models/pois/poi_translation.py
 msgid "location translations"
@@ -3117,6 +3128,17 @@ msgid "Whether or not statistics are enabled for the region"
 msgstr "Ob Statistiken für die Region aktiviert sind oder nicht"
 
 #: cms/models/regions/region.py
+msgid "activate SEO section"
+msgstr "SEO-Bereich aktivieren"
+
+#: cms/models/regions/region.py
+msgid ""
+"Enable possibility to fill meta description for pages, events and locations"
+msgstr ""
+"Auswählen, um Meta-Beschreibungen für Seiten, Veranstaltungen und Orte "
+"auszufüllen"
+
+#: cms/models/regions/region.py
 msgid "Matomo ID"
 msgstr "Matomo ID"
 
@@ -3289,6 +3311,26 @@ msgstr "Rolle"
 #: cms/models/users/role.py
 msgid "roles"
 msgstr "Rollen"
+
+#: cms/models/users/user.py
+msgid "username"
+msgstr "Kontoname"
+
+#: cms/models/users/user.py
+msgid ""
+"Designates whether this account should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+"Legt fest, ob dieses Konto aktiv ist. Kann deaktiviert werden, anstatt Konto "
+"zu löschen."
+
+#: cms/models/users/user.py
+msgid ""
+"Designates that this account has all permissions without explicitly "
+"assigning them."
+msgstr ""
+"Legt fest, dass das Konto alle Berechtigungen hat, ohne diese einzeln "
+"zuweisen zu müssen."
 
 #: cms/models/users/user.py
 msgid "The regions to which the user has access"
@@ -5574,6 +5616,10 @@ msgstr ""
 "angezeigt"
 
 #: cms/templates/pois/poi_form.html
+msgid "SEO section"
+msgstr "SEO-Bereich"
+
+#: cms/templates/pois/poi_form.html
 msgid "Position"
 msgstr "Position"
 
@@ -6533,6 +6579,18 @@ msgstr ""
 msgid "No changes detected, autosave skipped"
 msgstr "Keine Änderungen vorgenommen, automatisches Speichern übersprungen"
 
+#: cms/views/events/event_form_view.py cms/views/pois/poi_form_view.py
+#, python-brace-format
+msgid ""
+"The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' "
+"is already used by <a href='{link}' class='underline hover:no-"
+"underline'>{translation}</a> or one of its previous versions"
+msgstr ""
+"Der URL-Parameter wurde von '{user_slug}' zu '{slug}' geändert, da "
+"'{user_slug}' bereits von <a href='{link}' class='underline hover:no-"
+"underline'>{translation}</a> oder einer vorherigen Version davon verwendet "
+"wird"
+
 #: cms/views/events/event_form_view.py
 msgid "Event \"{}\" was successfully created"
 msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
@@ -7124,6 +7182,17 @@ msgstr ""
 "aber Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
 
 #: cms/views/pages/page_form_view.py
+#, python-brace-format
+msgid ""
+"The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' "
+"is already used by <a href='{link}' class='underline hover:no-"
+"underline'>{translation}</a>"
+msgstr ""
+"Der URL-Parameter wurde von '{user_slug}' zu '{slug}' geändert, da "
+"'{user_slug}' bereits von <a href='{link}' class='underline hover:no-"
+"underline'>{translation}</a> verwendet wird"
+
+#: cms/views/pages/page_form_view.py
 msgid ""
 "The \"minor edit\" option was disabled because the first version can never "
 "be a minor edit."
@@ -7517,6 +7586,9 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "short description"
+#~ msgstr "Kurzbeschreibung"
 
 #~ msgid "Map preview will be available when coordinates are given."
 #~ msgstr ""
@@ -8797,11 +8869,8 @@ msgstr ""
 #~ msgid " Leave blank to derive from title"
 #~ msgstr " Freilassen, um vom Titel abzuleiten"
 
-#~ msgid "Short description"
-#~ msgstr "Kurzbeschreibung"
-
-#~ msgid "Insert short description here"
-#~ msgstr "Kurzbeschreibung hier eingeben"
+#~ msgid "Insert meta description here"
+#~ msgstr "Meta-Beschreibung hier eingeben"
 
 #~ msgid "Insert street here"
 #~ msgstr "Straße hier eingeben"

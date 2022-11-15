@@ -46,68 +46,88 @@
         <div class="pt-4 lg:pt-0 md:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_400px_400px] gap-4">
             <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col">
                 {% include "_form_language_tabs.html" with target="edit_poi" instance=poi_form.instance content_field="poi_id" %}
-                <div class="flex flex-col flex-auto w-full rounded border border-blue-500 bg-white shadow-2xl">
-                    <div class="flex flex-col w-full p-4 flex-auto">
-                        <div class="flex justify-between">
-                            <label for="{{ poi_translation_form.title.id_for_label }}"
-                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}">
-                                {{ poi_translation_form.title.label }}
-                            </label>
-                            {% if poi_translation_form.instance.id %}
-                                <div class="grid grid-cols-2 text-left">
-                                    <div class="font-bold pr-2">{% trans "Version" %}:</div>
-                                    <div>
-                                        {{ poi_translation_form.instance.version }}
-                                        <!-- TODO: POI Revisions -->
+                <div class="flex flex-wrap flex-col flex-auto gap-4">
+                    <div class="flex flex-col flex-auto w-full rounded border border-blue-500 bg-white shadow-2xl">
+                        <div class="flex flex-col w-full p-4 flex-auto">
+                            <div class="flex justify-between">
+                                <label for="{{ poi_translation_form.title.id_for_label }}"
+                                       data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}">
+                                    {{ poi_translation_form.title.label }}
+                                </label>
+                                {% if poi_translation_form.instance.id %}
+                                    <div class="grid grid-cols-2 text-left">
+                                        <div class="font-bold pr-2">{% trans "Version" %}:</div>
+                                        <div>
+                                            {{ poi_translation_form.instance.version }}
+                                            <!-- TODO: POI Revisions -->
+                                        </div>
+                                        <div class="font-bold pr-2">{% trans "Status" %}:</div>
+                                        <div>
+                                            {% if poi.archived %}
+                                                {% trans "Archived" %}
+                                            {% else %}
+                                                {{ poi_translation_form.instance.get_status_display }}
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    <div class="font-bold pr-2">{% trans "Status" %}:</div>
-                                    <div>
-                                        {% if poi.archived %}
-                                            {% trans "Archived" %}
-                                        {% else %}
-                                            {{ poi_translation_form.instance.get_status_display }}
-                                        {% endif %}
-                                    </div>
+                                {% endif %}
+                            </div>
+                            {% render_field poi_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
+                            {% if language != request.region.default_language %}
+                                <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-1 mb-2">
+                                    {% blocktrans %}The name is currently displayed to users only in the default language{% endblocktrans %}
                                 </div>
                             {% endif %}
-                        </div>
-                        {% render_field poi_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
-                        {% if language != request.region.default_language %}
-                            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-1 mb-2">
-                                {% blocktrans %}The name is currently displayed to users only in the default language{% endblocktrans %}
+                            <div id="link-container" class="flex items-center">
+                                <label for="{{ poi_translation_form.slug.id_for_label }}" class="mr-2">{{ poi_translation_form.slug.label }}:</label>
+                                <a id="slug-link"
+                                   href="{{ url_link }}{{ poi_translation_form.instance.slug }}/"
+                                   class="text-blue-500 hover:underline">{{ url_link }}{{ poi_translation_form.instance.slug }}</a>
+                                <a id="edit-slug-btn" title="{% trans "Edit" %}" class="mx-2 btn-icon">
+                                    <i icon-name="edit-3"></i>
+                                </a>
+                                <a id="copy-slug-btn"
+                                   title="{% trans "Copy to clipboard" %}"
+                                   class="btn-icon">
+                                    <i icon-name="copy"></i>
+                                </a>
+                                <div class="slug-field hidden">
+                                    <label for="{{ poi_translation_form.slug.id_for_label }}">{{ url_link }}</label>
+                                    {% render_field poi_translation_form.slug|add_error_class:"slug-error" %}
+                                </div>
+                                <a id="save-slug-btn" class="mx-2 btn-icon hidden">
+                                    <i icon-name="save"></i>
+                                </a>
+                                <a id="restore-slug-btn" class="btn-icon hidden">
+                                    <i icon-name="x-circle"></i>
+                                </a>
                             </div>
-                        {% endif %}
-                        <div id="link-container" class="flex items-center">
-                            <label for="{{ poi_translation_form.slug.id_for_label }}" class="mr-2">{{ poi_translation_form.slug.label }}:</label>
-                            <a id="slug-link"
-                               href="{{ url_link }}{{ poi_translation_form.instance.slug }}/"
-                               class="text-blue-500 hover:underline">{{ url_link }}{{ poi_translation_form.instance.slug }}</a>
-                            <a id="edit-slug-btn" title="{% trans "Edit" %}" class="mx-2 btn-icon">
-                                <i icon-name="edit-3"></i>
-                            </a>
-                            <a id="copy-slug-btn"
-                               title="{% trans "Copy to clipboard" %}"
-                               class="btn-icon">
-                                <i icon-name="copy"></i>
-                            </a>
-                            <div class="slug-field hidden">
-                                <label for="{{ poi_translation_form.slug.id_for_label }}">{{ url_link }}</label>
-                                {% render_field poi_translation_form.slug|add_error_class:"slug-error" %}
-                            </div>
-                            <a id="save-slug-btn" class="mx-2 btn-icon hidden">
-                                <i icon-name="save"></i>
-                            </a>
-                            <a id="restore-slug-btn" class="btn-icon hidden">
-                                <i icon-name="x-circle"></i>
-                            </a>
+                            <label for="{{ poi_translation_form.content.id_for_label }}">{{ poi_translation_form.content.label }}</label>
+                            {% render_field poi_translation_form.content class+="tinymce_textarea flex-auto" %}
                         </div>
-                        <label for="{{ poi_translation_form.short_description.id_for_label }}">
-                            {{ poi_translation_form.short_description.label }}
-                        </label>
-                        {% render_field poi_translation_form.short_description|add_error_class:"border-red-500" %}
-                        <label for="{{ poi_translation_form.content.id_for_label }}">{{ poi_translation_form.content.label }}</label>
-                        {% render_field poi_translation_form.content class+="tinymce_textarea flex-auto" %}
                     </div>
+                    {% if request.region.seo_enabled %}
+                        <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col">
+                            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                                <div class="rounded p-4 bg-water-500">
+                                    <h3 class="heading font-bold text-black">
+                                        <i icon-name="search" class="pb-1"></i>
+                                        {% trans "SEO section" %}
+                                    </h3>
+                                </div>
+                                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
+                                    <div>
+                                        <label for="{{ poi_translation_form.meta_description.id_for_label }}"
+                                               class="secondary">
+                                            {{ poi_translation_form.meta_description.label }}
+                                        </label>
+                                        <div class="help-text">{{ poi_translation_form.meta_description.help_text }}</div>
+                                        {% render_field poi_translation_form.meta_description|add_error_class:"border-red-500" %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="flex flex-wrap flex-col flex-auto gap-4">
@@ -172,7 +192,9 @@
                             <label for="{{ poi_form.latitude.id_for_label }}" class="secondary">{{ poi_form.latitude.label }}</label>
                             {% render_field poi_form.latitude|add_error_class:"border-red-500" %}
                             <div class="help-text">{{ poi_form.latitude.help_text }}</div>
-                            <label for="{{ poi_form.longitude.id_for_label }}" class="secondary">{{ poi_form.longitude.label }}</label>
+                            <label for="{{ poi_form.longitude.id_for_label }}" class="secondary">
+                                {{ poi_form.longitude.label }}
+                            </label>
                             {% render_field poi_form.longitude|add_error_class:"border-red-500" %}
                             <div class="help-text">
                                 {{ poi_form.longitude.help_text }}

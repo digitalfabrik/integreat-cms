@@ -183,6 +183,7 @@ class EventFormView(
             },
             changed_by_user=request.user,
         )
+        user_slug = event_translation_form.data.get("slug")
 
         if (
             not event_form_valid
@@ -234,6 +235,25 @@ class EventFormView(
                 event_translation_form.instance.event.translations.filter(
                     language__in=languages
                 ).update(status=status.DRAFT)
+
+            # Show a message that the slug was changed if it was not unique
+            if user_slug and user_slug != event_translation_form.cleaned_data["slug"]:
+                other_translation = EventTranslation.objects.filter(
+                    event__region=region, slug=user_slug, language=language
+                ).first()
+                other_translation_link = other_translation.backend_edit_link
+                messages.warning(
+                    request,
+                    _(
+                        "The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' is already used by <a href='{link}' class='underline hover:no-underline'>{translation}</a> or one of its previous versions"
+                    ).format(
+                        user_slug=user_slug,
+                        slug=event_translation_form.cleaned_data["slug"],
+                        link=other_translation_link,
+                        translation=other_translation,
+                    ),
+                )
+
             # Add the success message and redirect to the edit page
             if not event_instance:
                 messages.success(

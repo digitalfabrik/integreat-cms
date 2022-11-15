@@ -41,12 +41,16 @@ def lookup_hix_score(text):
 
 @require_POST
 @json_response
-def get_hix_score(request):
+# pylint: disable=unused-argument
+def get_hix_score(request, region_slug):
     """
     Calculates the hix score for the param 'text' in the request body and returns it.
 
     :param request: The request
     :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
 
     :return: A json response, of {"score": value} in case of success
     :rtype: ~django.http.JsonResponse
