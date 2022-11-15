@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-11-10T14:06:06+00:00" />
+    <meta property="article:modified_time" content="2022-11-15T15:23:56+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2022.11.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1410,11 +1410,14 @@ who is editing some content.</p>
 for a given text.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.utils.hix.</span></span><span class="sig-name descname"><span class="pre">get_hix_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/utils/hix.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.utils.hix.</span></span><span class="sig-name descname"><span class="pre">get_hix_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/utils/hix.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Calculates the hix score for the param ‘text’ in the request body and returns it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The request</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The slug of the current region</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A json response, of {“score”: value} in case of success</p>
@@ -1538,7 +1541,7 @@ higher than results which only match through their text content.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 10, 2022.
+      <span class="lastupdated">Last updated on Nov 15, 2022.
       </span></p>
   </div>
 
