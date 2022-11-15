@@ -6,6 +6,7 @@ UNRELEASED
 * [ [#1807](https://github.com/digitalfabrik/integreat-cms/issues/1807) ] Remove short description field from POI form
 * [ [#522](https://github.com/digitalfabrik/integreat-cms/issues/522) ] Add region setting to activate SEO section, add SEO section to POI form
 * [ [#1858](https://github.com/digitalfabrik/integreat-cms/issues/1858) ] Enable submitting feedback about fallback translations of recurring events
+* [ [#1865](https://github.com/digitalfabrik/integreat-cms/issues/1865) ] Fix TextLab HIX widget for non-staff users
 
 
 2022.11.2

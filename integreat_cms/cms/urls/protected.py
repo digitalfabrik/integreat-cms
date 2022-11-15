@@ -450,11 +450,6 @@ urlpatterns = [
                     utils.search_content_ajax,
                     name="search_content_ajax",
                 ),
-                path(
-                    "get_hix_score/",
-                    utils.get_hix_score,
-                    name="get_hix_score",
-                ),
             ]
         ),
     ),
@@ -566,6 +561,11 @@ urlpatterns = [
                                         ),
                                     ]
                                 ),
+                            ),
+                            path(
+                                "get_hix_score/",
+                                utils.get_hix_score,
+                                name="get_hix_score",
                             ),
                             path(
                                 "statistics/",
