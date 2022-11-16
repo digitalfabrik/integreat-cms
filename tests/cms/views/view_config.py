@@ -251,6 +251,18 @@ VIEWS = [
     ),
     (
         [
+            ("sbs_edit_imprint", STAFF_ROLES + [MANAGEMENT]),
+            (
+                "sbs_edit_imprint",
+                PRIV_STAFF_ROLES + [MANAGEMENT],
+                {"title": "imprint", "status": status.DRAFT},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "en"},
+    ),
+    (
+        [
             ("archived_pages", STAFF_ROLES),
             ("archived_pois", STAFF_ROLES),
             ("edit_imprint", STAFF_ROLES),
