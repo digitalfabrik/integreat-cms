@@ -40,7 +40,8 @@ def delete_region_user(request, region_slug, user_id):
         logger.info("%r deleted %r", request.user, user)
         user.delete()
         messages.success(
-            request, _("Account {} was successfully deleted.").format(user)
+            request,
+            _('Account "{}" was successfully deleted.').format(user.full_user_name),
         )
     else:
         user.regions.remove(region)
@@ -53,7 +54,9 @@ def delete_region_user(request, region_slug, user_id):
         )
         messages.success(
             request,
-            _("Account {} was successfully removed from this region.").format(user),
+            _('Account "{}" was successfully removed from this region.').format(
+                user.full_user_name
+            ),
         )
 
     return redirect("region_users", region_slug=region.slug)
