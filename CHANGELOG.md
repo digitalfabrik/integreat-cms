@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1832](https://github.com/digitalfabrik/integreat-cms/issues/1832) ] Add opening hours for locations
+
 
 2022.11.3
 ---------

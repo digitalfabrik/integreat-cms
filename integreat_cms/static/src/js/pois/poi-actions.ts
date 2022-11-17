@@ -38,7 +38,23 @@ window.addEventListener("load", () => {
             latitude.dataset.initial = latitude.value;
         });
     }
+
+    // Hide opening hours if temporarily closed
+    const temporarilyClosed = document.getElementById("id_temporarily_closed") as HTMLInputElement;
+    if (temporarilyClosed) {
+        toggleOpeningHoursWidget(temporarilyClosed);
+        temporarilyClosed.addEventListener("click", () => toggleOpeningHoursWidget(temporarilyClosed));
+    }
 });
+
+function toggleOpeningHoursWidget(temporarilyClosed: HTMLInputElement) {
+    const openingHoursWidget = document.querySelector("opening-hours-widget");
+    if (temporarilyClosed.checked) {
+        openingHoursWidget.classList.add("hidden");
+    } else {
+        openingHoursWidget.classList.remove("hidden");
+    }
+}
 
 async function autoCompleteAddress() {
     let street = (document.getElementById("id_address") as HTMLInputElement).value;

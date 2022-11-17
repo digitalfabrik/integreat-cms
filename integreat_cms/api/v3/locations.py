@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.utils.html import strip_tags
 
+from ...cms.models.pois.poi import get_default_opening_hours
+
 from ..decorators import json_response
 from .location_categories import transform_location_category
 
@@ -60,6 +62,10 @@ def transform_poi_translation(poi_translation):
     """
 
     poi = poi_translation.poi
+    # Only return opening hours if they differ from the default value and the location is not temporarily closed
+    opening_hours = None
+    if not poi.temporarily_closed and poi.opening_hours != get_default_opening_hours():
+        opening_hours = poi.opening_hours
     return {
         "id": poi_translation.id,
         "url": settings.BASE_URL + poi_translation.get_absolute_url(),
@@ -73,12 +79,15 @@ def transform_poi_translation(poi_translation):
         "available_languages": poi_translation.available_languages_dict,
         "icon": poi.icon.url if poi.icon else None,
         "thumbnail": poi.icon.thumbnail_url if poi.icon else None,
-        "website": poi.website if poi.website else None,
-        "email": poi.email if poi.email else None,
-        "phone_number": poi.phone_number if poi.phone_number else None,
+        "website": poi.website or None,
+        "email": poi.email or None,
+        "phone_number": poi.phone_number or None,
         "category": transform_location_category(
             poi.category, poi_translation.language.slug
         ),
+        "temporarily_closed": poi.temporarily_closed,
+        # Only return opening hours if not temporarily closed and they differ from the default value
+        "opening_hours": opening_hours,
         "location": transform_poi(poi),
         "hash": None,
     }

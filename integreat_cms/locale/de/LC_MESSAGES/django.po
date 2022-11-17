@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-10 17:25+0000\n"
+"POT-Creation-Date: 2022-11-17 16:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1828,6 +1828,14 @@ msgid "At least one translation is required."
 msgstr "Mindestens eine Übersetzung ist erforderlich."
 
 #: cms/forms/pois/poi_form.py
+msgid "An error occurred while saving the opening hours."
+msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
+
+#: cms/forms/pois/poi_form.py
+msgid "Please contact an administrator."
+msgstr "Bitte kontaktieren Sie einen Administrator."
+
+#: cms/forms/pois/poi_form.py
 msgid ""
 "Could not derive the coordinates from the address, please fill the field "
 "manually if the location is to be displayed on the map."
@@ -2916,6 +2924,22 @@ msgid "phone number"
 msgstr "Telefonnummer"
 
 #: cms/models/pois/poi.py
+msgid "temporarily closed"
+msgstr "Temporär geschlossen"
+
+#: cms/models/pois/poi.py
+msgid "Whether or not the location is temporarily closed."
+msgstr "Kreuzen Sie an, wenn dieser Ort vorübergehend geschlossen ist."
+
+#: cms/models/pois/poi.py
+msgid "The opening hours remain and are only hidden."
+msgstr "Die Öffnungszeiten bleiben erhalten und werden nur ausgeblendet."
+
+#: cms/models/pois/poi.py
+msgid "opening hours"
+msgstr "Öffnungszeiten"
+
+#: cms/models/pois/poi.py
 msgid "locations"
 msgstr "Orte"
 
@@ -3632,6 +3656,7 @@ msgstr "Speichern"
 #: cms/templates/_tinymce_config.html
 #: cms/templates/generic_confirmation_dialog.html
 #: cms/templates/linkcheck/link_list_row.html cms/templates/pois/poi_form.html
+#: cms/views/pois/poi_context_mixin.py
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -4663,6 +4688,7 @@ msgstr "Neue Sprache erstellen"
 #: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
 #: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
+#: cms/views/pois/poi_context_mixin.py
 msgid "Save"
 msgstr "Speichern"
 
@@ -7265,6 +7291,90 @@ msgid "Address could not be found"
 msgstr "Adresse konnte nicht gefunden werden"
 
 #: cms/views/pois/poi_context_mixin.py
+msgid "Edit opening hours for this weekday"
+msgstr "Öffnungszeiten für diesen Wochentag bearbeiten"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Edit all opening hours"
+msgstr "Alle Öffnungszeiten bearbeiten"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Edit \"Mo - Fr\""
+msgstr "\"Mo - Fr\" bearbeiten"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Edit \"Sa & Su\""
+msgstr "\"Sa & So\" bearbeiten"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Closed"
+msgstr "Geschlossen"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Opening time"
+msgstr "Öffnungszeit"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Closing time"
+msgstr "Schließzeit"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Open around the clock"
+msgstr "Rund um die Uhr geöffnet"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Select the days for which the times selected below should apply"
+msgstr ""
+"Wählen Sie die Tage aus, für die die unten gewählten Zeiten gelten sollen"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Add another time slot"
+msgstr "Weiteres Zeitfenster hinzufügen"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Remove this time slot"
+msgstr "Dieses Zeitfenster entfernen"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Only the last time slot may be empty"
+msgstr "Nur das letzte Zeitfenster darf leer sein."
+
+#: cms/views/pois/poi_context_mixin.py
+msgid ""
+"If the location is neither closed nor open all day, you have to specify at "
+"least one time slot"
+msgstr ""
+"Wenn der Ort weder geschlossen noch ganztägig geöffnet ist, müssen Sie "
+"mindestens ein Zeitfenster angeben"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Closing time is missing"
+msgstr "Die Schließzeit fehlt"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Opening time is missing"
+msgstr "Die Öffnungszeit fehlt"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Closing time is earlier than the opening time"
+msgstr "Die Schließzeit ist früher als die Öffnungszeit"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Closing time is identical with the opening time"
+msgstr "Die Schließzeit ist identisch mit der Öffnungszeit"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Opening time is earlier than the closing time of the previous slot"
+msgstr ""
+"Die Öffnungszeit ist früher als die Schließzeit des vorherigen Zeitfensters"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Opening time is identical with the closing time of the previous slot"
+msgstr ""
+"Die Öffnungszeit ist ist identisch mit der Schließzeit des vorherigen "
+"Zeitfensters"
+
+#: cms/views/pois/poi_context_mixin.py
 msgid "Please confirm that you really want to archive this location"
 msgstr "Bitte bestätigen Sie, dass dieser Ort archiviert werden soll."
 
@@ -7590,6 +7700,9 @@ msgstr ""
 #~ msgid "short description"
 #~ msgstr "Kurzbeschreibung"
 
+#~ msgid "Opened"
+#~ msgstr "Geöffnet"
+
 #~ msgid "Map preview will be available when coordinates are given."
 #~ msgstr ""
 #~ "Die Karten-Vorschau wird verfügbar, sobald die Koordinaten eingetragen "
@@ -7618,6 +7731,9 @@ msgstr ""
 
 #~ msgid "User Settings"
 #~ msgstr "Kontoeinstellungen"
+
+#~ msgid "Select days and time"
+#~ msgstr "Tage und Zeit auswählen"
 
 #~ msgid "Delete this organization"
 #~ msgstr "Diese Organisation löschen"
@@ -8615,9 +8731,6 @@ msgstr ""
 
 #~ msgid "Select start time"
 #~ msgstr "Startzeitpunkt auswählen"
-
-#~ msgid "Select end time"
-#~ msgstr "Endzeitpunkt auswählen"
 
 #~ msgid "Please enter a correct end date."
 #~ msgstr "Bitte fügen sie ein gültiges Enddatum ein"
