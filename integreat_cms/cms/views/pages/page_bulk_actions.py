@@ -8,7 +8,7 @@ from django.views.generic.list import MultipleObjectMixin
 from ....xliff.utils import pages_to_xliff_file
 from ...models import Page
 from ...utils.pdf_utils import generate_pdf
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import translate_link, ugettext_many_lazy as __
 from ..bulk_action_views import BulkActionView
 
 logger = logging.getLogger(__name__)
@@ -100,22 +100,30 @@ class ExportXliffView(PageBulkActionMixin, BulkActionView):
         )
         if xliff_file_url:
             # Insert link with automatic download into success message
-            messages.success(
-                request,
-                __(
+            message = __(
+                (
                     _(
                         "XLIFF file with published pages only for translation to {} successfully created."
-                    ).format(target_language)
+                    )
                     if self.only_public
                     else _(
                         "XLIFF file with unpublished and published pages for translation to {} successfully created."
-                    ).format(target_language),
-                    _(
-                        "If the download does not start automatically, please click {}here{}."
-                    ).format(
-                        f"<a data-auto-download href='{xliff_file_url}' class='font-bold underline hover:no-underline' download>",
-                        "</a>",
-                    ),
+                    )
+                ).format(target_language),
+                _(
+                    "If the download does not start automatically, please click <a>here</a>.",
+                ),
+            )
+            messages.success(
+                request,
+                translate_link(
+                    message,
+                    attributes={
+                        "href": xliff_file_url,
+                        "class": "font-bold underline hover:no-underline",
+                        "data-auto-download": "",
+                        "download": "",
+                    },
                 ),
             )
 
@@ -160,18 +168,24 @@ class ExportMultiLanguageXliffView(PageBulkActionMixin, BulkActionView):
         )
         if xliff_file_url:
             # Insert link with automatic download into success message
+            message = __(
+                _(
+                    "XLIFF file for translation to selected languages successfully created."
+                ),
+                _(
+                    "If the download does not start automatically, please click <a>here</a>.",
+                ),
+            )
             messages.success(
                 request,
-                __(
-                    _(
-                        "XLIFF file for translation to selected languages successfully created."
-                    ),
-                    _(
-                        "If the download does not start automatically, please click {}here{}."
-                    ).format(
-                        f"<a data-auto-download href='{xliff_file_url}' class='font-bold underline hover:no-underline' download>",
-                        "</a>",
-                    ),
+                translate_link(
+                    message,
+                    attributes={
+                        "href": xliff_file_url,
+                        "class": "font-bold underline hover:no-underline",
+                        "data-auto-download": "",
+                        "download": "",
+                    },
                 ),
             )
 

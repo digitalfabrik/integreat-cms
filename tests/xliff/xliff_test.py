@@ -192,7 +192,7 @@ def test_xliff_import(login_role_user, settings):
                 assert translation.content == "<p>Updated content</p>"
                 assert not translation.currently_in_translation
                 assert (
-                    f'Page "{translation.title}" was imported {msg}.'
+                    f"Page &quot;{translation.title}&quot; was imported {msg}."
                     in response.content.decode("utf-8")
                 )
                 if translation.version > 1:

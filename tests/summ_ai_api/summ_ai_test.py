@@ -132,7 +132,7 @@ async def test_auto_translate_easy_german(
         for page in changed_pages:
             # Check that the success message are present
             assert (
-                f'Page "{page[settings.SUMM_AI_GERMAN_LANGUAGE_SLUG]}" has been successfully translated into Easy German.'
+                f"Page &quot;{page[settings.SUMM_AI_GERMAN_LANGUAGE_SLUG]}&quot; has been successfully translated into Easy German."
                 in response.content.decode("utf-8")
             )
             # Check that the page translation exists and really has the correct content

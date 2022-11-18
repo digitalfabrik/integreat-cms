@@ -1,4 +1,5 @@
 import logging
+
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
@@ -12,6 +13,7 @@ from ...constants import status, translation_status
 from ...decorators import permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Language, Event, EventTranslation, RecurrenceRule, POI
+from ...utils.translation_utils import translate_link
 from .event_context_mixin import EventContextMixin
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
@@ -242,15 +244,22 @@ class EventFormView(
                     event__region=region, slug=user_slug, language=language
                 ).first()
                 other_translation_link = other_translation.backend_edit_link
+                message = _(
+                    "The slug was changed from '{user_slug}' to '{slug}', "
+                    "because '{user_slug}' is already used by <a>{translation}</a> or one of its previous versions.",
+                ).format(
+                    user_slug=user_slug,
+                    slug=event_translation_form.cleaned_data["slug"],
+                    translation=other_translation,
+                )
                 messages.warning(
                     request,
-                    _(
-                        "The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' is already used by <a href='{link}' class='underline hover:no-underline'>{translation}</a> or one of its previous versions"
-                    ).format(
-                        user_slug=user_slug,
-                        slug=event_translation_form.cleaned_data["slug"],
-                        link=other_translation_link,
-                        translation=other_translation,
+                    translate_link(
+                        message,
+                        attributes={
+                            "href": other_translation_link,
+                            "class": "underline hover:no-underline",
+                        },
                     ),
                 )
 

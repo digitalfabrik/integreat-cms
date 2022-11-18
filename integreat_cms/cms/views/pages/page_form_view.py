@@ -13,7 +13,7 @@ from ...constants import status, text_directions
 from ...decorators import permission_required
 from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import translate_link, ugettext_many_lazy as __
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .page_context_mixin import PageContextMixin
@@ -108,15 +108,18 @@ class PageFormView(
                         action = _("reject")
                     # If the user has the permission to reject/discard, show another message
                     if request.user.has_perm("cms.publish_page_object", page):
-                        status_message = __(
+                        message = __(
                             status_message,
                             _(
-                                "You can {action} these changes in the {link_start}version overview{link_end}."
-                            ).format(
-                                action=action,
-                                link_start=f"<a href='{revision_url}' class='underline hover:no-underline'>",
-                                link_end="</a>",
-                            ),
+                                "You can {action} these changes in the <a>version overview</a>."
+                            ).format(action=action),
+                        )
+                        status_message = translate_link(
+                            message,
+                            attributes={
+                                "href": revision_url,
+                                "class": "underline hover:no-underline",
+                            },
                         )
                     messages.warning(request, status_message)
                 # Show information if a public translation exists even if the latest version is not public
@@ -136,14 +139,17 @@ class PageFormView(
                             "selected_revision": public_translation.version,
                         },
                     )
+                    message = _(
+                        "Currently, <a>version {}</a> of this page is displayed in the app."
+                    ).format(public_translation.version)
                     messages.info(
                         request,
-                        _(
-                            "Currently, {link_start}version {version}{link_end} of this page is displayed in the app."
-                        ).format(
-                            link_start=f" <a href='{revision_url}' class='underline hover:no-underline'>",
-                            version=public_translation.version,
-                            link_end="</a>",
+                        translate_link(
+                            message,
+                            attributes={
+                                "href": revision_url,
+                                "class": "underline hover:no-underline",
+                            },
                         ),
                     )
 
@@ -333,15 +339,22 @@ class PageFormView(
                         "selected_revision": other_translation.version,
                     },
                 )
+                message = _(
+                    "The slug was changed from '{user_slug}' to '{slug}', "
+                    "because '{user_slug}' is already used by <a>{translation}</a>.",
+                ).format(
+                    user_slug=user_slug,
+                    slug=page_translation_form.cleaned_data["slug"],
+                    translation=other_translation,
+                )
                 messages.warning(
                     request,
-                    _(
-                        "The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' is already used by <a href='{link}' class='underline hover:no-underline'>{translation}</a>"
-                    ).format(
-                        user_slug=user_slug,
-                        slug=page_translation_form.cleaned_data["slug"],
-                        link=other_translation_link,
-                        translation=other_translation,
+                    translate_link(
+                        message,
+                        attributes={
+                            "href": other_translation_link,
+                            "class": "underline hover:no-underline",
+                        },
                     ),
                 )
 
