@@ -10,8 +10,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 
-from linkcheck.models import Link
-
 from ...constants import status
 from ...decorators import permission_required
 from ...models import Region, POITranslation
@@ -43,11 +41,7 @@ def archive(request, event_id, region_slug, language_slug):
     region = request.region
     event = get_object_or_404(region.events, id=event_id)
 
-    event.archived = True
-    event.save()
-
-    # Delete related link objects as they are no longer required
-    Link.objects.filter(event_translation__event=event).delete()
+    event.archive()
 
     logger.debug("%r archived by %r", event, request.user)
     messages.success(request, _("Event was successfully archived"))
@@ -119,13 +113,7 @@ def restore(request, event_id, region_slug, language_slug):
     region = request.region
     event = get_object_or_404(region.events, id=event_id)
 
-    event.archived = False
-    event.save()
-
-    # Restore related link objects
-    for translation in event.translations.distinct("event__pk", "language__pk"):
-        # The post_save signal will create link objects from the content
-        translation.save(update_timestamp=False)
+    event.restore()
 
     logger.debug("%r restored by %r", event, request.user)
     messages.success(request, _("Event was successfully restored"))

@@ -255,26 +255,84 @@ class BulkUpdateBooleanFieldView(BulkActionView):
 
 
 # pylint: disable=too-many-ancestors
-class BulkArchiveView(BulkUpdateBooleanFieldView):
+class BulkArchiveView(BulkActionView):
     """
     Bulk action for restoring multiple objects at once
     """
 
-    #: The name of the archived-field
-    field_name = "archived"
+    def post(self, request, *args, **kwargs):
+        r"""
+        Archive multiple objects
 
-    #: The name of the action
-    action = _("archived")
+        :param request: The current request
+        :type request: ~django.http.HttpRequest
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The redirect
+        :rtype: ~django.http.HttpResponseRedirect
+        """
+        for content_object in self.get_queryset():
+            content_object.archive()
+
+        # Invalidate cache
+        invalidate_model(self.model)
+        logger.debug(
+            "archived %r by %r",
+            self.get_queryset(),
+            request.user,
+        )
+        messages.success(
+            request,
+            _("The selected {} were successfully archived").format(
+                self.model._meta.verbose_name_plural
+            ),
+        )
+
+        return super().post(request, *args, **kwargs)
 
 
 # pylint: disable=too-many-ancestors
-class BulkRestoreView(BulkArchiveView):
+class BulkRestoreView(BulkActionView):
     """
     Bulk action for restoring multiple objects at once
     """
 
-    #: The value of the field
-    value = False
+    def post(self, request, *args, **kwargs):
+        r"""
+        Restore multiple objects
 
-    #: The name of the action
-    action = _("restored")
+        :param request: The current request
+        :type request: ~django.http.HttpRequest
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The redirect
+        :rtype: ~django.http.HttpResponseRedirect
+        """
+        for content_object in self.get_queryset():
+            content_object.restore()
+
+        # Invalidate cache
+        invalidate_model(self.model)
+        logger.debug(
+            "Restored %r by %r",
+            self.get_queryset(),
+            request.user,
+        )
+        messages.success(
+            request,
+            _("The selected {} were successfully restored").format(
+                self.model._meta.verbose_name_plural
+            ),
+        )
+
+        return super().post(request, *args, **kwargs)

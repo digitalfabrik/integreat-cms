@@ -2,11 +2,13 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import ugettext_lazy as _
 
-from ...utils.translation_utils import ugettext_many_lazy as __
+from linkcheck.models import Link
+
 from ..abstract_content_model import AbstractContentModel
 from ..media.media_file import MediaFile
 from ..pois.poi_translation import POITranslation
 from ..poi_categories.poi_category import POICategory
+from ...utils.translation_utils import ugettext_many_lazy as __
 
 
 def get_default_opening_hours():
@@ -110,6 +112,28 @@ class POI(AbstractContentModel):
         :rtype: type
         """
         return POITranslation
+
+    def archive(self):
+        """
+        Archives the poi and removes all links of this poi from the linkchecker
+        """
+        self.archived = True
+        self.save()
+
+        # Delete related link objects as they are no longer required
+        Link.objects.filter(poi_translation__poi=self).delete()
+
+    def restore(self):
+        """
+        Restores the event and adds all links of this event back
+        """
+        self.archived = False
+        self.save()
+
+        # Restore related link objects
+        for translation in self.translations.distinct("poi__pk", "language__pk"):
+            # The post_save signal will create link objects from the content
+            translation.save(update_timestamp=False)
 
     class Meta:
         #: The verbose name of the model

@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1832](https://github.com/digitalfabrik/integreat-cms/issues/1832) ] Add opening hours for locations
+* [ [#1502](https://github.com/digitalfabrik/integreat-cms/issues/1502) ] Hide links on archived pages in broken link checker
 
 
 2022.11.3
