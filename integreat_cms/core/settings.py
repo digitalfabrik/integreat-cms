@@ -230,6 +230,7 @@ INSTALLED_APPS = [
     "integreat_cms.deepl_api",
     "integreat_cms.firebase_api",
     "integreat_cms.gvz_api",
+    "integreat_cms.matomo_api",
     "integreat_cms.nominatim_api",
     "integreat_cms.summ_ai_api",
     "integreat_cms.textlab_api",

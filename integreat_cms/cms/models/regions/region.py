@@ -16,7 +16,7 @@ from django.conf import settings
 from ....nominatim_api.utils import BoundingBox
 from ...constants import region_status, administrative_division
 from ...utils.translation_utils import ugettext_many_lazy as __
-from ...utils.matomo_api_manager import MatomoApiManager
+from ....matomo_api.matomo_api_client import MatomoApiClient
 from ..abstract_base_model import AbstractBaseModel
 from ..offers.offer_template import OfferTemplate
 
@@ -516,12 +516,12 @@ class Region(AbstractBaseModel):
     @cached_property
     def statistics(self):
         """
-        This property returns the MatomoApiManager of the current region.
+        This property returns the MatomoApiClient of the current region.
 
         :return: The statistics manager
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
-        return MatomoApiManager(self)
+        return MatomoApiClient(self)
 
     def get_language_or_404(self, language_slug, only_active=False, only_visible=False):
         """
