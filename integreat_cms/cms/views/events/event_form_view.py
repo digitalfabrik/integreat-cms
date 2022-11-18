@@ -238,6 +238,13 @@ class EventFormView(
                     language__in=languages
                 ).update(status=status.DRAFT)
 
+            elif (
+                event_translation_form.instance.status == status.PUBLIC
+                and event_translation_form.instance.minor_edit
+            ):
+                event_translation_form.instance.event.translations.filter(
+                    language=language
+                ).update(status=status.PUBLIC)
             # Show a message that the slug was changed if it was not unique
             if user_slug and user_slug != event_translation_form.cleaned_data["slug"]:
                 other_translation = EventTranslation.objects.filter(
