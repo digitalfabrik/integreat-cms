@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.11.4
+---------
+
 * [ [#1616](https://github.com/digitalfabrik/integreat-cms/issues/1616) ] Add buttons to expand and copy truncated search feedback
 * [ [#1832](https://github.com/digitalfabrik/integreat-cms/issues/1832) ] Add opening hours for locations
 * [ [#1502](https://github.com/digitalfabrik/integreat-cms/issues/1502) ] Hide links on archived pages in broken link checker
