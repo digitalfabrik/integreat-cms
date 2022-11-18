@@ -25,22 +25,32 @@
                     {% if feedback.object_url %}
                         <a href="{{ feedback.object_url }}">{{ feedback.object_name }}</a>
                     {% else %}
-                        {{ feedback.object_name }}
+                        <div class="feedback-entry">
+                            <span class="feedback-entry-content">{{ feedback.object_name }}</span>
+                            <a class="copy-search-btn btn-icon inline"
+                               data-copy-to-clipboard="{{ feedback.object_name }}"
+                               title="{% trans "Copy to clipboard" %}">
+                                <i icon-name="copy"></i>
+                                <i icon-name="check" class="hidden text-green-500"></i>
+                            </a>
+                            <a class="toggle-feedback-entry">
+                                <i icon-name="chevron-down" class="more"></i>
+                                <i icon-name="chevron-up" class="less"></i>
+                            </a>
+                        </div>
                     {% endif %}
                 </td>
-                <td class="pr-2 feedback-comment max-w-[75px] lg:max-w-[300px] xl:max-w-[75px] 3xl:max-w-[300px] 4xl:max-w-[500px]"
+                <td class="pr-2 max-w-[75px] lg:max-w-[300px] xl:max-w-[75px] 3xl:max-w-[300px] 4xl:max-w-[500px]"
                     title="{{ feedback.comment }}">
                     {% if not feedback.comment %}
                         <i icon-name="minus" class="pr-1"></i>
                     {% else %}
-                        <div class="flex">
-                            <div class="feedback-comment-preview truncate grow">{{ feedback.comment }}</div>
-                            <i icon-name="chevron-down"
-                               class="toggle-feedback-comment transform cursor-pointer hover:scale-125 flex-none"></i>
-                        </div>
-                        <div class="hidden">
-                            <span class="feedback-comment-full">{{ feedback.comment }}</span> <i icon-name="chevron-up"
-    class="toggle-feedback-comment transform cursor-pointer hover:scale-125"></i>
+                        <div class="feedback-entry">
+                            <span class="feedback-entry-content">{{ feedback.comment }}</span>
+                            <a class="toggle-feedback-entry">
+                                <i icon-name="chevron-down" class="more"></i>
+                                <i icon-name="chevron-up" class="less"></i>
+                            </a>
                         </div>
                     {% endif %}
                 </td>

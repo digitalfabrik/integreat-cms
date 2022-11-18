@@ -1,6 +1,15 @@
 UNRELEASED
 ----------
 
+* [ [#1616](https://github.com/digitalfabrik/integreat-cms/issues/1616) ] Add buttons to expand and copy truncated search feedback
+* [ [#1832](https://github.com/digitalfabrik/integreat-cms/issues/1832) ] Add opening hours for locations
+* [ [#1502](https://github.com/digitalfabrik/integreat-cms/issues/1502) ] Hide links on archived pages in broken link checker
+* [ [#1791](https://github.com/digitalfabrik/integreat-cms/issues/1791) ] Render live content in pdfs
+* [ [#1869](https://github.com/digitalfabrik/integreat-cms/issues/1869) ] Fix error in imprint side by side view
+* [ [#1786](https://github.com/digitalfabrik/integreat-cms/issues/1786) ] Remove textblock option in editor, add button to clear all formatting
+* [ [#1788](https://github.com/digitalfabrik/integreat-cms/issues/1788) ] Fix broken translation status of events & locations if only minor public versions exists
+* [ [#1688](https://github.com/digitalfabrik/integreat-cms/issues/1688) ] Specify protected pages when trying to delete regions
+
 
 2022.11.3
 ---------

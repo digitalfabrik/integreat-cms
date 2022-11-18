@@ -17,7 +17,7 @@ from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ....gvz_api.utils import GvzRegion
 from ...constants import status
 from ...models import Region, Page, PageTranslation, LanguageTreeNode
-from ...utils.matomo_api_manager import MatomoException
+from ....matomo_api.matomo_api_client import MatomoException
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import ugettext_many_lazy as __
 from ..icon_widget import IconWidget

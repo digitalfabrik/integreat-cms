@@ -87,9 +87,11 @@
                                     <i icon-name="edit-3"></i>
                                 </a>
                                 <a id="copy-slug-btn"
+                                   data-copy-to-clipboard="{{ poi_translation_form.instance.base_link }}{{ poi_translation_form.instance.slug }}"
                                    title="{% trans "Copy to clipboard" %}"
                                    class="btn-icon">
                                     <i icon-name="copy"></i>
+                                    <i icon-name="check" class="hidden text-green-500"></i>
                                 </a>
                                 <div class="slug-field hidden">
                                     <label for="{{ poi_translation_form.slug.id_for_label }}">{{ url_link }}</label>
@@ -319,6 +321,29 @@
                                 {{ poi_form.phone_number.label }}
                             </label>
                             {% render_field poi_form.phone_number|add_error_class:"border-red-500" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                    <div class="rounded p-4 bg-water-500">
+                        <h3 class="heading font-bold text-black">
+                            <i icon-name="calendar-clock" class="pb-1"></i>
+                            {{ poi_form.opening_hours.label }}
+                        </h3>
+                        ({% trans "Currently not visible in apps" %})
+                    </div>
+                    <div class="divide-y divide-gray-200">
+                        <opening-hours-widget></opening-hours-widget>
+                        {{ opening_hour_config_data|json_script:"openingHourConfigData" }}
+                        {{ poi_form.opening_hours.value|json_script:"openingHourInitialData" }}
+                        <div class="py-2 px-4">
+                            {% render_field poi_form.temporarily_closed %}
+                            <label for="{{ poi_form.temporarily_closed.id_for_label }}">
+                                {{ poi_form.temporarily_closed.label }}
+                            </label>
+                            <div class="help-text">
+                                {{ poi_form.temporarily_closed.help_text }}
+                            </div>
                         </div>
                     </div>
                 </div>

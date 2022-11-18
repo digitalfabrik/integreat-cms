@@ -83,7 +83,7 @@ class ImprintSideBySideView(TemplateView):
                 **{
                     "region_slug": region.slug,
                     "language_slug": target_language.slug,
-                }
+                },
             )
 
         source_imprint_translation = imprint.get_translation(source_language.slug)
@@ -101,7 +101,7 @@ class ImprintSideBySideView(TemplateView):
                 **{
                     "region_slug": region.slug,
                     "language_slug": target_language.slug,
-                }
+                },
             )
 
         imprint_translation_form = ImprintTranslationForm(
@@ -168,7 +168,7 @@ class ImprintSideBySideView(TemplateView):
                 **{
                     "region_slug": region.slug,
                     "language_slug": target_language.slug,
-                }
+                },
             )
 
         imprint_translation_instance = imprint.get_translation(target_language.slug)
@@ -185,7 +185,7 @@ class ImprintSideBySideView(TemplateView):
                 **{
                     "region_slug": region.slug,
                     "language_slug": target_language.slug,
-                }
+                },
             )
 
         imprint_translation_form = ImprintTranslationForm(
@@ -209,6 +209,13 @@ class ImprintSideBySideView(TemplateView):
             imprint_translation_form.save()
             # Add the success message
             imprint_translation_form.add_success_message(request)
+            return redirect(
+                "sbs_edit_imprint",
+                **{
+                    "region_slug": region.slug,
+                    "language_slug": target_language.slug,
+                },
+            )
 
         return render(
             request,

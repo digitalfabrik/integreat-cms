@@ -1,3 +1,13 @@
+/*
+ * Enable Preact debugging during development
+ *
+ * Install the Preact Devtools browser extension to make use of it:
+ *
+ *     https://preactjs.github.io/preact-devtools/
+ */
+if (process.env.NODE_ENV !== "production") {
+    require("preact/debug");
+}
 /* Babel requirements & polyfills */
 import "core-js/stable";
 import "regenerator-runtime/runtime";
@@ -25,7 +35,7 @@ import "./js/languages/country-flag-fields.ts";
 
 import "./js/regions/conditional-fields.ts";
 
-import "./js/feedback/toggle-feedback-comments.ts";
+import "./js/feedback/toggle-feedback-entries.ts";
 
 import "./js/grids/toggle-grid-checkbox.ts";
 
@@ -75,6 +85,7 @@ import "./js/tutorial-overlay.ts";
 import "./js/unsaved-warning";
 
 import "./js/pois/poi-actions.ts";
+import "./js/pois/opening-hours/index.tsx";
 
 import "./js/menu.ts";
 

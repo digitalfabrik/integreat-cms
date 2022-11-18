@@ -108,7 +108,7 @@ window.addEventListener("load", () => {
             branding: false,
             paste_as_text: true,
             toolbar:
-                "bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link openmediacenter | export",
+                "bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link openmediacenter | export | removeformat ",
             style_formats: [
                 {
                     title: "Headings",
@@ -132,14 +132,6 @@ window.addEventListener("load", () => {
                     ],
                 },
                 {
-                    title: "Blocks",
-                    items: [
-                        { title: "Paragraph", format: "p" },
-                        { title: "Blockquote", format: "blockquote" },
-                        { title: "Div", format: "div" },
-                    ],
-                },
-                {
                     title: "Align",
                     items: [
                         { title: "Left", format: "alignleft" },
@@ -149,6 +141,27 @@ window.addEventListener("load", () => {
                     ],
                 },
             ],
+            formats: {
+                removeformat: [
+                    {
+                        selector: "b,strong,i,font,u,strike,s,sub,sup,h2,h3,h4,h5,h6",
+                        remove: "all",
+                        split: true,
+                        block_expand: true,
+                        expand: false,
+                        deep: true,
+                    },
+                    {
+                        selector: "span",
+                        attributes: ["style", "class"],
+                        remove: "empty",
+                        split: true,
+                        expand: false,
+                        deep: true,
+                    },
+                    { selector: "*", attributes: ["style", "class"], split: false, expand: false, deep: true },
+                ],
+            },
             min_height: 400,
             content_css: tinymceConfig.getAttribute("data-content-css"),
             content_style: tinymceConfig.getAttribute("data-content-style"),

@@ -2,10 +2,23 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import ugettext_lazy as _
 
+from linkcheck.models import Link
+
 from ..abstract_content_model import AbstractContentModel
 from ..media.media_file import MediaFile
 from ..pois.poi_translation import POITranslation
 from ..poi_categories.poi_category import POICategory
+from ...utils.translation_utils import ugettext_many_lazy as __
+
+
+def get_default_opening_hours():
+    """
+    Return the default opening hours
+
+    :return: The default opening hours
+    :rtype: list
+    """
+    return [{"allDay": False, "closed": True, "timeSlots": []} for _ in range(7)]
 
 
 class POI(AbstractContentModel):
@@ -67,6 +80,18 @@ class POI(AbstractContentModel):
         related_name="pois",
         verbose_name=_("category"),
     )
+    temporarily_closed = models.BooleanField(
+        default=False,
+        verbose_name=_("temporarily closed"),
+        help_text=__(
+            _("Whether or not the location is temporarily closed."),
+            _("The opening hours remain and are only hidden."),
+        ),
+    )
+    opening_hours = models.JSONField(
+        default=get_default_opening_hours,
+        verbose_name=_("opening hours"),
+    )
 
     @property
     def fallback_translations_enabled(self):
@@ -87,6 +112,28 @@ class POI(AbstractContentModel):
         :rtype: type
         """
         return POITranslation
+
+    def archive(self):
+        """
+        Archives the poi and removes all links of this poi from the linkchecker
+        """
+        self.archived = True
+        self.save()
+
+        # Delete related link objects as they are no longer required
+        Link.objects.filter(poi_translation__poi=self).delete()
+
+    def restore(self):
+        """
+        Restores the event and adds all links of this event back
+        """
+        self.archived = False
+        self.save()
+
+        # Restore related link objects
+        for translation in self.translations.distinct("poi__pk", "language__pk"):
+            # The post_save signal will create link objects from the content
+            translation.save(update_timestamp=False)
 
     class Meta:
         #: The verbose name of the model

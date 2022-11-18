@@ -1,4 +1,13 @@
-import { Chart, CategoryScale, LinearScale, Tooltip, DoughnutController, ArcElement, Title } from "chart.js";
+import {
+    Chart,
+    ChartConfiguration,
+    CategoryScale,
+    LinearScale,
+    Tooltip,
+    DoughnutController,
+    ArcElement,
+    Title,
+} from "chart.js";
 
 import { getContent } from "../forms/tinymce-init";
 import { getCsrfToken } from "../utils/csrf-token";
@@ -6,6 +15,7 @@ import { getCsrfToken } from "../utils/csrf-token";
 // Register all components that are being used - the others will be excluded from the final webpack build
 // See https://www.chartjs.org/docs/latest/getting-started/integration.html#bundlers-webpack-rollup-etc for details
 Chart.register(DoughnutController, ArcElement, CategoryScale, LinearScale, Tooltip, Title);
+
 window.addEventListener("load", async () => {
     // If the page has no diagram, do nothing
     if (!document.getElementById("hix-chart")) return;
@@ -46,7 +56,7 @@ window.addEventListener("load", async () => {
             maintainAspectRatio: false,
             hover: { mode: null },
         },
-    });
+    } as ChartConfiguration);
 
     // Set listener for update button
     document.getElementById("btn-update-hix-value").addEventListener("click", async (event) => {

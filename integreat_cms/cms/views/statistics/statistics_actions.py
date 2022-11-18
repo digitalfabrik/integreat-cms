@@ -11,7 +11,7 @@ from django.views.decorators.http import require_POST
 from ...decorators import permission_required
 
 from ...forms import StatisticsFilterForm
-from ...utils.matomo_api_manager import MatomoException
+from ....matomo_api.matomo_api_client import MatomoException
 
 logger = logging.getLogger(__name__)
 

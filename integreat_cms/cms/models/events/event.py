@@ -7,6 +7,8 @@ from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
+from linkcheck.models import Link
+
 from ...constants import frequency, status
 from ...utils.slug_utils import generate_unique_slug
 from ..abstract_content_model import AbstractContentModel, ContentQuerySet
@@ -313,6 +315,28 @@ class Event(AbstractContentModel):
             translation.save()
 
         return self
+
+    def archive(self):
+        """
+        Archives the event and removes all links of this event from the linkchecker
+        """
+        self.archived = True
+        self.save()
+
+        # Delete related link objects as they are no longer required
+        Link.objects.filter(event_translation__event=self).delete()
+
+    def restore(self):
+        """
+        Restores the event and adds all links of this event back
+        """
+        self.archived = False
+        self.save()
+
+        # Restore related link objects
+        for translation in self.translations.distinct("event__pk", "language__pk"):
+            # The post_save signal will create link objects from the content
+            translation.save(update_timestamp=False)
 
     class Meta:
         #: The verbose name of the model

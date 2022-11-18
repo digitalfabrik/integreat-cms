@@ -60,7 +60,7 @@ CHOICES = (
     ("er", _("Eritrea")),
     ("es", _("Spain")),
     ("et", _("Ethiopia")),
-    ("fa", __(_("Farsi"), _("(non-political)"))),
+    ("fs", __(_("Farsi"), _("(non-political)"))),
     ("fi", _("Finland")),
     ("fr", _("France")),
     ("ga", _("Gabon")),

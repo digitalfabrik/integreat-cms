@@ -87,7 +87,13 @@
                         {% endif %}
                         {% get_public_translation page language.slug as page_translation %}
                         <h1 class="level-{{ page.depth|add:"-1" }}">{{ page_translation.title }}</h1>
-                        <div class="content" style="padding-bottom: 30px;">{{ page_translation.content|pdf_strip_fontstyles|safe }}</div>
+                        <div class="content" style="padding-bottom: 30px;">
+                            {% if page.mirrored_page_first %}{{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|safe }}{% endif %}
+                            {{ page_translation.content|pdf_strip_fontstyles|safe }}
+                            {% if not page.mirrored_page_first %}
+                                {{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|safe }}
+                            {% endif %}
+                        </div>
                         {% for close in info.close %}
                         </li>
                     </ul>

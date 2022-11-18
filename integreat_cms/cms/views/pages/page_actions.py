@@ -16,7 +16,6 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_POST
 from django.db import transaction
 
-from linkcheck.models import Link
 from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
 from ....api.decorators import json_response
@@ -51,7 +50,6 @@ def archive_page(request, page_id, region_slug, language_slug):
     :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     :rtype: ~django.http.HttpResponseRedirect
     """
-
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
@@ -60,12 +58,7 @@ def archive_page(request, page_id, region_slug, language_slug):
             f"{request.user!r} does not have the permission to archive {page!r}"
         )
 
-    # Delete related link objects as they are no longer required
-    for child_page in Page.get_tree(parent=page).exclude(explicitly_archived=True):
-        Link.objects.filter(page_translation__page=child_page).delete()
-
-    page.explicitly_archived = True
-    page.save()
+    page.archive()
 
     logger.debug("%r archived by %r", page, request.user)
     messages.success(request, _("Page was successfully archived"))
@@ -110,8 +103,7 @@ def restore_page(request, page_id, region_slug, language_slug):
             f"{request.user!r} does not have the permission to restore {page!r}"
         )
 
-    page.explicitly_archived = False
-    page.save()
+    page.restore()
 
     if page.implicitly_archived:
         logger.debug(
@@ -134,12 +126,6 @@ def restore_page(request, page_id, region_slug, language_slug):
                 "language_slug": language_slug,
             },
         )
-
-    # Restore related link objects
-    for child_page in Page.get_tree(parent=page).cache_tree(archived=False):
-        for translation in child_page.translations.distinct("page__pk", "language__pk"):
-            # The post_save signal will create link objects from the content
-            translation.save(update_timestamp=False)
 
     logger.debug("%r restored by %r", page, request.user)
     messages.success(request, _("Page was successfully restored."))

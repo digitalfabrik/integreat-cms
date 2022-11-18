@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-10 17:25+0000\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1828,6 +1828,14 @@ msgid "At least one translation is required."
 msgstr "Mindestens eine Übersetzung ist erforderlich."
 
 #: cms/forms/pois/poi_form.py
+msgid "An error occurred while saving the opening hours."
+msgstr "Beim Speichern der Öffnungszeiten ist ein Fehler aufgetreten."
+
+#: cms/forms/pois/poi_form.py
+msgid "Please contact an administrator."
+msgstr "Bitte kontaktieren Sie einen Administrator."
+
+#: cms/forms/pois/poi_form.py
 msgid ""
 "Could not derive the coordinates from the address, please fill the field "
 "manually if the location is to be displayed on the map."
@@ -2179,7 +2187,6 @@ msgid "icon"
 msgstr "Icon"
 
 #: cms/models/events/event.py cms/models/pois/poi.py
-#: cms/views/bulk_action_views.py
 msgid "archived"
 msgstr "archiviert"
 
@@ -2916,6 +2923,22 @@ msgid "phone number"
 msgstr "Telefonnummer"
 
 #: cms/models/pois/poi.py
+msgid "temporarily closed"
+msgstr "Temporär geschlossen"
+
+#: cms/models/pois/poi.py
+msgid "Whether or not the location is temporarily closed."
+msgstr "Kreuzen Sie an, wenn dieser Ort vorübergehend geschlossen ist."
+
+#: cms/models/pois/poi.py
+msgid "The opening hours remain and are only hidden."
+msgstr "Die Öffnungszeiten bleiben erhalten und werden nur ausgeblendet."
+
+#: cms/models/pois/poi.py
+msgid "opening hours"
+msgstr "Öffnungszeiten"
+
+#: cms/models/pois/poi.py
 msgid "locations"
 msgstr "Orte"
 
@@ -3632,6 +3655,7 @@ msgstr "Speichern"
 #: cms/templates/_tinymce_config.html
 #: cms/templates/generic_confirmation_dialog.html
 #: cms/templates/linkcheck/link_list_row.html cms/templates/pois/poi_form.html
+#: cms/views/pois/poi_context_mixin.py
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -4100,7 +4124,11 @@ msgstr "Zur Überprüfung vorlegen"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
+#: cms/templates/events/event_form.html
+#: cms/templates/feedback/_feedback_widget.html
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
 #: cms/templates/pois/poi_form.html
 msgid "Copy to clipboard"
@@ -4663,6 +4691,7 @@ msgstr "Neue Sprache erstellen"
 #: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
 #: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
+#: cms/views/pois/poi_context_mixin.py
 msgid "Save"
 msgstr "Speichern"
 
@@ -6326,22 +6355,6 @@ msgstr ""
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: cms/utils/matomo_api_manager.py
-msgid "Total Accesses"
-msgstr "Alle Zugriffe"
-
-#: cms/utils/matomo_api_manager.py
-msgid "Offline Accesses"
-msgstr "Offline Zugriffe"
-
-#: cms/utils/matomo_api_manager.py
-msgid "WebApp Accesses"
-msgstr "WebApp Zugriffe"
-
-#: cms/utils/matomo_api_manager.py
-msgid "CW"
-msgstr "KW"
-
 #: cms/utils/pdf_utils.py
 msgid "No valid pages selected for PDF generation."
 msgstr ""
@@ -6467,8 +6480,12 @@ msgid "The selected {} were successfully {}"
 msgstr "Die ausgewählten {} wurden erfolgreich {}"
 
 #: cms/views/bulk_action_views.py
-msgid "restored"
-msgstr "wiederhergestellt"
+msgid "The selected {} were successfully archived"
+msgstr "Die ausgewählten {} wurden erfolgreich archiviert"
+
+#: cms/views/bulk_action_views.py
+msgid "The selected {} were successfully restored"
+msgstr "Die ausgewählten {} wurden erfolgreich wiederhergestellt"
 
 #: cms/views/delete_views.py
 msgid "{} \"{}\" was successfully deleted"
@@ -6583,13 +6600,11 @@ msgstr "Keine Änderungen vorgenommen, automatisches Speichern übersprungen"
 #, python-brace-format
 msgid ""
 "The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' "
-"is already used by <a href='{link}' class='underline hover:no-"
-"underline'>{translation}</a> or one of its previous versions"
+"is already used by <a>{translation}</a> or one of its previous versions."
 msgstr ""
 "Der URL-Parameter wurde von '{user_slug}' zu '{slug}' geändert, da "
-"'{user_slug}' bereits von <a href='{link}' class='underline hover:no-"
-"underline'>{translation}</a> oder einer vorherigen Version davon verwendet "
-"wird"
+"'{user_slug}' bereits von <a{translation}</a> oder einer vorherigen Version "
+"davon verwendet wird."
 
 #: cms/views/events/event_form_view.py
 msgid "Event \"{}\" was successfully created"
@@ -7073,9 +7088,9 @@ msgstr ""
 "Übersetzung nach {} wurde erfolgreich erstellt."
 
 #: cms/views/pages/page_bulk_actions.py
-msgid "If the download does not start automatically, please click {}here{}."
+msgid "If the download does not start automatically, please click <a>here</a>."
 msgstr ""
-"Wenn der Download nicht automatisch startet, klicken Sie bitte {}hier{}."
+"Wenn der Download nicht automatisch startet, klicken Sie bitte <a>hier</a>."
 
 #: cms/views/pages/page_bulk_actions.py
 msgid "XLIFF file for translation to selected languages successfully created."
@@ -7150,24 +7165,16 @@ msgstr "ablehnen"
 
 #: cms/views/pages/page_form_view.py
 #, python-brace-format
-msgid ""
-"You can {action} these changes in the {link_start}version overview{link_end}."
-msgstr ""
-"Sie können diese Änderungen in der {link_start}Versionsübersicht{link_end} "
-"{action}."
+msgid "You can {action} these changes in the <a>version overview</a>."
+msgstr "Sie können diese Änderungen in der <a>Versionsübersicht</a> {action}."
 
 #: cms/views/pages/page_form_view.py
 msgid "The latest changes have only been saved as a draft."
 msgstr "Die letzten Änderungen wurden nur als Entwurf gespeichert."
 
 #: cms/views/pages/page_form_view.py
-#, python-brace-format
-msgid ""
-"Currently, {link_start}version {version}{link_end} of this page is displayed "
-"in the app."
-msgstr ""
-"Aktuell wird {link_start}Version {version}{link_end} dieser Seite in der App "
-"angezeigt."
+msgid "Currently, <a>version {}</a> of this page is displayed in the app."
+msgstr "Aktuell wird <a>Version {}</a> dieser Seite in der App angezeigt."
 
 #: cms/views/pages/page_form_view.py cms/views/pages/page_sbs_view.py
 msgid "You don't have the permission to edit this page."
@@ -7185,12 +7192,10 @@ msgstr ""
 #, python-brace-format
 msgid ""
 "The slug was changed from '{user_slug}' to '{slug}', because '{user_slug}' "
-"is already used by <a href='{link}' class='underline hover:no-"
-"underline'>{translation}</a>"
+"is already used by <a>{translation}</a>."
 msgstr ""
 "Der URL-Parameter wurde von '{user_slug}' zu '{slug}' geändert, da "
-"'{user_slug}' bereits von <a href='{link}' class='underline hover:no-"
-"underline'>{translation}</a> verwendet wird"
+"'{user_slug}' bereits von <a>{translation}</a> verwendet wird."
 
 #: cms/views/pages/page_form_view.py
 msgid ""
@@ -7263,6 +7268,90 @@ msgstr "Ortung ist deaktiviert"
 #: cms/views/pois/poi_actions.py
 msgid "Address could not be found"
 msgstr "Adresse konnte nicht gefunden werden"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Edit opening hours for this weekday"
+msgstr "Öffnungszeiten für diesen Wochentag bearbeiten"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Edit all opening hours"
+msgstr "Alle Öffnungszeiten bearbeiten"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Edit \"Mo - Fr\""
+msgstr "\"Mo - Fr\" bearbeiten"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Edit \"Sa & Su\""
+msgstr "\"Sa & So\" bearbeiten"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Closed"
+msgstr "Geschlossen"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Opening time"
+msgstr "Öffnungszeit"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Closing time"
+msgstr "Schließzeit"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Open around the clock"
+msgstr "Rund um die Uhr geöffnet"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Select the days for which the times selected below should apply"
+msgstr ""
+"Wählen Sie die Tage aus, für die die unten gewählten Zeiten gelten sollen"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Add another time slot"
+msgstr "Weiteres Zeitfenster hinzufügen"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Remove this time slot"
+msgstr "Dieses Zeitfenster entfernen"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Only the last time slot may be empty"
+msgstr "Nur das letzte Zeitfenster darf leer sein."
+
+#: cms/views/pois/poi_context_mixin.py
+msgid ""
+"If the location is neither closed nor open all day, you have to specify at "
+"least one time slot"
+msgstr ""
+"Wenn der Ort weder geschlossen noch ganztägig geöffnet ist, müssen Sie "
+"mindestens ein Zeitfenster angeben"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Closing time is missing"
+msgstr "Die Schließzeit fehlt"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Opening time is missing"
+msgstr "Die Öffnungszeit fehlt"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Closing time is earlier than the opening time"
+msgstr "Die Schließzeit ist früher als die Öffnungszeit"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Closing time is identical with the opening time"
+msgstr "Die Schließzeit ist identisch mit der Öffnungszeit"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Opening time is earlier than the closing time of the previous slot"
+msgstr ""
+"Die Öffnungszeit ist früher als die Schließzeit des vorherigen Zeitfensters"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid "Opening time is identical with the closing time of the previous slot"
+msgstr ""
+"Die Öffnungszeit ist ist identisch mit der Schließzeit des vorherigen "
+"Zeitfensters"
 
 #: cms/views/pois/poi_context_mixin.py
 msgid "Please confirm that you really want to archive this location"
@@ -7373,6 +7462,18 @@ msgstr ""
 "Benachrichtigungen verwalten."
 
 #: cms/views/regions/region_actions.py
+msgid ""
+"Region could not be deleted, because the following pages are mirrored in "
+"other regions:"
+msgstr ""
+"Die Region konnte nicht gelöscht werden, weil die folgenden Seiten in "
+"anderen Region gespiegelt werden:"
+
+#: cms/views/regions/region_actions.py
+msgid "is mirrored here:"
+msgstr "wird hier gespiegelt:"
+
+#: cms/views/regions/region_actions.py
 msgid "Region was successfully deleted"
 msgstr "Region wurde erfolgreich gelöscht"
 
@@ -7448,29 +7549,25 @@ msgstr "Passwort wurde erfolgreich geändert"
 msgid "Statistics are not enabled for this region."
 msgstr "Statistiken sind für diese Region nicht aktiviert."
 
-#: cms/views/users/region_user_actions.py
-msgid "Account {} was successfully deleted."
-msgstr "Das Konto von {} wurde erfolgreich gelöscht."
+#: cms/views/users/region_user_actions.py cms/views/users/user_actions.py
+msgid "Account \"{}\" was successfully deleted."
+msgstr "Das Konto von \"{}\" wurde erfolgreich gelöscht."
 
 #: cms/views/users/region_user_actions.py
-msgid "Account {} was successfully removed from this region."
-msgstr "Das Konto von {} wurde erfolgreich von dieser Region entfernt."
+msgid "Account \"{}\" was successfully removed from this region."
+msgstr "Das Konto von \"{}\" wurde erfolgreich von dieser Region entfernt."
 
 #: cms/views/users/region_user_form_view.py cms/views/users/user_form_view.py
 msgid "Pending account activation"
 msgstr "Aktivierung des Kontos noch ausstehend"
 
 #: cms/views/users/region_user_form_view.py cms/views/users/user_form_view.py
-msgid "Account \"{}\" was successfully created"
-msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
+msgid "Account \"{}\" was successfully created."
+msgstr "Das Konto für \"{}\" wurde erfolgreich erstellt."
 
-#: cms/views/users/region_user_form_view.py
-msgid "User \"{}\" was successfully saved"
-msgstr "Das Konto von \"{}\" wurde erfolgreich gespeichert"
-
-#: cms/views/users/user_actions.py
-msgid "Account was successfully deleted"
-msgstr "Das Konto von {} wurde erfolgreich gelöscht."
+#: cms/views/users/region_user_form_view.py cms/views/users/user_form_view.py
+msgid "Account \"{}\" was successfully saved."
+msgstr "Das Konto von \"{}\" wurde erfolgreich gespeichert."
 
 #: cms/views/users/user_form_view.py
 msgid ""
@@ -7485,10 +7582,6 @@ msgid "Superuser permissions need to be set by another superuser."
 msgstr ""
 "Administrations-Rechte können nur von anderen Administrator:innen vergeben "
 "werden."
-
-#: cms/views/users/user_form_view.py
-msgid "Account \"{}\" was successfully saved"
-msgstr "Rolle \"{}\" wurde erfolgreich gespeichert"
 
 #: core/settings.py
 msgid "German"
@@ -7513,6 +7606,22 @@ msgstr "{} \"{}\" wurde erfolgreich übersetzt"
 #: deepl_api/utils.py
 msgid "{} \"{}\" could not be automatically translated."
 msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
+
+#: matomo_api/matomo_api_client.py
+msgid "Total Accesses"
+msgstr "Alle Zugriffe"
+
+#: matomo_api/matomo_api_client.py
+msgid "Offline Accesses"
+msgstr "Offline Zugriffe"
+
+#: matomo_api/matomo_api_client.py
+msgid "WebApp Accesses"
+msgstr "WebApp Zugriffe"
+
+#: matomo_api/matomo_api_client.py
+msgid "CW"
+msgstr "KW"
 
 #: summ_ai_api/utils.py
 msgid "No German translation could be found for {} \"{}\"."
@@ -7587,8 +7696,14 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "restored"
+#~ msgstr "wiederhergestellt"
+
 #~ msgid "short description"
 #~ msgstr "Kurzbeschreibung"
+
+#~ msgid "Opened"
+#~ msgstr "Geöffnet"
 
 #~ msgid "Map preview will be available when coordinates are given."
 #~ msgstr ""
@@ -7618,6 +7733,12 @@ msgstr ""
 
 #~ msgid "User Settings"
 #~ msgstr "Kontoeinstellungen"
+
+#~ msgid "Select days and time"
+#~ msgstr "Tage und Zeit auswählen"
+
+#~ msgid "Offline Downloads"
+#~ msgstr "Offline Downloads"
 
 #~ msgid "Delete this organization"
 #~ msgstr "Diese Organisation löschen"
@@ -7692,9 +7813,6 @@ msgstr ""
 #~ msgid "The automatic translation into Easy German has been started."
 #~ msgstr "Die automatische Übersetzung ins Leichte Deutsch wurde gestartet."
 
-#~ msgid "The selected {} were successfully archived"
-#~ msgstr "Die ausgewählten {} wurden erfolgreich archiviert"
-
 #~ msgid "Number of Members"
 #~ msgstr "Mitgliederanzahl"
 
@@ -7703,9 +7821,6 @@ msgstr ""
 
 #~ msgid "Currently no users belong to this organization"
 #~ msgstr "Aktuell gehören dieser Organisation keine Benutzer:innen an"
-
-#~ msgid "The selected {} were successfully restored"
-#~ msgstr "Die ausgewählten {} wurden erfolgreich wiederhergestellt"
 
 #~ msgid "Edit language tree node"
 #~ msgstr "Sprach-Knoten bearbeiten"
@@ -8615,9 +8730,6 @@ msgstr ""
 
 #~ msgid "Select start time"
 #~ msgstr "Startzeitpunkt auswählen"
-
-#~ msgid "Select end time"
-#~ msgstr "Endzeitpunkt auswählen"
 
 #~ msgid "Please enter a correct end date."
 #~ msgstr "Bitte fügen sie ein gültiges Enddatum ein"
