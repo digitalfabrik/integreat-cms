@@ -873,6 +873,9 @@ LINKCHECK_DISABLE_LISTENERS = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS", "False"))
 )
 
+#: The maximum length of URLs which can be checked. Longer URLs will be silently ignored.
+LINKCHECK_MAX_URL_LENGTH = 1024
+
 #: URL types that are not supposed to be shown in the link list (e.g. phone numbers and emails)
 LINKCHECK_IGNORED_URL_TYPES = [
     "mailto",
