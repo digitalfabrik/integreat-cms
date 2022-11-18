@@ -42,6 +42,10 @@ window.addEventListener("load", () => {
         let updatedLink = currentLink.substr(0, currentLink.lastIndexOf("/") + 1);
         // update only inner html and keep href until form submission
         linkElement.textContent = updatedLink.concat(currentSlug);
+
+        document
+            .getElementById("copy-slug-btn")
+            .setAttribute("data-copy-to-clipboard", encodeURI(updatedLink.concat(currentSlug)));
     }
 
     document.getElementById("edit-slug-btn")?.addEventListener("click", function (e) {

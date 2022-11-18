@@ -1,6 +1,7 @@
 UNRELEASED
 ----------
 
+* [ [#1616](https://github.com/digitalfabrik/integreat-cms/issues/1616) ] Add buttons to expand and copy truncated search feedback
 * [ [#1832](https://github.com/digitalfabrik/integreat-cms/issues/1832) ] Add opening hours for locations
 * [ [#1502](https://github.com/digitalfabrik/integreat-cms/issues/1502) ] Hide links on archived pages in broken link checker
 * [ [#1791](https://github.com/digitalfabrik/integreat-cms/issues/1791) ] Render live content in pdfs
