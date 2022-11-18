@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-11-18T11:53:23+00:00" />
+    <meta property="article:modified_time" content="2022-11-18T14:10:01+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2022.11.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -617,6 +617,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.cms.html">CMS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-translation-utils">Test Translation Utils</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.status_code.html">Status Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.views.html#test-public-view-status-code">Test Public View Status Code</a></li>
@@ -1240,6 +1244,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.cms.html">CMS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_translation_utils">Test Translation Utils</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.views.html">Views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.status_code.html">Status Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.views.html#module-tests.cms.views.test_public_view_status_code">Test Public View Status Code</a></li>
@@ -2106,8 +2114,28 @@ as fallback (either <code class="docutils literal notranslate"><span class="pre"
 <span id="translation-utils"></span><h2>Translation Utils<a class="headerlink" href="#module-integreat_cms.cms.utils.translation_utils" title="Permalink to this heading"></a></h2>
 <p>This module contains helpers for the translation process.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.translation_utils.translate_link">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.translation_utils.</span></span><span class="sig-name descname"><span class="pre">translate_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/translation_utils.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.translation_utils.translate_link" title="Permalink to this definition"></a></dt>
+<dd><p>Translate a link with keeping the HTML tags and still escaping all unknown parts of the message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The translated message that contains the link placeholder <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;{link_text}&lt;/a&gt;</span></code></p></li>
+<li><p><strong>attributes</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A dictionary of attributes for the link</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A correctly escaped formatted string with the translated message and the HTML link</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.translation_utils.ugettext_many_lazy">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.translation_utils.</span></span><span class="sig-name descname"><span class="pre">ugettext_many_lazy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">strings</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/translation_utils.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.translation_utils.ugettext_many_lazy" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.translation_utils.</span></span><span class="sig-name descname"><span class="pre">ugettext_many_lazy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">strings</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/translation_utils.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.translation_utils.ugettext_many_lazy" title="Permalink to this definition"></a></dt>
 <dd><p>This function is a wrapper for <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/utils/#django.utils.text.format_lazy" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">django.utils.text.format_lazy()</span></code></a> for the special case that the given strings
 should be concatenated with a space in between. This is useful for splitting lazy translated strings by sentences
 which improves the translation memory.</p>
