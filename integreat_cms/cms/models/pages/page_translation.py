@@ -103,6 +103,22 @@ class PageTranslation(AbstractBasePageTranslation):
     @cached_property
     def mirrored_translation_text(self):
         """
+        This method returns the text of the mirrored translation or an empty string,
+        if it is not available in this language
+
+        :return: The text
+        :rtype: str
+        """
+        if self.page.mirrored_page:
+            if translation := self.page.get_mirrored_page_translation(
+                self.language.slug
+            ):
+                return translation.content
+        return ""
+
+    @cached_property
+    def mirrored_translation_text_or_fallback_message(self):
+        """
         This method returns the text of the mirrored translation.
         If there is no mirrored translation, it returns an empty string.
         If there is a mirrored page but no translation, a html error message will be returned with languages that are translated as options.
@@ -113,9 +129,8 @@ class PageTranslation(AbstractBasePageTranslation):
         if not self.page.mirrored_page:
             return ""
 
-        translation = self.page.get_mirrored_page_translation(self.language.slug)
-        if translation and translation.content:
-            return translation.content
+        if content := self.mirrored_translation_text:
+            return content
 
         error_message = (
             self.language.message_partial_live_content_not_available
@@ -179,8 +194,11 @@ class PageTranslation(AbstractBasePageTranslation):
         :rtype: str
         """
         if self.page.mirrored_page_first:
-            return self.mirrored_translation_text + self.display_content
-        return self.display_content + self.mirrored_translation_text
+            return (
+                self.mirrored_translation_text_or_fallback_message
+                + self.display_content
+            )
+        return self.display_content + self.mirrored_translation_text_or_fallback_message
 
     @cached_property
     def combined_last_updated(self):
