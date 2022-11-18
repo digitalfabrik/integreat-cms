@@ -35,7 +35,7 @@ import "./js/languages/country-flag-fields.ts";
 
 import "./js/regions/conditional-fields.ts";
 
-import "./js/feedback/toggle-feedback-comments.ts";
+import "./js/feedback/toggle-feedback-entries.ts";
 
 import "./js/grids/toggle-grid-checkbox.ts";
 

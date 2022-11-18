@@ -561,7 +561,36 @@ datalist option {
 }
 
 /* Special word break for feedback list */
-.feedback-comment-full {
-    @apply break-words whitespace-pre-line;
-    word-break: break-word;
+.feedback-entry {
+    @apply flex flex-nowrap items-center;
+
+    span {
+        @apply overflow-hidden overflow-ellipsis whitespace-nowrap;
+    }
+
+    .toggle-feedback-entry {
+        @apply hover:scale-125 cursor-pointer inline-flex;
+    }
+
+    .less {
+        @apply hidden;
+    }
+
+    .more {
+        @apply inline-flex;
+    }
+
+    &.active {
+        span {
+            @apply break-all whitespace-pre-line overflow-visible;
+        }
+
+        .less {
+            @apply inline-flex;
+        }
+
+        .more {
+            @apply hidden;
+        }
+    }
 }

@@ -5,7 +5,7 @@ window.addEventListener("load", () => {
                 target instanceof HTMLElement &&
                 !(target instanceof HTMLInputElement) &&
                 !(target instanceof HTMLAnchorElement) &&
-                !target.closest(".toggle-feedback-comment")
+                !target.closest(".toggle-feedback-entry")
             ) {
                 const checkbox = row.querySelector("input") as HTMLInputElement;
                 checkbox.checked = !checkbox.checked;
