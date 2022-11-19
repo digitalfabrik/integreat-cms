@@ -156,7 +156,18 @@ jobs:
           at: .
       - run:
           name: Check formatting of CSS & JS files
-          command: npx prettier --print-width 120 --tab-width 4 --check integreat_cms/static/src
+          command: npx prettier --check .
+  eslint:
+    docker:
+      - image: 'cimg/node:lts'
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Lint static CSS, JS & YAML files
+          command: npx eslint .
   webpack:
     docker:
       - image: 'cimg/node:lts'
@@ -563,6 +574,9 @@ workflows:
       - pylint:
           requires:
             - pipenv-install
+      - eslint:
+          requires:
+            - npm-install
       - shellcheck/check:
           dir: ./dev-tools
           external_sources: true

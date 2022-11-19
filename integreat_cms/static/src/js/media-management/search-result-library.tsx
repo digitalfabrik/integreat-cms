@@ -5,24 +5,35 @@ import { useEffect } from "preact/hooks";
 
 import Library, { LibraryProps } from "./library";
 
-export default function SearchResultLibrary(props: LibraryProps) {
+const SearchResultLibrary = (props: LibraryProps) => {
+    const {
+        mediaLibraryContentState,
+        fileIndexState,
+        refreshState,
+        searchQuery,
+        ajaxRequest,
+        apiEndpoints: { getSearchResult },
+    } = props;
+
     // The directory content contains all subdirectories and files of the current directory
-    const [mediaLibraryContent, setMediaLibraryContent] = props.mediaLibraryContentState;
+    const [_mediaLibraryContent, setMediaLibraryContent] = mediaLibraryContentState;
     // The file index contains the index of the file which is currently opened in the sidebar
-    const [fileIndex, setFileIndex] = props.fileIndexState;
+    const [_fileIndex, setFileIndex] = fileIndexState;
     // This state is used to refresh the media library after changes were made
-    const [refresh, setRefresh] = props.refreshState;
+    const [refresh, _setRefresh] = refreshState;
 
     useEffect(() => {
         const urlParams = new URLSearchParams({
-            query: props.searchQuery,
+            query: searchQuery,
         });
-        console.debug(`Loading search result for query "${props.searchQuery}"...`);
+        console.debug(`Loading search result for query "${searchQuery}"...`);
         // Load the search result
-        props.ajaxRequest(props.apiEndpoints.getSearchResult, urlParams, setMediaLibraryContent);
+        ajaxRequest(getSearchResult, urlParams, setMediaLibraryContent);
         // Close the file sidebar
         setFileIndex(null);
-    }, [props.searchQuery, refresh]);
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [searchQuery, refresh]);
 
     return <Library {...props} />;
-}
+};
+export default SearchResultLibrary;

@@ -1,20 +1,12 @@
-import { create_icons_at } from "../utils/create-icons";
+import { createIconsAt } from "../utils/create-icons";
 import { refreshAjaxConfirmationHandlers } from "../confirmation-popups";
 import { deleteChatMessage } from "./delete-chat-message";
 /**
  * This file contains the sending function for the author chat
  */
 
-window.addEventListener("load", () => {
-    const chatForm = document.getElementById("chat-form");
-    if (chatForm) {
-        // Set event listener
-        chatForm.addEventListener("submit", sendChatMessage);
-    }
-});
-
 // Function to be executed when chat form is submitted
-async function sendChatMessage(event: Event) {
+const sendChatMessage = async (event: Event) => {
     event.preventDefault();
     // Disable submit button to prevent accidental multiple submits
     const sendChangeMessage = document.getElementById("send-chat-message") as HTMLButtonElement;
@@ -40,7 +32,8 @@ async function sendChatMessage(event: Event) {
         });
 
         // HTTP status 201 Created means the chat message was sent successfully
-        if (response.status === 201) {
+        const HTTP_STATUS_CREATED = 201;
+        if (response.status === HTTP_STATUS_CREATED) {
             // The response text contains the rendered message html
             const data = await response.text();
 
@@ -51,14 +44,12 @@ async function sendChatMessage(event: Event) {
             // Clear input field
             chatForm.reset();
             // Trigger icon replacement
-            create_icons_at(chatHistory);
+            createIconsAt(chatHistory);
 
             refreshAjaxConfirmationHandlers(".button-delete-chat-message", deleteChatMessage);
         } else {
             // Throw error which will then be caught later
-            throw new Error(
-                "Chat message could not be sent: HTTP status " + response.status + " " + response.statusText
-            );
+            throw new Error(`Chat message could not be sent: HTTP status ${response.status} ${response.statusText}`);
         }
     } catch (error) {
         console.error("Sending Chat Message failed:", error);
@@ -73,4 +64,12 @@ async function sendChatMessage(event: Event) {
         chatLoading.classList.add("hidden");
         sendChangeMessage.disabled = false;
     }
-}
+};
+
+window.addEventListener("load", () => {
+    const chatForm = document.getElementById("chat-form");
+    if (chatForm) {
+        // Set event listener
+        chatForm.addEventListener("submit", sendChatMessage);
+    }
+});

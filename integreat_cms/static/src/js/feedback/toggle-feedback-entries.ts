@@ -11,7 +11,7 @@ window.addEventListener("icon-load", () => {
     });
     // Set event handlers for expanding/collapsing feedback entries
     document.querySelectorAll(".toggle-feedback-entry").forEach((toggle) => {
-        toggle.addEventListener("click", ({ target }) => {
+        toggle.addEventListener("click", (_) => {
             toggle.parentElement.classList.toggle("active");
         });
     });

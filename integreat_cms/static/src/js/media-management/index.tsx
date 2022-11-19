@@ -16,7 +16,7 @@ import MessageComponent, { Message } from "./component/message";
 import DirectoryContentLibrary from "./directory-content-library";
 import SearchResultLibrary from "./search-result-library";
 
-export interface MediaApiPaths {
+export type MediaApiPaths = {
     getDirectoryPath: string;
     getDirectoryContent: string;
     getSearchResult: string;
@@ -29,9 +29,9 @@ export interface MediaApiPaths {
     moveFile: string;
     deleteFile: string;
     replaceFile: string;
-}
+};
 
-export interface File {
+export type File = {
     id: number;
     name: string;
     url: string | null;
@@ -44,9 +44,9 @@ export interface File {
     uploadedDate: Date;
     lastModified: Date;
     isGlobal: boolean;
-}
+};
 
-export interface Directory {
+export type Directory = {
     id: number;
     name: string;
     parentId: string;
@@ -54,11 +54,11 @@ export interface Directory {
     CreatedDate: Date;
     isGlobal: boolean;
     type: "directory";
-}
+};
 
 export type MediaLibraryEntry = Directory | File;
 
-interface Props {
+type Props = {
     apiEndpoints: MediaApiPaths;
     mediaTranslations: any;
     onlyImage?: boolean;
@@ -67,9 +67,9 @@ interface Props {
     allowedMediaTypes?: string;
     selectionMode?: boolean;
     selectMedia?: (file: File) => any;
-}
+};
 
-export default function MediaManagement(props: Props) {
+const MediaManagement = (props: Props) => {
     // This state can be used to show a success or error message
     const [newMessage, showMessage] = useState<Message | null>(null);
     // This state is a semaphore to block actions while an ajax call is running
@@ -85,18 +85,23 @@ export default function MediaManagement(props: Props) {
     // This state contains a file which should be opened in the sidebar after the content has been refreshed
     const [sidebarFile, setSidebarFile] = useState<File>(null);
 
+    const {
+        mediaTranslations: { text_error: textError, text_network_error: textNetworkError },
+    } = props;
+
     // This function is used to get information about a directory (either the path or the content)
     const ajaxRequest = async (url: string, urlParams: URLSearchParams, successCallback: (data: any) => void) => {
         setLoading(true);
         try {
             const response = await fetch(`${url}?${urlParams}`);
-            if (response.status === 200) {
+            const HTTP_STATUS_OK = 200;
+            if (response.status === HTTP_STATUS_OK) {
                 successCallback((await response.json()).data);
             } else {
                 console.error("Server error:", response);
                 showMessage({
                     type: "error",
-                    text: props.mediaTranslations.text_error,
+                    text: textError,
                 });
                 route("/");
             }
@@ -104,7 +109,7 @@ export default function MediaManagement(props: Props) {
             console.error(error);
             showMessage({
                 type: "error",
-                text: props.mediaTranslations.text_network_error,
+                text: textNetworkError,
             });
         }
         setLoading(false);
@@ -141,7 +146,8 @@ export default function MediaManagement(props: Props) {
             </Router>
         </div>
     );
-}
+};
+export default MediaManagement;
 
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("integreat-media-management").forEach((el) => {

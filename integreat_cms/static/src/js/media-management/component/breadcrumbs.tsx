@@ -1,3 +1,4 @@
+/* eslint react/jsx-key: off */
 /*
  * This component renders a breadcrumbs list for the current directory and all its parent directories
  */
@@ -7,15 +8,15 @@ import { useState } from "preact/hooks";
 
 import { Directory } from "../index";
 
-interface Props {
+type Props = {
     breadCrumbs: Directory[];
     searchQuery: string;
     mediaTranslations: any;
     allowDrop: boolean;
     dropItem: (targetDirectory: number) => unknown;
-}
+};
 
-export default function Breadcrumbs({ breadCrumbs, searchQuery, mediaTranslations, allowDrop, dropItem }: Props) {
+const Breadcrumbs = ({ breadCrumbs, searchQuery, mediaTranslations, allowDrop, dropItem }: Props) => {
     const [currentDragTarget, setCurrentDragTarget] = useState<null | number>(null);
     return (
         <nav className="p-2">
@@ -40,19 +41,10 @@ export default function Breadcrumbs({ breadCrumbs, searchQuery, mediaTranslation
                             setCurrentDragTarget(null);
                             dropItem(0);
                         }
-                    }}
-                >
-                    <Link
-                        href={"/"}
-                        className={"flex flex-wrap hover:bg-water-600 px-3 py-2 rounded "}
-                        media-library-link
-                    >
+                    }}>
+                    <Link href="/" className="flex flex-wrap hover:bg-water-600 px-3 py-2 rounded " media-library-link>
                         {allowDrop &&
-                            (currentDragTarget === 0 ? (
-                                <FolderOpen className={"mr-2"} />
-                            ) : (
-                                <Folder className={"mr-2"} />
-                            ))}
+                            (currentDragTarget === 0 ? <FolderOpen className="mr-2" /> : <Folder className="mr-2" />)}
                         {mediaTranslations.heading_media_root}
                     </Link>
                 </li>
@@ -62,7 +54,7 @@ export default function Breadcrumbs({ breadCrumbs, searchQuery, mediaTranslation
                             <ChevronRight />
                         </li>
                         <li class="px-3 py-2">
-                            {mediaTranslations.heading_search_results} "{searchQuery}"
+                            {mediaTranslations.heading_search_results} &ldquo;{searchQuery}&rdquo;
                         </li>
                     </>
                 ) : (
@@ -92,18 +84,16 @@ export default function Breadcrumbs({ breadCrumbs, searchQuery, mediaTranslation
                                             setCurrentDragTarget(null);
                                             dropItem(directory.id);
                                         }
-                                    }}
-                                >
+                                    }}>
                                     <Link
                                         href={`/${directory.id}/`}
                                         class="flex flex-wrap hover:bg-water-600 px-3 py-2 rounded break-all"
-                                        media-library-link
-                                    >
+                                        media-library-link>
                                         {allowDrop &&
                                             (currentDragTarget === directory.id ? (
-                                                <FolderOpen className={"mr-2"} />
+                                                <FolderOpen className="mr-2" />
                                             ) : (
-                                                <Folder className={"mr-2"} />
+                                                <Folder className="mr-2" />
                                             ))}
                                         {directory.name}
                                     </Link>
@@ -115,4 +105,5 @@ export default function Breadcrumbs({ breadCrumbs, searchQuery, mediaTranslation
             </ul>
         </nav>
     );
-}
+};
+export default Breadcrumbs;

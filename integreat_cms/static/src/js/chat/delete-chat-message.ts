@@ -4,13 +4,8 @@
 import { getCsrfToken } from "../utils/csrf-token";
 import { refreshAjaxConfirmationHandlers } from "../confirmation-popups";
 
-// Listen on the custom event "action-confirmed" which is triggered by the confirmation popup
-window.addEventListener("load", () =>
-    refreshAjaxConfirmationHandlers(".button-delete-chat-message", deleteChatMessage)
-);
-
 // Function to delete a chat message
-export async function deleteChatMessage(event: Event) {
+export const deleteChatMessage = async (event: Event) => {
     event.preventDefault();
     const chatNetworkError = document.getElementById("chat-network-error");
     const chatServerError = document.getElementById("chat-server-error");
@@ -29,14 +24,13 @@ export async function deleteChatMessage(event: Event) {
                 "X-CSRFToken": getCsrfToken(),
             },
         });
-        if (response.status === 200) {
+        const HTTP_STATUS_OK = 200;
+        if (response.status === HTTP_STATUS_OK) {
             // If message was deleted successfully, remove the div containing the message
             deletionButton.closest(".chat-message").remove();
         } else {
             // Throw error which will then be caught later
-            throw new Error(
-                "Chat message could not be deleted: HTTP status " + response.status + " " + response.statusText
-            );
+            throw new Error(`Chat message could not be deleted: HTTP status ${response.status} ${response.statusText}`);
         }
     } catch (error) {
         console.error("Deleting Chat Message failed:", error);
@@ -48,4 +42,9 @@ export async function deleteChatMessage(event: Event) {
             chatServerError.classList.remove("hidden");
         }
     }
-}
+};
+
+// Listen on the custom event "action-confirmed" which is triggered by the confirmation popup
+window.addEventListener("load", () =>
+    refreshAjaxConfirmationHandlers(".button-delete-chat-message", deleteChatMessage)
+);

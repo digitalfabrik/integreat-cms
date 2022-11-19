@@ -8,6 +8,7 @@ window.addEventListener("beforeunload", (event) => {
     // trigger only when something is edited and no submit/save button clicked
     if (dirty) {
         event.preventDefault();
+        /* eslint-disable-next-line no-param-reassign */
         event.returnValue = "This content is not saved. Would you leave the page?";
     }
 });

@@ -57,7 +57,7 @@ window.addEventListener("load", () => {
             });
             const data = await result.json();
             if (data.success) {
-                location.href = data.successUrl;
+                window.location.href = data.successUrl;
             } else {
                 document.querySelector(".add-mfa-error").classList.remove("hidden");
                 document.querySelector(".add-mfa-error-msg").textContent = data.error;

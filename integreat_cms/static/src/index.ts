@@ -5,14 +5,15 @@
  *
  *     https://preactjs.github.io/preact-devtools/
  */
+/* eslint-disable import/first */
 if (process.env.NODE_ENV !== "production") {
+    /* eslint-disable-next-line global-require */
     require("preact/debug");
 }
 /* Babel requirements & polyfills */
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import "whatwg-fetch"; // IE11: fetch
-require("element-closest").default(window); // IE11: Element.closest
+import "whatwg-fetch"; // IE11: Element.closest
 
 import "./css/style.scss";
 
@@ -70,7 +71,7 @@ import "./js/user/user-creation-workflow.ts";
 import "./js/user/user-roles.ts";
 import "./js/user/organization.ts";
 
-import { create_icons_at } from "./js/utils/create-icons";
+import { createIconsAt } from "./js/utils/create-icons";
 
 import "./js/charCounter.ts";
 
@@ -89,8 +90,12 @@ import "./js/pois/opening-hours/index.tsx";
 
 import "./js/menu.ts";
 
+// IE11: fetch
+/* eslint-disable-next-line @typescript-eslint/no-var-requires */
+require("element-closest").default(window);
+
 window.addEventListener("DOMContentLoaded", () => {
-    create_icons_at(document.documentElement);
+    createIconsAt(document.documentElement);
     const event = new Event("icon-load");
     window.dispatchEvent(event);
 });

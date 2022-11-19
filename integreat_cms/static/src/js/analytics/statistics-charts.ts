@@ -10,10 +10,10 @@ import {
     Tooltip,
 } from "chart.js";
 
-export interface AjaxResponse {
+export type AjaxResponse = {
     exportLabels: Array<string>;
     chartData: ChartData;
-}
+};
 
 // Register all components that are being used - the others will be excluded from the final webpack build
 // See https://www.chartjs.org/docs/latest/getting-started/integration.html#bundlers-webpack-rollup-etc for details
@@ -22,51 +22,10 @@ Chart.register(LineElement, PointElement, LineController, CategoryScale, LinearS
 // global variable for export labels (better for csv than the readable labels)
 let exportLabels: Array<string>;
 
-window.addEventListener("load", async () => {
-    // If the page has no diagram, do nothing
-    if (!document.getElementById("statistics")) return;
-
-    // Initialize chart
-    new Chart("statistics", {
-        type: "line",
-        data: {
-            datasets: [],
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                },
-            },
-        },
-    });
-
-    // Initialize chart data
-    await updateChart();
-
-    // Initialize export button
-    toggleExportButton();
-
-    // Set event handler for updating chart
-    const statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
-    statisticsForm?.addEventListener("submit", async function (event: Event) {
-        // Prevent form submit
-        event.preventDefault();
-        // Update chart
-        await updateChart();
-    });
-
-    // Set event handler for exporting the data
-    document.getElementById("export-button")?.addEventListener("click", exportStatisticsData);
-
-    // Event handler for toggling export button
-    document.getElementById("export-format")?.addEventListener("change", toggleExportButton);
-});
-
 /*
  * This function updates the chart according to the dates currently selected in the form.
  */
-async function updateChart(): Promise<void> {
+const updateChart = async (): Promise<void> => {
     // Get Chart instance
     const chart = Chart.instances[0];
 
@@ -84,6 +43,10 @@ async function updateChart(): Promise<void> {
 
     // Initialize default fetch parameters
     let parameters = {};
+
+    const HTTP_STATUS_OK = 200;
+    const HTTP_STATUS_BAD_REQUEST = 400;
+    const HTTP_STATUS_GATEWAY_TIMEOUT = 504;
 
     // Get form
     const statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
@@ -116,29 +79,29 @@ async function updateChart(): Promise<void> {
     try {
         const response = await fetch(url, parameters);
 
-        if (response.status === 200) {
+        if (response.status === HTTP_STATUS_OK) {
             // The response text contains the data from Matomo as JSON.
-            let data = (await response.json()) as AjaxResponse;
+            const data = (await response.json()) as AjaxResponse;
             chart.data = data.chartData;
             chart.update();
             // Save export labels
             exportLabels = data.exportLabels;
             // Show help text
             chartLabelHelpText?.classList.remove("hidden");
-        } else if (response.status === 400) {
+        } else if (response.status === HTTP_STATUS_BAD_REQUEST) {
             // Client error - invalid form parameters supplied
-            let data = await response.json();
+            const data = await response.json();
             console.error("Invalid form parameters supplied.", data);
             // Mark fields red and show error message
-            for (let [field_id, errors] of Object.entries(data.errors)) {
-                let form_field = document.getElementById("id_" + field_id);
-                form_field.classList.remove("border");
-                form_field.classList.add("border-2", "border-red-500");
-                let form_field_error = document.getElementById(field_id + "_error");
-                form_field_error.querySelector("span").textContent = errors.toString();
-                form_field_error.classList.remove("hidden");
+            for (const [fieldId, errors] of Object.entries(data.errors)) {
+                const formField = document.getElementById(`id_${fieldId}`);
+                formField.classList.remove("border");
+                formField.classList.add("border-2", "border-red-500");
+                const formFieldError = document.getElementById(`${fieldId}_error`);
+                formFieldError.querySelector("span").textContent = errors.toString();
+                formFieldError.classList.remove("hidden");
             }
-        } else if (response.status === 504) {
+        } else if (response.status === HTTP_STATUS_GATEWAY_TIMEOUT) {
             console.error("Server Error (504):", await response.json());
             chartHeavyTrafficError.classList.remove("hidden");
         } else {
@@ -154,74 +117,114 @@ async function updateChart(): Promise<void> {
         // Hide loading icon
         chartLoading.classList.add("hidden");
     }
-}
+};
 
 /*
  * This function enables/disables the export button depending on whether an export format is selected or not.
  */
-function toggleExportButton() {
+const toggleExportButton = () => {
     // Only activate button if an export format is selected
     const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
     const exportButton = document.getElementById("export-button") as HTMLInputElement;
-    if (!exportFormat || !exportButton) return;
-    exportButton.disabled = exportFormat.value === "";
-}
-
-/*
- * This function exports the current data of the chart into either PNG or CSV.
- */
-function exportStatisticsData(): void {
-    // Get Chart instance
-    const chart = Chart.instances[0];
-    // Get format select field
-    const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
-    // Build filename
-    let filename =
-        "Integreat " +
-        exportFormat.getAttribute("data-filename-prefix") +
-        " " +
-        exportLabels[0] +
-        " - " +
-        exportLabels[exportLabels.length - 1];
-
-    switch (exportFormat.value) {
-        case "image":
-            // This is needed to get a white background for the image. The default background is transparent.
-            let ctx = chart.canvas.getContext("2d");
-            ctx.globalCompositeOperation = "destination-over";
-            ctx.fillStyle = "white";
-            ctx.fillRect(0, 0, chart.canvas.width, chart.canvas.height);
-            // Image Creation of the chart
-            let image = chart.toBase64Image();
-            // Initiate download
-            download_file(filename + ".png", image);
-            break;
-        case "csv":
-            // Convert datasets into the format [["language 1", "hits on day 1", "hits 2", ...], [["language 1", "hits on day 1", ...], ...]
-            let datasetsWithLabels: string[][] = chart.data.datasets.map((dataset) =>
-                [dataset.label].concat(dataset.data.map(String))
-            );
-            // Create matrix with date labels in the first row and the hits per language in the subsequent rows
-            let csv_matrix: string[][] = [[""].concat(exportLabels)].concat(datasetsWithLabels);
-            // Transpose matrix (swap rows and columns) and join to a single csv string
-            let csvContent = csv_matrix[0].map((col, i) => csv_matrix.map((row) => row[i]).join(",")).join("\n");
-            // Initiate download
-            download_file(filename + ".csv", "data:text/csv;charset=utf-8;base64," + btoa(csvContent));
-            break;
-        default:
-            alert("Export format is not supported.");
-            console.error("Export format not supported");
+    if (!exportFormat || !exportButton) {
+        return;
     }
-}
+    exportButton.disabled = exportFormat.value === "";
+};
 
 /*
  * This function initializes a file download by setting the "href" attribute of the download link to the file data
  * and the "download" attribute to the filename.
  * After that, a click on the button is simulated.
  */
-function download_file(filename: string, content: string) {
-    let downloadLink = document.getElementById("export-download-link");
+const downloadFile = (filename: string, content: string) => {
+    const downloadLink = document.getElementById("export-download-link");
     downloadLink.setAttribute("href", content);
     downloadLink.setAttribute("download", filename);
     downloadLink.click();
-}
+};
+
+/*
+ * This function exports the current data of the chart into either PNG or CSV.
+ */
+const exportStatisticsData = (): void => {
+    // Get Chart instance
+    const chart = Chart.instances[0];
+    // Get format select field
+    const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
+    // Build filename
+    const filename = `Integreat ${exportFormat.getAttribute("data-filename-prefix")} ${exportLabels[0]} - ${
+        exportLabels[exportLabels.length - 1]
+    }`;
+
+    if (exportFormat.value === "image") {
+        // This is needed to get a white background for the image. The default background is transparent.
+        const ctx = chart.canvas.getContext("2d");
+        ctx.globalCompositeOperation = "destination-over";
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, chart.canvas.width, chart.canvas.height);
+        // Image Creation of the chart
+        const image = chart.toBase64Image();
+        // Initiate download
+        downloadFile(`${filename}.png`, image);
+    } else if (exportFormat.value === "csv") {
+        // Convert datasets into the format [["language 1", "hits on day 1", "hits 2", ...], [["language 1", "hits on day 1", ...], ...]
+        const datasetsWithLabels: string[][] = chart.data.datasets.map((dataset) =>
+            [dataset.label].concat(dataset.data.map(String))
+        );
+        // Create matrix with date labels in the first row and the hits per language in the subsequent rows
+        const csvMatrix: string[][] = [[""].concat(exportLabels)].concat(datasetsWithLabels);
+        // Transpose matrix (swap rows and columns) and join to a single csv string
+        const csvContent = csvMatrix[0].map((col, i) => csvMatrix.map((row) => row[i]).join(",")).join("\n");
+        // Initiate download
+        downloadFile(`${filename}.csv`, `data:text/csv;charset=utf-8;base64,${btoa(csvContent)}`);
+    } else {
+        // eslint-disable-next-line no-alert
+        alert("Export format is not supported.");
+        console.error("Export format not supported");
+    }
+};
+
+window.addEventListener("load", async () => {
+    // If the page has no diagram, do nothing
+    if (!document.getElementById("statistics")) {
+        return;
+    }
+
+    // Initialize chart
+    /* eslint-disable-next-line no-new */
+    new Chart("statistics", {
+        type: "line",
+        data: {
+            datasets: [],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+
+    // Initialize chart data
+    await updateChart();
+
+    // Initialize export button
+    toggleExportButton();
+
+    // Set event handler for updating chart
+    const statisticsForm = document.getElementById("statistics-form") as HTMLFormElement;
+    statisticsForm?.addEventListener("submit", async (event: Event) => {
+        // Prevent form submit
+        event.preventDefault();
+        // Update chart
+        await updateChart();
+    });
+
+    // Set event handler for exporting the data
+    document.getElementById("export-button")?.addEventListener("click", exportStatisticsData);
+
+    // Event handler for toggling export button
+    document.getElementById("export-format")?.addEventListener("change", toggleExportButton);
+});
