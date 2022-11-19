@@ -1,13 +1,7 @@
 import { getCsrfToken } from "./utils/csrf-token";
 
-window.addEventListener("load", () => {
-    if (document.getElementById("table-search")) {
-        setSearchQueryEventListeners();
-    }
-});
-
-async function queryObjects(url: string, type: String, queryString: string, archived: boolean) {
-    if (queryString.trim().length == 0) {
+const queryObjects = async (url: string, type: string, queryString: string, archived: boolean) => {
+    if (queryString.trim().length === 0) {
         document.getElementById("table-search-suggestions").classList.add("hidden");
         return;
     }
@@ -24,20 +18,21 @@ async function queryObjects(url: string, type: String, queryString: string, arch
         }),
     });
 
-    if (response.status != 200) {
+    const HTTP_STATUS_OK = 200;
+    if (response.status !== HTTP_STATUS_OK) {
         return;
     }
 
     const data = await response.json();
 
-    let suggestion_list = document.getElementById("table-search-suggestions");
-    suggestion_list.innerHTML = "";
-    suggestion_list.classList.remove("hidden");
+    const suggestionList = document.getElementById("table-search-suggestions");
+    suggestionList.innerHTML = "";
+    suggestionList.classList.remove("hidden");
 
     if (data) {
         // Set and display new data
         for (const value of data.data) {
-            let child = document.createElement("li");
+            const child = document.createElement("li");
             child.classList.add(
                 "inline-block",
                 "whitespace-nowrap",
@@ -52,19 +47,19 @@ async function queryObjects(url: string, type: String, queryString: string, arch
                 "align-top"
             );
             child.innerText = value.title;
-            suggestion_list.appendChild(child);
+            suggestionList.appendChild(child);
         }
     }
-}
+};
 
 let scheduledFunction: number | null = null;
 
-export function setSearchQueryEventListeners() {
+export const setSearchQueryEventListeners = () => {
     console.debug("Setting search query event listeners");
-    let table_search_input = document.getElementById("table-search-input") as HTMLInputElement;
+    const tableSearchInput = document.getElementById("table-search-input") as HTMLInputElement;
 
     // AJAX search
-    table_search_input.addEventListener("keyup", (event) => {
+    tableSearchInput.addEventListener("keyup", (event) => {
         event.preventDefault();
 
         // Reschedule function execution on new input
@@ -72,45 +67,52 @@ export function setSearchQueryEventListeners() {
             window.clearTimeout(scheduledFunction);
         }
         // Schedule function execution
+        const timeoutDuration = 300;
         scheduledFunction = window.setTimeout(
             queryObjects,
-            300,
-            table_search_input.getAttribute("data-url"),
-            table_search_input.getAttribute("data-object-type"),
-            table_search_input.value,
-            table_search_input.getAttribute("data-archived") == "true"
+            timeoutDuration,
+            tableSearchInput.getAttribute("data-url"),
+            tableSearchInput.getAttribute("data-object-type"),
+            tableSearchInput.value,
+            tableSearchInput.getAttribute("data-archived") === "true"
         );
     });
 
-    let table_search = document.getElementById("table-search");
+    const tableSearch = document.getElementById("table-search");
 
-    table_search.addEventListener("focusout", (event) => {
-        let search_suggestion = document.getElementById("table-search-suggestions");
-        search_suggestion.classList.add("hidden");
+    tableSearch.addEventListener("focusout", (_event) => {
+        const searchSuggestion = document.getElementById("table-search-suggestions");
+        searchSuggestion.classList.add("hidden");
     });
 
-    table_search.addEventListener("focusin", (event) => {
-        let search_suggestion = document.getElementById("table-search-suggestions");
-        search_suggestion.classList.remove("hidden");
+    tableSearch.addEventListener("focusin", (_event) => {
+        const searchSuggestion = document.getElementById("table-search-suggestions");
+        searchSuggestion.classList.remove("hidden");
     });
 
     document.getElementById("table-search-suggestions").addEventListener("mousedown", ({ target }) => {
-        let table_search_input = document.getElementById("table-search-input") as HTMLInputElement;
+        const tableSearchInput = document.getElementById("table-search-input") as HTMLInputElement;
         // Don't submit a value if the user clicked e.g. on the search bar and not a specific list element
         if (!(target as HTMLElement).matches("li")) {
             return;
         }
         // Fill in search field with selected suggestion
-        table_search_input.value = (target as HTMLElement).textContent;
+        tableSearchInput.value = (target as HTMLElement).textContent;
         // Submit the search
         document.getElementById("search-submit-btn").click();
     });
 
     // Reset the search
-    document.getElementById("search-reset-btn")?.addEventListener("click", (event) => {
+    document.getElementById("search-reset-btn")?.addEventListener("click", (_event) => {
         // Empty the search value
-        table_search_input.value = "";
+        tableSearchInput.value = "";
         // Submit the search
         document.getElementById("search-submit-btn").click();
     });
-}
+};
+
+window.addEventListener("load", () => {
+    if (document.getElementById("table-search")) {
+        setSearchQueryEventListeners();
+    }
+});

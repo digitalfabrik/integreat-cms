@@ -1,25 +1,27 @@
 /*
  * This component renders a file upload field
  */
-import { StateUpdater, useEffect, useRef, useState } from "preact/hooks";
+import { StateUpdater, useEffect, useRef } from "preact/hooks";
 import { FilePlus } from "lucide-preact";
-import Dropzone, { DropzoneFile } from "dropzone";
+import Dropzone from "dropzone";
 import "dropzone/dist/dropzone.css";
 
 import { Directory, MediaApiPaths } from "../index";
 import { getCsrfToken } from "../../utils/csrf-token";
 
-interface Props {
+type Props = {
     directory: Directory;
     setUploadFile: StateUpdater<boolean>;
     apiEndpoints: MediaApiPaths;
     allowedMediaTypes: string;
     mediaTranslations: any;
     submitForm: (event: Event, successCallback: () => void) => any;
+    /* eslint-disable-next-line react/no-unused-prop-types */
     isLoading: boolean;
     refreshState: [boolean, StateUpdater<boolean>];
-}
-export default function UploadFile({
+};
+
+const UploadFile = ({
     directory,
     setUploadFile,
     apiEndpoints,
@@ -27,7 +29,7 @@ export default function UploadFile({
     mediaTranslations,
     submitForm,
     refreshState,
-}: Props) {
+}: Props) => {
     // This state is used to refresh the media library after changes were made
     const [refresh, setRefresh] = refreshState;
     const dropZoneRef = useRef();
@@ -39,27 +41,29 @@ export default function UploadFile({
             url: apiEndpoints.uploadFile,
             headers: { "X-CSRFToken": getCsrfToken() },
             dictDefaultMessage: mediaTranslations.text_upload_area,
-            dictInvalidFileType:
-                mediaTranslations.text_error_invalid_file_type + " " + mediaTranslations.text_allowed_media_types,
+            dictInvalidFileType: `${mediaTranslations.text_error_invalid_file_type} ${mediaTranslations.text_allowed_media_types}`,
             acceptedFiles: allowedMediaTypes,
             parallelUploads: 1,
         });
         dropZone.on("queuecomplete", () => {
+            const refreshTimeout = 500;
             setTimeout(() => {
                 if (dropZone.getAcceptedFiles().length !== 0) {
                     // Refresh directory content
                     setRefresh(!localRefresh);
                     localRefresh = !localRefresh;
                 }
-            }, 500);
+            }, refreshTimeout);
+            const removalTimeout = 3500;
             setTimeout(() => {
                 // Only remove accepted files from the upload area
                 dropZone.getAcceptedFiles().forEach((file) => {
                     dropZone.removeFile(file);
                 });
-            }, 3500);
+            }, removalTimeout);
         });
         return () => dropZone.destroy();
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
 
     return (
@@ -73,11 +77,11 @@ export default function UploadFile({
                     onSubmit={(event: Event) => submitForm(event, () => setUploadFile(false))}
                     action={apiEndpoints.uploadFile}
                     className="dropzone"
-                    ref={dropZoneRef}
-                >
+                    ref={dropZoneRef}>
                     <input name="parent_directory" type="hidden" value={directory ? directory.id : ""} />
                 </form>
             </div>
         </div>
     );
-}
+};
+export default UploadFile;

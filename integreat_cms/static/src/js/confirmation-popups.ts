@@ -5,24 +5,40 @@ import { off, on } from "./utils/wrapped-events";
 
 type EventHandler = (event: Event) => any;
 
-let submit_handler: EventHandler | null = null;
-let cancel_handler: EventHandler | null = null;
+let submitHandler: EventHandler | null = null;
+let cancelHandler: EventHandler | null = null;
 
-window.addEventListener("load", () => {
-    // On the page tree, the event listeners are set after all subpages have been loaded
-    if (!document.querySelector("[data-delay-event-handlers]")) {
-        addConfirmationDialogListeners();
-    }
-});
+export const showConfirmationPopup = (event: Event, submitHandler?: (event: Event) => void): HTMLElement => {
+    event.preventDefault();
+    const button = (event.target as HTMLElement).closest("button");
+    /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
+    const confirmationPopup = showConfirmationPopupWithData(
+        button.getAttribute("data-confirmation-subject"),
+        button.getAttribute("data-confirmation-title"),
+        button.getAttribute("data-confirmation-text"),
+        submitHandler
+    );
+    confirmationPopup.querySelector("form").setAttribute("action", button.getAttribute("data-action"));
 
-export function addConfirmationDialogListeners() {
+    return confirmationPopup;
+};
+
+// If ajax mode is enabled, trigger custom event instead of submitting the form
+export const showConfirmationPopupAjax = (event: Event) => {
+    const button = (event.target as HTMLElement).closest("button");
+    const handler = (_: Event) => button.dispatchEvent(new Event("action-confirmed"));
+
+    showConfirmationPopup(event, handler);
+};
+
+export const addConfirmationDialogListeners = () => {
     // event handler for showing confirmation popups
     document.querySelectorAll(".confirmation-button").forEach((button) => on(button, "click", showConfirmationPopup));
-}
+};
 
 // Configures all objects that match `selector` to show a confirmation dialog on click.
 // On confirm `handler` gets invoked.
-export function refreshAjaxConfirmationHandlers(selector: string, handler: (e: Event) => Promise<any> | void) {
+export const refreshAjaxConfirmationHandlers = (selector: string, handler: (e: Event) => Promise<any> | void) => {
     const elements = document.querySelectorAll(selector);
 
     elements.forEach((button) => {
@@ -32,15 +48,32 @@ export function refreshAjaxConfirmationHandlers(selector: string, handler: (e: E
         off(button, "action-confirmed");
         on(button, "action-confirmed", handler);
     });
-}
+};
 
-export function showConfirmationPopupWithData(
+const closeConfirmationPopup = () => {
+    // Hide confirmation popup
+    document.getElementById("popup-overlay").classList.add("hidden");
+    const confirmationPopup = document.getElementById("confirmation-dialog");
+    confirmationPopup.classList.add("hidden");
+
+    if (submitHandler !== null) {
+        confirmationPopup.querySelector("form").removeEventListener("submit", submitHandler);
+        submitHandler = null;
+    }
+
+    if (cancelHandler !== null) {
+        document.getElementById("close-confirmation-popup")?.removeEventListener("click", cancelHandler);
+        cancelHandler = null;
+    }
+};
+
+export const showConfirmationPopupWithData = (
     subject: string,
     title: string,
     text: string,
-    on_submit?: (event: Event) => void,
-    on_cancel?: (event: Event) => void
-): HTMLElement {
+    onSubmit?: (event: Event) => void,
+    onCancel?: (event: Event) => void
+): HTMLElement => {
     // Set confirmation data
     document.getElementById("confirmation-subject").textContent = subject;
     document.getElementById("confirmation-title").textContent = title;
@@ -48,69 +81,39 @@ export function showConfirmationPopupWithData(
     const confirmationPopup = document.getElementById("confirmation-dialog");
 
     // Set submit and cancel handlers
-    submit_handler = (event: Event) => {
+    submitHandler = (event: Event) => {
         try {
-            if (on_submit !== undefined) {
+            if (onSubmit !== undefined) {
                 event.preventDefault();
-                on_submit(event);
+                onSubmit(event);
             }
         } finally {
             closeConfirmationPopup();
         }
     };
-    confirmationPopup.querySelector("form").addEventListener("submit", submit_handler);
-    cancel_handler = (event: Event) => {
+    confirmationPopup.querySelector("form").addEventListener("submit", submitHandler);
+    cancelHandler = (event: Event) => {
         try {
-            if (on_cancel !== undefined) on_cancel(event);
+            if (onCancel !== undefined) {
+                onCancel(event);
+            }
         } finally {
             closeConfirmationPopup();
             event.preventDefault();
         }
     };
-    document.getElementById("close-confirmation-popup")?.addEventListener("click", cancel_handler);
+    document.getElementById("close-confirmation-popup")?.addEventListener("click", cancelHandler);
 
     // Show confirmation popup
     confirmationPopup.classList.remove("hidden");
     document.getElementById("popup-overlay").classList.remove("hidden");
 
     return confirmationPopup;
-}
+};
 
-export function showConfirmationPopup(event: Event, submit_handler?: (event: Event) => void): HTMLElement {
-    event.preventDefault();
-    const button = (event.target as HTMLElement).closest("button");
-    const confirmationPopup = showConfirmationPopupWithData(
-        button.getAttribute("data-confirmation-subject"),
-        button.getAttribute("data-confirmation-title"),
-        button.getAttribute("data-confirmation-text"),
-        submit_handler
-    );
-    confirmationPopup.querySelector("form").setAttribute("action", button.getAttribute("data-action"));
-
-    return confirmationPopup;
-}
-
-// If ajax mode is enabled, trigger custom event instead of submitting the form
-export function showConfirmationPopupAjax(event: Event) {
-    const button = (event.target as HTMLElement).closest("button");
-    const handler = (_: Event) => button.dispatchEvent(new Event("action-confirmed"));
-
-    showConfirmationPopup(event, handler);
-}
-
-function closeConfirmationPopup() {
-    // Hide confirmation popup
-    document.getElementById("popup-overlay").classList.add("hidden");
-    const confirmationPopup = document.getElementById("confirmation-dialog");
-    confirmationPopup.classList.add("hidden");
-
-    if (submit_handler !== null) {
-        confirmationPopup.querySelector("form").removeEventListener("submit", submit_handler);
-        submit_handler = null;
+window.addEventListener("load", () => {
+    // On the page tree, the event listeners are set after all subpages have been loaded
+    if (!document.querySelector("[data-delay-event-handlers]")) {
+        addConfirmationDialogListeners();
     }
-
-    if (cancel_handler !== null) {
-        document.getElementById("close-confirmation-popup")?.removeEventListener("click", cancel_handler);
-        cancel_handler = null;
-    }
-}
+});

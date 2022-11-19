@@ -2,18 +2,18 @@
  * This component renders a grid of all subdirectories and all files of the current directory
  */
 import { Link } from "preact-router";
-import { StateUpdater, useState } from "preact/hooks";
+import { StateUpdater } from "preact/hooks";
 
 import { MediaLibraryEntry, File, Directory } from "..";
 import DirectoryEntry from "./directory-entry";
 import FileEntry from "./file-entry";
 
-export interface DraggedElement {
+export type DraggedElement = {
     type: "file" | "directory";
     id: number;
-}
+};
 
-interface Props {
+type Props = {
     fileIndexState: [number | null, StateUpdater<number | null>];
     mediaLibraryContent: MediaLibraryEntry[];
     mediaTranslations: any;
@@ -21,9 +21,9 @@ interface Props {
     allowDrop: boolean;
     setDraggedItem: (item: DraggedElement) => unknown;
     dropItem: (directoryId: number) => unknown;
-}
+};
 
-export default function DirectoryContent({
+const DirectoryContent = ({
     fileIndexState,
     mediaLibraryContent,
     mediaTranslations,
@@ -31,7 +31,7 @@ export default function DirectoryContent({
     setDraggedItem,
     dropItem,
     allowDrop,
-}: Props) {
+}: Props) => {
     // The file index contains the index of the file which is currently opened in the sidebar
     const [fileIndex, setFileIndex] = fileIndexState;
 
@@ -67,4 +67,5 @@ export default function DirectoryContent({
             )}
         </div>
     );
-}
+};
+export default DirectoryContent;

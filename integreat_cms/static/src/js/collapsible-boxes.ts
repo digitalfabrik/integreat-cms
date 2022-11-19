@@ -1,14 +1,8 @@
-window.addEventListener("load", () => {
-    document.querySelectorAll(".collapsible").forEach((node) => {
-        node.addEventListener("click", toggleDashboardSection);
-    });
-});
-
 /**
  * Handles toggling boxes on the dashboard
  * @param {Event} event Click event for dashboard containers
  */
-async function toggleDashboardSection({ target }: Event): Promise<void> {
+const toggleDashboardSection = async ({ target }: Event): Promise<void> => {
     // Toggle arrows of the clicked widget
     const collapsible = (target as HTMLElement).closest(".collapsible");
     collapsible.querySelector(".up-arrow").classList.toggle("hidden");
@@ -20,17 +14,30 @@ async function toggleDashboardSection({ target }: Event): Promise<void> {
         // Temporarily set height to auto to allow to grow to its total potential height
         content.style.height = "auto";
         // Get the actual height
-        let potentialHeight = content.clientHeight + "px";
+        const potentialHeight = `${content.clientHeight}px`;
         // Immediately reset to zero
         content.style.height = "0px";
         // Set the height to a fixed numerical value with a timeout for the transition
-        setTimeout(() => (content.style.height = potentialHeight));
+        setTimeout(() => {
+            content.style.height = potentialHeight;
+        });
         // After the potential height is restored, change this value to "auto" to not break things when window is resized
-        setTimeout(() => (content.style.height = "auto"), 200);
+        const timeoutDuration = 200;
+        setTimeout(() => {
+            content.style.height = "auto";
+        }, timeoutDuration);
     } else {
         // Set height to explicit numerical value instead of "auto" to enable continuous transition
-        content.style.height = content.clientHeight + "px";
+        content.style.height = `${content.clientHeight}px`;
         // Use timeout to allow a smooth transition
-        setTimeout(() => (content.style.height = "0px"));
+        setTimeout(() => {
+            content.style.height = "0px";
+        });
     }
-}
+};
+
+window.addEventListener("load", () => {
+    document.querySelectorAll(".collapsible").forEach((node) => {
+        node.addEventListener("click", toggleDashboardSection);
+    });
+});

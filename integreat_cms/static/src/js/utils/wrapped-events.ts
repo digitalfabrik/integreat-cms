@@ -3,10 +3,11 @@
  * This helpers keep track on what has been added and is therefore able to remove all those
  */
 
-interface CustomEventMap extends HTMLElementEventMap {
+type CustomEventMap = {
     "action-confirmed": Event;
-}
+} & HTMLElementEventMap;
 
+/* eslint-disable-next-line func-call-spacing, no-spaced-func */
 const eventMap = new Map<Element, Map<keyof CustomEventMap, ((event: Event) => void)[]>>();
 
 /**
@@ -16,7 +17,7 @@ const eventMap = new Map<Element, Map<keyof CustomEventMap, ((event: Event) => v
  * @param event the event name
  * @param handler the listener to attach
  */
-export function on(el: Element, event: keyof CustomEventMap, handler: (event: Event) => void) {
+export const on = (el: Element, event: keyof CustomEventMap, handler: (event: Event) => void) => {
     if (!eventMap.has(el)) {
         eventMap.set(el, new Map());
     }
@@ -25,18 +26,16 @@ export function on(el: Element, event: keyof CustomEventMap, handler: (event: Ev
     }
     eventMap.get(el).get(event).push(handler);
     el.addEventListener(event, handler);
-}
+};
 
 /**
  * Detaches all event listeners of a certain type
  * @param el the element that should not react on the events anymore
  * @param events the event or events to detach
  */
-export function off(el: Element, events: keyof CustomEventMap | (keyof CustomEventMap)[]) {
-    if (!Array.isArray(events)) {
-        events = [events];
-    }
-    events.forEach((event) => {
+export const off = (el: Element, events: keyof CustomEventMap | (keyof CustomEventMap)[]) => {
+    const eventList = Array.isArray(events) ? events : [events];
+    eventList.forEach((event) => {
         if (!eventMap.has(el) || !eventMap.get(el).has(event)) {
             return;
         }
@@ -45,4 +44,4 @@ export function off(el: Element, events: keyof CustomEventMap | (keyof CustomEve
             el.removeEventListener(event, handler);
         });
     });
-}
+};

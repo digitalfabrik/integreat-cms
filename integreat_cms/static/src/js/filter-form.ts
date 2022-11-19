@@ -1,6 +1,22 @@
 /*
  * Scripts for filter forms
  */
+const resetToDefaultValue = (node: HTMLSelectElement | HTMLInputElement) => {
+    if (node instanceof HTMLInputElement && node.getAttribute("type") === "checkbox") {
+        if (node.classList.contains("default-checked") && !node.checked) {
+            // Checkbox marked to be checked by default
+            node.click();
+        } else if (node.classList.contains("default-not-checked") && node.checked) {
+            // Checkbox marked to be unchecked by default
+            node.click();
+        }
+    } else if (node.classList.contains("default-value")) {
+        // Non-checkbox input marked to have a default value
+        /* eslint-disable-next-line no-param-reassign */
+        node.value = node.getAttribute("data-default-value");
+    }
+};
+
 window.addEventListener("load", () => {
     // event handler to toggle filter form
     const toggleButton = document.getElementById("filter-toggle");
@@ -18,7 +34,7 @@ window.addEventListener("load", () => {
     if (resetFilterButton) {
         resetFilterButton.addEventListener("click", ({ target }) => {
             const form = (target as HTMLElement).closest("form");
-            for (let node of form.elements) {
+            for (const node of form.elements) {
                 if (node.matches("input") || node.matches("select")) {
                     resetToDefaultValue(node as HTMLInputElement | HTMLSelectElement);
                 }
@@ -29,25 +45,10 @@ window.addEventListener("load", () => {
     // event handler to specify custom default-checked or default-not-checked attributes
     document.querySelectorAll("input[data-default-checked-value]").forEach((node) => {
         const checkbox = node as HTMLInputElement;
-        if (checkbox.value == checkbox.getAttribute("data-default-checked-value")) {
+        if (checkbox.value === checkbox.getAttribute("data-default-checked-value")) {
             checkbox.classList.add("default-checked");
         } else {
             checkbox.classList.add("default-not-checked");
         }
     });
 });
-
-function resetToDefaultValue(node: HTMLSelectElement | HTMLInputElement) {
-    if (node instanceof HTMLInputElement && node.getAttribute("type") === "checkbox") {
-        if (node.classList.contains("default-checked") && !node.checked) {
-            // Checkbox marked to be checked by default
-            node.click();
-        } else if (node.classList.contains("default-not-checked") && node.checked) {
-            // Checkbox marked to be unchecked by default
-            node.click();
-        }
-    } else if (node.classList.contains("default-value")) {
-        // Non-checkbox input marked to have a default value
-        node.value = node.getAttribute("data-default-value");
-    }
-}

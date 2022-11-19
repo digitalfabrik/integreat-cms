@@ -7,18 +7,18 @@ import cn from "classnames";
 
 import { Directory } from "../index";
 
-interface Props {
+type Props = {
     directory: Directory;
-    onClick?: (event: MouseEvent) => void;
+    onClick?: (event: MouseEvent | KeyboardEvent) => void;
     mediaTranslations: any;
     globalEdit?: boolean;
     allowDrop: boolean;
     itemDropped: () => unknown;
     dragStart: () => unknown;
     dragEnd: () => unknown;
-}
+};
 
-export default function DirectoryEntry({
+const DirectoryEntry = ({
     directory,
     onClick,
     mediaTranslations,
@@ -27,7 +27,7 @@ export default function DirectoryEntry({
     itemDropped: fileDropped,
     dragStart,
     dragEnd,
-}: Props) {
+}: Props) => {
     const [isCurrentDropTarget, setIsCurrentDropTarget] = useState(false);
 
     return (
@@ -37,6 +37,7 @@ export default function DirectoryEntry({
                 "text-blue-500": isCurrentDropTarget,
             })}
             onClick={onClick}
+            onKeyDown={onClick}
             onDragOver={(e) => {
                 if (allowDrop) {
                     e.preventDefault();
@@ -58,12 +59,11 @@ export default function DirectoryEntry({
             }}
             onDragStart={dragStart}
             onDragEnd={dragEnd}
-            draggable={!allowDrop && (!directory.isGlobal || globalEdit)}
-        >
+            draggable={!allowDrop && (!directory.isGlobal || globalEdit)}>
             {isCurrentDropTarget ? (
-                <FolderOpen className={"w-full h-24 flex-none"} />
+                <FolderOpen className="w-full h-24 flex-none" />
             ) : (
-                <Folder className={"w-full h-24 flex-none"} />
+                <Folder className="w-full h-24 flex-none" />
             )}
             <span class="font-bold text-black text-center break-all leading-5 max-h-15 m-auto overflow-hidden">
                 {directory.name}
@@ -71,11 +71,11 @@ export default function DirectoryEntry({
             {!globalEdit && directory.isGlobal && (
                 <span
                     class="absolute bg-blue-500 text-white rounded-full m-2 p-2"
-                    title={mediaTranslations.text_dir_readonly}
-                >
+                    title={mediaTranslations.text_dir_readonly}>
                     <Lock class="h-4 w-4" />
                 </span>
             )}
         </div>
     );
-}
+};
+export default DirectoryEntry;

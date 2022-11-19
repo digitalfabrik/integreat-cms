@@ -1,9 +1,5 @@
-(function () {
-    "use strict";
-
-    var pluginManager = tinymce.util.Tools.resolve("tinymce.PluginManager");
-
-    var global$1 = tinymce.util.Tools.resolve("tinymce.Env");
+(() => {
+    const pluginManager = tinymce.util.Tools.resolve("tinymce.PluginManager");
 
     const setup = (editor) => {
         const openMediacenter = () => {
@@ -51,11 +47,11 @@
         });
     };
 
-    function Plugin() {
-        pluginManager.add("mediacenter", function (editor) {
+    const Plugin = () => {
+        pluginManager.add("mediacenter", (editor) => {
             setup(editor);
         });
-    }
+    };
 
     Plugin();
 })();

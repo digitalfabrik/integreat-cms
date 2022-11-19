@@ -1,12 +1,86 @@
 import { getCsrfToken } from "../utils/csrf-token";
 
+export const updateField = (fieldName: string, value: string) => {
+    const field = document.getElementById(`id_${fieldName}`) as HTMLInputElement;
+    // Only fill value if it was changed
+    if (value && field.value !== value) {
+        field.value = value;
+        field.classList.add("!border-green-500");
+        // Reset green border after 5 seconds
+        const timeoutDuration = 5000;
+        setTimeout(() => {
+            field.classList.remove("!border-green-500");
+        }, timeoutDuration);
+    }
+};
+
+const autoCompleteAddress = async () => {
+    const street = (document.getElementById("id_address") as HTMLInputElement).value;
+    const postcode = (document.getElementById("id_postcode") as HTMLInputElement).value;
+    const city = (document.getElementById("id_city") as HTMLInputElement).value;
+
+    // Only try auto filling if street and either postcode or city are given
+    if (street.trim().length === 0 || (postcode.trim().length === 0 && city.trim().length === 0)) {
+        return;
+    }
+
+    const autoFillCoordinates = document.getElementById("auto-fill-coordinates") as HTMLInputElement;
+    const error = document.getElementById("nominatim-error");
+    error.classList.add("hidden");
+
+    const response = await fetch(autoFillCoordinates.dataset.url, {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": getCsrfToken(),
+        },
+        body: JSON.stringify({
+            street,
+            postcode,
+            city,
+        }),
+    });
+
+    const data = await response.json();
+
+    const HTTP_STATUS_OK = 200;
+    if (response.status !== HTTP_STATUS_OK) {
+        error.textContent = data.error;
+        error.classList.remove("hidden");
+        return;
+    }
+
+    updateField("postcode", data.postcode);
+    updateField("city", data.city);
+    updateField("country", data.country);
+
+    if (autoFillCoordinates.checked) {
+        updateField("longitude", data.longitude);
+        updateField("latitude", data.latitude);
+    }
+
+    const longitude = document.getElementById("id_longitude") as HTMLInputElement;
+    const latitude = document.getElementById("id_latitude") as HTMLInputElement;
+
+    longitude.dispatchEvent(new Event("focusout"));
+    latitude.dispatchEvent(new Event("focusout"));
+};
+
+const toggleOpeningHoursWidget = (temporarilyClosed: HTMLInputElement) => {
+    const openingHoursWidget = document.querySelector("opening-hours-widget");
+    if (temporarilyClosed.checked) {
+        openingHoursWidget.classList.add("hidden");
+    } else {
+        openingHoursWidget.classList.remove("hidden");
+    }
+};
+
 window.addEventListener("load", () => {
     document.getElementById("id_address")?.addEventListener("focusout", autoCompleteAddress);
     document.getElementById("id_postcode")?.addEventListener("focusout", autoCompleteAddress);
     document.getElementById("id_city")?.addEventListener("focusout", autoCompleteAddress);
 
-    let longitude = document.getElementById("id_longitude") as HTMLInputElement;
-    let latitude = document.getElementById("id_latitude") as HTMLInputElement;
+    const longitude = document.getElementById("id_longitude") as HTMLInputElement;
+    const latitude = document.getElementById("id_latitude") as HTMLInputElement;
 
     document.getElementById("auto-fill-coordinates")?.addEventListener("input", ({ target }) => {
         if ((target as HTMLInputElement).checked) {
@@ -46,75 +120,3 @@ window.addEventListener("load", () => {
         temporarilyClosed.addEventListener("click", () => toggleOpeningHoursWidget(temporarilyClosed));
     }
 });
-
-function toggleOpeningHoursWidget(temporarilyClosed: HTMLInputElement) {
-    const openingHoursWidget = document.querySelector("opening-hours-widget");
-    if (temporarilyClosed.checked) {
-        openingHoursWidget.classList.add("hidden");
-    } else {
-        openingHoursWidget.classList.remove("hidden");
-    }
-}
-
-async function autoCompleteAddress() {
-    let street = (document.getElementById("id_address") as HTMLInputElement).value;
-    let postcode = (document.getElementById("id_postcode") as HTMLInputElement).value;
-    let city = (document.getElementById("id_city") as HTMLInputElement).value;
-
-    // Only try auto filling if street and either postcode or city are given
-    if (street.trim().length == 0 || (postcode.trim().length == 0 && city.trim().length == 0)) {
-        return;
-    }
-
-    let autoFillCoordinates = document.getElementById("auto-fill-coordinates") as HTMLInputElement;
-    let error = document.getElementById("nominatim-error");
-    error.classList.add("hidden");
-
-    const response = await fetch(autoFillCoordinates.dataset.url, {
-        method: "POST",
-        headers: {
-            "X-CSRFToken": getCsrfToken(),
-        },
-        body: JSON.stringify({
-            street: street,
-            postcode: postcode,
-            city: city,
-        }),
-    });
-
-    const data = await response.json();
-
-    if (response.status != 200) {
-        error.textContent = data.error;
-        error.classList.remove("hidden");
-        return;
-    }
-
-    updateField("postcode", data.postcode);
-    updateField("city", data.city);
-    updateField("country", data.country);
-
-    if (autoFillCoordinates.checked) {
-        updateField("longitude", data.longitude);
-        updateField("latitude", data.latitude);
-    }
-
-    let longitude = document.getElementById("id_longitude") as HTMLInputElement;
-    let latitude = document.getElementById("id_latitude") as HTMLInputElement;
-
-    longitude.dispatchEvent(new Event("focusout"));
-    latitude.dispatchEvent(new Event("focusout"));
-}
-
-export function updateField(fieldName: string, value: string) {
-    let field = document.getElementById(`id_${fieldName}`) as HTMLInputElement;
-    // Only fill value if it was changed
-    if (value && field.value != value) {
-        field.value = value;
-        field.classList.add("!border-green-500");
-        // Reset green border after 5 seconds
-        setTimeout(() => {
-            field.classList.remove("!border-green-500");
-        }, 5000);
-    }
-}

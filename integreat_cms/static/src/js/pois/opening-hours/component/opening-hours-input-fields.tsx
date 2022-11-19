@@ -8,14 +8,14 @@ import { XCircle, CalendarClock } from "lucide-preact";
 import { deepCopy } from "../../../utils/deep-copy";
 import { OpeningHours } from "../index";
 
-interface Props {
+type Props = {
     openingHoursState: [OpeningHours[], StateUpdater<OpeningHours[]>];
     selectedDaysState: [number[], StateUpdater<number[]>];
     translations: any;
     days: any;
-}
+};
 
-export default function OpeningHoursInputFields({ openingHoursState, selectedDaysState, translations, days }: Props) {
+const OpeningHoursInputFields = ({ openingHoursState, selectedDaysState, translations, days }: Props) => {
     // This state contains the current opening hours
     const [openingHours, setOpeningHours] = openingHoursState;
     // This state contains the days which are currently selected for being edited
@@ -28,7 +28,7 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
         console.debug("Toggling day:", day);
         // Check whether day was already selected
         const index = selectedDays.indexOf(day);
-        let newSelectedDay = selectedDays.slice();
+        const newSelectedDay = selectedDays.slice();
         if (index === -1) {
             // If not, add to the array
             newSelectedDay.push(day);
@@ -42,6 +42,7 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
 
     // Reset to one empty time slot
     const resetTimeSlots = (element: OpeningHours) => {
+        /* eslint-disable-next-line no-param-reassign */
         element.timeSlots = [{ start: "", end: "" }];
     };
 
@@ -49,7 +50,7 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
     const addTimeSlot = () => {
         console.debug("Adding time slot");
         // Create new object instead of reference to existing one
-        let newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
+        const newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
         newOpeningHoursBuffer.timeSlots.push({
             start: "",
             end: "",
@@ -62,9 +63,9 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
         event.preventDefault();
         console.debug("Removing time slot:", index);
         // Create new object instead of reference to existing one
-        let newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
+        const newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
         // If only one slot is left, clear its values instead of removing
-        if (openingHoursBuffer.timeSlots.length == 1) {
+        if (openingHoursBuffer.timeSlots.length === 1) {
             resetTimeSlots(newOpeningHoursBuffer);
         } else {
             newOpeningHoursBuffer.timeSlots.splice(index, 1);
@@ -76,7 +77,7 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
     const updateClosed = ({ target }: Event) => {
         console.debug("Changed closed checkbox:", target);
         // Create new object instead of reference to existing one
-        let newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
+        const newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
         newOpeningHoursBuffer.closed = (target as HTMLInputElement).checked;
         // If closed was checked, disable all day
         if (newOpeningHoursBuffer.closed) {
@@ -90,7 +91,7 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
     const updateOpenAllDay = ({ target }: Event) => {
         console.debug("Changed all day checkbox:", target);
         // Create new object instead of reference to existing one
-        let newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
+        const newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
         newOpeningHoursBuffer.allDay = (target as HTMLInputElement).checked;
         // If all day was checked, disable closed
         if (newOpeningHoursBuffer.allDay) {
@@ -110,13 +111,13 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
         timeInput.classList.remove("border-red-500");
 
         // Create new object instead of reference to existing one
-        let newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
+        const newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
         // If a valid value was entered, assume that both all day and closed are false
         if (timeInput.value !== "") {
             newOpeningHoursBuffer.allDay = false;
             newOpeningHoursBuffer.closed = false;
         }
-        const index = parseInt(timeInput.dataset.index);
+        const index = parseInt(timeInput.dataset.index, 10);
         newOpeningHoursBuffer.timeSlots[index] = { ...newOpeningHoursBuffer.timeSlots[index], start: timeInput.value };
         setOpeningHoursBuffer(newOpeningHoursBuffer);
     };
@@ -131,13 +132,13 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
         timeInput.classList.remove("border-red-500");
 
         // Create new object instead of reference to existing one
-        let newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
+        const newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
         // If a valid value was entered, assume that both all day and closed are false
         if (timeInput.value !== "") {
             newOpeningHoursBuffer.allDay = false;
             newOpeningHoursBuffer.closed = false;
         }
-        const index = parseInt(timeInput.dataset.index);
+        const index = parseInt(timeInput.dataset.index, 10);
         newOpeningHoursBuffer.timeSlots[index] = { ...newOpeningHoursBuffer.timeSlots[index], end: timeInput.value };
         setOpeningHoursBuffer(newOpeningHoursBuffer);
     };
@@ -157,9 +158,9 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
         let errorsOccurred = false;
         let lastTimeSlotEmpty = false;
         openingHoursBuffer.timeSlots.forEach((timeSlot, index) => {
-            let timeSlotError = document.getElementById(`time_slot_error_${index}`);
-            let openingTimeInput = document.getElementById(`opening_time_${index}`);
-            let closingTimeInput = document.getElementById(`closing_time_${index}`);
+            const timeSlotError = document.getElementById(`time_slot_error_${index}`);
+            const openingTimeInput = document.getElementById(`opening_time_${index}`);
+            const closingTimeInput = document.getElementById(`closing_time_${index}`);
             if (!timeSlot.start && !timeSlot.end) {
                 // Only allow the last time slot to be empty when it's either open all day or closed or there are other slots
                 if (index !== openingHoursBuffer.timeSlots.length - 1) {
@@ -168,7 +169,7 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
                     openingTimeInput.classList.add("border-red-500");
                     closingTimeInput.classList.add("border-red-500");
                     timeSlotError.textContent = translations.errorOnlyLastSlotEmpty;
-                } else if (index == 0 && !openingHoursBuffer.closed && !openingHoursBuffer.allDay) {
+                } else if (index === 0 && !openingHoursBuffer.closed && !openingHoursBuffer.allDay) {
                     // Require the last slot when the location is not closed and not open all day and there are no other slots
                     console.error("Either closed, or all day, or one time slot is required.");
                     openingTimeInput.classList.add("border-red-500");
@@ -191,7 +192,7 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
                 console.error("Error occurred: closing time earlier than opening time:", timeSlot.start);
                 closingTimeInput.classList.add("border-red-500");
                 timeSlotError.textContent = translations.errorClosingTimeEarlier;
-            } else if (timeSlot.start == timeSlot.end) {
+            } else if (timeSlot.start === timeSlot.end) {
                 console.error("Error occurred: closing time identical with opening time:", timeSlot.start);
                 closingTimeInput.classList.add("border-red-500");
                 timeSlotError.textContent = translations.errorClosingTimeIdentical;
@@ -201,7 +202,7 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
                 );
                 openingTimeInput.classList.add("border-red-500");
                 timeSlotError.textContent = translations.errorOpeningTimeEarlier;
-            } else if (index > 0 && timeSlot.start == openingHoursBuffer.timeSlots[index - 1].end) {
+            } else if (index > 0 && timeSlot.start === openingHoursBuffer.timeSlots[index - 1].end) {
                 console.error(
                     "Error occurred: Opening time is identical with the closing time of the previous time slot"
                 );
@@ -224,7 +225,7 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
             openingHoursBuffer.timeSlots.pop();
         }
         // Create shallow clone of opening hours
-        let newOpeningHours = openingHours.slice();
+        const newOpeningHours = openingHours.slice();
         // For each selected day, set the opening hours to the current buffer
         selectedDays.forEach((day) => {
             // Create new object instead of reference to existing one
@@ -239,22 +240,26 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
     // Initialize the buffer with the opening hours of the first day
     useEffect(() => {
         console.debug("Selected days updated:", selectedDays);
-        if (openingHoursBuffer == null && selectedDays.length > 0) {
+        if (openingHoursBuffer === null && selectedDays.length > 0) {
             // Create new object instead of reference to existing one
-            let newOpeningHoursBuffer = deepCopy(openingHours[selectedDays[0]]);
-            if (newOpeningHoursBuffer.timeSlots.length == 0) {
+            const newOpeningHoursBuffer = deepCopy(openingHours[selectedDays[0]]);
+            if (newOpeningHoursBuffer.timeSlots.length === 0) {
                 resetTimeSlots(newOpeningHoursBuffer);
             }
             setOpeningHoursBuffer(newOpeningHoursBuffer);
             console.debug("Initialized opening hour buffer:", newOpeningHoursBuffer);
         }
-    }, [selectedDays]);
+    }, [selectedDays, openingHours, openingHoursBuffer]);
 
     return (
         <div>
             {openingHoursBuffer !== null && (
                 <div>
-                    <div class="fixed inset-0 opacity-75 bg-gray-800 z-[100]" onClick={closeInputFields}></div>
+                    <div
+                        class="fixed inset-0 opacity-75 bg-gray-800 z-[100]"
+                        onClick={closeInputFields}
+                        onKeyDown={closeInputFields}
+                    />
                     <div class="flex flex-col justify-center w-160 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[101]">
                         <div class="w-full rounded shadow-2xl bg-white">
                             <div class="flex justify-between font-bold rounded p-4 bg-water-500">
@@ -265,31 +270,31 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
                                 <button
                                     className="rounded-full hover:bg-blue-500 hover:text-white"
                                     onClick={closeInputFields}
-                                >
+                                    type="button">
                                     <XCircle className="inline-block" />
                                 </button>
                             </div>
                             <div class="p-4 max-h-[calc(90vh-3.5rem)] overflow-y-auto">
                                 <div class="flex flex-wrap justify-between">
                                     <p class="pb-4 w-full">{translations.selectText}</p>
-                                    {days.all.map((day: number) => {
-                                        return (
-                                            <div
-                                                className={cn(
-                                                    "rounded-full h-20 w-20 flex flex-wrap place-content-center hover:bg-blue-300 cursor-pointer",
-                                                    {
-                                                        "bg-blue-400": selectedDays.indexOf(day) !== -1,
-                                                    },
-                                                    {
-                                                        "bg-blue-100": selectedDays.indexOf(day) === -1,
-                                                    }
-                                                )}
-                                                onClick={() => toggleDay(day)}
-                                            >
-                                                <p>{translations.weekdays[day].slice(0, 2)}</p>
-                                            </div>
-                                        );
-                                    })}
+                                    {days.all.map((day: number) => (
+                                        <div
+                                            key={day}
+                                            className={cn(
+                                                "rounded-full h-20 w-20 flex flex-wrap place-content-center hover:bg-blue-300 cursor-pointer",
+                                                {
+                                                    "bg-blue-400": selectedDays.indexOf(day) !== -1,
+                                                },
+                                                {
+                                                    "bg-blue-100": selectedDays.indexOf(day) === -1,
+                                                }
+                                            )}
+                                            onClick={() => toggleDay(day)}
+                                            onKeyDown={() => toggleDay(day)}>
+                                            {/* eslint-disable-next-line no-magic-numbers */}
+                                            <p>{translations.weekdays[day].slice(0, 2)}</p>
+                                        </div>
+                                    ))}
                                 </div>
                                 <div>
                                     <input
@@ -313,68 +318,65 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
                                     />
                                     <label for="closed">{translations.closedLabel}</label>
                                 </div>
-                                {openingHoursBuffer.timeSlots.map((timeSlot, index) => {
-                                    return (
-                                        <div
-                                            // Force re-rendering of fields when a time slot is added or removed
-                                            key={`${index}/${openingHoursBuffer.timeSlots.length}`}
-                                            class="flex flex-wrap gap-4 pb-2"
-                                        >
-                                            <fieldset class="border border-solid border-gray-500 p-2 grow">
-                                                <legend class="text-sm">
-                                                    <label for={`opening_time_${index}`} class="my-0">
-                                                        {translations.openingTimeLabel}
-                                                    </label>
-                                                </legend>
-                                                <input
-                                                    type="time"
-                                                    name={`opening_time_${index}`}
-                                                    id={`opening_time_${index}`}
-                                                    onInput={updateOpeningTime}
-                                                    value={timeSlot.start}
-                                                    data-index={index}
-                                                />
-                                            </fieldset>
-                                            <fieldset class="border border-solid border-gray-500 p-2 grow">
-                                                <legend class="text-sm">
-                                                    <label for={`closing_time_${index}`} class="my-0">
-                                                        {translations.closingTimeLabel}
-                                                    </label>
-                                                </legend>
-                                                <input
-                                                    type="time"
-                                                    name={`closing_time_${index}`}
-                                                    id={`closing_time_${index}`}
-                                                    onInput={updateClosingTime}
-                                                    value={timeSlot.end}
-                                                    data-index={index}
-                                                />
-                                            </fieldset>
-                                            <div class="flex items-center">
-                                                <button
-                                                    className="rounded-full hover:text-red-500"
-                                                    title={translations.removeTimeSlotText}
-                                                    onClick={(event) => removeTimeSlot(event, index)}
-                                                >
-                                                    <XCircle className="inline-block" />
-                                                </button>
-                                            </div>
-                                            <div
-                                                id={`time_slot_error_${index}`}
-                                                className="w-full bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 hidden"
-                                                role="alert"
-                                            ></div>
+                                {openingHoursBuffer.timeSlots.map((timeSlot, index) => (
+                                    <div
+                                        // Force re-rendering of fields when a time slot is added or removed
+                                        key={`${index + openingHoursBuffer.timeSlots.length}`}
+                                        class="flex flex-wrap gap-4 pb-2">
+                                        <fieldset class="border border-solid border-gray-500 p-2 grow">
+                                            <legend class="text-sm">
+                                                <label for={`opening_time_${index}`} class="my-0">
+                                                    {translations.openingTimeLabel}
+                                                </label>
+                                            </legend>
+                                            <input
+                                                type="time"
+                                                name={`opening_time_${index}`}
+                                                id={`opening_time_${index}`}
+                                                onInput={updateOpeningTime}
+                                                value={timeSlot.start}
+                                                data-index={index}
+                                            />
+                                        </fieldset>
+                                        <fieldset class="border border-solid border-gray-500 p-2 grow">
+                                            <legend class="text-sm">
+                                                <label for={`closing_time_${index}`} class="my-0">
+                                                    {translations.closingTimeLabel}
+                                                </label>
+                                            </legend>
+                                            <input
+                                                type="time"
+                                                name={`closing_time_${index}`}
+                                                id={`closing_time_${index}`}
+                                                onInput={updateClosingTime}
+                                                value={timeSlot.end}
+                                                data-index={index}
+                                            />
+                                        </fieldset>
+                                        <div class="flex items-center">
+                                            <button
+                                                className="rounded-full hover:text-red-500"
+                                                title={translations.removeTimeSlotText}
+                                                onClick={(event) => removeTimeSlot(event, index)}
+                                                type="submit">
+                                                <XCircle className="inline-block" />
+                                            </button>
                                         </div>
-                                    );
-                                })}
-                                <a class="block" onClick={addTimeSlot}>
+                                        <div
+                                            id={`time_slot_error_${index}`}
+                                            className="w-full bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 hidden"
+                                            role="alert"
+                                        />
+                                    </div>
+                                ))}
+                                <button class="block" onClick={addTimeSlot} onKeyDown={addTimeSlot} type="button">
                                     {translations.addMoreText}
-                                </a>
+                                </button>
                                 <div class="flex flex-wrap justify-end gap-4">
-                                    <button class="btn btn-gray" onClick={closeInputFields}>
+                                    <button class="btn btn-gray" onClick={closeInputFields} type="button">
                                         {translations.cancelText}
                                     </button>
-                                    <button class="btn" onClick={save}>
+                                    <button class="btn" onClick={save} type="button">
                                         {translations.saveText}
                                     </button>
                                 </div>
@@ -385,4 +387,5 @@ export default function OpeningHoursInputFields({ openingHoursState, selectedDay
             )}
         </div>
     );
-}
+};
+export default OpeningHoursInputFields;

@@ -10,24 +10,24 @@ import { useState, useEffect } from "preact/hooks";
 import OpeningHoursDisplay from "./component/opening-hours-display";
 import OpeningHoursInputFields from "./component/opening-hours-input-fields";
 
-interface Props {
+type Props = {
     translations: any;
     days: any;
     initial: OpeningHours[];
-}
+};
 
-interface TimeSlot {
+type TimeSlot = {
     start: string;
     end: string;
-}
+};
 
-export interface OpeningHours {
+export type OpeningHours = {
     timeSlots: TimeSlot[];
     allDay: boolean;
     closed: boolean;
-}
+};
 
-export default function OpeningHoursWidget({ translations, days, initial }: Props) {
+const OpeningHoursWidget = ({ translations, days, initial }: Props) => {
     // The state contains the current opening hours of the location
     const [openingHours, setOpeningHours] = useState<OpeningHours[]>(initial);
     // This state contains the days which are currently selected for being edited
@@ -46,7 +46,7 @@ export default function OpeningHoursWidget({ translations, days, initial }: Prop
     return (
         <div>
             {openingHours && (
-                <div className={"flex flex-col flex-grow min-w-0"}>
+                <div className="flex flex-col flex-grow min-w-0">
                     <textarea name="opening_hours" cols={40} rows={10} id="id_opening_hours" class="hidden">
                         {JSON.stringify(openingHours)}
                     </textarea>
@@ -68,7 +68,8 @@ export default function OpeningHoursWidget({ translations, days, initial }: Prop
             )}
         </div>
     );
-}
+};
+export default OpeningHoursWidget;
 
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("opening-hours-widget").forEach((el) => {
