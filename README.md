@@ -49,6 +49,25 @@ For detailed instructions, tutorials and the source code reference have a look a
 
 <p align="center">:notebook: https://digitalfabrik.github.io/integreat-cms/</p>
 
+Alternatively, you can generate it yourself using the `dev-tools/generate_documentation.sh` script.
+
+
+## Project Architecture / Reference
+
+- [Integreat CMS](integreat_cms): The main package of the integreat-cms with the following sub-packages:
+	- [API](integreat_cms/api): This app provides wrapper functions around all API routes and classes mapping the cms models to API JSON responses.
+	- [CMS](integreat_cms/cms): This app contains all database models, views, forms and templates forming the content management system for backend users.
+	- [Core](integreat_cms/core): This is the project’s main app which contains all configuration files.
+	- [Firebase API](firebase_api): This app provides wrapper functions around the Firebase API to send push notifications.
+	- [GVZ API](integreat_cms/gvz_api): This app provides wrapper functions around our Gemeindeverzeichnis API to automatically import coordinates and region aliases.
+	- [Nominatim API](nominatim_api): This app provides wrapper functions around our Nominatim API to automatically import region bounding boxes.
+	- [Sitemap](integreat_cms/sitemap): This app dynamically generates a sitemap.xml for the webapp.
+	- [SUMM.AI API](integreat_cms/summ_ai_api): This app provides wrapper functions around the SUMM.AI API for automatic translations into Easy German.
+	- [XLIFF](integreat_cms/xliff): This app allows (de-)serialization of translations from/to XLIFF (XML Localization Interchange File Format) for standardised exchange with translation agencies.
+- [Tests](tests): This app contains all tests to verify integreat-cms works as intended
+
+To better understand the overall intention it might also be helpful to look at the [wiki for municipalities (GER)](https://wiki.integreat-app.de/) that teaches how to use our CMS.
+
 
 ## License
 
