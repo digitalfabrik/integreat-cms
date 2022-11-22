@@ -201,12 +201,13 @@
         {% endif %}
         {% if request.region.short_urls_enabled and request.user.expert_mode %}
             {% if page_translation %}
-                <button data-copy-to-clipboard="{{ page_translation.short_url }}"
-                        title="{% trans "Copy short link" %}"
-                        class="btn-icon">
+                <a href="#"
+                   data-copy-to-clipboard="{{ page_translation.short_url }}"
+                   title="{% trans "Copy short link" %}"
+                   class="btn-icon">
                     <i icon-name="copy"></i>
                     <i icon-name="check" class="hidden text-green-500"></i>
-                </button>
+                </a>
             {% else %}
                 <button title="{% trans "You cannot copy a short link of a page which has no translation." %}"
                         class="btn-icon"
