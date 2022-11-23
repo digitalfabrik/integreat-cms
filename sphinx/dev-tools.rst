@@ -84,7 +84,11 @@ Testing
 
 Run tests and generate coverage report with :github-source:`dev-tools/test.sh`::
 
-    ./dev-tools/test.sh
+    ./dev-tools/test.sh [TEST_PATH]
+
+**Arguments:**
+
+* ``TEST_PATH``: Run only tests in ``TEST_PATH``
 
 
 Code Quality
