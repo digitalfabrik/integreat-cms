@@ -84,11 +84,15 @@ Testing
 
 Run tests and generate coverage report with :github-source:`dev-tools/test.sh`::
 
-    ./dev-tools/test.sh [TEST_PATH]
+    ./dev-tools/test.sh [--changed] [TEST_PATH]
 
 **Arguments:**
 
 * ``TEST_PATH``: Run only tests in ``TEST_PATH``
+
+**Options:**
+
+* ``--changed``: Run only tests affected by recent changes
 
 
 Code Quality
