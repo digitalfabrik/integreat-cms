@@ -58,6 +58,7 @@ class POI(AbstractContentModel):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
+        help_text=_("The best results are achieved with images in 16:9 aspect ratio."),
     )
     archived = models.BooleanField(
         default=False,
