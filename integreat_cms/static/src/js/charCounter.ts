@@ -9,7 +9,7 @@ function updateLengthCounter(this: HTMLElement, textarea: HTMLFormElement) {
 
 window.addEventListener("load", () => {
     // Get all text areas for push notifications (select textarea nodes where the name attribute begins with "form-" and ends with "-text")
-    document.querySelectorAll("textarea[name^=form-][name$=-text]").forEach((textarea: Element) => {
+    document.querySelectorAll("textarea[name^=translations-][name$=-text]").forEach((textarea: Element) => {
         // Get input length counter which belongs to this textarea
         const counter = textarea.parentElement.getElementsByClassName("input-length-counter")[0] as HTMLElement;
         // Update the input length counter once initially
