@@ -15,7 +15,7 @@ Models
 
 ::
 
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
 
     string = _('Your string')
 
@@ -24,7 +24,7 @@ Views
 
 ::
 
-    from django.utils.translation import ugettext as _
+    from django.utils.translation import gettext as _
 
     string = _('Your string')
 

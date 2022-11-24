@@ -4,7 +4,7 @@ from copy import deepcopy
 
 from django.db import models
 from django.utils.functional import cached_property
-from django.utils.translation import get_language, ugettext_lazy as _
+from django.utils.translation import get_language, gettext_lazy as _
 from django.utils import timezone
 
 from ..constants import status, translation_status

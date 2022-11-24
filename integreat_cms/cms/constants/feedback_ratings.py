@@ -1,7 +1,7 @@
 """
 This module contains all constants representing the rating of the :class:`~integreat_cms.cms.models.feedback.feedback.Feedback` model.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 #: Positive

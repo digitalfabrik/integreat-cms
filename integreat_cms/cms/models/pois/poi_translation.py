@@ -1,12 +1,12 @@
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
 from linkcheck.models import Link
 
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
 

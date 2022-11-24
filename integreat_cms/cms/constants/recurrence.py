@@ -5,7 +5,7 @@ This module contains all string representations of recurrence filter options, us
 The module also contains a constant :const:`~integreat_cms.cms.constants.recurrence.DATATYPE` which contains the type of the constant values linked to the strings and is used for correctly
 instantiating :class:`django.forms.TypedMultipleChoiceField` instances in :class:`~integreat_cms.cms.forms.events.event_filter_form.EventFilterForm`.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 #: This docstring is overridden by "alias of builtins.int"

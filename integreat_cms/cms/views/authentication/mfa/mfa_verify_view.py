@@ -7,7 +7,7 @@ from webauthn.helpers.exceptions import InvalidAuthenticationResponse
 
 from django.conf import settings
 from django.contrib.auth import get_user_model, login as auth_login
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.http import JsonResponse
 from django.views.generic import View
 

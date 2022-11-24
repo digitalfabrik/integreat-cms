@@ -1,7 +1,7 @@
 """
 This module contains all string representations of weekdays, used by :class:`~integreat_cms.cms.models.events.event.Event`.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 #: Monday

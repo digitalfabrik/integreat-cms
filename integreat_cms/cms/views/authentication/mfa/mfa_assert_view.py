@@ -9,7 +9,7 @@ from django.http.response import HttpResponse
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import View
 
 logger = logging.getLogger(__name__)

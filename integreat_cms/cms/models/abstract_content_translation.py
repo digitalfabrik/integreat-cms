@@ -3,12 +3,12 @@ from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .languages.language import Language
 from .abstract_base_model import AbstractBaseModel
 from ..constants import status, translation_status
-from ..utils.translation_utils import ugettext_many_lazy as __
+from ..utils.translation_utils import gettext_many_lazy as __
 
 
 # pylint: disable=too-many-public-methods

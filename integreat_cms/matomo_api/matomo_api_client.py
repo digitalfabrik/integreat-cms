@@ -9,7 +9,7 @@ from urllib.parse import urlencode
 import aiohttp
 
 from django.conf import settings
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from ..cms.constants import colors, matomo_periods
 

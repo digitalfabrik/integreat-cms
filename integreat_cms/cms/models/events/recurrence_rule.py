@@ -2,8 +2,8 @@ from datetime import date, timedelta
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
 from ...constants import frequency, weekdays, weeks
@@ -187,7 +187,7 @@ class RecurrenceRule(AbstractBaseModel):
         :return: A readable string representation of the recurrence rule
         :rtype: str
         """
-        return ugettext('Recurrence rule of "{}" ({})').format(
+        return gettext('Recurrence rule of "{}" ({})').format(
             self.event.best_translation.title, self.get_frequency_display()
         )
 

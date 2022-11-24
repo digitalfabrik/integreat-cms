@@ -2,7 +2,7 @@ import logging
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ..custom_filter_form import CustomFilterForm
 from ...constants import roles

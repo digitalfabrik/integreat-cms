@@ -9,7 +9,7 @@ from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser, UserManager
 
 from .organization import Organization

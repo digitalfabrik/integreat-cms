@@ -1,7 +1,7 @@
 """
 This module contains the possible modes for push notifications.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 #: Send only available translations

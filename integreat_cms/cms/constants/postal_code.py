@@ -2,7 +2,7 @@
 This module contains all possible configurations of postal codes in offers.
 This is needed when the postal code is placed inside the offer's url or api request data.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 #: No postal code needed for this offer
