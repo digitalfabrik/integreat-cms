@@ -5,6 +5,7 @@ UNRELEASED
 * [ [#1912](https://github.com/digitalfabrik/integreat-cms/issues/1912) ] Fix alignment of page permission button
 * [ [#1892](https://github.com/digitalfabrik/integreat-cms/issues/1892) ] Fix copy short url button in page tree
 * [ [#1890](https://github.com/digitalfabrik/integreat-cms/issues/1890) ] Add hint about icon aspect ratio to location form
+* [ [#1889](https://github.com/digitalfabrik/integreat-cms/issues/1889) ] Make translation status independent from publishing status
 
 
 2022.11.4

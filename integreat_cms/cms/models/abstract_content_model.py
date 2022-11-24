@@ -87,6 +87,7 @@ class ContentQuerySet(models.QuerySet):
         )
 
 
+# pylint: disable=too-many-public-methods
 class AbstractContentModel(AbstractBaseModel):
     """
     Abstract base class for all content models
@@ -305,6 +306,20 @@ class AbstractContentModel(AbstractBaseModel):
             minor_edit=False,
         )
 
+    @cached_property
+    def prefetched_major_translations_by_language_slug(self):
+        """
+        This method returns a mapping from language slugs to their major translations of this object
+
+        :return: The object translation in the requested :class:`~integreat_cms.cms.models.languages.language.Language` or
+                 :obj:`None` if no translation exists
+        :rtype: dict
+        """
+        return self.get_prefetched_translations_by_language_slug(
+            attr="prefetched_major_translations",
+            minor_edit=False,
+        )
+
     def get_major_public_translation(self, language_slug):
         """
         This function retrieves the newest major public translation of a content object.
@@ -318,6 +333,18 @@ class AbstractContentModel(AbstractBaseModel):
         return self.prefetched_major_public_translations_by_language_slug.get(
             language_slug
         )
+
+    def get_major_translation(self, language_slug):
+        """
+        This function retrieves the newest major translation of a content object.
+
+        :param language_slug: The slug of the requested :class:`~integreat_cms.cms.models.languages.language.Language`
+        :type language_slug: str
+
+        :return: The public translation of a content object
+        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+        """
+        return self.prefetched_major_translations_by_language_slug.get(language_slug)
 
     @cached_property
     def backend_translation(self):
@@ -367,10 +394,10 @@ class AbstractContentModel(AbstractBaseModel):
         :return: A string describing the state of the translation, one of :data:`~integreat_cms.cms.constants.translation_status.CHOICES`
         :rtype: str
         """
-        translation = self.get_major_public_translation(language_slug)
+        translation = self.get_major_translation(language_slug)
         if not translation:
             if self.fallback_translations_enabled:
-                fallback_translation = self.get_public_translation(
+                fallback_translation = self.get_translation(
                     self.region.default_language.slug
                 )
                 if fallback_translation:
