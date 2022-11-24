@@ -33,7 +33,7 @@
         <div class="max-h-12 overflow-hidden text-ellipsis">
             {% if show_source_link %}
                 <a href="{{ url.region_links.0.content_object.backend_edit_link }}"
-                   title="{% trans "Go to source" %}"
+                   title="{% translate "Go to source" %}"
                    class="hover:underline">
                     {{ url.region_links.0.content_object.title }}
                 </a>
@@ -44,7 +44,7 @@
     </td>
     <td class="text-right pr-2">{{ url.region_links|length }}</td>
     <td class="text-right pr-4">
-        <a title="{% trans "Replace URL globally" %}"
+        <a title="{% translate "Replace URL globally" %}"
            href="{% url 'edit_url' url_id=url.id url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}#replace-url"
            class="btn-icon">
             <i icon-name="edit"></i>
@@ -57,8 +57,8 @@
             <div class="flex gap-2 p-2">
                 {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
                 <a href="{% url 'linkcheck' url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}"
-                   class="btn btn-red">{% trans "Cancel" %}</a>
-                <button type="submit" form="edit-url-form" class="btn">{% trans "Save" %}</button>
+                   class="btn btn-red">{% translate "Cancel" %}</a>
+                <button type="submit" form="edit-url-form" class="btn">{% translate "Save" %}</button>
             </div>
         </td>
     </tr>

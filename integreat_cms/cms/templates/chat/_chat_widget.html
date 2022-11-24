@@ -6,7 +6,7 @@
     message-circle
 {% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
-    {% trans "Chat" %}
+    {% translate "Chat" %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div id="chat-history"
@@ -20,10 +20,10 @@
         {% csrf_token %}
         {% render_field chat_form.text rows="2" class="mb-2" %}
         <button id="send-chat-message" class="btn">
-            <i icon-name="send"></i> {% trans "Send message" %}
+            <i icon-name="send"></i> {% translate "Send message" %}
         </button>
         <span id="chat-loading" class="px-4 hidden"><i icon-name="loader" class="animate-spin"></i></span>
-        <span id="chat-network-error" class="text-red-500 px-4 hidden"><i icon-name="alert-triangle"></i> {% trans "A network error has occurred." %} {% trans "Please try again later." %}</span>
-        <span id="chat-server-error" class="text-red-500 px-4 hidden"><i icon-name="alert-triangle"></i> {% trans "A server error has occurred." %} {% trans "Please contact the administrator." %}</span>
+        <span id="chat-network-error" class="text-red-500 px-4 hidden"><i icon-name="alert-triangle"></i> {% translate "A network error has occurred." %} {% translate "Please try again later." %}</span>
+        <span id="chat-server-error" class="text-red-500 px-4 hidden"><i icon-name="alert-triangle"></i> {% translate "A server error has occurred." %} {% translate "Please contact the administrator." %}</span>
     </form>
 {% endblock collapsible_box_content %}

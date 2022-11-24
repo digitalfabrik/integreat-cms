@@ -11,12 +11,12 @@
                     {% if role_form.instance.id %}
                         {% blocktrans with role_name=role_form.instance.get_name_display %}Edit role "{{ role_name }}"{% endblocktrans %}
                     {% else %}
-                        {% trans "Create new role" %}
+                        {% translate "Create new role" %}
                     {% endif %}
                 </h1>
             </div>
             <div class="w-3/5 flex justify-end">
-                <button class="btn">{% trans "Save" %}</button>
+                <button class="btn">{% translate "Save" %}</button>
             </div>
         </div>
         <div class="flex flex-wrap">
@@ -24,7 +24,7 @@
                 <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="w-full p-4 rounded bg-water-500">
                         <h3 class="heading font-bold text-black">
-                            <i icon-name="key" class="mr-2"></i> {% trans "Role settings" %}
+                            <i icon-name="key" class="mr-2"></i> {% translate "Role settings" %}
                         </h3>
                     </div>
                     <div class="px-4 pb-4">

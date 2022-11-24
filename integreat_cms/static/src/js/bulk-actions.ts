@@ -12,12 +12,12 @@
  * - Add options for all bulk actions
  *
  *         <select id="bulk-action">
- *             <option>{% trans "Select bulk action" %}</option>
- *             <option data-bulk-action="{% url 'option_url' %}">{% trans "Option" %}</option>
- *             <option data-bulk-action="{% url 'option_url' %}" data-target="_blank">{% trans "Option opened in new tab" %}</option>
+ *             <option>{% translate "Select bulk action" %}</option>
+ *             <option data-bulk-action="{% url 'option_url' %}">{% translate "Option" %}</option>
+ *             <option data-bulk-action="{% url 'option_url' %}" data-target="_blank">{% translate "Option opened in new tab" %}</option>
  *         </select>
  *
- * - Add submit button: <button id="bulk-action-execute" class="btn" disabled>{% trans "Execute" %}</button>
+ * - Add submit button: <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
  *
  *  VIEW
  * ######

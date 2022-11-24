@@ -33,7 +33,7 @@ Templates
 
 ::
 
-    {% trans "Your string" %}
+    {% translate "Your string" %}
 
 
 Translation File

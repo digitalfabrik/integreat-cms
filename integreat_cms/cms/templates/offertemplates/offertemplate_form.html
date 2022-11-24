@@ -12,14 +12,14 @@
                         {% blocktrans %}Edit offer template "{{ offer_template_name }}"{% endblocktrans %}
                     {% endwith %}
                 {% else %}
-                    {% trans "Create new offer template" %}
+                    {% translate "Create new offer template" %}
                 {% endif %}
             </h1>
             {% if perms.cms.change_offertemplate %}
                 {% if form.initial %}
-                    <button class="btn">{% trans "Save" %}</button>
+                    <button class="btn">{% translate "Save" %}</button>
                 {% else %}
-                    <button class="btn">{% trans "Create" %}</button>
+                    <button class="btn">{% translate "Create" %}</button>
                 {% endif %}
             {% endif %}
         </div>
@@ -27,7 +27,7 @@
             <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
                     <h3 class="heading font-bold text-black">
-                        <i icon-name="star" class="mr-2"></i> {% trans "General Settings" %}
+                        <i icon-name="star" class="mr-2"></i> {% translate "General Settings" %}
                     </h3>
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
@@ -56,7 +56,7 @@
             <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
                     <h3 class="heading font-bold text-black">
-                        <i icon-name="settings" class="mr-2"></i> {% trans "Extended Settings" %}
+                        <i icon-name="settings" class="mr-2"></i> {% translate "Extended Settings" %}
                     </h3>
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
@@ -79,21 +79,21 @@
         </div>
         {% if form.instance.id and perms.cms.delete_offertemplate %}
             {% if form.instance.regions.exists %}
-                <button title="{% trans "This offer template cannot be deleted because it is used in at least one region." %}"
+                <button title="{% translate "This offer template cannot be deleted because it is used in at least one region." %}"
                         class="btn"
                         disabled>
                     <i icon-name="trash-2"></i>
-                    {% trans "Delete this offer templates" %}
+                    {% translate "Delete this offer templates" %}
                 </button>
             {% else %}
-                <button title="{% trans "Delete language" %}"
+                <button title="{% translate "Delete language" %}"
                         class="btn confirmation-button btn-red"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"
                         data-confirmation-subject="{{ form.instance.name }}"
                         data-action="{% url 'delete_offertemplate' slug=form.instance.slug %}">
                     <i icon-name="trash-2"></i>
-                    {% trans "Delete this offer templates" %}
+                    {% translate "Delete this offer templates" %}
                 </button>
             {% endif %}
         {% endif %}

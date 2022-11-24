@@ -14,13 +14,13 @@
     {% if not filter_form.is_enabled %}
         <td class="hierarchy single_icon whitespace-nowrap">
             <span class="cursor-move text-gray-800 inline-block align-middle"
-                  title="{% trans "Drag & drop is disabled for archived pages." %}">
+                  title="{% translate "Drag & drop is disabled for archived pages." %}">
                 <i icon-name="move"></i>
             </span>
             {% if page.cached_children|length > 0 %}
                 <span class="toggle-subpages cursor-pointer inline-block align-middle"
-                      title="{% trans "Expand all subpages" %}"
-                      data-alt-title="{% trans "Collapse all subpages" %}"
+                      title="{% translate "Expand all subpages" %}"
+                      data-alt-title="{% translate "Collapse all subpages" %}"
                       data-page-id="{{ page.id }}"
                       data-page-children="{{ page|get_children_ids }}">
                     <i icon-name="chevron-right"></i>
@@ -35,7 +35,7 @@
             {% if page_translation %}
                 {{ page_translation.title }}
             {% else %}
-                <i>{% trans "Translation not available" %}</i>
+                <i>{% translate "Translation not available" %}</i>
             {% endif %}
         </a>
     </td>
@@ -47,7 +47,7 @@
                 {% if page.backend_translation %}
                     {{ page.backend_translation.title }}
                 {% else %}
-                    <i>{% trans "Translation not available" %}</i>
+                    <i>{% translate "Translation not available" %}</i>
                 {% endif %}
             </a>
         </td>
@@ -61,20 +61,20 @@
                             {% get_translation page other_language.slug as other_translation %}
                             {% if other_translation %}
                                 {% if other_translation.currently_in_translation %}
-                                    <span title="{% trans "Currently in translation" %}">
+                                    <span title="{% translate "Currently in translation" %}">
                                         <i icon-name="clock" class="text-gray-800"></i>
                                     </span>
                                 {% elif other_translation.is_outdated %}
-                                    <span title="{% trans "Translation outdated" %}">
+                                    <span title="{% translate "Translation outdated" %}">
                                         <i icon-name="alert-triangle" class="text-gray-800"></i>
                                     </span>
                                 {% else %}
-                                    <span title="{% trans "Translation up-to-date" %}">
+                                    <span title="{% translate "Translation up-to-date" %}">
                                         <i icon-name="check" class="text-gray-800"></i>
                                     </span>
                                 {% endif %}
                             {% else %}
-                                <span title="{% trans "Translation missing" %}">
+                                <span title="{% translate "Translation missing" %}">
                                     <i icon-name="x" class="text-gray-800"></i>
                                 </span>
                             {% endif %}
@@ -86,16 +86,16 @@
     </td>
     <td>
         {% if page.explicitly_archived %}
-            <div title="{% trans "This page is archived." %}"
+            <div title="{% translate "This page is archived." %}"
                  href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
                  class="block py-2 pl-2 text-gray-800">
-                {% trans "Archived" %}
+                {% translate "Archived" %}
             </div>
         {% else %}
-            <div title="{% trans "This page is archived, because at least one of its parent pages is archived." %}"
+            <div title="{% translate "This page is archived, because at least one of its parent pages is archived." %}"
                  href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
                  class="block py-2 pl-2 text-gray-800">
-                {% trans "Archived, because a parent page is archived" %}
+                {% translate "Archived, because a parent page is archived" %}
             </div>
         {% endif %}
     </td>
@@ -108,20 +108,20 @@
         {% if page_translation.content or page.mirrored_page %}
             <button type="button"
                     data-preview-page="{% url 'preview_page_ajax' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-                    title="{% trans "View page as preview" %}"
+                    title="{% translate "View page as preview" %}"
                     class="btn-icon">
                 <i icon-name="eye"></i>
             </button>
         {% else %}
             <button type="button"
-                    title="{% trans "You cannot preview an empty page." %}"
+                    title="{% translate "You cannot preview an empty page." %}"
                     class="btn-icon"
                     disabled>
                 <i icon-name="eye"></i>
             </button>
         {% endif %}
         {% if page.explicitly_archived %}
-            <button title="{% trans "Restore page" %}"
+            <button title="{% translate "Restore page" %}"
                     class="confirmation-button btn-icon"
                     data-confirmation-title="{{ restore_dialog_title }}"
                     data-confirmation-text="{{ restore_dialog_text }}"
@@ -130,7 +130,7 @@
                 <i icon-name="refresh-ccw"></i>
             </button>
         {% else %}
-            <a title="{% trans "To restore this page, you have to restore its archived parent page." %}"
+            <a title="{% translate "To restore this page, you have to restore its archived parent page." %}"
                class="btn-icon"
                disabled>
                 <i icon-name="refresh-ccw"></i>
@@ -139,20 +139,20 @@
         {% if perms.cms.delete_page %}
             {% if not page.is_leaf %}
                 {# djlint:off H023 #}
-                <a title="{% trans "You cannot delete a page which has subpages." %}&#013;{% trans "This also involves non-archived subpages." %}"
+                <a title="{% translate "You cannot delete a page which has subpages." %}&#013;{% translate "This also involves non-archived subpages." %}"
                    class="btn-icon"
                    disabled>
                     <i icon-name="trash-2"></i>
                 </a>
                 {# djlint:on #}
             {% elif page.mirroring_pages.exists %}
-                <button title="{% trans "This page cannot be deleted because it was embedded as live content from another page." %}"
+                <button title="{% translate "This page cannot be deleted because it was embedded as live content from another page." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="trash-2"></i>
                 </button>
             {% else %}
-                <button title="{% trans "Delete page" %}"
+                <button title="{% translate "Delete page" %}"
                         class="confirmation-button btn-icon"
                         data-confirmation-title="{{ delete_dialog_title }}"
                         data-confirmation-text="{{ delete_dialog_text }}"
