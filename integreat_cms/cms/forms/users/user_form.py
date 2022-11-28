@@ -75,6 +75,7 @@ class UserForm(CustomModelForm):
             "regions",
             "role",
             "send_activation_link",
+            "passwordless_authentication_enabled",
         ]
         field_classes = {"organization": OrganizationField}
 
@@ -110,6 +111,14 @@ class UserForm(CustomModelForm):
         if "is_staff" in self.fields:
             self.fields["is_staff"].label = _("Integreat team member")
         self.fields["email"].required = True
+
+        # Check if passwordless authentication is possible for the user
+        if (
+            "passwordless_authentication_enabled" in self.fields
+            and self.instance.totp_key is None
+            and not self.instance.mfa_keys.exists()
+        ):
+            self.fields["passwordless_authentication_enabled"].disabled = True
 
     def save(self, commit=True):
         """

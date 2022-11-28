@@ -1,0 +1,32 @@
+{% extends "authentication/_base.html" %}
+{% load i18n %}
+{% block heading %}
+    <i icon-name="smartphone"></i>
+    {% translate "Add authenticator app" %}
+{% endblock heading %}
+{% block content %}
+    <p class="mt-4">
+        <i icon-name="camera" class="pb-1"></i> {% translate "Please scan the QR code with your authenticator app:" %}
+    </p>
+    <img width="100%"
+         height="100%"
+         alt="QR code for TOTP registration"
+         src="{{ qr }}"/>
+    <p class="mb-3">
+        {% blocktrans trimmed with BRANDING=BRANDING|capfirst %}
+            Please enter the 6-digit code for "{{ BRANDING }}" to  confirm the registration:
+        {% endblocktrans %}
+    </p>
+    <form method="post" autocomplete="off" class="flex flex-nowrap gap-4">
+        {% csrf_token %}
+        <input autocomplete="false"
+               id="totp"
+               name="totp"
+               type="text"
+               minlength="6"
+               maxlength="6"
+               pattern="\d{6}"
+               autofocus/>
+        <button class="btn" type="submit">{% translate "Confirm" %}</button>
+    </form>
+{% endblock content %}

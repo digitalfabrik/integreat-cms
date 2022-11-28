@@ -1,0 +1,21 @@
+{% extends "authentication/_base.html" %}
+{% load i18n %}
+{% block heading %}
+    {% translate "Disconnect authenticator app" %}
+{% endblock heading %}
+{% block content %}
+    <div class="mb-3">
+        {% translate "You are about to disconnect your authenticator app from your account and deactivate TOTP authentication." %}
+        {% translate "Are you sure about that?" %}
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn w-full" type="submit">{% translate "Confirm" %}</button>
+        <div class="text-left mt-4">
+            <a href="{% if request.region %}{% url 'user_settings' region_slug=request.region.slug %}{% else %}{% url 'user_settings' %}{% endif %}"
+               class="text-gray-600 hover:text-gray-200 hover:bg-gray-600 rounded py-4 px-3 font-bold">
+                <i icon-name="arrow-left-circle" class="align-top"></i> {% translate "Back to the user settings" %}
+            </a>
+        </div>
+    </form>
+{% endblock content %}

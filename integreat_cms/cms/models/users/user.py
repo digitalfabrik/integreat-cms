@@ -103,6 +103,21 @@ class User(AbstractUser, AbstractBaseModel):
             "Will be set to true once the user dismissed the page tree tutorial"
         ),
     )
+    totp_key = models.CharField(
+        default=None,
+        null=True,
+        blank=True,
+        max_length=128,
+        verbose_name=_("TOTP key"),
+        help_text=_("Will be used to generate TOTP codes"),
+    )
+    passwordless_authentication_enabled = models.BooleanField(
+        default=False,
+        verbose_name=_("Enable passwordless authentication"),
+        help_text=_(
+            "Enable this option to activate the passwordless login routine for this account"
+        ),
+    )
 
     #: Custom model manager for user objects
     objects = CustomUserManager()

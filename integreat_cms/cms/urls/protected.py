@@ -140,6 +140,30 @@ user_settings_urlpatterns = [
             [
                 path("", settings.UserSettingsView.as_view(), name="user_settings"),
                 path(
+                    "totp/",
+                    include(
+                        [
+                            path(
+                                "",
+                                settings.TOTPRegisterView.as_view(),
+                                name="register_totp",
+                            ),
+                        ]
+                    ),
+                ),
+                path(
+                    "totp/",
+                    include(
+                        [
+                            path(
+                                "delete/",
+                                settings.TOTPDeleteView.as_view(),
+                                name="delete_totp",
+                            ),
+                        ]
+                    ),
+                ),
+                path(
                     "mfa/",
                     include(
                         [

@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 class MfaLoginView(auth_views.LoginView):
     """
-    View to extend the default login behaviour from :class:`~django.contrib.auth.views.LoginView` with
+    View to extend the default login behavior from :class:`~django.contrib.auth.views.LoginView` with
     multi-factor-authentication.
     """
 
