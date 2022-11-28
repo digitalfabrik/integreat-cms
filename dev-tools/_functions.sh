@@ -198,17 +198,36 @@ function ensure_root {
 
 # This function makes sure the script has the permission to interact with the docker daemon
 function ensure_docker_permission {
-    if [[ $(id -u) == 0 ]] && [[ -n "$SUDO_USER" ]]; then
-        # If script runs with root, check the groups of the user who invoked sudo
-        USER_GROUPS=$(groups "$SUDO_USER")
+    ERROR_MSG="Please start either a local PostgreSQL database server or start the docker daemon so a database docker container can be created."
+    # Check if script runs as root
+    if [[ $(id -u) == 0 ]]; then
+        # Make sure it was invoked with sudo
+        if [[ -z "$SUDO_USER" ]]; then
+            echo "Please do not run ${SCRIPT_NAME} as root user, use sudo instead." | print_error
+            exit 1
+        fi
+        # Check if docker socket is also available with lower permissions
+        if sudo -u "$SUDO_USER" docker ps &> /dev/null; then
+            # If command is available to the unprivileged user, ensure we don't run with higher privileges than necessary
+            ensure_not_root
+        elif ! docker ps &> /dev/null; then
+            # If the command fails for root, we assume the docker daemon isn't running
+            echo "${ERROR_MSG}" | print_error
+            exit 1
+        fi
     else
-        USER_GROUPS=$(groups)
-    fi
-    # Require sudo permissions if user is not in docker group
-    if [[ " $USER_GROUPS " =~ " docker " ]]; then
-        ensure_not_root
-    else
-        ensure_root
+        # Check if docker socket is not available
+        if ! docker ps &> /dev/null; then
+            # Check if it's available with sudo
+            if sudo docker ps &> /dev/null; then
+                # If the command fails normally, but succeeds with sudo, require the permissions from now on
+                ensure_root
+            else
+                # If the command still fails with sudo, we assume the docker daemon isn't running
+                echo "${ERROR_MSG}" | print_error
+                exit 1
+            fi
+        fi
     fi
 }
 
@@ -279,6 +298,8 @@ function cleanup_docker_container {
 
 # This function makes sure a postgres database docker container is running
 function ensure_docker_container_running {
+    # Make sure script has the permission to run docker
+    ensure_docker_permission
     # Check if postgres database container is already running
     if [[ $(docker ps -q -f name="${DOCKER_CONTAINER_NAME}") ]]; then
         echo "Database container is already running" | print_info
@@ -310,15 +331,6 @@ function require_database {
         # Set default settings for other dev tools, e.g. testing
         export DJANGO_SETTINGS_MODULE="integreat_cms.core.settings"
     else
-        # Make sure script has the permission to run docker
-        ensure_docker_permission
-
-        # Check if docker socket is not available
-        if ! docker ps > /dev/null; then
-            echo "Please start either a local PostgreSQL database server or start the docker daemon so a database docker container can be created." | print_error
-            exit 1
-        fi
-
         # Set docker settings
         export DJANGO_SETTINGS_MODULE="integreat_cms.core.docker_settings"
         # Make sure a docker container is up and running

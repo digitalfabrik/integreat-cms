@@ -24,22 +24,19 @@ else
     # Check if docker is installed
     if command -v docker > /dev/null; then
 
-        # Make sure script has the permission to remove the .postgres directory owned by root (even if user is in docker group)
-        ensure_root
+        # Make sure script has the permission to remove the .postgres directory owned by docker daemon user
+        ensure_docker_permission
 
-        # Check if docker socket is available
-        if docker ps > /dev/null; then
-            # Check if postgres container is running
-            if [ "$(docker ps -q -f name="${DOCKER_CONTAINER_NAME}")" ]; then
-                # Stop Postgres Docker container
-                stop_docker_container
-            fi
-            # Check if a stopped database container exists
-            if [ "$(docker ps -aq -f status=exited -f name="${DOCKER_CONTAINER_NAME}")" ]; then
-                # Remove Postgres Docker container
-                docker rm "${DOCKER_CONTAINER_NAME}" > /dev/null
-                echo "Removed database container" | print_info
-            fi
+        # Check if postgres container is running
+        if [ "$(docker ps -q -f name="${DOCKER_CONTAINER_NAME}")" ]; then
+            # Stop Postgres Docker container
+            stop_docker_container
+        fi
+        # Check if a stopped database container exists
+        if [ "$(docker ps -aq -f status=exited -f name="${DOCKER_CONTAINER_NAME}")" ]; then
+            # Remove Postgres Docker container
+            docker rm "${DOCKER_CONTAINER_NAME}" > /dev/null
+            echo "Removed database container" | print_info
         fi
 
         # Remove database directory
