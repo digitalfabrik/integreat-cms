@@ -1,11 +1,13 @@
 """
 Configuration of DeepL API app
 """
+import os
+import sys
 import logging
 
 from deepl.exceptions import DeepLException
 
-from django.apps import apps, AppConfig
+from django.apps import AppConfig
 from django.conf import settings
 
 from .utils import DeepLApi
@@ -27,7 +29,7 @@ class DeepLApiConfig(AppConfig):
         Checking if API is available
         """
         # Only check availability if running a server
-        if apps.get_app_config("cms").test_external_apis:
+        if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
             if settings.DEEPL_ENABLED:
                 try:
                     deepl = DeepLApi()
