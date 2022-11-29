@@ -172,6 +172,8 @@ const exportStatisticsData = (): void => {
         const datasetsWithLabels: string[][] = chart.data.datasets.map((dataset) =>
             [dataset.label].concat(dataset.data.map(String))
         );
+        // Ensure export labels don't contain comma and corrupt CSV
+        exportLabels = exportLabels.map((x) => x.replace(",", " - "));
         // Create matrix with date labels in the first row and the hits per language in the subsequent rows
         const csvMatrix: string[][] = [[""].concat(exportLabels)].concat(datasetsWithLabels);
         // Transpose matrix (swap rows and columns) and join to a single csv string
