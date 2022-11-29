@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1886](https://github.com/digitalfabrik/integreat-cms/issues/1886) ] Fix push notification character counter
+* [ [#1912](https://github.com/digitalfabrik/integreat-cms/issues/1912) ] Fix alignment of page permission button
 
 
 2022.11.4
