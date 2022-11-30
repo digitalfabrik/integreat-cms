@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-11-08T15:52:56+00:00" />
+    <meta property="article:modified_time" content="2022-11-30T14:22:11+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Internationalization (i18n) &mdash; integreat-cms 2022.11.4 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -1388,7 +1388,7 @@
 <p>Whenever you use hardcoded strings, use english text and encapsulate it with a translation function.</p>
 <section id="models">
 <h3>Models<a class="headerlink" href="#models" title="Permalink to this heading"></a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
 
 <span class="n">string</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Your string&#39;</span><span class="p">)</span>
 </pre></div>
@@ -1396,7 +1396,7 @@
 </section>
 <section id="views">
 <h3>Views<a class="headerlink" href="#views" title="Permalink to this heading"></a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext</span> <span class="k">as</span> <span class="n">_</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext</span> <span class="k">as</span> <span class="n">_</span>
 
 <span class="n">string</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Your string&#39;</span><span class="p">)</span>
 </pre></div>
@@ -1404,7 +1404,7 @@
 </section>
 <section id="templates">
 <h3>Templates<a class="headerlink" href="#templates" title="Permalink to this heading"></a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">trans</span> <span class="s2">&quot;Your string&quot;</span> <span class="o">%</span><span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">translate</span> <span class="s2">&quot;Your string&quot;</span> <span class="o">%</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -1473,7 +1473,7 @@ pipenv run integreat-cms-cli compilemessages
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 08, 2022.
+      <span class="lastupdated">Last updated on Nov 30, 2022.
       </span></p>
   </div>
 
