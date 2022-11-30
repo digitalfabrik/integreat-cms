@@ -1,6 +1,9 @@
 UNRELEASED
 ----------
 
+* [ [#1772](https://github.com/digitalfabrik/integreat-cms/issues/1772) ] Fix hidden languages being listed in fallback translation text on the API endpoint
+
+
 
 2022.12.2
 ---------

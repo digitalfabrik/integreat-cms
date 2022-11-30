@@ -380,11 +380,28 @@
     }
   },
   {
+    "model": "cms.language",
+    "pk": 7,
+    "fields": {
+      "slug": "hidden",
+      "bcp47_tag": "hid",
+      "native_name": "Hidden language",
+      "english_name": "Hidden language",
+      "text_direction": "LEFT_TO_RIGHT",
+      "primary_country_code": "hi",
+      "created_date": "2022-11-30T09:16:00.000Z",
+      "last_updated": "2022-11-30T09:16:00.000Z",
+      "table_of_contents": "Table of Contents",
+      "message_content_not_available": "Diese Sprache gibt es nicht. Es gibt aber diese Sprachen:",
+      "message_partial_live_content_not_available": "Ein Teil von der Seite ist nicht in Ihrer Sprache. Der Teil ist aber in diesen Sprachen verfügbar:"
+    }
+  },
+  {
     "model": "cms.languagetreenode",
     "pk": 1,
     "fields": {
       "lft": 1,
-      "rgt": 10,
+      "rgt": 12,
       "tree_id": 1,
       "depth": 1,
       "parent": null,
@@ -401,7 +418,7 @@
     "pk": 2,
     "fields": {
       "lft": 4,
-      "rgt": 9,
+      "rgt": 11,
       "tree_id": 1,
       "depth": 2,
       "parent": 1,
@@ -526,6 +543,23 @@
       "parent": 1,
       "region": 1,
       "language": 6,
+      "visible": false,
+      "active": true,
+      "created_date": "2022-09-14T15:07:49.706Z",
+      "last_updated": "2022-09-14T15:07:49.750Z"
+    }
+  },
+  {
+    "model": "cms.languagetreenode",
+    "pk": 10,
+    "fields": {
+      "lft": 9,
+      "rgt": 10,
+      "tree_id": 1,
+      "depth": 3,
+      "parent": 2,
+      "region": 1,
+      "language": 7,
       "visible": false,
       "active": true,
       "created_date": "2022-09-14T15:07:49.706Z",
@@ -1910,6 +1944,40 @@
     }
   },
   {
+    "model": "cms.pagetranslation",
+    "pk": 82,
+    "fields": {
+      "title": "Test Hidden Language",
+      "slug": "test-hidden-language",
+      "status": "PUBLIC",
+      "content": "<p>Dies ist ein Inhalt in \"Hidden language\"</p>",
+      "language": 7,
+      "currently_in_translation": false,
+      "version": 1,
+      "minor_edit": false,
+      "last_updated": "2022-09-11T08:05:26.616Z",
+      "creator": 1,
+      "page": 26
+    }
+  },
+  {
+    "model": "cms.pagetranslation",
+    "pk": 83,
+    "fields": {
+      "title": "Test Hidden Language",
+      "slug": "test-hidden-language",
+      "status": "PUBLIC",
+      "content": "",
+      "language": 1,
+      "currently_in_translation": false,
+      "version": 1,
+      "minor_edit": false,
+      "last_updated": "2022-11-30T11:00:00.000Z",
+      "creator": 1,
+      "page": 26
+    }
+  },
+  {
     "model": "cms.page",
     "pk": 1,
     "fields": {
@@ -2400,6 +2468,26 @@
       "tree_id": 3,
       "depth": 4,
       "parent": 24,
+      "region": 1,
+      "explicitly_archived": false,
+      "icon": null,
+      "mirrored_page": null,
+      "mirrored_page_first": true,
+      "organization": null,
+      "editors": [],
+      "publishers": []
+    }
+  },
+  {
+    "model": "cms.page",
+    "pk": 26,
+    "fields": {
+      "created_date": "2022-02-22T16:57:08.587Z",
+      "lft": 1,
+      "rgt": 2,
+      "tree_id": 7,
+      "depth": 1,
+      "parent": null,
       "region": 1,
       "explicitly_archived": false,
       "icon": null,
