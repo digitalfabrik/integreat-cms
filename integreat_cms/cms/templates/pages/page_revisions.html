@@ -54,7 +54,7 @@
                  data-date="{{ page_translation.last_updated }}"
                  data-editor="{% firstof page_translation.creator deleted_user_text %}"
                  data-status="{{ page_translation.status }}">
-                <label class="inline-block">{% translate "Status" %}:</label>
+                <label class="inline-block">{% translate "Publication status" %}:</label>
                 {{ page_translation.get_status_display }}
                 {% if page_translation == api_revision %}
                     ({% translate "This is the version shown in the apps." %})
